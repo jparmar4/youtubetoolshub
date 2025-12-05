@@ -128,9 +128,9 @@ export default function PaymentButton({ plan, className = "" }: PaymentButtonPro
                         localStorage.setItem("yt_tools_pro", "true");
                         localStorage.setItem("yt_tools_payment_id", response.razorpay_payment_id);
 
-                        // Redirect to success page or reload
+                        // Redirect to success page
                         setTimeout(() => {
-                            window.location.href = "/tools?upgraded=true";
+                            window.location.href = `/upgrade/success?payment_id=${response.razorpay_payment_id}`;
                         }, 2000);
                     } else {
                         alert("Payment verification failed. Please contact support.");
