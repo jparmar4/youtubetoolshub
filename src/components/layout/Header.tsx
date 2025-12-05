@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, memo } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes, FaMoon, FaSun, FaYoutube } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
+import UserMenu from "@/components/auth/UserMenu";
 
 // Memoized navigation link component
 const NavLink = memo(function NavLink({
@@ -131,6 +132,9 @@ function Header() {
                         {mounted && (
                             <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
                         )}
+
+                        {/* User Menu */}
+                        <UserMenu />
 
                         {/* Mobile Menu Button */}
                         <button

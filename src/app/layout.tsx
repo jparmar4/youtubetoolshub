@@ -7,6 +7,7 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
+import AuthProvider from "@/components/providers/AuthProvider";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -168,11 +169,13 @@ export default function RootLayout({
         */}
       </head>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ScrollToTop />
-        <CookieConsent />
+        <AuthProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ScrollToTop />
+          <CookieConsent />
+        </AuthProvider>
       </body>
     </html>
   );
