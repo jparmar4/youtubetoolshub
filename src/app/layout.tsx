@@ -141,23 +141,18 @@ export default function RootLayout({
           }}
         />
 
-        {/* 
-          ⚠️ GOOGLE ANALYTICS - Uncomment and add your GA4 Measurement ID
-          Go to: https://analytics.google.com → Admin → Data Streams → Web
-        */}
-        {/*
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
+              gtag('config', 'G-14MEY3M1CN');
             `,
           }}
         />
-        */}
       </head>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
         <AuthProvider>
