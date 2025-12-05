@@ -1,16 +1,15 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { FaCheck, FaTimes, FaCrown, FaRocket, FaInfinity } from "react-icons/fa";
-
-export const metadata: Metadata = {
-    title: "Pricing - Free & Pro Plans",
-    description: "Choose your plan. Free tier includes 5 AI generations per day. Pro unlocks unlimited generations and premium features.",
-};
+import PaymentButton from "@/components/payment/PaymentButton";
 
 const plans = [
     {
         name: "Free",
-        price: "$0",
+        price: "₹0",
+        priceUSD: "$0",
         period: "forever",
         description: "Perfect for trying out our tools",
         icon: FaRocket,
@@ -28,12 +27,15 @@ const plans = [
         href: "/tools",
         popular: false,
         gradient: "from-gray-600 to-gray-700",
+        isPaid: false,
     },
     {
         name: "Pro",
-        price: "$9",
+        price: "₹799",
+        priceUSD: "$9",
         period: "/month",
-        yearlyPrice: "$86",
+        yearlyPrice: "₹6,999",
+        yearlyPriceUSD: "$79",
         description: "For serious content creators",
         icon: FaCrown,
         features: [
@@ -50,6 +52,7 @@ const plans = [
         href: "/sign-in?plan=pro",
         popular: true,
         gradient: "from-red-600 to-orange-500",
+        isPaid: true,
     },
 ];
 
@@ -64,6 +67,8 @@ const comparison = [
 ];
 
 export default function PricingPage() {
+    const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+
     return (
         <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,9 +77,34 @@ export default function PricingPage() {
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                         Simple, Honest Pricing
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
                         Start free, upgrade when you need more. No hidden fees, cancel anytime.
                     </p>
+
+                    {/* Billing Toggle */}
+                    <div className="inline-flex items-center bg-white dark:bg-gray-800 rounded-xl p-1 shadow-md">
+                        <button
+                            onClick={() => setBillingCycle("monthly")}
+                            className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "monthly"
+                                    ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                }`}
+                        >
+                            Monthly
+                        </button>
+                        <button
+                            onClick={() => setBillingCycle("yearly")}
+                            className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "yearly"
+                                    ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                }`}
+                        >
+                            Yearly
+                            <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                                Save 27%
+                            </span>
+                        </button>
+                    </div>
                 </div>
 
                 {/* Pricing Cards */}
@@ -106,12 +136,26 @@ export default function PricingPage() {
                                         <h2 className="text-2xl font-bold">{plan.name}</h2>
                                     </div>
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl font-bold">{plan.price}</span>
-                                        <span className="text-white/80">{plan.period}</span>
+                                        <span className="text-4xl font-bold">
+                                            {plan.isPaid
+                                                ? billingCycle === "yearly"
+                                                    ? plan.yearlyPrice
+                                                    : plan.price
+                                                : plan.price}
+                                        </span>
+                                        <span className="text-white/80">
+                                            {plan.isPaid
+                                                ? billingCycle === "yearly"
+                                                    ? "/year"
+                                                    : plan.period
+                                                : plan.period}
+                                        </span>
                                     </div>
-                                    {plan.yearlyPrice && (
+                                    {plan.isPaid && (
                                         <p className="text-sm text-white/70 mt-1">
-                                            or {plan.yearlyPrice}/year (save 20%)
+                                            {billingCycle === "yearly"
+                                                ? `${plan.yearlyPriceUSD}/year`
+                                                : `${plan.priceUSD}/month`}
                                         </p>
                                     )}
                                     <p className="text-white/80 mt-2 text-sm">{plan.description}</p>
@@ -142,15 +186,19 @@ export default function PricingPage() {
                                         ))}
                                     </ul>
 
-                                    <Link
-                                        href={plan.href}
-                                        className={`block w-full py-3 px-6 rounded-xl font-medium text-center transition-all ${plan.popular
-                                            ? "bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white shadow-lg shadow-red-500/25"
-                                            : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
-                                            }`}
-                                    >
-                                        {plan.cta}
-                                    </Link>
+                                    {plan.isPaid ? (
+                                        <PaymentButton
+                                            plan={billingCycle}
+                                            className="w-full"
+                                        />
+                                    ) : (
+                                        <Link
+                                            href={plan.href}
+                                            className="block w-full py-3 px-6 rounded-xl font-medium text-center transition-all bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
+                                        >
+                                            {plan.cta}
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         );
@@ -212,12 +260,12 @@ export default function PricingPage() {
                     <div className="space-y-4">
                         {[
                             {
-                                q: "What counts as an AI generation?",
-                                a: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 5 per day."
+                                q: "What payment methods do you accept?",
+                                a: "We accept all major credit/debit cards (Visa, Mastercard, Amex), UPI, Paytm, Google Pay, and net banking via Razorpay."
                             },
                             {
-                                q: "What about image generations?",
-                                a: "Image generations are for our thumbnail prompt generator and similar tools. Free users get 1 per day, Pro users get 10 per day."
+                                q: "What counts as an AI generation?",
+                                a: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 5 per day."
                             },
                             {
                                 q: "When do my daily limits reset?",
@@ -228,8 +276,8 @@ export default function PricingPage() {
                                 a: "Yes! You can cancel anytime. You'll keep Pro access until the end of your billing period."
                             },
                             {
-                                q: "Is there a free trial for Pro?",
-                                a: "The Free plan is essentially a trial - you can use all tools with daily limits. Upgrade to Pro when you need more."
+                                q: "Is there a refund policy?",
+                                a: "Yes, we offer a 7-day money-back guarantee if you're not satisfied with Pro."
                             },
                         ].map((faq, i) => (
                             <div key={i} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
