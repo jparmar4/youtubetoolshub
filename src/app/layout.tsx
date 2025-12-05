@@ -78,16 +78,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // ⚠️ IMPORTANT: Replace with your actual Google Search Console verification code
-    // To get this:
-    // 1. Go to https://search.google.com/search-console
-    // 2. Add your property (website URL)
-    // 3. Choose "HTML tag" verification method
-    // 4. Copy the content value from the meta tag they provide
-    google: "YOUR_GOOGLE_VERIFICATION_CODE_HERE",
-    // Optional: Bing Webmaster Tools
-    // yandex: "YOUR_YANDEX_CODE",
-    // other: { "msvalidate.01": "YOUR_BING_CODE" },
+    google: "google299d0fa42c6b8fbb",
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
