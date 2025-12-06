@@ -12,16 +12,16 @@ function UpgradeContent() {
 
     const planDetails = {
         monthly: {
-            price: "₹799",
-            priceUSD: "$9",
+            price: "₹499",
+            priceUSD: "$6",
             period: "/month",
             save: null,
         },
         yearly: {
-            price: "₹6,999",
-            priceUSD: "$79",
+            price: "₹4,999",
+            priceUSD: "$59",
             period: "/year",
-            save: "Save 27%",
+            save: "Save 17%",
         },
     };
 
@@ -75,8 +75,8 @@ function UpgradeContent() {
                             <Link
                                 href="/upgrade?plan=monthly"
                                 className={`flex-1 py-2 px-4 rounded-lg text-center font-medium transition-all ${plan === "monthly"
-                                        ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
-                                        : "text-gray-600 dark:text-gray-400"
+                                    ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
+                                    : "text-gray-600 dark:text-gray-400"
                                     }`}
                             >
                                 Monthly
@@ -84,12 +84,12 @@ function UpgradeContent() {
                             <Link
                                 href="/upgrade?plan=yearly"
                                 className={`flex-1 py-2 px-4 rounded-lg text-center font-medium transition-all ${plan === "yearly"
-                                        ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
-                                        : "text-gray-600 dark:text-gray-400"
+                                    ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
+                                    : "text-gray-600 dark:text-gray-400"
                                     }`}
                             >
                                 Yearly
-                                <span className="ml-1 text-xs text-green-500">-27%</span>
+                                <span className="ml-1 text-xs text-green-500">-17%</span>
                             </Link>
                         </div>
                     </div>

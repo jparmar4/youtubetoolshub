@@ -31,11 +31,11 @@ const plans = [
     },
     {
         name: "Pro",
-        price: "₹799",
-        priceUSD: "$9",
+        price: "₹499",
+        priceUSD: "$6",
         period: "/month",
-        yearlyPrice: "₹6,999",
-        yearlyPriceUSD: "$79",
+        yearlyPrice: "₹4,999",
+        yearlyPriceUSD: "$59",
         description: "For serious content creators",
         icon: FaCrown,
         features: [
@@ -86,8 +86,8 @@ export default function PricingPage() {
                         <button
                             onClick={() => setBillingCycle("monthly")}
                             className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "monthly"
-                                    ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                                 }`}
                         >
                             Monthly
@@ -95,13 +95,13 @@ export default function PricingPage() {
                         <button
                             onClick={() => setBillingCycle("yearly")}
                             className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "yearly"
-                                    ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                                 }`}
                         >
                             Yearly
                             <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
-                                Save 27%
+                                Save 17%
                             </span>
                         </button>
                     </div>
