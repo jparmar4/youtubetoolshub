@@ -14,7 +14,7 @@ const plans = [
         description: "Perfect for trying out our tools",
         icon: FaRocket,
         features: [
-            { text: "10 uses per day (incl. images)", included: true, highlight: false },
+            { text: "10 uses per month (incl. images)", included: true, highlight: false },
             { text: "All 16+ YouTube tools", included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
@@ -56,8 +56,8 @@ const plans = [
 ];
 
 const comparison = [
-    { feature: "Total Uses (per day)", free: "10 (incl. images)", pro: "Unlimited" },
-    { feature: "Image Generations", free: "From 10 daily", pro: "Unlimited" },
+    { feature: "Total Uses", free: "10/month (incl. images)", pro: "Unlimited" },
+    { feature: "Image Generations", free: "From 10 monthly", pro: "Unlimited" },
     { feature: "All YouTube Tools", free: "✓", pro: "✓" },
     { feature: "Export & Download", free: "✓", pro: "✓" },
     { feature: "Priority Processing", free: "—", pro: "✓" },
