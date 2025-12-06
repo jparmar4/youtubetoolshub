@@ -199,13 +199,6 @@ export default function RefundPolicyPage() {
                             </Link>
                         </div>
 
-                        {/* Last Updated */}
-                        <div className="text-center pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                                Last updated: December 2024
-                            </p>
-                        </div>
-
                     </div>
                 </div>
             </section>
