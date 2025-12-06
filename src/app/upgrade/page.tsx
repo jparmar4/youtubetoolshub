@@ -29,7 +29,7 @@ function UpgradeContent() {
 
     const features = [
         "Unlimited AI generations",
-        "10 image generations per day",
+        "Unlimited image generations",
         "All 16+ YouTube tools",
         "Priority AI processing",
         "Ad-free experience",

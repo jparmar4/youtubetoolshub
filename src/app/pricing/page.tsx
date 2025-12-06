@@ -14,8 +14,7 @@ const plans = [
         description: "Perfect for trying out our tools",
         icon: FaRocket,
         features: [
-            { text: "5 total uses per day (shared)", included: true, highlight: false },
-            { text: "1 image generation (from 5)", included: true, highlight: false },
+            { text: "10 uses per day (incl. images)", included: true, highlight: false },
             { text: "All 16+ YouTube tools", included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
@@ -40,7 +39,7 @@ const plans = [
         icon: FaCrown,
         features: [
             { text: "Unlimited AI generations", included: true, highlight: true },
-            { text: "10 image generations per day", included: true, highlight: true },
+            { text: "Unlimited image generations", included: true, highlight: true },
             { text: "All 16+ YouTube tools", included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
@@ -57,8 +56,8 @@ const plans = [
 ];
 
 const comparison = [
-    { feature: "Total Uses (per day)", free: "5 (shared)", pro: "Unlimited" },
-    { feature: "Image Generations (per day)", free: "1 (from 5)", pro: "10" },
+    { feature: "Total Uses (per day)", free: "10 (incl. images)", pro: "Unlimited" },
+    { feature: "Image Generations", free: "From 10 daily", pro: "Unlimited" },
     { feature: "All YouTube Tools", free: "✓", pro: "✓" },
     { feature: "Export & Download", free: "✓", pro: "✓" },
     { feature: "Priority Processing", free: "—", pro: "✓" },
