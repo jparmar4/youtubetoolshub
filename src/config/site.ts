@@ -34,6 +34,7 @@ export const siteConfig = {
     legal: [
       { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "Terms of Use", href: "/terms-of-use" },
+      { name: "Refund Policy", href: "/refund-policy" },
       { name: "Disclaimer", href: "/disclaimer" },
       { name: "Contact", href: "/contact" },
     ],
@@ -59,7 +60,7 @@ export const siteConfig = {
 
   // Contact
   contact: {
-    email: "contact@youtubetools.hub",
+    email: "support@youtubetoolshub.com",
   },
 };
 

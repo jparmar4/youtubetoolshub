@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Input, Textarea } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
-import { FaPaperPlane, FaEnvelope, FaCheck, FaClock, FaQuestionCircle, FaBug, FaLightbulb, FaHandshake } from "react-icons/fa";
+import { FaPaperPlane, FaEnvelope, FaCheck, FaClock, FaQuestionCircle, FaBug, FaLightbulb, FaHandshake, FaExclamationCircle, FaSpinner } from "react-icons/fa";
 
 const contactReasons = [
     { icon: FaQuestionCircle, title: "General Inquiry", description: "Questions about our tools or services", color: "from-blue-400 to-blue-500" },
@@ -22,11 +22,52 @@ const faqs = [
 export default function ContactPage() {
     const [submitted, setSubmitted] = useState(false);
     const [selectedReason, setSelectedReason] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // Form fields
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [subject, setSubject] = useState("");
+    const [message, setMessage] = useState("");
+    const [honeypot, setHoneypot] = useState(""); // Spam protection
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real implementation, this would send the form data
-        setSubmitted(true);
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    subject: subject || selectedReason,
+                    message,
+                    website: honeypot, // Honeypot field for spam protection
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setSubmitted(true);
+                // Reset form
+                setName("");
+                setEmail("");
+                setSubject("");
+                setMessage("");
+                setSelectedReason("");
+            } else {
+                setError(data.error || "Failed to send message. Please try again.");
+            }
+        } catch {
+            setError("Network error. Please check your connection and try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -59,8 +100,8 @@ export default function ContactPage() {
                                 key={i}
                                 onClick={() => setSelectedReason(reason.title)}
                                 className={`text-left p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${selectedReason === reason.title
-                                        ? "border-red-500 bg-red-50 dark:bg-red-900/20"
-                                        : "border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700"
+                                    ? "border-red-500 bg-red-50 dark:bg-red-900/20"
+                                    : "border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700"
                                     }`}
                             >
                                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white mb-4`}>
@@ -174,37 +215,81 @@ export default function ContactPage() {
                                         </p>
 
                                         <form onSubmit={handleSubmit} className="space-y-6">
+                                            {/* Honeypot field - hidden for spam protection */}
+                                            <input
+                                                type="text"
+                                                name="website"
+                                                value={honeypot}
+                                                onChange={(e) => setHoneypot(e.target.value)}
+                                                style={{ display: "none" }}
+                                                tabIndex={-1}
+                                                autoComplete="off"
+                                            />
+
+                                            {/* Error Message */}
+                                            {error && (
+                                                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3 text-red-700 dark:text-red-300">
+                                                    <FaExclamationCircle className="w-5 h-5 flex-shrink-0" />
+                                                    <p>{error}</p>
+                                                </div>
+                                            )}
+
                                             <div className="grid sm:grid-cols-2 gap-6">
                                                 <Input
                                                     label="Your Name"
                                                     placeholder="John Doe"
+                                                    value={name}
+                                                    onChange={(e) => setName(e.target.value)}
                                                     required
+                                                    disabled={isLoading}
                                                 />
                                                 <Input
                                                     type="email"
                                                     label="Email Address"
                                                     placeholder="john@example.com"
+                                                    value={email}
+                                                    onChange={(e) => setEmail(e.target.value)}
                                                     required
+                                                    disabled={isLoading}
                                                 />
                                             </div>
 
                                             <Input
                                                 label="Subject"
                                                 placeholder={selectedReason || "How can we help?"}
-                                                defaultValue={selectedReason}
+                                                value={subject || selectedReason}
+                                                onChange={(e) => setSubject(e.target.value)}
                                                 required
+                                                disabled={isLoading}
                                             />
 
                                             <Textarea
                                                 label="Your Message"
                                                 placeholder="Tell us more about your question, feedback, or idea..."
                                                 rows={6}
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
                                                 required
+                                                disabled={isLoading}
                                             />
 
-                                            <Button type="submit" className="w-full" size="lg">
-                                                <FaPaperPlane className="mr-2" />
-                                                Send Message
+                                            <Button
+                                                type="submit"
+                                                className="w-full"
+                                                size="lg"
+                                                disabled={isLoading}
+                                            >
+                                                {isLoading ? (
+                                                    <>
+                                                        <FaSpinner className="mr-2 animate-spin" />
+                                                        Sending...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <FaPaperPlane className="mr-2" />
+                                                        Send Message
+                                                    </>
+                                                )}
                                             </Button>
 
                                             <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
