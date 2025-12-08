@@ -57,7 +57,7 @@ export function useUsage() {
     return {
         usage,
         isPro: usage?.isPro ?? false,
-        canGenerateAI: usage ? (usage.isPro || (typeof usage.totalRemaining === 'number' && usage.totalRemaining > 0)) : true,
+        canGenerateAI: usage ? (usage.isPro || (typeof usage.aiRemaining === 'number' && usage.aiRemaining > 0)) : true,
         canGenerateImage: usage ? usage.imageRemaining > 0 : true,
         checkAndIncrementAI,
         checkAndIncrementImage,

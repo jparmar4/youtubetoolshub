@@ -25,7 +25,7 @@ export default function UsageBanner({ type = "both", compact = false }: UsageBan
     const showAi = type === "ai" || type === "both";
     const showImage = type === "image" || type === "both";
 
-    const totalLow = typeof usage.totalRemaining === "number" && usage.totalRemaining <= 2;
+    const totalLow = typeof usage.aiRemaining === "number" && usage.aiRemaining <= 2;
     const imageLow = usage.imageRemaining <= 0;
     const isWarning = totalLow || imageLow;
 
@@ -38,7 +38,7 @@ export default function UsageBanner({ type = "both", compact = false }: UsageBan
                 {showAi && (
                     <span className="flex items-center gap-1">
                         <FaBolt className="w-3 h-3" />
-                        {usage.totalRemaining}/{usage.totalLimit}
+                        {usage.aiRemaining}/{usage.aiLimit}
                     </span>
                 )}
                 {showAi && showImage && <span>•</span>}
@@ -76,7 +76,7 @@ export default function UsageBanner({ type = "both", compact = false }: UsageBan
                                     Daily Uses
                                 </p>
                                 <p className={`text-xs ${totalLow ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                    {usage.totalUsed}/{usage.totalLimit} used today
+                                    {usage.aiUsed}/{usage.aiLimit} used today
                                 </p>
                             </div>
                         </div>

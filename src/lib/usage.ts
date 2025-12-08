@@ -2,38 +2,41 @@
  * Usage Tracking System
  * 
  * Tracks daily usage limits for free and premium users
- * Uses localStorage for client-side tracking (simple implementation)
+ * Uses localStorage for client-side tracking
  * 
  * Limits:
- * - Free: 5 TOTAL uses/day (shared across all tools), 1 can be image
- * - Pro: Unlimited AI, 10 images/day
+ * - Free: 5 AI text prompts/day, 0 images (locked)
+ * - Pro: Unlimited AI text, 150 images/month
  */
 
+
 export interface UsageData {
-    totalUses: number;      // Total AI uses across all tools
-    imageUses: number;      // Image generations (part of total)
-    lastReset: string;      // ISO date string
+    aiUses: number;         // AI text uses for today
+    imageUses: number;      // Image uses for current month (or day for free, but free is 0)
+    lastReset: string;      // ISO date string (YYYY-MM-DD) for AI text
+    imageReset: string;     // ISO date string (YYYY-MM) for Images
 }
 
 export interface UsageLimits {
-    totalLimit: number;
+    aiLimit: number;
     imageLimit: number;
     isPro: boolean;
 }
 
-const STORAGE_KEY = 'yt_tools_usage';
+const STORAGE_KEY = 'yt_tools_usage_v2'; // Changed key to reset legacy data
 const PRO_KEY = 'yt_tools_pro';
 
-// Get today's date string for comparison
+// Date helpers
 const getTodayString = () => new Date().toISOString().split('T')[0];
+const getMonthString = () => new Date().toISOString().slice(0, 7); // YYYY-MM
 
-// Check if user is pro (from localStorage for now)
+// Check if user is pro
 export const isPremiumUser = (): boolean => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem(PRO_KEY) === 'true';
 };
 
-// Set premium status (for testing/demo purposes)
+// Set premium status
 export const setPremiumStatus = (isPro: boolean): void => {
     if (typeof window === 'undefined') return;
     localStorage.setItem(PRO_KEY, isPro ? 'true' : 'false');
@@ -43,8 +46,8 @@ export const setPremiumStatus = (isPro: boolean): void => {
 export const getUsageLimits = (): UsageLimits => {
     const isPro = isPremiumUser();
     return {
-        totalLimit: isPro ? Infinity : 5,
-        imageLimit: isPro ? 10 : 1,
+        aiLimit: isPro ? Infinity : 5,    // Free: 5/day, Pro: Unlimited
+        imageLimit: isPro ? 150 : 0,      // Free: 0, Pro: 150/month
         isPro,
     };
 };
@@ -52,96 +55,100 @@ export const getUsageLimits = (): UsageLimits => {
 // Get current usage data
 export const getUsageData = (): UsageData => {
     if (typeof window === 'undefined') {
-        return { totalUses: 0, imageUses: 0, lastReset: getTodayString() };
+        return { aiUses: 0, imageUses: 0, lastReset: getTodayString(), imageReset: getMonthString() };
     }
 
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-        return { totalUses: 0, imageUses: 0, lastReset: getTodayString() };
+        return { aiUses: 0, imageUses: 0, lastReset: getTodayString(), imageReset: getMonthString() };
     }
 
     const data: UsageData = JSON.parse(stored);
+    const today = getTodayString();
+    const currentMonth = getMonthString();
+    let needsUpdate = false;
 
-    // Check if we need to reset (new day)
-    if (data.lastReset !== getTodayString()) {
-        const newData = { totalUses: 0, imageUses: 0, lastReset: getTodayString() };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
-        return newData;
+    // Daily reset for AI text
+    if (data.lastReset !== today) {
+        data.aiUses = 0;
+        data.lastReset = today;
+        needsUpdate = true;
+    }
+
+    // Monthly reset for Images
+    // Note: If data.imageReset is undefined (legacy data), we treat it as mismatch -> reset
+    if (data.imageReset !== currentMonth) {
+        data.imageUses = 0;
+        data.imageReset = currentMonth;
+        needsUpdate = true;
+    }
+
+    if (needsUpdate) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
     return data;
 };
 
-// Check if user can make an AI generation (any tool)
+// Check if user can make an AI generation
 export const canGenerateAI = (): boolean => {
     const usage = getUsageData();
     const limits = getUsageLimits();
-    return limits.isPro || usage.totalUses < limits.totalLimit;
+    return limits.isPro || usage.aiUses < limits.aiLimit;
 };
 
 // Check if user can make an image generation
 export const canGenerateImage = (): boolean => {
     const usage = getUsageData();
     const limits = getUsageLimits();
-    // For free users: must have total uses left AND image uses left
-    // Image uses count toward total
-    if (limits.isPro) {
-        return usage.imageUses < limits.imageLimit;
-    }
-    return usage.totalUses < limits.totalLimit && usage.imageUses < limits.imageLimit;
+    // Free users have 0 limit, so usage.imageUses (0) < 0 is false.
+    // Logic: user can generate if usage < limit.
+    return usage.imageUses < limits.imageLimit;
 };
 
-// Increment AI generation count (any tool)
+// Increment AI generation count
 export const incrementAIUsage = (): void => {
     if (typeof window === 'undefined') return;
     const usage = getUsageData();
-    usage.totalUses += 1;
+    usage.aiUses += 1;
+    // We update lastReset to today just in case, though getUsageData handles it
+    usage.lastReset = getTodayString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(usage));
 };
 
-// Increment image generation count (also counts toward total for free users)
+// Increment image generation count
 export const incrementImageUsage = (): void => {
     if (typeof window === 'undefined') return;
     const usage = getUsageData();
-    const limits = getUsageLimits();
     usage.imageUses += 1;
-    // For free users, image uses also count toward total
-    if (!limits.isPro) {
-        usage.totalUses += 1;
-    }
+    usage.imageReset = getMonthString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(usage));
-};
-
-// Get remaining generations
-export const getRemainingGenerations = (): { total: number; image: number } => {
-    const usage = getUsageData();
-    const limits = getUsageLimits();
-    return {
-        total: limits.isPro ? Infinity : Math.max(0, limits.totalLimit - usage.totalUses),
-        image: Math.max(0, limits.imageLimit - usage.imageUses),
-    };
 };
 
 // Get usage summary for display
 export const getUsageSummary = (): {
-    totalUsed: number;
-    totalLimit: number | 'Unlimited';
+    aiUsed: number;
+    aiLimit: number | 'Unlimited';
+    aiRemaining: number | 'Unlimited';
     imageUsed: number;
     imageLimit: number;
-    isPro: boolean;
-    totalRemaining: number | 'Unlimited';
     imageRemaining: number;
+    isPro: boolean;
 } => {
     const usage = getUsageData();
     const limits = getUsageLimits();
 
     return {
-        totalUsed: usage.totalUses,
-        totalLimit: limits.isPro ? 'Unlimited' : limits.totalLimit,
+        aiUsed: usage.aiUses,
+        aiLimit: limits.isPro ? 'Unlimited' : limits.aiLimit,
+        aiRemaining: limits.isPro ? 'Unlimited' : Math.max(0, limits.aiLimit - usage.aiUses),
+
         imageUsed: usage.imageUses,
         imageLimit: limits.imageLimit,
+        imageRemaining: Math.max(0, limits.imageLimit - usage.imageUses),
+
         isPro: limits.isPro,
-        totalRemaining: limits.isPro ? 'Unlimited' : limits.totalLimit - usage.totalUses,
-        imageRemaining: limits.imageLimit - usage.imageUses,
     };
 };
+
+

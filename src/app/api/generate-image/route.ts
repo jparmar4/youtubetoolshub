@@ -25,12 +25,23 @@ interface ReplicateResult {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { prompt, style } = body;
+        const { prompt, style, isPro } = body;
 
         if (!prompt) {
             return NextResponse.json(
                 { error: "Prompt is required" },
                 { status: 400 }
+            );
+        }
+
+        // Backend Enforcement: Check if user is allowed to generate images
+        // Free users (isPro = false) are not allowed.
+        // Note: For advanced security, this should be validated via session/database,
+        // but for now we rely on the client-passed flag matching the project's current auth architecture.
+        if (!isPro) {
+            return NextResponse.json(
+                { error: "Image generation is a premium feature. Please upgrade to Pro." },
+                { status: 403 }
             );
         }
 

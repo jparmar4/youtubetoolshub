@@ -14,14 +14,14 @@ export default function LimitReachedModal({ isOpen, onClose, type }: LimitReache
 
     const limits = {
         ai: { limit: 5, proLimit: "Unlimited" },
-        image: { limit: 1, proLimit: 10 },
+        image: { limit: 0, proLimit: 150 },
     };
 
     const current = limits[type];
     const title = type === "ai" ? "AI Generation Limit Reached" : "Image Generation Limit Reached";
     const description = type === "ai"
         ? `You've used all ${current.limit} AI generations for today.`
-        : `You've used your ${current.limit} image generation for today.`;
+        : `Free plan includes 0 image generations. Upgrade to unlock 150/month.`;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -68,7 +68,7 @@ export default function LimitReachedModal({ isOpen, onClose, type }: LimitReache
                     </div>
                     <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                         <li>✓ Unlimited AI generations</li>
-                        <li>✓ 10 image generations per day</li>
+                        <li>✓ 150 image generations per month</li>
                         <li>✓ Ad-free experience</li>
                         <li>✓ Priority processing</li>
                     </ul>
