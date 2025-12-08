@@ -1,5 +1,6 @@
 
 import { NextResponse } from "next/server";
+import { extractVideoId } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {
@@ -48,6 +49,21 @@ export async function POST(req: Request) {
             }
         } catch (e) {
             // ignore invalid url and treat as string
+        }
+
+        // 2. Check if it's a video URL (e.g. youtu.be/VIDEO_ID)
+        const videoId = extractVideoId(query);
+        if (videoId) {
+            const videoResponse = await fetch(
+                `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`
+            );
+            const videoData = await videoResponse.json();
+
+            if (videoData.items && videoData.items.length > 0) {
+                // Found the video, use its channel ID
+                const channelId = videoData.items[0].snippet.channelId;
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart}&id=${channelId}&key=${apiKey}`;
+            }
         }
 
         const response = await fetch(apiUrl);
