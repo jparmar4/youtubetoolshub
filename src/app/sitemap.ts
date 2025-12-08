@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next';
 import { tools } from '@/config/tools';
+import { getAllBlogPosts } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = siteConfig.url;
+    const blogPosts = getAllBlogPosts();
 
     // Static pages
     const staticPages = [
@@ -77,5 +79,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }));
 
-    return [...staticPages, ...toolPages];
+    // Dynamic blog pages
+    const blogPages = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    return [...staticPages, ...toolPages, ...blogPages];
 }

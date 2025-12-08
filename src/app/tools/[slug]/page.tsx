@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 
 // Import all tool components
 import ThumbnailDownloader from "@/components/tools/ThumbnailDownloader";
@@ -99,5 +101,36 @@ export default async function ToolPage({
         notFound();
     }
 
-    return <ToolComponent />;
+    // Generate JSON-LD Structured Data
+    const toolSchema = getSoftwareApplicationSchema({
+        name: tool.name,
+        description: tool.description,
+        url: `${siteConfig.url}/tools/${tool.slug}`,
+        category: "UtilityApplication", // or MultimediaApplication
+    });
+
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        { name: tool.name, url: `${siteConfig.url}/tools/${tool.slug}` },
+    ]);
+
+    return (
+        <>
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(toolSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbSchema),
+                }}
+            />
+            <ToolComponent />
+        </>
+    );
 }
