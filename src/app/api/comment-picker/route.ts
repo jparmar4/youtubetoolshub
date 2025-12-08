@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
         // Fetch comments
         while (nextPageToken !== null && fetchedCount < maxComments) {
-            const apiUrl = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&order=relevance&key=${apiKey}&pageToken=${nextPageToken || ""}`;
+            const apiUrl: string = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&order=relevance&key=${apiKey}&pageToken=${nextPageToken || ""}`;
 
             const response = await fetch(apiUrl);
             const data = await response.json();

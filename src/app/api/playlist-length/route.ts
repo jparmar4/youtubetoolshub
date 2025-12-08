@@ -63,7 +63,7 @@ export async function POST(req: Request) {
 
         // Fetch videos
         while (nextPageToken !== null && fetchedVideos < maxVideos) {
-            const itemsUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistId}&key=${apiKey}&pageToken=${nextPageToken || ""}`;
+            const itemsUrl: string = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistId}&key=${apiKey}&pageToken=${nextPageToken || ""}`;
             const itemsResponse = await fetch(itemsUrl);
             const itemsData = await itemsResponse.json();
 
