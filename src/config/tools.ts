@@ -5,7 +5,8 @@ import {
     FaHeading, FaAlignLeft, FaTags, FaSearch,
     FaLightbulb, FaChartLine, FaCalendarAlt,
     FaDollarSign, FaChartBar, FaBalanceScale,
-    FaUser, FaHashtag, FaMicrophone
+    FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl, FaForward,
+    FaTrophy, FaRandom, FaFilter, FaQuoteLeft
 } from "react-icons/fa";
 import { IconType } from "react-icons";
 
@@ -198,6 +199,33 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaMicrophone,
         isAI: true,
+    },
+    {
+        slug: "youtube-channel-id-finder",
+        name: "YouTube Channel ID Finder",
+        description: "Find the unique Channel ID (UC...) and User ID for any YouTube channel. Works with handles, channel URLs, and video links.",
+        shortDescription: "Find any YouTube Channel ID",
+        category: "utility-fun",
+        icon: FaIdCard,
+        isAI: false,
+    },
+    {
+        slug: "youtube-playlist-length-calculator",
+        name: "YouTube Playlist Length Calculator",
+        description: "Calculate the total length of any YouTube playlist. See how long it takes to specific speeds (1.25x, 1.5x, 2x).",
+        shortDescription: "Calculate playlist duration",
+        category: "utility-fun",
+        icon: FaListUl,
+        isAI: false,
+    },
+    {
+        slug: "youtube-comment-picker",
+        name: "YouTube Comment Picker",
+        description: "Pick a random winner for your YouTube giveaway or contest. Filter duplicates and spammers fairly.",
+        shortDescription: "Pick random comment winner",
+        category: "utility-fun",
+        icon: FaTrophy,
+        isAI: false,
     },
 ];
 

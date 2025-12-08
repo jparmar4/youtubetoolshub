@@ -20,6 +20,9 @@ import TitleABTester from "@/components/tools/TitleABTester";
 import ChannelNameGenerator from "@/components/tools/ChannelNameGenerator";
 import HashtagGenerator from "@/components/tools/HashtagGenerator";
 import IntroScriptGenerator from "@/components/tools/IntroScriptGenerator";
+import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
+import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
+import CommentPicker from "@/components/tools/CommentPicker";
 
 // Map slugs to components
 const toolComponents: Record<string, React.ComponentType> = {
@@ -40,6 +43,9 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-channel-name-generator": ChannelNameGenerator,
     "youtube-hashtag-generator": HashtagGenerator,
     "youtube-intro-script-generator": IntroScriptGenerator,
+    "youtube-channel-id-finder": ChannelIdFinder,
+    "youtube-playlist-length-calculator": PlaylistLengthCalculator,
+    "youtube-comment-picker": CommentPicker,
 };
 
 // Generate static params for all tools

@@ -168,3 +168,34 @@ export function safeJSONParse<T>(json: string, fallback: T): T {
         return fallback;
     }
 }
+
+/**
+ * Parse YouTube ISO 8601 duration to seconds
+ * e.g., PT1H2M10S -> 3730
+ */
+export function parseDuration(duration: string): number {
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if (!match) return 0;
+
+    const hours = (parseInt(match[1]) || 0);
+    const minutes = (parseInt(match[2]) || 0);
+    const seconds = (parseInt(match[3]) || 0);
+
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+/**
+ * Format seconds to readable time string
+ */
+export function formatDuration(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+
+    const parts = [];
+    if (h > 0) parts.push(`${h}h`);
+    if (m > 0) parts.push(`${m}m`);
+    if (s > 0 || parts.length === 0) parts.push(`${s}s`);
+
+    return parts.join(' ');
+}
