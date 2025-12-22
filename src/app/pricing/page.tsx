@@ -14,7 +14,7 @@ const plans = [
         description: "Perfect for trying out our tools",
         icon: FaRocket,
         features: [
-            { text: "10 uses per month (incl. images)", included: true, highlight: false },
+            { text: "2 uses per day (1 image)", included: true, highlight: false },
             { text: "All 16+ YouTube tools", included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
@@ -56,8 +56,8 @@ const plans = [
 ];
 
 const comparison = [
-    { feature: "Total Uses", free: "10/month (incl. images)", pro: "Unlimited" },
-    { feature: "Image Generations", free: "From 10 monthly", pro: "Unlimited" },
+    { feature: "Total Uses", free: "2 per day (excl. images)", pro: "Unlimited" },
+    { feature: "Image Generations", free: "1 per day", pro: "Unlimited" },
     { feature: "All YouTube Tools", free: "✓", pro: "✓" },
     { feature: "Export & Download", free: "✓", pro: "✓" },
     { feature: "Priority Processing", free: "—", pro: "✓" },
@@ -264,7 +264,7 @@ export default function PricingPage() {
                             },
                             {
                                 q: "What counts as an AI generation?",
-                                a: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 5 per day."
+                                a: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 2 generations per day."
                             },
                             {
                                 q: "When do my daily limits reset?",

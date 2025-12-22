@@ -63,7 +63,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
                     </div>
                     <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 text-left">
                         <li>✓ Unlimited usage for all tools</li>
-                        <li>✓ 150 image generations per month</li>
+                        <li>✓ Unlimited image generations</li>
                         <li>✓ Ad-free experience</li>
                         <li>✓ Priority processing</li>
                     </ul>

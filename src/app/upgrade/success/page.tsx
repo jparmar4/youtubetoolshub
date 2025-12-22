@@ -51,7 +51,7 @@ function SuccessContent() {
                     <ul className="space-y-3">
                         {[
                             "Unlimited AI generations",
-                            "10 image generations per day",
+                            "Unlimited image generations",
                             "Priority AI processing",
                             "Ad-free experience",
                             "Priority support",
