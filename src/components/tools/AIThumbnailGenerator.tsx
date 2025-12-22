@@ -82,7 +82,7 @@ export default function AIThumbnailGenerator() {
         setGeneratedImages([]);
 
         try {
-            const response = await fetch("/api/generate-image", {
+            await fetch("/api/generate-image", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

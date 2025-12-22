@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -107,7 +108,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon.svg" />
 
         {/* Preload critical resources */}
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+        {/* Preload critical resources - Font is handled by next/font/google */}
 
         {/* JSON-LD Structured Data for SEO */}
         <script
@@ -140,21 +141,18 @@ export default function RootLayout({
             `,
           }}
         />
-
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-14MEY3M1CN');
-            `,
-          }}
-        />
       </head>
       <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
+        {/* Google Analytics */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-14MEY3M1CN');
+          `}
+        </Script>
         <AuthProvider>
           <Header />
           <main className="flex-1">{children}</main>

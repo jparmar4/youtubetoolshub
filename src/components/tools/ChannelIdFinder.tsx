@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
-import { FaSearch, FaSpinner, FaIdCard, FaUser, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
+import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
 
 const faq = [

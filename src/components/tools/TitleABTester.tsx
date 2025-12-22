@@ -11,7 +11,44 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaBalanceScale } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 
-// ... (existing constants)
+// Interfaces
+interface TitleAnalysis {
+    titleA: {
+        score: number;
+        analysis: string;
+    };
+    titleB: {
+        score: number;
+        analysis: string;
+    };
+    suggested: string;
+}
+
+// Constants
+const faq = [
+    {
+        question: "How is the score calculated?",
+        answer: "Our AI analyzes your title based on CTR factors, emotional triggers, power words, and clarity to generate a score from 0-100."
+    },
+    {
+        question: "What is a good score?",
+        answer: "A score above 70 is considered strong. However, context matters - always trust your instinct and knowledge of your specific audience."
+    },
+    {
+        question: "Does this guarantee more views?",
+        answer: "While a better title increases the likelihood of clicks, content quality and thumbnail design are also critical factors for success."
+    },
+];
+
+const howTo = [
+    "Enter your first title option in the 'Title A' field",
+    "Enter your second option in the 'Title B' field",
+    "Optionally add context about your video for better analysis",
+    "Click 'Analyze Titles' to see the comparison",
+    "Review the scores and specific feedback for each title"
+];
+
+const seoContent = `Maximize your YouTube Click-Through Rate (CTR) with our A/B Title Tester. Don't guess which title is better - let AI analyze them against millions of viral videos. Compare two title options, get instant scores, and receive specific actionable feedback to choose the winner.`;
 
 export default function TitleABTester() {
     const [titleA, setTitleA] = useState("");
@@ -53,11 +90,15 @@ export default function TitleABTester() {
     };
 
     const getScoreColor = (score: number) => {
-        // ... (rest of function)
+        if (score >= 70) return "text-green-600 dark:text-green-400";
+        if (score >= 40) return "text-yellow-600 dark:text-yellow-400";
+        return "text-red-600 dark:text-red-400";
     };
 
     const getScoreGradient = (score: number) => {
-        // ... (rest of function)
+        if (score >= 70) return "from-green-500 to-emerald-600";
+        if (score >= 40) return "from-yellow-500 to-orange-600";
+        return "from-red-500 to-pink-600";
     };
 
     return (

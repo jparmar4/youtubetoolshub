@@ -74,6 +74,7 @@ export async function POST(req: Request) {
                 );
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const videoIds = itemsData.items.map((item: any) => item.contentDetails.videoId);
             if (videoIds.length === 0) break;
 
@@ -83,6 +84,7 @@ export async function POST(req: Request) {
             const videosData = await videosResponse.json();
 
             if (videosData.items) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 videosData.items.forEach((video: any) => {
                     totalSeconds += parseDuration(video.contentDetails.duration);
                     videoCount++;

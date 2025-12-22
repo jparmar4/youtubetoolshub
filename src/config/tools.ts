@@ -5,8 +5,8 @@ import {
     FaHeading, FaAlignLeft, FaTags, FaSearch,
     FaLightbulb, FaChartLine, FaCalendarAlt,
     FaDollarSign, FaChartBar, FaBalanceScale,
-    FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl, FaForward,
-    FaTrophy, FaRandom, FaFilter, FaQuoteLeft
+    FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl,
+    FaTrophy
 } from "react-icons/fa";
 import { IconType } from "react-icons";
 

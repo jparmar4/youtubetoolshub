@@ -23,8 +23,9 @@ export async function POST(req: Request) {
         }
 
         // 1. Try to find by handle (if starts with @)
-        let searchPart = "snippet,id";
-        let searchType = "channel";
+        // 1. Try to find by handle (if starts with @)
+        const searchPart = "snippet,id";
+        const searchType = "channel";
         let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(query)}&type=${searchType}&key=${apiKey}`;
 
         // If it looks like a channel ID (UC...) we can use channels endpoint directly?
@@ -33,7 +34,6 @@ export async function POST(req: Request) {
         // Let's stick to search for flexibility, as it handles handles well.
 
         // If it's a full URL, try to extract the useful part
-        let cleanQuery = query;
         try {
             if (query.includes('youtube.com/')) {
                 const urlObj = new URL(query);
@@ -43,11 +43,10 @@ export async function POST(req: Request) {
                     apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart}&id=${pathSegments[1]}&key=${apiKey}`;
                 } else if (pathSegments[0] === 'c' || pathSegments[0] === 'user' || pathSegments[0].startsWith('@')) {
                     // handle or custom url -> use search
-                    cleanQuery = pathSegments[pathSegments.length - 1]; // fallback logic
                     apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(query)}&type=${searchType}&key=${apiKey}`;
                 }
             }
-        } catch (e) {
+        } catch {
             // ignore invalid url and treat as string
         }
 

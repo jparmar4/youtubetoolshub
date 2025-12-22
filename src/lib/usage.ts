@@ -146,5 +146,32 @@ export const getUsageStats = (slug: string) => {
     };
 };
 
+export const getUsageSummary = () => {
+    const isPro = isPremiumUser();
+    const usage = getUsageData();
+
+    // Representative tools for limits
+    const textTool = 'youtube-video-ideas-generator';
+    const imageTool = 'youtube-ai-thumbnail-generator';
+
+    const aiLimit = getToolLimit(textTool);
+    const aiUsed = usage.toolUsage[textTool] || 0;
+    const aiRemaining = aiLimit === Infinity ? 'Unlimited' : Math.max(0, aiLimit - aiUsed);
+
+    const imageLimit = getToolLimit(imageTool);
+    const imageUsed = usage.toolUsage[imageTool] || 0;
+    const imageRemaining = imageLimit === Infinity ? 'Unlimited' : Math.max(0, imageLimit - imageUsed);
+
+    return {
+        isPro,
+        aiLimit: aiLimit === Infinity ? 'Unlimited' : aiLimit,
+        aiUsed,
+        aiRemaining,
+        imageLimit: imageLimit === Infinity ? 'Unlimited' : imageLimit,
+        imageUsed,
+        imageRemaining
+    };
+};
+
 
 

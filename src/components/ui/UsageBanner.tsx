@@ -26,7 +26,7 @@ export default function UsageBanner({ type = "both", compact = false }: UsageBan
     const showImage = type === "image" || type === "both";
 
     const totalLow = typeof usage.aiRemaining === "number" && usage.aiRemaining <= 2;
-    const imageLow = usage.imageRemaining <= 0;
+    const imageLow = typeof usage.imageRemaining === "number" && usage.imageRemaining <= 0;
     const isWarning = totalLow || imageLow;
 
     if (compact) {

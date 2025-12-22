@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { FaCrown, FaLock, FaTimes } from "react-icons/fa";
 import { getToolBySlug } from "@/config/tools";
-import { getToolLimit, TOOL_LIMITS } from "@/lib/usage";
+import { getToolLimit } from "@/lib/usage";
 
 interface LimitReachedModalProps {
     isOpen: boolean;
@@ -48,7 +48,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
                         {toolName} Limit Reached
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                        You've reached the free limit of {limit} uses per day for this tool.
+                        You&apos;ve reached the free limit of {limit} uses per day for this tool.
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
                         Limits reset daily, or upgrade now for unlimited access.

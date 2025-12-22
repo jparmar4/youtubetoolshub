@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
-import { FaSearch, FaSpinner, FaTrophy, FaRandom, FaFilter, FaUser, FaQuoteLeft } from "react-icons/fa";
+import { FaSearch, FaSpinner, FaTrophy, FaFilter, FaQuoteLeft } from "react-icons/fa";
 import Image from "next/image";
 import confetti from "canvas-confetti";
 
@@ -61,7 +61,6 @@ export default function CommentPicker() {
     // Settings
     const [filterDuplicates, setFilterDuplicates] = useState(true);
     const [filterText, setFilterText] = useState("");
-    const [excludeUsers, setExcludeUsers] = useState("");
 
     const handleLoadComments = async () => {
         setError("");

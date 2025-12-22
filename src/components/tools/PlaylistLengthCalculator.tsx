@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
-import { FaSearch, FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
-import { formatDuration } from "@/lib/utils";
+import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
+
 import Image from "next/image";
 
 const faq = [

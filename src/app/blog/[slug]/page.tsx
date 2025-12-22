@@ -69,15 +69,65 @@ function parseContent(content: string) {
         }
     };
 
-    const parseInlineMarkdown = (text: string) => {
-        // Handle bold
-        const parts = text.split(/(\*\*[^*]+\*\*)/g);
-        return parts.map((part, i) => {
+    const parseInlineMarkdown = (text: string): React.ReactNode[] => {
+        // Supported inline markdown:
+        // - **bold**
+        // - [label](url)
+        // This is intentionally lightweight and not a full markdown implementation.
+
+        const pattern = /(\*\*[^*]+\*\*)|(\[[^\]]+\]\([^\)]+\))/g;
+        const parts = text.split(pattern).filter((p) => p !== undefined && p !== '');
+
+        const nodes: React.ReactNode[] = [];
+        parts.forEach((part, i) => {
             if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={i} className="font-semibold text-gray-900 dark:text-white">{part.slice(2, -2)}</strong>;
+                nodes.push(
+                    <strong key={`b-${i}`} className="font-semibold text-gray-900 dark:text-white">
+                        {part.slice(2, -2)}
+                    </strong>
+                );
+                return;
             }
-            return part;
+
+            if (part.startsWith('[') && part.includes('](') && part.endsWith(')')) {
+                const match = part.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
+                if (match) {
+                    const label = match[1];
+                    const url = match[2];
+                    const isInternal = url.startsWith('/');
+
+                    if (isInternal) {
+                        nodes.push(
+                            <Link
+                                key={`l-${i}`}
+                                href={url}
+                                className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
+                            >
+                                {label}
+                            </Link>
+                        );
+                        return;
+                    }
+
+                    nodes.push(
+                        <a
+                            key={`l-${i}`}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
+                        >
+                            {label}
+                        </a>
+                    );
+                    return;
+                }
+            }
+
+            nodes.push(part);
         });
+
+        return nodes;
     };
 
     lines.forEach((line, index) => {

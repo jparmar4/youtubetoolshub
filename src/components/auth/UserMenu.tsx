@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import NextImage from "next/image";
 import { FaUser, FaSignOutAlt, FaCog } from "react-icons/fa";
 
 export default function UserMenu() {
@@ -45,10 +46,12 @@ export default function UserMenu() {
                 className="flex items-center gap-2 focus:outline-none"
             >
                 {session.user.image ? (
-                    <img
+                    <NextImage
                         src={session.user.image}
                         alt={session.user.name || "User"}
-                        className="w-10 h-10 rounded-full border-2 border-red-500"
+                        width={40}
+                        height={40}
+                        className="rounded-full border-2 border-red-500"
                     />
                 ) : (
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center">

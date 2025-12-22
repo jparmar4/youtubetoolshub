@@ -4,7 +4,7 @@ import { extractVideoId } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {
-        const { url, includeReplies = false } = await req.json();
+        const { url } = await req.json();
 
         if (!url) {
             return NextResponse.json(
@@ -30,6 +30,7 @@ export async function POST(req: Request) {
             );
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let allComments: any[] = [];
         let nextPageToken: string | null = "";
         const maxComments = 2000; // Safety limit
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
             }
 
             if (data.items) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const comments = data.items.map((item: any) => ({
                     id: item.id,
                     text: item.snippet.topLevelComment.snippet.textDisplay,

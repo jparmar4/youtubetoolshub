@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FaCrown, FaCheck, FaRocket } from "react-icons/fa";
@@ -9,20 +9,16 @@ import confetti from "canvas-confetti";
 function SuccessContent() {
     const searchParams = useSearchParams();
     const paymentId = searchParams.get("payment_id");
-    const [showConfetti, setShowConfetti] = useState(false);
 
     useEffect(() => {
-        if (!showConfetti) {
-            setShowConfetti(true);
-            // Fire confetti
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ["#DC2626", "#F97316", "#FBBF24"],
-            });
-        }
-    }, [showConfetti]);
+        // Fire confetti
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#DC2626", "#F97316", "#FBBF24"],
+        });
+    }, []);
 
     return (
         <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
