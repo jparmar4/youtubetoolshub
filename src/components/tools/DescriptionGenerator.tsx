@@ -121,7 +121,7 @@ export default function DescriptionGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -129,7 +129,7 @@ export default function DescriptionGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-description-generator")) {
+        if (!checkLimit("youtube-description-generator")) {
             return;
         }
 
@@ -161,6 +161,9 @@ export default function DescriptionGenerator() {
                 setError(data.error);
                 return;
             }
+
+            // Success! Increment usage
+            increment("youtube-description-generator");
 
             // Format the JSON response to readable text
             const formattedDescription = formatDescriptionFromJSON(data.result);

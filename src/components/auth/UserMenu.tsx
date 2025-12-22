@@ -9,6 +9,7 @@ import { FaUser, FaSignOutAlt, FaCog } from "react-icons/fa";
 export default function UserMenu() {
     const { data: session, status } = useSession();
     const [isOpen, setIsOpen] = useState(false);
+    const [imageError, setImageError] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close menu when clicking outside
@@ -45,17 +46,24 @@ export default function UserMenu() {
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 focus:outline-none"
             >
-                {session.user.image ? (
+                {session.user.image && !imageError ? (
                     <NextImage
                         src={session.user.image}
                         alt={session.user.name || "User"}
                         width={40}
                         height={40}
-                        className="rounded-full border-2 border-red-500"
+                        className="rounded-full border-2 border-red-500 object-cover"
+                        onError={() => setImageError(true)}
                     />
                 ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center">
-                        <FaUser className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center border-2 border-red-500">
+                        {session.user.name ? (
+                            <span className="text-white font-bold text-lg">
+                                {session.user.name.charAt(0).toUpperCase()}
+                            </span>
+                        ) : (
+                            <FaUser className="w-5 h-5 text-white" />
+                        )}
                     </div>
                 )}
             </button>

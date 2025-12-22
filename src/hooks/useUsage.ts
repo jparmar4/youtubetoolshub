@@ -11,15 +11,28 @@ import {
 export function useUsage() {
     const [limitReachedTool, setLimitReachedTool] = useState<string | null>(null);
 
-    // Check and increment tool usage
-    const checkAndIncrement = useCallback((slug: string): boolean => {
+    // Check limit without incrementing
+    const checkLimit = useCallback((slug: string): boolean => {
         if (!canUseTool(slug)) {
             setLimitReachedTool(slug);
             return false;
         }
-        incrementToolUsage(slug);
         return true;
     }, []);
+
+    // Increment usage
+    const increment = useCallback((slug: string) => {
+        incrementToolUsage(slug);
+    }, []);
+
+    // Check and increment tool usage (Legacy/Convenience)
+    const checkAndIncrement = useCallback((slug: string): boolean => {
+        if (!checkLimit(slug)) {
+            return false;
+        }
+        increment(slug);
+        return true;
+    }, [checkLimit, increment]);
 
     // Close modal
     const closeLimitModal = useCallback(() => {
@@ -32,6 +45,8 @@ export function useUsage() {
 
     return {
         checkAndIncrement,
+        checkLimit,
+        increment,
         limitReachedTool, // If not null, show modal for this tool
         closeLimitModal,
         getStats,

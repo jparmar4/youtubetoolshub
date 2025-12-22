@@ -57,7 +57,7 @@ export default function TagGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -65,7 +65,7 @@ export default function TagGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-tag-generator")) {
+        if (!checkLimit("youtube-tag-generator")) {
             return;
         }
 
@@ -96,6 +96,9 @@ export default function TagGenerator() {
                 setError(data.error);
                 return;
             }
+
+            // Success! Increment usage
+            increment("youtube-tag-generator");
 
             // Parse the result
             let resultStr = data.result || "";

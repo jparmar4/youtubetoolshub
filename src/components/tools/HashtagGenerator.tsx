@@ -46,12 +46,12 @@ export default function HashtagGenerator() {
     const [hashtags, setHashtags] = useState<HashtagResult | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) return;
 
-        if (!checkAndIncrement("youtube-hashtag-generator")) {
+        if (!checkLimit("youtube-hashtag-generator")) {
             return;
         }
 
@@ -67,6 +67,15 @@ export default function HashtagGenerator() {
             });
 
             const data = await response.json();
+
+            if (data.error) {
+                console.error("Generation error:", data.error);
+                return;
+            }
+
+            // Success! Increment usage
+            increment("youtube-hashtag-generator");
+
             const parsed = safeJSONParse<HashtagResult>(data.result, { broad: [], specific: [] });
             setHashtags(parsed);
         } catch (error) {

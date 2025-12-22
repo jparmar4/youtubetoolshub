@@ -70,7 +70,7 @@ export default function ChannelNameGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!niche.trim()) {
@@ -78,7 +78,7 @@ export default function ChannelNameGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-channel-name-generator")) {
+        if (!checkLimit("youtube-channel-name-generator")) {
             return;
         }
 
@@ -98,6 +98,14 @@ export default function ChannelNameGenerator() {
             });
 
             const data = await response.json();
+
+            if (data.error) {
+                setError(data.error);
+                return;
+            }
+
+            // Success! Increment usage
+            increment("youtube-channel-name-generator");
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
 

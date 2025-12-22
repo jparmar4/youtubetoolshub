@@ -53,7 +53,7 @@ export default function VideoIdeasGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!niche.trim()) {
@@ -61,7 +61,7 @@ export default function VideoIdeasGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-video-ideas-generator")) {
+        if (!checkLimit("youtube-video-ideas-generator")) {
             return;
         }
 
@@ -91,6 +91,9 @@ export default function VideoIdeasGenerator() {
                 setError(data.error);
                 return;
             }
+
+            // Success! Increment usage
+            increment("youtube-video-ideas-generator");
 
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();

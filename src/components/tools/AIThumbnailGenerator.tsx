@@ -66,7 +66,7 @@ export default function AIThumbnailGenerator() {
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!prompt.trim()) {
@@ -74,7 +74,7 @@ export default function AIThumbnailGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-ai-thumbnail-generator")) {
+        if (!checkLimit("youtube-ai-thumbnail-generator")) {
             return;
         }
 
@@ -98,6 +98,9 @@ export default function AIThumbnailGenerator() {
             if (!response.ok || !data.success) {
                 throw new Error(data.error || "Failed to generate thumbnails");
             }
+
+            // Success! Increment usage
+            increment("youtube-ai-thumbnail-generator");
 
             setGeneratedImages(data.images);
         } catch (err) {

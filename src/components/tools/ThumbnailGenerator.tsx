@@ -60,12 +60,12 @@ export default function ThumbnailGenerator() {
     const [results, setResults] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) return;
 
-        if (!checkAndIncrement("youtube-thumbnail-generator")) {
+        if (!checkLimit("youtube-thumbnail-generator")) {
             return;
         }
 
@@ -84,6 +84,14 @@ export default function ThumbnailGenerator() {
                 }),
             });
             const data = await response.json();
+
+            if (data.error) {
+                console.error("API Error:", data.error);
+                return; // Or handle error state
+            }
+
+            // Success! Increment usage
+            increment("youtube-thumbnail-generator");
 
             if (data.error) {
                 console.error("API Error:", data.error);

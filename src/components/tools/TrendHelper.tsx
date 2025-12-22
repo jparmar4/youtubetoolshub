@@ -72,7 +72,7 @@ export default function TrendHelper() {
     const [error, setError] = useState("");
     const [isDemo, setIsDemo] = useState(false);
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     // Fetch viral trending videos when region changes
     const fetchTrending = useCallback(async () => {
@@ -107,23 +107,39 @@ export default function TrendHelper() {
     const fetchAISuggestions = async () => {
         if (!niche.trim()) return;
 
-        if (!checkAndIncrement("youtube-trend-helper")) {
+        if (!checkLimit("youtube-trend-helper")) {
             return;
         }
 
         setLoadingAI(true);
+        setAiSuggestions([]); // Clear previous suggestions
+
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     tool: "trend-helper",
-                    topic: niche,
-                    region: regionOptions.find(r => r.value === region)?.label,
+                    niche,
                 }),
+                signal: controller.signal,
             });
 
+            clearTimeout(timeoutId);
             const data = await response.json();
+
+            if (data.error) {
+                console.error("AI Error:", data.error);
+                // Don't show modal here, just silence or toast
+                return;
+            }
+
+            // Success! Increment usage
+            increment("youtube-trend-helper");
+
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
 

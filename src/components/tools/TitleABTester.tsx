@@ -57,12 +57,12 @@ export default function TitleABTester() {
     const [result, setResult] = useState<TitleAnalysis | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleAnalyze = async () => {
         if (!titleA.trim() || !titleB.trim()) return;
 
-        if (!checkAndIncrement("youtube-title-ab-tester")) {
+        if (!checkLimit("youtube-title-ab-tester")) {
             return;
         }
 
@@ -80,6 +80,15 @@ export default function TitleABTester() {
             });
 
             const data = await response.json();
+
+            if (data.error) {
+                console.error("Analysis error:", data.error);
+                return;
+            }
+
+            // Success! Increment usage
+            increment("youtube-title-ab-tester");
+
             const parsed = safeJSONParse<TitleAnalysis>(data.result, null as unknown as TitleAnalysis);
             setResult(parsed);
         } catch (error) {

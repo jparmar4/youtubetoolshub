@@ -127,7 +127,7 @@ export default function AIThumbnailPromptGenerator() {
     const [generatedPrompts, setGeneratedPrompts] = useState<string[]>([]);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!videoTopic.trim()) {
@@ -135,7 +135,7 @@ export default function AIThumbnailPromptGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-ai-thumbnail-prompt")) {
+        if (!checkLimit("youtube-ai-thumbnail-prompt")) {
             return;
         }
 
@@ -163,6 +163,9 @@ export default function AIThumbnailPromptGenerator() {
             if (!response.ok || data.error) {
                 throw new Error(data.error || "Failed to generate prompts");
             }
+
+            // Success! Increment usage
+            increment("youtube-ai-thumbnail-prompt");
 
             let result = data.result;
             // specific cleanup for potential markdown

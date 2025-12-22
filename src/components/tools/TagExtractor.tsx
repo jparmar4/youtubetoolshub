@@ -55,7 +55,7 @@ export default function TagExtractor() {
     const [noTagsFound, setNoTagsFound] = useState(false);
     const [isDemo, setIsDemo] = useState(false);
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleExtract = async () => {
         setError("");
@@ -64,21 +64,29 @@ export default function TagExtractor() {
         setNoTagsFound(false);
         setIsDemo(false);
 
-        const videoId = extractVideoId(url);
-        if (!videoId) {
-            setError("Please enter a valid YouTube URL");
-            return;
-        }
-
-        if (!checkAndIncrement("youtube-tag-extractor")) {
-            return;
-        }
-
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/extract-tags?videoId=${videoId}`);
-            // ... (rest of function)
+            const response = await fetch("/api/extract-tags", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ videoUrl: url }),
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+                setError(data.error);
+                if (data.isDemo) setIsDemo(true);
+                return;
+            }
+
+            increment("youtube-tag-extractor");
+
+            setTags(data.tags || []);
+            setVideoInfo(data.videoInfo || null);
+            setNoTagsFound(data.tags && data.tags.length === 0);
+
         } catch (err) {
             console.error("Extraction error:", err);
             setError("Failed to extract tags. Please try again.");

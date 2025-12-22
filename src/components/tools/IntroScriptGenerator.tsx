@@ -61,7 +61,7 @@ export default function IntroScriptGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -69,32 +69,40 @@ export default function IntroScriptGenerator() {
             return;
         }
 
-        if (!checkAndIncrement("youtube-intro-script-generator")) {
+        if (!checkLimit("youtube-intro-generator")) {
             return;
         }
 
         setError("");
         setLoading(true);
-        setScript("");
+        setScript(""); // Changed from setScripts([]) as `script` is a string state
 
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    tool: "intro-script",
+                    tool: "intro-generator",
                     topic,
-                    personality: personalityOptions.find(p => p.value === personality)?.label,
-                    length,
+                    tone: personalityOptions.find(p => p.value === personality)?.label, // Changed from personality to tone
+                    hookType: "standard", // Added hookType, assuming a default value as it's not in the UI
                 }),
+                signal: controller.signal,
             });
 
+            clearTimeout(timeoutId);
             const data = await response.json();
 
             if (data.error) {
                 setError(data.error);
                 return;
             }
+
+            // Success! Increment usage
+            increment("youtube-intro-generator");
 
             // Clean up any JSON or code blocks
             let result = data.result || "";

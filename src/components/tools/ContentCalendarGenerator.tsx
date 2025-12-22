@@ -56,34 +56,57 @@ export default function ContentCalendarGenerator() {
     const [days, setDays] = useState("30");
     const [calendar, setCalendar] = useState<CalendarEntry[]>([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(""); // Added error state
 
-    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+    const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!niche.trim()) return;
 
-        if (!checkAndIncrement("youtube-content-calendar-generator")) {
+        if (!checkLimit("youtube-content-calendar")) {
             return;
         }
 
+        setError("");
         setLoading(true);
+        setCalendar([]); // Changed to empty array for type consistency
+
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s for calendar
+
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    tool: "calendar-generator",
-                    niche,
+                    tool: "content-calendar",
+                    topic: niche, // Using 'niche' as 'topic'
                     frequency: frequencyOptions.find(f => f.value === frequency)?.label,
-                    days: parseInt(days) || 30,
+                    duration: parseInt(days) || 30, // Using 'days' as 'duration'
                 }),
+                signal: controller.signal,
             });
 
+            clearTimeout(timeoutId);
             const data = await response.json();
+
+            if (data.error) {
+                setError(data.error);
+                return;
+            }
+
+            // Success! Increment usage
+            increment("youtube-content-calendar");
+
             const parsed = safeJSONParse<CalendarEntry[]>(data.result, []);
             setCalendar(parsed);
-        } catch (error) {
-            console.error("Generation error:", error);
+        } catch (error: any) { // Explicitly type error as 'any' or 'unknown'
+            if (error.name === 'AbortError') {
+                setError("Request timed out. Please try again.");
+            } else {
+                console.error("Generation error:", error);
+                setError("Failed to generate calendar. Please try again.");
+            }
         } finally {
             setLoading(false);
         }
