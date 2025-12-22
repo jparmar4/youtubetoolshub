@@ -76,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/tools/${tool.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly' as const,
-        priority: 0.8,
+        priority: 0.9,
     }));
 
     // Dynamic blog pages
@@ -84,7 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: new Date(post.date),
         changeFrequency: 'monthly' as const,
-        priority: 0.7,
+        priority: 0.8,
     }));
 
     return [...staticPages, ...toolPages, ...blogPages];

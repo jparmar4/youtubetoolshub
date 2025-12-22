@@ -19,6 +19,7 @@ export interface Tool {
     icon: IconType;
     isAI: boolean;
     isFeatured?: boolean;
+    keywords: string[];
 }
 
 export const toolCategories = [
@@ -40,6 +41,7 @@ export const tools: Tool[] = [
         icon: FaImage,
         isAI: false,
         isFeatured: true,
+        keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "youtube thumbnail saver", "get youtube thumbnail", "hd thumbnail downloader"],
     },
     {
         slug: "youtube-thumbnail-generator",
@@ -50,6 +52,7 @@ export const tools: Tool[] = [
         icon: FaMagic,
         isAI: true,
         isFeatured: true,
+        keywords: ["youtube thumbnail text", "thumbnail text generator", "catchy thumbnail text", "thumbnail ideas", "ai thumbnail text"],
     },
     {
         slug: "youtube-ai-thumbnail-generator",
@@ -60,6 +63,7 @@ export const tools: Tool[] = [
         icon: FaImage,
         isAI: true,
         isFeatured: true,
+        keywords: ["ai thumbnail generator", "youtube thumbnail creator", "ai image generator for youtube", "custom thumbnail maker", "generate youtube thumbnails"],
     },
     {
         slug: "youtube-ai-thumbnail-prompt",
@@ -70,6 +74,7 @@ export const tools: Tool[] = [
         icon: FaRocket,
         isAI: true,
         isFeatured: true,
+        keywords: ["ai prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt"],
     },
 
     // SEO & Metadata Tools
@@ -82,6 +87,7 @@ export const tools: Tool[] = [
         icon: FaHeading,
         isAI: true,
         isFeatured: true,
+        keywords: ["youtube title generator", "video title maker", "clickbait title generator", "catchy youtube titles", "seo title generator"],
     },
     {
         slug: "youtube-description-generator",
@@ -91,6 +97,7 @@ export const tools: Tool[] = [
         category: "seo-metadata",
         icon: FaAlignLeft,
         isAI: true,
+        keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator"],
     },
     {
         slug: "youtube-tag-generator",
@@ -101,6 +108,7 @@ export const tools: Tool[] = [
         icon: FaTags,
         isAI: true,
         isFeatured: true,
+        keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags"],
     },
     {
         slug: "youtube-tag-extractor",
@@ -110,6 +118,7 @@ export const tools: Tool[] = [
         category: "seo-metadata",
         icon: FaSearch,
         isAI: false,
+        keywords: ["youtube tag extractor", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video"],
     },
 
     // Channel Research & Growth Tools
@@ -121,6 +130,7 @@ export const tools: Tool[] = [
         category: "channel-growth",
         icon: FaLightbulb,
         isAI: true,
+        keywords: ["video ideas generator", "youtube content ideas", "video topics", "what to post on youtube", "content inspiration"],
     },
     {
         slug: "youtube-trend-helper",
@@ -130,6 +140,7 @@ export const tools: Tool[] = [
         category: "channel-growth",
         icon: FaChartLine,
         isAI: true,
+        keywords: ["youtube trends", "trending topics", "viral video ideas", "what is trending on youtube", "niche research"],
     },
     {
         slug: "youtube-content-calendar-generator",
@@ -139,6 +150,7 @@ export const tools: Tool[] = [
         category: "channel-growth",
         icon: FaCalendarAlt,
         isAI: true,
+        keywords: ["content calendar generator", "youtube upload schedule", "content planner", "video content plan", "social media calendar"],
     },
 
     // Analytics & Earnings Tools
@@ -151,6 +163,7 @@ export const tools: Tool[] = [
         icon: FaDollarSign,
         isAI: false,
         isFeatured: true,
+        keywords: ["youtube earnings calculator", "how much does youtube pay", "youtube money calculator", "adsense calculator", "estimated youtube revenue"],
     },
     {
         slug: "youtube-engagement-rate-calculator",
@@ -160,6 +173,7 @@ export const tools: Tool[] = [
         category: "analytics-earnings",
         icon: FaChartBar,
         isAI: false,
+        keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis"],
     },
     {
         slug: "youtube-title-ab-tester",
@@ -170,6 +184,7 @@ export const tools: Tool[] = [
         icon: FaBalanceScale,
         isAI: true,
         isFeatured: true,
+        keywords: ["title ab tester", "youtube title rater", "title comparison", "best title checker", "click through rate tool"],
     },
 
     // Utility & Fun Tools
@@ -181,6 +196,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaUser,
         isAI: true,
+        keywords: ["channel name generator", "youtube name ideas", "creative channel names", "brand name generator", "cool youtube names"],
     },
     {
         slug: "youtube-hashtag-generator",
@@ -190,6 +206,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaHashtag,
         isAI: true,
+        keywords: ["youtube hashtag generator", "video hashtags", "best hashtags for youtube", "viral hashtags", "hashtag finder"],
     },
     {
         slug: "youtube-intro-script-generator",
@@ -199,6 +216,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaMicrophone,
         isAI: true,
+        keywords: ["intro script generator", "youtube intro writer", "video hook generator", "script writing ai", "youtube script maker"],
     },
     {
         slug: "youtube-channel-id-finder",
@@ -208,6 +226,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaIdCard,
         isAI: false,
+        keywords: ["channel id finder", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle"],
     },
     {
         slug: "youtube-playlist-length-calculator",
@@ -217,6 +236,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaListUl,
         isAI: false,
+        keywords: ["playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time"],
     },
     {
         slug: "youtube-comment-picker",
@@ -226,6 +246,7 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaTrophy,
         isAI: false,
+        keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment"],
     },
 ];
 

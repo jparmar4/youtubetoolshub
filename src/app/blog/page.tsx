@@ -6,6 +6,9 @@ import { FaClock, FaUser, FaArrowRight } from "react-icons/fa";
 export const metadata: Metadata = {
     title: "Blog - YouTube Growth Tips & Tutorials",
     description: "Practical tips, honest advice, and in-depth guides to help you grow your YouTube channel. Written by creators, for creators.",
+    alternates: {
+        canonical: "/blog",
+    },
 };
 
 export default function BlogPage() {

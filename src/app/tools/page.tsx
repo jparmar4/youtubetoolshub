@@ -5,6 +5,9 @@ import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 export const metadata: Metadata = {
     title: "All YouTube Tools",
     description: "Browse all 16+ free YouTube tools: thumbnail downloader, title generator, tag extractor, earnings calculator, and more AI-powered automation tools.",
+    alternates: {
+        canonical: "/tools",
+    },
 };
 
 export default function ToolsPage() {

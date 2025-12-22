@@ -75,10 +75,14 @@ export async function generateMetadata({
     return {
         title: tool.name,
         description: tool.description,
+        keywords: tool.keywords,
         openGraph: {
             title: `${tool.name} | YouTube Tools Hub`,
             description: tool.description,
             type: "website",
+        },
+        alternates: {
+            canonical: `/tools/${tool.slug}`,
         },
     };
 }
