@@ -92,9 +92,10 @@ export function processContent(content: string): React.ReactNode[] {
 
             // Bold: **text**
             if (part.startsWith('**') && part.endsWith('**')) {
+                const innerText = part.slice(2, -2);
                 nodes.push(
                     <strong key={key} className="font-semibold text-gray-900 dark:text-white">
-                        {part.slice(2, -2)}
+                        {parseInlineMarkdown(innerText, `${key}-bold`, false)}
                     </strong>
                 );
                 return;
