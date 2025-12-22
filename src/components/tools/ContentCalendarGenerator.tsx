@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaCalendarAlt, FaDownload } from "react-icons/fa";
-import { safeJSONParse, downloadAsFile, generateCSV } from "@/lib/utils";
+import { downloadAsFile, generateCSV } from "@/lib/utils";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
@@ -67,22 +67,21 @@ export default function ContentCalendarGenerator() {
             return;
         }
 
-        setError("");
         setLoading(true);
-        setCalendar([]); // Changed to empty array for type consistency
+        setCalendar([]);
 
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s for calendar
+            const timeoutId = setTimeout(() => controller.abort(), 45000);
 
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     tool: "content-calendar",
-                    topic: niche, // Using 'niche' as 'topic'
+                    topic: niche,
                     frequency: frequencyOptions.find(f => f.value === frequency)?.label,
-                    duration: parseInt(days) || 30, // Using 'days' as 'duration'
+                    duration: parseInt(days) || 30,
                 }),
                 signal: controller.signal,
             });
@@ -91,20 +90,29 @@ export default function ContentCalendarGenerator() {
             const data = await response.json();
 
             if (data.error) {
-                setError(data.error);
+                console.error("API Error:", data.error);
                 return;
             }
 
-            // Success! Increment usage
             increment("youtube-content-calendar");
 
-            const parsed = safeJSONParse<CalendarEntry[]>(data.result, []);
-            setCalendar(parsed);
-        } catch (err) {
-            // Use console error or set error state
-            const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
-            console.error("Generation error:", errorMessage);
-            setError("Failed to generate calendar. Please try again.");
+            let resultStr = data.result || "";
+            resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            try {
+                const parsed = JSON.parse(resultStr);
+                if (Array.isArray(parsed)) {
+                    setCalendar(parsed);
+                } else if (typeof parsed === "object" && parsed.calendar) {
+                    setCalendar(parsed.calendar);
+                } else {
+                    throw new Error("Invalid format");
+                }
+            } catch (e) {
+                console.error("Parsing error", e);
+            }
+        } catch (error) {
+            console.error("Generation error:", error);
         } finally {
             setLoading(false);
         }
