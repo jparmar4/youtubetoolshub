@@ -4,10 +4,10 @@ import NextImage from "next/image";
 import Link from "next/link";
 import AdPlaceholder from "@/components/ui/AdPlaceholder";
 import ShareButtons from "@/components/ui/ShareButtons";
-import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/lib/seo";
 import { processContent } from "@/lib/content-processor";
 
 // Generate static params
@@ -81,6 +81,8 @@ export default async function BlogPostPage({
         { name: post.title, url: `${siteConfig.url}/blog/${slug}` },
     ]);
 
+    const faqSchema = post.faq ? getFAQSchema(post.faq) : null;
+
     return (
         <>
             {/* JSON-LD Structured Data */}
@@ -96,6 +98,14 @@ export default async function BlogPostPage({
                     __html: JSON.stringify(breadcrumbSchema),
                 }}
             />
+            {faqSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(faqSchema),
+                    }}
+                />
+            )}
 
             <div className="min-h-screen bg-white dark:bg-gray-900">
                 {/* Header */}
@@ -169,6 +179,32 @@ export default async function BlogPostPage({
                         <div className="prose prose-lg max-w-none prose-red dark:prose-invert">
                             {processContent(post.content)}
                         </div>
+
+                        {/* FAQ Section */}
+                        {post.faq && post.faq.length > 0 && (
+                            <div className="mt-12 mb-12">
+                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                    <FaQuestionCircle className="text-red-500" />
+                                    Frequently Asked Questions
+                                </h3>
+                                <div className="space-y-4">
+                                    {post.faq.map((item, index) => (
+                                        <details
+                                            key={index}
+                                            className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800"
+                                        >
+                                            <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                                <span className="pr-4">{item.question}</span>
+                                                <FaChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+                                            </summary>
+                                            <div className="px-4 pb-4 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-800 group-open:pt-4">
+                                                {item.answer}
+                                            </div>
+                                        </details>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Tags */}
                         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">

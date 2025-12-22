@@ -14,6 +14,10 @@ export interface BlogPost {
     keywords: string[];
     coverImage: string;
     imageAlt: string;
+    faq: {
+        question: string;
+        answer: string;
+    }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -120,6 +124,28 @@ The tools I've listed are genuinely useful, but they're not magic. What matters 
 
 You've got this. Now stop reading and go make something.
         `,
+        faq: [
+            {
+                question: "What are the best free YouTube tools for beginners?",
+                answer: "The essential free stack includes YouTube Title Generator for SEO, Thumbnail Downloader for research, and Canva for design. Our Video Ideas Generator is also great for brainstorming content when you're stuck."
+            },
+            {
+                question: "Do I need paid tools like TubeBuddy or VidIQ?",
+                answer: "Not when you're starting. Most paid features (keyword research, tag generation, AB testing) can be done with free alternatives or manual research until you're making enough revenue to justify the cost."
+            },
+            {
+                question: "What is the most important tool for channel growth?",
+                answer: "Your analytics dashboard (YouTube Studio) is the most powerful tool. Outside of that, a good Title Generator helps you get the click, which is the first step to growth."
+            },
+            {
+                question: "How can I make professional thumbnails for free?",
+                answer: "Use our Thumbnail Downloader to study what works in your niche, then use free software like Canva or GIMP to recreate those styles. Focus on high contrast and readable text."
+            },
+            {
+                question: "How do I find video ideas that will actually get views?",
+                answer: "Use the 'Competitor Analysis' method: look at channels your size that are growing, spot their most popular recent videos, and make your own improved version. Our Video Ideas Generator automates this brainstorming process."
+            }
+        ],
     },
     {
         slug: "how-to-write-catchy-youtube-titles",
@@ -263,6 +289,28 @@ When in doubt, use a title comparison tool. Sometimes seeing options side by sid
 
 Your title is a promise. Make one you can keep, make it compelling, and you'll see the difference in your analytics.
         `,
+        faq: [
+            {
+                question: "How long should a YouTube title be?",
+                answer: "Aim for under 60 characters so it doesn't get cut off on mobile. If you must go longer, put the most important keywords and 'hook' words in the first 50 characters."
+            },
+            {
+                question: "Should I write titles in all caps?",
+                answer: "No. using ALL CAPS looks like spam and can hurt your click-through rate. Instead, CAPITALIZE specific power words to draw attention to them (e.g., 'I Tried This for 30 DAYS')."
+            },
+            {
+                question: "What makes a title viral?",
+                answer: "Viral titles usually combine a high-interest topic with a curiosity gap (something the viewer wants to know) or an extreme emotion/stake. They deliver on a specific promise or transformation."
+            },
+            {
+                question: "Can I change my YouTube title after uploading?",
+                answer: "Yes! In fact, you should. If a video isn't performing well in the first 24 hours, testing a new title and thumbnail combination can often revive it and boost the CTR."
+            },
+            {
+                question: "Do keywords in titles still matter for SEO?",
+                answer: "Yes, but relevance matters more. Include your main keyword naturally for search, but prioritize writing for humans to get the click. YouTube's AI values CTR higher than exact keyword matches."
+            }
+        ],
     },
     {
         slug: "how-to-optimize-youtube-thumbnails",
@@ -415,6 +463,28 @@ The mechanics of creating thumbnails are actually simple. What's hard is being h
 
 That self-awareness is where improvement comes from.
         `,
+        faq: [
+            {
+                question: "What comes first, the video or the thumbnail?",
+                answer: "Top creators often design the thumbnail first. If you can't come up with a clickable thumbnail concept, the video idea might not be strong enough to film."
+            },
+            {
+                question: "What is the best resolution for YouTube thumbnails?",
+                answer: "1280x720 pixels (16:9 aspect ratio) is the standard. Make sure the file size is under 2MB. Use JPG, GIF, BMP, or PNG formats."
+            },
+            {
+                question: "Should I put my face in the thumbnail?",
+                answer: "Generally, yes. Faces convey emotion and attract attention. However, for some niches like gaming or tech tutorials, showing the action or product can work better. Test both."
+            },
+            {
+                question: "How much text should be on a thumbnail?",
+                answer: "Less is more. Limit it to 3-4 words max. The text should complement the title, not repeat it. Use it to add context or create intrigue (e.g., 'Don't Do This')."
+            },
+            {
+                question: "What colors get the most clicks on YouTube?",
+                answer: "Bright, high-contrast colors tend to perform best (yellow, green, bright blue). The key is contrast—make your subject pop against the background. Avoid blending in with YouTube's white/dark mode interface."
+            }
+        ],
     },
     {
         slug: "youtube-seo-complete-guide",
@@ -617,6 +687,28 @@ That's really it. No secret hacks or tricks—just fundamentals executed consist
 
 The creators winning at YouTube SEO in 2026 are the ones who understand that great content marketed well is the whole game. Everything else is incremental.
         `,
+        faq: [
+            {
+                question: "What is the most important YouTube SEO factor in 2026?",
+                answer: "Click-Through Rate (CTR) and Audience Retention. YouTube promotes videos that people click on and watch all the way through. Traditional metadata (tags) is secondary."
+            },
+            {
+                question: "How many tags should I use on YouTube?",
+                answer: "It doesn't matter much anymore, but 5-10 highly relevant tags are sufficient. Use a Tag Generator to find the most common search terms in your niche."
+            },
+            {
+                question: "Does the video description help ranking?",
+                answer: "Yes. The first two lines appear in search results, so include target keywords there. A well-written description helps YouTube's AI understand your content context."
+            },
+            {
+                question: "How do I rank for competitive keywords?",
+                answer: "Don't try to rank for broad terms like 'Cooking' immediately. Target 'Long-Tail Keywords' (e.g., 'How to cook pasta for beginners without a stove'). Lower search volume, but much easier to rank."
+            },
+            {
+                question: "Does sharing videos on social media help SEO?",
+                answer: "Indirectly. External traffic sends positive signals to YouTube, provided those viewers watch the video. If they click and leave immediately (low retention), it can actually hurt."
+            }
+        ],
     },
     {
         slug: "grow-youtube-channel-fast",
@@ -766,6 +858,28 @@ YouTube growth is slow, frustrating, and uncertain. The creators who make it are
 
 If that's you, keep going. The numbers will eventually follow the work.
         `,
+        faq: [
+            {
+                question: "How long does it typically take to get monetized?",
+                answer: "On average, it takes 6-12 months of consistent uploading to reach 1,000 subscribers and 4,000 watch hours. However, with a viral hit or high-quality niche content, it can happen in months."
+            },
+            {
+                question: "How often should I upload to grow fast?",
+                answer: "Consistency beats frequency. 1 high-quality video per week is better than 3 mediocre ones. Find a schedule you can sustain for a year without burning out."
+            },
+            {
+                question: "Should I post Shorts to grow my channel?",
+                answer: "Shorts are excellent for getting subscribers quickly, but those subscribers may not watch your long-form content. Use Shorts as a discovery tool, but focus on long-form for community building."
+            },
+            {
+                question: "Why am I getting views but no subscribers?",
+                answer: "You likely haven't given them a reason to return. Your video solved their immediate problem, but didn't sell your personality or channel value. Work on your 'Call to Action' and branding."
+            },
+            {
+                question: "Is it too late to start a YouTube channel in 2026?",
+                answer: "No. New creators blow up every day. The bar for quality is higher, but the audience is also bigger than ever. Niches evolve, and there is always room for a unique voice."
+            }
+        ],
     },
     {
         slug: "how-to-get-1000-subscribers-and-10000-views",
@@ -873,6 +987,28 @@ Keep showing up, keep mastering the **7 Second Rule**, and use the right **SEO t
 
 You've got the roadmap. Now go upload.
         `,
+        faq: [
+            {
+                question: "What is the 7-Second Rule on YouTube?",
+                answer: "The 7-second rule states you have roughly 7 seconds to hook a viewer before they click away. You must deliver a visual hook, a promise, or immediate value in that window."
+            },
+            {
+                question: "Can I buy 1000 subscribers to get monetized?",
+                answer: "Never buying subscribers. They are bots/inactive accounts that will ruin your engagement rate, making it impossible for the algorithm to promote your videos to real people."
+            },
+            {
+                question: "What happens after I hit 1000 subscribers?",
+                answer: "You unlock the 'Community Tab' (if not already), can apply for the YouTube Partner Program (if you have watch hours), and generally see a 'snowball effect' where growth accelerates."
+            },
+            {
+                question: "How do I get 4000 watch hours fast?",
+                answer: "Focus on creating longer content (10+ minutes) that retains viewers. Livestreams are also a 'cheat code' for watch hours, as even a small audience watching for an hour adds up quickly."
+            },
+            {
+                question: "What is the best way to convert viewers to subscribers?",
+                answer: "Ask them! But ask at the right time—after you've provided value (usually the middle or end), not the start. Give them a reason: 'Subscribe for more tips like this.'"
+            }
+        ],
     },
     {
         slug: "youtube-script-formula-retention",
@@ -945,6 +1081,28 @@ Link heavily to related content. Since you're reading this, you know **[YouTube 
 *   [How to Write Youtube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
 *   [YouTube SEO in 2026: What Still Works](/blog/youtube-seo-complete-guide)
         `,
+        faq: [
+            {
+                question: "What is the most important part of a YouTube script?",
+                answer: "The Hook (Introduction). If you don't grab attention in the first 30 seconds, the rest of your script doesn't matter because nobody will see it."
+            },
+            {
+                question: "Do I need to write out every single word?",
+                answer: "It depends on your style. For tutorials or video essays, word-for-word scripts ensure precision. For vlogs or personality content, bullet points (outlining) allow for more natural delivery."
+            },
+            {
+                question: "How long should a YouTube intro be?",
+                answer: "As short as possible. Aim for under 30-45 seconds. State what the video is about, why they should duplicate, and get straight into the content. Avoid long branded intro sequences."
+            },
+            {
+                question: "What is a 'Pattern Interrupt' in scripting?",
+                answer: "It's a technique to reset the viewer's attention span. Every 1-2 minutes, change the visual, tone, or topic slightly to keep the viewer continually engaged and prevent boredom."
+            },
+            {
+                question: "How do I script a Call to Action (CTA) effectively?",
+                answer: "Don't just say 'Like and Subscribe.' Tie it to value. 'If you want to master this recipe, subscribe so you don't miss next week's pasta guide.' Make it benefit-driven."
+            }
+        ],
     },
     {
         slug: "youtube-monetization-truths-cpm-rpm",
@@ -1020,6 +1178,28 @@ If you are in the **Finance Tier**, you don't need millions of views. 5,000 view
 *   [How to Grow Your Channel Fast](/blog/grow-youtube-channel-fast)
 *   [Best YouTube Tools for Beginners](/blog/best-youtube-tools-for-beginners)
         `,
+        faq: [
+            {
+                question: "How much does YouTube pay for 1 million views?",
+                answer: "It varies wildly by niche. An Entertainment channel might make $2,000, while a Finance or Tech channel could make $15,000 - $40,000 for the same 1 million views."
+            },
+            {
+                question: "What is the difference between CPM and RPM?",
+                answer: "CPM (Cost Per Mille) is what advertisers pay YouTube. RPM (Revenue Per Mille) is what YOU actually get paid after YouTube takes their ~45% cut. Always look at RPM."
+            },
+            {
+                question: "Which YouTube niches pay the most?",
+                answer: "Finance/Investing, Real Estate, Digital Marketing, Tech Reviews, and Insurance/Legal topics typically have the highest CPMs due to high advertiser competition."
+            },
+            {
+                question: "Does YouTube pay for Shorts views?",
+                answer: "Yes, but the pay is much lower than long-form videos. Shorts monetized via the Shorts Feed typically pay $0.01 - $0.06 per 1,000 views."
+            },
+            {
+                question: "How can I increase my channel's RPM?",
+                answer: "Target high-value keywords (advertiser friendly), make videos longer than 8 minutes to enable mid-roll ads, and attract audiences from high-GDP countries (US, UK, CA)."
+            }
+        ],
     }
 ];
 
