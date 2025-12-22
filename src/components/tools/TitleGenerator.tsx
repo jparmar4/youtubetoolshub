@@ -106,7 +106,7 @@ export default function TitleGenerator() {
     const [error, setError] = useState("");
 
     // Usage tracking
-    const { checkAndIncrementAI, showLimitModal, limitType, closeLimitModal } = useUsage();
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -115,7 +115,7 @@ export default function TitleGenerator() {
         }
 
         // Check usage limit before generating
-        if (!checkAndIncrementAI()) {
+        if (!checkAndIncrement("youtube-title-generator")) {
             return; // Modal will show automatically
         }
 
@@ -198,9 +198,9 @@ export default function TitleGenerator() {
 
                 {/* Limit Reached Modal */}
                 <LimitReachedModal
-                    isOpen={showLimitModal}
+                    isOpen={!!limitReachedTool}
                     onClose={closeLimitModal}
-                    type={limitType}
+                    toolSlug={limitReachedTool}
                 />
 
                 {/* Input Section */}

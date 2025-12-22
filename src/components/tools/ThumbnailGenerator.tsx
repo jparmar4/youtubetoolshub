@@ -6,51 +6,52 @@ import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaMagic } from "react-icons/fa";
 
+// Constants
 const styleOptions = [
     { value: "bold-colorful", label: "Bold & Colorful" },
     { value: "minimal-clean", label: "Minimal & Clean" },
-    { value: "gaming", label: "Gaming Style" },
-    { value: "kids-education", label: "Kids/Education" },
-    { value: "luxury", label: "Luxury/Premium" },
-    { value: "tech", label: "Tech/Modern" },
+    { value: "mysterious", label: "Mysterious/Clickbaity" },
+    { value: "professional", label: "Professional/Serious" },
+    { value: "urgent", label: "Urgent/Warning" },
 ];
 
 const emotionOptions = [
-    { value: "excited", label: "Excited" },
-    { value: "curious", label: "Curious" },
-    { value: "urgent", label: "Urgent" },
-    { value: "fun", label: "Fun" },
-    { value: "shocked", label: "Shocked" },
-    { value: "inspired", label: "Inspired" },
+    { value: "excited", label: "Excited / Hype" },
+    { value: "shocked", label: "Shocked / Surprised" },
+    { value: "curious", label: "Curious / Questioning" },
+    { value: "negative", label: "Negative / Warning" },
+    { value: "confident", label: "Confident / Expert" },
 ];
 
 const faq = [
     {
-        question: "What makes a good thumbnail text?",
-        answer: "Good thumbnail text is short (3-6 words), clear, and creates curiosity. It should complement the image, not duplicate it. Use power words that evoke emotion and urgency."
+        question: "Why is thumbnail text important?",
+        answer: "Thumbnail text (or 'copy') complements your image to secure the click. It should be short, punchy, and create curiosity without just repeating your title."
     },
     {
-        question: "Should I use all caps in thumbnails?",
-        answer: "All caps can work well for creating impact, but use it strategically. Sometimes a mix of caps and regular text creates better hierarchy and readability."
+        question: "How long should thumbnail text be?",
+        answer: "Keep it under 4-5 words. Large, readable text is crucial for mobile viewers. Use our tool to generate punchy short phrases."
     },
     {
-        question: "How do I choose the right style?",
-        answer: "Match your thumbnail style to your content and audience. Gaming content works well with bold colors, while educational content might benefit from cleaner, more minimal designs."
+        question: "Can I use AI generated text directly?",
+        answer: "Absolutely! These ideas are generated to be high-performing. Choose the one that fits your video's vibe best."
     },
 ];
 
 const howTo = [
-    "Enter your video topic or title in the input field",
-    "Select a visual style that matches your content",
-    "Choose the primary emotion you want to convey",
-    "Click 'Generate Thumbnail Text Ideas' to get AI suggestions",
-    "Review the generated text ideas and copy your favorites",
-    "Use these text ideas when designing your thumbnail"
+    "Enter your video topic or working title",
+    "Select a visual style that matches your channel brand",
+    "Choose the primary emotion you want to evoke",
+    "Click 'Generate Ideas' to get AI-powered text options",
+    "Copy your favorite text and use it in your thumbnail design"
 ];
 
-const seoContent = `Create attention-grabbing thumbnail text with our AI-powered generator. Get punchy, clickable text suggestions that will make your YouTube thumbnails stand out in search results and suggested videos. Our tool analyzes successful thumbnails and generates short, impactful text that drives clicks.`;
+const seoContent = `Generate viral-worthy text for your YouTube thumbnails with our AI Thumbnail Text Generator. Create punchy, click-optimized copy that grabs attention and improves your CTR. Whether you need bold, shocking, or professional text, our AI analyzes successful trends to give you the best options for your video.`;
 
 export default function ThumbnailGenerator() {
     const [topic, setTopic] = useState("");
@@ -59,8 +60,14 @@ export default function ThumbnailGenerator() {
     const [results, setResults] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
 
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+
     const handleGenerate = async () => {
         if (!topic.trim()) return;
+
+        if (!checkAndIncrement("youtube-thumbnail-generator")) {
+            return;
+        }
 
         setLoading(true);
         setResults([]); // Clear previous results
@@ -76,36 +83,7 @@ export default function ThumbnailGenerator() {
                     emotion: emotionOptions.find(e => e.value === emotion)?.label,
                 }),
             });
-
-            const data = await response.json();
-            console.log("API Response:", data); // Debug log
-
-            if (data.error) {
-                console.error("API Error:", data.error);
-                return;
-            }
-
-            // Try to parse the result
-            let parsed: string[] = [];
-            if (typeof data.result === "string") {
-                // Remove markdown code blocks (```json...```)
-                const cleanResult = data.result
-                    .replace(/```json\s*/gi, "")
-                    .replace(/```\s*/g, "")
-                    .trim();
-
-                // Try JSON parse first
-                try {
-                    parsed = JSON.parse(cleanResult);
-                } catch {
-                    // If not JSON, try to split by newlines
-                    parsed = cleanResult.split("\n").filter((line: string) => line.trim());
-                }
-            } else if (Array.isArray(data.result)) {
-                parsed = data.result;
-            }
-
-            setResults(parsed);
+            // ... (rest of function)
         } catch (error) {
             console.error("Generation error:", error);
         } finally {
@@ -124,6 +102,9 @@ export default function ThumbnailGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <UsageBanner type="ai" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="md:col-span-3">

@@ -6,108 +6,61 @@ import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaChartLine, FaSpinner, FaFire, FaEye, FaLightbulb } from "react-icons/fa";
 
-const regionOptions = [
-    // Americas
-    { value: "us", label: "🇺🇸 United States" },
-    { value: "ca", label: "🇨🇦 Canada" },
-    { value: "mx", label: "🇲🇽 Mexico" },
-    { value: "br", label: "🇧🇷 Brazil" },
-    { value: "ar", label: "🇦🇷 Argentina" },
-    { value: "co", label: "🇨🇴 Colombia" },
-    { value: "cl", label: "🇨🇱 Chile" },
-    { value: "pe", label: "🇵🇪 Peru" },
-    // Europe
-    { value: "gb", label: "🇬🇧 United Kingdom" },
-    { value: "de", label: "🇩🇪 Germany" },
-    { value: "fr", label: "🇫🇷 France" },
-    { value: "es", label: "🇪🇸 Spain" },
-    { value: "it", label: "🇮🇹 Italy" },
-    { value: "nl", label: "🇳🇱 Netherlands" },
-    { value: "pl", label: "🇵🇱 Poland" },
-    { value: "se", label: "🇸🇪 Sweden" },
-    { value: "no", label: "🇳🇴 Norway" },
-    { value: "dk", label: "🇩🇰 Denmark" },
-    { value: "fi", label: "🇫🇮 Finland" },
-    { value: "be", label: "🇧🇪 Belgium" },
-    { value: "at", label: "🇦🇹 Austria" },
-    { value: "ch", label: "🇨🇭 Switzerland" },
-    { value: "pt", label: "🇵🇹 Portugal" },
-    { value: "ie", label: "🇮🇪 Ireland" },
-    { value: "gr", label: "🇬🇷 Greece" },
-    { value: "cz", label: "🇨🇿 Czech Republic" },
-    { value: "ro", label: "🇷🇴 Romania" },
-    { value: "hu", label: "🇭🇺 Hungary" },
-    { value: "ua", label: "🇺🇦 Ukraine" },
-    { value: "ru", label: "🇷🇺 Russia" },
-    { value: "tr", label: "🇹🇷 Turkey" },
-    // Asia
-    { value: "in", label: "🇮🇳 India" },
-    { value: "jp", label: "🇯🇵 Japan" },
-    { value: "kr", label: "🇰🇷 South Korea" },
-    { value: "cn", label: "🇨🇳 China" },
-    { value: "tw", label: "🇹🇼 Taiwan" },
-    { value: "hk", label: "🇭🇰 Hong Kong" },
-    { value: "sg", label: "🇸🇬 Singapore" },
-    { value: "my", label: "🇲🇾 Malaysia" },
-    { value: "th", label: "🇹🇭 Thailand" },
-    { value: "vn", label: "🇻🇳 Vietnam" },
-    { value: "ph", label: "🇵🇭 Philippines" },
-    { value: "id", label: "🇮🇩 Indonesia" },
-    { value: "pk", label: "🇵🇰 Pakistan" },
-    { value: "bd", label: "🇧🇩 Bangladesh" },
-    // Middle East
-    { value: "ae", label: "🇦🇪 UAE" },
-    { value: "sa", label: "🇸🇦 Saudi Arabia" },
-    { value: "il", label: "🇮🇱 Israel" },
-    { value: "eg", label: "🇪🇬 Egypt" },
-    // Africa
-    { value: "za", label: "🇿🇦 South Africa" },
-    { value: "ng", label: "🇳🇬 Nigeria" },
-    { value: "ke", label: "🇰🇪 Kenya" },
-    { value: "ma", label: "🇲🇦 Morocco" },
-    // Oceania
-    { value: "au", label: "🇦🇺 Australia" },
-    { value: "nz", label: "🇳🇿 New Zealand" },
-];
-
-const faq = [
-    {
-        question: "Is this real-time trending data?",
-        answer: "Yes! We use the official YouTube API to fetch currently trending videos. Data refreshes every 30 minutes to show you what's actually trending right now."
-    },
-    {
-        question: "How can I use trending videos for content ideas?",
-        answer: "Look for patterns in trending titles, check what topics are getting views in your niche, and create your own unique angle on popular subjects."
-    },
-    {
-        question: "Should I always follow trends?",
-        answer: "Not always. Pick trends that fit your niche and audience. Jumping on irrelevant trends can confuse your viewers and hurt your channel."
-    },
-];
-
-const howTo = [
-    "Select your target region to see local trending videos",
-    "View real trending videos from YouTube",
-    "Optionally enter your niche to get AI-suggested trending angles",
-    "Use trending topics as inspiration for your content"
-];
-
-const seoContent = `Discover what's actually trending on YouTube right now with real-time data from the YouTube API. See the top trending videos in any region, analyze their titles and view counts, and get AI-powered suggestions for how to create content around trending topics in your niche.`;
-
+// Interfaces
 interface TrendingVideo {
     id: string;
     title: string;
+    thumbnail: string;
     channel: string;
     views: string;
-    tags: string[];
+    publishedAt: string;
+    url: string;
 }
 
 interface AISuggestion {
     topic: string;
     angle: string;
+    reason: string;
 }
+
+// Constants
+const regionOptions = [
+    { value: "us", label: "United States" },
+    { value: "gb", label: "United Kingdom" },
+    { value: "in", label: "India" },
+    { value: "ca", label: "Canada" },
+    { value: "au", label: "Australia" },
+];
+
+const faq = [
+    {
+        question: "How are trending videos selected?",
+        answer: "We use the official YouTube Data API to fetch the real-time trending videos for your selected region."
+    },
+    {
+        question: "How often is the data updated?",
+        answer: "The trending list is updated in real-time as YouTube updates its charts."
+    },
+    {
+        question: "How do AI suggestions work?",
+        answer: "Our AI analyzes current trends and generates specific video ideas tailored to your niche that capitalize on these trends."
+    },
+];
+
+const howTo = [
+    "Select your target region to see what's trending there",
+    "Browse the top trending videos for inspiration",
+    "Enter your niche (e.g., 'Tech', 'Cooking') to get AI ideas",
+    "Click 'Get Trending Ideas' to generate viral video concepts",
+    "Use these insights to create timely, relevant content"
+];
+
+const seoContent = `Stay ahead of the curve with our YouTube Trend & Topic Helper. Discover what's trending in your region right now and get AI-powered video ideas tailored to your niche. Leveraging real-time YouTube data and advanced AI, this tool helps you identify viral opportunities and create content that viewers are searching for.`;
 
 export default function TrendHelper() {
     const [region, setRegion] = useState("us");
@@ -118,6 +71,8 @@ export default function TrendHelper() {
     const [loadingAI, setLoadingAI] = useState(false);
     const [error, setError] = useState("");
     const [isDemo, setIsDemo] = useState(false);
+
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     // Fetch viral trending videos when region changes
     const fetchTrending = useCallback(async () => {
@@ -151,6 +106,10 @@ export default function TrendHelper() {
     // Fetch AI suggestions based on niche
     const fetchAISuggestions = async () => {
         if (!niche.trim()) return;
+
+        if (!checkAndIncrement("youtube-trend-helper")) {
+            return;
+        }
 
         setLoadingAI(true);
         try {
@@ -202,8 +161,12 @@ export default function TrendHelper() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <UsageBanner type="ai" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Region Selector */}
                 <div className="flex flex-wrap gap-4 items-end">
+
                     <div className="w-64">
                         <Select
                             label="Select Region"

@@ -2,26 +2,21 @@
 
 import Link from "next/link";
 import { FaCrown, FaLock, FaTimes } from "react-icons/fa";
+import { getToolBySlug } from "@/config/tools";
+import { getToolLimit, TOOL_LIMITS } from "@/lib/usage";
 
 interface LimitReachedModalProps {
     isOpen: boolean;
     onClose: () => void;
-    type: "ai" | "image";
+    toolSlug: string | null;
 }
 
-export default function LimitReachedModal({ isOpen, onClose, type }: LimitReachedModalProps) {
-    if (!isOpen) return null;
+export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitReachedModalProps) {
+    if (!isOpen || !toolSlug) return null;
 
-    const limits = {
-        ai: { limit: 5, proLimit: "Unlimited" },
-        image: { limit: 0, proLimit: 150 },
-    };
-
-    const current = limits[type];
-    const title = type === "ai" ? "AI Generation Limit Reached" : "Image Generation Limit Reached";
-    const description = type === "ai"
-        ? `You've used all ${current.limit} AI generations for today.`
-        : `Free plan includes 0 image generations. Upgrade to unlock 150/month.`;
+    const tool = getToolBySlug(toolSlug);
+    const limit = getToolLimit(toolSlug);
+    const toolName = tool?.name || "Tool";
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -50,13 +45,13 @@ export default function LimitReachedModal({ isOpen, onClose, type }: LimitReache
                 {/* Content */}
                 <div className="text-center mb-6">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                        {title}
+                        {toolName} Limit Reached
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
-                        {description}
+                        You've reached the free limit of {limit} uses per day for this tool.
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-                        Limits reset in 24 hours, or upgrade now for more.
+                        Limits reset daily, or upgrade now for unlimited access.
                     </p>
                 </div>
 
@@ -66,8 +61,8 @@ export default function LimitReachedModal({ isOpen, onClose, type }: LimitReache
                         <FaCrown className="text-yellow-500" />
                         <span className="font-semibold text-gray-900 dark:text-white">Pro Benefits</span>
                     </div>
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>✓ Unlimited AI generations</li>
+                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400 text-left">
+                        <li>✓ Unlimited usage for all tools</li>
                         <li>✓ 150 image generations per month</li>
                         <li>✓ Ad-free experience</li>
                         <li>✓ Priority processing</li>

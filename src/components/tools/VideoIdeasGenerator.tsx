@@ -53,7 +53,7 @@ export default function VideoIdeasGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrementAI, showLimitModal, limitType, closeLimitModal } = useUsage();
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!niche.trim()) {
@@ -61,7 +61,7 @@ export default function VideoIdeasGenerator() {
             return;
         }
 
-        if (!checkAndIncrementAI()) {
+        if (!checkAndIncrement("youtube-video-ideas-generator")) {
             return;
         }
 
@@ -124,7 +124,7 @@ export default function VideoIdeasGenerator() {
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" />
-                <LimitReachedModal isOpen={showLimitModal} onClose={closeLimitModal} type={limitType} />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

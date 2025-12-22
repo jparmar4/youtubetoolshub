@@ -7,45 +7,48 @@ import Select from "@/components/ui/Select";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaCalendarAlt, FaDownload } from "react-icons/fa";
 import { safeJSONParse, downloadAsFile, generateCSV } from "@/lib/utils";
-
-const frequencyOptions = [
-    { value: "daily", label: "Daily" },
-    { value: "3x-week", label: "3x per Week" },
-    { value: "2x-week", label: "2x per Week" },
-    { value: "weekly", label: "Weekly" },
-];
-
-const faq = [
-    {
-        question: "How far ahead should I plan content?",
-        answer: "Having at least 2-4 weeks of content planned helps maintain consistency. Our generator can create up to 30 days of content ideas at once."
-    },
-    {
-        question: "Should I stick rigidly to my calendar?",
-        answer: "Use it as a guide, not a strict schedule. Stay flexible enough to cover trending topics or respond to audience requests while maintaining your core content plan."
-    },
-    {
-        question: "How do I export my calendar?",
-        answer: "Click the 'Download as CSV' button to export your calendar. You can import this into Google Sheets, Excel, or any calendar app that supports CSV."
-    },
-];
-
-const howTo = [
-    "Enter your channel's niche or topic",
-    "Select how often you plan to post",
-    "Enter the number of days you want to plan for",
-    "Click 'Generate Calendar' to create your content plan",
-    "Review the generated calendar table",
-    "Download as CSV to import into your preferred tool"
-];
-
-const seoContent = `Plan your YouTube content in advance with our AI-powered Content Calendar Generator. Create a structured posting schedule with video ideas for your niche. Export your calendar as CSV to import into Google Sheets, Notion, or any planning tool. Stay consistent and never run out of content ideas.`;
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 
 interface CalendarEntry {
     day: number;
     title: string;
-    type: string;
+    type: "Tutorial" | "Vlog" | "Short" | "Review" | "Other";
 }
+
+const frequencyOptions = [
+    { value: "daily", label: "Daily (7 videos/week)" },
+    { value: "weekly", label: "Weekly (1 video/week)" },
+    { value: "biweekly", label: "Bi-Weekly (2 videos/week)" },
+    { value: "triweekly", label: "Tri-Weekly (3 videos/week)" },
+];
+
+const faq = [
+    {
+        question: "How does the calendar generator work?",
+        answer: "Our AI analyzes your niche and generates a balanced content schedule with diverse video types (Tutorials, Vlogs, Shorts, etc.) suitable for your posting frequency."
+    },
+    {
+        question: "Can I edit the generated calendar?",
+        answer: "Currently, you can download the calendar as a CSV file and edit it in Excel or Google Sheets. In-app editing is coming soon."
+    },
+    {
+        question: "What's the best posting frequency?",
+        answer: "Consistency is key. It's better to post one high-quality video weekly than to burn out trying to post daily. Choose a schedule you can maintain long-term."
+    },
+];
+
+const howTo = [
+    "Enter your channel's niche or main topic",
+    "Select how often you want to post videos",
+    "Choose the duration for your calendar (e.g., 30 days)",
+    "Click 'Generate Calendar' to get a complete content plan",
+    "Review your scheduled video ideas and types",
+    "Download the calendar as a CSV file to track your progress"
+];
+
+const seoContent = `Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule in seconds. Whether you're a daily vlogger or a weekly educator, our tool generates engaging video ideas and organizes them into a balanced calendar to keep your audience growing and engaged.`;
 
 export default function ContentCalendarGenerator() {
     const [niche, setNiche] = useState("");
@@ -54,8 +57,14 @@ export default function ContentCalendarGenerator() {
     const [calendar, setCalendar] = useState<CalendarEntry[]>([]);
     const [loading, setLoading] = useState(false);
 
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+
     const handleGenerate = async () => {
         if (!niche.trim()) return;
+
+        if (!checkAndIncrement("youtube-content-calendar-generator")) {
+            return;
+        }
 
         setLoading(true);
         try {
@@ -99,6 +108,9 @@ export default function ContentCalendarGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <UsageBanner type="ai" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="md:col-span-2">

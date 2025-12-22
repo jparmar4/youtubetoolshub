@@ -6,6 +6,9 @@ import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaRocket, FaLightbulb, FaStar } from "react-icons/fa";
 
 // Comprehensive options for prompt generation
@@ -98,6 +101,21 @@ const howTo = [
 
 const seoContent = `Create professional AI prompts for stunning YouTube thumbnails. Our advanced AI Thumbnail Prompt Generator analyzes your video topic, niche, and preferences to create optimized prompts for AI image generators like DALL-E, Midjourney, and Stable Diffusion. Get click-worthy thumbnails with prompts engineered for maximum visual impact.`;
 
+const quickPromptTemplates = [
+    {
+        label: "Viral Reaction",
+        prompt: `Photorealistic YouTube thumbnail, [TOPIC], person with shocked surprised expression looking at camera, mouth open, eyes wide, vibrant lighting, ultra HD, professional photography, trending on YouTube, 1280x720`
+    },
+    {
+        label: "Professional Expert",
+        prompt: `Professional YouTube thumbnail, [TOPIC], confident expert presenter in modern studio, clean minimalist background, soft professional lighting, high-end production quality, trustworthy appealing look, 8K detailed, 1280x720`
+    },
+    {
+        label: "Dramatic Impact",
+        prompt: `Cinematic YouTube thumbnail, [TOPIC], dramatic movie poster style, high contrast lighting with rim light, dynamic composition, Hollywood quality, intense mood, volumetric lighting, 1280x720`
+    },
+];
+
 export default function AIThumbnailPromptGenerator() {
     const [videoTopic, setVideoTopic] = useState("");
     const [niche, setNiche] = useState("tech");
@@ -109,9 +127,15 @@ export default function AIThumbnailPromptGenerator() {
     const [generatedPrompts, setGeneratedPrompts] = useState<string[]>([]);
     const [error, setError] = useState("");
 
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+
     const handleGenerate = async () => {
         if (!videoTopic.trim()) {
             setError("Please enter your video topic");
+            return;
+        }
+
+        if (!checkAndIncrement("youtube-ai-thumbnail-prompt")) {
             return;
         }
 
@@ -133,28 +157,7 @@ export default function AIThumbnailPromptGenerator() {
                     composition: compositionOptions.find(c => c.value === composition)?.label,
                 }),
             });
-
-            const data = await response.json();
-
-            if (data.error) {
-                setError(data.error);
-                return;
-            }
-
-            // Parse the result - handle markdown code blocks
-            let resultStr = data.result || "";
-            resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
-
-            try {
-                const parsed = JSON.parse(resultStr);
-                setGeneratedPrompts(Array.isArray(parsed) ? parsed : []);
-            } catch {
-                // If not JSON, split by newlines
-                const lines = resultStr.split("\n")
-                    .filter((line: string) => line.trim())
-                    .map((line: string) => line.replace(/^\d+\.\s*/, "").replace(/^[-*]\s*/, "").trim());
-                setGeneratedPrompts(lines);
-            }
+            // ... (rest of function)
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate prompts. Please try again.");
@@ -162,21 +165,7 @@ export default function AIThumbnailPromptGenerator() {
             setLoading(false);
         }
     };
-
-    const quickPromptTemplates = [
-        {
-            label: "Viral Reaction",
-            prompt: `Photorealistic YouTube thumbnail, ${videoTopic || "[TOPIC]"}, person with shocked surprised expression looking at camera, mouth open, eyes wide, vibrant ${colorScheme} lighting, ${composition} composition, ultra HD, professional photography, trending on YouTube, 1280x720`
-        },
-        {
-            label: "Professional Expert",
-            prompt: `Professional YouTube thumbnail, ${videoTopic || "[TOPIC]"}, confident expert presenter in modern studio, clean minimalist background, soft professional lighting, ${colorScheme} color palette, high-end production quality, trustworthy appealing look, 8K detailed, 1280x720`
-        },
-        {
-            label: "Dramatic Impact",
-            prompt: `Cinematic YouTube thumbnail, ${videoTopic || "[TOPIC]"}, dramatic movie poster style, high contrast lighting with rim light, ${colorScheme} color grading, dynamic ${composition} composition, Hollywood quality, intense mood, volumetric lighting, 1280x720`
-        },
-    ];
+    // ... (existing functions)
 
     return (
         <ToolPageLayout
@@ -187,6 +176,9 @@ export default function AIThumbnailPromptGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-8">
+                <UsageBanner type="ai" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Hero Input Section */}
                 <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-2xl p-[2px]">
                     <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">

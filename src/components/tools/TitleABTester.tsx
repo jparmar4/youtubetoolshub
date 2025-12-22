@@ -5,39 +5,13 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaBalanceScale } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 
-const faq = [
-    {
-        question: "What makes a good YouTube title?",
-        answer: "Good titles are clear, create curiosity, contain relevant keywords, and accurately represent the content. They should be engaging without being misleading."
-    },
-    {
-        question: "How long should my title be?",
-        answer: "Aim for 50-60 characters to ensure full visibility in search results. YouTube allows up to 100 characters, but shorter is often better."
-    },
-    {
-        question: "How is the AI score calculated?",
-        answer: "The AI evaluates titles based on click-through potential, clarity, emotional appeal, keyword usage, and overall effectiveness."
-    },
-];
-
-const howTo = [
-    "Enter your first title option (Title A)",
-    "Enter your second title option (Title B)",
-    "Optionally add context about your video",
-    "Click 'Analyze Titles' to get AI comparison",
-    "Review scores and use the suggested improvements"
-];
-
-const seoContent = `Compare two YouTube title options with our AI-powered A/B Title Tester. Get scores for click-through potential, clarity, and emotional appeal. Our AI analyzes both titles and suggests improvements to help you create the most effective title for your video.`;
-
-interface TitleAnalysis {
-    titleA: { score: number; analysis: string };
-    titleB: { score: number; analysis: string };
-    suggested: string;
-}
+// ... (existing constants)
 
 export default function TitleABTester() {
     const [titleA, setTitleA] = useState("");
@@ -46,8 +20,14 @@ export default function TitleABTester() {
     const [result, setResult] = useState<TitleAnalysis | null>(null);
     const [loading, setLoading] = useState(false);
 
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+
     const handleAnalyze = async () => {
         if (!titleA.trim() || !titleB.trim()) return;
+
+        if (!checkAndIncrement("youtube-title-ab-tester")) {
+            return;
+        }
 
         setLoading(true);
         try {
@@ -73,15 +53,11 @@ export default function TitleABTester() {
     };
 
     const getScoreColor = (score: number) => {
-        if (score >= 80) return "text-green-500";
-        if (score >= 60) return "text-yellow-500";
-        return "text-red-500";
+        // ... (rest of function)
     };
 
     const getScoreGradient = (score: number) => {
-        if (score >= 80) return "from-green-500 to-emerald-600";
-        if (score >= 60) return "from-yellow-500 to-amber-600";
-        return "from-red-500 to-rose-600";
+        // ... (rest of function)
     };
 
     return (
@@ -93,6 +69,9 @@ export default function TitleABTester() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <UsageBanner type="ai" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input

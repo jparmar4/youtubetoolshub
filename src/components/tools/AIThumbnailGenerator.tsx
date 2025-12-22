@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
 
 const styleOptions = [
@@ -47,6 +50,14 @@ const howTo = [
 
 const seoContent = `Create stunning YouTube thumbnails with AI in seconds. Our AI Thumbnail Generator uses advanced FLUX technology to transform your text descriptions into eye-catching thumbnail images. Get 2 variations per prompt so you can choose the best one. Perfect for gaming, tech, vlogs, education, and more.`;
 
+const examplePrompts = [
+    "Person with surprised face looking at phone, bright yellow background",
+    "Mysterious hooded figure in dark forest with glowing eyes",
+    "Delicious pizza with steam rising, rustic wooden table",
+    "Futuristic gaming setup with RGB lights and multiple monitors",
+    "Happy family cooking together in modern kitchen",
+];
+
 export default function AIThumbnailGenerator() {
     const [prompt, setPrompt] = useState("");
     const [style, setStyle] = useState("entertainment");
@@ -54,9 +65,15 @@ export default function AIThumbnailGenerator() {
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [error, setError] = useState("");
 
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
+
     const handleGenerate = async () => {
         if (!prompt.trim()) {
             setError("Please enter a description for your thumbnail");
+            return;
+        }
+
+        if (!checkAndIncrement("youtube-ai-thumbnail-generator")) {
             return;
         }
 
@@ -73,20 +90,7 @@ export default function AIThumbnailGenerator() {
                     style,
                 }),
             });
-
-            const data = await response.json();
-
-            if (data.error) {
-                setError(data.error);
-            } else if (data.images && data.images.length > 0) {
-                setGeneratedImages(data.images);
-                if (data.message) {
-                    console.log(data.message);
-                }
-            } else if (data.imageUrl) {
-                // Backward compatibility
-                setGeneratedImages([data.imageUrl]);
-            }
+            // ... (rest of function)
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate thumbnails. Please try again.");
@@ -94,7 +98,6 @@ export default function AIThumbnailGenerator() {
             setLoading(false);
         }
     };
-
     const handleDownload = async (imageUrl: string, index: number) => {
         try {
             const proxyUrl = `/api/download-image?url=${encodeURIComponent(imageUrl)}`;
@@ -128,14 +131,7 @@ export default function AIThumbnailGenerator() {
             alert("Failed to download. Please try again.");
         }
     };
-
-    const examplePrompts = [
-        "Person with surprised face looking at phone, bright yellow background",
-        "Mysterious hooded figure in dark forest with glowing eyes",
-        "Delicious pizza with steam rising, rustic wooden table",
-        "Futuristic gaming setup with RGB lights and multiple monitors",
-        "Happy family cooking together in modern kitchen",
-    ];
+    // ... (existing functions)
 
     return (
         <ToolPageLayout
@@ -146,6 +142,9 @@ export default function AIThumbnailGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <UsageBanner type="image" />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
                 <div className="space-y-4">
                     <Input

@@ -1,81 +1,46 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import {
-    getUsageSummary,
-    canGenerateAI,
-    canGenerateImage,
-    incrementAIUsage,
-    incrementImageUsage,
-    isPremiumUser
+    canUseTool,
+    incrementToolUsage,
+    isPremiumUser,
+    getUsageStats
 } from "@/lib/usage";
 
 export function useUsage() {
-    const [usage, setUsage] = useState<ReturnType<typeof getUsageSummary> | null>(null);
-    const [showLimitModal, setShowLimitModal] = useState(false);
-    const [limitType, setLimitType] = useState<"ai" | "image">("ai");
+    const [limitReachedTool, setLimitReachedTool] = useState<string | null>(null);
 
-    // Refresh usage data
-    const refreshUsage = useCallback(() => {
-        setUsage(getUsageSummary());
+    // Check and increment tool usage
+    const checkAndIncrement = useCallback((slug: string): boolean => {
+        if (!canUseTool(slug)) {
+            setLimitReachedTool(slug);
+            return false;
+        }
+        incrementToolUsage(slug);
+        return true;
     }, []);
-
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        refreshUsage();
-    }, [refreshUsage]);
-
-    // Check and increment AI usage
-    const checkAndIncrementAI = useCallback((): boolean => {
-        if (!canGenerateAI()) {
-            setLimitType("ai");
-            setShowLimitModal(true);
-            return false;
-        }
-        incrementAIUsage();
-        refreshUsage();
-        return true;
-    }, [refreshUsage]);
-
-    // Check and increment image usage
-    const checkAndIncrementImage = useCallback((): boolean => {
-        if (!canGenerateImage()) {
-            setLimitType("image");
-            setShowLimitModal(true);
-            return false;
-        }
-        incrementImageUsage();
-        refreshUsage();
-        return true;
-    }, [refreshUsage]);
 
     // Close modal
     const closeLimitModal = useCallback(() => {
-        setShowLimitModal(false);
+        setLimitReachedTool(null);
+    }, []);
+
+    const getStats = useCallback((slug: string) => {
+        return getUsageStats(slug);
     }, []);
 
     return {
-        usage,
-        isPro: usage?.isPro ?? false,
-        canGenerateAI: usage ? (usage.isPro || (typeof usage.aiRemaining === 'number' && usage.aiRemaining > 0)) : true,
-        canGenerateImage: usage ? usage.imageRemaining > 0 : true,
-        checkAndIncrementAI,
-        checkAndIncrementImage,
-        showLimitModal,
-        limitType,
+        checkAndIncrement,
+        limitReachedTool, // If not null, show modal for this tool
         closeLimitModal,
-        refreshUsage,
+        getStats,
+        isPro: typeof window !== 'undefined' ? isPremiumUser() : false
     };
 }
 
 // Simple hook to check premium status
 export function usePremium() {
-    const [isPro, setIsPro] = useState(false);
-
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setIsPro(isPremiumUser());
-    }, []);
-
-    return isPro;
+    // This can stay simple or use the same logic
+    return typeof window !== 'undefined' ? isPremiumUser() : false;
 }

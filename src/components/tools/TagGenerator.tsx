@@ -57,7 +57,7 @@ export default function TagGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrementAI, showLimitModal, limitType, closeLimitModal } = useUsage();
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -65,7 +65,7 @@ export default function TagGenerator() {
             return;
         }
 
-        if (!checkAndIncrementAI()) {
+        if (!checkAndIncrement("youtube-tag-generator")) {
             return;
         }
 
@@ -195,7 +195,7 @@ export default function TagGenerator() {
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" />
-                <LimitReachedModal isOpen={showLimitModal} onClose={closeLimitModal} type={limitType} />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -61,7 +61,7 @@ export default function IntroScriptGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const { checkAndIncrementAI, showLimitModal, limitType, closeLimitModal } = useUsage();
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -69,7 +69,7 @@ export default function IntroScriptGenerator() {
             return;
         }
 
-        if (!checkAndIncrementAI()) {
+        if (!checkAndIncrement("youtube-intro-script-generator")) {
             return;
         }
 
@@ -145,7 +145,7 @@ export default function IntroScriptGenerator() {
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" />
-                <LimitReachedModal isOpen={showLimitModal} onClose={closeLimitModal} type={limitType} />
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="md:col-span-2">

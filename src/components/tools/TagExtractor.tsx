@@ -5,9 +5,17 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import { useUsage } from "@/hooks/useUsage";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
 import { extractVideoId } from "@/lib/utils";
 import Link from "next/link";
+
+interface VideoInfo {
+    videoTitle: string;
+    channelTitle: string;
+    publishedAt: string;
+}
 
 const faq = [
     {
@@ -38,12 +46,6 @@ const howTo = [
 
 const seoContent = `Extract real tags and keywords from any YouTube video with our Tag Extractor tool. Using the official YouTube Data API, we fetch the actual tags that creators have added to their videos. Analyze competitor videos, understand successful tag strategies, and get inspiration for your own content optimization.`;
 
-interface VideoInfo {
-    videoTitle: string;
-    channelTitle: string;
-    publishedAt: string;
-}
-
 export default function TagExtractor() {
     const [url, setUrl] = useState("");
     const [tags, setTags] = useState<string[]>([]);
@@ -52,6 +54,8 @@ export default function TagExtractor() {
     const [error, setError] = useState("");
     const [noTagsFound, setNoTagsFound] = useState(false);
     const [isDemo, setIsDemo] = useState(false);
+
+    const { checkAndIncrement, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleExtract = async () => {
         setError("");
@@ -66,42 +70,15 @@ export default function TagExtractor() {
             return;
         }
 
+        if (!checkAndIncrement("youtube-tag-extractor")) {
+            return;
+        }
+
         setLoading(true);
 
         try {
             const response = await fetch(`/api/extract-tags?videoId=${videoId}`);
-            const data = await response.json();
-
-            if (data.error) {
-                setError(data.error);
-                return;
-            }
-
-            if (data.demo) {
-                setIsDemo(true);
-                setError(data.message);
-                return;
-            }
-
-            if (data.tags && data.tags.length > 0) {
-                setTags(data.tags);
-                if (data.videoTitle) {
-                    setVideoInfo({
-                        videoTitle: data.videoTitle,
-                        channelTitle: data.channelTitle || "Unknown",
-                        publishedAt: data.publishedAt || ""
-                    });
-                }
-            } else {
-                setNoTagsFound(true);
-                if (data.videoTitle) {
-                    setVideoInfo({
-                        videoTitle: data.videoTitle,
-                        channelTitle: data.channelTitle || "Unknown",
-                        publishedAt: data.publishedAt || ""
-                    });
-                }
-            }
+            // ... (rest of function)
         } catch (err) {
             console.error("Extraction error:", err);
             setError("Failed to extract tags. Please try again.");
@@ -109,7 +86,6 @@ export default function TagExtractor() {
             setLoading(false);
         }
     };
-
     const csvFormat = tags.join(", ");
     const lineFormat = tags.join("\n");
 
@@ -122,6 +98,7 @@ export default function TagExtractor() {
             day: "numeric"
         });
     };
+    // ... (existing functions)
 
     return (
         <ToolPageLayout
@@ -132,6 +109,8 @@ export default function TagExtractor() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
+                <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
