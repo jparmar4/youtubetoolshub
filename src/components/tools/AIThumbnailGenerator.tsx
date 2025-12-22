@@ -8,6 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import { isPremiumUser } from "@/lib/usage";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
 
 const styleOptions = [
@@ -82,15 +83,23 @@ export default function AIThumbnailGenerator() {
         setGeneratedImages([]);
 
         try {
-            await fetch("/api/generate-image", {
+            const response = await fetch("/api/generate-image", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     prompt,
                     style,
+                    isPro: isPremiumUser(),
                 }),
             });
-            // ... (rest of function)
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || "Failed to generate thumbnails");
+            }
+
+            setGeneratedImages(data.images);
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate thumbnails. Please try again.");

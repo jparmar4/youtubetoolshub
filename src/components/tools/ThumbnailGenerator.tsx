@@ -83,7 +83,33 @@ export default function ThumbnailGenerator() {
                     emotion: emotionOptions.find(e => e.value === emotion)?.label,
                 }),
             });
-            // ... (rest of function)
+            const data = await response.json();
+
+            if (data.error) {
+                console.error("API Error:", data.error);
+                return; // Or handle error state
+            }
+
+            let resultStr = data.result || "";
+            resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            try {
+                const parsed = JSON.parse(resultStr);
+                if (Array.isArray(parsed)) {
+                    setResults(parsed);
+                } else if (typeof parsed === "object" && parsed.ideas) {
+                    setResults(parsed.ideas);
+                } else {
+                    // Fallback splitting if it's just text
+                    setResults([resultStr]);
+                }
+            } catch (e) {
+                // detailed fallback
+                const lines = resultStr.split("\n")
+                    .map((line: string) => line.replace(/^\d+\.\s*/, "").replace(/^[-*]\s*/, "").trim())
+                    .filter((line: string) => line.length > 0);
+                setResults(lines.length > 0 ? lines : [resultStr]);
+            }
         } catch (error) {
             console.error("Generation error:", error);
         } finally {

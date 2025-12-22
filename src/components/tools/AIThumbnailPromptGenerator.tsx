@@ -144,7 +144,7 @@ export default function AIThumbnailPromptGenerator() {
         setGeneratedPrompts([]);
 
         try {
-            await fetch("/api/generate", {
+            const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -157,7 +157,29 @@ export default function AIThumbnailPromptGenerator() {
                     composition: compositionOptions.find(c => c.value === composition)?.label,
                 }),
             });
-            // ... (rest of function)
+
+            const data = await response.json();
+
+            if (!response.ok || data.error) {
+                throw new Error(data.error || "Failed to generate prompts");
+            }
+
+            let result = data.result;
+            // specific cleanup for potential markdown
+            result = result.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            try {
+                const parsed = JSON.parse(result);
+                if (Array.isArray(parsed)) {
+                    setGeneratedPrompts(parsed);
+                } else {
+                    throw new Error("Invalid format");
+                }
+            } catch (e) {
+                console.error("Parse error", e);
+                // Fallback if it's just text
+                setGeneratedPrompts([result]);
+            }
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate prompts. Please try again.");
