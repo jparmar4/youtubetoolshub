@@ -89,6 +89,9 @@ export const getUsageData = (): UsageData => {
 const saveUsageData = (data: UsageData) => {
     if (typeof window === 'undefined') return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+    // Dispatch event for reactivity
+    window.dispatchEvent(new Event('usage_updated'));
 };
 
 // Get limit for a specific tool

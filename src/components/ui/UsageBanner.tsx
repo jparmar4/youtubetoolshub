@@ -15,8 +15,23 @@ export default function UsageBanner({ type = "both", compact = false }: UsageBan
     const [dismissed, setDismissed] = useState(false);
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setUsage(getUsageSummary());
+        const updateUsage = () => {
+            setUsage(getUsageSummary());
+        };
+
+        // Initial load
+        updateUsage();
+
+        // Listen for updates
+        window.addEventListener('usage_updated', updateUsage);
+
+        // Also listen for storage events (cross-tab sync)
+        window.addEventListener('storage', updateUsage);
+
+        return () => {
+            window.removeEventListener('usage_updated', updateUsage);
+            window.removeEventListener('storage', updateUsage);
+        };
     }, []);
 
     if (!usage || dismissed) return null;
