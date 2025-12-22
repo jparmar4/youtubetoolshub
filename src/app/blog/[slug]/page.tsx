@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import NextImage from "next/image";
 import Link from "next/link";
 import AdPlaceholder from "@/components/ui/AdPlaceholder";
 import ShareButtons from "@/components/ui/ShareButtons";
@@ -7,6 +8,7 @@ import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { processContent } from "@/lib/content-processor";
 
 // Generate static params
 export function generateStaticParams() {
@@ -47,159 +49,7 @@ export async function generateMetadata({
     };
 }
 
-// Parse markdown-like content to JSX
-function parseContent(content: string) {
-    const lines = content.split('\n');
-    const elements: React.ReactNode[] = [];
-    let listItems: string[] = [];
-    let listType: 'ul' | 'ol' | null = null;
 
-    const flushList = (key: string) => {
-        if (listItems.length > 0) {
-            const ListTag = listType === 'ol' ? 'ol' : 'ul';
-            elements.push(
-                <ListTag key={key} className={`space-y-2 my-4 ${listType === 'ol' ? 'list-decimal' : 'list-disc'} pl-6 text-gray-600 dark:text-gray-300`}>
-                    {listItems.map((item, i) => (
-                        <li key={i} className="leading-relaxed">{parseInlineMarkdown(item)}</li>
-                    ))}
-                </ListTag>
-            );
-            listItems = [];
-            listType = null;
-        }
-    };
-
-    const parseInlineMarkdown = (text: string): React.ReactNode[] => {
-        // Supported inline markdown:
-        // - **bold**
-        // - [label](url)
-        // This is intentionally lightweight and not a full markdown implementation.
-
-        const pattern = /(\*\*[^*]+\*\*)|(\[[^\]]+\]\([^\)]+\))/g;
-        const parts = text.split(pattern).filter((p) => p !== undefined && p !== '');
-
-        const nodes: React.ReactNode[] = [];
-        parts.forEach((part, i) => {
-            if (part.startsWith('**') && part.endsWith('**')) {
-                nodes.push(
-                    <strong key={`b-${i}`} className="font-semibold text-gray-900 dark:text-white">
-                        {part.slice(2, -2)}
-                    </strong>
-                );
-                return;
-            }
-
-            if (part.startsWith('[') && part.includes('](') && part.endsWith(')')) {
-                const match = part.match(/^\[([^\]]+)\]\(([^\)]+)\)$/);
-                if (match) {
-                    const label = match[1];
-                    const url = match[2];
-                    const isInternal = url.startsWith('/');
-
-                    if (isInternal) {
-                        nodes.push(
-                            <Link
-                                key={`l-${i}`}
-                                href={url}
-                                className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
-                            >
-                                {label}
-                            </Link>
-                        );
-                        return;
-                    }
-
-                    nodes.push(
-                        <a
-                            key={`l-${i}`}
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
-                        >
-                            {label}
-                        </a>
-                    );
-                    return;
-                }
-            }
-
-            nodes.push(part);
-        });
-
-        return nodes;
-    };
-
-    lines.forEach((line, index) => {
-        const trimmedLine = line.trim();
-
-        // Empty line - flush list and add spacing
-        if (trimmedLine === '') {
-            flushList(`list-${index}`);
-            return;
-        }
-
-        // H2 heading
-        if (trimmedLine.startsWith('## ')) {
-            flushList(`list-${index}`);
-            elements.push(
-                <h2 key={index} className="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4">
-                    {trimmedLine.replace('## ', '')}
-                </h2>
-            );
-            return;
-        }
-
-        // H3 heading
-        if (trimmedLine.startsWith('### ')) {
-            flushList(`list-${index}`);
-            elements.push(
-                <h3 key={index} className="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">
-                    {trimmedLine.replace('### ', '')}
-                </h3>
-            );
-            return;
-        }
-
-        // Unordered list item
-        if (trimmedLine.startsWith('- ')) {
-            listType = 'ul';
-            listItems.push(trimmedLine.replace('- ', ''));
-            return;
-        }
-
-        // Ordered list item
-        if (/^\d+\.\s/.test(trimmedLine)) {
-            listType = 'ol';
-            listItems.push(trimmedLine.replace(/^\d+\.\s/, ''));
-            return;
-        }
-
-        // Bold paragraph (standalone bold)
-        if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
-            flushList(`list-${index}`);
-            elements.push(
-                <p key={index} className="font-semibold text-gray-900 dark:text-white my-4">
-                    {trimmedLine.replace(/\*\*/g, '')}
-                </p>
-            );
-            return;
-        }
-
-        // Regular paragraph
-        flushList(`list-${index}`);
-        elements.push(
-            <p key={index} className="text-gray-600 dark:text-gray-300 my-4 leading-relaxed">
-                {parseInlineMarkdown(trimmedLine)}
-            </p>
-        );
-    });
-
-    // Flush any remaining list
-    flushList('list-final');
-
-    return elements;
-}
 
 export default async function BlogPostPage({
     params,
@@ -301,9 +151,23 @@ export default async function BlogPostPage({
                             <AdPlaceholder size="banner" />
                         </div>
 
+                        {/* Cover Image */}
+                        {post.coverImage && (
+                            <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
+                                <NextImage
+                                    src={post.coverImage}
+                                    alt={post.imageAlt || post.title}
+                                    width={1200}
+                                    height={630}
+                                    priority
+                                    className="w-full h-auto object-cover"
+                                />
+                            </div>
+                        )}
+
                         {/* Article Content */}
-                        <div className="prose prose-lg max-w-none">
-                            {parseContent(post.content)}
+                        <div className="prose prose-lg max-w-none prose-red dark:prose-invert">
+                            {processContent(post.content)}
                         </div>
 
                         {/* Tags */}

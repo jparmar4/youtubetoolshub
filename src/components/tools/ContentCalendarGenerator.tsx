@@ -100,13 +100,11 @@ export default function ContentCalendarGenerator() {
 
             const parsed = safeJSONParse<CalendarEntry[]>(data.result, []);
             setCalendar(parsed);
-        } catch (error: any) { // Explicitly type error as 'any' or 'unknown'
-            if (error.name === 'AbortError') {
-                setError("Request timed out. Please try again.");
-            } else {
-                console.error("Generation error:", error);
-                setError("Failed to generate calendar. Please try again.");
-            }
+        } catch (err) {
+            // Use console error or set error state
+            const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
+            console.error("Generation error:", errorMessage);
+            setError("Failed to generate calendar. Please try again.");
         } finally {
             setLoading(false);
         }

@@ -8,7 +8,6 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
-import { extractVideoId } from "@/lib/utils";
 import Link from "next/link";
 
 interface VideoInfo {
@@ -65,6 +64,11 @@ export default function TagExtractor() {
         setIsDemo(false);
 
         setLoading(true);
+
+        if (!checkLimit("youtube-tag-extractor")) {
+            setLoading(false);
+            return;
+        }
 
         try {
             const response = await fetch("/api/extract-tags", {

@@ -20,15 +20,32 @@ export default function AdPlaceholder({ size = "inline", className = "" }: AdPla
         setIsPro(isPremiumUser());
     }, []);
 
-    // Don't render on server or for premium users
-    if (!mounted) return null;
-    if (isPro) return null;
+    // For Pro users, we want to return null to remove the ad space completely.
+    // However, to prevent CLS, we should only do this if we are SURE they are pro (client-side).
+    // On server (not mounted), we must render the placeholder to reserve space (or empty div with correct height).
+    // Actually, improved strategy: Always render the container with correct height.
+    // If Pro, render NOTHING inside it or `display: none`.
+    // Better for CLS: The ad space *collapsing* is also a shift.
+    // If the user IS pro, they shouldn't see ads. Collapsing is "good" shift if it happens instantly?
+    // No, shrinking content is annoying.
+    // Best practice: If we can't know for sure on server, assume Free (show placeholder).
+    // If client loads and says "I'm Pro", then we can remove it.
+    // BUT that causes a shift.
+    // Ideally, `isPremiumUser` would be known server-side (cookies).
+    // Since we are client-side only for now:
+    // We will render the empty container to reserve space.
+    // If Pro, we might just hide the *content* but keep the space? No, that looks broken.
+    // We will accept the "good" CLS of removing the ad if they are Pro, but ensure the INITIAL render reserves space.
 
     const sizes = {
         banner: "h-24 w-full",
         sidebar: "h-64 w-full max-w-[300px]",
         inline: "h-32 w-full",
     };
+
+    if (mounted && isPro) {
+        return null;
+    }
 
     return (
         <div
@@ -38,6 +55,7 @@ export default function AdPlaceholder({ size = "inline", className = "" }: AdPla
                 rounded-xl
                 bg-gray-50 dark:bg-gray-800/50
                 flex items-center justify-center
+                transition-all duration-300
                 ${className}
             `}
         >

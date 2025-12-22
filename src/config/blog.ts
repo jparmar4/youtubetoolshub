@@ -12,6 +12,8 @@ export interface BlogPost {
     content: string;
     metaDescription: string;
     keywords: string[];
+    coverImage: string;
+    imageAlt: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -26,6 +28,8 @@ export const blogPosts: BlogPost[] = [
         readTime: "5 min read",
         metaDescription: "Discover 8 essential free YouTube tools every beginner needs. From thumbnail creation to SEO optimization - start your channel the right way.",
         keywords: ["youtube tools", "beginner youtube", "free youtube tools", "start youtube channel"],
+        coverImage: "/images/blog/best-tools.png",
+        imageAlt: "Best YouTube Tools for Beginners 2026",
         content: `
 I remember when I started my first YouTube channel back in 2019. I spent way too much time (and money) on fancy equipment and paid software, only to realize that free tools could've done the job just as well.
 
@@ -42,6 +46,8 @@ Your thumbnail is your video's first impression. No pressure, right?
 I've tested everything from Photoshop to Canva, and honestly, most beginners overcomplicate this. What you actually need:
 
 **[YouTube Thumbnail Downloader](/tools/youtube-thumbnail-downloader)** - Before you create anything, study what's working. Download thumbnails from top videos in your niche. Notice the patterns: color schemes, face placement, text styles. This isn't about copying—it's about understanding what grabs attention.
+
+![YouTube Thumbnail Secrets](/images/blog/thumbnail-secrets.png)
 
 **[Thumbnail Text Generator](/tools/youtube-thumbnail-text-generator)** - Writer's block hits thumbnails too. When I can't think of punchy text, I use AI to generate options, then tweak my favorites. Saves me 20 minutes every upload.
 
@@ -126,6 +132,8 @@ You've got this. Now stop reading and go make something.
         readTime: "7 min read",
         metaDescription: "Learn to write YouTube titles that boost CTR. Real formulas, examples, and common mistakes from analyzing 1000+ successful videos.",
         keywords: ["youtube titles", "CTR optimization", "youtube SEO", "video titles"],
+        coverImage: "/images/blog/viral-titles.png",
+        imageAlt: "Viral YouTube Titles Guide",
         content: `
 Last month, I changed a single word in a client's title and their CTR jumped from 4.2% to 7.8%. Same video. Same thumbnail. Just a better title.
 
@@ -267,6 +275,8 @@ Your title is a promise. Make one you can keep, make it compelling, and you'll s
         readTime: "6 min read",
         metaDescription: "Learn the 7 thumbnail design patterns used by top YouTubers. Real examples, design tips, and common mistakes to avoid.",
         keywords: ["youtube thumbnails", "thumbnail design", "CTR optimization", "video thumbnails"],
+        coverImage: "/images/blog/thumbnail-secrets.png",
+        imageAlt: "YouTube Thumbnail Secrets",
         content: `
 I used to spend 3 hours on each thumbnail. Carefully adjusting colors, tweaking text, second-guessing every choice. My CTR? A sad 2.1%.
 
@@ -417,6 +427,8 @@ That self-awareness is where improvement comes from.
         readTime: "10 min read",
         metaDescription: "Complete YouTube SEO guide for 2026. Learn what factors actually affect rankings and how to optimize your videos for discoverability.",
         keywords: ["youtube seo", "video seo", "youtube algorithm", "youtube ranking"],
+        coverImage: "/images/blog/seo-guide.png",
+        imageAlt: "YouTube SEO 2026 Complete Guide",
         content: `
 I've been doing YouTube SEO for 6 years now, and I'll be honest—the conventional wisdom is mostly outdated.
 
@@ -441,6 +453,8 @@ Four factors continue to dominate YouTube discoverability:
 Your CTR tells YouTube whether your content is appealing. Higher CTR = more impressions.
 
 Average CTR on YouTube is around 2-10%. Anything above 5% is generally good, above 7% is excellent.
+
+![Viral YouTube Titles](/images/blog/viral-titles.png)
 
 CTR is primarily determined by your title and thumbnail combination. We covered those in other posts, but the short version: be accurate, be compelling, be visually clear.
 
@@ -615,6 +629,8 @@ The creators winning at YouTube SEO in 2026 are the ones who understand that gre
         readTime: "8 min read",
         metaDescription: "Real YouTube growth strategies from a creator who's done it. No hacks, no gimmicks - just what actually works for building an audience.",
         keywords: ["grow youtube channel", "youtube growth", "get more subscribers", "youtube tips"],
+        coverImage: "/images/blog/growth-guide.png",
+        imageAlt: "Real YouTube Growth Guide",
         content: `
 Let me start with something you probably don't want to hear: there's no fast way to grow a YouTube channel.
 
@@ -762,6 +778,8 @@ If that's you, keep going. The numbers will eventually follow the work.
         readTime: "8 min read",
         metaDescription: "Learn how to get 1000 subscribers free and 10,000 views on YouTube. Master the 7-second rule and use the best free SEO tools to skyrocket your channel growth.",
         keywords: ["get 1000 subscribers free", "get 10000 views", "7 second rule youtube", "best youtube seo tool", "youtube growth"],
+        coverImage: "/images/blog/1000-subscribers.png",
+        imageAlt: "How to Get 1000 Subscribers and 10000 Views",
         content: `
 Reaching your first 1,000 subscribers and 10,000 views is the hardest milestone on YouTube. It's the "gravity well" phase where you're putting in massive effort for minimal visible movement.
 

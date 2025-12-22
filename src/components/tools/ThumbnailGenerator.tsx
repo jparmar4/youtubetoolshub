@@ -184,6 +184,7 @@ export default function ThumbnailGenerator() {
                                     <p className="text-xl md:text-2xl font-black text-white mb-4 tracking-tight">
                                         {text}
                                     </p>
+
                                     <CopyButton text={text} variant="button" label="Copy Text" />
                                 </div>
                             ))}
