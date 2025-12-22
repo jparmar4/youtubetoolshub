@@ -26,25 +26,25 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'youtube-comment-picker': { free: Infinity, pro: Infinity },
 
     // Limited Tools (Free: specific limit, Pro: Unlimited)
-    'youtube-thumbnail-generator': { free: 2, pro: Infinity },          // Text Generator
-    'youtube-ai-thumbnail-generator': { free: 1, pro: Infinity },       // Image Generator
-    'youtube-ai-thumbnail-prompt': { free: 2, pro: Infinity },
-    'youtube-title-generator': { free: 2, pro: Infinity },
-    'youtube-description-generator': { free: 2, pro: Infinity },
-    'youtube-tag-generator': { free: 2, pro: Infinity },
-    'youtube-tag-extractor': { free: 2, pro: Infinity },
-    'youtube-video-ideas-generator': { free: 2, pro: Infinity },
-    'youtube-trend-helper': { free: 2, pro: Infinity },
-    'youtube-content-calendar-generator': { free: 2, pro: Infinity },
-    'youtube-title-ab-tester': { free: 2, pro: Infinity },
-    'youtube-channel-name-generator': { free: 2, pro: Infinity },
-    'youtube-hashtag-generator': { free: 2, pro: Infinity },
-    'youtube-intro-script-generator': { free: 2, pro: Infinity },
+    'youtube-thumbnail-generator': { free: 5, pro: Infinity },          // Text Generator
+    'youtube-ai-thumbnail-generator': { free: 3, pro: Infinity },       // Image Generator
+    'youtube-ai-thumbnail-prompt': { free: 5, pro: Infinity },
+    'youtube-title-generator': { free: 5, pro: Infinity },
+    'youtube-description-generator': { free: 5, pro: Infinity },
+    'youtube-tag-generator': { free: 5, pro: Infinity },
+    'youtube-tag-extractor': { free: 10, pro: Infinity },
+    'youtube-video-ideas-generator': { free: 5, pro: Infinity },
+    'youtube-trend-helper': { free: 5, pro: Infinity },
+    'youtube-content-calendar-generator': { free: 3, pro: Infinity },
+    'youtube-title-ab-tester': { free: 5, pro: Infinity },
+    'youtube-channel-name-generator': { free: 5, pro: Infinity },
+    'youtube-hashtag-generator': { free: 5, pro: Infinity },
+    'youtube-intro-script-generator': { free: 5, pro: Infinity },
 };
 
-export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };
+export const DEFAULT_LIMIT: ToolLimit = { free: 5, pro: Infinity };
 
-const STORAGE_KEY = 'yt_tools_usage_v3'; // Incremented key to reset schema
+const STORAGE_KEY = 'yt_tools_usage_v4'; // Incremented key to reset schema
 const PRO_KEY = 'yt_tools_pro';
 
 // Date helpers
