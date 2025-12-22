@@ -197,7 +197,7 @@ export default function TitleGenerator() {
         >
             <div className="space-y-6">
                 {/* Usage Banner */}
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-title-generator" />
 
                 {/* Limit Reached Modal */}
                 <LimitReachedModal

@@ -98,7 +98,7 @@ export default function HashtagGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-hashtag-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}

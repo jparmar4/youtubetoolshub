@@ -177,7 +177,7 @@ export default function TrendHelper() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-trend-helper" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Region Selector */}

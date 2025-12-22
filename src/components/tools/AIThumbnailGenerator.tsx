@@ -154,7 +154,7 @@ export default function AIThumbnailGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
-                <UsageBanner type="image" />
+                <UsageBanner type="image" toolSlug="youtube-ai-thumbnail-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}

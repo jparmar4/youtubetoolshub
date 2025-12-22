@@ -201,7 +201,7 @@ export default function AIThumbnailPromptGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-8">
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-ai-thumbnail-prompt" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Hero Input Section */}

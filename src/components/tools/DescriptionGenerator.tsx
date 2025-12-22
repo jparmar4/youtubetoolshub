@@ -189,7 +189,7 @@ export default function DescriptionGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-description-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}

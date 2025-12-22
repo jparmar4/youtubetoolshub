@@ -152,7 +152,7 @@ export default function IntroScriptGenerator() {
             seoContent={seoContent}
         >
             <div className="space-y-6">
-                <UsageBanner type="ai" />
+                <UsageBanner type="ai" toolSlug="youtube-intro-script-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
