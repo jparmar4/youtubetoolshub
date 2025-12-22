@@ -111,7 +111,7 @@ export default function ThumbnailGenerator() {
                     // Fallback splitting if it's just text
                     setResults([resultStr]);
                 }
-            } catch (e) {
+            } catch {
                 // detailed fallback
                 const lines = resultStr.split("\n")
                     .map((line: string) => line.replace(/^\d+\.\s*/, "").replace(/^[-*]\s*/, "").trim())

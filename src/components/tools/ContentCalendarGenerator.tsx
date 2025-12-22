@@ -56,7 +56,7 @@ export default function ContentCalendarGenerator() {
     const [days, setDays] = useState("30");
     const [calendar, setCalendar] = useState<CalendarEntry[]>([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(""); // Added error state
+
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
