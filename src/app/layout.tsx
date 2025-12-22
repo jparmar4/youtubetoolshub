@@ -124,6 +124,9 @@ export default function RootLayout({
           }}
         />
 
+        {/* AdSense Verification Code */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070" crossOrigin="anonymous"></script>
+
         {/* Theme initialization script - runs before paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{

@@ -31,10 +31,16 @@ export async function POST(req: NextRequest) {
         }
 
         // Check environment variables
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-            console.error("Email configuration missing");
+        const emailUser = process.env.EMAIL_USER;
+        const emailPass = process.env.EMAIL_PASS;
+
+        if (!emailUser || !emailPass) {
+            console.error("Email configuration missing:", {
+                EMAIL_USER: !!emailUser,
+                EMAIL_PASS: !!emailPass
+            });
             return NextResponse.json(
-                { error: "Email service not configured" },
+                { error: "Email service not configured (Missing Server Environment Variables)" },
                 { status: 500 }
             );
         }
