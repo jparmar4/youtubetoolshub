@@ -874,6 +874,153 @@ Keep showing up, keep mastering the **7 Second Rule**, and use the right **SEO t
 You've got the roadmap. Now go upload.
         `,
     },
+    {
+        slug: "youtube-script-formula-retention",
+        title: "The Perfect YouTube Script Formula: Hook Viewers in 30 Seconds",
+        excerpt: "Retention is the #1 ranking factor. Learn the exact 4-part script formula that top creators use to keep viewers watching until the end.",
+        date: "Dec 30, 2025",
+        category: "Scripting",
+        author: "Marcus Aurelius",
+        authorRole: "Storytelling Coach",
+        readTime: "9 min read",
+        metaDescription: "Master the perfect YouTube script structure. Learn how to write hooks, retain attention, and boost watch time with this proven 4-part formula.",
+        keywords: ["youtube script structure", "video retention", "youtube hook examples", "how to write youtube script"],
+        coverImage: "/images/blog/scripting-masterclass.png",
+        imageAlt: "YouTube Scripting Masterclass Guide",
+        content: `
+If you think your camera quality is why people click away, you're wrong. It's your script.
+
+Watch time is YouTube's god metric. If people watch, YouTube promotes. If they drop off, you die in the algorithm. And 80% of drops happen in the first 30 seconds because the script failed to hook them.
+
+I've deconstructed 500+ viral videos to find the pattern. They all use the same 4-part structure.
+
+## Part 1: The H.O.T. Hook (First 30 Seconds)
+
+You have 5 seconds to earn the next 30. You have 30 seconds to earn the rest of the video.
+
+Don't start with "Hey guys, welcome back." Start with the H.O.T. formula:
+
+1.  **H - Hook**: The bold promise or visual spectacle. "I spent $10,000 on this mystery box."
+2.  **O - Outcome**: What they will get by the end. "By the end of this video, you'll know exactly which tool is worth the money."
+3.  **T - Testimonial/Trust**: Why listen to you? "I've reviewed 500 tech products..."
+
+**Stop Guessing**: Use our **[YouTube Intro Script Generator](/tools/youtube-intro-script-generator)** to write H.O.T. hooks instantly. It analyzes what's working on viral channels and generates a script tailored to your topic.
+
+## Part 2: The "Meat" (The Deliverable)
+
+This is the core value. But don't just lecture.
+
+*   **Rule of 3**: People remember things by threes. Break your content into 3 main points.
+*   **Pattern Interrupts**: Every 45-60 seconds, change the visual (b-roll, text on screen) or the audio (sound effect).
+*   **Open Loops**: Tease something coming later. "I'll show you the results in minute 5, but first..."
+
+Struggling for core content ideas? The **[YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator)** uses AI to brainstorm angles you haven't thought of.
+
+## Part 3: The Climax (Payoff)
+
+This is what they clicked for. Deliver on the promise of the title/thumbnail.
+
+If you promised a tutorial, this is the final result. If it's a story, this is the resolution. Do not drag this out. The moment the value is delivered, viewers will look to leave.
+
+## Part 4: The Retention Outro
+
+Most outros kill retention. "Thanks for watching, smash subscribe..." - STOP.
+
+By the time you say "Thanks," they are gone.
+
+Instead, use a **Bridge Outro**:
+"Now that you've fixed your script, you need to fix your thumbnail. Click this video here to learn how..."
+
+Link heavily to related content. Since you're reading this, you know **[YouTube Thumbnail Downloader](/tools/youtube-thumbnail-downloader)** is crucial for research. Mentioning tools or resources keeps people in your ecosystem.
+
+## Checklist for a Viral Script
+
+1.  **Hook**: Written last, polished most.
+2.  **Pacing**: 120-150 words per minute.
+3.  **Visual Cues**: Script where the b-roll goes.
+4.  **No Fluff**: Delete every sentence that doesn't advance the story.
+
+## Recommended Reading
+
+*   [How to Write Youtube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
+*   [YouTube SEO in 2026: What Still Works](/blog/youtube-seo-complete-guide)
+        `,
+    },
+    {
+        slug: "youtube-monetization-truths-cpm-rpm",
+        title: "YouTube Monetization Truths: How Much Do 1 Million Views Pay?",
+        excerpt: "Stop guessing your earnings. We break down RPM, CPM, and the real math behind 1 million views across Finance, Gaming, and Vlog niches.",
+        date: "Dec 29, 2025",
+        category: "Monetization",
+        author: "Sarah Jenkins",
+        authorRole: "Finance Creator",
+        readTime: "11 min read",
+        metaDescription: "Real data on YouTube earnings. Discover the difference between RPM and CPM, and see exactly how much 1 million views pays in different niches.",
+        keywords: ["youtube earnings", "how much youtube pays", "cpm vs rpm", "youtube monetization rates"],
+        coverImage: "/images/blog/monetization-truths.png",
+        imageAlt: "YouTube Monetization Truths",
+        content: `
+"How much does YouTube pay?"
+
+The answer is the most annoying phrase in business: "It depends."
+
+But relying on "it depends" won't pay your rent. Let's look at the cold, hard data from 2024-2025 to understand what you can actually respect.
+
+## RPM vs. CPM: The Golden Ratio
+
+First, stop looking at CPM (Cost Per Mille). That's what advertisers pay YouTube.
+Look at **RPM (Revenue Per Mille)**. That's what enters your bank account after YouTube takes their 45% cut.
+
+Formula: \`Views / 1,000 * RPM = Your Income\`
+
+## The Niche Hierarchy (Real Data)
+
+Not all views are created equal. A viewer looking for "Best Credit Cards" is worth 10x more to advertisers than a viewer watching "Funny Cat Compilation".
+
+*   **Tier 1 (The Goldmine): Finance, Tech, Real Estate**
+    *   Average RPM: $15 - $40
+    *   1 Million Views: **$15,000 - $40,000**
+    *   *Why?* High-value products (mortgages, sasS software) mean advertisers pay huge premiums.
+
+*   **Tier 2 (The Middle Class): Education, Lifestyle, Health**
+    *   Average RPM: $4 - $10
+    *   1 Million Views: **$4,000 - $10,000**
+    *   *Why?* Supplement and course ads are common but cheaper than banks.
+
+*   **Tier 3 (The Volume Game): Gaming, Entertainment, Pranks**
+    *   Average RPM: $0.50 - $2.50
+    *   1 Million Views: **$500 - $2,500**
+    *   *Why?* Viewers are often younger or passive, with lower purchasing power.
+
+Want to know where you stand? Use our free **[YouTube Earnings Calculator](/tools/youtube-money-calculator)**. It uses updated 2026 RPM data to give you a realistic estimate based on your specific niche and view count.
+
+## How to Double Your RPM
+
+You can't change your niche easily, but you can change your RPM.
+
+1.  **Target High-Value Keywords**: Make a video about "Best Budget Camera" instead of "My Vlog". The first attracts older viewers with wallets.
+2.  **Mid-Roll Ads**: If your video is over 8 minutes, you can place multiple ads. A video with 3 ads pays 3x a video with 1 ad.
+3.  **Audience Location**: Viewers from USA/UK/Canada pay 5x more than viewers from lower GDP countries.
+
+## Beyond AdSense: The Real Money
+
+AdSense should be your salary. Brand deals and products are your bonus (and usually bigger).
+
+If you are in the **Finance Tier**, you don't need millions of views. 5,000 views on a review of a high-ticket software could lead to $1,000 in affiliate commissions.
+
+## Action Plan
+
+1.  Check your current RPM in YouTube Studio > Analytics > Revenue.
+2.  Compare it to the tiers above.
+3.  Use the **[YouTube Money Calculator](/tools/youtube-money-calculator)** to forecast your goal income. How many views do you *actually* need?
+4.  Focus your next 3 videos on "high intent" topics to boost that RPM.
+
+## Recommended Reading
+
+*   [How to Grow Your Channel Fast](/blog/grow-youtube-channel-fast)
+*   [Best YouTube Tools for Beginners](/blog/best-youtube-tools-for-beginners)
+        `,
+    }
 ];
 
 // Helper functions
