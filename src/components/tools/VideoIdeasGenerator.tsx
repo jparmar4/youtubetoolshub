@@ -170,6 +170,23 @@ export default function VideoIdeasGenerator() {
 
                     setIdeas(normalized);
                     increment("youtube-video-ideas-generator"); // Only increment after success
+
+                    // Auto-save the first result or summary to history
+                    if (normalized.length > 0) {
+                        try {
+                            // Saving the simplified first idea as a history marker
+                            await saveHistory('youtube-video-ideas-generator', {
+                                title: normalized[0].title,
+                                concept: normalized[0].concept,
+                                score: normalized[0].score,
+                                difficulty: normalized[0].difficulty,
+                                angle: normalized[0].angle,
+                                thumbnail_concept: normalized[0].thumbnail_concept
+                            });
+                        } catch (histErr) {
+                            console.error("Failed to auto-save history:", histErr);
+                        }
+                    }
                 } else {
                     console.error("Parsed data is not an array:", parsed);
                     setError("AI returned an unexpected format. Please try again.");

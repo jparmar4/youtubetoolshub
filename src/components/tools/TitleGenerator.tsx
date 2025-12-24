@@ -144,6 +144,14 @@ export default function TitleGenerator() {
         setSavedSet(prev => new Set(prev).add(title));
     };
 
+    // Sync state with URL params
+    useEffect(() => {
+        const urlTopic = searchParams.get("topic");
+        if (urlTopic) {
+            setTopic(urlTopic);
+        }
+    }, [searchParams]);
+
     const handleGenerate = async () => {
         if (!topic.trim()) {
             setError("Please enter a video topic");
@@ -179,10 +187,10 @@ export default function TitleGenerator() {
                 return;
             }
 
-            increment("youtube-title-generator");
-
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            let parsedTitles: TitleResult[] = [];
 
             try {
                 // Parse structured JSON
@@ -190,14 +198,23 @@ export default function TitleGenerator() {
                 // Handle both simple string array (backward compatibility) and new object array
                 if (Array.isArray(parsed)) {
                     if (typeof parsed[0] === 'string') {
-                        setTitles(parsed.map((t: string) => ({
+                        parsedTitles = parsed.map((t: string) => ({
                             title: t,
                             score: 85, // Default score for old format
                             method: "Classic",
                             why: "Standard AI generation"
-                        })));
+                        }));
                     } else {
-                        setTitles(parsed as TitleResult[]);
+                        parsedTitles = parsed as TitleResult[];
+                    }
+                    setTitles(parsedTitles);
+
+                    // Success! Track usage and save history
+                    increment("youtube-title-generator");
+
+                    // Auto-save the first result or a summary to history
+                    if (parsedTitles.length > 0) {
+                        await saveHistory('youtube-title-generator', parsedTitles[0]);
                     }
                 } else {
                     setError("Invalid data format received.");
