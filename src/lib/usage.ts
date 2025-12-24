@@ -160,6 +160,57 @@ export const getToolLimit = (slug: string, isPro: boolean): number => {
     return isPro ? limitConfig.pro : limitConfig.free;
 };
 
+// --- Local Storage Fallback (for Guests) ---
+
+export const getLocalUsage = (): Record<string, number> => {
+    if (typeof window === 'undefined') return {};
+
+    const today = new Date().toISOString().split('T')[0];
+    const stored = localStorage.getItem('yt_tools_usage_v2');
+
+    if (!stored) return {};
+
+    try {
+        const parsed = JSON.parse(stored);
+        if (parsed.date !== today) {
+            // Reset for new day
+            localStorage.setItem('yt_tools_usage_v2', JSON.stringify({ date: today, usage: {} }));
+            return {};
+        }
+        return parsed.usage || {};
+    } catch {
+        return {};
+    }
+};
+
+export const incrementLocalUsage = (slug: string): number => {
+    if (typeof window === 'undefined') return 0;
+
+    const today = new Date().toISOString().split('T')[0];
+    const stored = localStorage.getItem('yt_tools_usage_v2');
+    let usageData: Record<string, number> = {};
+
+    try {
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.date === today) {
+                usageData = parsed.usage || {};
+            }
+        }
+    } catch {
+        // ignore error
+    }
+
+    usageData[slug] = (usageData[slug] || 0) + 1;
+
+    localStorage.setItem('yt_tools_usage_v2', JSON.stringify({
+        date: today,
+        usage: usageData
+    }));
+
+    return usageData[slug];
+};
+
 // Client-side helper (deprecated for direct checks, but useful for UI display logic)
 export const isPremiumUser = (): boolean => {
     if (typeof window === 'undefined') return false;

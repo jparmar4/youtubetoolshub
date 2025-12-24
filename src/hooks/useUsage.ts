@@ -6,6 +6,8 @@ import {
     incrementUserUsage,
     fetchSubscriptionStatus,
     getToolLimit,
+    getLocalUsage,
+    incrementLocalUsage,
     isPremiumUser as isPremiumUserLegacy // Fallback
 } from "@/lib/usage";
 
@@ -28,7 +30,14 @@ export function useUsage() {
                 fetchSubscriptionStatus()
             ]);
 
-            if (usageData) setUsageMap(usageData);
+            if (usageData) {
+                setUsageMap(usageData);
+            } else {
+                // FALLBACK: No user or error -> Check local storage
+                console.log("No server usage data (guest?), using local storage");
+                setUsageMap(getLocalUsage());
+            }
+
             setIsPro(proStatus);
 
             // Sync local storage for purely UI helpers that might rely on it sync (optional)
@@ -38,6 +47,8 @@ export function useUsage() {
 
         } catch (error) {
             console.error("Failed to load usage/sub:", error);
+            // Fallback on error
+            setUsageMap(getLocalUsage());
         } finally {
             setLoading(false);
         }
@@ -67,9 +78,19 @@ export function useUsage() {
             [slug]: (prev[slug] || 0) + 1
         }));
 
-        // Server update
-        await incrementUserUsage(slug);
-    }, []);
+        try {
+            // Server update
+            await incrementUserUsage(slug);
+
+            // If not Pro (i.e. Guest likely), also update local storage as backup/primary
+            if (!isPro) {
+                incrementLocalUsage(slug);
+            }
+        } catch (e) {
+            console.error("Server increment failed:", e);
+            incrementLocalUsage(slug); // Fallback
+        }
+    }, [isPro]);
 
     const checkAndIncrement = useCallback(async (slug: string): Promise<boolean> => {
         if (!checkLimit(slug)) {
