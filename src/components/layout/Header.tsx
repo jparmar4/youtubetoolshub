@@ -50,7 +50,7 @@ const ThemeToggle = memo(function ThemeToggle({
     );
 });
 
-const DashboardLink = memo(function DashboardLink() {
+const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () => void }) {
     const { data: session } = useSession();
 
     if (!session) return null;
@@ -58,7 +58,8 @@ const DashboardLink = memo(function DashboardLink() {
     return (
         <Link
             href="/dashboard"
-            className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1"
+            onClick={onClick}
+            className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl"
         >
             <span>🚀</span>
             Dashboard
@@ -132,7 +133,8 @@ function Header() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
-                        {siteConfig.nav.map((item) => (
+                        {/* Home Link (Always First) */}
+                        {siteConfig.nav.filter(item => item.href === '/').map((item) => (
                             <NavLink
                                 key={item.name}
                                 href={item.href}
@@ -141,8 +143,20 @@ function Header() {
                                 {item.name}
                             </NavLink>
                         ))}
-                        {/* Dashboard Link for Authenticated Users */}
+
+                        {/* Dashboard Link (After Home) */}
                         <DashboardLink />
+
+                        {/* Other Links */}
+                        {siteConfig.nav.filter(item => item.href !== '/').map((item) => (
+                            <NavLink
+                                key={item.name}
+                                href={item.href}
+                                className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors"
+                            >
+                                {item.name}
+                            </NavLink>
+                        ))}
                     </div>
 
                     {/* Right Section */}
@@ -171,7 +185,23 @@ function Header() {
                 {isMenuOpen && (
                     <div className="md:hidden py-4 border-t border-gray-100 dark:border-gray-800">
                         <div className="flex flex-col gap-2">
-                            {siteConfig.nav.map((item) => (
+                            {/* Home Link (First) */}
+                            {siteConfig.nav.filter(item => item.href === '/').map((item) => (
+                                <NavLink
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={closeMenu}
+                                    className="px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 font-medium transition-colors"
+                                >
+                                    {item.name}
+                                </NavLink>
+                            ))}
+
+                            {/* Dashboard Link (After Home) */}
+                            <DashboardLink onClick={closeMenu} />
+
+                            {/* Other Links */}
+                            {siteConfig.nav.filter(item => item.href !== '/').map((item) => (
                                 <NavLink
                                     key={item.name}
                                     href={item.href}
