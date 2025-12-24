@@ -10,6 +10,7 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaRocket, FaLightbulb, FaStar } from "react-icons/fa";
+import { saveHistory } from "@/lib/history";
 
 // Comprehensive options for prompt generation
 const nicheOptions = [
@@ -175,10 +176,13 @@ export default function AIThumbnailPromptGenerator() {
             // specific cleanup for potential markdown
             result = result.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
 
+            let finalPrompts: string[] = [];
+
             try {
                 const parsed = JSON.parse(result);
                 if (Array.isArray(parsed)) {
                     setGeneratedPrompts(parsed);
+                    finalPrompts = parsed;
                 } else {
                     throw new Error("Invalid format");
                 }
@@ -186,7 +190,21 @@ export default function AIThumbnailPromptGenerator() {
                 console.error("Parse error", e);
                 // Fallback if it's just text
                 setGeneratedPrompts([result]);
+                finalPrompts = [result];
             }
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-ai-thumbnail-prompt', {
+                    videoTopic,
+                    niche,
+                    mood,
+                    prompts: finalPrompts
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
+
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate prompts. Please try again.");
@@ -199,6 +217,7 @@ export default function AIThumbnailPromptGenerator() {
     return (
         <ToolPageLayout
             title="AI Thumbnail Prompt Generator"
+            slug="youtube-ai-thumbnail-prompt"
             description="Generate optimized prompts for AI thumbnail creation - works with any AI image generator"
             faq={faq}
             howTo={howTo}

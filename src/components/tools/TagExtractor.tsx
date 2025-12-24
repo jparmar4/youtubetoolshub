@@ -129,6 +129,7 @@ export default function TagExtractor() {
     return (
         <ToolPageLayout
             title="YouTube Tag Extractor"
+            slug="youtube-tag-extractor"
             description="Extract real tags from any YouTube video using the official API"
             faq={faq}
             howTo={howTo}

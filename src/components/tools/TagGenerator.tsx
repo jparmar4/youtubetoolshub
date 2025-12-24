@@ -203,6 +203,7 @@ export default function TagGenerator() {
     return (
         <ToolPageLayout
             title="YouTube Tag Generator"
+            slug="youtube-tag-generator"
             description="Generate SEO-optimized, trending tags that help your videos rank"
             faq={faq}
             howTo={howTo}

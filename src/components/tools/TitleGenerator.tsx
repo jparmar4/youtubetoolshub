@@ -235,6 +235,7 @@ export default function TitleGenerator() {
     return (
         <ToolPageLayout
             title="Professional YouTube Title Generator"
+            slug="youtube-title-generator"
             description="Generate data-backed, high-CTR titles with Viral Scores and Analysis."
             faq={faq}
             howTo={howTo}

@@ -7,6 +7,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaTrophy, FaFilter, FaQuoteLeft } from "react-icons/fa";
 import Image from "next/image";
 import confetti from "canvas-confetti";
+import { saveHistory } from "@/lib/history";
+
 
 const faq = [
     {
@@ -158,11 +160,22 @@ export default function CommentPicker() {
 
         setLoading(true);
         // Simulate "rolling" effect
-        setTimeout(() => {
+        setTimeout(async () => {
             const randomIndex = Math.floor(Math.random() * filteredComments.length);
             const luckyWinner = filteredComments[randomIndex];
             setWinner(luckyWinner);
             setLoading(false);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-comment-picker', {
+                    url,
+                    winnerName: luckyWinner.authorDisplayName,
+                    winnerComment: luckyWinner.text
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
 
             // Confetti
             confetti({
@@ -176,6 +189,7 @@ export default function CommentPicker() {
     return (
         <ToolPageLayout
             title="YouTube Comment Picker"
+            slug="youtube-comment-picker"
             description="Pick a random winner for your YouTube giveaway. Filter duplicates and find a fair winner instantly."
             faq={faq}
             howTo={howTo}

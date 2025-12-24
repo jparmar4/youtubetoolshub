@@ -120,6 +120,7 @@ export default function TitleABTester() {
     return (
         <ToolPageLayout
             title="AI Title Click Simulator"
+            slug="youtube-title-ab-tester"
             description="Predict the winner before you publish. Simulate 1,000 keyword impressions."
             faq={faq}
             howTo={howTo}

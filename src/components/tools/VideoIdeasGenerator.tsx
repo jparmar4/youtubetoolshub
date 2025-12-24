@@ -209,6 +209,7 @@ export default function VideoIdeasGenerator() {
     return (
         <ToolPageLayout
             title="Strategic Video Ideas Generator"
+            slug="youtube-video-ideas-generator"
             description="Get proven video concepts tailored to your channel size and growth goals."
             faq={faq}
             howTo={howTo}

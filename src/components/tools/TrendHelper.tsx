@@ -10,6 +10,8 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaChartLine, FaSpinner, FaFire, FaEye, FaLightbulb } from "react-icons/fa";
+import { saveHistory } from "@/lib/history";
+
 
 // Interfaces
 interface TrendingVideo {
@@ -145,7 +147,19 @@ export default function TrendHelper() {
 
             try {
                 const parsed = JSON.parse(resultStr);
-                setAiSuggestions(Array.isArray(parsed) ? parsed.slice(0, 8) : []);
+                const suggestions = Array.isArray(parsed) ? parsed.slice(0, 8) : [];
+                setAiSuggestions(suggestions);
+
+                // Save to Cloud History
+                try {
+                    await saveHistory('youtube-trend-helper', {
+                        type: 'ai-suggestions',
+                        niche,
+                        suggestions: suggestions
+                    });
+                } catch (error) {
+                    console.error("Failed to save to cloud history:", error);
+                }
             } catch {
                 console.error("Failed to parse AI suggestions");
             }
@@ -171,6 +185,7 @@ export default function TrendHelper() {
     return (
         <ToolPageLayout
             title="YouTube Trend & Topic Helper"
+            slug="youtube-trend-helper"
             description="See what's actually trending on YouTube right now"
             faq={faq}
             howTo={howTo}

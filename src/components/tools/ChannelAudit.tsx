@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { saveItem } from "@/lib/dashboard";
+import { saveHistory } from "@/lib/history";
 import ShareModal from "@/components/ui/ShareModal";
 import { FaSearch, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaShareAlt, FaSpinner, FaYoutube, FaBookmark } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -77,6 +78,19 @@ export default function ChannelAudit() {
             ],
             summary: "Your channel has strong potential! Focus on improving click-through rates (CTR) by A/B testing your thumbnails. Your content strategy is solid, but engagement could be higher."
         });
+
+        // Save to Cloud History
+        try {
+            await saveHistory('youtube-channel-audit', {
+                channelInput,
+                score,
+                grade,
+                summary: "Your channel has strong potential! Focus on improving click-through rates (CTR) by A/B testing your thumbnails. Your content strategy is solid, but engagement could be higher."
+            });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+        }
+
         setLoading(false);
     };
 

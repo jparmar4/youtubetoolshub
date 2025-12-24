@@ -95,7 +95,7 @@ export default function ContentCalendarGenerator() {
                 return;
             }
 
-            increment("youtube-content-calendar");
+            increment("youtube-content-calendar-generator");
 
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
@@ -113,7 +113,7 @@ export default function ContentCalendarGenerator() {
                 // Save to Cloud History
                 const historyContent = Array.isArray(parsed) ? { calendar: parsed } : parsed;
                 try {
-                    await saveHistory('youtube-content-calendar', {
+                    await saveHistory('youtube-content-calendar-generator', {
                         niche,
                         frequency,
                         days,
@@ -146,6 +146,7 @@ export default function ContentCalendarGenerator() {
     return (
         <ToolPageLayout
             title="YouTube Content Calendar Generator"
+            slug="youtube-content-calendar-generator"
             description="Plan your content schedule with AI-generated video ideas"
             faq={faq}
             howTo={howTo}

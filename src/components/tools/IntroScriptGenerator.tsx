@@ -116,7 +116,7 @@ export default function IntroScriptGenerator() {
                 return;
             }
 
-            increment("youtube-intro-generator");
+            increment("youtube-intro-script-generator");
 
             // Try parsing JSON first
             const parsed = safeJSONParse<ScriptResult | null>(data.result, null);
@@ -159,6 +159,7 @@ export default function IntroScriptGenerator() {
     return (
         <ToolPageLayout
             title="YouTube Intro Script Generator"
+            slug="youtube-intro-script-generator"
             description="Create engaging video intros that hook viewers in seconds"
             faq={faq}
             howTo={howTo}

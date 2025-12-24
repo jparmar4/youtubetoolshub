@@ -174,6 +174,7 @@ export default function ChannelNameGenerator() {
     return (
         <ToolPageLayout
             title="AI Brand Name Consultant"
+            slug="youtube-channel-name-generator"
             description="Get 15 assessed channel names. We analyze availability potential, brand vibe, and trust score."
             faq={faq}
             howTo={howTo}

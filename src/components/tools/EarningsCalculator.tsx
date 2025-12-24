@@ -9,6 +9,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaCalculator, FaDollarSign, FaHandshake, FaChartLine, FaSpinner, FaRocket } from "react-icons/fa";
 import { formatCurrency, formatNumber, calculateEarnings, safeJSONParse } from "@/lib/utils";
+import { saveHistory } from "@/lib/history";
 import Select from "@/components/ui/Select";
 
 const faq = [
@@ -97,6 +98,19 @@ export default function EarningsCalculator() {
             increment("youtube-earnings-calculator");
             const parsed = safeJSONParse<SponsorshipResult>(data.result, null as unknown as SponsorshipResult);
             setSponsorResult(parsed);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-earnings-calculator', {
+                    type: 'sponsorship',
+                    dealViews,
+                    subscribers,
+                    niche,
+                    result: parsed
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -107,6 +121,7 @@ export default function EarningsCalculator() {
     return (
         <ToolPageLayout
             title="YouTube Income & Deal Calculator"
+            slug="youtube-earnings-calculator"
             description="Project your AdSense revenue and estimate sponsorship deal values with AI."
             faq={faq}
             howTo={howTo}

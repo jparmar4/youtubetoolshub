@@ -158,6 +158,7 @@ export default function ThumbnailGenerator() {
     return (
         <ToolPageLayout
             title="Professional Thumbnail Text Generator"
+            slug="youtube-thumbnail-generator"
             description="Generate psychological hooks and design concepts for higher CTR."
             faq={faq}
             howTo={howTo}

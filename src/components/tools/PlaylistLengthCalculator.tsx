@@ -7,6 +7,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
 
 import Image from "next/image";
+import { saveHistory } from "@/lib/history";
+
 
 const faq = [
     {
@@ -82,6 +84,18 @@ export default function PlaylistLengthCalculator() {
             }
 
             setResult(data);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-playlist-length-calculator', {
+                    query: query.trim(),
+                    playlistTitle: data.playlistInfo.title,
+                    videoCount: data.videoCount,
+                    totalSeconds: data.totalSeconds
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (err) {
             console.error("Calculation error:", err);
             setError("An unexpected error occurred. Please try again.");
@@ -119,6 +133,7 @@ export default function PlaylistLengthCalculator() {
     return (
         <ToolPageLayout
             title="YouTube Playlist Length Calculator"
+            slug="youtube-playlist-length-calculator"
             description="Find out exactly how long a YouTube playlist is. See total duration and time at different playback speeds."
             faq={faq}
             howTo={howTo}

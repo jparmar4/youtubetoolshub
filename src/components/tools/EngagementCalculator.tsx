@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaChartBar } from "react-icons/fa";
 import { calculateEngagementRate, formatNumber } from "@/lib/utils";
+import { saveHistory } from "@/lib/history";
+
 
 const faq = [
     {
@@ -49,6 +51,20 @@ export default function EngagementCalculator() {
 
         const engagement = calculateEngagementRate(viewsNum, likesNum, commentsNum, sharesNum);
         setResult(engagement);
+
+        // Save to Cloud History
+        try {
+            saveHistory('youtube-engagement-calculator', {
+                views: viewsNum,
+                likes: likesNum,
+                comments: commentsNum,
+                shares: sharesNum,
+                rate: engagement.rate,
+                rating: engagement.rating
+            });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+        }
     };
 
     const getRatingColor = (rating: string) => {
@@ -69,6 +85,7 @@ export default function EngagementCalculator() {
     return (
         <ToolPageLayout
             title="YouTube Engagement Rate Calculator"
+            slug="youtube-engagement-calculator"
             description="Calculate your video's engagement rate and compare to benchmarks"
             faq={faq}
             howTo={howTo}

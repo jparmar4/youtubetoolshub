@@ -161,6 +161,7 @@ export default function AIThumbnailGenerator() {
     return (
         <ToolPageLayout
             title="AI YouTube Thumbnail Generator"
+            slug="youtube-ai-thumbnail-generator"
             description="Generate 2 stunning thumbnail options with AI - pick the best one"
             faq={faq}
             howTo={howTo}

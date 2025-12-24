@@ -7,6 +7,8 @@ import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
+import { saveHistory } from "@/lib/history";
+
 
 const faq = [
     {
@@ -91,6 +93,18 @@ export default function ChannelIdFinder() {
             }
 
             setChannelData(data);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-channel-id-finder', {
+                    query: query.trim(),
+                    channelTitle: data.title,
+                    channelId: data.id,
+                    customUrl: data.customUrl
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (err) {
             console.error("Search error:", err);
             setError("An unexpected error occurred. Please try again.");
@@ -106,6 +120,7 @@ export default function ChannelIdFinder() {
     return (
         <ToolPageLayout
             title="YouTube Channel ID Finder"
+            slug="youtube-channel-id-finder"
             description="Find the unique Channel ID (UC...) and User ID for any YouTube channel instantly."
             faq={faq}
             howTo={howTo}

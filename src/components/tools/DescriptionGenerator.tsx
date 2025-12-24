@@ -182,6 +182,7 @@ export default function DescriptionGenerator() {
     return (
         <ToolPageLayout
             title="Optimized Description Generator"
+            slug="youtube-description-generator"
             description="Create SEO-ready, human-sounding descriptions that get clicks."
             faq={faq}
             howTo={howTo}

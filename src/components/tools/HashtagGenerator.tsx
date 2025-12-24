@@ -192,6 +192,7 @@ export default function HashtagGenerator() {
     return (
         <ToolPageLayout
             title="Professional Hashtag Generator"
+            slug="youtube-hashtag-generator"
             description="Generate high-performing hashtags categorized by reach and relevance."
             faq={faq}
             howTo={howTo}

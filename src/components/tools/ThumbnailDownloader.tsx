@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage } from "react-icons/fa";
+import { saveHistory } from "@/lib/history";
+
 
 const faq = [
     {
@@ -58,11 +60,23 @@ export default function ThumbnailDownloader() {
         const thumbs = getThumbnailUrls(videoId);
         setThumbnails(thumbs);
         setLoading(false);
+
+        // Save to Cloud History
+        try {
+            saveHistory('youtube-thumbnail-downloader', {
+                url,
+                videoId,
+                thumbnailCount: thumbs.length
+            });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+        }
     };
 
     return (
         <ToolPageLayout
             title="YouTube Thumbnail Downloader"
+            slug="youtube-thumbnail-downloader"
             description="Download high-quality thumbnails from any YouTube video in multiple resolutions"
             faq={faq}
             howTo={howTo}
