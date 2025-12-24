@@ -228,7 +228,23 @@ export default function ChannelAudit() {
                                         </button>
 
                                         <button
-                                            onClick={() => setShowShareModal(true)}
+                                            onClick={async () => {
+                                                const content = getShareContent();
+                                                if (navigator.share) {
+                                                    try {
+                                                        await navigator.share({
+                                                            title: content.title,
+                                                            text: content.text,
+                                                            url: "https://youtubetoolshub.com/tools/youtube-channel-audit"
+                                                        });
+                                                    } catch (err) {
+                                                        // User cancelled or error, fallback to modal if needed, but usually just ignore cancel
+                                                        console.log("Share cancelled or failed", err);
+                                                    }
+                                                } else {
+                                                    setShowShareModal(true);
+                                                }
+                                            }}
                                             className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium transition-colors"
                                         >
                                             <FaShareAlt /> Share Result
