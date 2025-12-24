@@ -9,7 +9,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMicrophone, FaSpinner, FaPlay } from "react-icons/fa";
+import { FaMicrophone, FaSpinner, FaPlay, FaStream } from "react-icons/fa";
+import { safeJSONParse } from "@/lib/utils";
 
 const personalityOptions = [
     { value: "energetic", label: "Energetic & Excited" },
@@ -26,6 +27,13 @@ const lengthOptions = [
     { value: "10-15 seconds", label: "Short (10-15 sec)" },
     { value: "20-30 seconds", label: "Standard (20-30 sec)" },
     { value: "30-45 seconds", label: "Detailed (30-45 sec)" },
+];
+
+const structureOptions = [
+    { value: "Standard Hook", label: "Standard Hook (H-C-P-T)" },
+    { value: "Story Start", label: "Story Start (Transformation)" },
+    { value: "Cold Open", label: "Cold Open (Immediate Action)" },
+    { value: "Controversial", label: "Controversial (Pattern Interrupt)" },
 ];
 
 const faq = [
@@ -53,11 +61,20 @@ const howTo = [
 
 const seoContent = `Create attention-grabbing YouTube intro scripts with our AI generator. Get ready-to-read scripts that hook viewers in the first 5 seconds. Choose your personality style and length, and get a complete intro with hook, context, promise, and transition.`;
 
+interface ScriptResult {
+    hook: string;
+    context: string;
+    promise: string;
+    transition: string;
+}
+
 export default function IntroScriptGenerator() {
     const [topic, setTopic] = useState("");
     const [personality, setPersonality] = useState("energetic");
     const [length, setLength] = useState("10-15 seconds");
-    const [script, setScript] = useState("");
+    const [structure, setStructure] = useState("Standard Hook");
+    const [scriptData, setScriptData] = useState<ScriptResult | null>(null);
+    const [rawScript, setRawScript] = useState(""); // Fallback
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -75,25 +92,22 @@ export default function IntroScriptGenerator() {
 
         setError("");
         setLoading(true);
-        setScript(""); // Changed from setScripts([]) as `script` is a string state
+        setScriptData(null);
+        setRawScript("");
 
         try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 30000);
-
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    tool: "intro-generator",
+                    tool: "intro-script", // API calls this "intro-script", UI component "intro-generator" but API route expects "intro-script" for the case? Wait, route.ts has "intro-script". OK.
                     topic,
-                    tone: personalityOptions.find(p => p.value === personality)?.label, // Changed from personality to tone
-                    hookType: "standard", // Added hookType, assuming a default value as it's not in the UI
+                    personality: personalityOptions.find(p => p.value === personality)?.label,
+                    length,
+                    structure: structureOptions.find(s => s.value === structure)?.label,
                 }),
-                signal: controller.signal,
             });
 
-            clearTimeout(timeoutId);
             const data = await response.json();
 
             if (data.error) {
@@ -101,27 +115,17 @@ export default function IntroScriptGenerator() {
                 return;
             }
 
-            // Success! Increment usage
             increment("youtube-intro-generator");
 
-            // Clean up any JSON or code blocks
-            let result = data.result || "";
-            result = result.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
-
-            // If it's JSON, try to extract text
-            if (result.startsWith("{") || result.startsWith("[")) {
-                try {
-                    const parsed = JSON.parse(result);
-                    // Try to get the script from various possible keys
-                    result = parsed.script || parsed.intro || parsed.text ||
-                        parsed.hook + "\n\n" + parsed.context + "\n\n" + parsed.promise + "\n\n" + parsed.transition ||
-                        JSON.stringify(parsed, null, 2);
-                } catch {
-                    // Keep original if parsing fails
-                }
+            // Try parsing JSON first
+            const parsed = safeJSONParse<ScriptResult | null>(data.result, null);
+            if (parsed && parsed.hook) {
+                setScriptData(parsed);
+            } else {
+                // Fallback text
+                setRawScript(data.result.replace(/```json\s*/gi, "").replace(/```\s*/g, ""));
             }
 
-            setScript(result);
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate script. Please try again.");
@@ -130,17 +134,11 @@ export default function IntroScriptGenerator() {
         }
     };
 
-    // Clean script for copying (remove emojis and section headers if desired)
-    const getCleanScript = () => {
-        return script
-            .replace(/🎬|📍|✨|➡️/g, "")
-            .replace(/---/g, "")
-            .replace(/\([\d-]+ seconds?\)/gi, "")
-            .replace(/HOOK|CONTEXT|PROMISE|TRANSITION/gi, "")
-            .split("\n")
-            .map(line => line.trim())
-            .filter(line => line)
-            .join("\n\n");
+    const getFullText = () => {
+        if (scriptData) {
+            return `${scriptData.hook}\n\n${scriptData.context}\n\n${scriptData.promise}\n\n${scriptData.transition}`;
+        }
+        return rawScript;
     };
 
     return (
@@ -151,105 +149,115 @@ export default function IntroScriptGenerator() {
             howTo={howTo}
             seoContent={seoContent}
         >
-            <div className="space-y-6">
+            <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-intro-script-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
                 {/* Input Section */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="md:col-span-2">
-                        <Input
-                            label="Video Topic"
-                            placeholder="e.g., How to grow a YouTube channel from 0 to 1000 subscribers"
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
+                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="md:col-span-2">
+                            <Input
+                                label="Video Topic"
+                                placeholder="e.g., How to grow a YouTube channel from 0 to 1000 subscribers"
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                className="text-lg"
+                            />
+                        </div>
+                        <Select
+                            label="Personality"
+                            options={personalityOptions}
+                            value={personality}
+                            onChange={(e) => setPersonality(e.target.value)}
                         />
+                        <div className="grid grid-cols-2 gap-4">
+                            <Select
+                                label="Intro Length"
+                                options={lengthOptions}
+                                value={length}
+                                onChange={(e) => setLength(e.target.value)}
+                            />
+                            <Select
+                                label="Structure"
+                                options={structureOptions}
+                                value={structure}
+                                onChange={(e) => setStructure(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <Select
-                        label="Personality"
-                        options={personalityOptions}
-                        value={personality}
-                        onChange={(e) => setPersonality(e.target.value)}
-                    />
-                    <Select
-                        label="Intro Length"
-                        options={lengthOptions}
-                        value={length}
-                        onChange={(e) => setLength(e.target.value)}
-                    />
+
+                    <Button onClick={handleGenerate} isLoading={loading} disabled={loading} className="w-full py-4 text-lg">
+                        {loading ? "Writing Script..." : "Generate Intro Script"}
+                    </Button>
                 </div>
 
-                <Button onClick={handleGenerate} isLoading={loading} disabled={loading}>
-                    {loading ? (
-                        <>
-                            <FaSpinner className="mr-2 animate-spin" />
-                            Writing Script...
-                        </>
-                    ) : (
-                        <>
-                            <FaMicrophone className="mr-2" />
-                            Generate Script
-                        </>
-                    )}
-                </Button>
-
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                        <p className="text-red-600 dark:text-red-400">{error}</p>
-                    </div>
-                )}
-
-                {loading && (
-                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 text-center">
-                        <FaMicrophone className="w-10 h-10 mx-auto text-purple-500 animate-pulse mb-3" />
-                        <p className="text-gray-600 dark:text-gray-400">Writing your intro script...</p>
+                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400">
+                        {error}
                     </div>
                 )}
 
                 {/* Results Section */}
-                {script && !loading && (
-                    <div className="space-y-4">
+                {(scriptData || rawScript) && !loading && (
+                    <div className="space-y-6">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                                <FaPlay className="text-purple-500" />
-                                Your Intro Script
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                <FaPlay className="text-purple-500" /> Your Intro Script
                             </h3>
-                            <div className="flex gap-2">
-                                <CopyButton text={getCleanScript()} variant="button" label="Copy Clean" />
-                                <CopyButton text={script} variant="button" label="Copy All" />
-                            </div>
+                            <CopyButton text={getFullText()} variant="button" label="Copy Full Script" />
                         </div>
 
-                        {/* Script Display */}
-                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
-                            <pre className="whitespace-pre-wrap text-gray-800 dark:text-gray-100 font-sans text-lg leading-relaxed">
-                                {script}
-                            </pre>
-                        </div>
+                        {scriptData ? (
+                            <div className="space-y-4">
+                                <ScriptSection
+                                    title="🎬 The Hook (0-3s)"
+                                    content={scriptData.hook}
+                                    tip="Purpose: Grab attention immediately. Stop the scroll."
+                                    color="text-red-600 dark:text-red-400"
+                                    bgColor="bg-red-50 dark:bg-red-900/20"
+                                />
+                                <ScriptSection
+                                    title="📍 Context (3-8s)"
+                                    content={scriptData.context}
+                                    tip="Purpose: Show relevance. 'This is for you if...'"
+                                    color="text-blue-600 dark:text-blue-400"
+                                    bgColor="bg-blue-50 dark:bg-blue-900/20"
+                                />
+                                <ScriptSection
+                                    title="✨ The Promise (8-15s)"
+                                    content={scriptData.promise}
+                                    tip="Purpose: High stakes. 'By the end, you will...'"
+                                    color="text-purple-600 dark:text-purple-400"
+                                    bgColor="bg-purple-50 dark:bg-purple-900/20"
+                                />
+                                <ScriptSection
+                                    title="➡️ Transition (15s+)"
+                                    content={scriptData.transition}
+                                    tip="Purpose: Smooth handoff. 'Let's dive in.'"
+                                    color="text-green-600 dark:text-green-400"
+                                    bgColor="bg-green-50 dark:bg-green-900/20"
+                                />
+                            </div>
+                        ) : (
+                            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
+                                <pre className="whitespace-pre-wrap text-gray-800 dark:text-gray-100 font-sans text-lg leading-relaxed">
+                                    {rawScript}
+                                </pre>
+                            </div>
+                        )}
 
-                        {/* Reading Tips */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4">
-                                <h4 className="font-medium text-purple-900 dark:text-purple-100 mb-2">
-                                    🎤 Delivery Tips
-                                </h4>
-                                <ul className="text-sm text-purple-700 dark:text-purple-300 space-y-1">
-                                    <li>• Practice reading out loud 3-5 times</li>
-                                    <li>• Vary your tone - don&apos;t be monotone</li>
-                                    <li>• Smile while speaking (it shows in your voice)</li>
-                                    <li>• Pause after the hook for impact</li>
-                                </ul>
-                            </div>
-                            <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
-                                <h4 className="font-medium text-green-900 dark:text-green-100 mb-2">
-                                    ⏱️ Timing Check
-                                </h4>
-                                <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
-                                    <li>• Time yourself reading the script</li>
-                                    <li>• Should take ~{length.split(" ")[0]} seconds</li>
-                                    <li>• Cut words if it&apos;s too long</li>
-                                    <li>• Natural pauses count toward time</li>
-                                </ul>
-                            </div>
+                        {/* Validation Reading Tips */}
+                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 rounded-xl p-6 border border-purple-100 dark:border-gray-700">
+                            <h4 className="font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                                <FaMicrophone /> Pro Delivery Tips
+                            </h4>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-300">
+                                <li>• <strong>Energy Check:</strong> Record yourself. Are you 20% more energetic than usual? You need to be.</li>
+                                <li>• <strong>Speed:</strong> Read the Hook fast, then slow down for the Context.</li>
+                                <li>• <strong>Eye Contact:</strong> Look at the lens, not the screen!</li>
+                                <li>• <strong>No Fluff:</strong> If a word handles no purpose, cut it. The intro must be tight.</li>
+                            </ul>
                         </div>
                     </div>
                 )}
@@ -257,3 +265,21 @@ export default function IntroScriptGenerator() {
         </ToolPageLayout>
     );
 }
+
+const ScriptSection = ({ title, content, tip, color, bgColor }: { title: string, content: string, tip: string, color: string, bgColor: string }) => (
+    <div className={`rounded-xl p-5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow`}>
+        <div className="flex flex-col md:flex-row md:items-start gap-4">
+            <div className={`shrink-0 rounded-lg px-3 py-1 ${bgColor} ${color} font-bold text-sm uppercase tracking-wider w-fit`}>
+                {title}
+            </div>
+            <div className="flex-1">
+                <p className="text-lg text-gray-900 dark:text-white font-medium leading-relaxed">
+                    {content}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+                    {tip}
+                </p>
+            </div>
+        </div>
+    </div>
+);

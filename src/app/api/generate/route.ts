@@ -14,7 +14,9 @@ export async function POST(request: Request) {
                 prompt = prompts.titleGenerator(
                     params.topic,
                     params.tone || "Normal",
-                    params.language || "English"
+                    params.language || "English",
+                    params.targetAudience,
+                    params.videoType
                 );
                 break;
 
@@ -22,18 +24,25 @@ export async function POST(request: Request) {
                 prompt = prompts.descriptionGenerator(
                     params.topic,
                     params.videoType || "Tutorial",
-                    params.includeCTA ?? true
+                    params.tone || "Casual & Friendly",
+                    params.keywords || ""
                 );
                 break;
 
             case "tag-generator":
-                prompt = prompts.tagGenerator(params.topic, params.niche);
+                prompt = prompts.tagGenerator(
+                    params.topic,
+                    params.niche,
+                    params.targetAudience
+                );
                 break;
 
             case "video-ideas":
                 prompt = prompts.videoIdeasGenerator(
                     params.niche,
-                    params.level || "Beginner"
+                    params.level || "Beginner",
+                    params.channelSize,
+                    params.contentGoal
                 );
                 break;
 
@@ -68,14 +77,15 @@ export async function POST(request: Request) {
                 break;
 
             case "hashtag-generator":
-                prompt = prompts.hashtagGenerator(params.topic);
+                prompt = prompts.hashtagGenerator(params.topic, params.niche);
                 break;
 
             case "intro-script":
                 prompt = prompts.introScriptGenerator(
                     params.topic,
                     params.personality || "Fun",
-                    params.length || "10-15 sec"
+                    params.length || "10-15 sec",
+                    params.structure || "Standard Hook"
                 );
                 break;
 
@@ -95,6 +105,14 @@ export async function POST(request: Request) {
                     params.mood,
                     params.colorScheme,
                     params.composition
+                );
+                break;
+
+            case "sponsorship-estimator":
+                prompt = prompts.sponsorshipEstimator(
+                    params.niche,
+                    params.subscribers,
+                    params.dealViews
                 );
                 break;
 

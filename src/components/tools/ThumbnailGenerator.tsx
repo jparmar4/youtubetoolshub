@@ -9,68 +9,75 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaStar, FaRegStar } from "react-icons/fa";
+import { FaMagic, FaStar, FaRegStar, FaPalette, FaBrain } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
+import { safeJSONParse } from "@/lib/utils";
 
 // Constants
 const styleOptions = [
-    { value: "bold-colorful", label: "Bold & Colorful" },
-    { value: "minimal-clean", label: "Minimal & Clean" },
-    { value: "mysterious", label: "Mysterious/Clickbaity" },
-    { value: "professional", label: "Professional/Serious" },
-    { value: "urgent", label: "Urgent/Warning" },
+    { value: "bold-colorful", label: "Bold & Colorful (MrBeast Style)" },
+    { value: "minimal-clean", label: "Minimal & Clean (Tech/Lifestyle)" },
+    { value: "mysterious", label: "Mysterious (True Crime/Documentary)" },
+    { value: "professional", label: "Professional (Business/Finance)" },
+    { value: "urgent", label: "Urgent/Warning (News/Updates)" },
 ];
 
 const emotionOptions = [
     { value: "excited", label: "Excited / Hype" },
     { value: "shocked", label: "Shocked / Surprised" },
-    { value: "curious", label: "Curious / Questioning" },
-    { value: "negative", label: "Negative / Warning" },
-    { value: "confident", label: "Confident / Expert" },
+    { value: "curious", label: "Curious / Query" },
+    { value: "negative", label: "Negative / Fear (Loss Aversion)" },
+    { value: "confident", label: "Confident / Authority" },
 ];
 
 const faq = [
     {
         question: "Why is thumbnail text important?",
-        answer: "Thumbnail text (or 'copy') complements your image to secure the click. It should be short, punchy, and create curiosity without just repeating your title."
+        answer: "Thumbnail text (copy) complements your image to secure the click. It should be short, punchy, and create curiosity without repeating your title."
     },
     {
         question: "How long should thumbnail text be?",
-        answer: "Keep it under 4-5 words. Large, readable text is crucial for mobile viewers. Use our tool to generate punchy short phrases."
+        answer: "Keep it under 4 words. Large, readable text is crucial for mobile viewers. Less is often more."
     },
     {
-        question: "Can I use AI generated text directly?",
-        answer: "Absolutely! These ideas are generated to be high-performing. Choose the one that fits your video's vibe best."
+        question: "What color text works best?",
+        answer: "High contrast is key. White text on red/black backgrounds, or yellow text on dark backgrounds usually performs best. Our AI suggests colors for each idea."
     },
 ];
 
 const howTo = [
-    "Enter your video topic or working title",
-    "Select a visual style that matches your channel brand",
-    "Choose the primary emotion you want to evoke",
-    "Click 'Generate Ideas' to get AI-powered text options",
-    "Copy your favorite text and use it in your thumbnail design"
+    "Enter your video topic",
+    "Select a visual style matching your niche",
+    "Choose the emotion you want to trigger",
+    "Generate 8 psychological hooks",
+    "Use the color & text suggestions in Canva/Photoshop"
 ];
 
 const seoContent = `Generate viral-worthy text for your YouTube thumbnails with our AI Thumbnail Text Generator. Create punchy, click-optimized copy that grabs attention and improves your CTR. Whether you need bold, shocking, or professional text, our AI analyzes successful trends to give you the best options for your video.`;
+
+interface ThumbnailIdea {
+    text: string;
+    color_suggestion: string;
+    trigger: string;
+}
 
 export default function ThumbnailGenerator() {
     const [topic, setTopic] = useState("");
     const [style, setStyle] = useState("bold-colorful");
     const [emotion, setEmotion] = useState("excited");
-    const [results, setResults] = useState<string[]>([]);
+    const [results, setResults] = useState<ThumbnailIdea[]>([]);
     const [loading, setLoading] = useState(false);
     const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
-    const handleSave = (text: string) => {
+    const handleSave = (idea: ThumbnailIdea) => {
         saveItem({
             type: 'idea',
             toolSlug: 'youtube-thumbnail-generator',
-            content: text
+            content: `${idea.text} (${idea.trigger})`
         });
-        setSavedSet(prev => new Set(prev).add(text));
+        setSavedSet(prev => new Set(prev).add(idea.text));
     };
 
     const handleGenerate = async () => {
@@ -81,7 +88,7 @@ export default function ThumbnailGenerator() {
         }
 
         setLoading(true);
-        setResults([]); // Clear previous results
+        setResults([]);
 
         try {
             const response = await fetch("/api/generate", {
@@ -98,37 +105,36 @@ export default function ThumbnailGenerator() {
 
             if (data.error) {
                 console.error("API Error:", data.error);
-                return; // Or handle error state
+                return;
             }
 
-            // Success! Increment usage
             increment("youtube-thumbnail-generator");
 
-            if (data.error) {
-                console.error("API Error:", data.error);
-                return; // Or handle error state
+            // Safe parse the new structured JSON
+            const parsed = safeJSONParse<ThumbnailIdea[]>(data.result, []);
+
+            // Fallback for string array (legacy)
+            if (parsed.length === 0 && typeof data.result === 'string') {
+                // Try parsing again if result is a string but not array
+                try {
+                    const directParse = JSON.parse(data.result);
+                    if (Array.isArray(directParse)) {
+                        // Check if it's string array or object array
+                        if (typeof directParse[0] === 'string') {
+                            setResults(directParse.map((t: string) => ({
+                                text: t,
+                                color_suggestion: "High Contrast",
+                                trigger: "Curiosity"
+                            })));
+                        } else {
+                            setResults(directParse);
+                        }
+                        return;
+                    }
+                } catch { }
             }
 
-            let resultStr = data.result || "";
-            resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
-
-            try {
-                const parsed = JSON.parse(resultStr);
-                if (Array.isArray(parsed)) {
-                    setResults(parsed);
-                } else if (typeof parsed === "object" && parsed.ideas) {
-                    setResults(parsed.ideas);
-                } else {
-                    // Fallback splitting if it's just text
-                    setResults([resultStr]);
-                }
-            } catch {
-                // detailed fallback
-                const lines = resultStr.split("\n")
-                    .map((line: string) => line.replace(/^\d+\.\s*/, "").replace(/^[-*]\s*/, "").trim())
-                    .filter((line: string) => line.length > 0);
-                setResults(lines.length > 0 ? lines : [resultStr]);
-            }
+            setResults(parsed);
         } catch (error) {
             console.error("Generation error:", error);
         } finally {
@@ -136,94 +142,102 @@ export default function ThumbnailGenerator() {
         }
     };
 
-    const layoutSuggestion = `Text ${emotion === "excited" || emotion === "shocked" ? "left" : "center"} + Face ${emotion === "excited" ? "right" : "background"} + ${style === "bold-colorful" ? "Bright yellow/red background" : style === "minimal-clean" ? "White background with subtle gradient" : "Dynamic gradient background"}`;
-
     return (
         <ToolPageLayout
-            title="YouTube Thumbnail Text Generator"
-            description="Generate catchy, click-worthy thumbnail text ideas using AI"
+            title="Professional Thumbnail Text Generator"
+            description="Generate psychological hooks and design concepts for higher CTR."
             faq={faq}
             howTo={howTo}
             seoContent={seoContent}
         >
-            <div className="space-y-6">
+            <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-thumbnail-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="md:col-span-3">
-                        <Input
-                            label="Video Topic or Title"
-                            placeholder="e.g., How to grow on YouTube in 2024"
-                            value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
+                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div className="md:col-span-3">
+                            <Input
+                                label="Video Topic"
+                                placeholder="e.g., I tried the most dangerous sport"
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                className="text-lg"
+                            />
+                        </div>
+                        <Select
+                            label="Visual Style"
+                            options={styleOptions}
+                            value={style}
+                            onChange={(e) => setStyle(e.target.value)}
                         />
-                    </div>
-                    <Select
-                        label="Visual Style"
-                        options={styleOptions}
-                        value={style}
-                        onChange={(e) => setStyle(e.target.value)}
-                    />
-                    <Select
-                        label="Primary Emotion"
-                        options={emotionOptions}
-                        value={emotion}
-                        onChange={(e) => setEmotion(e.target.value)}
-                    />
-                    <div className="flex items-end">
-                        <Button onClick={handleGenerate} isLoading={loading} className="w-full">
-                            <FaMagic className="mr-2" />
-                            Generate Ideas
-                        </Button>
+                        <Select
+                            label="Psychological Trigger"
+                            options={emotionOptions}
+                            value={emotion}
+                            onChange={(e) => setEmotion(e.target.value)}
+                        />
+                        <div className="flex items-end">
+                            <Button onClick={handleGenerate} isLoading={loading} className="w-full py-4 text-lg">
+                                <FaMagic className="mr-2" />
+                                Generate Concepts
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
                 {/* Results Section */}
                 {results.length > 0 && (
                     <div className="space-y-6">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                            Thumbnail Text Ideas
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <FaBrain className="text-purple-500" /> Psychology-Backed Concepts
                         </h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {results.map((text, i) => {
-                                const isSaved = savedSet.has(text);
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {results.map((idea, i) => {
+                                const isSaved = savedSet.has(idea.text);
                                 return (
                                     <div
                                         key={i}
-                                        className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 text-center group hover:from-red-900 hover:to-red-800 transition-colors relative"
+                                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-purple-500/30 transition-all flex flex-col justify-between group h-full"
                                     >
-                                        <button
-                                            onClick={() => handleSave(text)}
-                                            disabled={isSaved}
-                                            className={`absolute top-2 right-2 p-2 rounded-full transition-colors ${isSaved
-                                                ? "text-yellow-400 cursor-default"
-                                                : "text-gray-600 hover:text-yellow-400 bg-gray-800/50 hover:bg-gray-700"
-                                                }`}
-                                            title={isSaved ? "Saved" : "Save Text"}
-                                        >
-                                            {isSaved ? <FaStar /> : <FaRegStar />}
-                                        </button>
+                                        <div>
+                                            {/* Trigger Badge */}
+                                            <div className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 mb-4">
+                                                {idea.trigger || "Curiosity Hook"}
+                                            </div>
 
-                                        <p className="text-xl md:text-2xl font-black text-white mb-4 tracking-tight mt-4">
-                                            {text}
-                                        </p>
+                                            {/* Main Text */}
+                                            <div className="bg-gray-900 rounded-xl p-4 mb-4 text-center transform group-hover:scale-[1.02] transition-transform">
+                                                <p className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-md">
+                                                    {idea.text}
+                                                </p>
+                                            </div>
 
-                                        <CopyButton text={text} variant="button" label="Copy Text" />
+                                            {/* Color Suggestion */}
+                                            <div className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                                <FaPalette className="flex-shrink-0 mt-0.5 text-gray-400" />
+                                                <span>{idea.color_suggestion || "High contrast colors recommendation"}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                                            <button
+                                                onClick={() => handleSave(idea)}
+                                                disabled={isSaved}
+                                                className={`flex items-center gap-2 text-sm font-medium transition-colors ${isSaved
+                                                    ? "text-yellow-500 cursor-default"
+                                                    : "text-gray-500 hover:text-yellow-500"
+                                                    }`}
+                                            >
+                                                {isSaved ? <FaStar /> : <FaRegStar />}
+                                                {isSaved ? "Saved" : "Save"}
+                                            </button>
+                                            <CopyButton text={idea.text} label="Copy Text" variant="button" />
+                                        </div>
                                     </div>
                                 );
                             })}
-                        </div>
-
-                        {/* Layout Suggestion */}
-                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6">
-                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                                💡 Layout Suggestion
-                            </h4>
-                            <p className="text-gray-600 dark:text-gray-300">
-                                {layoutSuggestion}
-                            </p>
                         </div>
                     </div>
                 )}

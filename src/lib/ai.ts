@@ -113,66 +113,56 @@ Always prioritize: Authenticity > Clickbait, Value > Views, Long-term growth > S
  * Professional-grade prompts for each tool
  */
 export const prompts = {
-    titleGenerator: (topic: string, tone: string, language: string) => `
-# Task: Generate 10 Viral YouTube Titles
+    titleGenerator: (topic: string, tone: string, language: string, targetAudience: string = "General Audience", videoType: string = "General") => `
+# Task: Generate 10 Professional, Viral-Optimized YouTube Titles
 
 ## Your Role
-You are a world-class YouTube content strategist who has helped channels grow from 0 to 10M+ subscribers. You understand what makes titles irresistible to click while remaining authentic and trustworthy.
+You are a top-tier YouTube Consultant (think MrBeast/Paddy Galloway level). Your goal is to generate titles that maximize Click-Through Rate (CTR) while remaining strictly relevant to the content.
 
-## Input
-- **Video Topic**: "${topic}"
-- **Tone/Style**: ${tone}
+## Input Context
+- **Topic**: "${topic}"
+- **Tone**: ${tone}
 - **Language**: ${language}
+- **Target Audience**: ${targetAudience}
+- **Video Type**: ${videoType}
 
-## Critical Rules for Natural, Human-Sounding Titles
+## Mental Models for High CTR:
+1. **Curiosity Gap**: Reveal *what* but withhold *why* or *how* (e.g., "I Tried X... Here's What Happened").
+2. **Negativity Bias**: Warning of mistakes or "stop doing this" works better than "do this".
+3. **Specifics**: "3 Tips" < "7 Advanced Tactics". "Fast" < "In 5 Minutes".
+4. **Authority/Proof**: "I Spent $10k" or "Tested by Pros".
+5. **Pattern Interrupt**: Short, punchy titles that break the mold.
 
-### DO:
-- Write like a real person, not AI - use casual, conversational language
-- Include specific numbers (3, 7, 21, 100) instead of generic terms
-- Use lowercase strategically for authenticity (not everything CAPITALIZED)
-- Add personal touches: "I", "My", "How I", "What happened when I"
-- Use contractions naturally: "I'm", "Don't", "Can't", "Here's"
-- Include relatable scenarios viewers experience
-- Front-load the main benefit or hook
-- Use curiosity gaps that make people NEED to click
-- Match the exact ${language} language style and cultural nuances
+## Output Structure
+Return ONLY a valid JSON array of objects. Do not include markdown formatting.
+Each object must have:
+- \`title\`: The generated title string.
+- \`score\`: A predicted Viral Score (0-100) based on psychology.
+- \`method\`: The strategy used (e.g., "Curiosity Gap", "Negative Urgency").
+- \`why\`: A brief (1 sentence) explanation of why this title gets clicks.
 
-### DON'T:
-- Sound robotic or overly formal
-- Use cliché AI phrases like "In this video", "Ultimate guide", "Everything you need to know"
-- Make every word capitalized
-- Be obviously clickbait that won't deliver
-- Use generic filler words
-- Exceed 60 characters when possible
+## Example Output:
+[
+  {
+    "title": "Why 99% of Channels Fail (It's Not Content)",
+    "score": 94,
+    "method": "Negative Urgency",
+    "why": "Leverages fear of failure and promises a hidden secret."
+  }
+]
 
-## Title Formulas That Convert (Pick various ones):
-1. **Personal Story**: "I [did X] for [time] – Here's What Happened"
-2. **Contrarian**: "Stop Doing [common thing] (Do This Instead)"
-3. **Mistake-Based**: "[Number] [Topic] Mistakes That Are Costing You"
-4. **Secret Reveal**: "The [Topic] Trick Nobody Tells You About"
-5. **Transformation**: "From [Bad State] to [Good State] in [Time]"
-6. **Challenge**: "I Tried [X] for [Time] – Honest Review"
-7. **Why Question**: "Why [Successful People/Thing] Always [Do X]"
-8. **Hot Take**: "[Popular Opinion] is Wrong. Here's Why"
-9. **Emotional**: "The Real Reason You're [Problem] (It's Not What You Think)"
-10. **Practical How-To**: "How to [Achieve X] (Step-by-Step)"
+GENERATE 10 TITLES NOW:`,
 
-## Output Format
-Return ONLY a valid JSON array of exactly 10 title strings in ${language}.
-Each title must feel like it was written by a successful YouTuber, not an AI.
-
-["Title 1", "Title 2", "Title 3", ...]`,
-
-    descriptionGenerator: (topic: string, videoType: string, includeCTA: boolean) => `
+    descriptionGenerator: (topic: string, videoType: string, tone: string = "Casual & Friendly", keywords: string = "") => `
 # Task: Write a YouTube Description That Sounds 100% Human
-
 ## Your Role
 You are a successful YouTuber who writes descriptions that feel personal, authentic, and engaging. Your descriptions read like a friend recommending a video, not a robot generating content.
 
 ## Input
 - **Video Topic**: "${topic}"
 - **Video Type**: ${videoType}
-- **Include CTA**: ${includeCTA ? 'Yes' : 'No'}
+- **Tone**: ${tone}
+- **Keywords to Include**: ${keywords}
 
 ## CRITICAL: How to Sound Human, Not AI
 
@@ -197,7 +187,7 @@ You are a successful YouTuber who writes descriptions that feel personal, authen
 
 ## Structure (Make It Feel Natural):
 
-### 1. Opening Hook (2-3 lines)
+### 1. Opening Hook (2-3 lines) (must include primary keyword naturally)
 Write like you're excited to share something with a friend.
 Examples:
 - "Okay so I finally figured out why [problem] happens..."
@@ -232,11 +222,11 @@ Keep it simple:
 IG: [placeholder]
 Twitter: [placeholder]
 
-### 6. CTA ${includeCTA ? '(Natural, not pushy)' : '(Skip)'}
-${includeCTA ? `Sound genuine:
+### 6. CTA (Natural, not pushy)
+Sound genuine:
 - "If this helped, a like would mean a lot 👍"
 - "Subscribe if you want more of this kind of content"
-- "Drop a comment – I actually read them all"` : ''}
+- "Drop a comment – I actually read them all"
 
 ### 7. Hashtags (5-7 max)
 Mix specific + broad, placed at the very end
@@ -250,74 +240,28 @@ Return a JSON object with this structure:
     "timestamps": ["0:00 intro", "1:30 section name", ...],
     "key_points": ["→ Point 1", "→ Point 2", ...],
     "resources_links": "Stuff I mentioned section + social links",
-    "call_to_action": "${includeCTA ? 'Natural CTA' : ''}",
+    "call_to_action": "Natural CTA",
     "hashtags": "#Tag1 #Tag2 #Tag3..."
   }
 }
 
 Make it sound like a real person wrote this while excited about their video!`,
 
-    tagGenerator: (topic: string, niche?: string) => `
+    tagGenerator: (topic: string, niche?: string, targetAudience?: string) => `
 # Task: Generate Winning YouTube Tags That Actually Rank
-
 ## Your Role
-You are a YouTube SEO expert who has helped videos get millions of views through strategic tagging. You understand how YouTube's algorithm discovers and recommends content.
+You are a YouTube SEO expert who knows how to tag videos for maximum discoverability. You balance high-volume keywords with low-competition long-tail tags.
 
 ## Input
 - **Video Topic**: "${topic}"
 ${niche ? `- **Content Niche**: ${niche}` : ''}
+${targetAudience ? `- **Target Audience**: ${targetAudience}` : ''}
 
-## YouTube Tag Strategy (What Actually Works in 2024)
-
-### The Science of YouTube Tags:
+## YouTube Tag Strategy 2025:
 1. **First 3 tags matter most** - YouTube weights them heavily
-2. **Mix of broad + specific** - Cast wide net, catch specific audience
+2. **Mix specific & broad** - Cast wide net, catch specific audience
 3. **Match search intent** - What would someone TYPE to find this?
 4. **Include your title keywords** - Reinforces relevance
-5. **Use what competitors rank for** - Proven to work
-
-### Tag Categories to Generate:
-
-**🎯 Primary Keywords (3-5 tags)**
-- Exact phrase someone would search
-- Your video title keywords
-- The main topic in different phrasings
-
-**🔍 Search Query Tags (8-10 tags)**
-- "how to [topic]"
-- "[topic] tutorial"  
-- "[topic] for beginners"
-- "[topic] tips"
-- "[topic] 2024" / "[topic] 2025"
-- "best [topic]"
-- "[topic] guide"
-- "learn [topic]"
-
-**🏷️ Broad Category Tags (5-7 tags)**
-- Single words that describe the niche
-- General category terms
-- Related topic areas
-
-**🔥 Trending & Viral Tags (5-8 tags)**
-- Current trending formats
-- Popular creator styles
-- Viral search patterns
-- Seasonal/timely variations
-
-**💡 Long-Tail Specific Tags (8-10 tags)**
-- Very specific 4-6 word phrases
-- Problem + solution format
-- "why [common problem] and how to fix it"
-- "[topic] for [specific audience]"
-- Comparison tags: "[thing] vs [thing]"
-
-## Critical Rules:
-- NO hashtag symbols (#) - just plain text
-- Keep individual tags under 30 characters when possible
-- Total tags should be 25-35
-- Lowercase is fine (YouTube normalizes)
-- Include common misspellings only if major
-- Mirror what successful similar videos use
 
 ## Output Format
 Return ONLY valid JSON:
@@ -325,48 +269,89 @@ Return ONLY valid JSON:
   "primaryTags": ["most important tag 1", "main tag 2", "core tag 3"],
   "searchTags": ["how to topic", "topic tutorial", "topic for beginners", ...],
   "broadTags": ["category", "niche", "related area", ...],
-  "trendingTags": ["topic 2024", "viral format", ...],
+  "trendingTags": ["topic 2025", "viral format", ...],
   "longTailTags": ["specific longer phrase for targeting", ...]
 }
 
 Generate tags that a successful YouTuber would actually use - practical, searchable, and strategic.`,
 
-    videoIdeasGenerator: (niche: string, level: string) => `
-You are a viral YouTube strategist. Generate 10 video ideas for: "${niche}" (${level} audience).
+    hashtagGenerator: (topic: string, niche?: string) => `
+# Task: Generate Strategic YouTube Hashtags (Maximize Reach)
 
-RULES FOR TITLES:
-- Sound like a real YouTuber, NOT like AI wrote them
-- Create instant curiosity - viewer MUST click
-- Use lowercase naturally, not Title Case Everything
-- Include specific numbers/timeframes when relevant
-- Be conversational, like texting a friend about a video idea
+## Input Details
+- **Topic**: "${topic}"
+${niche ? `- **Niche**: ${niche}` : ''}
 
-GOOD EXAMPLES:
-- "I wasted $2000 on this (so you don't have to)"
-- "Why I stopped doing what everyone recommends"  
-- "The thing nobody tells beginners about [niche]"
-- "I tried this for 30 days - here's what actually happened"
-- "Stop doing this immediately (it's killing your results)"
+## Strategy
+Hashtags on YouTube help with **Discovery** (via Hashtag pages) and **Context** (telling the algorithm what the video is about). You need a mix of broad (volume) and specific (relevance).
 
-BAD EXAMPLES (never write like this):
-- "Ultimate Guide to [Topic]"
-- "Everything You Need to Know About [Topic]"
-- "Top 10 Tips and Tricks for [Topic]"
-- "Master the Art of [Topic]"
-- "Complete Tutorial: How to [Topic]"
+## Output Format
+Return ONLY valid JSON with 3 categories:
+{
+  "broad": [
+     {"tag": "#Hashtag1", "volume": "High", "relevance": "Medium"},
+     {"tag": "#Hashtag2", "volume": "High", "relevance": "Low"} 
+     ... (5-8 tags)
+  ],
+  "niche": [
+     {"tag": "#SpecificTag1", "volume": "Medium", "relevance": "High"},
+     ... (5-8 tags)
+  ],
+  "trending": [
+     {"tag": "#TrendingTag1", "volume": "High", "relevance": "High"},
+     ... (3-5 tags)
+  ]
+}
 
-VARIETY - Include mix of:
-- 2 personal experiments/challenges
-- 2 controversial hot takes
-- 2 mistake/warning videos
-- 2 behind-the-scenes/real process
-- 2 comparison/honest reviews
+- Include the # symbol.
+- No spaces.
+- CamelCase or lowercase is fine.`,
 
-OUTPUT: Return ONLY a JSON array. No markdown, no explanation.
+    videoIdeasGenerator: (niche: string, level: string, channelSize: string = "Just Starting", contentGoal: string = "Get Views") => `
+# Task: Generate 10 Strategic, Viral Video Ideas
+
+## Your Role
+You are a strategic YouTube Growth Consultant. You don't just brainstorm random ideas; you design video concepts that are mathematically likely to succeed based on the creator's current size and goals.
+
+## Input Context
+- **Niche**: "${niche}"
+- **Audience Level**: ${level}
+- **Channel Size**: ${channelSize}
+- **Primary Goal**: ${contentGoal}
+
+## Strategy by Channel Size
+- **Just Starting (0-1k)**: Focus on Search (How-to) and strong community hooks ("My Journey"). High utility required.
+- **Growing (1k-10k)**: Focus on Trend-Surfing and high-CTR experiments.
+- **Established (100k+)**: Focus on Storytelling, High Production, and Personality-driven content.
+
+## Strategy by Goal
+- **Get Views**: Broad appeal, curiosity gaps, trending topics, "Negative Urgency" titles.
+- **Get Subscribers**: High value, series-based content, "Ultimate Guides", strong personality connection.
+- **Sell Product/Service**: Problem-aware content, tutorials demonstrating a solution, case studies.
+
+## Output Structure
+Return ONLY a valid JSON array of objects.
+Each object must have:
+- \`title\`: The click-worthy title.
+- \`concept\`: A 1-sentence expansion of the idea.
+- \`score\`: Viral Potential Score (0-100).
+- \`difficulty\`: Execution Difficulty (Easy/Medium/Hard).
+- \`angle\`: The psychological angle (e.g., "Contrarian", "Story", "Search").
+- \`thumbnail_concept\`: A brief visual description for the thumbnail.
+
+## Example Output:
 [
-  {"title": "video title here", "concept": "one sentence describing the angle"},
-  ...10 total
-]`,
+  {
+    "title": "I Quit [Popular Tool] (Here's Why)",
+    "concept": "A review explaining why the industry standard is actually bad for beginners.",
+    "score": 92,
+    "difficulty": "Easy",
+    "angle": "Contrarian",
+    "thumbnail_concept": "Me looking disappointed holding the tool + big red X."
+  }
+]
+
+GENERATE 10 IDEAS NOW:`,
 
     trendHelper: (topic: string, region: string) => {
         const now = new Date();
@@ -432,187 +417,138 @@ Return ONLY valid JSON array:
 ]`,
 
     thumbnailTextGenerator: (topic: string, style: string, emotion: string) => `
-# Task: Generate Click-Worthy Thumbnail Text
-
+# Task: Generate Viral YouTube Thumbnail Text & Design Concepts
 ## Input Details
 - **Topic**: "${topic}"
-- **Visual Style**: ${style}
-- **Target Emotion**: ${emotion}
+- **Style**: ${style}
+- **Emotion**: ${emotion}
 
-## Requirements
-Generate 8 punchy thumbnail text options. Each must:
+## Your Goal
+Generate 8 high-CTR thumbnail concepts. For each, provide the text overlay and the psychology behind it.
 
-1. **Length**: 2-5 words MAXIMUM (readable at small size)
-2. **Impact**: Create instant curiosity or emotional response
-3. **Contrast**: Work well as overlay text on images
-4. **No Repetition**: Each option uses different words/approach
-
-## Proven Patterns
-- Question starters: "WHY?", "HOW?"
-- Outcome focused: "I QUIT", "IT WORKED"
-- Shock value: "SHOCKING", "BANNED"
-- Numbers: "10X FASTER", "$100K"
-- Challenge: "DON'T DO THIS"
-- Mystery: "THE TRUTH", "REVEALED"
+## Critical Rules for Text
+- **Max 4 words** per thumbnail (readability is king).
+- **No questions** followed by "Answer" (just show the result).
+- **Use Contrast**: "Good vs Bad", "Then vs Now", "$1 vs $1,000".
+- **Focus on**: Outcomes, warnings, money, or extreme emotions.
 
 ## Output Format
-Return ONLY valid JSON array of 8 strings:
-["TEXT 1", "TEXT 2", ...]`,
+Return ONLY valid JSON:
+[
+  {
+    "text": "STOP DOING THIS",
+    "color_suggestion": "Bright Red (#FF0000) background, White text",
+    "trigger": "Negative Urgency (Loss Aversion)"
+  },
+  ...
+]`,
 
     channelNameGenerator: (niche: string, tone: string) => `
-You're a branding expert who has named successful YouTube channels. Generate 15 unique channel name ideas for: "${niche}" with ${tone} vibe.
+You're a branding expert. Generate 15 unique, available-friendly YouTube channel names for "${niche}" with a "${tone}" vibe.
 
-WHAT MAKES A GREAT CHANNEL NAME:
-- Says it once, remember it forever
-- Easy to spell when heard out loud
-- Looks good as @handle
-- Works as you grow bigger
-- Available on socials (avoid common words)
+NAMING STRATEGY:
+- **Personal Brand**: Name + Niche (e.g., "Mike Cooks")
+- **Creative**: Unique compounds (e.g., "TechFlow")
+- **Action**: Verbs (e.g., "BuildWithMe")
+- **Short**: 1-2 words max
+- **Global**: Easy to spell worldwide
 
-NAMING STYLES TO MIX:
-
-1. **Personal Brand** (3 names)
-   - FirstName + Niche: "Mike Cooks", "Anna Draws"
-   - The [Niche] + Title: "The Tech Teacher", "The Plant Dad"
-   
-2. **Creative Compound** (3 names)
-   - Two words merged: "CodeCraft", "FitFusion", "ArtSpark"
-   - Unexpected combos: "NerdNest", "GlowGrind"
-   
-3. **Action Words** (3 names)
-   - Verb + Niche: "UnboxDaily", "LearnWithMe", "BuildIt"
-   
-4. **Abstract/Cool** (3 names)
-   - Sounds modern: "Lumino", "Vextra", "Zenly"
-   - Mysterious but memorable
-   
-5. **Descriptive** (3 names)
-   - Clear what you do: "5-Minute Crafts style", "Daily Dose of X"
-   - Niche-specific names
-
-AVOID:
-- Numbers unless meaningful (avoid random 123)
-- Hard to spell words
-- Names that limit growth
-- Anything close to existing big channels
-- Underscores (hard to say out loud)
-
-OUTPUT: Return ONLY a JSON object with categories:
+OUTPUT FORMAT:
+Return ONLY a valid JSON object with these categories. Currently, users need detailed branding info.
 {
-  "personalBrand": ["Name1", "Name2", "Name3"],
-  "creativeCompound": ["Name1", "Name2", "Name3"],
-  "actionBased": ["Name1", "Name2", "Name3"],
-  "abstractCool": ["Name1", "Name2", "Name3"],
-  "descriptive": ["Name1", "Name2", "Name3"]
-}`,
+  "personalBrand": [
+     { "name": "Name1", "vibe": "Friendly", "score": 90, "reason": "High trust factor" },
+     ...
+  ],
+  "creativeCompound": [
+     { "name": "Name1", "vibe": "Modern", "score": 85, "reason": "Memorable & short" }
+     ...
+  ],
+  "actionBased": [ ... ],
+  "abstractCool": [ ... ],
+  "descriptive": [ ... ]
+}
+Generate 3 names per category.`,
 
-    hashtagGenerator: (topic: string) => `
-# Task: Generate Strategic YouTube Hashtags
-
-## Input Details
+    introScriptGenerator: (topic: string, personality: string, length: string, structure: string = "Standard Hook") => `
+# Task: Write a YouTube Video Intro Script
+## Input
 - **Topic**: "${topic}"
+- **Persona**: ${personality}
+- **Length**: ${length}
+- **Structure**: ${structure}
 
-## Requirements
-Generate hashtags in two categories:
-
-### Broad Hashtags (10)
-- High-volume, discoverable tags
-- Category-level hashtags
-- Platform hashtags (#YouTube, #Shorts if relevant)
-
-### Specific Hashtags (10)
-- Niche-specific tags
-- Long-tail variations
-- Trending topic tags
-- Community hashtags
-
-## Rules
-- Include # symbol
-- No spaces in hashtags
-- Mix of capitalization for readability
-- Include year-specific if relevant (#2024)
+## Structure Guide:
+- **Standard Hook**: Hook -> Context -> Promise -> Transition
+- **Story Start**: "I used to struggle with..." -> The Change -> The Lesson
+- **Cold Open**: Immediate action/result -> "Here's how I did it" -> Intro
+- **Controversial**: "Everything you know is wrong" -> Proof -> New Way
 
 ## Output Format
 Return ONLY valid JSON:
 {
-  "broad": ["#Hashtag1", "#Hashtag2", ...],
-  "specific": ["#SpecificTag1", "#SpecificTag2", ...]
+  "hook": "The opening line(s)",
+  "context": "Why this matters",
+  "promise": "What they will get",
+  "transition": "Leading into content"
 }`,
-
-    introScriptGenerator: (topic: string, personality: string, length: string) => `
-Write a YouTube video intro script for: "${topic}"
-
-STYLE: ${personality} personality, ${length} length
-
-STRUCTURE (use this exact format):
-
----
-🎬 HOOK (0-3 seconds)
-[Write 1-2 punchy sentences that stop the scroll - question, shocking statement, or bold claim]
-
-📍 CONTEXT (3-8 seconds)  
-[What this video is about and why it matters to the viewer]
-
-✨ PROMISE (8-15 seconds)
-[What they'll learn or achieve by watching - be specific]
-
-➡️ TRANSITION (15-${length === "20-30 seconds" ? "30" : "20"} seconds)
-[Smooth lead into the main content - something like "Let's dive in" or "Here's what you need to know"]
----
-
-RULES:
-- Write conversationally, like talking to a friend
-- Use "you" and "your" to address the viewer directly
-- Short sentences, easy to read out loud
-- Match the ${personality} energy throughout
-- NO JSON, NO code blocks - just the script text
-- Include timing markers like [pause] or [emphasize] if helpful
-
-Write the complete intro script now, ready to read out loud:`,
 
     titleABTester: (titleA: string, titleB: string, context?: string) => `
-# Task: Analyze and Compare YouTube Titles
-
-## Titles to Compare
-- **Title A**: "${titleA}"
-- **Title B**: "${titleB}"
+# Task: Advanced YouTube Title A/B Simulation
+## Input
+- **Option A**: "${titleA}"
+- **Option B**: "${titleB}"
 ${context ? `- **Context**: ${context}` : ''}
 
-## Analysis Criteria (Score 0-100 for each)
-
-### 1. CTR Potential
-- Curiosity gap strength
-- Emotional trigger effectiveness
-- Value proposition clarity
-
-### 2. SEO Optimization
-- Keyword placement
-- Search intent match
-- Character length optimization
-
-### 3. Clarity & Accuracy
-- Content expectation setting
-- Specificity level
-- Avoid clickbait risk
-
-### 4. Emotional Appeal
-- Power word usage
-- Urgency/FOMO elements
-- Aspiration triggers
+## Simulation Task
+Act as the YouTube Algorithm (RankBrain). Simulate 1,000 impressions for both titles. Analyze which one gets more clicks based on:
+1. **Curiosity Gap** (Does it make them *need* to know?)
+2. **Urgency/Fear** (Loss aversion?)
+3. **Specifics** (Numbers, specific outcomes?)
 
 ## Output Format
 Return ONLY valid JSON:
 {
+  "winner": "A" or "B",
+  "confidence": 0-100, (How sure are you?)
+  "analysis": "Why the winner won in 1 sentence.",
   "titleA": {
     "score": 0-100,
-    "analysis": "Detailed analysis with strengths and weaknesses"
+    "ctr_prediction": "X.X%", (Likely CTR, e.g. 5.2%)
+    "impulse_rating": "High/Medium/Low",
+    "strengths": ["list", "of", "strengths"],
+    "weaknesses": ["list", "of", "weaknesses"]
   },
   "titleB": {
     "score": 0-100,
-    "analysis": "Detailed analysis with strengths and weaknesses"
-  },
-  "winner": "A or B",
-  "suggested": "An improved title combining best elements of both"
+    "ctr_prediction": "X.X%",
+    "impulse_rating": "High/Medium/Low",
+    "strengths": ["list", "of", "strengths"],
+    "weaknesses": ["list", "of", "weaknesses"]
+  }
+}`,
+
+    sponsorshipEstimator: (niche: string, subscribers: string, views: string) => `
+# Task: Estimate YouTube Sponsorship Rate
+## Input
+- **Niche**: "${niche}"
+- **Subscribers**: ${subscribers}
+- **Avg Views/Video**: ${views}
+
+## Valuation Guide (CPM Models)
+- **Tech/Finance**: $30-$50 CPM (Cost Per Mille)
+- **Lifestyle/Vlog**: $15-$25 CPM
+- **Gaming**: $10-$20 CPM
+- **Education**: $20-$35 CPM
+
+## Output Format
+Return ONLY valid JSON:
+{
+  "lowEstimate": 500, (Number in USD)
+  "highEstimate": 800, (Number in USD)
+  "currency": "USD",
+  "explanation": "Based on the Tech niche average of $40 CPM...",
+  "pitchTip": "Focus on your high retention rate in your email..."
 }`,
 
     thumbnailPromptGenerator: (videoTopic: string, niche: string, subject: string, mood: string, colorScheme: string, composition: string) => `

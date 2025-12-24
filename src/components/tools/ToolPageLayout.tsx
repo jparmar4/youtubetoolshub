@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import AdPlaceholder from "@/components/ui/AdPlaceholder";
 import { getFAQSchema, getHowToSchema, getSoftwareApplicationSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import MotionWrapper from "@/components/ui/MotionWrapper";
 
 interface ToolPageLayoutProps {
     title: string;
@@ -97,7 +98,9 @@ export default function ToolPageLayout({
 
                     {/* Tool Content */}
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
-                        {children}
+                        <MotionWrapper>
+                            {children}
+                        </MotionWrapper>
                     </div>
 
                     {/* Ad Placeholder */}

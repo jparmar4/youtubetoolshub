@@ -248,3 +248,56 @@ img[loading="lazy"]:not([src=""]) {
       #374151 100%);
   background-size: 200% 100%;
 }
+
+/* Premium Animations */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Glass Card Utility */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-card {
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Button Glow Effect */
+.glow-on-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-on-hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: 0.5s;
+  transform: skewX(-15deg);
+}
+
+.glow-on-hover:hover::after {
+  left: 150%;
+  transition: 0.7s ease-in-out;
+}

@@ -12,43 +12,47 @@ import { FaBalanceScale } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 
 // Interfaces
+interface TitleMetrics {
+    score: number;
+    ctr_prediction: string;
+    impulse_rating: "High" | "Medium" | "Low";
+    strengths: string[];
+    weaknesses: string[];
+}
+
 interface TitleAnalysis {
-    titleA: {
-        score: number;
-        analysis: string;
-    };
-    titleB: {
-        score: number;
-        analysis: string;
-    };
-    suggested: string;
+    winner: "A" | "B";
+    confidence: number;
+    analysis: string;
+    titleA: TitleMetrics;
+    titleB: TitleMetrics;
 }
 
 // Constants
 const faq = [
     {
-        question: "How is the score calculated?",
-        answer: "Our AI analyzes your title based on CTR factors, emotional triggers, power words, and clarity to generate a score from 0-100."
+        question: "How reliable is the A/B simulation?",
+        answer: "The AI simulates viewer psychology based on millions of viral video patterns. While it's a strong predictor of human behavior, actual performance depends on your specific audience and thumbnail."
     },
     {
-        question: "What is a good score?",
-        answer: "A score above 70 is considered strong. However, context matters - always trust your instinct and knowledge of your specific audience."
+        question: "What is 'Impulse Rating'?",
+        answer: "This measures how likely a user is to click immediately without thinking (System 1 thinking). High impulse ratings correlate with viral explosions."
     },
     {
-        question: "Does this guarantee more views?",
-        answer: "While a better title increases the likelihood of clicks, content quality and thumbnail design are also critical factors for success."
+        question: "Should I always pick the winner?",
+        answer: "Use the 'Confidence Score' as a guide. If confidence is low (<60%), both titles are likely similar in quality. If high (>80%), trust the winner."
     },
 ];
 
 const howTo = [
-    "Enter your first title option in the 'Title A' field",
-    "Enter your second option in the 'Title B' field",
-    "Optionally add context about your video for better analysis",
-    "Click 'Analyze Titles' to see the comparison",
-    "Review the scores and specific feedback for each title"
+    "Enter two title options you're debating between",
+    "Add context (e.g., 'Targeting beginners in tech')",
+    "Click 'Run Simulation' to see predicted CTR and winner",
+    "Review the 'Strengths' and 'Weaknesses' to understand WHY one won",
+    "Use the insights to craft a 3rd, even better title"
 ];
 
-const seoContent = `Maximize your YouTube Click-Through Rate (CTR) with our A/B Title Tester. Don't guess which title is better - let AI analyze them against millions of viral videos. Compare two title options, get instant scores, and receive specific actionable feedback to choose the winner.`;
+const seoContent = `Stop guessing which title will go viral. Our AI Title A/B Tester acts as a 'Click Simulator', predicting which of your title options will generate a higher Click-Through Rate (CTR). Get deep psychological analysis, strength/weakness breakdowns, and an impulse rating to ensure you launch your video with the best possible packaging.`;
 
 export default function TitleABTester() {
     const [titleA, setTitleA] = useState("");
@@ -98,111 +102,181 @@ export default function TitleABTester() {
         }
     };
 
-    const getScoreColor = (score: number) => {
-        if (score >= 70) return "text-green-600 dark:text-green-400";
-        if (score >= 40) return "text-yellow-600 dark:text-yellow-400";
-        return "text-red-600 dark:text-red-400";
-    };
-
-    const getScoreGradient = (score: number) => {
-        if (score >= 70) return "from-green-500 to-emerald-600";
-        if (score >= 40) return "from-yellow-500 to-orange-600";
-        return "from-red-500 to-pink-600";
-    };
-
     return (
         <ToolPageLayout
-            title="YouTube Title A/B Score Checker"
-            description="Compare two title options and get AI-powered scoring"
+            title="AI Title Click Simulator"
+            description="Predict the winner before you publish. Simulate 1,000 keyword impressions."
             faq={faq}
             howTo={howTo}
             seoContent={seoContent}
         >
-            <div className="space-y-6">
-                <UsageBanner type="ai" />
+            <div className="space-y-8">
+                <UsageBanner type="ai" toolSlug="youtube-title-ab-tester" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input
-                        label="Title A"
-                        placeholder="e.g., How I Made $10K on YouTube"
-                        value={titleA}
-                        onChange={(e) => setTitleA(e.target.value)}
-                    />
-                    <Input
-                        label="Title B"
-                        placeholder="e.g., My Complete YouTube Income Breakdown"
-                        value={titleB}
-                        onChange={(e) => setTitleB(e.target.value)}
-                    />
-                </div>
-                <Input
-                    label="Video Context (Optional)"
-                    placeholder="e.g., This video is about my monthly YouTube earnings as a tech creator"
-                    value={context}
-                    onChange={(e) => setContext(e.target.value)}
-                />
+                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <Input
+                            label="Title Option A"
+                            placeholder="e.g., I Quit Sugar for 30 Days"
+                            value={titleA}
+                            onChange={(e) => setTitleA(e.target.value)}
+                        />
+                        <Input
+                            label="Title Option B"
+                            placeholder="e.g., The Truth About Sugar (Withdrawal Symptoms)"
+                            value={titleB}
+                            onChange={(e) => setTitleB(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <Input
+                            label="Target Audience / Context (Optional)"
+                            placeholder="e.g., Health conscious people, skeptics, beginners"
+                            value={context}
+                            onChange={(e) => setContext(e.target.value)}
+                        />
+                    </div>
 
-                <Button onClick={handleAnalyze} isLoading={loading}>
-                    <FaBalanceScale className="mr-2" />
-                    Analyze Titles
-                </Button>
+                    <Button onClick={handleAnalyze} isLoading={loading} className="w-full text-lg py-4">
+                        {loading ? "Running Click Simulation..." : "🚀 Run 1,000 Impression Simulation"}
+                    </Button>
+                </div>
 
                 {/* Results Section */}
                 {result && (
-                    <div className="space-y-6">
+                    <div className="space-y-8 animate-fade-in">
+
+                        {/* Winner Banner */}
+                        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white shadow-xl text-center">
+                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                            <div className="relative z-10">
+                                <div className="inline-block bg-white/20 backdrop-blur-md rounded-full px-4 py-1 text-sm font-semibold mb-4">
+                                    🏆 AI CONFIDENCE: {result.confidence}%
+                                </div>
+                                <h3 className="text-3xl font-bold mb-2">
+                                    Title {result.winner} is the Likely Winner
+                                </h3>
+                                <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+                                    {result.analysis}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Comparison Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Title A Card */}
-                            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
-                                <div className={`bg-gradient-to-r ${getScoreGradient(result.titleA.score)} p-4`}>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-white font-medium">Title A</span>
-                                        <span className="text-3xl font-bold text-white">{result.titleA.score}</span>
+                            {/* Card A */}
+                            <div className={`rounded-2xl border-4 ${result.winner === 'A' ? 'border-green-500 shadow-green-200 dark:shadow-none shadow-lg' : 'border-transparent bg-gray-50 dark:bg-gray-800'}`}>
+                                <div className="p-6">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'A' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>
+                                            OPTION A
+                                        </span>
+                                        <span className="font-mono text-sm text-gray-500">
+                                            Impulse: <span className="font-bold text-gray-900 dark:text-gray-100">{result.titleA.impulse_rating}</span>
+                                        </span>
                                     </div>
-                                </div>
-                                <div className="p-4">
-                                    <p className="font-medium text-gray-900 dark:text-white mb-3">{titleA}</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{result.titleA.analysis}</p>
-                                    <CopyButton text={titleA} variant="button" label="Copy Title" />
+                                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-6 leading-relaxed">
+                                        {titleA}
+                                    </h4>
+
+                                    {/* Stats Grid */}
+                                    <div className="grid grid-cols-2 gap-4 mb-6">
+                                        <div className="bg-white dark:bg-gray-700 p-3 rounded-xl border border-gray-100 dark:border-gray-600">
+                                            <p className="text-xs text-gray-500 mb-1">Viral Score</p>
+                                            <p className="text-2xl font-bold text-blue-600">{result.titleA.score}</p>
+                                        </div>
+                                        <div className="bg-white dark:bg-gray-700 p-3 rounded-xl border border-gray-100 dark:border-gray-600">
+                                            <p className="text-xs text-gray-500 mb-1">Proj. CTR</p>
+                                            <p className="text-2xl font-bold text-purple-600">{result.titleA.ctr_prediction}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Lists */}
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-sm font-semibold text-green-600 mb-2 flex items-center">
+                                                <FaBalanceScale className="mr-2" /> Strengths
+                                            </p>
+                                            <ul className="text-sm space-y-1 text-gray-600 dark:text-gray-300">
+                                                {result.titleA.strengths.map((s, i) => (
+                                                    <li key={i} className="flex items-start">
+                                                        <span className="mr-2">•</span> {s}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-semibold text-red-500 mb-2">Weaknesses</p>
+                                            <ul className="text-sm space-y-1 text-gray-500 dark:text-gray-400">
+                                                {result.titleA.weaknesses.map((w, i) => (
+                                                    <li key={i} className="flex items-start">
+                                                        <span className="mr-2">•</span> {w}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            {/* Title B Card */}
-                            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
-                                <div className={`bg-gradient-to-r ${getScoreGradient(result.titleB.score)} p-4`}>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-white font-medium">Title B</span>
-                                        <span className="text-3xl font-bold text-white">{result.titleB.score}</span>
+                            {/* Card B */}
+                            <div className={`rounded-2xl border-4 ${result.winner === 'B' ? 'border-green-500 shadow-green-200 dark:shadow-none shadow-lg' : 'border-transparent bg-gray-50 dark:bg-gray-800'}`}>
+                                <div className="p-6">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'B' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>
+                                            OPTION B
+                                        </span>
+                                        <span className="font-mono text-sm text-gray-500">
+                                            Impulse: <span className="font-bold text-gray-900 dark:text-gray-100">{result.titleB.impulse_rating}</span>
+                                        </span>
                                     </div>
-                                </div>
-                                <div className="p-4">
-                                    <p className="font-medium text-gray-900 dark:text-white mb-3">{titleB}</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{result.titleB.analysis}</p>
-                                    <CopyButton text={titleB} variant="button" label="Copy Title" />
+                                    <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-6 leading-relaxed">
+                                        {titleB}
+                                    </h4>
+
+                                    {/* Stats Grid */}
+                                    <div className="grid grid-cols-2 gap-4 mb-6">
+                                        <div className="bg-white dark:bg-gray-700 p-3 rounded-xl border border-gray-100 dark:border-gray-600">
+                                            <p className="text-xs text-gray-500 mb-1">Viral Score</p>
+                                            <p className="text-2xl font-bold text-blue-600">{result.titleB.score}</p>
+                                        </div>
+                                        <div className="bg-white dark:bg-gray-700 p-3 rounded-xl border border-gray-100 dark:border-gray-600">
+                                            <p className="text-xs text-gray-500 mb-1">Proj. CTR</p>
+                                            <p className="text-2xl font-bold text-purple-600">{result.titleB.ctr_prediction}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Lists */}
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-sm font-semibold text-green-600 mb-2 flex items-center">
+                                                <FaBalanceScale className="mr-2" /> Strengths
+                                            </p>
+                                            <ul className="text-sm space-y-1 text-gray-600 dark:text-gray-300">
+                                                {result.titleB.strengths.map((s, i) => (
+                                                    <li key={i} className="flex items-start">
+                                                        <span className="mr-2">•</span> {s}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-semibold text-red-500 mb-2">Weaknesses</p>
+                                            <ul className="text-sm space-y-1 text-gray-500 dark:text-gray-400">
+                                                {result.titleB.weaknesses.map((w, i) => (
+                                                    <li key={i} className="flex items-start">
+                                                        <span className="mr-2">•</span> {w}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Suggested Title */}
-                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                                ✨ Suggested Improved Title
-                            </h3>
-                            <p className="text-gray-700 dark:text-gray-300 font-medium mb-4">{result.suggested}</p>
-                            <CopyButton text={result.suggested} variant="button" label="Copy Suggested Title" />
-                        </div>
-
-                        {/* Winner */}
-                        <div className="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Winner</p>
-                            <p className={`text-xl font-bold ${getScoreColor(Math.max(result.titleA.score, result.titleB.score))}`}>
-                                {result.titleA.score > result.titleB.score ? "Title A" : result.titleB.score > result.titleA.score ? "Title B" : "Tie!"}
-                                {result.titleA.score !== result.titleB.score &&
-                                    ` (by ${Math.abs(result.titleA.score - result.titleB.score)} points)`
-                                }
-                            </p>
-                        </div>
                     </div>
                 )}
             </div>
