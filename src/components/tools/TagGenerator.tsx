@@ -8,6 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import { saveHistory } from "@/lib/history";
 import { FaMagic, FaSpinner, FaStar, FaSearch, FaHashtag, FaFire, FaLightbulb } from "react-icons/fa";
 
 interface TagResult {
@@ -107,6 +108,17 @@ export default function TagGenerator() {
             try {
                 const parsed = JSON.parse(resultStr);
                 setTags(parsed);
+
+                // Save to Cloud History
+                try {
+                    await saveHistory('youtube-tag-generator', {
+                        topic,
+                        niche,
+                        tags: parsed
+                    });
+                } catch (error) {
+                    console.error("Failed to save to cloud history:", error);
+                }
             } catch {
                 setError("Failed to parse tags. Please try again.");
             }

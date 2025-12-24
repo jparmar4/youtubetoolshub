@@ -11,6 +11,7 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaHashtag, FaBookmark, FaCheckCircle, FaFire, FaLayerGroup, FaBullseye } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 import { saveItem } from "@/lib/dashboard";
+import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faq = [
@@ -91,6 +92,17 @@ export default function HashtagGenerator() {
             // Safe parse specifically for the new structure
             const parsed = safeJSONParse<HashtagResult>(data.result, { broad: [], niche: [], trending: [] });
             setHashtags(parsed);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-hashtag-generator', {
+                    topic,
+                    niche,
+                    hashtags: parsed
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (error) {
             console.error("Generation error:", error);
         } finally {

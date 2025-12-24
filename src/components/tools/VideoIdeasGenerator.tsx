@@ -11,6 +11,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaStar, FaRegStar, FaLightbulb, FaChartLine, FaImage, FaTrophy, FaLayerGroup } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
+import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -81,12 +82,29 @@ export default function VideoIdeasGenerator() {
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
-    const handleSave = (idea: VideoIdea) => {
+    const handleSave = async (idea: VideoIdea) => {
+        // Save to local dashboard (legacy/offline support)
         saveItem({
             type: 'idea',
             toolSlug: 'youtube-video-ideas-generator',
             content: { title: idea.title, concept: idea.concept }
         });
+
+        // Save to Cloud History
+        try {
+            await saveHistory('youtube-video-ideas-generator', {
+                title: idea.title,
+                concept: idea.concept,
+                score: idea.score,
+                difficulty: idea.difficulty,
+                angle: idea.angle,
+                thumbnail_concept: idea.thumbnail_concept
+            });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+            // Optionally show a toast or notification
+        }
+
         setSavedSet(prev => new Set(prev).add(idea.title));
     };
 

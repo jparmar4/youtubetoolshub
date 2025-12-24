@@ -10,6 +10,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaBalanceScale } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
+import { saveHistory } from "@/lib/history";
 
 // Interfaces
 interface TitleMetrics {
@@ -95,6 +96,20 @@ export default function TitleABTester() {
 
             const parsed = safeJSONParse<TitleAnalysis>(data.result, null as unknown as TitleAnalysis);
             setResult(parsed);
+
+            // Save to Cloud History
+            try {
+                if (parsed) {
+                    await saveHistory('youtube-title-ab-tester', {
+                        titleA,
+                        titleB,
+                        context,
+                        result: parsed
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (error) {
             console.error("Analysis error:", error);
         } finally {

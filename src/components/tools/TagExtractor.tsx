@@ -9,6 +9,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
 import Link from "next/link";
+import { saveHistory } from "@/lib/history";
 
 interface VideoInfo {
     videoTitle: string;
@@ -90,6 +91,19 @@ export default function TagExtractor() {
             setTags(data.tags || []);
             setVideoInfo(data.videoInfo || null);
             setNoTagsFound(data.tags && data.tags.length === 0);
+
+            // Save to Cloud History
+            if (data.tags && data.tags.length > 0) {
+                try {
+                    await saveHistory('youtube-tag-extractor', {
+                        videoUrl: url,
+                        videoInfo: data.videoInfo,
+                        tags: data.tags
+                    });
+                } catch (error) {
+                    console.error("Failed to save to cloud history:", error);
+                }
+            }
 
         } catch (err) {
             console.error("Extraction error:", err);

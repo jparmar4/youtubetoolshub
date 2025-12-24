@@ -121,14 +121,7 @@ import { useEffect } from "react";
 
 export default function AIThumbnailPromptGenerator() {
     const searchParams = useSearchParams();
-    const [videoTopic, setVideoTopic] = useState("");
-
-    useEffect(() => {
-        const urlTopic = searchParams.get("topic");
-        if (urlTopic) {
-            setVideoTopic(urlTopic);
-        }
-    }, [searchParams]);
+    const [videoTopic, setVideoTopic] = useState(searchParams.get("topic") || "");
     const [niche, setNiche] = useState("tech");
     const [subject, setSubject] = useState("person-reaction");
     const [mood, setMood] = useState("excited");

@@ -10,6 +10,7 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaUser, FaSpinner, FaStar, FaBolt, FaGem, FaRocket, FaTag, FaExternalLinkAlt } from "react-icons/fa";
+import { saveHistory } from "@/lib/history";
 
 const toneOptions = [
     { value: "fun", label: "Fun & Playful" },
@@ -140,6 +141,17 @@ export default function ChannelNameGenerator() {
             });
 
             setNames(normalized);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-channel-name-generator', {
+                    niche,
+                    tone,
+                    result: normalized
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
 
         } catch (err) {
             console.error("Generation error:", err);

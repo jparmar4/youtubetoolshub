@@ -9,6 +9,7 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { isPremiumUser } from "@/lib/usage";
+import { saveHistory } from "@/lib/history";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
 
 const styleOptions = [
@@ -103,6 +104,18 @@ export default function AIThumbnailGenerator() {
             increment("youtube-ai-thumbnail-generator");
 
             setGeneratedImages(data.images);
+
+            // Save to Cloud History
+            try {
+                // Save first image as primary, or array of images
+                await saveHistory('youtube-ai-thumbnail-generator', {
+                    prompt,
+                    style,
+                    images: data.images
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate thumbnails. Please try again.");

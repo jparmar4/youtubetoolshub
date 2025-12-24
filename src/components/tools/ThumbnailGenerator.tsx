@@ -11,6 +11,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaStar, FaRegStar, FaPalette, FaBrain } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
+import { saveHistory } from "@/lib/history";
 import { safeJSONParse } from "@/lib/utils";
 
 // Constants
@@ -135,6 +136,18 @@ export default function ThumbnailGenerator() {
             }
 
             setResults(parsed);
+
+            // Save to Cloud History
+            try {
+                await saveHistory('youtube-thumbnail-generator', {
+                    topic,
+                    style,
+                    emotion,
+                    results: parsed
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
+            }
         } catch (error) {
             console.error("Generation error:", error);
         } finally {

@@ -24,6 +24,7 @@ export const siteConfig = {
   nav: [
     { name: "Home", href: "/" },
     { name: "Tools", href: "/tools" },
+    { name: "History", href: "/history" },
     { name: "Blog", href: "/blog" },
     { name: "Pricing", href: "/pricing" },
     { name: "About", href: "/about" },

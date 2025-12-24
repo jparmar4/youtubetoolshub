@@ -1,46 +1,65 @@
+import { isPremiumUser } from "./usage";
+
 export interface SavedItem {
     id: string;
-    type: 'audit' | 'title' | 'idea' | 'hashtag';
+    type: 'audit' | 'title' | 'idea' | 'hashtag' | 'other'; // Added 'other' for flexibility
     content: any;
     date: string;
     toolSlug: string;
 }
 
-const STORAGE_KEY = 'yt_tools_dashboard_v1';
-
-export const saveItem = (item: Omit<SavedItem, 'id' | 'date'>) => {
+export const saveItem = async (item: Omit<SavedItem, 'id' | 'date'>) => {
     if (typeof window === 'undefined') return;
 
-    const current: SavedItem[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    try {
+        const isPro = isPremiumUser();
+        const response = await fetch('/api/history', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...item, isPro }),
+        });
 
-    const newItem: SavedItem = {
-        ...item,
-        id: crypto.randomUUID(),
-        date: new Date().toISOString(),
-    };
+        if (!response.ok) throw new Error('Failed to save to cloud');
+        const data = await response.json();
 
-    // Add to top, limit to 50 items
-    const updated = [newItem, ...current].slice(0, 50);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-    return newItem;
+        return {
+            ...item,
+            id: data.id,
+            date: new Date().toISOString()
+        };
+    } catch (error) {
+        console.error("Save error:", error);
+        return null;
+    }
 };
 
-export const getSavedItems = (): SavedItem[] => {
+export const getSavedItems = async (): Promise<SavedItem[]> => {
     if (typeof window === 'undefined') return [];
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    try {
+        const response = await fetch('/api/history');
+        if (response.status === 401) return []; // Not logged in
+        if (!response.ok) throw new Error('Failed to fetch history');
+        return await response.json();
+    } catch (error) {
+        console.error("Fetch error:", error);
+        return [];
+    }
 };
 
-export const deleteItem = (id: string) => {
+export const deleteItem = async (id: string) => {
     if (typeof window === 'undefined') return;
-    const current: SavedItem[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const updated = current.filter(item => item.id !== id);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+
+    try {
+        await fetch(`/api/history?id=${id}`, { method: 'DELETE' });
+    } catch (error) {
+        console.error("Delete error:", error);
+    }
 };
 
-export const getRecentTools = (): string[] => {
-    // We can infer this from usage stats or save explicitly
-    // For now, let's mock or use a separate key if needed
-    // Simple implementation: return unique tool slugs from saved items
-    const items = getSavedItems();
+export const getRecentTools = async (): Promise<string[]> => {
+    // For now, we fetch latest items to infer recent tools
+    const items = await getSavedItems();
     return Array.from(new Set(items.map(i => i.toolSlug))).slice(0, 5);
 };
+

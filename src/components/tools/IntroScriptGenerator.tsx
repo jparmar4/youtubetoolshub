@@ -11,6 +11,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMicrophone, FaSpinner, FaPlay, FaStream } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
+import { saveHistory } from "@/lib/history";
 
 const personalityOptions = [
     { value: "energetic", label: "Energetic & Excited" },
@@ -124,6 +125,20 @@ export default function IntroScriptGenerator() {
             } else {
                 // Fallback text
                 setRawScript(data.result.replace(/```json\s*/gi, "").replace(/```\s*/g, ""));
+            }
+
+            // Save to Cloud History
+            try {
+                const historyContent = parsed && parsed.hook ? parsed : { script: data.result };
+                await saveHistory('youtube-intro-script-generator', {
+                    topic,
+                    personality,
+                    length,
+                    structure,
+                    result: historyContent
+                });
+            } catch (error) {
+                console.error("Failed to save to cloud history:", error);
             }
 
         } catch (err) {

@@ -23,23 +23,32 @@ export default function DashboardPage() {
     }, [status, router]);
 
     useEffect(() => {
-        // Load data on mount
-        setSavedItems(getSavedItems());
-        setUsage(getUsageSummary());
-
-        // Listen for storage updates
-        const handleStorage = () => {
-            setSavedItems(getSavedItems());
+        const loadData = async () => {
+            const items = await getSavedItems();
+            setSavedItems(items);
             setUsage(getUsageSummary());
+        };
+
+        if (status === "authenticated") {
+            loadData();
+        }
+
+        // Listen for storage updates (still relevant for usage)
+        const handleStorage = async () => {
+            setUsage(getUsageSummary());
+            // History update might need a new event or polling, 
+            // but for now re-fetching on focus or just initial load is fine.
+            // setSavedItems(await getSavedItems()); 
         };
 
         window.addEventListener('usage_updated', handleStorage);
         return () => window.removeEventListener('usage_updated', handleStorage);
-    }, []);
+    }, [status]); // dependent on status to ensure we load when logged in
 
-    const handleDelete = (id: string) => {
-        deleteItem(id);
-        setSavedItems(getSavedItems());
+    const handleDelete = async (id: string) => {
+        // Optimistic update
+        setSavedItems(prev => prev.filter(i => i.id !== id));
+        await deleteItem(id);
     };
 
     if (status === "loading") {

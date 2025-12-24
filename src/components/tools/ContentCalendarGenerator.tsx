@@ -10,6 +10,7 @@ import { downloadAsFile, generateCSV } from "@/lib/utils";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import { saveHistory } from "@/lib/history";
 
 interface CalendarEntry {
     day: number;
@@ -108,6 +109,20 @@ export default function ContentCalendarGenerator() {
                 } else {
                     throw new Error("Invalid format");
                 }
+
+                // Save to Cloud History
+                const historyContent = Array.isArray(parsed) ? { calendar: parsed } : parsed;
+                try {
+                    await saveHistory('youtube-content-calendar', {
+                        niche,
+                        frequency,
+                        days,
+                        result: historyContent
+                    });
+                } catch (error) {
+                    console.error("Failed to save to cloud history:", error);
+                }
+
             } catch (e) {
                 console.error("Parsing error", e);
             }

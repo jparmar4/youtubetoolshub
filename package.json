@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.7.3",
+    "@supabase/supabase-js": "^2.89.0",
     "@types/negotiator": "^0.6.4",
+    "@vercel/postgres": "^0.10.0",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.23.26",
     "negotiator": "^1.0.0",

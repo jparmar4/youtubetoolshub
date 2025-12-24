@@ -11,6 +11,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, FaUsers } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
+import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -109,15 +110,8 @@ interface TitleResult {
 export default function TitleGenerator() {
     const searchParams = useSearchParams();
 
-    // Auto-fill topic from URL
-    useEffect(() => {
-        const urlTopic = searchParams.get("topic");
-        if (urlTopic) {
-            setTopic(urlTopic);
-        }
-    }, [searchParams]);
-
-    const [topic, setTopic] = useState("");
+    // Initialize strictly from URL if present
+    const [topic, setTopic] = useState(searchParams.get("topic") || "");
     const [tone, setTone] = useState("casual");
     const [language, setLanguage] = useState("english");
     const [videoType, setVideoType] = useState("tutorial");
@@ -131,12 +125,22 @@ export default function TitleGenerator() {
     // Usage tracking
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
-    const handleSave = (title: string) => {
+    const handleSave = async (title: string) => {
         saveItem({
             type: 'title',
             toolSlug: 'youtube-title-generator',
             content: title
         });
+
+        // Save to Cloud History
+        try {
+            // Find full object if possible for richer history, otherwise just title
+            const richData = titles.find(t => t.title === title);
+            await saveHistory('youtube-title-generator', richData || { title });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+        }
+
         setSavedSet(prev => new Set(prev).add(title));
     };
 

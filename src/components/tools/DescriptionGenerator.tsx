@@ -9,7 +9,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaSpinner, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag } from "react-icons/fa";
+import { FaMagic, FaSpinner, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag, FaImage } from "react-icons/fa";
 
 const videoTypeOptions = [
     { value: "tutorial", label: "Tutorial / How-To" },
@@ -99,19 +99,11 @@ function formatDescriptionFromJSON(jsonString: string): string {
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
-import { FaImage } from "react-icons/fa";
+import { saveHistory } from "@/lib/history";
 
 export default function DescriptionGenerator() {
     const searchParams = useSearchParams();
-    const [topic, setTopic] = useState("");
-
-    // Auto-fill topic from URL
-    useEffect(() => {
-        const urlTopic = searchParams.get("topic");
-        if (urlTopic) {
-            setTopic(urlTopic);
-        }
-    }, [searchParams]);
+    const [topic, setTopic] = useState(searchParams.get("topic") || "");
     const [videoType, setVideoType] = useState("tutorial");
     const [tone, setTone] = useState("casual");
     const [keywords, setKeywords] = useState("");
@@ -121,6 +113,21 @@ export default function DescriptionGenerator() {
     const [viewMode, setViewMode] = useState<"preview" | "edit">("preview");
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+
+    // Legacy save logic could be added here if needed, but description tool didn't have save button before
+    const saveToHistory = async (desc: string) => {
+        try {
+            await saveHistory('youtube-description-generator', {
+                topic,
+                videoType,
+                tone,
+                keywords,
+                description: desc
+            });
+        } catch (error) {
+            console.error("Failed to save to cloud history:", error);
+        }
+    };
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -159,6 +166,10 @@ export default function DescriptionGenerator() {
             increment("youtube-description-generator");
             const formattedDescription = formatDescriptionFromJSON(data.result);
             setDescription(formattedDescription);
+
+            // Save to history
+            saveToHistory(formattedDescription);
+
             setViewMode("preview");
         } catch (err) {
             console.error("Generation error:", err);
