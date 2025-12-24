@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaBars, FaTimes, FaMoon, FaSun, FaYoutube } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import UserMenu from "@/components/auth/UserMenu";
+import { useSession } from "next-auth/react";
 
 // Memoized navigation link component
 const NavLink = memo(function NavLink({
@@ -46,6 +47,22 @@ const ThemeToggle = memo(function ThemeToggle({
         >
             {isDark ? <FaSun className="w-5 h-5" /> : <FaMoon className="w-5 h-5" />}
         </button>
+    );
+});
+
+const DashboardLink = memo(function DashboardLink() {
+    const { data: session } = useSession();
+
+    if (!session) return null;
+
+    return (
+        <Link
+            href="/dashboard"
+            className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1"
+        >
+            <span>🚀</span>
+            Dashboard
+        </Link>
     );
 });
 
@@ -124,6 +141,8 @@ function Header() {
                                 {item.name}
                             </NavLink>
                         ))}
+                        {/* Dashboard Link for Authenticated Users */}
+                        <DashboardLink />
                     </div>
 
                     {/* Right Section */}

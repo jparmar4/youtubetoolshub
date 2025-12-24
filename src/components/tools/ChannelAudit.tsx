@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { saveItem } from "@/lib/dashboard";
+import ShareModal from "@/components/ui/ShareModal";
 import { FaSearch, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaShareAlt, FaSpinner, FaYoutube, FaBookmark } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -22,6 +23,7 @@ export default function ChannelAudit() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<AuditResult | null>(null);
     const [saved, setSaved] = useState(false);
+    const [showShareModal, setShowShareModal] = useState(false);
 
     const analyzeChannel = async () => {
         if (!channelInput) return;
@@ -78,12 +80,6 @@ export default function ChannelAudit() {
         setLoading(false);
     };
 
-    const copyToClipboard = () => {
-        const text = `I just audited my YouTube channel and got a ${result?.score}/100 Health Score! 🚀\n\nCheck yours for free at: https://youtubetoolshub.com/tools/youtube-channel-audit`;
-        navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!");
-    };
-
     const handleSave = () => {
         if (!result) return;
         saveItem({
@@ -95,6 +91,21 @@ export default function ChannelAudit() {
             }
         });
         setSaved(true);
+    };
+
+    const getShareContent = () => {
+        if (!result) return { title: "", text: "" };
+        const bestMetric = result.metrics.reduce((prev, current) => (prev.score > current.score) ? prev : current);
+
+        const text = `I just audited my YouTube channel health! 📊\n\n` +
+            `🏆 Score: ${result.score}/100 (${result.grade})\n` +
+            `✨ Top Strength: ${bestMetric.name}\n\n` +
+            `Check your channel score for free 👇`;
+
+        return {
+            title: "Share Audit Result",
+            text
+        };
     };
 
     return (
@@ -208,8 +219,8 @@ export default function ChannelAudit() {
                                             onClick={handleSave}
                                             disabled={saved}
                                             className={`inline-flex items-center gap-2 px-6 py-2 rounded-xl font-bold transition-all ${saved
-                                                    ? "bg-green-100 text-green-700"
-                                                    : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:opacity-90 shadow-lg hover:shadow-xl"
+                                                ? "bg-green-100 text-green-700"
+                                                : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:opacity-90 shadow-lg hover:shadow-xl"
                                                 }`}
                                         >
                                             {saved ? <FaCheckCircle /> : <FaBookmark />}
@@ -217,7 +228,7 @@ export default function ChannelAudit() {
                                         </button>
 
                                         <button
-                                            onClick={copyToClipboard}
+                                            onClick={() => setShowShareModal(true)}
                                             className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium transition-colors"
                                         >
                                             <FaShareAlt /> Share Result
@@ -258,6 +269,16 @@ export default function ChannelAudit() {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {result && (
+                <ShareModal
+                    isOpen={showShareModal}
+                    onClose={() => setShowShareModal(false)}
+                    title={getShareContent().title}
+                    text={getShareContent().text}
+                    url="https://youtubetoolshub.com/tools/youtube-channel-audit"
+                />
+            )}
         </div>
     );
 }
