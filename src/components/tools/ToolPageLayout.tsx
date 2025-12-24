@@ -3,6 +3,7 @@ import AdPlaceholder from "@/components/ui/AdPlaceholder";
 import { getFAQSchema, getHowToSchema, getSoftwareApplicationSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import MotionWrapper from "@/components/ui/MotionWrapper";
+import ToolHistory from "./ToolHistory";
 
 interface ToolPageLayoutProps {
     title: string;
@@ -154,7 +155,7 @@ export default function ToolPageLayout({
                             </h2>
                             <div className="space-y-6">
                                 {faq.map((item, i) => (
-                                    <div key={i} className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+                                    <div key={i} className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-b-0 last:pb-0">
                                         <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                                             {item.question}
                                         </h3>
@@ -166,6 +167,9 @@ export default function ToolPageLayout({
                             </div>
                         </div>
                     )}
+
+                    {/* Recent History Section */}
+                    <ToolHistory toolSlug={toolSlug} />
                 </div>
             </div>
         </>

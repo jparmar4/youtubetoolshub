@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaCrown, FaStar, FaTrash, FaHistory, FaChartBar, FaLightbulb, FaHashtag, FaHeading, FaRocket } from "react-icons/fa";
 import { getSavedItems, deleteItem, SavedItem } from "@/lib/dashboard";
-import { getUsageSummary } from "@/lib/usage";
+import { useUsage } from "@/hooks/useUsage"; // New Hook
 import { tools } from "@/config/tools";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export default function DashboardPage() {
     const { data: session, status } = useSession();
     const router = useRouter();
     const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
-    const [usage, setUsage] = useState<any>(null);
+    const { summary: usage, loading: usageLoading } = useUsage(); // Use the hook
 
     useEffect(() => {
         if (status === "unauthenticated") {
@@ -23,27 +23,15 @@ export default function DashboardPage() {
     }, [status, router]);
 
     useEffect(() => {
-        const loadData = async () => {
+        const loadSavedItems = async () => {
             const items = await getSavedItems();
             setSavedItems(items);
-            setUsage(getUsageSummary());
         };
 
         if (status === "authenticated") {
-            loadData();
+            loadSavedItems();
         }
-
-        // Listen for storage updates (still relevant for usage)
-        const handleStorage = async () => {
-            setUsage(getUsageSummary());
-            // History update might need a new event or polling, 
-            // but for now re-fetching on focus or just initial load is fine.
-            // setSavedItems(await getSavedItems()); 
-        };
-
-        window.addEventListener('usage_updated', handleStorage);
-        return () => window.removeEventListener('usage_updated', handleStorage);
-    }, [status]); // dependent on status to ensure we load when logged in
+    }, [status]);
 
     const handleDelete = async (id: string) => {
         // Optimistic update
@@ -51,7 +39,7 @@ export default function DashboardPage() {
         await deleteItem(id);
     };
 
-    if (status === "loading") {
+    if (status === "loading" || usageLoading) {
         return (
             <div className="min-h-screen pt-24 flex justify-center">
                 <div className="animate-pulse">Loading Dashboard...</div>

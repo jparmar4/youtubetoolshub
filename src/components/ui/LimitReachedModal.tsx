@@ -5,6 +5,8 @@ import { FaCrown, FaLock, FaTimes } from "react-icons/fa";
 import { getToolBySlug } from "@/config/tools";
 import { getToolLimit } from "@/lib/usage";
 
+import { useUsage } from "@/hooks/useUsage";
+
 interface LimitReachedModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -12,10 +14,12 @@ interface LimitReachedModalProps {
 }
 
 export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitReachedModalProps) {
+    const { isPro } = useUsage();
+
     if (!isOpen || !toolSlug) return null;
 
     const tool = getToolBySlug(toolSlug);
-    const limit = getToolLimit(toolSlug);
+    const limit = getToolLimit(toolSlug, isPro);
     const toolName = tool?.name || "Tool";
 
     return (

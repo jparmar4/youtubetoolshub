@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { FaCrown, FaBolt, FaImage, FaTimes } from "react-icons/fa";
-import { getUsageSummary, getUsageStats } from "@/lib/usage";
+import { useUsage } from "@/hooks/useUsage";
 
 interface UsageBannerProps {
     type?: "ai" | "image" | "both";
@@ -12,40 +12,20 @@ interface UsageBannerProps {
 }
 
 export default function UsageBanner({ type = "both", compact = false, toolSlug }: UsageBannerProps) {
-    // We use a flexible type to handle both Summary and specific Stats
-    const [usageData, setUsageData] = useState<any>(null);
+    const { getStats, summary, loading } = useUsage();
     const [dismissed, setDismissed] = useState(false);
 
-    useEffect(() => {
-        const updateUsage = () => {
-            if (toolSlug) {
-                // If specific tool, get stats for just that tool
-                setUsageData(getUsageStats(toolSlug));
-            } else {
-                // Otherwise fallback to summary
-                setUsageData(getUsageSummary());
-            }
-        };
-
-        // Initial load
-        updateUsage();
-
-        // Listen for updates
-        window.addEventListener('usage_updated', updateUsage);
-        window.addEventListener('storage', updateUsage);
-
-        return () => {
-            window.removeEventListener('usage_updated', updateUsage);
-            window.removeEventListener('storage', updateUsage);
-        };
-    }, [toolSlug]);
-
-    if (!usageData || dismissed) return null;
-    if (usageData.isPro) return null;
+    if (loading || dismissed) return null;
+    if (summary.isPro) return null;
 
     // Handle single tool stats view
     if (toolSlug) {
-        const remaining = usageData.remaining === 'Unlimited' ? Infinity : usageData.remaining;
+        const stats = getStats(toolSlug);
+        const remaining = stats.remaining === 'Unlimited' ? Infinity : stats.remaining;
+
+        // Safety check for number
+        if (typeof remaining !== 'number') return null;
+
         const isLow = remaining <= 0; // Show warning when 0 left
         const isWarning = isLow;
 
@@ -58,7 +38,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     }`}>
                     <span className="flex items-center gap-1">
                         <FaBolt className="w-3 h-3" />
-                        {usageData.remaining}/{usageData.limit}
+                        {stats.remaining}/{stats.limit}
                     </span>
                 </div>
             );
@@ -88,7 +68,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                                     Daily Credits
                                 </p>
                                 <p className={`text-xs ${isLow ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                    {usageData.used}/{usageData.limit} used today
+                                    {stats.used}/{stats.limit} used today
                                 </p>
                             </div>
                         </div>
@@ -112,8 +92,8 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
     const showAi = type === "ai" || type === "both";
     const showImage = type === "image" || type === "both";
 
-    const totalLow = typeof usageData.aiRemaining === "number" && usageData.aiRemaining <= 2;
-    const imageLow = typeof usageData.imageRemaining === "number" && usageData.imageRemaining <= 0;
+    const totalLow = typeof summary.aiRemaining === "number" && summary.aiRemaining <= 2;
+    const imageLow = typeof summary.imageRemaining === "number" && summary.imageRemaining <= 0;
     const isWarning = totalLow || imageLow;
 
     if (compact) {
@@ -125,14 +105,14 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 {showAi && (
                     <span className="flex items-center gap-1">
                         <FaBolt className="w-3 h-3" />
-                        {usageData.aiRemaining}/{usageData.aiLimit}
+                        {summary.aiRemaining}/{summary.aiLimit}
                     </span>
                 )}
                 {showAi && showImage && <span>•</span>}
                 {showImage && (
                     <span className="flex items-center gap-1">
                         <FaImage className="w-3 h-3" />
-                        {usageData.imageRemaining}/{usageData.imageLimit}
+                        {summary.imageRemaining}/{summary.imageLimit}
                     </span>
                 )}
             </div>
@@ -163,7 +143,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                                     Daily Uses
                                 </p>
                                 <p className={`text-xs ${totalLow ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                    {usageData.aiUsed}/{usageData.aiLimit} used today
+                                    {summary.aiUsed}/{summary.aiLimit} used today
                                 </p>
                             </div>
                         </div>
@@ -179,7 +159,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                                     Image
                                 </p>
                                 <p className={`text-xs ${imageLow ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                                    {usageData.imageUsed}/{usageData.imageLimit} used
+                                    {summary.imageUsed}/{summary.imageLimit} used
                                 </p>
                             </div>
                         </div>

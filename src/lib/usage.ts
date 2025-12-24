@@ -1,23 +1,22 @@
 /**
- * Usage Tracking System
+ * Usage Tracking System (Server-Side + Client Hybrid)
  * 
- * Tracks daily usage limits for free and premium users per tool
- * Uses localStorage for client-side tracking
+ * Tracks daily usage limits:
+ * 1. Fetches from Supabase 'user_usage' table for logged-in users.
+ * 2. Falls back to localStorage for guests (optional, or just restrict).
+ * 3. Enforces generic daily limits.
  */
 
-export interface UsageData {
-    toolUsage: Record<string, number>; // usage count per tool slug
-    lastReset: string;      // ISO date string (YYYY-MM-DD)
-}
+import { supabase } from './supabase';
 
 export interface ToolLimit {
-    free: number; // Daily limit for free users (Infinity for unlimited)
-    pro: number;  // Daily limit for pro users (Infinity for unlimited)
+    free: number; // Daily limit for free users
+    pro: number;  // Daily limit for pro users
 }
 
 // Tool Limits Configuration
 export const TOOL_LIMITS: Record<string, ToolLimit> = {
-    // Unlimited Tools (Free for all)
+    // Unlimited Tools
     'youtube-thumbnail-downloader': { free: Infinity, pro: Infinity },
     'youtube-earnings-calculator': { free: Infinity, pro: Infinity },
     'youtube-engagement-rate-calculator': { free: Infinity, pro: Infinity },
@@ -25,14 +24,14 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'youtube-playlist-length-calculator': { free: Infinity, pro: Infinity },
     'youtube-comment-picker': { free: Infinity, pro: Infinity },
 
-    // Limited Tools (Free: specific limit, Pro: Unlimited)
-    'youtube-thumbnail-generator': { free: 2, pro: Infinity },          // Text Generator
-    'youtube-ai-thumbnail-generator': { free: 1, pro: Infinity },       // Image Generator
+    // Limited Tools
+    'youtube-thumbnail-generator': { free: 2, pro: Infinity },
+    'youtube-ai-thumbnail-generator': { free: 1, pro: Infinity },
     'youtube-ai-thumbnail-prompt': { free: 2, pro: Infinity },
     'youtube-title-generator': { free: 2, pro: Infinity },
     'youtube-description-generator': { free: 2, pro: Infinity },
     'youtube-tag-generator': { free: 2, pro: Infinity },
-    'youtube-tag-extractor': { free: 2, pro: Infinity }, // Reverted to 2
+    'youtube-tag-extractor': { free: 2, pro: Infinity },
     'youtube-video-ideas-generator': { free: 2, pro: Infinity },
     'youtube-trend-helper': { free: 2, pro: Infinity },
     'youtube-content-calendar-generator': { free: 2, pro: Infinity },
@@ -44,137 +43,125 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
 
 export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };
 
-const STORAGE_KEY = 'yt_tools_usage_v5'; // Incremented key to reset schema
-const PRO_KEY = 'yt_tools_pro';
+// --- Server-Side / Supabase Logic ---
 
-// Date helpers
-const getTodayString = () => new Date().toISOString().split('T')[0];
+/**
+ * Fetch usage for the current user from Supabase.
+ * Handles daily resets automatically via the 'date' column check.
+ */
+export const fetchUserUsage = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !user.email) return null;
 
-// Check if user is pro
-export const isPremiumUser = (): boolean => {
-    if (typeof window === 'undefined') return false;
-    return localStorage.getItem(PRO_KEY) === 'true';
-};
+    const today = new Date().toISOString().split('T')[0];
 
-// Set premium status
-export const setPremiumStatus = (isPro: boolean): void => {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem(PRO_KEY, isPro ? 'true' : 'false');
-};
+    // Get current usage record
+    const { data, error } = await supabase
+        .from('user_usage')
+        .select('*')
+        .eq('user_email', user.email)
+        .single();
 
-// Get usage data
-export const getUsageData = (): UsageData => {
-    if (typeof window === 'undefined') {
-        return { toolUsage: {}, lastReset: getTodayString() };
+    if (error && error.code !== 'PGRST116') { // PGRST116 is "Row not found"
+        console.error("Error fetching usage:", error);
+        return null; // Fail safe
     }
 
-    const stored = localStorage.getItem(STORAGE_KEY);
-    const today = getTodayString();
+    // If no record, or date is old -> Reset/Initialize
+    if (!data || data.date !== today) {
+        // Create/Overwrite with fresh record for today
+        const { data: newData, error: insertError } = await supabase
+            .from('user_usage')
+            .upsert({
+                user_email: user.email,
+                date: today,
+                usage_data: {}
+            })
+            .select()
+            .single();
 
-    if (!stored) {
-        return { toolUsage: {}, lastReset: today };
+        if (insertError) console.error("Error resetting usage:", insertError);
+        return newData?.usage_data || {};
     }
 
-    const data: UsageData = JSON.parse(stored);
+    return data.usage_data;
+};
 
-    // Daily reset
-    if (data.lastReset !== today) {
-        return { toolUsage: {}, lastReset: today };
+/**
+ * Increment usage for a specific tool in Supabase.
+ */
+export const incrementUserUsage = async (toolSlug: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !user.email) return;
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // We use a robust approach: Fetch -> Modify -> Update
+    // (Ideally a Postgres Function is better for atomicity, but this works for this scale)
+
+    const { data: currentRecord } = await supabase
+        .from('user_usage')
+        .select('*')
+        .eq('user_email', user.email)
+        .single();
+
+    let newUsageData = currentRecord?.usage_data || {};
+
+    // Check if we need to reset for today during increment (edge case)
+    if (!currentRecord || currentRecord.date !== today) {
+        newUsageData = {};
     }
 
-    return data;
+    // Increment
+    newUsageData[toolSlug] = (newUsageData[toolSlug] || 0) + 1;
+
+    // Save
+    await supabase
+        .from('user_usage')
+        .upsert({
+            user_email: user.email,
+            date: today,
+            usage_data: newUsageData
+        });
+
+    return newUsageData[toolSlug];
 };
 
-// Save usage data
-const saveUsageData = (data: UsageData) => {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+/**
+ * Fetch subscription status from Supabase to determine if PRO.
+ */
+export const fetchSubscriptionStatus = async (): Promise<boolean> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !user.email) return false;
 
-    // Dispatch event for reactivity
-    window.dispatchEvent(new Event('usage_updated'));
+    const { data } = await supabase
+        .from('subscriptions')
+        .select('status, end_date')
+        .eq('user_email', user.email)
+        .eq('status', 'active')
+        .single();
+
+    if (data) {
+        // Check if expired
+        if (data.end_date && new Date(data.end_date) < new Date()) {
+            return false;
+        }
+        return true;
+    }
+
+    return false;
 };
 
-// Get limit for a specific tool
-export const getToolLimit = (slug: string): number => {
-    const isPro = isPremiumUser();
+
+// --- Legacy / Helper Functions (Modified for Compatibility) ---
+
+export const getToolLimit = (slug: string, isPro: boolean): number => {
     const limitConfig = TOOL_LIMITS[slug] || DEFAULT_LIMIT;
     return isPro ? limitConfig.pro : limitConfig.free;
 };
 
-// Check if user can use a tool
-export const canUseTool = (slug: string): boolean => {
-    const usage = getUsageData();
-    const limit = getToolLimit(slug);
-
-    // If limit is Infinity, allow
-    if (limit === Infinity) return true;
-
-    const currentUsage = usage.toolUsage[slug] || 0;
-    return currentUsage < limit;
+// Client-side helper (deprecated for direct checks, but useful for UI display logic)
+export const isPremiumUser = (): boolean => {
+    if (typeof window === 'undefined') return false;
+    return localStorage.getItem('yt_tools_pro') === 'true';
 };
-
-// Increment tool usage
-export const incrementToolUsage = (slug: string): void => {
-    const usage = getUsageData();
-
-    // Initialize if not exists
-    if (!usage.toolUsage[slug]) {
-        usage.toolUsage[slug] = 0;
-    }
-
-    usage.toolUsage[slug] += 1;
-    saveUsageData(usage);
-};
-
-// Get remaining uses for display
-export const getRemainingUses = (slug: string): number | 'Unlimited' => {
-    const limit = getToolLimit(slug);
-    if (limit === Infinity) return 'Unlimited';
-
-    const usage = getUsageData();
-    const used = usage.toolUsage[slug] || 0;
-    return Math.max(0, limit - used);
-};
-
-export const getUsageStats = (slug: string) => {
-    const usage = getUsageData();
-    const limit = getToolLimit(slug);
-    const used = usage.toolUsage[slug] || 0;
-
-    return {
-        used,
-        limit: limit === Infinity ? 'Unlimited' : limit,
-        remaining: limit === Infinity ? 'Unlimited' : Math.max(0, limit - used),
-        isPro: isPremiumUser()
-    };
-};
-
-export const getUsageSummary = () => {
-    const isPro = isPremiumUser();
-    const usage = getUsageData();
-
-    // Representative tools for limits
-    const textTool = 'youtube-video-ideas-generator';
-    const imageTool = 'youtube-ai-thumbnail-generator';
-
-    const aiLimit = getToolLimit(textTool);
-    const aiUsed = usage.toolUsage[textTool] || 0;
-    const aiRemaining = aiLimit === Infinity ? 'Unlimited' : Math.max(0, aiLimit - aiUsed);
-
-    const imageLimit = getToolLimit(imageTool);
-    const imageUsed = usage.toolUsage[imageTool] || 0;
-    const imageRemaining = imageLimit === Infinity ? 'Unlimited' : Math.max(0, imageLimit - imageUsed);
-
-    return {
-        isPro,
-        aiLimit: aiLimit === Infinity ? 'Unlimited' : aiLimit,
-        aiUsed,
-        aiRemaining,
-        imageLimit: imageLimit === Infinity ? 'Unlimited' : imageLimit,
-        imageUsed,
-        imageRemaining
-    };
-};
-
-
-
