@@ -21,8 +21,8 @@ const blogPosts = getAllBlogPosts().slice(0, 3);
 const benefits = [
   { icon: FaRocket, title: "Save Time", description: "Automate tedious tasks and focus on creating content" },
   { icon: FaBolt, title: "Boost Growth", description: "Optimize your SEO with AI-powered suggestions" },
-  { icon: FaStar, title: "100% Free", description: "All essential tools available at no cost" },
-  { icon: FaCheck, title: "No Sign-up", description: "Use all tools instantly without creating an account" },
+  { icon: FaStar, title: "Daily Free Credits", description: "Get generous daily limits for all our powerful AI tools" },
+  { icon: FaCheck, title: "Free & Pro Plans", description: "Start for free, then upgrade for higher limits and priority" },
 ];
 
 export default function Home() {

@@ -124,13 +124,20 @@ export default function VideoIdeasGenerator() {
                 return;
             }
 
-            increment("youtube-video-ideas-generator");
-
             let resultStr = data.result || "";
-            resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            // Robust JSON extraction
+            const jsonMatch = resultStr.match(/\[[\s\S]*\]/);
+            if (jsonMatch) {
+                resultStr = jsonMatch[0];
+            } else {
+                // Fallback for cleaning markdown if regex fails (though regex is reliable for arrays)
+                resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+            }
 
             try {
                 const parsed = JSON.parse(resultStr);
+
                 // Handle backward compatibility or new format
                 if (Array.isArray(parsed)) {
                     // Normalize data structure if needed
@@ -142,13 +149,18 @@ export default function VideoIdeasGenerator() {
                         angle: item.angle || "Strategic",
                         thumbnail_concept: item.thumbnail_concept || "Descriptive visual relating to title."
                     }));
+
                     setIdeas(normalized);
+                    increment("youtube-video-ideas-generator"); // Only increment after success
                 } else {
-                    setError("Failed to parse ideas. Please try again.");
+                    console.error("Parsed data is not an array:", parsed);
+                    setError("AI returned an unexpected format. Please try again.");
                 }
-            } catch {
-                setError("Failed to parse ideas. Please try again.");
+            } catch (parseErr) {
+                console.error("JSON Parse Error:", parseErr, "Result string:", resultStr);
+                setError("Failed to process AI response. Please try again.");
             }
+
         } catch (err) {
             console.error("Generation error:", err);
             setError("Failed to generate ideas. Please try again.");
