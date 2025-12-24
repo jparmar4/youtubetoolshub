@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "Início",
+        "tools": "Ferramentas",
+        "about": "Sobre",
+        "contact": "Contato",
+        "blog": "Blog",
+        "pricing": "Preços"
+    },
+    "footer": {
+        "popular_tools": "Ferramentas Populares",
+        "company": "Empresa",
+        "legal": "Legal",
+        "rights_reserved": "Todos os direitos reservados.",
+        "made_with": "Feito com",
+        "for_creators": "para Criadores do YouTube",
+        "view_all": "Ver Todas"
+    },
+    "hero": {
+        "title": "Hub de Ferramentas YouTube",
+        "subtitle": "Cresça seu canal mais rápido com nossas ferramentas de IA gratuitas.",
+        "cta": "Começar"
+    }
+}

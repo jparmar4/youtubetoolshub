@@ -2,90 +2,75 @@ import { MetadataRoute } from 'next';
 import { tools } from '@/config/tools';
 import { getAllBlogPosts } from '@/config/blog';
 import { siteConfig } from '@/config/site';
+import { i18n } from '@/lib/i18n';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = siteConfig.url;
     const blogPosts = getAllBlogPosts();
+    const { niches, programmaticTools } = require('@/config/programmatic');
 
-    // Static pages
-    const staticPages = [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/tools`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/about`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly' as const,
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/contact`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly' as const,
-            priority: 0.6,
-        },
-        {
-            url: `${baseUrl}/blog`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/pricing`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly' as const,
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/privacy-policy`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly' as const,
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/terms-of-use`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly' as const,
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/disclaimer`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly' as const,
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/refund-policy`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly' as const,
-            priority: 0.3,
-        },
+    // Base routes (without locale)
+    const routes = [
+        "",
+        "/tools",
+        "/about",
+        "/contact",
+        "/blog",
+        "/pricing",
+        "/privacy-policy",
+        "/terms-of-use",
+        "/disclaimer",
+        "/refund-policy",
     ];
 
-    // Dynamic tool pages
-    const toolPages = tools.map((tool) => ({
-        url: `${baseUrl}/tools/${tool.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.9,
-    }));
+    const allEntries: MetadataRoute.Sitemap = [];
 
-    // Dynamic blog pages
-    const blogPages = blogPosts.map((post) => ({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-    }));
+    // Generate entries for each locale
+    for (const locale of i18n.locales) {
+        // Static pages
+        for (const route of routes) {
+            allEntries.push({
+                url: `${baseUrl}/${locale}${route}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: route === "" ? 1 : 0.7,
+            });
+        }
 
-    return [...staticPages, ...toolPages, ...blogPages];
+        // Dynamic tool pages
+        for (const tool of tools) {
+            allEntries.push({
+                url: `${baseUrl}/${locale}/tools/${tool.slug}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.9,
+            });
+        }
+
+        // Dynamic blog pages
+        for (const post of blogPosts) {
+            allEntries.push({
+                url: `${baseUrl}/${locale}/blog/${post.slug}`,
+                lastModified: new Date(post.date),
+                changeFrequency: 'monthly',
+                priority: 0.8,
+            });
+        }
+
+        // Programmatic Niche Pages
+        tools.forEach((tool) => {
+            if (programmaticTools.includes(tool.slug)) {
+                niches.forEach((niche: any) => {
+                    allEntries.push({
+                        url: `${baseUrl}/${locale}/tools/${tool.slug}/${niche.id}`,
+                        lastModified: new Date(),
+                        changeFrequency: 'weekly',
+                        priority: 0.8,
+                    });
+                });
+            }
+        });
+    }
+
+    return allEntries;
 }

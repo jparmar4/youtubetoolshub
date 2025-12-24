@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "Inicio",
+        "tools": "Herramientas",
+        "about": "Sobre Nosotros",
+        "contact": "Contacto",
+        "blog": "Blog",
+        "pricing": "Precios"
+    },
+    "footer": {
+        "popular_tools": "Herramientas Populares",
+        "company": "Compañía",
+        "legal": "Legal",
+        "rights_reserved": "Todos los derechos reservados.",
+        "made_with": "Hecho con",
+        "for_creators": "para Creadores de YouTube",
+        "view_all": "Ver Todas"
+    },
+    "hero": {
+        "title": "Centro de Herramientas YouTube",
+        "subtitle": "Haz crecer tu canal más rápido con nuestras herramientas AI gratuitas.",
+        "cta": "Empezar"
+    }
+}

@@ -7,6 +7,9 @@ import Button from "@/components/ui/Button";
 export const metadata: Metadata = {
     title: "About Us",
     description: "Learn about YouTube Tools Hub - your all-in-one platform for YouTube creators with free tools powered by AI.",
+    alternates: {
+        canonical: "/about",
+    },
 };
 
 const features = [

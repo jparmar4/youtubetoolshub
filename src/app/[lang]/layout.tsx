@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import "./globals.css";
+import "../globals.css"; // Fixed import path
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
@@ -9,6 +9,7 @@ import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { i18n } from "@/lib/i18n";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -39,9 +40,7 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: siteConfig.url,
-  },
+
   openGraph: {
     type: "website",
     locale: siteConfig.seo.openGraph.locale,
@@ -85,17 +84,25 @@ export const metadata: Metadata = {
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+
   // Generate JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

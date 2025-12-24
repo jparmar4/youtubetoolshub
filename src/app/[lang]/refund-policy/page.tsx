@@ -16,6 +16,9 @@ import {
 export const metadata: Metadata = {
     title: "Refund & Cancellation Policy",
     description: "Refund and Cancellation Policy for YouTube Tools Hub subscriptions. Learn about our refund terms, cancellation process, and billing policies.",
+    alternates: {
+        canonical: "/refund-policy",
+    },
 };
 
 const highlights = [

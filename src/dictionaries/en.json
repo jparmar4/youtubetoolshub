@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "Home",
+        "tools": "Tools",
+        "about": "About",
+        "contact": "Contact",
+        "blog": "Blog",
+        "pricing": "Pricing"
+    },
+    "footer": {
+        "popular_tools": "Popular Tools",
+        "company": "Company",
+        "legal": "Legal",
+        "rights_reserved": "All rights reserved.",
+        "made_with": "Made with",
+        "for_creators": "for YouTube Creators",
+        "view_all": "View All Tools"
+    },
+    "hero": {
+        "title": "YouTube Tools Hub",
+        "subtitle": "Grow your channel faster with our free AI tools.",
+        "cta": "Get Started"
+    }
+}

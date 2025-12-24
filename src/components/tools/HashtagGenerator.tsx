@@ -8,8 +8,9 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaHashtag } from "react-icons/fa";
+import { FaHashtag, FaBookmark, FaCheckCircle } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
+import { saveItem } from "@/lib/dashboard";
 
 const faq = [
     {
@@ -45,6 +46,7 @@ export default function HashtagGenerator() {
     const [topic, setTopic] = useState("");
     const [hashtags, setHashtags] = useState<HashtagResult | null>(null);
     const [loading, setLoading] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
@@ -56,6 +58,7 @@ export default function HashtagGenerator() {
         }
 
         setLoading(true);
+        setSaved(false); // Reset saved state
         try {
             const response = await fetch("/api/generate", {
                 method: "POST",
@@ -83,6 +86,16 @@ export default function HashtagGenerator() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleSave = () => {
+        if (!hashtags) return;
+        saveItem({
+            type: 'hashtag',
+            toolSlug: 'youtube-hashtag-generator',
+            content: [...hashtags.broad, ...hashtags.specific] // Save all tags as array
+        });
+        setSaved(true);
     };
 
     const allHashtags = hashtags ? [...hashtags.broad, ...hashtags.specific] : [];
@@ -122,9 +135,23 @@ export default function HashtagGenerator() {
                 {/* Results Section */}
                 {hashtags && (
                     <div className="space-y-6">
-                        <div className="flex flex-wrap gap-2">
-                            <CopyButton text={spaceFormat} variant="button" label="Copy All (Space)" />
-                            <CopyButton text={commaFormat} variant="button" label="Copy All (Comma)" />
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <div className="flex flex-wrap gap-2">
+                                <CopyButton text={spaceFormat} variant="button" label="Copy All (Space)" />
+                                <CopyButton text={commaFormat} variant="button" label="Copy All (Comma)" />
+                            </div>
+
+                            <button
+                                onClick={handleSave}
+                                disabled={saved}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${saved
+                                    ? "bg-green-100 text-green-700 cursor-default"
+                                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    }`}
+                            >
+                                {saved ? <FaCheckCircle /> : <FaBookmark />}
+                                {saved ? "Saved to Dashboard" : "Save Set"}
+                            </button>
                         </div>
 
                         {/* Broad Hashtags */}

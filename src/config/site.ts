@@ -7,7 +7,7 @@ export const siteConfig = {
   description: "Free YouTube tools for creators: thumbnail downloader, title generator, tag extractor, earnings calculator, and more. Boost your channel growth with AI-powered automation.",
 
   // URLs
-  url: "https://youtubetoolshub.com",
+  url: "https://www.youtubetoolshub.com",
 
   // Colors (used as CSS variables)
   colors: {

@@ -20,6 +20,14 @@ export interface Tool {
     isAI: boolean;
     isFeatured?: boolean;
     keywords: string[];
+    content?: { title: string; content: string }[];
+    faqs?: { question: string; answer: string }[];
+    howTo?: {
+        name: string;
+        description: string;
+        steps: { name: string; text: string }[];
+        totalTime?: string;
+    };
 }
 
 export const toolCategories = [
@@ -42,6 +50,40 @@ export const tools: Tool[] = [
         isAI: false,
         isFeatured: true,
         keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "youtube thumbnail saver", "get youtube thumbnail", "hd thumbnail downloader"],
+        content: [
+            {
+                title: "What is a YouTube Thumbnail Downloader?",
+                content: "A YouTube Thumbnail Downloader is a free online tool that allows you to save the thumbnail image from any YouTube video in high quality. It's essential for creators who need to recover their own thumbnails, create archives, or use thumbnails for reference and inspiration."
+            },
+            {
+                title: "Why Download High-Quality Thumbnails?",
+                content: "High-quality thumbnails (HD 1280x720) are crucial for analysis and reuse. Low-resolution images look professional and pixelated. Our tool ensures you get the highest resolution available (Max Res) directly from YouTube's servers."
+            }
+        ],
+        howTo: {
+            name: "How to Download a YouTube Thumbnail",
+            description: "Follow these simple steps to download any YouTube video thumbnail in seconds.",
+            steps: [
+                { name: "Copy Video URL", text: "Go to YouTube, find the video you want, and copy its URL from the address bar or share button." },
+                { name: "Paste and Search", text: "Paste the URL into our tool's search box above and click the 'Get Thumbnail' button." },
+                { name: "Select Resolution", text: "Choose your desired resolution (HD, SD, or Normal) and click 'Download' to save the image to your device." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Is it legal to download YouTube thumbnails?",
+                answer: "Yes, it is legal to download thumbnails for fair use purposes, such as reference, criticism, or personal archiving. However, you should not use someone else's thumbnail as your own without permission, as copyright laws apply."
+            },
+            {
+                question: "What is the highest quality thumbnail available?",
+                answer: "The highest quality is usually 'Max Res' (1920x1080 or 1280x720), depending on what the creator uploaded. Our tool automatically fetches the highest resolution available."
+            },
+            {
+                question: "Does this tool work on mobile?",
+                answer: "Yes! Our YouTube Thumbnail Downloader works perfectly on all devices, including iPhones, Android phones, tablets, and desktop computers."
+            }
+        ]
     },
     {
         slug: "youtube-thumbnail-generator",
@@ -88,6 +130,40 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube title generator", "video title maker", "clickbait title generator", "catchy youtube titles", "seo title generator"],
+        content: [
+            {
+                title: "Generate Viral YouTube Titles with AI",
+                content: "Your video title is the most important factor in your Click-Through Rate (CTR). Our AI YouTube Title Generator analyzes millions of successful videos to create catchy, SEO-optimized titles that get views. Stop guessing and start ranking."
+            },
+            {
+                title: "How It Works",
+                content: "We use advanced Natural Language Processing (NLP) models tuned specifically for YouTube algorithms. Whether you need a clickbait-style title (for entertainment) or an SEO-focused title (for tutorials), our AI understands the nuance."
+            }
+        ],
+        howTo: {
+            name: "How to Generate Catchy YouTube Titles",
+            description: "Create punchy, high-CTR titles in 3 simple steps.",
+            steps: [
+                { name: "Enter Topic", text: "Type a few words about your video's topic or paste your keyword (e.g., 'vegan cooking', 'iPhone review')." },
+                { name: "Choose Vibe", text: "Select the tone you want: 'Clickbait', 'Professional', 'Funny', or 'Educational'." },
+                { name: "Generate & Pick", text: "Click 'Generate' to get 10+ unique title variations. Click any title to copy it instantly." }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How long should a YouTube title be?",
+                answer: "The optimal length for a YouTube title is 60 characters or less. This ensures the full title is visible in search results and suggested video sidebaars without being cut off."
+            },
+            {
+                question: "Do keywords in titles still matter?",
+                answer: "Yes! Placing your main keyword near the beginning of the title helps YouTube's algorithm understand your video's topic and rank it for relevant search terms."
+            },
+            {
+                question: "Should I use clickbait titles?",
+                answer: "You should use 'curiosity gaps' (smart clickbait) rather than misleading clickbait. The title must deliver on its promise, or viewers will click away, hurting your retention and rankings."
+            }
+        ]
     },
     {
         slug: "youtube-description-generator",
@@ -109,6 +185,32 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags"],
+        content: [
+            {
+                title: "Boost Discovery with SEO Tags",
+                content: "YouTube tags (keywords) help the algorithm understand your video's context. While their weight has decreased, they are still vital for misspelled queries and establishing relevance. Our tool generates 100% relevant, high-volume tags."
+            }
+        ],
+        howTo: {
+            name: "How to Generate Video Tags",
+            description: "Find the best keywords for your video in seconds.",
+            steps: [
+                { name: "Enter Keyword", text: "Type your main video topic (e.g., 'fitness tips')." },
+                { name: "Generate", text: "Click the generate button." },
+                { name: "Copy & Paste", text: "Copy the list of comma-separated tags and paste them directly into your YouTube video details." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How many tags should I use?",
+                answer: "YouTube allows up to 500 characters for tags. We recommend using 10-15 highly relevant tags rather than stuffing irrelevant ones."
+            },
+            {
+                question: "Do tags help with views?",
+                answer: "Yes, they help YouTube categorize your content, especially when your video is new and has no view history."
+            }
+        ]
     },
     {
         slug: "youtube-tag-extractor",
@@ -164,6 +266,36 @@ export const tools: Tool[] = [
         isAI: false,
         isFeatured: true,
         keywords: ["youtube earnings calculator", "how much does youtube pay", "youtube money calculator", "adsense calculator", "estimated youtube revenue"],
+        content: [
+            {
+                title: "Calculate Your Potential YouTube Income",
+                content: "Curious how much money you can make on YouTube? Our Earnings Calculator uses your daily views and estimated RPM (Revenue Per Mille) to project your monthly and yearly income."
+            },
+            {
+                title: "What is RPM?",
+                content: "RPM stands for Revenue Per Mille (thousand views). It varies by niche. Finance and Tech channels often have high RPM ($5-$20), while Vlogs or Gaming might be lower ($1-$5)."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate YouTube Revenue",
+            description: "Estimate your channel's earnings in 3 steps.",
+            steps: [
+                { name: "Enter Daily Views", text: "Input the average number of views you get per day." },
+                { name: "Set RPM", text: "Adjust the RPM slider based on your niche (default is $2.00)." },
+                { name: "See Results", text: "Instantly see your estimated daily, monthly, and yearly earnings." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Does this calculator include sponsorship income?",
+                answer: "No, this calculator only estimates AdSense revenue (ads displayed on your videos). Sponsorships and affiliate marketing are separate income streams."
+            },
+            {
+                question: "Why is my actual revenue different?",
+                answer: "Actual revenue depends on many factors like viewer location, ad blockers, and video length. This tool provides an estimate."
+            }
+        ]
     },
     {
         slug: "youtube-engagement-rate-calculator",
@@ -247,6 +379,36 @@ export const tools: Tool[] = [
         icon: FaTrophy,
         isAI: false,
         keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment"],
+    },
+    {
+        slug: "youtube-channel-audit",
+        name: "Channel Health Auditor",
+        description: "Get a comprehensive health check for your YouTube channel. Analyze your thumbnails, titles, and engagement consistency.",
+        shortDescription: "Audit your channel health",
+        category: "channel-growth",
+        icon: FaChartBar,
+        isAI: true,
+        isFeatured: true,
+        keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel"],
+        content: [
+            {
+                title: "What is a Channel Audit?",
+                content: "A channel audit is a deep dive into your channel's performance metrics. We analyze your public data to identify strengths (what's working) and weaknesses (what needs improvement)."
+            },
+            {
+                title: "How to Improve Your Health Score?",
+                content: "To boost your score, focus on three pillars: Consistency (upload schedule), Packaging (Thumbnails/Titles), and Engagement (Replying to comments). tackling these areas usually results in immediate growth."
+            }
+        ],
+        howTo: {
+            name: "How to Audit Your Channel",
+            description: "Get your channel score in seconds.",
+            steps: [
+                { name: "Enter Handle", text: "Type your channel handle (e.g., @YourChannel)." },
+                { name: "Run Audit", text: "Click the 'Audit Channel' button to start the analysis." },
+                { name: "Review Score", text: "See your overall 0-100 score and get specific actionable advice." }
+            ]
+        }
     },
 ];
 

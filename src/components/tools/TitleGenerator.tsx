@@ -9,7 +9,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic } from "react-icons/fa";
+import { FaMagic, FaStar, FaRegStar } from "react-icons/fa";
+import { saveItem } from "@/lib/dashboard";
 
 const toneOptions = [
     { value: "casual", label: "Casual & Friendly" },
@@ -104,9 +105,19 @@ export default function TitleGenerator() {
     const [titles, setTitles] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
 
     // Usage tracking
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+
+    const handleSave = (title: string) => {
+        saveItem({
+            type: 'title',
+            toolSlug: 'youtube-title-generator',
+            content: title
+        });
+        setSavedSet(prev => new Set(prev).add(title));
+    };
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -264,20 +275,36 @@ export default function TitleGenerator() {
                             <CopyButton text={allTitlesText} variant="button" label="Copy All" />
                         </div>
                         <div className="space-y-3">
-                            {titles.map((title, i) => (
-                                <div
-                                    key={i}
-                                    className="flex items-center gap-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 group hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                                >
-                                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-sm">
-                                        {i + 1}
-                                    </span>
-                                    <p className="flex-1 text-gray-900 dark:text-white font-medium">
-                                        {title}
-                                    </p>
-                                    <CopyButton text={title} />
-                                </div>
-                            ))}
+                            {titles.map((title, i) => {
+                                const isSaved = savedSet.has(title);
+                                return (
+                                    <div
+                                        key={i}
+                                        className="flex items-center gap-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 group hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    >
+                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-sm">
+                                            {i + 1}
+                                        </span>
+                                        <p className="flex-1 text-gray-900 dark:text-white font-medium">
+                                            {title}
+                                        </p>
+
+                                        <button
+                                            onClick={() => handleSave(title)}
+                                            disabled={isSaved}
+                                            className={`p-2 rounded-full transition-colors ${isSaved
+                                                ? "text-yellow-400 cursor-default"
+                                                : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-gray-600"
+                                                }`}
+                                            title={isSaved ? "Saved to Dashboard" : "Save to Dashboard"}
+                                        >
+                                            {isSaved ? <FaStar /> : <FaRegStar />}
+                                        </button>
+
+                                        <CopyButton text={title} />
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 )}

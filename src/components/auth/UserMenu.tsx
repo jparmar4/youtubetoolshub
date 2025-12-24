@@ -83,6 +83,14 @@ export default function UserMenu() {
                     {/* Menu Items */}
                     <div className="py-2">
                         <Link
+                            href="/dashboard"
+                            className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <span className="w-4 h-4 flex items-center justify-center">🚀</span>
+                            My Dashboard
+                        </Link>
+                        <Link
                             href="/tools"
                             className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                             onClick={() => setIsOpen(false)}

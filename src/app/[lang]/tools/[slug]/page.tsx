@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
-import { getBreadcrumbSchema, getSoftwareApplicationSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 
 // Import all tool components
@@ -25,6 +25,7 @@ import IntroScriptGenerator from "@/components/tools/IntroScriptGenerator";
 import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
 import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
 import CommentPicker from "@/components/tools/CommentPicker";
+import ChannelAudit from "@/components/tools/ChannelAudit";
 
 // Map slugs to components
 const toolComponents: Record<string, React.ComponentType> = {
@@ -48,6 +49,7 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-channel-id-finder": ChannelIdFinder,
     "youtube-playlist-length-calculator": PlaylistLengthCalculator,
     "youtube-comment-picker": CommentPicker,
+    "youtube-channel-audit": ChannelAudit,
 };
 
 // Generate static params for all tools
@@ -134,7 +136,92 @@ export default async function ToolPage({
                     __html: JSON.stringify(breadcrumbSchema),
                 }}
             />
-            <ToolComponent />
+            {tool.faqs && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(getFAQSchema(tool.faqs)),
+                    }}
+                />
+            )}
+            {tool.howTo && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(getHowToSchema(tool.howTo)),
+                    }}
+                />
+            )}
+
+            <div className="space-y-12">
+                <ToolComponent />
+
+                {/* Content Sections (GEO Optimized) */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-12">
+                    {/* Main Content */}
+                    {tool.content && (
+                        <div className="space-y-8">
+                            {tool.content.map((section, idx) => (
+                                <div key={idx} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm">
+                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                        {section.title}
+                                    </h2>
+                                    <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                                        <p>{section.content}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* How To Section */}
+                    {tool.howTo && (
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                                {tool.howTo.name}
+                            </h2>
+                            <div className="space-y-6">
+                                {tool.howTo.steps.map((step, idx) => (
+                                    <div key={idx} className="flex gap-4">
+                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold">
+                                            {idx + 1}
+                                        </div>
+                                        <div>
+                                            <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                                                {step.name}
+                                            </h3>
+                                            <p className="text-gray-600 dark:text-gray-400">
+                                                {step.text}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* FAQ Section */}
+                    {tool.faqs && (
+                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                                Frequently Asked Questions
+                            </h2>
+                            <div className="space-y-4">
+                                {tool.faqs.map((faq, idx) => (
+                                    <div key={idx} className="border-b border-gray-100 dark:border-gray-700 last:border-0 pb-4 last:pb-0">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                            {faq.question}
+                                        </h3>
+                                        <p className="text-gray-600 dark:text-gray-300">
+                                            {faq.answer}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     );
 }

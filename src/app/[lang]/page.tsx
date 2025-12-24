@@ -6,6 +6,14 @@ import AdPlaceholder from "@/components/ui/AdPlaceholder";
 import { getFeaturedTools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
+
 
 // Get the 3 most recent blog posts
 const blogPosts = getAllBlogPosts().slice(0, 3);

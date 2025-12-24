@@ -6,6 +6,9 @@ import { FaShieldAlt, FaLock, FaCookie, FaUserShield, FaDatabase, FaEnvelope, Fa
 export const metadata: Metadata = {
     title: "Privacy Policy",
     description: "Privacy Policy for YouTube Tools Hub - Learn how we handle your data and protect your privacy.",
+    alternates: {
+        canonical: "/privacy-policy",
+    },
 };
 
 const highlights = [

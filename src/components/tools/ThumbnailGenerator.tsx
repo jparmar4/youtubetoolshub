@@ -9,7 +9,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic } from "react-icons/fa";
+import { FaMagic, FaStar, FaRegStar } from "react-icons/fa";
+import { saveItem } from "@/lib/dashboard";
 
 // Constants
 const styleOptions = [
@@ -59,8 +60,18 @@ export default function ThumbnailGenerator() {
     const [emotion, setEmotion] = useState("excited");
     const [results, setResults] = useState<string[]>([]);
     const [loading, setLoading] = useState(false);
+    const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+
+    const handleSave = (text: string) => {
+        saveItem({
+            type: 'idea',
+            toolSlug: 'youtube-thumbnail-generator',
+            content: text
+        });
+        setSavedSet(prev => new Set(prev).add(text));
+    };
 
     const handleGenerate = async () => {
         if (!topic.trim()) return;
@@ -176,18 +187,33 @@ export default function ThumbnailGenerator() {
                             Thumbnail Text Ideas
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {results.map((text, i) => (
-                                <div
-                                    key={i}
-                                    className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 text-center group hover:from-red-900 hover:to-red-800 transition-colors"
-                                >
-                                    <p className="text-xl md:text-2xl font-black text-white mb-4 tracking-tight">
-                                        {text}
-                                    </p>
+                            {results.map((text, i) => {
+                                const isSaved = savedSet.has(text);
+                                return (
+                                    <div
+                                        key={i}
+                                        className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 text-center group hover:from-red-900 hover:to-red-800 transition-colors relative"
+                                    >
+                                        <button
+                                            onClick={() => handleSave(text)}
+                                            disabled={isSaved}
+                                            className={`absolute top-2 right-2 p-2 rounded-full transition-colors ${isSaved
+                                                ? "text-yellow-400 cursor-default"
+                                                : "text-gray-600 hover:text-yellow-400 bg-gray-800/50 hover:bg-gray-700"
+                                                }`}
+                                            title={isSaved ? "Saved" : "Save Text"}
+                                        >
+                                            {isSaved ? <FaStar /> : <FaRegStar />}
+                                        </button>
 
-                                    <CopyButton text={text} variant="button" label="Copy Text" />
-                                </div>
-                            ))}
+                                        <p className="text-xl md:text-2xl font-black text-white mb-4 tracking-tight mt-4">
+                                            {text}
+                                        </p>
+
+                                        <CopyButton text={text} variant="button" label="Copy Text" />
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         {/* Layout Suggestion */}

@@ -6,6 +6,9 @@ import { FaFileContract, FaCheckCircle, FaTimesCircle, FaBrain, FaExclamationTri
 export const metadata: Metadata = {
     title: "Terms of Use",
     description: "Terms of Use for YouTube Tools Hub - Please read before using our services.",
+    alternates: {
+        canonical: "/terms-of-use",
+    },
 };
 
 export default function TermsOfUsePage() {

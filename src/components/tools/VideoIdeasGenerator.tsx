@@ -9,7 +9,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaSpinner } from "react-icons/fa";
+import { FaMagic, FaSpinner, FaStar, FaRegStar } from "react-icons/fa";
+import { saveItem } from "@/lib/dashboard";
 
 const levelOptions = [
     { value: "beginner", label: "Beginner" },
@@ -52,8 +53,18 @@ export default function VideoIdeasGenerator() {
     const [ideas, setIdeas] = useState<VideoIdea[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [savedSet, setSavedSet] = useState<Set<number>>(new Set());
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+
+    const handleSave = (idea: VideoIdea, index: number) => {
+        saveItem({
+            type: 'idea',
+            toolSlug: 'youtube-video-ideas-generator',
+            content: idea
+        });
+        setSavedSet(prev => new Set(prev).add(index));
+    };
 
     const handleGenerate = async () => {
         if (!niche.trim()) {
@@ -185,33 +196,50 @@ export default function VideoIdeasGenerator() {
                         </div>
 
                         <div className="space-y-3">
-                            {ideas.map((idea, i) => (
-                                <div
-                                    key={i}
-                                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-red-300 dark:hover:border-red-600 transition-colors"
-                                >
-                                    <div className="flex items-start gap-3">
-                                        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm">
-                                            {i + 1}
-                                        </span>
-                                        <div className="flex-1">
-                                            <div className="flex items-start justify-between gap-3">
-                                                <div>
-                                                    <h4 className="font-medium text-gray-900 dark:text-white">
-                                                        {idea.title}
-                                                    </h4>
-                                                    {idea.concept && (
-                                                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                                            {idea.concept}
-                                                        </p>
-                                                    )}
+                            {ideas.map((idea, i) => {
+                                const isSaved = savedSet.has(i);
+                                return (
+                                    <div
+                                        key={i}
+                                        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-red-300 dark:hover:border-red-600 transition-colors"
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-sm">
+                                                {i + 1}
+                                            </span>
+                                            <div className="flex-1">
+                                                <div className="flex items-start justify-between gap-3">
+                                                    <div>
+                                                        <h4 className="font-medium text-gray-900 dark:text-white">
+                                                            {idea.title}
+                                                        </h4>
+                                                        {idea.concept && (
+                                                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                                {idea.concept}
+                                                            </p>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="flex items-center gap-2">
+                                                        <button
+                                                            onClick={() => handleSave(idea, i)}
+                                                            disabled={isSaved}
+                                                            className={`p-2 rounded-full transition-colors ${isSaved
+                                                                ? "text-yellow-400 cursor-default"
+                                                                : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-gray-700"
+                                                                }`}
+                                                            title={isSaved ? "Saved" : "Save Idea"}
+                                                        >
+                                                            {isSaved ? <FaStar /> : <FaRegStar />}
+                                                        </button>
+                                                        <CopyButton text={idea.title} />
+                                                    </div>
                                                 </div>
-                                                <CopyButton text={idea.title} />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 )}

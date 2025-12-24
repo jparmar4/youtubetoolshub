@@ -1,0 +1,24 @@
+{
+    "nav": {
+        "home": "होम",
+        "tools": "टूल्स",
+        "about": "हमारे बारे में",
+        "contact": "संपर्क",
+        "blog": "ब्लॉग",
+        "pricing": "मूल्य"
+    },
+    "footer": {
+        "popular_tools": "लोकप्रिय टूल्स",
+        "company": "कंपनी",
+        "legal": "कानूनी",
+        "rights_reserved": "सर्वाधिकार सुरक्षित।",
+        "made_with": "बनाया गया है",
+        "for_creators": "YouTube क्रिएटर्स के लिए",
+        "view_all": "सभी टूल्स देखें"
+    },
+    "hero": {
+        "title": "YouTube टूल्स हब",
+        "subtitle": "हमारे मुफ्त AI टूल्स के साथ अपना चैनल तेजी से बढ़ाएं।",
+        "cta": "शुरू करें"
+    }
+}

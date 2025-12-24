@@ -41,6 +41,7 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: ["react-icons", "lucide-react", "framer-motion"],
   },
 
   // Headers for caching and security

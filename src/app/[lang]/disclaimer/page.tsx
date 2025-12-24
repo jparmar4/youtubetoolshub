@@ -6,6 +6,9 @@ import { FaExclamationTriangle, FaInfoCircle, FaLink, FaTools, FaBalanceScale, F
 export const metadata: Metadata = {
     title: "Disclaimer",
     description: "Disclaimer for YouTube Tools Hub - Important information about our tools, content accuracy, and limitations.",
+    alternates: {
+        canonical: "/disclaimer",
+    },
 };
 
 const highlights = [
