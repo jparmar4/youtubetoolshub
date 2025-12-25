@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getHistory, deleteHistory, HistoryItem } from "@/lib/history";
-import { FaHistory, FaTrash, FaCopy, FaImage, FaFileAlt, FaVideo, FaHashtag, FaCalendarAlt } from "react-icons/fa";
+import { FaHistory, FaTrash, FaTimes, FaCopy, FaCheck } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDate } from "@/lib/utils";
 import CopyButton from "@/components/ui/CopyButton";
@@ -10,6 +10,7 @@ import CopyButton from "@/components/ui/CopyButton";
 export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     const [history, setHistory] = useState<HistoryItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null);
 
     useEffect(() => {
         loadHistory();
@@ -18,7 +19,6 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     const loadHistory = async () => {
         try {
             setLoading(true);
-            // Fetch only history for this specific tool
             const data = await getHistory(toolSlug);
             setHistory(data);
         } catch (err) {
@@ -33,6 +33,9 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
         try {
             await deleteHistory(id);
             setHistory(prev => prev.filter(item => item.id !== id));
+            if (selectedItem?.id === id) {
+                setSelectedItem(null);
+            }
         } catch (err) {
             console.error("Failed to delete item", err);
         }
@@ -42,59 +45,82 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     if (history.length === 0) return null;
 
     return (
-        <div className="mt-12 border-t border-gray-100 dark:border-gray-800 pt-10">
-            <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg">
-                    <FaHistory />
+        <>
+            <div className="mt-12 border-t border-gray-100 dark:border-gray-800 pt-10">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg">
+                        <FaHistory />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                        Recent Generations
+                    </h2>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Recent Generations
-                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <AnimatePresence>
+                        {history.slice(0, 6).map((item, index) => (
+                            <MiniHistoryCard
+                                key={item.id}
+                                item={item}
+                                index={index}
+                                onClick={() => setSelectedItem(item)}
+                                onDelete={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(item.id);
+                                }}
+                            />
+                        ))}
+                    </AnimatePresence>
+                </div>
+
+                {history.length > 6 && (
+                    <div className="text-center mt-6">
+                        <a href="/history" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                            View All History →
+                        </a>
+                    </div>
+                )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <AnimatePresence>
-                    {history.slice(0, 6).map((item, index) => ( // Limit to 6 items for the tool view
-                        <MiniHistoryCard
-                            key={item.id}
-                            item={item}
-                            index={index}
-                            onDelete={(e) => {
-                                e.stopPropagation();
-                                handleDelete(item.id);
-                            }}
-                        />
-                    ))}
-                </AnimatePresence>
-            </div>
-
-            {history.length > 6 && (
-                <div className="text-center mt-6">
-                    <a href="/history" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                        View All History →
-                    </a>
-                </div>
-            )}
-        </div>
+            {/* Detail Modal */}
+            <AnimatePresence>
+                {selectedItem && (
+                    <HistoryDetailModal
+                        item={selectedItem}
+                        onClose={() => setSelectedItem(null)}
+                        onDelete={() => {
+                            handleDelete(selectedItem.id);
+                        }}
+                    />
+                )}
+            </AnimatePresence>
+        </>
     );
 }
 
-function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: number, onDelete: (e: React.MouseEvent) => void }) {
-    // Simplified content extraction
+function MiniHistoryCard({
+    item,
+    index,
+    onClick,
+    onDelete
+}: {
+    item: HistoryItem;
+    index: number;
+    onClick: () => void;
+    onDelete: (e: React.MouseEvent) => void;
+}) {
     const title = item.content.title || item.content.topic || item.content.prompt || "Untitled";
 
-    // Description logic
-    const getDescription = (content: any) => {
-        if (content.description) return content.description;
-        if (content.concept) return content.concept;
-        if (content.script) return content.script.slice(0, 80) + "...";
+    const getDescription = (content: Record<string, unknown>) => {
+        if (content.description) return String(content.description);
+        if (content.concept) return String(content.concept);
+        if (content.script) return String(content.script).slice(0, 80) + "...";
         if (Array.isArray(content)) return `${content.length} items`;
         if (content.results && Array.isArray(content.results)) return `${content.results.length} results`;
-        return JSON.stringify(content).slice(0, 60);
+        return "Click to view details";
     };
 
     const isImage = item.tool_slug.includes('thumbnail') && (item.content.images || item.content.thumbnail_concept);
-    const copyText = typeof item.content === 'string' ? item.content : JSON.stringify(item.content, null, 2);
 
     return (
         <motion.div
@@ -102,11 +128,8 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.05 }}
-            className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all cursor-pointer"
-            onClick={() => {
-                navigator.clipboard.writeText(copyText);
-                alert("Copied to clipboard!");
-            }}
+            onClick={onClick}
+            className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 transition-all cursor-pointer"
         >
             <div className="flex justify-between items-start mb-3">
                 <span className="text-xs text-gray-400 font-medium">
@@ -121,7 +144,7 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
                 </button>
             </div>
 
-            <h4 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 text-sm">
+            <h4 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 text-sm">
                 {title}
             </h4>
 
@@ -131,14 +154,201 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
                 </div>
             )}
 
-            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 h-8">
+            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">
                 {getDescription(item.content)}
             </p>
 
-            <div className="flex justify-end items-center gap-2">
-                <span className="text-[10px] text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity font-medium">Click to Copy</span>
-                <CopyButton text={copyText} variant="icon" className="!p-1.5 h-7 w-7" />
+            <div className="flex justify-end">
+                <span className="text-xs text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                    Click to View →
+                </span>
             </div>
+        </motion.div>
+    );
+}
+
+function HistoryDetailModal({
+    item,
+    onClose,
+    onDelete
+}: {
+    item: HistoryItem;
+    onClose: () => void;
+    onDelete: () => void;
+}) {
+    const [copied, setCopied] = useState(false);
+    const content = item.content;
+
+    const handleCopy = (text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    // Format content nicely
+    const renderContent = () => {
+        if (typeof content === 'string') {
+            return (
+                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                    <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{content}</p>
+                </div>
+            );
+        }
+
+        // Render structured content
+        return (
+            <div className="space-y-4">
+                {content.title && (
+                    <div>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Title</label>
+                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-gray-800 dark:text-gray-200 font-medium">{content.title}</p>
+                            <button
+                                onClick={() => handleCopy(content.title)}
+                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                            >
+                                <FaCopy size={14} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {content.concept && (
+                    <div>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Concept</label>
+                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-gray-800 dark:text-gray-200">{content.concept}</p>
+                            <button
+                                onClick={() => handleCopy(content.concept)}
+                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                            >
+                                <FaCopy size={14} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {content.description && (
+                    <div>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Description</label>
+                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{content.description}</p>
+                            <button
+                                onClick={() => handleCopy(content.description)}
+                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                            >
+                                <FaCopy size={14} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {content.thumbnail_concept && (
+                    <div>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Thumbnail Concept</label>
+                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-gray-800 dark:text-gray-200 italic">"{content.thumbnail_concept}"</p>
+                            <button
+                                onClick={() => handleCopy(content.thumbnail_concept)}
+                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                            >
+                                <FaCopy size={14} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {content.score && (
+                    <div className="flex items-center gap-4">
+                        <div>
+                            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</label>
+                            <p className={`text-2xl font-black mt-1 ${content.score >= 90 ? "text-green-500" :
+                                    content.score >= 80 ? "text-blue-500" : "text-yellow-500"
+                                }`}>
+                                {content.score}
+                            </p>
+                        </div>
+                        {content.difficulty && (
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Difficulty</label>
+                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{content.difficulty}</p>
+                            </div>
+                        )}
+                        {content.angle && (
+                            <div>
+                                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Angle</label>
+                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{content.angle}</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {content.images && content.images.length > 0 && (
+                    <div>
+                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</label>
+                        <div className="mt-2 grid grid-cols-2 gap-2">
+                            {content.images.map((img: string, i: number) => (
+                                <img key={i} src={img} alt={`Generated ${i + 1}`} className="rounded-lg w-full" />
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    const fullText = typeof content === 'string' ? content :
+        [content.title, content.concept, content.description, content.thumbnail_concept]
+            .filter(Boolean)
+            .join('\n\n');
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={onClose}
+        >
+            <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-hidden"
+            >
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
+                    <h3 className="font-bold text-gray-900 dark:text-white">History Details</h3>
+                    <button
+                        onClick={onClose}
+                        className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                    >
+                        <FaTimes />
+                    </button>
+                </div>
+
+                <div className="p-4 overflow-y-auto max-h-[60vh]">
+                    {renderContent()}
+                </div>
+
+                <div className="flex items-center justify-between p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                    <button
+                        onClick={onDelete}
+                        className="text-sm text-red-500 hover:text-red-600 font-medium flex items-center gap-1"
+                    >
+                        <FaTrash size={12} /> Delete
+                    </button>
+                    <button
+                        onClick={() => handleCopy(fullText)}
+                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 ${copied
+                                ? "bg-green-500 text-white"
+                                : "bg-blue-600 hover:bg-blue-700 text-white"
+                            }`}
+                    >
+                        {copied ? <><FaCheck /> Copied!</> : <><FaCopy /> Copy All</>}
+                    </button>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }

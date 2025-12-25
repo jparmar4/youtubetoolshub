@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
@@ -154,7 +155,9 @@ export default async function ToolPage({
             )}
 
             <div className="space-y-12">
-                <ToolComponent />
+                <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500" /></div>}>
+                    <ToolComponent />
+                </Suspense>
 
                 {/* Content Sections (GEO Optimized) */}
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-12">
