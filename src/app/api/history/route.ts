@@ -24,12 +24,12 @@ export async function GET(request: Request) {
         // Map to frontend format
         const mapped = rows.map(item => ({
             id: item.id,
-            toolSlug: item.tool_slug,
+            tool_slug: item.tool_slug,
             type: item.type || (item.tool_slug.includes('audit') ? 'audit' :
                 item.tool_slug.includes('title') ? 'title' :
                     item.tool_slug.includes('idea') ? 'idea' : 'other'),
             content: item.content,
-            date: item.created_at,
+            created_at: item.created_at,
         }));
 
         return NextResponse.json(mapped);
