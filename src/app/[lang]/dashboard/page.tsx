@@ -3,18 +3,28 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { FaCrown, FaStar, FaTrash, FaHistory, FaChartBar, FaLightbulb, FaHashtag, FaHeading, FaRocket } from "react-icons/fa";
-import { getSavedItems, deleteItem, SavedItem } from "@/lib/dashboard";
-import { useUsage } from "@/hooks/useUsage"; // New Hook
+import { FaCrown, FaChartBar, FaRocket, FaFire, FaLightbulb, FaMagic, FaImage, FaYoutube, FaArrowRight } from "react-icons/fa";
+import { useUsage } from "@/hooks/useUsage";
 import { tools } from "@/config/tools";
 import Link from "next/link";
 import Image from "next/image";
 
+interface TrendingVideo {
+    id: string;
+    title: string;
+    channel: string;
+    views: string;
+    tags: string[];
+}
+
 export default function DashboardPage() {
     const { data: session, status } = useSession();
     const router = useRouter();
-    const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
-    const { summary: usage, loading: usageLoading } = useUsage(); // Use the hook
+    const { summary: usage, loading: usageLoading } = useUsage();
+
+    // Trending State
+    const [trendingVideos, setTrendingVideos] = useState<TrendingVideo[]>([]);
+    const [trendingLoading, setTrendingLoading] = useState(true);
 
     useEffect(() => {
         if (status === "unauthenticated") {
@@ -23,21 +33,24 @@ export default function DashboardPage() {
     }, [status, router]);
 
     useEffect(() => {
-        const loadSavedItems = async () => {
-            const items = await getSavedItems();
-            setSavedItems(items);
+        const fetchTrending = async () => {
+            try {
+                const res = await fetch('/api/trending?region=us');
+                const data = await res.json();
+                if (data.success && data.videos) {
+                    setTrendingVideos(data.videos.slice(0, 5));
+                }
+            } catch (e) {
+                console.error("Failed to fetch trending:", e);
+            } finally {
+                setTrendingLoading(false);
+            }
         };
 
         if (status === "authenticated") {
-            loadSavedItems();
+            fetchTrending();
         }
     }, [status]);
-
-    const handleDelete = async (id: string) => {
-        // Optimistic update
-        setSavedItems(prev => prev.filter(i => i.id !== id));
-        await deleteItem(id);
-    };
 
     if (status === "loading" || usageLoading) {
         return (
@@ -48,19 +61,9 @@ export default function DashboardPage() {
     }
 
     const usagePercent = (used: number, limit: number | string) => {
-        if (limit === 'Unlimited') return 0; // Show 0% usage visually for unlimited or handle differently
+        if (limit === 'Unlimited') return 0;
         // @ts-ignore
         return Math.min(100, (used / limit) * 100);
-    };
-
-    const getIconForType = (type: string) => {
-        switch (type) {
-            case 'audit': return <FaChartBar className="text-red-500" />;
-            case 'title': return <FaHeading className="text-blue-500" />;
-            case 'idea': return <FaLightbulb className="text-yellow-500" />;
-            case 'hashtag': return <FaHashtag className="text-purple-500" />;
-            default: return <FaStar className="text-gray-400" />;
-        }
     };
 
     return (
@@ -176,70 +179,110 @@ export default function DashboardPage() {
                         </div>
                     </div>
 
-                    {/* Right Column - Saved Items */}
-                    <div className="lg:col-span-2">
-                        <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 min-h-[600px]">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                <FaHistory className="text-orange-500" />
-                                Your Saved Items
-                            </h2>
+                    {/* Right Column - Workflow & Trending */}
+                    <div className="lg:col-span-2 space-y-8">
 
-                            {savedItems.length === 0 ? (
-                                <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
-                                    <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-sm">
-                                        📂
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">No saved items yet</h3>
-                                    <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-8">
-                                        Start using tools to populate your dashboard with ideas, titles, and audit reports.
-                                    </p>
-                                    <Link
-                                        href="/tools"
-                                        className="inline-flex items-center justify-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-colors shadow-md hover:shadow-lg"
-                                    >
-                                        Browse All Tools
-                                    </Link>
+                        {/* Hero Card - Smart Workflow */}
+                        <div className="relative overflow-hidden bg-gradient-to-br from-red-600 to-orange-600 rounded-3xl p-8 text-white shadow-xl">
+                            <div className="absolute top-0 right-0 p-8 opacity-10">
+                                <FaYoutube className="text-9xl transform rotate-12" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 text-sm font-bold mb-4 border border-white/20">
+                                    <FaRocket className="text-yellow-300" />
+                                    <span>AI Workflow Chain</span>
                                 </div>
-                            ) : (
+                                <h2 className="text-3xl font-bold mb-3">Create Your Next Viral Video</h2>
+                                <p className="text-red-100 mb-8 max-w-lg text-lg">
+                                    Follow our proven 4-step AI workflow to generate ideas, titles, descriptions, and thumbnails in one continuous flow.
+                                </p>
+
+                                <div className="flex flex-wrap items-center gap-4 mb-8">
+                                    <div className="flex items-center gap-2 bg-black/20 rounded-lg px-3 py-2 border border-white/10">
+                                        <FaLightbulb className="text-yellow-300" /> <span className="text-sm font-medium">Idea</span>
+                                    </div>
+                                    <FaArrowRight className="text-white/40" />
+                                    <div className="flex items-center gap-2 bg-black/20 rounded-lg px-3 py-2 border border-white/10">
+                                        <FaMagic className="text-blue-300" /> <span className="text-sm font-medium">Title</span>
+                                    </div>
+                                    <FaArrowRight className="text-white/40" />
+                                    <div className="flex items-center gap-2 bg-black/20 rounded-lg px-3 py-2 border border-white/10">
+                                        <FaImage className="text-purple-300" /> <span className="text-sm font-medium">Thumb</span>
+                                    </div>
+                                </div>
+
+                                <Link
+                                    href="/tools/youtube-video-ideas-generator"
+                                    className="inline-flex items-center gap-2 bg-white text-red-600 px-8 py-3.5 rounded-xl font-bold hover:bg-red-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                                >
+                                    Start the Chain <FaArrowRight />
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Trending Section */}
+                        <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <FaFire className="text-orange-500" />
+                                    Trending Now (US)
+                                </h2>
+                                <span className="text-xs font-medium text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Live Data</span>
+                            </div>
+
+                            {trendingLoading ? (
                                 <div className="space-y-4">
-                                    {savedItems.map((item) => (
-                                        <div key={item.id} className="group flex items-start gap-4 p-5 rounded-2xl bg-gray-50 dark:bg-gray-900/50 hover:bg-white dark:hover:bg-gray-700/50 hover:shadow-md transition-all border border-transparent hover:border-gray-100 dark:hover:border-gray-600">
-                                            <div className="mt-1 flex-shrink-0 w-12 h-12 rounded-xl bg-white dark:bg-gray-800 flex items-center justify-center text-xl shadow-sm group-hover:scale-110 transition-transform">
-                                                {getIconForType(item.type)}
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-start justify-between">
-                                                    <div>
-                                                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white truncate pr-4">
-                                                            {/* Render content based on type */}
-                                                            {item.type === 'audit' ? <span className="text-red-600 dark:text-red-400">Channel Audit: Score {item.content.score}/100</span> :
-                                                                item.type === 'title' ? item.content :
-                                                                    item.type === 'hashtag' ? item.content.join(', ') :
-                                                                        JSON.stringify(item.content).slice(0, 50)}
-                                                        </h3>
-                                                        <div className="flex items-center gap-3 mt-1.5">
-                                                            <span className="text-xs font-medium px-2 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                                                                {item.toolSlug.replace(/-/g, ' ')}
-                                                            </span>
-                                                            <span className="text-xs text-gray-400">
-                                                                {new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <button
-                                                        onClick={() => handleDelete(item.id)}
-                                                        className="opacity-0 group-hover:opacity-100 p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
-                                                        title="Delete item"
-                                                    >
-                                                        <FaTrash />
-                                                    </button>
-                                                </div>
+                                    {[1, 2, 3].map(i => (
+                                        <div key={i} className="animate-pulse flex items-start gap-4">
+                                            <div className="w-16 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                                            <div className="flex-1 space-y-2">
+                                                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                                                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
+                            ) : trendingVideos.length > 0 ? (
+                                <div className="space-y-6">
+                                    {trendingVideos.map((video, index) => (
+                                        <Link
+                                            key={video.id}
+                                            href={`/tools/youtube-video-ideas-generator?topic=${encodeURIComponent(video.title)}`}
+                                            className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border border-transparent hover:border-gray-100 dark:hover:border-gray-600"
+                                        >
+                                            <div className="flex-shrink-0 font-mono text-2xl font-bold text-gray-300 dark:text-gray-600 group-hover:text-red-500 transition-colors w-8">
+                                                {index + 1}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-2 group-hover:text-red-500 transition-colors">
+                                                    {video.title}
+                                                </h3>
+                                                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                                    {video.channel} • {parseInt(video.views).toLocaleString()} views
+                                                </p>
+                                                {video.tags && video.tags.length > 0 && (
+                                                    <div className="flex flex-wrap gap-2 mt-3">
+                                                        {video.tags.slice(0, 3).map(tag => (
+                                                            <span key={tag} className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded">
+                                                                #{tag}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="flex-shrink-0 self-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <FaMagic className="text-gray-400 group-hover:text-red-500" />
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-12 text-gray-500">
+                                    <p>No trending videos available right now.</p>
+                                </div>
                             )}
                         </div>
+
                     </div>
 
                 </div>

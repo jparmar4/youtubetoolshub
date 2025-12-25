@@ -33,6 +33,13 @@ export const saveItem = async (item: Omit<SavedItem, 'id' | 'date'>) => {
     }
 };
 
+interface HistoryItem {
+    id: string;
+    tool_slug: string;
+    content: any;
+    created_at: string;
+}
+
 export const getSavedItems = async (): Promise<SavedItem[]> => {
     if (typeof window === 'undefined') return [];
 
@@ -41,9 +48,9 @@ export const getSavedItems = async (): Promise<SavedItem[]> => {
         if (response.status === 401) return []; // Not logged in
         if (!response.ok) throw new Error('Failed to fetch history');
 
-        const data = await response.json();
+        const data: HistoryItem[] = await response.json();
 
-        return data.map((item: any) => ({
+        return data.map((item) => ({
             id: item.id,
             // Map tool_slug to type
             type: item.tool_slug.includes('audit') ? 'audit' :
