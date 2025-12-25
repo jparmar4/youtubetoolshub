@@ -22,6 +22,288 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
     {
+        slug: "youtube-video-ideas-that-actually-work",
+        title: "YouTube Video Ideas That Actually Work: Finding Your Next Viral Topic",
+        excerpt: "Stuck staring at a blank upload screen? I've been there. Here's how I went from 'what should I make?' to a content calendar that's booked out for months.",
+        date: "Dec 25, 2025",
+        category: "Content Strategy",
+        author: "Emma Richardson",
+        authorRole: "Content Creator & Strategist",
+        readTime: "9 min read",
+        metaDescription: "Discover proven strategies to find YouTube video ideas that get views. Learn how successful creators never run out of content ideas using these practical methods.",
+        keywords: ["youtube video ideas", "content ideas youtube", "viral video topics", "youtube content strategy", "video brainstorming"],
+        coverImage: "/images/blog/video-ideas-brainstorm.png",
+        imageAlt: "Creative workspace showing YouTube video idea brainstorming process",
+        content: `
+Last Tuesday, I sat down to plan my content for the month and realized something: I haven't felt "stuck for ideas" in over a year.
+
+That's wild to me because I remember the old days. Every week was a panic. What do I make? Is this topic even good? Will anyone care?
+
+The shift happened when I stopped trying to invent content out of thin air and started using a system instead. Not a formulaic, soul-crushing system—but a repeatable way to find ideas that actually connect with viewers.
+
+Here's what I've learned about finding video ideas that work.
+
+## Why Most People Struggle With Video Ideas
+
+The problem isn't creativity. It's that you're looking in the wrong places.
+
+Most creators try to brainstorm in a vacuum. They sit down with a blank notepad and wait for inspiration. Sometimes it works. Usually it doesn't.
+
+The creators who never run out of ideas—the ones posting consistently for years—aren't more creative. They just know where to look.
+
+## Where Successful Video Ideas Come From
+
+After studying hundreds of successful channels and tracking my own analytics for three years, I've found that winning video ideas come from four reliable sources:
+
+## 1. Questions Your Audience Actually Asks
+
+This is the most obvious place to look, yet most people skip it.
+
+Your viewers literally tell you what they want to know. In comments. In DMs. In your community tab polls.
+
+I keep a running Google Doc of every question I see repeated more than twice. When someone asks "How do you choose thumbnails?" and three other people ask variations of that same question, boom—that's a video.
+
+The beauty of this approach? You're solving real problems for real people. That's content that performs.
+
+![Content Strategy Planning](/images/blog/content-strategy-calendar.png)
+
+**Pro tip:** Use your **[YouTube Comment Picker](/tools/youtube-comment-picker)** to systematically review comments from your most popular videos. The patterns you find are gold.
+
+## 2. Videos That Worked (For You or Others)
+
+One of my most popular videos in 2025 was basically a remake of a video I did in 2023.
+
+Same topic, same structure, updated information. Triple the views.
+
+Why? Because the topic proved itself. I knew it worked because I had data showing people wanted that information.
+
+Here's how I mine my own content:
+
+- Check analytics for top 10 videos from the past 2 years
+- Look for topics I could update, expand, or improve
+- Notice what those videos have in common
+
+The same logic applies to other creators' content. If a video in your niche got 500k views, that topic clearly resonates. Your job isn't to copy—it's to bring your unique angle or update it for current trends.
+
+**Quick method:** Use **[YouTube Thumbnail Downloader](/tools/youtube-thumbnail-downloader)** to save thumbnails from high-performing videos in your niche. Study them. What topics keep appearing? That's your signal.
+
+## 3. The Gaps Nobody's Filling
+
+This takes more work but can be incredibly valuable.
+
+I look for searches where the existing content is:
+- Outdated
+- Too complex for beginners
+- Missing key information
+- Poorly produced
+
+You don't need to reinvent the wheel. Sometimes you just need to make the wheel that actually rolls smoothly.
+
+How I find gaps:
+- Search my niche topic on YouTube
+- Sort by most popular
+- Watch the top 5-10 results
+- Ask: What questions do these videos NOT answer?
+
+Those unanswered questions? That's your opportunity.
+
+## 4. Trending Topics (Adapted to Your Niche)
+
+Trends come and go, but smart creators adapt them rather than chasing them.
+
+If everyone's talking about a new tool or technique, the generic "what is X" videos will flood the market. Instead, I look for the intersection of trending topics and my specific audience.
+
+Trending: "New AI video tool launched"
+
+My angle: "I tested the new AI tool for small channels—here's what actually works"
+
+See the difference? I'm riding the trend but making it specifically useful for my viewers.
+
+**Tool I actually use:** **[YouTube Trend Helper](/tools/youtube-trend-helper)** shows me what's gaining traction. I then filter it through my audience's needs.
+
+## My Content Ideation Process (The Whole System)
+
+Since you might be wondering "okay, but what do you actually DO?"—here's my monthly routine:
+
+**Week 1: Audience Mining**
+- Review top comments from recent videos
+- Check community tab questions
+- Note repeated themes in DMs
+- Document: "Ideas From Audience" spreadsheet
+
+**Week 2: Competitive Research**
+- Search my niche keywords on YouTube
+- Save top-performing thumbnails
+- Note which topics are evergreen vs trending
+- Find gaps in existing content
+- Document: "Ideas From Competition" spreadsheet
+
+**Week 3: Personal Experience**
+- Review what I've learned recently
+- Check my "shower thoughts" notes (yes, really)
+- Think about frustrations I've solved
+- Document: "Ideas From Experience" spreadsheet
+
+**Week 4: Planning**
+- Combine all three lists
+- Prioritize based on:
+  - Search potential
+  - Personal expertise
+  - Production difficulty
+  - Strategic fit with my channel
+- Schedule next month's content using **[Content Calendar Generator](/tools/youtube-content-calendar-generator)**
+
+This system takes maybe 3-4 hours per month. In exchange, I never wonder what to film next.
+
+## The Pillar Content Strategy
+
+One thing that changed the game for me: organizing ideas into content pillars.
+
+Instead of random one-off videos, I group ideas into recurring themes. For a cooking channel, that might be:
+- Quick weeknight meals
+- Budget cooking
+- Cooking techniques
+- Kitchen equipment reviews
+
+Every video I make fits into one of these buckets. This helps in two ways:
+
+1. **Algorithm benefits:** YouTube recognizes you as an authority on specific topics
+2. **Viewer retention:** People who like one pillar will likely enjoy others in that category
+
+When I'm stuck for ideas, I just look at my pillars and ask "what haven't I covered lately in this category?"
+
+## Tools That Actually Help (Not Just Hype)
+
+I'm not big on tools for the sake of tools, but three genuinely saved me time:
+
+**[Video Ideas Generator](/tools/youtube-video-ideas-generator)** - When I absolutely can't think of anything, I describe my niche and channel size. The AI suggestions aren't usually perfect, but they break creative blocks. I typically use 2-3 out of 20 suggestions, then modify them.
+
+**[YouTube Title Generator](/tools/youtube-title-generator)** - Once I have an idea, I need a compelling title. This helps me draft 10 options fast, then I pick the one that balances SEO with click-worthiness.
+
+**[YouTube Tag Generator](/tools/youtube-tag-generator)** - Tags matter less than they used to, but I still use them. This generates relevant tags in 30 seconds instead of 10 minutes of manual research.
+
+The key with all tools: they're starting points, not finished products. Use them to get unstuck or save time, then apply your own thinking.
+
+## Common Mistakes I Made (So You Don't Have To)
+
+**Mistake #1: Only making videos I'm personally excited about**
+
+Your passion matters, but viewer interest matters more. I've made videos I was meh about that became my most popular content. The audience doesn't care about my enthusiasm—they care about their problems being solved.
+
+**Mistake #2: Overthinking uniqueness**
+
+For years, I avoided topics because "someone already made that video." That's silly. People make cooking videos every day. The unique part is YOU—your voice, your perspective, your style.
+
+**Mistake #3: Chasing every trend**
+
+Being first on a trend can work. But if it doesn't align with your channel's core topics, you're just confusing the algorithm and your subscribers.
+
+**Mistake #4: Not tracking what works**
+
+I used to post videos and never look at the data. Now I review analytics monthly. Patterns emerge. Some topic categories perform 3x better than others. I simply make more of what works.
+
+## The Reality Check Nobody Wants to Hear
+
+Even with the perfect system, not every idea will blow up.
+
+I've had videos I was certain would go viral get 2,000 views. I've had throwaway topics I almost didn't film hit 200,000 views.
+
+The algorithm is unpredictable. Your job is to increase your odds, not guarantee success.
+
+The best idea strategy in the world can't compensate for:
+- Poor titles and thumbnails
+- Bad content quality
+- Boring presentation
+- Topics nobody cares about
+
+Ideas are important. But they're just one piece of the puzzle.
+
+## Quick Reference: 30-Day Content Planning Blueprint
+
+If you want a simple framework you can start using today, here's my recommendation:
+
+**Week 1:**
+- Mine your top 10 performing videos for remix/sequel ideas
+- Review competitor videos uploaded in past 90 days
+- Create list of 20 potential topics
+
+**Week 2:**
+- Check search demand using **[YouTube Title Generator](/tools/youtube-title-generator)** autocomplete
+- Narrow to 10 ideas with proven interest
+- Confirm you can create quality content on these topics
+
+**Week 3:**
+- Draft titles for all 10 ideas
+- Sketch thumbnail concepts
+- Verify topics align with your content pillars
+- Finalize 4-8 ideas for next month
+
+**Week 4:**
+- Schedule filming dates
+- Create detailed outlines for first 2 videos
+- Build content calendar using **[Content Calendar Generator](/tools/youtube-content-calendar-generator)**
+- Set up tracking sheet for performance
+
+## Sources & Research
+
+This approach is built on industry best practices and real data from successful channels:
+
+- [YouTube Creator Academy](https://creatoracademy.youtube.com/)
+- [Think With Google - Video Trends](https://www.thinkwithgoogle.com/marketing-strategies/video/)
+- [Pew Research Center - YouTube Usage](https://www.pewresearch.org/)
+
+## Recommended Reading
+
+- [YouTube SEO in 2026: What Still Works (And What's Changed)](/blog/youtube-seo-complete-guide)
+- [How to Write YouTube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
+- [YouTube Thumbnails: What Actually Makes People Click](/blog/how-to-optimize-youtube-thumbnails)
+- [Best YouTube Tools for Beginners in 2026](/blog/best-youtube-tools-for-beginners)
+
+## What I'd Tell Someone Starting Today
+
+The secret to never running out of ideas isn't being more creative. It's being more systematic about capturing and evaluating ideas.
+
+Start a simple spreadsheet today. Three columns:
+- Ideas from my audience
+- Ideas from competitors
+- Ideas from my experience
+
+Fill one cell per day. In 30 days, you'll have 90 potential video topics. That's nearly two years of weekly content.
+
+The hard part isn't finding ideas. It's committing to the boring work of documenting them, evaluating them honestly, and executing consistently.
+
+Do that, and you'll never stare at a blank content calendar again.
+
+Now stop reading and go add three ideas to your spreadsheet. I'll wait.
+        `,
+        faq: [
+            {
+                question: "How do I come up with YouTube video ideas when starting from scratch?",
+                answer: "Start by searching your niche on YouTube and reviewing the top 20 most popular videos. Next, check comments on those videos for unanswered questions. Finally, use a Video Ideas Generator to brainstorm specific topics based on your niche and target audience."
+            },
+            {
+                question: "How many video ideas should I have planned at once?",
+                answer: "Aim for at least 8-12 ideas planned out (roughly a month's worth). This prevents panic-creating content and allows you to batch film when you're in the zone. Successful creators typically have 2-3 months of ideas documented."
+            },
+            {
+                question: "What if my video idea has already been done by other creators?",
+                answer: "That's actually a good sign—it means there's proven demand. Your job is to add your unique perspective, update outdated information, or improve on existing videos. Most viral videos aren't completely original; they're better versions of existing content."
+            },
+            {
+                question: "How do I know if a video idea will get views before making it?",
+                answer: "You can't guarantee it, but you can check: (1) Is there search volume? (Use YouTube autocomplete), (2) Have similar videos succeeded? (Check competitor views), (3) Does your audience ask about this topic? (Review comments). If 2+ signals are yes, it's worth making."
+            },
+            {
+                question: "What are content pillars and why do they matter?",
+                answer: "Content pillars are 3-5 core themes your channel focuses on. They help YouTube understand your niche and make it easier to recommend your content. For example, a tech channel might have pillars like 'Phone Reviews,' 'Productivity Tips,' and 'Tech News.' Every video fits into one pillar."
+            },
+            {
+                question: "Should I follow trending topics or focus on evergreen content?",
+                answer: "Do both strategically. Use the 80/20 rule: 80% evergreen content that stays relevant (provides steady long-term views), 20% trending topics (can spike views quickly). Trending videos bring traffic; evergreen videos keep it."
+            }
+        ],
+    },
+    {
         slug: "best-youtube-tools-for-beginners",
         title: "Best YouTube Tools for Beginners in 2026",
         excerpt: "Starting a YouTube channel? Here are the must-have free tools that'll save you hours and help you create better content from day one.",
