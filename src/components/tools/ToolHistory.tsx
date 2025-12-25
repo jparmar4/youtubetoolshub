@@ -59,7 +59,10 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
                             key={item.id}
                             item={item}
                             index={index}
-                            onDelete={() => handleDelete(item.id)}
+                            onDelete={(e) => {
+                                e.stopPropagation();
+                                handleDelete(item.id);
+                            }}
                         />
                     ))}
                 </AnimatePresence>
@@ -76,7 +79,7 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     );
 }
 
-function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: number, onDelete: () => void }) {
+function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: number, onDelete: (e: React.MouseEvent) => void }) {
     // Simplified content extraction
     const title = item.content.title || item.content.topic || item.content.prompt || "Untitled";
 
@@ -99,7 +102,11 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.05 }}
-            className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all"
+            className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all cursor-pointer"
+            onClick={() => {
+                navigator.clipboard.writeText(copyText);
+                alert("Copied to clipboard!");
+            }}
         >
             <div className="flex justify-between items-start mb-3">
                 <span className="text-xs text-gray-400 font-medium">
@@ -107,7 +114,7 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
                 </span>
                 <button
                     onClick={onDelete}
-                    className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                    className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
                     title="Delete"
                 >
                     <FaTrash size={12} />
@@ -128,7 +135,8 @@ function MiniHistoryCard({ item, index, onDelete }: { item: HistoryItem, index: 
                 {getDescription(item.content)}
             </p>
 
-            <div className="flex justify-end">
+            <div className="flex justify-end items-center gap-2">
+                <span className="text-[10px] text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity font-medium">Click to Copy</span>
                 <CopyButton text={copyText} variant="icon" className="!p-1.5 h-7 w-7" />
             </div>
         </motion.div>

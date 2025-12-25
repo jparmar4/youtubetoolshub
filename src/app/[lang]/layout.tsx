@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { i18n } from "@/lib/i18n";
+import { UsageProvider } from "@/context/UsageContext";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -164,11 +165,13 @@ export default async function RootLayout({
           `}
         </Script>
         <AuthProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
-          <CookieConsent />
+          <UsageProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+            <CookieConsent />
+          </UsageProvider>
         </AuthProvider>
       </body>
     </html>

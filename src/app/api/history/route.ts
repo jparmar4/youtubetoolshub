@@ -1,7 +1,7 @@
 
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { supabase } from "@/lib/supabase";
+import { db } from "@/lib/db";
 
 export async function GET(request: Request) {
     try {
@@ -10,29 +10,25 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-            return NextResponse.json({ error: "Database not configured" }, { status: 503 });
-        }
+        const email = session.user.email;
 
         // Fetch valid items for this user
-        const { data, error } = await supabase
-            .from('history_items')
-            .select('*')
-            .eq('user_email', session.user.email)
-            .gt('expires_at', new Date().toISOString()) // Only non-expired
-            .order('created_at', { ascending: false })
-            .limit(50);
-
-        if (error) throw error;
+        const { rows } = await db.sql`
+            SELECT * FROM history_items 
+            WHERE user_email = ${email} 
+            AND expires_at > NOW() 
+            ORDER BY created_at DESC 
+            LIMIT 50
+        `;
 
         // Map to frontend format
-        const mapped = data.map(item => ({
+        const mapped = rows.map(item => ({
             id: item.id,
             toolSlug: item.tool_slug,
-            type: item.tool_slug.includes('audit') ? 'audit' :
+            type: item.type || (item.tool_slug.includes('audit') ? 'audit' :
                 item.tool_slug.includes('title') ? 'title' :
-                    item.tool_slug.includes('idea') ? 'idea' : 'other',
-            content: item.content, // Supabase returns JSON automatically
+                    item.tool_slug.includes('idea') ? 'idea' : 'other'),
+            content: item.content,
             date: item.created_at,
         }));
 
@@ -53,25 +49,20 @@ export async function POST(request: Request) {
 
         const body = await request.json();
         const { toolSlug, type, content, isPro } = body;
+        const email = session.user.email;
 
         const retentionDays = isPro ? 30 : 5;
         const expiresAt = new Date();
         expiresAt.setDate(expiresAt.getDate() + retentionDays);
 
-        const { data, error } = await supabase
-            .from('history_items')
-            .insert({
-                user_email: session.user.email,
-                tool_slug: toolSlug,
-                content: content, // JSON columns handle objects natively
-                expires_at: expiresAt.toISOString(),
-            })
-            .select('id')
-            .single();
+        const id = crypto.randomUUID();
 
-        if (error) throw error;
+        await db.sql`
+            INSERT INTO history_items (id, user_email, tool_slug, content, type, expires_at)
+            VALUES (${id}, ${email}, ${toolSlug}, ${content}, ${type || 'other'}, ${expiresAt.toISOString()})
+        `;
 
-        return NextResponse.json({ id: data.id, success: true });
+        return NextResponse.json({ id: id, success: true });
     } catch (error) {
         console.error("History save error:", error);
         return NextResponse.json({ error: "Failed to save item" }, { status: 500 });
@@ -93,13 +84,12 @@ export async function DELETE(request: Request) {
             return NextResponse.json({ error: "Missing ID" }, { status: 400 });
         }
 
-        const { error } = await supabase
-            .from('history_items')
-            .delete()
-            .eq('id', id)
-            .eq('user_email', session.user.email); // Security: Ensure deleting own item
+        const email = session.user.email;
 
-        if (error) throw error;
+        await db.sql`
+            DELETE FROM history_items 
+            WHERE id = ${id} AND user_email = ${email}
+        `;
 
         return NextResponse.json({ success: true });
     } catch (error) {

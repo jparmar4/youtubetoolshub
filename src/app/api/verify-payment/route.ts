@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { createClient } from "@supabase/supabase-js";
+import { db } from "@/lib/db";
 
 export async function POST(request: Request) {
-    // Initialize Supabase client
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    // Initialize DB
+    // db is automatically initialized via import
 
     try {
         const {
@@ -40,18 +37,23 @@ export async function POST(request: Request) {
             endDate.setDate(endDate.getDate() + 30); // Default to monthly
 
             // Insert/Update Subscription
-            const { error: subError } = await supabase
-                .from('subscriptions')
-                .upsert({
-                    user_email: userEmail,
-                    plan: 'pro-monthly', // You might want to pass this from frontend
-                    status: 'active',
-                    start_date: startDate.toISOString(),
-                    end_date: endDate.toISOString(),
-                    payment_id: razorpay_payment_id
-                });
+            try {
+                // Ensure date format is compatible
+                const startDateStr = startDate.toISOString();
+                const endDateStr = endDate.toISOString();
 
-            if (subError) {
+                await db.sql`
+                    INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)
+                    VALUES (${userEmail}, 'pro-monthly', 'active', ${startDateStr}, ${endDateStr}, ${razorpay_payment_id})
+                    ON CONFLICT (user_email)
+                    DO UPDATE SET 
+                        plan = 'pro-monthly', 
+                        status = 'active', 
+                        start_date = ${startDateStr}, 
+                        end_date = ${endDateStr}, 
+                        payment_id = ${razorpay_payment_id}
+                `;
+            } catch (subError) {
                 console.error("Failed to record subscription:", subError);
                 // We still return success to frontend but log this critical error
             }

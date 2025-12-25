@@ -7,7 +7,7 @@
  * 3. Enforces generic daily limits.
  */
 
-import { supabase } from './supabase';
+
 
 export interface ToolLimit {
     free: number; // Daily limit for free users
@@ -46,110 +46,52 @@ export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };
 // --- Server-Side / Supabase Logic ---
 
 /**
- * Fetch usage for the current user from Supabase.
- * Handles daily resets automatically via the 'date' column check.
+ * Fetch usage for the current user from API.
  */
 export const fetchUserUsage = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user || !user.email) return null;
-
-    const today = new Date().toISOString().split('T')[0];
-
-    // Get current usage record
-    const { data, error } = await supabase
-        .from('user_usage')
-        .select('*')
-        .eq('user_email', user.email)
-        .single();
-
-    if (error && error.code !== 'PGRST116') { // PGRST116 is "Row not found"
+    try {
+        const res = await fetch('/api/usage');
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.usage || {};
+    } catch (error) {
         console.error("Error fetching usage:", error);
-        return null; // Fail safe
+        return null;
     }
-
-    // If no record, or date is old -> Reset/Initialize
-    if (!data || data.date !== today) {
-        // Create/Overwrite with fresh record for today
-        const { data: newData, error: insertError } = await supabase
-            .from('user_usage')
-            .upsert({
-                user_email: user.email,
-                date: today,
-                usage_data: {}
-            })
-            .select()
-            .single();
-
-        if (insertError) console.error("Error resetting usage:", insertError);
-        return newData?.usage_data || {};
-    }
-
-    return data.usage_data;
 };
 
 /**
- * Increment usage for a specific tool in Supabase.
+ * Increment usage for a specific tool via API.
  */
 export const incrementUserUsage = async (toolSlug: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user || !user.email) return;
-
-    const today = new Date().toISOString().split('T')[0];
-
-    // We use a robust approach: Fetch -> Modify -> Update
-    // (Ideally a Postgres Function is better for atomicity, but this works for this scale)
-
-    const { data: currentRecord } = await supabase
-        .from('user_usage')
-        .select('*')
-        .eq('user_email', user.email)
-        .single();
-
-    let newUsageData = currentRecord?.usage_data || {};
-
-    // Check if we need to reset for today during increment (edge case)
-    if (!currentRecord || currentRecord.date !== today) {
-        newUsageData = {};
-    }
-
-    // Increment
-    newUsageData[toolSlug] = (newUsageData[toolSlug] || 0) + 1;
-
-    // Save
-    await supabase
-        .from('user_usage')
-        .upsert({
-            user_email: user.email,
-            date: today,
-            usage_data: newUsageData
+    try {
+        const res = await fetch('/api/usage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ toolSlug })
         });
-
-    return newUsageData[toolSlug];
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.usage;
+    } catch (error) {
+        console.error("Error incrementing usage:", error);
+        return null;
+    }
 };
 
 /**
- * Fetch subscription status from Supabase to determine if PRO.
+ * Fetch subscription status from API.
  */
 export const fetchSubscriptionStatus = async (): Promise<boolean> => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user || !user.email) return false;
-
-    const { data } = await supabase
-        .from('subscriptions')
-        .select('status, end_date')
-        .eq('user_email', user.email)
-        .eq('status', 'active')
-        .single();
-
-    if (data) {
-        // Check if expired
-        if (data.end_date && new Date(data.end_date) < new Date()) {
-            return false;
-        }
-        return true;
+    try {
+        const res = await fetch('/api/subscription');
+        if (!res.ok) return false;
+        const data = await res.json();
+        return !!data.isPro;
+    } catch (error) {
+        console.error("Error checking subscription:", error);
+        return false;
     }
-
-    return false;
 };
 
 
