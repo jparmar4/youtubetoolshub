@@ -366,7 +366,7 @@ export default function VideoIdeasGenerator() {
                                                 <div>
                                                     <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase block mb-1">Thumbnail Concept</span>
                                                     <p className="text-sm text-gray-600 dark:text-gray-300 italic">
-                                                        "{idea.thumbnail_concept}"
+                                                        &quot;{idea.thumbnail_concept}&quot;
                                                     </p>
                                                 </div>
                                             </div>

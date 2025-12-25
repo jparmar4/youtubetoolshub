@@ -40,7 +40,22 @@ export const getSavedItems = async (): Promise<SavedItem[]> => {
         const response = await fetch('/api/history');
         if (response.status === 401) return []; // Not logged in
         if (!response.ok) throw new Error('Failed to fetch history');
-        return await response.json();
+
+        const data = await response.json();
+
+        return data.map((item: any) => ({
+            id: item.id,
+            // Map tool_slug to type
+            type: item.tool_slug.includes('audit') ? 'audit' :
+                item.tool_slug.includes('title') ? 'title' :
+                    item.tool_slug.includes('idea') ? 'idea' :
+                        item.tool_slug.includes('hashtag') ? 'hashtag' : 'other',
+            content: item.content,
+            // Map created_at to date
+            date: item.created_at || new Date().toISOString(),
+            // Map tool_slug to toolSlug
+            toolSlug: item.tool_slug || 'unknown-tool'
+        }));
     } catch (error) {
         console.error("Fetch error:", error);
         return [];
