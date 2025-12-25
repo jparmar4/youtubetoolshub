@@ -39,9 +39,8 @@ export const siteConfig = {
       { name: "Contact", href: "/contact" },
     ],
     social: [
-      { name: "Twitter", href: "https://twitter.com", icon: "twitter" },
-      { name: "YouTube", href: "https://youtube.com", icon: "youtube" },
-      { name: "Instagram", href: "https://instagram.com", icon: "instagram" },
+      { name: "Telegram", href: "https://t.me/youtubetoolshub", icon: "telegram" },
+      { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61585430621256", icon: "facebook" },
     ],
   },
 

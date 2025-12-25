@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaYoutube, FaTwitter, FaInstagram, FaHeart, FaEnvelope } from "react-icons/fa";
+import { FaYoutube, FaTelegram, FaFacebook, FaHeart } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
@@ -43,38 +43,22 @@ export default function Footer() {
                         {/* Social Links */}
                         <div className="flex gap-3">
                             <a
-                                href="https://youtube.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-gray-800 hover:bg-red-600 transition-colors"
-                                aria-label="YouTube"
-                            >
-                                <FaYoutube className="w-4 h-4" />
-                            </a>
-                            <a
-                                href="https://twitter.com"
+                                href="https://t.me/youtubetoolshub"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-2 rounded-lg bg-gray-800 hover:bg-blue-500 transition-colors"
-                                aria-label="Twitter"
+                                aria-label="Telegram"
                             >
-                                <FaTwitter className="w-4 h-4" />
+                                <FaTelegram className="w-4 h-4" />
                             </a>
                             <a
-                                href="https://instagram.com"
+                                href="https://www.facebook.com/profile.php?id=61585430621256"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-gray-800 hover:bg-pink-500 transition-colors"
-                                aria-label="Instagram"
+                                className="p-2 rounded-lg bg-gray-800 hover:bg-blue-600 transition-colors"
+                                aria-label="Facebook"
                             >
-                                <FaInstagram className="w-4 h-4" />
-                            </a>
-                            <a
-                                href={`mailto:${siteConfig.contact.email}`}
-                                className="p-2 rounded-lg bg-gray-800 hover:bg-green-600 transition-colors"
-                                aria-label="Email"
-                            >
-                                <FaEnvelope className="w-4 h-4" />
+                                <FaFacebook className="w-4 h-4" />
                             </a>
                         </div>
                     </div>
