@@ -51,6 +51,14 @@ function getLocale(request: NextRequest): string {
 export default async function middleware(request: NextRequest) {
     const userAgent = request.headers.get("user-agent");
     const pathname = request.nextUrl.pathname;
+    const host = request.headers.get("host");
+
+    // 0. Redirect non-www to www (SEO Canonicalization)
+    if (host === "youtubetoolshub.com") {
+        const url = new URL(request.url);
+        url.hostname = "www.youtubetoolshub.com";
+        return NextResponse.redirect(url);
+    }
 
     // 1. Allow search bots unrestricted access (SEO)
     if (isSearchBot(userAgent)) {

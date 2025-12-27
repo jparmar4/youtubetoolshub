@@ -41,6 +41,18 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en",
+      "en-GB": "/en",
+      "en-CA": "/en",
+      "en-AU": "/en",
+      "es": "/es",
+      "hi": "/hi",
+      "pt": "/pt",
+    },
+  },
 
   openGraph: {
     type: "website",

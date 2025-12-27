@@ -49,7 +49,18 @@ export const siteConfig = {
     titleTemplate: "%s | YouTube Tools Hub",
     defaultTitle: "YouTube Tools Hub - Free YouTube Automation Tools",
     defaultDescription: "Free YouTube tools for creators: thumbnail downloader, title generator, tag extractor, earnings calculator, and more.",
-    keywords: ["youtube tools", "thumbnail downloader", "youtube seo", "title generator", "tag generator", "youtube automation"],
+    keywords: [
+      "youtube tools",
+      "thumbnail downloader",
+      "youtube seo",
+      "title generator",
+      "tag generator",
+      "youtube automation",
+      "video analytics",
+      "channel growth",
+      "youtube marketing",
+      "content creator tools"
+    ],
     openGraph: {
       type: "website",
       locale: "en_US",
