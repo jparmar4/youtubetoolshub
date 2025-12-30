@@ -3,8 +3,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Midnight Nebula Pro - Default (Deep Space) */
-  --background: #030014;
+  /* Midnight Nebula Pro - Medium Dark (Slate/Indigo Base) */
+  --background: #0f172a;
+  /* Slate 900 - Lighter than Deep Space */
   --foreground: #f8fafc;
 
   /* Primary - Neon Cyan & Electric Purple */
@@ -17,19 +18,22 @@
   --secondary: #1e1b4b;
   --accent: #22d3ee;
 
-  /* Surface */
-  --surface-100: #0f172a;
-  --surface-200: #1e293b;
-  --surface-300: #334155;
+  /* Surface - Lighter for Medium Dark feel */
+  --surface-100: #1e293b;
+  /* Slate 800 */
+  --surface-200: #334155;
+  /* Slate 700 */
+  --surface-300: #475569;
+  /* Slate 600 */
 
-  /* Card Gradients */
-  --card-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4));
-  --border-color: rgba(255, 255, 255, 0.1);
+  /* Card Gradients - More visible in Medium Dark */
+  --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.5));
+  --border-color: rgba(255, 255, 255, 0.15);
 }
 
 .dark {
-  /* Identical to root to ensure consistency */
-  --background: #030014;
+  /* Identical to root */
+  --background: #0f172a;
   --foreground: #f8fafc;
   --primary: #8b5cf6;
   --primary-light: #a78bfa;
@@ -37,11 +41,11 @@
   --primary-glow: rgba(139, 92, 246, 0.5);
   --secondary: #1e1b4b;
   --accent: #22d3ee;
-  --surface-100: #0f172a;
-  --surface-200: #1e293b;
-  --surface-300: #334155;
-  --card-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4));
-  --border-color: rgba(255, 255, 255, 0.1);
+  --surface-100: #1e293b;
+  --surface-200: #334155;
+  --surface-300: #475569;
+  --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.5));
+  --border-color: rgba(255, 255, 255, 0.15);
 }
 
 @theme inline {
