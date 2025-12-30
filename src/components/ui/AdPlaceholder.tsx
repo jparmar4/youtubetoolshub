@@ -51,24 +51,24 @@ export default function AdPlaceholder({ size = "inline", className = "" }: AdPla
         <div
             className={`
                 ${sizes[size]}
-                border-2 border-dashed border-gray-300 dark:border-gray-600
+                border-2 border-dashed border-slate-300
                 rounded-xl
-                bg-gray-50 dark:bg-gray-800/50
+                bg-slate-50
                 flex items-center justify-center
                 transition-all duration-300
                 ${className}
             `}
         >
             <div className="text-center px-4">
-                <span className="text-gray-400 dark:text-gray-500 text-sm font-medium">
+                <span className="text-slate-500 text-sm font-medium">
                     Ad Space
                 </span>
-                <p className="text-gray-300 dark:text-gray-600 text-xs mt-1">
+                <p className="text-slate-600 text-xs mt-1">
                     {size === "banner" ? "728 x 90" : size === "sidebar" ? "300 x 250" : "468 x 60"}
                 </p>
                 <Link
                     href="/pricing"
-                    className="inline-flex items-center gap-1 mt-2 text-xs text-emerald-500 hover:text-emerald-600"
+                    className="inline-flex items-center gap-1 mt-2 text-xs text-purple-400 hover:text-purple-300 transition-colors"
                 >
                     <FaCrown className="w-3 h-3" />
                     Remove ads with Pro

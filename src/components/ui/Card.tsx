@@ -20,9 +20,8 @@ export function Card({ children, className = "", hover = true }: CardProps) {
     return (
         <div
             className={`
-        bg-white dark:bg-gray-800 
+        glass-premium
         rounded-2xl shadow-lg 
-        border border-gray-100 dark:border-gray-700
         ${hover ? "hover:shadow-xl hover:-translate-y-1 transition-all duration-300" : ""}
         ${className}
       `}
@@ -37,26 +36,26 @@ export function ToolCard({ icon, title, description, href, isAI, className }: To
         <Link href={href}>
             <Card className={`p-6 h-full cursor-pointer group ${className || ""}`}>
                 <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-xl group-hover:scale-110 transition-transform duration-300 border border-emerald-500/20">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 text-xl group-hover:scale-110 transition-transform duration-300 border border-purple-200">
                         {icon}
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-emerald-500 transition-colors">
+                            <h3 className="font-semibold text-slate-900 truncate group-hover:text-purple-600 transition-colors">
                                 {title}
                             </h3>
                             {isAI && (
-                                <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-emerald-500 to-rose-500 text-white rounded-full shadow-sm">
+                                <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white rounded-full shadow-sm">
                                     AI
                                 </span>
                             )}
                         </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                        <p className="text-sm text-slate-600 line-clamp-2">
                             {description}
                         </p>
                     </div>
                 </div>
-                <div className="mt-4 flex items-center text-emerald-500 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
+                <div className="mt-4 flex items-center text-purple-400 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
                     Use Tool
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -83,18 +82,18 @@ export function BlogCard({
     return (
         <Link href={`/blog/${slug}`}>
             <Card className="p-6 cursor-pointer group h-full">
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-pink-100 dark:bg-pink-900/30 text-emerald-600 dark:text-emerald-400 rounded-full mb-3">
+                <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-400 rounded-full mb-3 border border-fuchsia-500/20">
                     {category}
                 </span>
-                <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-emerald-500 transition-colors line-clamp-2">
+                <h3 className="font-semibold text-lg text-slate-900 mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
                     {title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                <p className="text-sm text-slate-600 mb-4 line-clamp-2">
                     {excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500 dark:text-gray-500">{date}</span>
-                    <span className="text-emerald-500 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                    <span className="text-xs text-slate-500">{date}</span>
+                    <span className="text-purple-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
                         Read More →
                     </span>
                 </div>

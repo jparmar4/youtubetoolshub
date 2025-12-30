@@ -168,18 +168,18 @@ export default function TagExtractor() {
 
                 {/* API Key Required Notice */}
                 {isDemo && (
-                    <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4">
-                        <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                        <h4 className="font-medium text-yellow-800 mb-2">
                             ⚠️ YouTube API Key Required
                         </h4>
-                        <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-3">
+                        <p className="text-sm text-yellow-700 mb-3">
                             To extract real tags, add your YouTube Data API key to the environment.
                         </p>
-                        <ol className="text-sm text-yellow-700 dark:text-yellow-300 list-decimal pl-4 space-y-1">
+                        <ol className="text-sm text-yellow-700 list-decimal pl-4 space-y-1">
                             <li>Go to <a href="https://console.developers.google.com/" target="_blank" rel="noopener noreferrer" className="underline">Google Cloud Console</a></li>
                             <li>Enable the YouTube Data API v3</li>
                             <li>Create an API key</li>
-                            <li>Add <code className="bg-yellow-100 dark:bg-yellow-800 px-1 rounded">YOUTUBE_API_KEY=your_key</code> to .env.local</li>
+                            <li>Add <code className="bg-yellow-100 px-1 rounded">YOUTUBE_API_KEY=your_key</code> to .env.local</li>
                             <li>Restart the server</li>
                         </ol>
                     </div>
@@ -187,11 +187,11 @@ export default function TagExtractor() {
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 text-center">
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center animate-pulse">
                             <FaSearch className="w-8 h-8 text-white" />
                         </div>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-slate-600">
                             Fetching video data from YouTube API...
                         </p>
                     </div>
@@ -199,16 +199,16 @@ export default function TagExtractor() {
 
                 {/* Video Info */}
                 {videoInfo && !loading && (
-                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+                    <div className="bg-slate-50 rounded-xl p-4">
                         <div className="flex items-start gap-4">
-                            <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                                <FaVideo className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                            <div className="p-3 bg-red-100 rounded-lg">
+                                <FaVideo className="w-6 h-6 text-emerald-600" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="font-semibold text-gray-900 dark:text-white truncate">
+                                <h3 className="font-semibold text-slate-900 truncate">
                                     {videoInfo.videoTitle}
                                 </h3>
-                                <div className="flex flex-wrap gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                <div className="flex flex-wrap gap-4 mt-2 text-sm text-slate-600">
                                     <span className="flex items-center gap-1">
                                         <FaUser className="w-3 h-3" />
                                         {videoInfo.channelTitle}
@@ -227,12 +227,12 @@ export default function TagExtractor() {
 
                 {/* No Tags Found Message */}
                 {noTagsFound && !loading && (
-                    <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-6 text-center">
+                    <div className="bg-yellow-50 rounded-xl p-6 text-center">
                         <FaExclamationTriangle className="w-12 h-12 mx-auto text-yellow-500 mb-4" />
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        <h3 className="text-lg font-semibold text-slate-900 mb-2">
                             No Tags Found
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4">
+                        <p className="text-slate-600 mb-4">
                             This video doesn&apos;t have any tags. Many creators don&apos;t add tags to their videos.
                         </p>
                         <Link href="/tools/youtube-tag-generator">
@@ -247,7 +247,7 @@ export default function TagExtractor() {
                 {tags.length > 0 && !loading && (
                     <div className="space-y-4">
                         <div className="flex flex-wrap items-center justify-between gap-4">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            <h3 className="text-lg font-semibold text-slate-900">
                                 Extracted Tags ({tags.length})
                             </h3>
                             <div className="flex gap-2">
@@ -259,7 +259,7 @@ export default function TagExtractor() {
                             {tags.map((tag, i) => (
                                 <span
                                     key={i}
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm"
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm"
                                 >
                                     {tag}
                                     <CopyButton text={tag} className="!p-1 opacity-60 hover:opacity-100" />
@@ -268,11 +268,11 @@ export default function TagExtractor() {
                         </div>
 
                         {/* Tips */}
-                        <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
-                            <h4 className="font-medium text-green-900 dark:text-green-100 mb-2">
+                        <div className="bg-green-50 rounded-xl p-4">
+                            <h4 className="font-medium text-green-900 mb-2">
                                 💡 How to Use These Tags
                             </h4>
-                            <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                            <ul className="text-sm text-green-700 space-y-1">
                                 <li>• <strong>Don&apos;t copy directly</strong> - analyze patterns and create your own variations</li>
                                 <li>• <strong>Look for trends</strong> - what keywords appear across successful videos?</li>
                                 <li>• <strong>Find gaps</strong> - what relevant tags might this video be missing?</li>

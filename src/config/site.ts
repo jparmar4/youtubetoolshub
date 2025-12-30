@@ -10,12 +10,13 @@ export const siteConfig = {
   url: "https://www.youtubetoolshub.com",
 
   // Colors (used as CSS variables)
+  // Colors (used as CSS variables)
   colors: {
-    primary: "#10b981", // Emerald 500
-    primaryDark: "#059669", // Emerald 600
-    secondary: "#0a0f0d", // Forest-tinted dark
-    accent: "#34d399", // Emerald 400
-    success: "#6ee7b7",
+    primary: "#a855f7", // Purple 500
+    primaryDark: "#7e22ce", // Purple 700
+    secondary: "#0f0518", // Deep Violet
+    accent: "#e879f9", // Fuchsia 400
+    success: "#34d399",
     warning: "#fbbf24",
     error: "#ef4444",
   },

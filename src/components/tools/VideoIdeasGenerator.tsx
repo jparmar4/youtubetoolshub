@@ -220,7 +220,7 @@ export default function VideoIdeasGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Pro Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
                             <Input
@@ -267,7 +267,7 @@ export default function VideoIdeasGenerator() {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
+                    <div className="bg-red-50 rounded-xl p-4 border border-red-200 text-red-600">
                         {error}
                     </div>
                 )}
@@ -288,7 +288,7 @@ export default function VideoIdeasGenerator() {
                 <div className="space-y-6">
                     {ideas.length > 0 && !loading && (
                         <div className="flex items-center justify-between px-2">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <FaLightbulb className="text-yellow-500" /> Best Strategy Matches
                             </h3>
                             <CopyButton text={allIdeasText} variant="button" label="Copy All Ideas" />
@@ -304,23 +304,23 @@ export default function VideoIdeasGenerator() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-red-200 dark:hover:border-red-900/50 transition-all group relative overflow-hidden"
+                                    className="bg-white rounded-2xl p-6 border border-slate-200 hover:shadow-lg hover:border-red-200 transition-all group relative overflow-hidden"
                                 >
                                     <div className="flex flex-col md:flex-row gap-6">
 
                                         {/* Score Visual */}
                                         <div className="flex-shrink-0 flex flex-col items-center gap-3">
-                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600 flex flex-col items-center justify-center">
+                                            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 flex flex-col items-center justify-center">
                                                 <span className={`text-xl font-black ${idea.score >= 90 ? "text-green-500" :
                                                     idea.score >= 80 ? "text-blue-500" : "text-yellow-500"
                                                     }`}>
                                                     {idea.score}
                                                 </span>
-                                                <span className="text-[10px] uppercase font-bold text-gray-400">Score</span>
+                                                <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
                                             </div>
-                                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                                idea.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                                                    'bg-red-100 text-emerald-700 dark:bg-red-900/30 dark:text-emerald-400'
+                                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-green-100 text-green-700' :
+                                                idea.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
+                                                    'bg-red-100 text-emerald-700'
                                                 }`}>
                                                 {idea.difficulty}
                                             </span>
@@ -329,15 +329,15 @@ export default function VideoIdeasGenerator() {
                                         <div className="flex-1 space-y-3">
                                             <div className="flex justify-between items-start">
                                                 <div className="space-y-1">
-                                                    <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider">{idea.angle} Angle</span>
-                                                    <h4 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
+                                                    <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">{idea.angle} Angle</span>
+                                                    <h4 className="text-lg font-bold text-slate-900 leading-tight">
                                                         {idea.title}
                                                     </h4>
                                                 </div>
                                                 <div className="flex items-center gap-2">
                                                     <Link
                                                         href={`/tools/youtube-title-generator?topic=${encodeURIComponent(idea.title)}`}
-                                                        className="p-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all font-medium text-sm flex items-center gap-2"
+                                                        className="p-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all font-medium text-sm flex items-center gap-2"
                                                         title="Generate Optimized Titles"
                                                     >
                                                         <FaMagic /> Generate Titles
@@ -347,7 +347,7 @@ export default function VideoIdeasGenerator() {
                                                         disabled={isSaved}
                                                         className={`p-2 rounded-xl transition-all ${isSaved
                                                             ? "bg-yellow-50 text-yellow-500"
-                                                            : "bg-gray-50 dark:bg-gray-700 text-gray-400 hover:text-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
+                                                            : "bg-slate-50 text-slate-400 hover:text-yellow-500 hover:bg-yellow-50"
                                                             }`}
                                                         title="Save Idea"
                                                     >
@@ -357,15 +357,15 @@ export default function VideoIdeasGenerator() {
                                                 </div>
                                             </div>
 
-                                            <p className="text-gray-600 dark:text-gray-300 text-sm">
+                                            <p className="text-slate-600 text-sm">
                                                 {idea.concept}
                                             </p>
 
-                                            <div className="bg-gray-50 dark:bg-gray-700/30 rounded-lg p-3 flex gap-3 items-start border border-gray-100 dark:border-gray-700">
-                                                <FaImage className="text-gray-400 mt-1 flex-shrink-0" />
+                                            <div className="bg-slate-50 rounded-lg p-3 flex gap-3 items-start border border-slate-200">
+                                                <FaImage className="text-slate-400 mt-1 flex-shrink-0" />
                                                 <div>
-                                                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase block mb-1">Thumbnail Concept</span>
-                                                    <p className="text-sm text-gray-600 dark:text-gray-300 italic">
+                                                    <span className="text-xs font-bold text-slate-500 uppercase block mb-1">Thumbnail Concept</span>
+                                                    <p className="text-sm text-slate-600 italic">
                                                         &quot;{idea.thumbnail_concept}&quot;
                                                     </p>
                                                 </div>

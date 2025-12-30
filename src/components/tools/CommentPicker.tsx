@@ -226,9 +226,9 @@ export default function CommentPicker() {
                     </div>
 
                     {/* Filters - Only show if we have comments or if we want to set them beforehand? Better to show always or after load? Show always for convenience */}
-                    <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800 space-y-4">
-                        <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                            <FaFilter className="text-gray-400" /> Contest Rules
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-4">
+                        <h3 className="font-semibold text-slate-900 flex items-center gap-2">
+                            <FaFilter className="text-slate-400" /> Contest Rules
                         </h3>
 
                         <div className="flex flex-col sm:flex-row gap-6">
@@ -239,7 +239,7 @@ export default function CommentPicker() {
                                     onChange={(e) => handleSettingChange(e.target.checked, filterText)}
                                     className="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                                 />
-                                <span className="text-gray-700 dark:text-gray-300">Filter Duplicates</span>
+                                <span className="text-slate-700">Filter Duplicates</span>
                             </label>
 
                             <div className="flex-1">
@@ -248,7 +248,7 @@ export default function CommentPicker() {
                                     placeholder="Must contain text (e.g. #giveaway)"
                                     value={filterText}
                                     onChange={(e) => handleSettingChange(filterDuplicates, e.target.value)}
-                                    className="w-full text-sm rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:ring-emerald-500 focus:border-emerald-500"
+                                    className="w-full text-sm rounded-lg border-gray-300 bg-white focus:ring-emerald-500 focus:border-emerald-500"
                                 />
                             </div>
                         </div>
@@ -257,11 +257,11 @@ export default function CommentPicker() {
 
                 {/* Status Bar */}
                 {originalComments.length > 0 && (
-                    <div className="flex flex-wrap items-center justify-between gap-4 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl text-blue-800 dark:text-blue-200">
+                    <div className="flex flex-wrap items-center justify-between gap-4 bg-blue-50 p-4 rounded-xl text-blue-800">
                         <div className="font-medium">
                             Found <span className="font-bold">{originalComments.length}</span> total comments.
                             <span className="mx-2 opacity-50">|</span>
-                            <span className="font-bold text-green-600 dark:text-green-400">{filteredComments.length}</span> qualified entries.
+                            <span className="font-bold text-green-600">{filteredComments.length}</span> qualified entries.
                         </div>
                         <Button onClick={pickWinner} isLoading={loading} disabled={loading || filteredComments.length === 0} variant="primary">
                             <FaTrophy className="mr-2" />
@@ -272,13 +272,13 @@ export default function CommentPicker() {
 
                 {/* Winner Card */}
                 {winner && (
-                    <div className="animate-scale-in bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-200 dark:border-yellow-700 rounded-3xl p-8 relative overflow-hidden text-center">
+                    <div className="animate-scale-in bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-3xl p-8 relative overflow-hidden text-center">
                         <div className="absolute top-0 right-0 p-4 opacity-10">
                             <FaTrophy className="w-32 h-32 text-yellow-600" />
                         </div>
 
                         <div className="relative z-10">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">🎉 We have a Winner! 🎉</h2>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-6">🎉 We have a Winner! 🎉</h2>
 
                             <div className="inline-block relative mb-4">
                                 <div className="w-24 h-24 rounded-full border-4 border-yellow-400 shadow-xl overflow-hidden relative">
@@ -294,19 +294,19 @@ export default function CommentPicker() {
                                 </div>
                             </div>
 
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                            <h3 className="text-xl font-bold text-slate-900 mb-1">
                                 {winner.authorDisplayName}
                             </h3>
-                            <a href={winner.authorChannelUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-emerald-500 underline mb-6 inline-block">
+                            <a href={winner.authorChannelUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-slate-500 hover:text-emerald-500 underline mb-6 inline-block">
                                 View Channel
                             </a>
 
-                            <div className="bg-white/80 dark:bg-black/20 rounded-xl p-6 max-w-xl mx-auto backdrop-blur-sm relative">
-                                <FaQuoteLeft className="absolute top-4 left-4 text-gray-300 dark:text-gray-600 w-6 h-6" />
-                                <p className="text-lg text-gray-700 dark:text-gray-300 italic relative z-10 px-6">
+                            <div className="bg-white/80 rounded-xl p-6 max-w-xl mx-auto backdrop-blur-sm relative">
+                                <FaQuoteLeft className="absolute top-4 left-4 text-slate-300 w-6 h-6" />
+                                <p className="text-lg text-slate-700 italic relative z-10 px-6">
                                     &quot;{winner.text}&quot;
                                 </p>
-                                <div className="mt-4 flex items-center justify-center gap-4 text-sm text-gray-500">
+                                <div className="mt-4 flex items-center justify-center gap-4 text-sm text-slate-500">
                                     <span>❤️ {winner.likeCount} likes</span>
                                     <span>📅 {new Date(winner.publishedAt).toLocaleDateString()}</span>
                                 </div>

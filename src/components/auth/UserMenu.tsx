@@ -33,7 +33,7 @@ export default function UserMenu() {
         return (
             <Link
                 href="/sign-in"
-                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
                 Sign In
             </Link>
@@ -52,11 +52,11 @@ export default function UserMenu() {
                         alt={session.user.name || "User"}
                         width={40}
                         height={40}
-                        className="rounded-full border-2 border-emerald-500 object-cover"
+                        className="rounded-full border-2 border-purple-500 object-cover"
                         onError={() => setImageError(true)}
                     />
                 ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-600 to-orange-500 flex items-center justify-center border-2 border-emerald-500">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 flex items-center justify-center border-2 border-purple-500">
                         {session.user.name ? (
                             <span className="text-white font-bold text-lg">
                                 {session.user.name.charAt(0).toUpperCase()}
@@ -69,13 +69,13 @@ export default function UserMenu() {
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-50">
+                <div className="absolute right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg border border-white/5 py-2 z-50">
                     {/* User Info */}
-                    <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                        <p className="font-medium text-gray-900 dark:text-white truncate">
+                    <div className="px-4 py-3 border-b border-white/5">
+                        <p className="font-medium text-white truncate">
                             {session.user.name}
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                        <p className="text-sm text-slate-400 truncate">
                             {session.user.email}
                         </p>
                     </div>
@@ -84,7 +84,7 @@ export default function UserMenu() {
                     <div className="py-2">
                         <Link
                             href="/dashboard"
-                            className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-300 hover:bg-purple-500/10 hover:text-purple-400 font-medium"
                             onClick={() => setIsOpen(false)}
                         >
                             <span className="w-4 h-4 flex items-center justify-center">🚀</span>
@@ -92,7 +92,7 @@ export default function UserMenu() {
                         </Link>
                         <Link
                             href="/tools"
-                            className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-300 hover:bg-purple-500/10 hover:text-purple-400"
                             onClick={() => setIsOpen(false)}
                         >
                             <FaCog className="w-4 h-4" />
@@ -101,10 +101,10 @@ export default function UserMenu() {
                     </div>
 
                     {/* Sign Out */}
-                    <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
+                    <div className="border-t border-white/5 pt-2">
                         <button
                             onClick={() => signOut({ callbackUrl: "/" })}
-                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-emerald-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-fuchsia-400 hover:bg-purple-500/10"
                         >
                             <FaSignOutAlt className="w-4 h-4" />
                             Sign Out

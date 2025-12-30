@@ -70,15 +70,15 @@ export default function EngagementCalculator() {
     const getRatingColor = (rating: string) => {
         switch (rating) {
             case "Excellent":
-                return "text-green-500 bg-green-100 dark:bg-green-900/30";
+                return "text-green-600 bg-green-50";
             case "Good":
-                return "text-blue-500 bg-blue-100 dark:bg-blue-900/30";
+                return "text-blue-600 bg-blue-50";
             case "Average":
-                return "text-yellow-500 bg-yellow-100 dark:bg-yellow-900/30";
+                return "text-yellow-600 bg-yellow-50";
             case "Needs Improvement":
-                return "text-emerald-500 bg-red-100 dark:bg-red-900/30";
+                return "text-emerald-600 bg-red-50";
             default:
-                return "text-gray-500 bg-gray-100 dark:bg-gray-700";
+                return "text-slate-500 bg-slate-50";
         }
     };
 
@@ -132,11 +132,11 @@ export default function EngagementCalculator() {
                 {/* Results Section */}
                 {result && (
                     <div className="mt-8">
-                        <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 text-center">
-                            <h3 className="text-lg font-medium text-gray-600 dark:text-gray-400 mb-2">
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 text-center">
+                            <h3 className="text-lg font-medium text-slate-600 mb-2">
                                 Engagement Rate
                             </h3>
-                            <p className="text-6xl font-bold text-gray-900 dark:text-white mb-4">
+                            <p className="text-6xl font-bold text-slate-900 mb-4">
                                 {result.rate.toFixed(2)}%
                             </p>
                             <span className={`inline-block px-6 py-2 rounded-full text-lg font-semibold ${getRatingColor(result.rating)}`}>
@@ -146,35 +146,35 @@ export default function EngagementCalculator() {
 
                         {/* Breakdown */}
                         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                            <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-slate-100">
+                                <p className="text-2xl font-bold text-slate-900">
                                     {formatNumber(parseFloat(views.replace(/,/g, "")) || 0)}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Views</p>
+                                <p className="text-sm text-slate-500">Views</p>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
+                            <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-slate-100">
                                 <p className="text-2xl font-bold text-blue-500">
                                     {formatNumber(parseFloat(likes.replace(/,/g, "")) || 0)}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Likes</p>
+                                <p className="text-sm text-slate-500">Likes</p>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
+                            <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-slate-100">
                                 <p className="text-2xl font-bold text-green-500">
                                     {formatNumber(parseFloat(comments.replace(/,/g, "")) || 0)}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Comments</p>
+                                <p className="text-sm text-slate-500">Comments</p>
                             </div>
-                            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center shadow-sm">
+                            <div className="bg-white rounded-xl p-4 text-center shadow-sm border border-slate-100">
                                 <p className="text-2xl font-bold text-purple-500">
                                     {formatNumber(parseFloat(shares.replace(/,/g, "")) || 0)}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">Shares</p>
+                                <p className="text-sm text-slate-500">Shares</p>
                             </div>
                         </div>
 
                         {/* Benchmarks */}
-                        <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-                            <h4 className="font-medium text-gray-900 dark:text-white mb-2">
+                        <div className="mt-6 bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <h4 className="font-medium text-slate-900 mb-2">
                                 Engagement Benchmarks
                             </h4>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">

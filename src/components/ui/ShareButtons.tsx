@@ -49,7 +49,7 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
 
     return (
         <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Share:</span>
+            <span className="text-sm text-gray-500">Share:</span>
 
             {shareLinks.map((link) => {
                 const Icon = link.icon;
@@ -59,7 +59,7 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 ${link.color} hover:text-white transition-colors`}
+                        className={`p-2 rounded-lg bg-gray-100 text-gray-600 ${link.color} hover:text-white transition-colors`}
                         aria-label={`Share on ${link.name}`}
                     >
                         <Icon className="w-4 h-4" />
@@ -70,8 +70,8 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
             <button
                 onClick={copyToClipboard}
                 className={`p-2 rounded-lg transition-colors ${copied
-                        ? "bg-green-500 text-white"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                 aria-label="Copy link"
             >

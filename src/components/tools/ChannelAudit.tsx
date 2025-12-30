@@ -125,12 +125,12 @@ export default function ChannelAudit() {
     return (
         <div className="w-full max-w-4xl mx-auto space-y-8">
             {/* Input Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-2">
                         Channel Health Checker
                     </h2>
-                    <p className="text-gray-500 dark:text-gray-400">
+                    <p className="text-slate-500">
                         Enter your Channel Handle or ID to get a comprehensive audit score.
                     </p>
                 </div>
@@ -138,14 +138,14 @@ export default function ChannelAudit() {
                 <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
                     <div className="relative flex-1">
                         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <FaYoutube className="text-gray-400 text-xl" />
+                            <FaYoutube className="text-slate-400 text-xl" />
                         </div>
                         <input
                             type="text"
                             value={channelInput}
                             onChange={(e) => setChannelInput(e.target.value)}
                             placeholder="@MrBeast or Channel ID"
-                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white placeholder-gray-400"
+                            className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-slate-900 placeholder-slate-400"
                         />
                     </div>
                     <button
@@ -172,7 +172,7 @@ export default function ChannelAudit() {
                         className="space-y-6"
                     >
                         {/* Score Card */}
-                        <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 relative overflow-hidden">
+                        <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full pointer-events-none" />
 
                             <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
@@ -186,7 +186,7 @@ export default function ChannelAudit() {
                                             stroke="currentColor"
                                             strokeWidth="12"
                                             fill="none"
-                                            className="text-gray-100 dark:text-gray-700"
+                                            className="text-slate-100"
                                         />
                                         <circle
                                             cx="96"
@@ -203,10 +203,10 @@ export default function ChannelAudit() {
                                         />
                                     </svg>
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-5xl font-black text-gray-900 dark:text-white">
+                                        <span className="text-5xl font-black text-slate-900">
                                             {result.score}
                                         </span>
-                                        <span className="text-sm font-medium text-gray-500 uppercase tracking-wider">Health Score</span>
+                                        <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">Health Score</span>
                                     </div>
                                 </div>
 
@@ -221,10 +221,10 @@ export default function ChannelAudit() {
                                         </span>
                                         <span className="text-gray-500 text-sm">Based on simulation logic</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-2">
                                         Analysis Complete
                                     </h3>
-                                    <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                    <p className="text-slate-600 mb-6 leading-relaxed">
                                         {result.summary}
                                     </p>
 
@@ -234,7 +234,7 @@ export default function ChannelAudit() {
                                             disabled={saved}
                                             className={`inline-flex items-center gap-2 px-6 py-2 rounded-xl font-bold transition-all ${saved
                                                 ? "bg-green-100 text-green-700"
-                                                : "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:opacity-90 shadow-lg hover:shadow-xl"
+                                                : "bg-slate-900 text-white hover:opacity-90 shadow-lg hover:shadow-xl"
                                                 }`}
                                         >
                                             {saved ? <FaCheckCircle /> : <FaBookmark />}
@@ -271,9 +271,9 @@ export default function ChannelAudit() {
                         {/* Detailed Metrics */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {result.metrics.map((metric, idx) => (
-                                <div key={idx} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                                <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                                     <div className="flex items-center justify-between mb-4">
-                                        <h4 className="font-bold text-gray-900 dark:text-white">{metric.name}</h4>
+                                        <h4 className="font-bold text-slate-900">{metric.name}</h4>
                                         {metric.status === "good" ? (
                                             <FaCheckCircle className="text-green-500 text-xl" />
                                         ) : metric.status === "warning" ? (
@@ -282,7 +282,7 @@ export default function ChannelAudit() {
                                             <FaTimesCircle className="text-emerald-500 text-xl" />
                                         )}
                                     </div>
-                                    <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 mb-4">
+                                    <div className="w-full bg-slate-100 rounded-full h-2 mb-4">
                                         <div
                                             className={`h-2 rounded-full ${metric.score >= 80 ? "bg-green-500" :
                                                 metric.score >= 60 ? "bg-yellow-500" : "bg-emerald-500"
@@ -290,7 +290,7 @@ export default function ChannelAudit() {
                                             style={{ width: `${metric.score}%` }}
                                         />
                                     </div>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    <p className="text-sm text-slate-600">
                                         {metric.feedback}
                                     </p>
                                 </div>

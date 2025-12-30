@@ -170,7 +170,7 @@ export default function IntroScriptGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="md:col-span-2">
                             <Input
@@ -209,7 +209,7 @@ export default function IntroScriptGenerator() {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
+                    <div className="bg-red-50 rounded-xl p-4 border border-red-200 text-red-600">
                         {error}
                     </div>
                 )}
@@ -218,7 +218,7 @@ export default function IntroScriptGenerator() {
                 {(scriptData || rawScript) && !loading && (
                     <div className="space-y-6">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <FaPlay className="text-purple-500" /> Your Intro Script
                             </h3>
                             <CopyButton text={getFullText()} variant="button" label="Copy Full Script" />
@@ -230,45 +230,45 @@ export default function IntroScriptGenerator() {
                                     title="🎬 The Hook (0-3s)"
                                     content={scriptData.hook}
                                     tip="Purpose: Grab attention immediately. Stop the scroll."
-                                    color="text-emerald-600 dark:text-emerald-400"
-                                    bgColor="bg-red-50 dark:bg-red-900/20"
+                                    color="text-emerald-700"
+                                    bgColor="bg-red-50"
                                 />
                                 <ScriptSection
                                     title="📍 Context (3-8s)"
                                     content={scriptData.context}
                                     tip="Purpose: Show relevance. 'This is for you if...'"
-                                    color="text-blue-600 dark:text-blue-400"
-                                    bgColor="bg-blue-50 dark:bg-blue-900/20"
+                                    color="text-blue-700"
+                                    bgColor="bg-blue-50"
                                 />
                                 <ScriptSection
                                     title="✨ The Promise (8-15s)"
                                     content={scriptData.promise}
                                     tip="Purpose: High stakes. 'By the end, you will...'"
-                                    color="text-purple-600 dark:text-purple-400"
-                                    bgColor="bg-purple-50 dark:bg-purple-900/20"
+                                    color="text-purple-700"
+                                    bgColor="bg-purple-50"
                                 />
                                 <ScriptSection
                                     title="➡️ Transition (15s+)"
                                     content={scriptData.transition}
                                     tip="Purpose: Smooth handoff. 'Let's dive in.'"
-                                    color="text-green-600 dark:text-green-400"
-                                    bgColor="bg-green-50 dark:bg-green-900/20"
+                                    color="text-green-700"
+                                    bgColor="bg-green-50"
                                 />
                             </div>
                         ) : (
-                            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
-                                <pre className="whitespace-pre-wrap text-gray-800 dark:text-gray-100 font-sans text-lg leading-relaxed">
+                            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                                <pre className="whitespace-pre-wrap text-slate-800 font-sans text-lg leading-relaxed">
                                     {rawScript}
                                 </pre>
                             </div>
                         )}
 
                         {/* Validation Reading Tips */}
-                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-800 rounded-xl p-6 border border-purple-100 dark:border-gray-700">
-                            <h4 className="font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-100">
+                            <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
                                 <FaMicrophone /> Pro Delivery Tips
                             </h4>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-600">
                                 <li>• <strong>Energy Check:</strong> Record yourself. Are you 20% more energetic than usual? You need to be.</li>
                                 <li>• <strong>Speed:</strong> Read the Hook fast, then slow down for the Context.</li>
                                 <li>• <strong>Eye Contact:</strong> Look at the lens, not the screen!</li>
@@ -283,16 +283,16 @@ export default function IntroScriptGenerator() {
 }
 
 const ScriptSection = ({ title, content, tip, color, bgColor }: { title: string, content: string, tip: string, color: string, bgColor: string }) => (
-    <div className={`rounded-xl p-5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-shadow`}>
+    <div className={`rounded-xl p-5 border border-slate-200 bg-white hover:shadow-md transition-shadow`}>
         <div className="flex flex-col md:flex-row md:items-start gap-4">
             <div className={`shrink-0 rounded-lg px-3 py-1 ${bgColor} ${color} font-bold text-sm uppercase tracking-wider w-fit`}>
                 {title}
             </div>
             <div className="flex-1">
-                <p className="text-lg text-gray-900 dark:text-white font-medium leading-relaxed">
+                <p className="text-lg text-slate-900 font-medium leading-relaxed">
                     {content}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+                <p className="text-xs text-slate-500 mt-2 italic">
                     {tip}
                 </p>
             </div>

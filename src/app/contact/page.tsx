@@ -7,10 +7,10 @@ import { siteConfig } from "@/config/site";
 import { FaPaperPlane, FaEnvelope, FaCheck, FaClock, FaQuestionCircle, FaBug, FaLightbulb, FaHandshake, FaExclamationCircle, FaSpinner } from "react-icons/fa";
 
 const contactReasons = [
-    { icon: FaQuestionCircle, title: "General Inquiry", description: "Questions about our tools or services", color: "from-blue-400 to-blue-500" },
-    { icon: FaBug, title: "Bug Report", description: "Found something not working right?", color: "from-red-400 to-red-500" },
-    { icon: FaLightbulb, title: "Feature Request", description: "Have an idea for a new tool?", color: "from-yellow-400 to-orange-500" },
-    { icon: FaHandshake, title: "Partnership", description: "Business or collaboration inquiries", color: "from-purple-400 to-purple-500" },
+    { icon: FaQuestionCircle, title: "General Inquiry", description: "Questions about our tools or services", color: "from-blue-500 to-cyan-500" },
+    { icon: FaBug, title: "Bug Report", description: "Found something not working right?", color: "from-rose-500 to-red-500" },
+    { icon: FaLightbulb, title: "Feature Request", description: "Have an idea for a new tool?", color: "from-amber-400 to-orange-500" },
+    { icon: FaHandshake, title: "Partnership", description: "Business or collaboration inquiries", color: "from-purple-500 to-fuchsia-500" },
 ];
 
 const faqs = [
@@ -71,19 +71,22 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-slate-50 relative overflow-hidden">
+            {/* Background Decorations */}
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-200/20 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-fuchsia-200/20 blur-[100px] rounded-full pointer-events-none" />
+
             {/* Hero Section */}
-            <section className="relative overflow-hidden hero-gradient-light dark:hero-gradient py-16 lg:py-20">
-                <div className="absolute inset-0 bg-dots opacity-20" />
+            <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16">
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-4xl mx-auto">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-red-400 to-red-600 text-white mb-6 shadow-lg">
-                            <FaEnvelope className="w-8 h-8" />
+                        <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-8 shadow-2xl shadow-fuchsia-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300">
+                            <FaEnvelope className="w-9 h-9" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
                             Get in Touch
                         </h1>
-                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                             Have questions, feedback, or ideas? We&apos;d love to hear from you!
                             Our team is here to help you succeed.
                         </p>
@@ -92,23 +95,23 @@ export default function ContactPage() {
             </section>
 
             {/* Contact Reasons */}
-            <section className="py-12 bg-white dark:bg-gray-900">
+            <section className="py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {contactReasons.map((reason, i) => (
                             <button
                                 key={i}
                                 onClick={() => setSelectedReason(reason.title)}
-                                className={`text-left p-6 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${selectedReason === reason.title
-                                    ? "border-red-500 bg-red-50 dark:bg-red-900/20"
-                                    : "border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700"
+                                className={`text-left p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${selectedReason === reason.title
+                                    ? "border-purple-500 bg-purple-50 shadow-purple-200"
+                                    : "border-slate-100 bg-white hover:border-purple-200 hover:shadow-purple-100"
                                     }`}
                             >
-                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white mb-4`}>
+                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white mb-4 shadow-lg`}>
                                     <reason.icon className="w-5 h-5" />
                                 </div>
-                                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{reason.title}</h3>
-                                <p className="text-gray-600 dark:text-gray-400 text-sm">{reason.description}</p>
+                                <h3 className="font-bold text-slate-900 mb-2">{reason.title}</h3>
+                                <p className="text-slate-500 text-sm leading-relaxed">{reason.description}</p>
                             </button>
                         ))}
                     </div>
@@ -116,33 +119,34 @@ export default function ContactPage() {
             </section>
 
             {/* Main Content */}
-            <section className="py-12 bg-gray-50 dark:bg-gray-800/50">
+            <section className="py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid lg:grid-cols-5 gap-12">
 
                         {/* Contact Info */}
                         <div className="lg:col-span-2 space-y-8">
                             <div>
-                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                <h2 className="text-2xl font-bold text-slate-900 mb-4">
                                     Contact Information
                                 </h2>
-                                <p className="text-gray-600 dark:text-gray-300">
+                                <p className="text-slate-600 leading-relaxed text-lg">
                                     Whether you have a question about our tools, need help with something,
                                     or just want to share feedback, we&apos;re here to help.
                                 </p>
                             </div>
 
                             {/* Email Card */}
-                            <div className="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white shadow-lg">
+                            <div className="p-8 bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 relative overflow-hidden group">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-fuchsia-500" />
+                                <div className="flex items-center gap-5 relative z-10">
+                                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-fuchsia-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
                                         <FaEnvelope className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">Email Us</p>
+                                        <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-1">Email Us</p>
                                         <a
                                             href={`mailto:${siteConfig.contact.email}`}
-                                            className="text-lg font-semibold text-gray-900 dark:text-white hover:text-red-500 transition-colors"
+                                            className="text-lg font-bold text-slate-900 hover:text-purple-600 transition-colors"
                                         >
                                             {siteConfig.contact.email}
                                         </a>
@@ -151,16 +155,16 @@ export default function ContactPage() {
                             </div>
 
                             {/* Response Time */}
-                            <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl">
+                            <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center text-white">
+                                    <div className="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
                                         <FaClock className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                                        <h3 className="font-bold text-slate-900 mb-1">
                                             Response Time
                                         </h3>
-                                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                                        <p className="text-slate-600 text-sm leading-relaxed">
                                             We typically respond within <strong>24-48 hours</strong> during business days.
                                             For urgent matters, include &quot;URGENT&quot; in your subject line.
                                         </p>
@@ -170,14 +174,14 @@ export default function ContactPage() {
 
                             {/* FAQs */}
                             <div>
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-4">
                                     Frequently Asked Questions
                                 </h3>
                                 <div className="space-y-4">
                                     {faqs.map((faq, i) => (
-                                        <div key={i} className="p-4 bg-white dark:bg-gray-800 rounded-xl">
-                                            <h4 className="font-medium text-gray-900 dark:text-white mb-1">{faq.q}</h4>
-                                            <p className="text-gray-600 dark:text-gray-400 text-sm">{faq.a}</p>
+                                        <div key={i} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                            <h4 className="font-bold text-slate-900 mb-2">{faq.q}</h4>
+                                            <p className="text-slate-600 text-sm leading-relaxed">{faq.a}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -186,31 +190,32 @@ export default function ContactPage() {
 
                         {/* Contact Form */}
                         <div className="lg:col-span-3">
-                            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
+                            <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-xl shadow-slate-200/50 border border-slate-100">
                                 {submitted ? (
                                     <div className="text-center py-16">
-                                        <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white shadow-lg">
-                                            <FaCheck className="w-10 h-10" />
+                                        <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-green-50 flex items-center justify-center shadow-lg shadow-green-900/5 animate-bounce-slow">
+                                            <FaCheck className="w-10 h-10 text-green-500" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                                            Message Sent Successfully!
+                                        <h3 className="text-3xl font-black text-slate-900 mb-4">
+                                            Message Sent!
                                         </h3>
-                                        <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6">
+                                        <p className="text-xl text-slate-600 max-w-md mx-auto mb-8 leading-relaxed">
                                             Thanks for reaching out! We&apos;ve received your message and will get back to you within 24-48 hours.
                                         </p>
                                         <Button
-                                            variant="outline"
                                             onClick={() => setSubmitted(false)}
+                                            variant="outline"
+                                            className="border-slate-200 text-slate-600 hover:text-purple-600 hover:border-purple-200 hover:bg-purple-50"
                                         >
                                             Send Another Message
                                         </Button>
                                     </div>
                                 ) : (
                                     <>
-                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                                        <h2 className="text-2xl font-bold text-slate-900 mb-2">
                                             Send Us a Message
                                         </h2>
-                                        <p className="text-gray-600 dark:text-gray-400 mb-8">
+                                        <p className="text-slate-600 mb-8">
                                             Fill out the form below and we&apos;ll get back to you as soon as possible.
                                         </p>
 
@@ -228,7 +233,7 @@ export default function ContactPage() {
 
                                             {/* Error Message */}
                                             {error && (
-                                                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3 text-red-700 dark:text-red-300">
+                                                <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl flex items-center gap-3 text-rose-600">
                                                     <FaExclamationCircle className="w-5 h-5 flex-shrink-0" />
                                                     <p>{error}</p>
                                                 </div>
@@ -242,6 +247,7 @@ export default function ContactPage() {
                                                     onChange={(e) => setName(e.target.value)}
                                                     required
                                                     disabled={isLoading}
+                                                    className="bg-slate-50 border-slate-200 focus:border-purple-500 transition-colors"
                                                 />
                                                 <Input
                                                     type="email"
@@ -251,6 +257,7 @@ export default function ContactPage() {
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     required
                                                     disabled={isLoading}
+                                                    className="bg-slate-50 border-slate-200 focus:border-purple-500 transition-colors"
                                                 />
                                             </div>
 
@@ -261,6 +268,7 @@ export default function ContactPage() {
                                                 onChange={(e) => setSubject(e.target.value)}
                                                 required
                                                 disabled={isLoading}
+                                                className="bg-slate-50 border-slate-200 focus:border-purple-500 transition-colors"
                                             />
 
                                             <Textarea
@@ -271,11 +279,12 @@ export default function ContactPage() {
                                                 onChange={(e) => setMessage(e.target.value)}
                                                 required
                                                 disabled={isLoading}
+                                                className="bg-slate-50 border-slate-200 focus:border-purple-500 transition-colors"
                                             />
 
                                             <Button
                                                 type="submit"
-                                                className="w-full"
+                                                className="w-full bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/30 transition-all hover:-translate-y-0.5"
                                                 size="lg"
                                                 disabled={isLoading}
                                             >
@@ -292,9 +301,9 @@ export default function ContactPage() {
                                                 )}
                                             </Button>
 
-                                            <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+                                            <p className="text-center text-slate-400 text-sm">
                                                 By submitting, you agree to our{" "}
-                                                <a href="/privacy-policy" className="text-red-500 hover:underline">Privacy Policy</a>
+                                                <a href="/privacy-policy" className="text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors">Privacy Policy</a>
                                             </p>
                                         </form>
                                     </>

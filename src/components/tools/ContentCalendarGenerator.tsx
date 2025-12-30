@@ -192,7 +192,7 @@ export default function ContentCalendarGenerator() {
                 {calendar.length > 0 && (
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            <h3 className="text-lg font-semibold text-slate-900">
                                 Content Calendar
                             </h3>
                             <Button variant="secondary" onClick={handleDownloadCSV}>
@@ -203,14 +203,14 @@ export default function ContentCalendarGenerator() {
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse">
                                 <thead>
-                                    <tr className="bg-gray-100 dark:bg-gray-700">
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white rounded-tl-lg">
+                                    <tr className="bg-slate-100">
+                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tl-lg">
                                             Day
                                         </th>
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">
+                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
                                             Video Title
                                         </th>
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white rounded-tr-lg">
+                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tr-lg">
                                             Type
                                         </th>
                                     </tr>
@@ -219,21 +219,21 @@ export default function ContentCalendarGenerator() {
                                     {calendar.map((entry, i) => (
                                         <tr
                                             key={i}
-                                            className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                                            className="border-b border-slate-100 hover:bg-slate-50"
                                         >
-                                            <td className="px-4 py-3 text-gray-900 dark:text-white font-medium">
+                                            <td className="px-4 py-3 text-slate-900 font-medium">
                                                 Day {entry.day}
                                             </td>
-                                            <td className="px-4 py-3 text-gray-700 dark:text-gray-300">
+                                            <td className="px-4 py-3 text-slate-700">
                                                 {entry.title}
                                             </td>
                                             <td className="px-4 py-3">
                                                 <span className={`px-3 py-1 rounded-full text-xs font-medium
-                          ${entry.type === "Tutorial" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300" :
-                                                        entry.type === "Vlog" ? "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300" :
-                                                            entry.type === "Short" ? "bg-pink-100 text-emerald-700 dark:bg-pink-900/30 dark:text-pink-300" :
-                                                                entry.type === "Review" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300" :
-                                                                    "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+                          ${entry.type === "Tutorial" ? "bg-blue-100 text-blue-700" :
+                                                        entry.type === "Vlog" ? "bg-purple-100 text-purple-700" :
+                                                            entry.type === "Short" ? "bg-pink-100 text-emerald-700" :
+                                                                entry.type === "Review" ? "bg-green-100 text-green-700" :
+                                                                    "bg-slate-100 text-slate-700"
                                                     }
                         `}>
                                                     {entry.type}

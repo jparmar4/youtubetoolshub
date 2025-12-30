@@ -167,11 +167,11 @@ export default function TagGenerator() {
         if (!sectionTags || sectionTags.length === 0) return null;
 
         const colorClasses: Record<string, string> = {
-            red: "bg-red-100 dark:bg-red-900/30 text-emerald-700 dark:text-red-300",
-            blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-            green: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-            orange: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
-            purple: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
+            red: "bg-red-100 text-red-700",
+            blue: "bg-blue-100 text-blue-700",
+            green: "bg-green-100 text-green-700",
+            orange: "bg-orange-100 text-orange-700",
+            purple: "bg-purple-100 text-purple-700",
         };
 
         return (
@@ -179,8 +179,8 @@ export default function TagGenerator() {
                 <div className="flex items-center gap-2">
                     <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
                     <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{title}</h3>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{description}</p>
+                        <h3 className="font-semibold text-slate-900">{title}</h3>
+                        <p className="text-xs text-slate-500">{description}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -247,18 +247,18 @@ export default function TagGenerator() {
 
                 {/* Error Display */}
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4">
-                        <p className="text-emerald-600 dark:text-emerald-400">{error}</p>
+                    <div className="bg-red-50 rounded-xl p-4">
+                        <p className="text-emerald-600">{error}</p>
                     </div>
                 )}
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-2xl p-8 text-center">
+                    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8 text-center">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center animate-pulse">
                             <FaHashtag className="w-8 h-8 text-white" />
                         </div>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <p className="text-slate-600">
                             Analyzing topic & generating SEO-optimized tags...
                         </p>
                     </div>
@@ -268,10 +268,10 @@ export default function TagGenerator() {
                 {hasTags && !loading && (
                     <div className="space-y-6">
                         {/* Summary & Copy Buttons */}
-                        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-xl">
                             <div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                    Generated <strong className="text-gray-900 dark:text-white">{totalCount} tags</strong> optimized for SEO
+                                <p className="text-sm text-slate-600">
+                                    Generated <strong className="text-slate-900">{totalCount} tags</strong> optimized for SEO
                                 </p>
                             </div>
                             <div className="flex gap-2">
@@ -323,11 +323,11 @@ export default function TagGenerator() {
                         </div>
 
                         {/* Pro Tips */}
-                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-                            <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                        <div className="bg-blue-50 rounded-xl p-4">
+                            <h4 className="font-medium text-blue-900 mb-2">
                                 💡 Pro Tips for Maximum Reach
                             </h4>
-                            <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                            <ul className="text-sm text-blue-700 space-y-1">
                                 <li>• <strong>Order matters:</strong> Put primary tags first - YouTube weights them more</li>
                                 <li>• <strong>Use all 500 characters:</strong> More relevant tags = more discovery</li>
                                 <li>• <strong>Match your title:</strong> Include your exact title words as tags</li>

@@ -161,10 +161,10 @@ export default function ChannelIdFinder() {
                 {channelData && !loading && (
                     <div className="animate-fade-in space-y-6">
                         {/* Channel Header Card */}
-                        <div className="bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
+                        <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
                             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
                                 <div className="shrink-0">
-                                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-gray-50 dark:border-gray-700 shadow-md">
+                                    <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-md">
                                         <Image
                                             src={channelData.thumbnails.high.url}
                                             alt={channelData.title}
@@ -174,61 +174,60 @@ export default function ChannelIdFinder() {
                                     </div>
                                 </div>
                                 <div className="flex-1 text-center sm:text-left space-y-2">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                                         {channelData.title}
                                     </h2>
-                                    <div className="text-gray-500 dark:text-gray-400 font-medium">
+                                    <div className="text-slate-500 font-medium">
                                         {channelData.customUrl}
                                     </div>
                                     <div className="flex flex-wrap justify-center sm:justify-start gap-4 mt-2">
-                                        <div className="bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-lg text-sm text-gray-600 dark:text-gray-300">
-                                            <span className="font-bold text-gray-900 dark:text-gray-100">{formatNumber(channelData.statistics.subscriberCount)}</span> Subscribers
+                                        <div className="bg-slate-50 px-3 py-1 rounded-lg text-sm text-slate-600">
+                                            <span className="font-bold text-slate-900">{formatNumber(channelData.statistics.subscriberCount)}</span> Subscribers
                                         </div>
-                                        <div className="bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-lg text-sm text-gray-600 dark:text-gray-300">
-                                            <span className="font-bold text-gray-900 dark:text-gray-100">{formatNumber(channelData.statistics.videoCount)}</span> Videos
+                                        <div className="bg-slate-50 px-3 py-1 rounded-lg text-sm text-slate-600">
+                                            <span className="font-bold text-slate-900">{formatNumber(channelData.statistics.videoCount)}</span> Videos
                                         </div>
-                                        <div className="bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-lg text-sm text-gray-600 dark:text-gray-300">
-                                            <span className="font-bold text-gray-900 dark:text-gray-100">{formatNumber(channelData.statistics.viewCount)}</span> Views
+                                        <div className="bg-slate-50 px-3 py-1 rounded-lg text-sm text-slate-600">
+                                            <span className="font-bold text-slate-900">{formatNumber(channelData.statistics.viewCount)}</span> Views
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* IDs Card */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-2xl p-6">
+                            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-lg">
-                                        <FaIdCard className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                                    <div className="p-2 bg-blue-100 rounded-lg">
+                                        <FaIdCard className="w-6 h-6 text-blue-600" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Channel ID</h3>
+                                    <h3 className="text-lg font-bold text-slate-900">Channel ID</h3>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
-                                    <code className="text-lg font-mono text-blue-600 dark:text-blue-300 break-all">
+                                <div className="bg-white rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
+                                    <code className="text-lg font-mono text-blue-600 break-all">
                                         {channelData.id}
                                     </code>
                                     <CopyButton text={channelData.id} variant="icon" />
                                 </div>
-                                <p className="mt-3 text-sm text-blue-700 dark:text-blue-300 opacity-80">
+                                <p className="mt-3 text-sm text-blue-700 opacity-80">
                                     This is the permanent unique identifier for the channel.
                                 </p>
                             </div>
 
-                            <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-6">
+                            <div className="bg-purple-50 border border-purple-100 rounded-2xl p-6">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="p-2 bg-purple-100 dark:bg-purple-800 rounded-lg">
-                                        <FaUser className="w-6 h-6 text-purple-600 dark:text-purple-300" />
+                                    <div className="p-2 bg-purple-100 rounded-lg">
+                                        <FaUser className="w-6 h-6 text-purple-600" />
                                     </div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Handle</h3>
+                                    <h3 className="text-lg font-bold text-slate-900">Handle</h3>
                                 </div>
-                                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
-                                    <code className="text-lg font-mono text-purple-600 dark:text-purple-300 break-all">
+                                <div className="bg-white rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
+                                    <code className="text-lg font-mono text-purple-600 break-all">
                                         {channelData.customUrl}
                                     </code>
                                     <CopyButton text={channelData.customUrl} variant="icon" />
                                 </div>
-                                <p className="mt-3 text-sm text-purple-700 dark:text-purple-300 opacity-80">
+                                <p className="mt-3 text-sm text-purple-700 opacity-80">
                                     This is the custom handle for the channel.
                                 </p>
                             </div>
@@ -236,9 +235,9 @@ export default function ChannelIdFinder() {
 
                         {/* Channel Description */}
                         {channelData.description && (
-                            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-6">
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">About Channel</h3>
-                                <p className="text-gray-600 dark:text-gray-400 whitespace-pre-wrap text-sm leading-relaxed max-h-48 overflow-y-auto">
+                            <div className="bg-slate-50 rounded-2xl p-6">
+                                <h3 className="text-lg font-semibold text-slate-900 mb-3">About Channel</h3>
+                                <p className="text-slate-600 whitespace-pre-wrap text-sm leading-relaxed max-h-48 overflow-y-auto">
                                     {channelData.description}
                                 </p>
                             </div>

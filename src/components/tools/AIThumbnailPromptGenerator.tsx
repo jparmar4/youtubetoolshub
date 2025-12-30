@@ -235,10 +235,10 @@ function AIThumbnailPromptGeneratorContent() {
 
             {/* Hero Input Section */}
             <div className="bg-gradient-to-r from-purple-600 via-emerald-500 to-emerald-500 rounded-2xl p-[2px]">
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
+                <div className="bg-white rounded-2xl p-6">
                     <div className="flex items-center gap-2 mb-4">
                         <FaRocket className="text-purple-500 text-xl" />
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                        <h3 className="text-lg font-bold text-slate-900">
                             Describe Your Video
                         </h3>
                     </div>
@@ -296,10 +296,10 @@ function AIThumbnailPromptGeneratorContent() {
             </div>
 
             {/* Quick Templates */}
-            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-6">
+            <div className="bg-slate-50 rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <FaLightbulb className="text-yellow-500" />
-                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                    <h3 className="font-semibold text-slate-900">
                         Quick Prompt Templates
                     </h3>
                 </div>
@@ -307,15 +307,15 @@ function AIThumbnailPromptGeneratorContent() {
                     {quickPromptTemplates.map((template, i) => (
                         <div
                             key={i}
-                            className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 hover:border-purple-500 transition-colors"
+                            className="bg-white rounded-xl p-4 border border-slate-200 hover:border-purple-500 transition-colors"
                         >
                             <div className="flex items-center justify-between mb-2">
-                                <span className="font-medium text-gray-900 dark:text-white text-sm">
+                                <span className="font-medium text-slate-900 text-sm">
                                     {template.label}
                                 </span>
                                 <CopyButton text={template.prompt} variant="icon" />
                             </div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-3">
+                            <p className="text-xs text-slate-500 line-clamp-3">
                                 {template.prompt}
                             </p>
                         </div>
@@ -327,10 +327,10 @@ function AIThumbnailPromptGeneratorContent() {
             {loading && (
                 <div className="flex flex-col items-center justify-center py-12">
                     <div className="relative">
-                        <div className="w-20 h-20 rounded-full border-4 border-purple-200 dark:border-purple-900"></div>
+                        <div className="w-20 h-20 rounded-full border-4 border-purple-200"></div>
                         <div className="absolute top-0 left-0 w-20 h-20 rounded-full border-4 border-purple-600 border-t-transparent animate-spin"></div>
                     </div>
-                    <p className="mt-4 text-gray-600 dark:text-gray-400 font-medium">
+                    <p className="mt-4 text-slate-600 font-medium">
                         Crafting perfect prompts...
                     </p>
                 </div>
@@ -341,7 +341,7 @@ function AIThumbnailPromptGeneratorContent() {
                 <div className="space-y-6">
                     <div className="flex items-center gap-2">
                         <FaStar className="text-yellow-500" />
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        <h3 className="text-xl font-bold text-slate-900">
                             Your AI-Optimized Prompts
                         </h3>
                     </div>
@@ -350,21 +350,21 @@ function AIThumbnailPromptGeneratorContent() {
                         {generatedPrompts.map((prompt, i) => (
                             <div
                                 key={i}
-                                className="group bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:border-purple-500 dark:hover:border-purple-500 transition-all"
+                                className="group bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-5 border border-slate-200 hover:border-purple-500 transition-all"
                             >
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-medium px-2 py-1 rounded-full">
+                                            <span className="bg-purple-100 text-purple-700 text-xs font-medium px-2 py-1 rounded-full">
                                                 Prompt {i + 1}
                                             </span>
                                             {i === 0 && (
-                                                <span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 text-xs font-medium px-2 py-1 rounded-full">
+                                                <span className="bg-yellow-100 text-yellow-700 text-xs font-medium px-2 py-1 rounded-full">
                                                     ⭐ Recommended
                                                 </span>
                                             )}
                                         </div>
-                                        <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                        <p className="text-slate-700 text-sm leading-relaxed">
                                             {prompt}
                                         </p>
                                     </div>
@@ -377,18 +377,18 @@ function AIThumbnailPromptGeneratorContent() {
                     </div>
 
                     {/* Usage Tips */}
-                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6">
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6">
+                        <h4 className="font-semibold text-slate-900 mb-3">
                             💡 Pro Tips for Best Results
                         </h4>
-                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <ul className="space-y-2 text-sm text-slate-600">
                             <li className="flex items-start gap-2">
                                 <span className="text-blue-500 font-bold">1.</span>
                                 Use these prompts with our <strong>AI Thumbnail Generator</strong> for instant results
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-blue-500 font-bold">2.</span>
-                                Add <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded text-xs">--no text</code> in Midjourney to avoid text on thumbnails
+                                Add <code className="bg-slate-200 px-1 rounded text-xs">--no text</code> in Midjourney to avoid text on thumbnails
                             </li>
                             <li className="flex items-start gap-2">
                                 <span className="text-blue-500 font-bold">3.</span>
@@ -405,14 +405,14 @@ function AIThumbnailPromptGeneratorContent() {
 
             {/* Empty State */}
             {!loading && generatedPrompts.length === 0 && (
-                <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/30 rounded-2xl">
+                <div className="text-center py-12 bg-slate-50 rounded-2xl">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center">
                         <FaMagic className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
                         Ready to Create Perfect Prompts
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                    <p className="text-slate-600 max-w-md mx-auto">
                         Enter your video topic and customize the options above to generate
                         AI-optimized prompts for stunning thumbnails.
                     </p>

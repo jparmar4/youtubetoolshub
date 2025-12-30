@@ -169,7 +169,7 @@ export default function ThumbnailGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                         <div className="md:col-span-3">
                             <Input
@@ -204,7 +204,7 @@ export default function ThumbnailGenerator() {
                 {/* Results Section */}
                 {results.length > 0 && (
                     <div className="space-y-6">
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                             <FaBrain className="text-purple-500" /> Psychology-Backed Concepts
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -213,11 +213,11 @@ export default function ThumbnailGenerator() {
                                 return (
                                     <div
                                         key={i}
-                                        className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-purple-500/30 transition-all flex flex-col justify-between group h-full"
+                                        className="bg-white rounded-2xl p-6 border border-slate-200 hover:shadow-lg hover:border-purple-500/30 transition-all flex flex-col justify-between group h-full"
                                     >
                                         <div>
                                             {/* Trigger Badge */}
-                                            <div className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 mb-4">
+                                            <div className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 mb-4">
                                                 {idea.trigger || "Curiosity Hook"}
                                             </div>
 
@@ -229,19 +229,19 @@ export default function ThumbnailGenerator() {
                                             </div>
 
                                             {/* Color Suggestion */}
-                                            <div className="flex items-start gap-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
-                                                <FaPalette className="flex-shrink-0 mt-0.5 text-gray-400" />
+                                            <div className="flex items-start gap-2 text-sm text-slate-500 mb-4">
+                                                <FaPalette className="flex-shrink-0 mt-0.5 text-slate-400" />
                                                 <span>{idea.color_suggestion || "High contrast colors recommendation"}</span>
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+                                        <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                                             <button
                                                 onClick={() => handleSave(idea)}
                                                 disabled={isSaved}
                                                 className={`flex items-center gap-2 text-sm font-medium transition-colors ${isSaved
                                                     ? "text-yellow-500 cursor-default"
-                                                    : "text-gray-500 hover:text-yellow-500"
+                                                    : "text-slate-500 hover:text-yellow-500"
                                                     }`}
                                             >
                                                 {isSaved ? <FaStar /> : <FaRegStar />}

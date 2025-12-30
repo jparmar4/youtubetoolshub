@@ -152,9 +152,9 @@ export default function HashtagGenerator() {
         if (!items || items.length === 0) return null;
 
         const colorClasses: Record<string, string> = {
-            purple: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
-            blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-            orange: "bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300",
+            purple: "bg-purple-50 text-purple-700",
+            blue: "bg-blue-50 text-blue-700",
+            orange: "bg-orange-50 text-orange-700",
         };
 
         return (
@@ -162,8 +162,8 @@ export default function HashtagGenerator() {
                 <div className="flex items-center gap-2">
                     <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
                     <div>
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">{title}</h3>
-                        <p className="text-xs text-gray-500">{desc}</p>
+                        <h3 className="text-lg font-bold text-slate-900">{title}</h3>
+                        <p className="text-xs text-slate-500">{desc}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -203,7 +203,7 @@ export default function HashtagGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <Input
                             label="Video Topic"
@@ -233,8 +233,8 @@ export default function HashtagGenerator() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="flex flex-wrap items-center justify-between gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl">
-                            <h3 className="font-semibold text-gray-700 dark:text-gray-300">
+                        <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <h3 className="font-semibold text-slate-700">
                                 Found {allHashtags.length} hashtags
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -244,7 +244,7 @@ export default function HashtagGenerator() {
                                     disabled={saved}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${saved
                                         ? "bg-green-100 text-green-700 cursor-default"
-                                        : "bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+                                        : "bg-white border border-slate-200 hover:bg-slate-50 text-slate-700"
                                         }`}
                                 >
                                     {saved ? <FaCheckCircle /> : <FaBookmark />}

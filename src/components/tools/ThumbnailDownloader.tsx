@@ -105,16 +105,16 @@ export default function ThumbnailDownloader() {
                 {/* Results Section */}
                 {thumbnails && (
                     <div className="space-y-6">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-lg font-semibold text-slate-900">
                             Available Thumbnails
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {thumbnails.map((thumb) => (
                                 <div
                                     key={thumb.quality}
-                                    className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4"
+                                    className="bg-slate-50 rounded-xl p-4"
                                 >
-                                    <div className="aspect-video mb-4 rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-600">
+                                    <div className="aspect-video mb-4 rounded-lg overflow-hidden bg-slate-200">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={thumb.url}
@@ -128,10 +128,10 @@ export default function ThumbnailDownloader() {
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="font-medium text-gray-900 dark:text-white">
+                                            <p className="font-medium text-slate-900">
                                                 {thumb.quality}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                            <p className="text-sm text-slate-500">
                                                 {thumb.dimension}
                                             </p>
                                         </div>

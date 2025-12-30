@@ -33,8 +33,8 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
         if (compact) {
             return (
                 <div className={`inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full ${isWarning
-                    ? "bg-red-100 dark:bg-red-900/30 text-emerald-700 dark:text-red-300"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                    ? "bg-red-100 text-red-700"
+                    : "bg-slate-100 text-slate-600"
                     }`}>
                     <span className="flex items-center gap-1">
                         <FaBolt className="w-3 h-3" />
@@ -47,8 +47,8 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
         // Full banner for single tool
         return (
             <div className={`relative rounded-xl p-4 mb-6 ${isWarning
-                ? "bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-200 dark:border-red-800"
-                : "bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+                ? "bg-gradient-to-r from-red-50 to-orange-50 border border-red-200"
+                : "bg-slate-50 border border-slate-200"
                 }`}>
                 <button
                     onClick={() => setDismissed(true)}
@@ -60,14 +60,14 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-2">
-                            <div className={`p-2 rounded-lg ${isLow ? 'bg-red-100 dark:bg-red-900/30' : 'bg-blue-100 dark:bg-blue-900/30'}`}>
-                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-emerald-600' : 'text-blue-600'}`} />
+                            <div className={`p-2 rounded-lg ${isLow ? 'bg-red-100' : 'bg-blue-100'}`}>
+                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-red-600' : 'text-blue-600'}`} />
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                <p className="text-sm font-medium text-slate-900">
                                     Daily Credits
                                 </p>
-                                <p className={`text-xs ${isLow ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                                <p className={`text-xs ${isLow ? 'text-red-600' : 'text-slate-500'}`}>
                                     {stats.used}/{stats.limit} used today
                                 </p>
                             </div>
@@ -99,8 +99,8 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
     if (compact) {
         return (
             <div className={`inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full ${isWarning
-                ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                ? "bg-yellow-100 text-yellow-700"
+                : "bg-slate-100 text-slate-600"
                 }`}>
                 {showAi && (
                     <span className="flex items-center gap-1">
@@ -121,8 +121,8 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
 
     return (
         <div className={`relative rounded-xl p-4 mb-6 ${isWarning
-            ? "bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800"
-            : "bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+            ? "bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200"
+            : "bg-slate-50 border border-slate-200"
             }`}>
             <button
                 onClick={() => setDismissed(true)}
@@ -135,14 +135,14 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 <div className="flex flex-wrap items-center gap-4">
                     {showAi && (
                         <div className="flex items-center gap-2">
-                            <div className={`p-2 rounded-lg ${totalLow ? 'bg-yellow-100 dark:bg-yellow-900/30' : 'bg-blue-100 dark:bg-blue-900/30'}`}>
+                            <div className={`p-2 rounded-lg ${totalLow ? 'bg-yellow-100' : 'bg-blue-100'}`}>
                                 <FaBolt className={`w-4 h-4 ${totalLow ? 'text-yellow-600' : 'text-blue-600'}`} />
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                <p className="text-sm font-medium text-slate-900">
                                     Daily Uses
                                 </p>
-                                <p className={`text-xs ${totalLow ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                                <p className={`text-xs ${totalLow ? 'text-yellow-600' : 'text-slate-500'}`}>
                                     {summary.aiUsed}/{summary.aiLimit} used today
                                 </p>
                             </div>
@@ -151,14 +151,14 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
 
                     {showImage && (
                         <div className="flex items-center gap-2">
-                            <div className={`p-2 rounded-lg ${imageLow ? 'bg-red-100 dark:bg-red-900/30' : 'bg-purple-100 dark:bg-purple-900/30'}`}>
-                                <FaImage className={`w-4 h-4 ${imageLow ? 'text-emerald-600' : 'text-purple-600'}`} />
+                            <div className={`p-2 rounded-lg ${imageLow ? 'bg-red-100' : 'bg-purple-100'}`}>
+                                <FaImage className={`w-4 h-4 ${imageLow ? 'text-red-600' : 'text-purple-600'}`} />
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                <p className="text-sm font-medium text-slate-900">
                                     Image
                                 </p>
-                                <p className={`text-xs ${imageLow ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                                <p className={`text-xs ${imageLow ? 'text-red-600' : 'text-slate-500'}`}>
                                     {summary.imageUsed}/{summary.imageLimit} used
                                 </p>
                             </div>

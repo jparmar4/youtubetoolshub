@@ -132,16 +132,16 @@ export default function EarningsCalculator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Tabs */}
-                <div className="flex p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+                <div className="flex p-1 bg-slate-100 rounded-xl">
                     <button
                         onClick={() => setActiveTab("ads")}
-                        className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${activeTab === "ads" ? "bg-white dark:bg-gray-700 shadow-sm text-blue-600" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"}`}
+                        className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${activeTab === "ads" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         <FaCalculator className="inline mr-2" /> Ad Revenue
                     </button>
                     <button
                         onClick={() => setActiveTab("sponsorships")}
-                        className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${activeTab === "sponsorships" ? "bg-white dark:bg-gray-700 shadow-sm text-purple-600" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"}`}
+                        className={`flex-1 py-3 text-sm font-semibold rounded-lg transition-all ${activeTab === "sponsorships" ? "bg-white shadow-sm text-purple-600" : "text-slate-500 hover:text-slate-900"}`}
                     >
                         <FaHandshake className="inline mr-2" /> Sponsorships
                     </button>
@@ -189,14 +189,14 @@ export default function EarningsCalculator() {
                                     </div>
                                 </div>
 
-                                <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6">
-                                    <h4 className="text-gray-500 font-medium mb-4 flex items-center">
+                                <div className="bg-white border border-slate-200 rounded-2xl p-6">
+                                    <h4 className="text-slate-500 font-medium mb-4 flex items-center">
                                         <FaChartLine className="mr-2" /> Yearly Projection
                                     </h4>
-                                    <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                                    <p className="text-3xl font-bold text-slate-900 mb-2">
                                         {formatCurrency(adResult.yearly)}
                                     </p>
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-slate-500">
                                         *Excludes taxes and platform fees.
                                     </p>
                                 </div>

@@ -73,47 +73,56 @@ export default function SmartWorkflow() {
         return `/tools/${step.toolSlug}`;
     };
 
-    const colorClasses: Record<string, { bg: string; text: string; ring: string }> = {
+    const colorClasses: Record<string, { bg: string; text: string; ring: string; border: string }> = {
         yellow: {
-            bg: "bg-yellow-100 dark:bg-yellow-900/30",
-            text: "text-yellow-600 dark:text-yellow-400",
-            ring: "ring-yellow-500",
+            bg: "bg-amber-100",
+            text: "text-amber-600",
+            ring: "ring-amber-500",
+            border: "border-amber-200"
         },
         blue: {
-            bg: "bg-blue-100 dark:bg-blue-900/30",
-            text: "text-blue-600 dark:text-blue-400",
-            ring: "ring-blue-500",
+            bg: "bg-cyan-100",
+            text: "text-cyan-600",
+            ring: "ring-cyan-500",
+            border: "border-cyan-200"
         },
         purple: {
-            bg: "bg-purple-100 dark:bg-purple-900/30",
-            text: "text-purple-600 dark:text-purple-400",
+            bg: "bg-purple-100",
+            text: "text-purple-600",
             ring: "ring-purple-500",
+            border: "border-purple-200"
         },
         pink: {
-            bg: "bg-pink-100 dark:bg-pink-900/30",
-            text: "text-emerald-600 dark:text-emerald-400",
-            ring: "ring-emerald-500",
+            bg: "bg-fuchsia-100",
+            text: "text-fuchsia-600",
+            ring: "ring-fuchsia-500",
+            border: "border-fuchsia-200"
         },
     };
 
     return (
-        <section className="py-16 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20">
+        <section className="py-24 relative overflow-hidden bg-slate-50">
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-200/20 blur-[120px] rounded-full -z-10" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-100/30 blur-[100px] rounded-full -z-10" />
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <span className="text-purple-600 dark:text-purple-400 font-bold uppercase tracking-wider text-sm">
-                        Smart Workflows
+                <div className="text-center mb-20 relative">
+                    <span className="inline-block py-1 px-3 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-widest mb-4">
+                        Seamless & Fast
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mt-2 mb-4">
-                        From Idea to Upload in 5 Minutes ⚡
+                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                        From Idea to Upload in <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">5 Minutes</span> ⚡
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        Our tools pass data to each other automatically. Click through to build your video package.
+                    <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                        Our tools utilize <span className="font-semibold text-purple-700">Smart Context Passing</span>.
+                        Data flows automatically from one tool to the next, building your video package effortlessly.
                     </p>
                 </div>
 
                 <div className="relative">
                     {/* Connector Line (Desktop) */}
-                    <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-300 dark:via-purple-700 to-transparent -translate-y-1/2 z-0" />
+                    <div className="hidden lg:block absolute top-[28%] left-[10%] w-[80%] h-1 bg-gradient-to-r from-transparent via-purple-300 to-transparent -translate-y-1/2 z-0" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
                         {workflowSteps.map((step, index) => {
@@ -125,37 +134,42 @@ export default function SmartWorkflow() {
                                 <Link
                                     key={step.id}
                                     href={getStepLink(step)}
-                                    className={`bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-700 relative group hover:-translate-y-2 transition-all duration-300 block ${isActive ? `ring-2 ${colors.ring}` : ""
-                                        }`}
+                                    className={`group relative bg-white rounded-2xl p-6 shadow-xl shadow-purple-900/5 border ${colors.border} hover:-translate-y-2 transition-all duration-300 block overflow-hidden`}
                                 >
-                                    <div
-                                        className={`w-12 h-12 rounded-full ${colors.bg} ${colors.text} flex items-center justify-center text-xl font-bold mb-4 mx-auto group-hover:scale-110 transition-transform`}
-                                    >
-                                        {isCompleted ? <FaCheck /> : step.id}
-                                    </div>
-                                    <h3 className="font-bold text-gray-900 dark:text-white mb-2 text-center">
-                                        {step.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                                        {step.description}
-                                    </p>
-                                    <div className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <span className="text-xs font-medium text-purple-600 dark:text-purple-400 flex items-center justify-center gap-1">
-                                            Open Tool <FaArrowRight className="text-[10px]" />
-                                        </span>
+                                    {/* Hover Gradient Overlay */}
+                                    <div className={`absolute inset-0 bg-gradient-to-br from-white to-${step.color}-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+
+                                    <div className="relative z-10">
+                                        <div
+                                            className={`w-14 h-14 rounded-2xl ${colors.bg} ${colors.text} flex items-center justify-center text-xl font-bold mb-6 mx-auto shadow-sm group-hover:rotate-6 transition-transform duration-300`}
+                                        >
+                                            {isCompleted ? <FaCheck /> : step.id}
+                                        </div>
+                                        <h3 className="font-bold text-xl text-slate-900 mb-3 text-center group-hover:text-purple-700 transition-colors">
+                                            {step.title}
+                                        </h3>
+                                        <p className="text-sm text-slate-500 text-center leading-relaxed">
+                                            {step.description}
+                                        </p>
+
+                                        <div className="mt-6 flex justify-center opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                                            <span className={`text-xs font-bold uppercase tracking-wide ${colors.text} flex items-center gap-1`}>
+                                                Start Now <FaArrowRight />
+                                            </span>
+                                        </div>
                                     </div>
                                 </Link>
                             );
                         })}
                     </div>
 
-                    <div className="text-center mt-12">
+                    <div className="text-center mt-16">
                         <Link href="/tools/youtube-video-ideas-generator">
                             <Button
                                 size="lg"
-                                className="bg-gradient-to-r from-indigo-600 to-purple-600 border-0 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-purple-500/30"
+                                className="bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20 px-8 py-4 rounded-xl text-lg font-bold transform hover:scale-105 transition-all duration-200"
                             >
-                                <FaRocket className="mr-2" /> Start the Chain
+                                <FaRocket className="mr-2" /> Start Your Workflow
                             </Button>
                         </Link>
                     </div>

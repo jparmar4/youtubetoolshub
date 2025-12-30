@@ -46,12 +46,12 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
 
     return (
         <>
-            <div className="mt-12 border-t border-gray-100 dark:border-gray-800 pt-10">
+            <div className="mt-12 border-t border-slate-200 pt-10">
                 <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg">
+                    <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
                         <FaHistory />
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-slate-900">
                         Recent Generations
                     </h2>
                 </div>
@@ -75,7 +75,7 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
 
                 {history.length > 6 && (
                     <div className="text-center mt-6">
-                        <a href="/history" className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                        <a href="/history" className="text-sm font-medium text-blue-600 hover:underline">
                             View All History →
                         </a>
                     </div>
@@ -129,32 +129,32 @@ function MiniHistoryCard({
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.05 }}
             onClick={onClick}
-            className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 transition-all cursor-pointer"
+            className="group relative bg-white rounded-xl p-5 border border-slate-200 hover:shadow-lg hover:border-blue-200 transition-all cursor-pointer"
         >
             <div className="flex justify-between items-start mb-3">
-                <span className="text-xs text-gray-400 font-medium">
+                <span className="text-xs text-slate-400 font-medium">
                     {formatDate(item.created_at)}
                 </span>
                 <button
                     onClick={onDelete}
-                    className="text-gray-300 hover:text-emerald-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
+                    className="text-slate-300 hover:text-emerald-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
                     title="Delete"
                 >
                     <FaTrash size={12} />
                 </button>
             </div>
 
-            <h4 className="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 text-sm">
+            <h4 className="font-bold text-slate-900 mb-2 line-clamp-2 text-sm">
                 {title}
             </h4>
 
             {isImage && item.content.images && item.content.images[0] && (
-                <div className="mb-3 rounded-lg overflow-hidden h-24 bg-gray-100 dark:bg-gray-700">
+                <div className="mb-3 rounded-lg overflow-hidden h-24 bg-slate-100">
                     <img src={item.content.images[0]} alt="Thumbnail" className="w-full h-full object-cover" />
                 </div>
             )}
 
-            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">
+            <p className="text-xs text-slate-500 line-clamp-2 mb-3">
                 {getDescription(item.content)}
             </p>
 
@@ -200,12 +200,12 @@ function HistoryDetailModal({
             <div className="space-y-4">
                 {content.title && (
                     <div>
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Title</label>
-                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-gray-800 dark:text-gray-200 font-medium">{content.title}</p>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Title</label>
+                        <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-slate-800 font-medium">{content.title}</p>
                             <button
                                 onClick={() => handleCopy(content.title)}
-                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
                             </button>
@@ -215,12 +215,12 @@ function HistoryDetailModal({
 
                 {content.concept && (
                     <div>
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Concept</label>
-                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-gray-800 dark:text-gray-200">{content.concept}</p>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Concept</label>
+                        <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-slate-800">{content.concept}</p>
                             <button
                                 onClick={() => handleCopy(content.concept)}
-                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
                             </button>
@@ -230,12 +230,12 @@ function HistoryDetailModal({
 
                 {content.description && (
                     <div>
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Description</label>
-                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{content.description}</p>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Description</label>
+                        <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-slate-800 whitespace-pre-wrap">{content.description}</p>
                             <button
                                 onClick={() => handleCopy(content.description)}
-                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
                             </button>
@@ -245,12 +245,12 @@ function HistoryDetailModal({
 
                 {content.thumbnail_concept && (
                     <div>
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Thumbnail Concept</label>
-                        <div className="mt-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-gray-800 dark:text-gray-200 italic">"{content.thumbnail_concept}"</p>
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Thumbnail Concept</label>
+                        <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
+                            <p className="text-slate-800 italic">"{content.thumbnail_concept}"</p>
                             <button
                                 onClick={() => handleCopy(content.thumbnail_concept)}
-                                className="text-gray-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
                             </button>
@@ -263,7 +263,7 @@ function HistoryDetailModal({
                         <div>
                             <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</label>
                             <p className={`text-2xl font-black mt-1 ${content.score >= 90 ? "text-green-500" :
-                                    content.score >= 80 ? "text-blue-500" : "text-yellow-500"
+                                content.score >= 80 ? "text-blue-500" : "text-yellow-500"
                                 }`}>
                                 {content.score}
                             </p>
@@ -315,13 +315,13 @@ function HistoryDetailModal({
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-hidden"
+                className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-hidden"
             >
-                <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
-                    <h3 className="font-bold text-gray-900 dark:text-white">History Details</h3>
+                <div className="flex items-center justify-between p-4 border-b border-slate-100">
+                    <h3 className="font-bold text-slate-900">History Details</h3>
                     <button
                         onClick={onClose}
-                        className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        className="p-2 text-slate-400 hover:text-slate-600 transition-colors"
                     >
                         <FaTimes />
                     </button>
@@ -331,7 +331,7 @@ function HistoryDetailModal({
                     {renderContent()}
                 </div>
 
-                <div className="flex items-center justify-between p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                <div className="flex items-center justify-between p-4 border-t border-slate-100 bg-slate-50">
                     <button
                         onClick={onDelete}
                         className="text-sm text-emerald-500 hover:text-emerald-600 font-medium flex items-center gap-1"
@@ -341,8 +341,8 @@ function HistoryDetailModal({
                     <button
                         onClick={() => handleCopy(fullText)}
                         className={`px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 ${copied
-                                ? "bg-green-500 text-white"
-                                : "bg-blue-600 hover:bg-blue-700 text-white"
+                            ? "bg-green-500 text-white"
+                            : "bg-blue-600 hover:bg-blue-700 text-white"
                             }`}
                     >
                         {copied ? <><FaCheck /> Copied!</> : <><FaCopy /> Copy All</>}

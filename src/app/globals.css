@@ -3,52 +3,36 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Emerald Professional - Fresh Growth Theme */
-  --background: #0a0f0d;
-  /* Dark forest green tint */
-  --foreground: #f9fafb;
+  /* Premium Light Theme (Luminous Violet) */
+  /* Base: Soft Porcelain */
+  --background: #f8fafc;
 
-  /* Primary - Vibrant Emerald Green */
-  --primary: #10b981;
-  /* Emerald 500 */
-  --primary-light: #34d399;
-  /* Emerald 400 */
-  --primary-dark: #059669;
-  /* Emerald 600 */
-  --primary-glow: rgba(16, 185, 129, 0.3);
+  /* Text: Deep Charcoal & Slate */
+  --foreground: #0f172a;
+
+  /* Primary: Electric Violet (High contrast against white) */
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --primary-dark: #7c3aed;
+  --primary-glow: rgba(139, 92, 246, 0.15);
 
   /* Accents */
-  --secondary: #065f46;
-  /* Emerald 800 */
-  --accent: #6ee7b7;
-  /* Emerald 300 */
+  --secondary: #f1f5f9;
+  --accent: #d8b4fe;
 
-  /* Surface */
-  --surface-100: #111917;
-  --surface-200: #1f2937;
-  --surface-300: #374151;
+  /* Surfaces - Light & Clean */
+  --surface-100: #ffffff;
+  --surface-200: #f8fafc;
+  --surface-300: #f1f5f9;
 
-  /* Card Gradients */
-  --card-gradient: linear-gradient(135deg, rgba(17, 25, 23, 0.8), rgba(17, 25, 23, 0.6));
-  --border-color: rgba(16, 185, 129, 0.2);
+  /* UI Borders */
+  --border-color: rgba(148, 163, 184, 0.2);
+
+  /* Glassmorphism - Light Frost */
+  --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
 }
 
-.dark {
-  /* Identical to root - single theme only */
-  --background: #0a0f0d;
-  --foreground: #f9fafb;
-  --primary: #10b981;
-  --primary-light: #34d399;
-  --primary-dark: #059669;
-  --primary-glow: rgba(16, 185, 129, 0.3);
-  --secondary: #065f46;
-  --accent: #6ee7b7;
-  --surface-100: #111917;
-  --surface-200: #1f2937;
-  --surface-300: #374151;
-  --card-gradient: linear-gradient(135deg, rgba(17, 25, 23, 0.8), rgba(17, 25, 23, 0.6));
-  --border-color: rgba(16, 185, 129, 0.2);
-}
+/* Dark mode styles removed to enforce Premium Light Theme */
 
 @theme inline {
   --color-background: var(--background);
@@ -58,6 +42,7 @@
   --color-primary-dark: var(--primary-dark);
   --color-surface-100: var(--surface-100);
   --color-surface-200: var(--surface-200);
+  --color-surface-300: var(--surface-300);
 
   --font-sans: var(--font-jakarta);
   --font-heading: var(--font-outfit);
@@ -84,7 +69,8 @@ h6 {
 
 /* --- Premium Utilities --- */
 
-/* Hero Background - The "Nebula" */
+/* Hero Background - The "Deep Cosmic Nebula" */
+/* Hero Background - The "Luminous Nebula" */
 .nebula-bg {
   position: absolute;
   width: 100%;
@@ -99,10 +85,11 @@ h6 {
   position: absolute;
   top: -20%;
   left: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-  filter: blur(80px);
+  width: 70%;
+  height: 70%;
+  /* Subtle light mode glow */
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 65%);
+  filter: blur(100px);
   animation: float-slow 15s infinite alternate ease-in-out;
   opacity: 0.6;
 }
@@ -112,41 +99,44 @@ h6 {
   position: absolute;
   bottom: -10%;
   right: -5%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
-  /* Cyan glow */
-  filter: blur(90px);
+  width: 60%;
+  height: 70%;
+  /* Soft pink/purple glow */
+  background: radial-gradient(circle, rgba(216, 180, 254, 0.2) 0%, transparent 65%);
+  filter: blur(100px);
   animation: float-slow 20s infinite alternate-reverse ease-in-out;
   opacity: 0.5;
 }
 
-/* Glassmorphism 2.0 - Premium */
+/* Glassmorphism 2.0 - Light Crystal */
 .glass-premium {
   background: var(--card-gradient);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(148, 163, 184, 0.1);
+  /* Soft slate shadow */
 }
 
 .glass-premium:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+  /* Purple tint on hover */
   transform: translateY(-2px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Text Gradients */
+/* Text Gradients - Vibrant on White */
 .text-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, #f472b6 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #d946ef 100%);
+  /* Deep Purple to Pink */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-cyan {
-  background: linear-gradient(135deg, #f472b6 0%, #db2777 100%);
+  background: linear-gradient(135deg, #c026d3 0%, #d946ef 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

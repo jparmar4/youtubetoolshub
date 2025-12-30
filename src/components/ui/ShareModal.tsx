@@ -68,22 +68,22 @@ export default function ShareModal({ isOpen, onClose, title, text, url = "https:
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="bg-white dark:bg-gray-800 rounded-3xl p-6 w-full max-w-md shadow-2xl pointer-events-auto border border-gray-100 dark:border-gray-700"
+                            className="glass-premium rounded-3xl p-6 w-full max-w-md shadow-2xl pointer-events-auto"
                         >
                             <div className="flex items-center justify-between mb-6">
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                                <h3 className="text-xl font-bold text-slate-900">
                                     {title}
                                 </h3>
                                 <button
                                     onClick={onClose}
-                                    className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors text-gray-500"
+                                    className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-600"
                                 >
                                     <FaTimes />
                                 </button>
                             </div>
 
                             {/* Preview Box */}
-                            <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-700 mb-6 font-mono text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+                            <div className="bg-slate-100 p-4 rounded-xl border border-slate-200 mb-6 font-mono text-sm text-slate-600 whitespace-pre-wrap">
                                 {fullText}
                             </div>
 
@@ -107,8 +107,8 @@ export default function ShareModal({ isOpen, onClose, title, text, url = "https:
                             <button
                                 onClick={handleCopy}
                                 className={`w-full py-3 px-4 rounded-xl font-bold border-2 flex items-center justify-center gap-2 transition-all ${copied
-                                        ? "border-green-500 text-green-600 bg-green-50 dark:bg-green-900/20"
-                                        : "border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    ? "border-green-500 text-green-600 bg-green-50"
+                                    : "border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300"
                                     }`}
                             >
                                 {copied ? <FaCheck /> : <FaCopy />}

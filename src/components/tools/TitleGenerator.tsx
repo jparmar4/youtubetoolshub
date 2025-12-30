@@ -250,7 +250,7 @@ export default function TitleGenerator() {
                 />
 
                 {/* Pro Input Section */}
-                <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
                             <Input
@@ -304,8 +304,8 @@ export default function TitleGenerator() {
 
                 {/* Error Display */}
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800">
-                        <p className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-2">
+                    <div className="bg-red-50 rounded-xl p-4 border border-red-200">
+                        <p className="text-emerald-600 font-medium flex items-center gap-2">
                             <FaInfoCircle /> {error}
                         </p>
                     </div>
@@ -328,7 +328,7 @@ export default function TitleGenerator() {
                 <div className="space-y-4">
                     {titles.length > 0 && !loading && (
                         <div className="flex items-center justify-between px-2">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                                 <FaFire className="text-orange-500" /> Top Recommendations
                             </h3>
                             <CopyButton text={allTitlesText} variant="button" label="Copy All Titles" />
@@ -344,30 +344,30 @@ export default function TitleGenerator() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.05 }}
-                                    className="bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-100 dark:border-gray-700 hover:shadow-lg hover:border-red-200 dark:hover:border-red-900/50 transition-all group relative overflow-hidden"
+                                    className="bg-white rounded-2xl p-5 border border-slate-200 hover:shadow-lg hover:border-red-200 transition-all group relative overflow-hidden"
                                 >
                                     <div className="flex flex-col md:flex-row gap-5 items-start">
 
                                         {/* Score Badge */}
-                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 border border-gray-200 dark:border-gray-600">
+                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
                                             <span className={`text-xl font-black ${item.score >= 90 ? "text-green-500" :
                                                 item.score >= 80 ? "text-blue-500" : "text-yellow-500"
                                                 }`}>
                                                 {item.score}
                                             </span>
-                                            <span className="text-[10px] uppercase font-bold text-gray-400">Score</span>
+                                            <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
                                         </div>
 
                                         <div className="flex-1 space-y-2">
-                                            <h4 className="text-lg font-bold text-gray-900 dark:text-white pr-8 leading-snug">
+                                            <h4 className="text-lg font-bold text-slate-900 pr-8 leading-snug">
                                                 {item.title}
                                             </h4>
 
                                             <div className="flex flex-wrap items-center gap-2 text-sm">
-                                                <span className="px-2 py-1 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-300 font-medium flex items-center gap-1.5">
+                                                <span className="px-2 py-1 rounded-md bg-purple-50 text-purple-600 font-medium flex items-center gap-1.5">
                                                     <FaBullseye className="text-xs" /> {item.method}
                                                 </span>
-                                                <span className="text-gray-500 dark:text-gray-400 border-l border-gray-200 dark:border-gray-700 pl-2">
+                                                <span className="text-slate-500 border-l border-slate-200 pl-2">
                                                     {item.why}
                                                 </span>
                                             </div>
@@ -376,7 +376,7 @@ export default function TitleGenerator() {
                                         <div className="flex items-center gap-2 md:self-center">
                                             <Link
                                                 href={`/tools/youtube-description-generator?topic=${encodeURIComponent(item.title)}`}
-                                                className="p-2 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-all font-medium text-sm flex items-center gap-2"
+                                                className="p-2 rounded-xl bg-purple-50 text-purple-600 hover:bg-purple-100 transition-all font-medium text-sm flex items-center gap-2"
                                                 title="Write SEO Description"
                                             >
                                                 <FaPen /> Write Desc
@@ -386,7 +386,7 @@ export default function TitleGenerator() {
                                                 disabled={isSaved}
                                                 className={`p-2 rounded-xl transition-all ${isSaved
                                                     ? "bg-yellow-50 text-yellow-500"
-                                                    : "bg-gray-50 dark:bg-gray-700 text-gray-400 hover:text-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
+                                                    : "bg-slate-50 text-slate-400 hover:text-yellow-500 hover:bg-yellow-50"
                                                     }`}
                                                 title="Save Title"
                                             >

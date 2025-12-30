@@ -214,51 +214,51 @@ export default function TrendHelper() {
 
                 {/* API Key Required Notice */}
                 {isDemo && (
-                    <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4">
-                        <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                        <h4 className="font-medium text-yellow-800 mb-2">
                             ⚠️ YouTube API Key Required
                         </h4>
-                        <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                            Add <code className="bg-yellow-100 dark:bg-yellow-800 px-1 rounded">YOUTUBE_API_KEY</code> to your .env.local to see real trending videos.
+                        <p className="text-sm text-yellow-700">
+                            Add <code className="bg-yellow-100 px-1 rounded">YOUTUBE_API_KEY</code> to your .env.local to see real trending videos.
                         </p>
                     </div>
                 )}
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                        <p className="text-emerald-600 dark:text-emerald-400">{error}</p>
+                    <div className="bg-red-50 rounded-lg p-4">
+                        <p className="text-emerald-600">{error}</p>
                     </div>
                 )}
 
                 {/* Real Trending Videos */}
                 {!isDemo && (
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <h3 className="font-semibold text-slate-900 flex items-center gap-2">
                             <FaFire className="text-emerald-500" />
                             Trending on YouTube ({regionOptions.find(r => r.value === region)?.label})
                         </h3>
 
                         {loadingTrending ? (
-                            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 text-center">
+                            <div className="bg-slate-50 rounded-xl p-8 text-center">
                                 <FaSpinner className="w-8 h-8 mx-auto text-emerald-500 animate-spin mb-3" />
-                                <p className="text-gray-600 dark:text-gray-400">Loading trending videos...</p>
+                                <p className="text-slate-600">Loading trending videos...</p>
                             </div>
                         ) : trendingVideos.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {trendingVideos.slice(0, 10).map((video, i) => (
                                     <div
                                         key={video.id}
-                                        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-red-300 dark:hover:border-emerald-600 transition-colors"
+                                        className="bg-white border border-slate-200 rounded-xl p-4 hover:border-red-300 transition-colors"
                                     >
                                         <div className="flex items-start gap-3">
                                             <span className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs">
                                                 {i + 1}
                                             </span>
                                             <div className="flex-1 min-w-0">
-                                                <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2">
+                                                <h4 className="font-medium text-slate-900 text-sm line-clamp-2">
                                                     {video.title}
                                                 </h4>
-                                                <div className="flex items-center gap-3 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                <div className="flex items-center gap-3 mt-2 text-xs text-slate-500">
                                                     <span>{video.channel}</span>
                                                     <span className="flex items-center gap-1">
                                                         <FaEye className="w-3 h-3" />
@@ -278,8 +278,8 @@ export default function TrendHelper() {
                 )}
 
                 {/* AI Suggestions Section */}
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
-                    <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                <div className="border-t border-slate-200 pt-6 space-y-4">
+                    <h3 className="font-semibold text-slate-900 flex items-center gap-2">
                         <FaLightbulb className="text-yellow-500" />
                         AI Trending Ideas for Your Niche
                     </h3>
@@ -313,15 +313,15 @@ export default function TrendHelper() {
                             {aiSuggestions.map((suggestion, i) => (
                                 <div
                                     key={i}
-                                    className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl p-4"
+                                    className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4"
                                 >
                                     <div className="flex items-start gap-3">
                                         <span className="text-xl">🔥</span>
                                         <div>
-                                            <h4 className="font-medium text-gray-900 dark:text-white">
+                                            <h4 className="font-medium text-slate-900">
                                                 {suggestion.topic}
                                             </h4>
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                            <p className="text-sm text-slate-600 mt-1">
                                                 {suggestion.angle}
                                             </p>
                                             <div className="mt-2">

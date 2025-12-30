@@ -12,18 +12,20 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
     return (
-        <div className="min-h-screen py-20 relative overflow-hidden">
-            <div className="nebula-bg" />
+        <div className="min-h-screen py-20 relative overflow-hidden bg-slate-50">
+            {/* Background Decorations */}
+            <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-purple-100/50 to-transparent -z-10" />
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16 animate-fade-in-up">
-                    <span className="inline-block py-1 px-3 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-sm font-medium mb-6 backdrop-blur-sm">
+                    <span className="inline-block py-1 px-3 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-sm font-medium mb-6 backdrop-blur-sm">
                         Professional Suite
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
                         All YouTube Tools
                     </h1>
-                    <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
                         {tools.length} free tools to help you grow your YouTube channel.
                         From thumbnails to SEO, we&apos;ve got you covered.
                     </p>
@@ -35,11 +37,11 @@ export default function ToolsPage() {
                         const categoryTools = getToolsByCategory(category.id);
                         return (
                             <section key={category.id} className="animate-fade-in-up delay-100">
-                                <div className="mb-8 border-l-4 border-pink-500 pl-4">
-                                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                                <div className="mb-8 border-l-4 border-purple-500 pl-4 bg-white/50 p-4 rounded-r-xl">
+                                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
                                         {category.name}
                                     </h2>
-                                    <p className="text-slate-400">
+                                    <p className="text-slate-600">
                                         {category.description}
                                     </p>
                                 </div>
@@ -53,7 +55,7 @@ export default function ToolsPage() {
                                             description={tool.shortDescription}
                                             href={`/tools/${tool.slug}`}
                                             isAI={tool.isAI}
-                                            className="glass-premium hover:-translate-y-1 transition-all duration-300"
+                                            className="hover:-translate-y-1 transition-all duration-300"
                                         />
                                     ))}
                                 </div>

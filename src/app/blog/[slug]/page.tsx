@@ -110,48 +110,55 @@ export default async function BlogPostPage({
                 />
             )}
 
-            <div className="min-h-screen bg-white dark:bg-gray-900">
+            <div className="min-h-screen bg-slate-50">
                 {/* Header */}
-                <header className="hero-gradient-light dark:hero-gradient py-12 lg:py-16">
-                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <header className="py-16 lg:py-24 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full bg-white/50 backdrop-blur-3xl -z-10" />
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-200/20 blur-[100px] rounded-full -z-10" />
+
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         {/* Back Link */}
                         <Link
                             href="/blog"
-                            className="inline-flex items-center gap-2 text-red-500 hover:text-red-600 mb-8 group"
+                            className="inline-flex items-center gap-2 text-slate-500 hover:text-purple-600 mb-8 group transition-colors font-medium"
                         >
                             <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                             Back to Blog
                         </Link>
 
                         {/* Category */}
-                        <span className="inline-block px-4 py-1.5 text-sm font-medium bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full mb-4">
-                            {post.category}
-                        </span>
+                        <div className="mb-6">
+                            <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide">
+                                {post.category}
+                            </span>
+                        </div>
 
                         {/* Title */}
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight">
                             {post.title}
                         </h1>
 
                         {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400">
-                            <div className="flex items-center gap-2">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white font-bold">
+                        <div className="flex flex-wrap items-center gap-6 text-slate-500 border-t border-b border-slate-200 py-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
                                     {post.author.charAt(0)}
                                 </div>
                                 <div>
-                                    <span className="block text-gray-900 dark:text-white font-medium">{post.author}</span>
-                                    <span className="text-sm">{post.authorRole}</span>
+                                    <span className="block text-slate-900 font-bold">{post.author}</span>
+                                    <span className="text-sm text-slate-500">{post.authorRole}</span>
                                 </div>
                             </div>
-                            <span className="flex items-center gap-2">
-                                <FaCalendar className="w-4 h-4" />
-                                {post.date}
-                            </span>
-                            <span className="flex items-center gap-2">
-                                <FaClock className="w-4 h-4" />
-                                {post.readTime}
-                            </span>
+                            <div className="flex items-center gap-6 ml-auto md:ml-0">
+                                <span className="flex items-center gap-2">
+                                    <FaCalendar className="w-4 h-4 text-purple-400" />
+                                    {post.date}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                    <FaClock className="w-4 h-4 text-purple-400" />
+                                    {post.readTime}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -166,7 +173,7 @@ export default async function BlogPostPage({
 
                         {/* Cover Image */}
                         {post.coverImage && (
-                            <div className="mb-10 rounded-2xl overflow-hidden shadow-xl">
+                            <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
                                 <NextImage
                                     src={post.coverImage}
                                     alt={post.imageAlt || post.title}
@@ -179,28 +186,30 @@ export default async function BlogPostPage({
                         )}
 
                         {/* Article Content */}
-                        <div className="prose prose-lg max-w-none prose-red dark:prose-invert">
+                        <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-p:text-slate-600 prose-p:leading-8 prose-strong:text-slate-900 prose-li:text-slate-600 prose-a:text-purple-600 hover:prose-a:text-purple-700 prose-a:font-medium prose-blockquote:border-l-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg">
                             {processContent(post.content)}
                         </div>
 
                         {/* FAQ Section */}
                         {post.faq && post.faq.length > 0 && (
-                            <div className="mt-12 mb-12">
-                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                    <FaQuestionCircle className="text-red-500" />
+                            <div className="mt-16 mb-12">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                    <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
+                                        <FaQuestionCircle />
+                                    </span>
                                     Frequently Asked Questions
                                 </h3>
                                 <div className="space-y-4">
                                     {post.faq.map((item, index) => (
                                         <details
                                             key={index}
-                                            className="group bg-gray-50 dark:bg-gray-800/50 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800"
+                                            className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
                                         >
-                                            <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                            <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                                                 <span className="pr-4">{item.question}</span>
-                                                <FaChevronDown className="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" />
+                                                <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
                                             </summary>
-                                            <div className="px-4 pb-4 pt-0 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-transparent group-open:border-gray-100 dark:group-open:border-gray-800 group-open:pt-4">
+                                            <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
                                                 {item.answer}
                                             </div>
                                         </details>
@@ -210,13 +219,13 @@ export default async function BlogPostPage({
                         )}
 
                         {/* Tags */}
-                        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div className="mt-16 pt-8 border-t border-slate-200">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                                 <div className="flex flex-wrap gap-2">
                                     {post.keywords.map((keyword) => (
                                         <span
                                             key={keyword}
-                                            className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full text-sm"
+                                            className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
                                         >
                                             {keyword}
                                         </span>
@@ -231,7 +240,7 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Ad Placeholder */}
-                        <div className="mt-10">
+                        <div className="mt-12">
                             <AdPlaceholder size="inline" />
                         </div>
                     </div>
@@ -239,20 +248,22 @@ export default async function BlogPostPage({
 
                 {/* Related Posts */}
                 {relatedPosts.length > 0 && (
-                    <section className="py-12 bg-gray-50 dark:bg-gray-800/50">
+                    <section className="py-16 bg-white border-t border-slate-100">
                         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+                            <h2 className="text-2xl font-bold text-slate-900 mb-8">
                                 Keep Reading
                             </h2>
-                            <div className="grid md:grid-cols-2 gap-6">
+                            <div className="grid md:grid-cols-2 gap-8">
                                 {relatedPosts.map((relatedPost) => (
                                     <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
-                                        <article className="h-full bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all">
-                                            <span className="text-sm text-red-500 font-medium">{relatedPost.category}</span>
-                                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-2 mb-2 group-hover:text-red-500 transition-colors">
+                                        <article className="h-full bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
+                                            <span className="text-xs font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded-md uppercase tracking-wide">
+                                                {relatedPost.category}
+                                            </span>
+                                            <h3 className="text-xl font-bold text-slate-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors leading-tight">
                                                 {relatedPost.title}
                                             </h3>
-                                            <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+                                            <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
                                                 {relatedPost.excerpt}
                                             </p>
                                         </article>
@@ -264,23 +275,27 @@ export default async function BlogPostPage({
                 )}
 
                 {/* CTA */}
-                <section className="py-16 bg-white dark:bg-gray-900">
+                <section className="py-20 bg-slate-50">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-900 rounded-3xl p-8 md:p-12 text-center">
-                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                                Ready to Level Up Your Channel?
-                            </h2>
-                            <p className="text-gray-300 mb-8 max-w-xl mx-auto">
-                                Put these tips into action with our free YouTube tools. Generate better titles,
-                                plan your content, and grow your audience.
-                            </p>
-                            <Link
-                                href="/tools"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-gray-100 text-gray-900 rounded-xl font-medium transition-colors"
-                            >
-                                Explore Tools
-                                <FaArrowRight />
-                            </Link>
+                        <div className="bg-white rounded-[2.5rem] p-8 md:p-12 text-center border border-slate-200 shadow-2xl shadow-purple-900/5 relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-100/50 rounded-bl-full -z-0 opacity-50" />
+
+                            <div className="relative z-10">
+                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                                    Ready to Level Up Your Channel?
+                                </h2>
+                                <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto">
+                                    Put these tips into action with our free YouTube tools. Generate better titles,
+                                    plan your content, and grow your audience.
+                                </p>
+                                <Link
+                                    href="/tools"
+                                    className="inline-flex items-center gap-2 px-10 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
+                                >
+                                    Explore Tools
+                                    <FaArrowRight />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>

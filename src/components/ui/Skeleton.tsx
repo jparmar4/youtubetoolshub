@@ -56,7 +56,7 @@ function Skeleton({
 // Card Skeleton for tool cards
 export function ToolCardSkeleton() {
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+        <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
             <div className="flex items-start gap-4">
                 <Skeleton variant="rectangular" width={48} height={48} className="rounded-xl flex-shrink-0" />
                 <div className="flex-1 min-w-0">
@@ -72,7 +72,7 @@ export function ToolCardSkeleton() {
 // Blog Card Skeleton
 export function BlogCardSkeleton() {
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+        <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
             <Skeleton variant="rectangular" width={80} height={24} className="rounded-full mb-3" />
             <Skeleton variant="text" lines={2} height={18} className="mb-2" />
             <Skeleton variant="text" lines={2} height={14} className="mb-4" />

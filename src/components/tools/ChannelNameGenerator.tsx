@@ -217,15 +217,15 @@ export default function ChannelNameGenerator() {
                 </Button>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                        <p className="text-emerald-600 dark:text-emerald-400">{error}</p>
+                    <div className="bg-red-50 rounded-lg p-4">
+                        <p className="text-emerald-600">{error}</p>
                     </div>
                 )}
 
                 {loading && (
-                    <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 text-center animate-pulse">
+                    <div className="bg-slate-50 rounded-xl p-8 text-center animate-pulse">
                         <FaUser className="w-10 h-10 mx-auto text-blue-500 mb-3" />
-                        <p className="text-gray-600 dark:text-gray-400">Consulting branding engine...</p>
+                        <p className="text-slate-600">Consulting branding engine...</p>
                     </div>
                 )}
 
@@ -234,7 +234,7 @@ export default function ChannelNameGenerator() {
                     <div className="space-y-8 animate-fade-in">
                         <div className="flex items-center justify-between">
                             <div>
-                                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                                <h3 className="text-xl font-bold text-slate-900">
                                     Your Brand Portfolio
                                 </h3>
                                 <p className="text-sm text-gray-500">15 curated names across 5 styles</p>
@@ -262,7 +262,7 @@ export default function ChannelNameGenerator() {
                                 };
 
                                 return (
-                                    <div key={cat.key} className="bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 overflow-hidden shadow-sm">
+                                    <div key={cat.key} className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
                                         <div className={`px-5 py-3 bg-gradient-to-r ${colorClasses[cat.color]}`}>
                                             <div className="flex items-center gap-2 text-white">
                                                 <Icon className="w-5 h-5" />
@@ -275,10 +275,10 @@ export default function ChannelNameGenerator() {
                                             {categoryNames.map((item, i) => (
                                                 <div
                                                     key={i}
-                                                    className="group relative bg-gray-50 dark:bg-gray-700/30 hover:bg-white hover:shadow-md dark:hover:bg-gray-700 border border-transparent hover:border-gray-200 dark:hover:border-gray-600 rounded-xl p-4 transition-all duration-200"
+                                                    className="group relative bg-slate-50 hover:bg-white hover:shadow-md border border-transparent hover:border-slate-200 rounded-xl p-4 transition-all duration-200"
                                                 >
                                                     <div className="flex justify-between items-start mb-2">
-                                                        <span className="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wide bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                                        <span className="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wide bg-slate-200 text-slate-600">
                                                             {item.vibe}
                                                         </span>
                                                         <span className="text-xs font-bold text-green-500">
@@ -286,17 +286,17 @@ export default function ChannelNameGenerator() {
                                                         </span>
                                                     </div>
 
-                                                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                                                    <h4 className="text-lg font-bold text-slate-900 mb-1">
                                                         {item.name}
                                                     </h4>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 line-clamp-2">
+                                                    <p className="text-xs text-slate-500 mb-3 line-clamp-2">
                                                         {item.reason}
                                                     </p>
 
-                                                    <div className="flex items-center gap-2 pt-2 border-t border-gray-100 dark:border-gray-600/50">
+                                                    <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
                                                         <button
                                                             onClick={() => checkAvailability(item.name)}
-                                                            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-md py-1.5 transition-colors"
+                                                            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md py-1.5 transition-colors"
                                                         >
                                                             <FaExternalLinkAlt className="w-3 h-3" />
                                                             Check Tube
@@ -312,11 +312,11 @@ export default function ChannelNameGenerator() {
                         </div>
 
                         {/* Tips */}
-                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-                            <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+                        <div className="bg-blue-50 rounded-xl p-4">
+                            <h4 className="font-medium text-blue-900 mb-2">
                                 ✅ Before You Decide
                             </h4>
-                            <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                            <ul className="text-sm text-blue-700 space-y-1">
                                 <li>• Check if @username is available on YouTube, Instagram & Twitter</li>
                                 <li>• Say it out loud - is it easy to spell when heard?</li>
                                 <li>• Search YouTube to make sure no big channel has a similar name</li>

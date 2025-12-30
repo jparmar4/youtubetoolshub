@@ -24,19 +24,19 @@ export default function NewsletterSignup() {
     };
 
     return (
-        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <div className="glass-premium rounded-2xl p-8 text-center">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
                 <FaEnvelope className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">
+            <h3 className="text-xl font-bold text-slate-900 mb-2">
                 YouTube Tips in Your Inbox
             </h3>
-            <p className="text-gray-400 mb-6 text-sm">
+            <p className="text-slate-600 mb-6 text-sm">
                 Get weekly tips, tool updates, and growth strategies. No spam, unsubscribe anytime.
             </p>
 
             {status === "success" ? (
-                <div className="flex items-center justify-center gap-2 text-green-400">
+                <div className="flex items-center justify-center gap-2 text-emerald-600">
                     <FaCheck className="w-5 h-5" />
                     <span>Thanks for subscribing!</span>
                 </div>
@@ -47,14 +47,14 @@ export default function NewsletterSignup() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email"
-                        className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
+                        className="flex-1 px-4 py-3 rounded-lg bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500 transition-colors"
                         required
                         disabled={status === "loading"}
                     />
                     <button
                         type="submit"
                         disabled={status === "loading"}
-                        className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+                        className="px-6 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-600/50 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                     >
                         {status === "loading" ? (
                             <>
