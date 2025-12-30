@@ -11,13 +11,13 @@ export const siteConfig = {
 
   // Colors (used as CSS variables)
   colors: {
-    primary: "#FF0000", // YouTube Red
-    primaryDark: "#CC0000",
-    secondary: "#1a1a2e",
-    accent: "#FF4136",
-    success: "#28a745",
-    warning: "#ffc107",
-    error: "#dc3545",
+    primary: "#6366f1", // Indigo 500
+    primaryDark: "#4338ca",
+    secondary: "#0f172a",
+    accent: "#f43f5e",
+    success: "#22c55e",
+    warning: "#eab308",
+    error: "#ef4444",
   },
 
   // Navigation
@@ -47,19 +47,41 @@ export const siteConfig = {
   // SEO Defaults
   seo: {
     titleTemplate: "%s | YouTube Tools Hub",
-    defaultTitle: "YouTube Tools Hub - Free YouTube Automation Tools",
-    defaultDescription: "Free YouTube tools for creators: thumbnail downloader, title generator, tag extractor, earnings calculator, and more.",
+    defaultTitle: "YouTube Tools Hub - Free YouTube Automation & SEO Tools",
+    defaultDescription: "Boost your YouTube growth with our free AI-powered tools. Thumbnail downloader, title generator, earnings calculator, and tags extractor. No signup required.",
     keywords: [
+      // Core English Keywords
       "youtube tools",
-      "thumbnail downloader",
-      "youtube seo",
-      "title generator",
-      "tag generator",
-      "youtube automation",
-      "video analytics",
-      "channel growth",
-      "youtube marketing",
-      "content creator tools"
+      "youtube thumbnail downloader",
+      "youtube seo tools free",
+      "youtube title generator",
+      "youtube tag extractor",
+      "youtube automation tools",
+      "youtube earnings calculator",
+      "youtube channel growth",
+      "ai content generator for youtube",
+      "free youtube analytics",
+      "video marketing tools",
+      "content creator toolkit",
+
+      // Long-tail AEO Queries (Answer Engine Optimization)
+      "how to grow youtube channel 2026",
+      "best free youtube tools for small channels",
+      "youtube monetization requirements calculator",
+      "ai tool for youtube video ideas",
+      "generate viral youtube titles free",
+      "download youtube thumbnail high quality 4k",
+
+      // Global/Multilingual Intent (GEO)
+      "descargar miniatuaras youtube", // Spanish
+      "ferramentas youtube gratis", // Portuguese
+      "youtube seo optimierung", // German
+      "outils youtube gratuit", // French
+      "youtube tag generator hindi",
+      "free youtube tools usa",
+      "youtube growth tools uk",
+      "youtube analytics australia",
+      "canada youtube creator tools"
     ],
     openGraph: {
       type: "website",

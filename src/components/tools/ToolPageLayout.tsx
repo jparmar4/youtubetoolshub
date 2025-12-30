@@ -85,20 +85,20 @@ export default function ToolPageLayout({
                 />
             )}
 
-            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full">
+                <div className="max-w-6xl mx-auto">
                     {/* Header */}
-                    <div className="text-center mb-10">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    <div className="text-center mb-10 animate-fade-in-up">
+                        <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
                             {title}
                         </h1>
-                        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                             {description}
                         </p>
                     </div>
 
                     {/* Tool Content */}
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
+                    <div className="glass-premium rounded-2xl shadow-lg p-6 md:p-8 mb-8 animate-fade-in-up delay-100">
                         <MotionWrapper>
                             {children}
                         </MotionWrapper>
@@ -111,17 +111,17 @@ export default function ToolPageLayout({
 
                     {/* How to Use Section */}
                     {howTo.length > 0 && (
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                        <div className="glass-premium rounded-2xl shadow-lg p-6 md:p-8 mb-8 animate-fade-in-up delay-200">
+                            <h2 className="text-2xl font-bold text-white mb-6">
                                 How to Use This Tool
                             </h2>
                             <ol className="space-y-4">
                                 {howTo.map((step, i) => (
                                     <li key={i} className="flex gap-4">
-                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center font-bold text-sm">
+                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm border border-indigo-200 dark:border-indigo-800">
                                             {i + 1}
                                         </span>
-                                        <span className="text-gray-600 dark:text-gray-300 pt-1">
+                                        <span className="text-slate-600 dark:text-slate-300 pt-1">
                                             {step}
                                         </span>
                                     </li>
@@ -132,13 +132,13 @@ export default function ToolPageLayout({
 
                     {/* SEO Content */}
                     {seoContent && (
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="glass-premium rounded-2xl shadow-lg p-6 md:p-8 mb-8 animate-fade-in-up delay-300">
+                            <h2 className="text-2xl font-bold text-white mb-4">
                                 About This Tool
                             </h2>
-                            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                                {seoContent}
-                            </p>
+                            <div className="prose prose-lg dark:prose-invert max-w-none text-slate-300">
+                                <p className="leading-relaxed">{seoContent}</p>
+                            </div>
                         </div>
                     )}
 
@@ -149,17 +149,17 @@ export default function ToolPageLayout({
 
                     {/* FAQ Section */}
                     {faq.length > 0 && (
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                        <div className="glass-premium rounded-2xl shadow-lg p-6 md:p-8 animate-fade-in-up delay-300">
+                            <h2 className="text-2xl font-bold text-white mb-6">
                                 Frequently Asked Questions
                             </h2>
                             <div className="space-y-6">
                                 {faq.map((item, i) => (
-                                    <div key={i} className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-b-0 last:pb-0">
-                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                    <div key={i} className="border-b border-indigo-100 dark:border-indigo-900/30 pb-6 last:border-b-0 last:pb-0">
+                                        <h3 className="font-semibold text-white mb-2">
                                             {item.question}
                                         </h3>
-                                        <p className="text-gray-600 dark:text-gray-400">
+                                        <p className="text-slate-400">
                                             {item.answer}
                                         </p>
                                     </div>
@@ -169,7 +169,9 @@ export default function ToolPageLayout({
                     )}
 
                     {/* Recent History Section */}
-                    <ToolHistory toolSlug={toolSlug} />
+                    <div className="mt-8">
+                        <ToolHistory toolSlug={toolSlug} />
+                    </div>
                 </div>
             </div>
         </>

@@ -12,11 +12,18 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { i18n } from "@/lib/i18n";
 import { UsageProvider } from "@/context/UsageContext";
 
-const inter = Inter({
-  variable: "--font-geist-sans",
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
+
+const outfit = Outfit({
   subsets: ["latin"],
+  variable: "--font-outfit",
   display: "swap",
-  preload: true,
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
 });
 
 // Viewport configuration for better mobile performance
@@ -165,7 +172,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} antialiased min-h-screen flex flex-col`}>
+      <body className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}>
         {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">

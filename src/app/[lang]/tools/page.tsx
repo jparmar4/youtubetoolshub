@@ -12,30 +12,34 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
     return (
-        <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen py-20 relative overflow-hidden">
+            <div className="nebula-bg" />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                <div className="text-center mb-16 animate-fade-in-up">
+                    <span className="inline-block py-1 px-3 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm">
+                        Professional Suite
+                    </span>
+                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                         All YouTube Tools
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
                         {tools.length} free tools to help you grow your YouTube channel.
                         From thumbnails to SEO, we&apos;ve got you covered.
                     </p>
                 </div>
 
                 {/* Tools by Category */}
-                <div className="space-y-16">
+                <div className="space-y-20">
                     {toolCategories.map((category) => {
                         const categoryTools = getToolsByCategory(category.id);
                         return (
-                            <section key={category.id}>
-                                <div className="mb-6">
-                                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                            <section key={category.id} className="animate-fade-in-up delay-100">
+                                <div className="mb-8 border-l-4 border-indigo-500 pl-4">
+                                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                                         {category.name}
                                     </h2>
-                                    <p className="text-gray-600 dark:text-gray-400">
+                                    <p className="text-slate-400">
                                         {category.description}
                                     </p>
                                 </div>
@@ -49,6 +53,7 @@ export default function ToolsPage() {
                                             description={tool.shortDescription}
                                             href={`/tools/${tool.slug}`}
                                             isAI={tool.isAI}
+                                            className="glass-premium hover:-translate-y-1 transition-all duration-300"
                                         />
                                     ))}
                                 </div>

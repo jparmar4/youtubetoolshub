@@ -13,6 +13,7 @@ interface ToolCardProps {
     description: string;
     href: string;
     isAI?: boolean;
+    className?: string;
 }
 
 export function Card({ children, className = "", hover = true }: CardProps) {
@@ -31,21 +32,21 @@ export function Card({ children, className = "", hover = true }: CardProps) {
     );
 }
 
-export function ToolCard({ icon, title, description, href, isAI }: ToolCardProps) {
+export function ToolCard({ icon, title, description, href, isAI, className }: ToolCardProps) {
     return (
         <Link href={href}>
-            <Card className="p-6 h-full cursor-pointer group">
+            <Card className={`p-6 h-full cursor-pointer group ${className || ""}`}>
                 <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform duration-300">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 text-xl group-hover:scale-110 transition-transform duration-300 border border-indigo-500/20">
                         {icon}
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-red-500 transition-colors">
+                            <h3 className="font-semibold text-gray-900 dark:text-white truncate group-hover:text-indigo-500 transition-colors">
                                 {title}
                             </h3>
                             {isAI && (
-                                <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full">
+                                <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-full shadow-sm">
                                     AI
                                 </span>
                             )}
@@ -55,7 +56,7 @@ export function ToolCard({ icon, title, description, href, isAI }: ToolCardProps
                         </p>
                     </div>
                 </div>
-                <div className="mt-4 flex items-center text-red-500 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
+                <div className="mt-4 flex items-center text-indigo-500 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
                     Use Tool
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

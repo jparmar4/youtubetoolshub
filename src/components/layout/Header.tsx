@@ -59,7 +59,7 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
         <Link
             href="/dashboard"
             onClick={onClick}
-            className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl"
+            className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl"
         >
             <span>🚀</span>
             Dashboard
@@ -118,15 +118,15 @@ function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800">
+        <header className="sticky top-0 z-50 glass-premium border-b border-indigo-500/10">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group" prefetch={true}>
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center text-white shadow-lg group-hover:shadow-red-500/25 transition-shadow">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
                             <FaYoutube className="w-5 h-5" />
                         </div>
-                        <span className="font-bold text-xl text-gray-900 dark:text-white hidden sm:block">
+                        <span className="font-bold text-xl text-slate-900 dark:text-white hidden sm:block tracking-tight group-hover:text-indigo-500 transition-colors">
                             {siteConfig.name}
                         </span>
                     </Link>
@@ -138,7 +138,7 @@ function Header() {
                             <NavLink
                                 key={item.name}
                                 href={item.href}
-                                className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors"
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                             >
                                 {item.name}
                             </NavLink>
@@ -152,7 +152,7 @@ function Header() {
                             <NavLink
                                 key={item.name}
                                 href={item.href}
-                                className="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 font-medium transition-colors"
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                             >
                                 {item.name}
                             </NavLink>
@@ -172,7 +172,7 @@ function Header() {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={toggleMenu}
-                            className="md:hidden p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+                            className="md:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                             aria-label="Toggle menu"
                             aria-expanded={isMenuOpen}
                         >
@@ -183,7 +183,7 @@ function Header() {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden py-4 border-t border-gray-100 dark:border-gray-800">
+                    <div className="md:hidden py-4 border-t border-slate-200 dark:border-slate-800 animate-fade-in-up">
                         <div className="flex flex-col gap-2">
                             {/* Home Link (First) */}
                             {siteConfig.nav.filter(item => item.href === '/').map((item) => (
@@ -191,7 +191,7 @@ function Header() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>
@@ -206,7 +206,7 @@ function Header() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-red-500 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>

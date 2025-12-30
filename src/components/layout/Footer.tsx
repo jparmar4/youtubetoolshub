@@ -14,9 +14,9 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-gray-900 text-gray-300">
+        <footer className="bg-slate-950 text-slate-300">
             {/* Newsletter Section */}
-            <div className="border-b border-gray-800">
+            <div className="border-b border-slate-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="max-w-xl mx-auto">
                         <NewsletterSignup />
@@ -29,15 +29,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Brand Section */}
                     <div className="lg:col-span-1">
-                        <Link href="/" className="flex items-center gap-2 mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center text-white">
+                        <Link href="/" className="flex items-center gap-2 mb-4 group">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
                                 <FaYoutube className="w-5 h-5" />
                             </div>
-                            <span className="font-bold text-xl text-white">
+                            <span className="font-bold text-xl text-white tracking-tight group-hover:text-indigo-400 transition-colors">
                                 {siteConfig.name}
                             </span>
                         </Link>
-                        <p className="text-gray-400 text-sm mb-4">
+                        <p className="text-slate-400 text-sm mb-4">
                             {siteConfig.description}
                         </p>
                         {/* Social Links */}
@@ -46,7 +46,7 @@ export default function Footer() {
                                 href="https://t.me/youtubetoolshub"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-gray-800 hover:bg-blue-500 transition-colors"
+                                className="p-2 rounded-lg bg-slate-900 hover:bg-[#0088cc] hover:text-white transition-all duration-300"
                                 aria-label="Telegram"
                             >
                                 <FaTelegram className="w-4 h-4" />
@@ -55,7 +55,7 @@ export default function Footer() {
                                 href="https://www.facebook.com/profile.php?id=61585430621256"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="p-2 rounded-lg bg-gray-800 hover:bg-blue-600 transition-colors"
+                                className="p-2 rounded-lg bg-slate-900 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
                                 aria-label="Facebook"
                             >
                                 <FaFacebook className="w-4 h-4" />
