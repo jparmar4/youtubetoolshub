@@ -3,51 +3,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Midnight Nebula Pro - Light Mode (Clean & Sharp) */
-  --background: #ffffff;
-  --foreground: #0f172a;
-
-  /* Primary - Vivid Electric Violet/Blue Gradient Base */
-  --primary: #6366f1;
-  /* Indigo 500 */
-  --primary-light: #818cf8;
-  --primary-dark: #4338ca;
-  --primary-glow: rgba(99, 102, 241, 0.4);
-
-  /* Accents */
-  --secondary: #0f172a;
-  /* Slate 900 */
-  --accent: #f43f5e;
-  /* Rose 500 */
-
-  /* Surface */
-  --surface-100: #f8fafc;
-  --surface-200: #f1f5f9;
-  --surface-300: #e2e8f0;
-
-  /* Card Gradients */
-  --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
-  --border-color: rgba(148, 163, 184, 0.2);
-}
-
-.dark {
-  /* Midnight Nebula Pro - Dark Mode (Deep Space) */
+  /* Midnight Nebula Pro - Default (Deep Space) */
   --background: #030014;
-  /* Deepest Indigo/Black */
   --foreground: #f8fafc;
 
   /* Primary - Neon Cyan & Electric Purple */
   --primary: #8b5cf6;
-  /* Violet 500 */
   --primary-light: #a78bfa;
   --primary-dark: #7c3aed;
   --primary-glow: rgba(139, 92, 246, 0.5);
 
   /* Accents */
   --secondary: #1e1b4b;
-  /* Indigo 950 */
   --accent: #22d3ee;
-  /* Cyan 400 */
 
   /* Surface */
   --surface-100: #0f172a;
@@ -55,6 +23,23 @@
   --surface-300: #334155;
 
   /* Card Gradients */
+  --card-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4));
+  --border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark {
+  /* Identical to root to ensure consistency */
+  --background: #030014;
+  --foreground: #f8fafc;
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --primary-dark: #7c3aed;
+  --primary-glow: rgba(139, 92, 246, 0.5);
+  --secondary: #1e1b4b;
+  --accent: #22d3ee;
+  --surface-100: #0f172a;
+  --surface-200: #1e293b;
+  --surface-300: #334155;
   --card-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.4));
   --border-color: rgba(255, 255, 255, 0.1);
 }
