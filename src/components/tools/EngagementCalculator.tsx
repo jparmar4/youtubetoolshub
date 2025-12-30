@@ -76,7 +76,7 @@ export default function EngagementCalculator() {
             case "Average":
                 return "text-yellow-500 bg-yellow-100 dark:bg-yellow-900/30";
             case "Needs Improvement":
-                return "text-red-500 bg-red-100 dark:bg-red-900/30";
+                return "text-emerald-500 bg-red-100 dark:bg-red-900/30";
             default:
                 return "text-gray-500 bg-gray-100 dark:bg-gray-700";
         }
@@ -178,7 +178,7 @@ export default function EngagementCalculator() {
                                 Engagement Benchmarks
                             </h4>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                <div><span className="text-red-500 font-medium">&lt; 2%</span> Needs Work</div>
+                                <div><span className="text-emerald-500 font-medium">&lt; 2%</span> Needs Work</div>
                                 <div><span className="text-yellow-500 font-medium">2-5%</span> Average</div>
                                 <div><span className="text-blue-500 font-medium">5-10%</span> Good</div>
                                 <div><span className="text-green-500 font-medium">10%+</span> Excellent</div>

@@ -22,7 +22,7 @@ export default function PaymentButton({ plan, className = "" }: PaymentButtonPro
     return (
         <button
             onClick={handlePayment}
-            className={`flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-700 hover:to-orange-600 text-white py-3 px-6 rounded-xl font-medium transition-all shadow-lg shadow-red-500/25 ${className}`}
+            className={`flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-orange-500 hover:from-emerald-700 hover:to-orange-600 text-white py-3 px-6 rounded-xl font-medium transition-all shadow-lg shadow-emerald-500/25 ${className}`}
         >
             <FaCrown className="w-4 h-4" />
             {plan === "yearly" ? "Get Pro Yearly" : "Get Pro Monthly"}

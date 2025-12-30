@@ -50,7 +50,7 @@ const plans = [
         cta: "Upgrade to Pro",
         href: "/sign-in?plan=pro",
         popular: true,
-        gradient: "from-red-600 to-orange-500",
+        gradient: "from-emerald-600 to-orange-500",
         isPaid: true,
     },
 ];
@@ -85,7 +85,7 @@ export default function PricingClient() {
                         <button
                             onClick={() => setBillingCycle("monthly")}
                             className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "monthly"
-                                ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                ? "bg-gradient-to-r from-emerald-600 to-orange-500 text-white"
                                 : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                                 }`}
                         >
@@ -94,7 +94,7 @@ export default function PricingClient() {
                         <button
                             onClick={() => setBillingCycle("yearly")}
                             className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "yearly"
-                                ? "bg-gradient-to-r from-red-600 to-orange-500 text-white"
+                                ? "bg-gradient-to-r from-emerald-600 to-orange-500 text-white"
                                 : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                                 }`}
                         >
@@ -116,7 +116,7 @@ export default function PricingClient() {
                                 className={`
                                     relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden
                                     ${plan.popular
-                                        ? "ring-2 ring-red-500 shadow-xl shadow-red-500/10"
+                                        ? "ring-2 ring-emerald-500 shadow-xl shadow-emerald-500/10"
                                         : "border border-gray-200 dark:border-gray-700 shadow-lg"
                                     }
                                 `}

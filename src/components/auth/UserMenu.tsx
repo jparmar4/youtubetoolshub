@@ -33,7 +33,7 @@ export default function UserMenu() {
         return (
             <Link
                 href="/sign-in"
-                className="px-4 py-2 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
                 Sign In
             </Link>
@@ -52,11 +52,11 @@ export default function UserMenu() {
                         alt={session.user.name || "User"}
                         width={40}
                         height={40}
-                        className="rounded-full border-2 border-red-500 object-cover"
+                        className="rounded-full border-2 border-emerald-500 object-cover"
                         onError={() => setImageError(true)}
                     />
                 ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center border-2 border-red-500">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-emerald-600 to-orange-500 flex items-center justify-center border-2 border-emerald-500">
                         {session.user.name ? (
                             <span className="text-white font-bold text-lg">
                                 {session.user.name.charAt(0).toUpperCase()}
@@ -104,7 +104,7 @@ export default function UserMenu() {
                     <div className="border-t border-gray-200 dark:border-gray-700 pt-2">
                         <button
                             onClick={() => signOut({ callbackUrl: "/" })}
-                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-emerald-600 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                             <FaSignOutAlt className="w-4 h-4" />
                             Sign Out

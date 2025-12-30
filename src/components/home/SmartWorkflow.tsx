@@ -91,8 +91,8 @@ export default function SmartWorkflow() {
         },
         pink: {
             bg: "bg-pink-100 dark:bg-pink-900/30",
-            text: "text-pink-600 dark:text-pink-400",
-            ring: "ring-pink-500",
+            text: "text-emerald-600 dark:text-emerald-400",
+            ring: "ring-emerald-500",
         },
     };
 

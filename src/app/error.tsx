@@ -20,7 +20,7 @@ export default function Error({
             <div className="text-center max-w-md">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
                     <svg
-                        className="w-10 h-10 text-red-500"
+                        className="w-10 h-10 text-emerald-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ export default function Error({
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button
                         onClick={() => reset()}
-                        className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-medium rounded-xl transition-colors"
+                        className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors"
                     >
                         Try Again
                     </button>

@@ -25,52 +25,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const allEntries: MetadataRoute.Sitemap = [];
 
-    // Generate entries for each locale
-    for (const locale of i18n.locales) {
-        // Static pages
-        for (const route of routes) {
-            allEntries.push({
-                url: `${baseUrl}/${locale}${route}`,
-                lastModified: new Date(),
-                changeFrequency: 'weekly',
-                priority: route === "" ? 1 : 0.7,
-            });
-        }
-
-        // Dynamic tool pages
-        for (const tool of tools) {
-            allEntries.push({
-                url: `${baseUrl}/${locale}/tools/${tool.slug}`,
-                lastModified: new Date(),
-                changeFrequency: 'weekly',
-                priority: 0.9,
-            });
-        }
-
-        // Dynamic blog pages
-        for (const post of blogPosts) {
-            allEntries.push({
-                url: `${baseUrl}/${locale}/blog/${post.slug}`,
-                lastModified: new Date(post.date),
-                changeFrequency: 'monthly',
-                priority: 0.8,
-            });
-        }
-
-        // Programmatic Niche Pages
-        tools.forEach((tool) => {
-            if (programmaticTools.includes(tool.slug)) {
-                niches.forEach((niche: any) => {
-                    allEntries.push({
-                        url: `${baseUrl}/${locale}/tools/${tool.slug}/${niche.id}`,
-                        lastModified: new Date(),
-                        changeFrequency: 'weekly',
-                        priority: 0.8,
-                    });
-                });
-            }
+    // Static pages
+    for (const route of routes) {
+        allEntries.push({
+            url: `${baseUrl}${route}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: route === "" ? 1 : 0.7,
         });
     }
+
+    // Dynamic tool pages
+    for (const tool of tools) {
+        allEntries.push({
+            url: `${baseUrl}/tools/${tool.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        });
+    }
+
+    // Dynamic blog pages
+    for (const post of blogPosts) {
+        allEntries.push({
+            url: `${baseUrl}/blog/${post.slug}`,
+            lastModified: new Date(post.date),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
+    }
+
+    // Programmatic Niche Pages
+    tools.forEach((tool) => {
+        if (programmaticTools.includes(tool.slug)) {
+            niches.forEach((niche: any) => {
+                allEntries.push({
+                    url: `${baseUrl}/tools/${tool.slug}/${niche.id}`,
+                    lastModified: new Date(),
+                    changeFrequency: 'weekly',
+                    priority: 0.8,
+                });
+            });
+        }
+    });
 
     return allEntries;
 }

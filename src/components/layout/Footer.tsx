@@ -30,10 +30,10 @@ export default function Footer() {
                     {/* Brand Section */}
                     <div className="lg:col-span-1">
                         <Link href="/" className="flex items-center gap-2 mb-4 group">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
                                 <FaYoutube className="w-5 h-5" />
                             </div>
-                            <span className="font-bold text-xl text-white tracking-tight group-hover:text-pink-400 transition-colors">
+                            <span className="font-bold text-xl text-white tracking-tight group-hover:text-emerald-400 transition-colors">
                                 {siteConfig.name}
                             </span>
                         </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
                                 <li key={tool.name}>
                                     <Link
                                         href={tool.href}
-                                        className="text-sm hover:text-pink-400 transition-colors"
+                                        className="text-sm hover:text-emerald-400 transition-colors"
                                     >
                                         {tool.name}
                                     </Link>
@@ -80,7 +80,7 @@ export default function Footer() {
                             <li>
                                 <Link
                                     href="/tools"
-                                    className="text-sm text-pink-400 hover:text-pink-300 transition-colors"
+                                    className="text-sm text-emerald-400 hover:text-pink-300 transition-colors"
                                 >
                                     View All Tools →
                                 </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
                                 <li key={item.name}>
                                     <Link
                                         href={item.href}
-                                        className="text-sm hover:text-pink-400 transition-colors"
+                                        className="text-sm hover:text-emerald-400 transition-colors"
                                     >
                                         {item.name}
                                     </Link>
@@ -113,7 +113,7 @@ export default function Footer() {
                                 <li key={item.name}>
                                     <Link
                                         href={item.href}
-                                        className="text-sm hover:text-pink-400 transition-colors"
+                                        className="text-sm hover:text-emerald-400 transition-colors"
                                     >
                                         {item.name}
                                     </Link>
@@ -129,7 +129,7 @@ export default function Footer() {
                         © {currentYear} {siteConfig.name}. All rights reserved.
                     </p>
                     <p className="text-gray-500 text-sm flex items-center gap-1">
-                        Made with <FaHeart className="text-pink-500" /> for YouTube Creators
+                        Made with <FaHeart className="text-emerald-500" /> for YouTube Creators
                     </p>
                 </div>
             </div>

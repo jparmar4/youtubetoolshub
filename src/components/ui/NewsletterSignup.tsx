@@ -25,7 +25,7 @@ export default function NewsletterSignup() {
 
     return (
         <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-red-500/20 flex items-center justify-center text-red-400">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
                 <FaEnvelope className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">
@@ -47,14 +47,14 @@ export default function NewsletterSignup() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email"
-                        className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
+                        className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-colors"
                         required
                         disabled={status === "loading"}
                     />
                     <button
                         type="submit"
                         disabled={status === "loading"}
-                        className="px-6 py-3 bg-red-500 hover:bg-red-600 disabled:bg-red-500/50 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+                        className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500/50 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
                     >
                         {status === "loading" ? (
                             <>

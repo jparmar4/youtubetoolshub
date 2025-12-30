@@ -114,7 +114,7 @@ export function processContent(content: string): React.ReactNode[] {
                             <Link
                                 key={key}
                                 href={url}
-                                className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
+                                className="text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-red-300 underline underline-offset-2"
                             >
                                 {label}
                             </Link>
@@ -128,7 +128,7 @@ export function processContent(content: string): React.ReactNode[] {
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2"
+                            className="text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-red-300 underline underline-offset-2"
                         >
                             {label}
                         </a>
@@ -174,7 +174,7 @@ export function processContent(content: string): React.ReactNode[] {
                                 <Link
                                     key={`${key}-${keyword}`}
                                     href={url}
-                                    className="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 underline underline-offset-2 decoration-dotted"
+                                    className="text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-red-300 underline underline-offset-2 decoration-dotted"
                                     title={`Try our ${keyword} tool`}
                                 >
                                     {match}

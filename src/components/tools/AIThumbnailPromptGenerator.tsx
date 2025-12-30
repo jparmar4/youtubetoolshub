@@ -234,7 +234,7 @@ function AIThumbnailPromptGeneratorContent() {
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
             {/* Hero Input Section */}
-            <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 rounded-2xl p-[2px]">
+            <div className="bg-gradient-to-r from-purple-600 via-emerald-500 to-emerald-500 rounded-2xl p-[2px]">
                 <div className="bg-white dark:bg-gray-900 rounded-2xl p-6">
                     <div className="flex items-center gap-2 mb-4">
                         <FaRocket className="text-purple-500 text-xl" />
@@ -287,7 +287,7 @@ function AIThumbnailPromptGeneratorContent() {
                     <Button
                         onClick={handleGenerate}
                         isLoading={loading}
-                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                        className="w-full bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700"
                     >
                         <FaMagic className="mr-2" />
                         Generate AI Prompts
@@ -406,7 +406,7 @@ function AIThumbnailPromptGeneratorContent() {
             {/* Empty State */}
             {!loading && generatedPrompts.length === 0 && (
                 <div className="text-center py-12 bg-gray-50 dark:bg-gray-800/30 rounded-2xl">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center">
                         <FaMagic className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

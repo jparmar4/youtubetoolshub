@@ -145,13 +145,13 @@ export default function ChannelAudit() {
                             value={channelInput}
                             onChange={(e) => setChannelInput(e.target.value)}
                             placeholder="@MrBeast or Channel ID"
-                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white placeholder-gray-400"
+                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white placeholder-gray-400"
                         />
                     </div>
                     <button
                         onClick={analyzeChannel}
                         disabled={loading || !channelInput}
-                        className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold rounded-xl shadow-lg hover:shadow-red-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[160px]"
+                        className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[160px]"
                     >
                         {loading ? (
                             <><FaSpinner className="animate-spin" /> Analyzing...</>
@@ -173,7 +173,7 @@ export default function ChannelAudit() {
                     >
                         {/* Score Card */}
                         <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-700 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-red-500/10 to-transparent rounded-bl-full pointer-events-none" />
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full pointer-events-none" />
 
                             <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
                                 {/* Gauge */}
@@ -198,7 +198,7 @@ export default function ChannelAudit() {
                                             strokeDasharray={2 * Math.PI * 88}
                                             strokeDashoffset={2 * Math.PI * 88 * (1 - result.score / 100)}
                                             className={`transition-all duration-1000 ease-out ${result.score >= 90 ? "text-green-500" :
-                                                result.score >= 70 ? "text-yellow-500" : "text-red-500"
+                                                result.score >= 70 ? "text-yellow-500" : "text-emerald-500"
                                                 }`}
                                         />
                                     </svg>
@@ -259,7 +259,7 @@ export default function ChannelAudit() {
                                                     setShowShareModal(true);
                                                 }
                                             }}
-                                            className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium transition-colors"
+                                            className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
                                         >
                                             <FaShareAlt /> Share Result
                                         </button>
@@ -279,13 +279,13 @@ export default function ChannelAudit() {
                                         ) : metric.status === "warning" ? (
                                             <FaExclamationTriangle className="text-yellow-500 text-xl" />
                                         ) : (
-                                            <FaTimesCircle className="text-red-500 text-xl" />
+                                            <FaTimesCircle className="text-emerald-500 text-xl" />
                                         )}
                                     </div>
                                     <div className="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2 mb-4">
                                         <div
                                             className={`h-2 rounded-full ${metric.score >= 80 ? "bg-green-500" :
-                                                metric.score >= 60 ? "bg-yellow-500" : "bg-red-500"
+                                                metric.score >= 60 ? "bg-yellow-500" : "bg-emerald-500"
                                                 }`}
                                             style={{ width: `${metric.score}%` }}
                                         />

@@ -209,7 +209,7 @@ export default function IntroScriptGenerator() {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400">
+                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
                         {error}
                     </div>
                 )}
@@ -230,7 +230,7 @@ export default function IntroScriptGenerator() {
                                     title="🎬 The Hook (0-3s)"
                                     content={scriptData.hook}
                                     tip="Purpose: Grab attention immediately. Stop the scroll."
-                                    color="text-red-600 dark:text-red-400"
+                                    color="text-emerald-600 dark:text-emerald-400"
                                     bgColor="bg-red-50 dark:bg-red-900/20"
                                 />
                                 <ScriptSection

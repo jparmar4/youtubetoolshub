@@ -137,7 +137,7 @@ function MiniHistoryCard({
                 </span>
                 <button
                     onClick={onDelete}
-                    className="text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
+                    className="text-gray-300 hover:text-emerald-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
                     title="Delete"
                 >
                     <FaTrash size={12} />
@@ -334,7 +334,7 @@ function HistoryDetailModal({
                 <div className="flex items-center justify-between p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
                     <button
                         onClick={onDelete}
-                        className="text-sm text-red-500 hover:text-red-600 font-medium flex items-center gap-1"
+                        className="text-sm text-emerald-500 hover:text-emerald-600 font-medium flex items-center gap-1"
                     >
                         <FaTrash size={12} /> Delete
                     </button>

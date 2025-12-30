@@ -11,12 +11,12 @@ export const siteConfig = {
 
   // Colors (used as CSS variables)
   colors: {
-    primary: "#db2777", // Pink 600
-    primaryDark: "#be185d", // Pink 700
-    secondary: "#0f172a", // Slate 900
-    accent: "#f472b6", // Pink 400
-    success: "#22c55e",
-    warning: "#eab308",
+    primary: "#10b981", // Emerald 500
+    primaryDark: "#059669", // Emerald 600
+    secondary: "#0a0f0d", // Forest-tinted dark
+    accent: "#34d399", // Emerald 400
+    success: "#6ee7b7",
+    warning: "#fbbf24",
     error: "#ef4444",
   },
 

@@ -246,7 +246,7 @@ function DescriptionGeneratorContent() {
             </div>
 
             {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400">
+                <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
                     {error}
                 </div>
             )}
@@ -290,7 +290,7 @@ function DescriptionGeneratorContent() {
                             </button>
                             <Link
                                 href={`/tools/youtube-ai-thumbnail-prompt?topic=${encodeURIComponent(topic)}`}
-                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-pink-600 hover:bg-pink-50 dark:text-pink-400 dark:hover:bg-pink-900/20"
+                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-emerald-600 hover:bg-pink-50 dark:text-emerald-400 dark:hover:bg-pink-900/20"
                             >
                                 <FaImage /> Thumbnail
                             </Link>
@@ -301,7 +301,7 @@ function DescriptionGeneratorContent() {
                     {viewMode === "preview" ? (
                         <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
                             <div className="bg-gray-50 dark:bg-gray-900/50 px-4 py-2 border-b border-gray-200 dark:border-gray-700 flex items-center gap-2">
-                                <FaYoutube className="text-red-500" />
+                                <FaYoutube className="text-emerald-500" />
                                 <span className="text-xs font-bold text-gray-500 uppercase">YouTube Player View</span>
                             </div>
                             <div className="p-6">

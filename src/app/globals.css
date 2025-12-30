@@ -3,51 +3,51 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Midnight Nebula Pro - Pink Premium (Slate/Pink Base) */
-  --background: #0f172a;
-  /* Slate 900 */
-  --foreground: #f8fafc;
+  /* Emerald Professional - Fresh Growth Theme */
+  --background: #0a0f0d;
+  /* Dark forest green tint */
+  --foreground: #f9fafb;
 
-  /* Primary - Premium Dark Pink & Rose */
-  --primary: #db2777;
-  /* Pink 600 */
-  --primary-light: #f472b6;
-  /* Pink 400 */
-  --primary-dark: #be185d;
-  /* Pink 700 */
-  --primary-glow: rgba(219, 39, 119, 0.5);
+  /* Primary - Vibrant Emerald Green */
+  --primary: #10b981;
+  /* Emerald 500 */
+  --primary-light: #34d399;
+  /* Emerald 400 */
+  --primary-dark: #059669;
+  /* Emerald 600 */
+  --primary-glow: rgba(16, 185, 129, 0.3);
 
   /* Accents */
-  --secondary: #831843;
-  /* Pink 900 */
-  --accent: #fbcfe8;
-  /* Pink 200 */
+  --secondary: #065f46;
+  /* Emerald 800 */
+  --accent: #6ee7b7;
+  /* Emerald 300 */
 
   /* Surface */
-  --surface-100: #1e293b;
-  --surface-200: #334155;
-  --surface-300: #475569;
+  --surface-100: #111917;
+  --surface-200: #1f2937;
+  --surface-300: #374151;
 
   /* Card Gradients */
-  --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.5));
-  --border-color: rgba(255, 255, 255, 0.15);
+  --card-gradient: linear-gradient(135deg, rgba(17, 25, 23, 0.8), rgba(17, 25, 23, 0.6));
+  --border-color: rgba(16, 185, 129, 0.2);
 }
 
 .dark {
-  /* Identical to root */
-  --background: #0f172a;
-  --foreground: #f8fafc;
-  --primary: #db2777;
-  --primary-light: #f472b6;
-  --primary-dark: #be185d;
-  --primary-glow: rgba(219, 39, 119, 0.5);
-  --secondary: #831843;
-  --accent: #fbcfe8;
-  --surface-100: #1e293b;
-  --surface-200: #334155;
-  --surface-300: #475569;
-  --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.5));
-  --border-color: rgba(255, 255, 255, 0.15);
+  /* Identical to root - single theme only */
+  --background: #0a0f0d;
+  --foreground: #f9fafb;
+  --primary: #10b981;
+  --primary-light: #34d399;
+  --primary-dark: #059669;
+  --primary-glow: rgba(16, 185, 129, 0.3);
+  --secondary: #065f46;
+  --accent: #6ee7b7;
+  --surface-100: #111917;
+  --surface-200: #1f2937;
+  --surface-300: #374151;
+  --card-gradient: linear-gradient(135deg, rgba(17, 25, 23, 0.8), rgba(17, 25, 23, 0.6));
+  --border-color: rgba(16, 185, 129, 0.2);
 }
 
 @theme inline {

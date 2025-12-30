@@ -1,7 +1,4 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
-import Script from "next/script";
-import "../globals.css"; // Fixed import path
+import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
@@ -11,6 +8,7 @@ import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { i18n } from "@/lib/i18n";
 import { UsageProvider } from "@/context/UsageContext";
+import Script from "next/script";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -27,7 +25,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 // Viewport configuration for better mobile performance
-export const viewport: Viewport = {
+export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -37,7 +35,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     default: siteConfig.seo.defaultTitle,
     template: siteConfig.seo.titleTemplate,
@@ -50,15 +48,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
-    languages: {
-      "en-US": "/en",
-      "en-GB": "/en",
-      "en-CA": "/en",
-      "en-AU": "/en",
-      "es": "/es",
-      "hi": "/hi",
-      "pt": "/pt",
-    },
   },
 
   openGraph: {
@@ -104,18 +93,12 @@ export const metadata: Metadata = {
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
 };
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
-}
-
 export default async function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
 }) {
-  const { lang } = await params;
+  const lang = "en";
 
   // Generate JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
@@ -134,9 +117,6 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon.svg" />
 
-        {/* Preload critical resources */}
-        {/* Preload critical resources - Font is handled by next/font/google */}
-
         {/* JSON-LD Structured Data for SEO */}
         <script
           type="application/ld+json"
@@ -154,7 +134,7 @@ export default async function RootLayout({
         {/* AdSense Verification Code */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070" crossOrigin="anonymous"></script>
 
-        {/* Theme initialization script - runs before paint to prevent flash */}
+        {/* Theme initialization script */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -42,7 +42,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
                 {/* Icon */}
                 <div className="flex justify-center mb-4">
                     <div className="p-4 bg-red-100 dark:bg-red-900/30 rounded-full">
-                        <FaLock className="w-8 h-8 text-red-500" />
+                        <FaLock className="w-8 h-8 text-emerald-500" />
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
                 <div className="flex flex-col gap-3">
                     <Link
                         href="/pricing"
-                        className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-red-600 to-orange-500 text-white font-medium rounded-xl hover:from-red-700 hover:to-orange-600 transition-all shadow-lg shadow-red-500/25"
+                        className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-emerald-600 to-orange-500 text-white font-medium rounded-xl hover:from-emerald-700 hover:to-orange-600 transition-all shadow-lg shadow-emerald-500/25"
                     >
                         <FaCrown />
                         Upgrade to Pro - $9/mo

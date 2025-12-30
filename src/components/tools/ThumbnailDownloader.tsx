@@ -140,7 +140,7 @@ export default function ThumbnailDownloader() {
                                             download={`thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, '-')}.jpg`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors shadow-lg shadow-pink-500/20"
+                                            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
                                         >
                                             <FaDownload />
                                             Download

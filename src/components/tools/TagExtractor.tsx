@@ -202,7 +202,7 @@ export default function TagExtractor() {
                     <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
                         <div className="flex items-start gap-4">
                             <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                                <FaVideo className="w-6 h-6 text-red-600 dark:text-red-400" />
+                                <FaVideo className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h3 className="font-semibold text-gray-900 dark:text-white truncate">

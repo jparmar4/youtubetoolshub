@@ -226,7 +226,7 @@ export default function TrendHelper() {
 
                 {error && (
                     <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                        <p className="text-red-600 dark:text-red-400">{error}</p>
+                        <p className="text-emerald-600 dark:text-emerald-400">{error}</p>
                     </div>
                 )}
 
@@ -234,13 +234,13 @@ export default function TrendHelper() {
                 {!isDemo && (
                     <div className="space-y-4">
                         <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                            <FaFire className="text-red-500" />
+                            <FaFire className="text-emerald-500" />
                             Trending on YouTube ({regionOptions.find(r => r.value === region)?.label})
                         </h3>
 
                         {loadingTrending ? (
                             <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-8 text-center">
-                                <FaSpinner className="w-8 h-8 mx-auto text-red-500 animate-spin mb-3" />
+                                <FaSpinner className="w-8 h-8 mx-auto text-emerald-500 animate-spin mb-3" />
                                 <p className="text-gray-600 dark:text-gray-400">Loading trending videos...</p>
                             </div>
                         ) : trendingVideos.length > 0 ? (
@@ -248,10 +248,10 @@ export default function TrendHelper() {
                                 {trendingVideos.slice(0, 10).map((video, i) => (
                                     <div
                                         key={video.id}
-                                        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-red-300 dark:hover:border-red-600 transition-colors"
+                                        className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-red-300 dark:hover:border-emerald-600 transition-colors"
                                     >
                                         <div className="flex items-start gap-3">
-                                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-xs">
+                                            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs">
                                                 {i + 1}
                                             </span>
                                             <div className="flex-1 min-w-0">

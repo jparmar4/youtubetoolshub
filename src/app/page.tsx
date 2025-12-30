@@ -37,7 +37,7 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div className="animate-fade-in-up">
-            <span className="inline-block py-1 px-3 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-sm font-medium mb-6 backdrop-blur-sm animate-glow-pulse">
+            <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-6 backdrop-blur-sm animate-glow-pulse">
               AI-Powered YouTube Growth
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight">
@@ -51,7 +51,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-5 justify-center">
               <Link href="/tools">
-                <Button size="lg" className="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white shadow-[0_0_20px_rgba(219,39,119,0.5)] border-none">
+                <Button size="lg" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white shadow-[0_0_20px_rgba(16,185,129,0.5)] border-none">
                   <FaRocket className="mr-2" />
                   Explore All Tools
                 </Button>

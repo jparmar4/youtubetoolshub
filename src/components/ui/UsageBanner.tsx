@@ -33,7 +33,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
         if (compact) {
             return (
                 <div className={`inline-flex items-center gap-2 text-xs px-3 py-1.5 rounded-full ${isWarning
-                    ? "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
+                    ? "bg-red-100 dark:bg-red-900/30 text-emerald-700 dark:text-red-300"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
                     }`}>
                     <span className="flex items-center gap-1">
@@ -61,13 +61,13 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     <div className="flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-2">
                             <div className={`p-2 rounded-lg ${isLow ? 'bg-red-100 dark:bg-red-900/30' : 'bg-blue-100 dark:bg-blue-900/30'}`}>
-                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-red-600' : 'text-blue-600'}`} />
+                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-emerald-600' : 'text-blue-600'}`} />
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                                     Daily Credits
                                 </p>
-                                <p className={`text-xs ${isLow ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                                <p className={`text-xs ${isLow ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-500 dark:text-gray-400'}`}>
                                     {stats.used}/{stats.limit} used today
                                 </p>
                             </div>
@@ -77,7 +77,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     {isWarning && (
                         <Link
                             href="/pricing"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-red-700 hover:to-orange-600 transition-all shadow-lg shadow-red-500/25"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all shadow-lg shadow-emerald-500/25"
                         >
                             <FaCrown className="w-4 h-4" />
                             Upgrade to Pro
@@ -152,13 +152,13 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     {showImage && (
                         <div className="flex items-center gap-2">
                             <div className={`p-2 rounded-lg ${imageLow ? 'bg-red-100 dark:bg-red-900/30' : 'bg-purple-100 dark:bg-purple-900/30'}`}>
-                                <FaImage className={`w-4 h-4 ${imageLow ? 'text-red-600' : 'text-purple-600'}`} />
+                                <FaImage className={`w-4 h-4 ${imageLow ? 'text-emerald-600' : 'text-purple-600'}`} />
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                                     Image
                                 </p>
-                                <p className={`text-xs ${imageLow ? 'text-red-600 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                                <p className={`text-xs ${imageLow ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-500 dark:text-gray-400'}`}>
                                     {summary.imageUsed}/{summary.imageLimit} used
                                 </p>
                             </div>
@@ -169,7 +169,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 {isWarning && (
                     <Link
                         href="/pricing"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-red-700 hover:to-orange-600 transition-all shadow-lg shadow-red-500/25"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all shadow-lg shadow-emerald-500/25"
                     >
                         <FaCrown className="w-4 h-4" />
                         Upgrade to Pro

@@ -267,7 +267,7 @@ export default function VideoIdeasGenerator() {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400">
+                    <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
                         {error}
                     </div>
                 )}
@@ -275,9 +275,9 @@ export default function VideoIdeasGenerator() {
                 {loading && (
                     <div className="py-12 text-center space-y-4">
                         <div className="inline-block relative">
-                            <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-red-500 animate-spin" />
+                            <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-emerald-500 animate-spin" />
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <FaLightbulb className="text-red-500 animate-pulse" />
+                                <FaLightbulb className="text-emerald-500 animate-pulse" />
                             </div>
                         </div>
                         <p className="text-gray-500 text-lg">Brainstorming viral angles for your niche...</p>
@@ -320,7 +320,7 @@ export default function VideoIdeasGenerator() {
                                             </div>
                                             <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
                                                 idea.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                                    'bg-red-100 text-emerald-700 dark:bg-red-900/30 dark:text-emerald-400'
                                                 }`}>
                                                 {idea.difficulty}
                                             </span>
@@ -329,7 +329,7 @@ export default function VideoIdeasGenerator() {
                                         <div className="flex-1 space-y-3">
                                             <div className="flex justify-between items-start">
                                                 <div className="space-y-1">
-                                                    <span className="text-xs font-bold text-red-500 uppercase tracking-wider">{idea.angle} Angle</span>
+                                                    <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider">{idea.angle} Angle</span>
                                                     <h4 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
                                                         {idea.title}
                                                     </h4>

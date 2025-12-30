@@ -237,7 +237,7 @@ export default function CommentPicker() {
                                     type="checkbox"
                                     checked={filterDuplicates}
                                     onChange={(e) => handleSettingChange(e.target.checked, filterText)}
-                                    className="w-5 h-5 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                    className="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                                 />
                                 <span className="text-gray-700 dark:text-gray-300">Filter Duplicates</span>
                             </label>
@@ -248,7 +248,7 @@ export default function CommentPicker() {
                                     placeholder="Must contain text (e.g. #giveaway)"
                                     value={filterText}
                                     onChange={(e) => handleSettingChange(filterDuplicates, e.target.value)}
-                                    className="w-full text-sm rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:ring-red-500 focus:border-red-500"
+                                    className="w-full text-sm rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:ring-emerald-500 focus:border-emerald-500"
                                 />
                             </div>
                         </div>
@@ -297,7 +297,7 @@ export default function CommentPicker() {
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                                 {winner.authorDisplayName}
                             </h3>
-                            <a href={winner.authorChannelUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-red-500 underline mb-6 inline-block">
+                            <a href={winner.authorChannelUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-emerald-500 underline mb-6 inline-block">
                                 View Channel
                             </a>
 

@@ -37,15 +37,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             border-gray-200 dark:border-gray-600
             text-gray-900 dark:text-white
             placeholder-gray-400 dark:placeholder-gray-500
-            focus:border-red-500 focus:ring-2 focus:ring-red-500/20 focus:outline-none
+            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none
             transition-all duration-200
-            ${error ? "border-red-500" : ""}
+            ${error ? "border-emerald-500" : ""}
             ${className}
           `}
                     {...props}
                 />
                 {error && (
-                    <p className="mt-1 text-sm text-red-500">{error}</p>
+                    <p className="mt-1 text-sm text-emerald-500">{error}</p>
                 )}
                 {helperText && !error && (
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{helperText}</p>
@@ -80,16 +80,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             border-gray-200 dark:border-gray-600
             text-gray-900 dark:text-white
             placeholder-gray-400 dark:placeholder-gray-500
-            focus:border-red-500 focus:ring-2 focus:ring-red-500/20 focus:outline-none
+            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none
             transition-all duration-200
             resize-y min-h-[120px]
-            ${error ? "border-red-500" : ""}
+            ${error ? "border-emerald-500" : ""}
             ${className}
           `}
                     {...props}
                 />
                 {error && (
-                    <p className="mt-1 text-sm text-red-500">{error}</p>
+                    <p className="mt-1 text-sm text-emerald-500">{error}</p>
                 )}
                 {helperText && !error && (
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{helperText}</p>

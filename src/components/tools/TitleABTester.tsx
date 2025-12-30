@@ -224,7 +224,7 @@ export default function TitleABTester() {
                                             </ul>
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold text-red-500 mb-2">Weaknesses</p>
+                                            <p className="text-sm font-semibold text-emerald-500 mb-2">Weaknesses</p>
                                             <ul className="text-sm space-y-1 text-gray-500 dark:text-gray-400">
                                                 {result.titleA.weaknesses.map((w, i) => (
                                                     <li key={i} className="flex items-start">
@@ -279,7 +279,7 @@ export default function TitleABTester() {
                                             </ul>
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold text-red-500 mb-2">Weaknesses</p>
+                                            <p className="text-sm font-semibold text-emerald-500 mb-2">Weaknesses</p>
                                             <ul className="text-sm space-y-1 text-gray-500 dark:text-gray-400">
                                                 {result.titleB.weaknesses.map((w, i) => (
                                                     <li key={i} className="flex items-start">

@@ -51,7 +51,7 @@ function AuthErrorContent() {
             <div className="max-w-md w-full mx-auto px-4">
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-red-500 mb-6"
+                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-emerald-500 mb-6"
                 >
                     <FaArrowLeft className="w-4 h-4" />
                     Back to Home
@@ -59,7 +59,7 @@ function AuthErrorContent() {
 
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl mb-4">
-                        <FaExclamationTriangle className="w-8 h-8 text-red-500" />
+                        <FaExclamationTriangle className="w-8 h-8 text-emerald-500" />
                     </div>
 
                     <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -87,7 +87,7 @@ function AuthErrorContent() {
                     <div className="flex flex-col gap-3">
                         <Link
                             href="/sign-in"
-                            className="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
+                            className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-orange-500 text-white rounded-xl font-medium hover:opacity-90 transition-opacity"
                         >
                             Try Again
                         </Link>

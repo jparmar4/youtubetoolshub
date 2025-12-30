@@ -43,12 +43,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                             bg-white dark:bg-gray-800 
                             border-gray-200 dark:border-gray-600
                             text-gray-900 dark:text-white
-                            focus:border-red-500 focus:ring-2 focus:ring-red-500/20 focus:outline-none
+                            focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none
                             transition-all duration-200
                             appearance-none cursor-pointer
                             bg-no-repeat bg-right
                             ${icon ? "pl-11 pr-10" : "px-4"}
-                            ${error ? "border-red-500" : ""}
+                            ${error ? "border-emerald-500" : ""}
                             ${className}
                         `}
                         style={{
@@ -66,7 +66,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     </select>
                 </div>
                 {error && (
-                    <p className="mt-1 text-sm text-red-500">{error}</p>
+                    <p className="mt-1 text-sm text-emerald-500">{error}</p>
                 )}
                 {helperText && !error && (
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{helperText}</p>

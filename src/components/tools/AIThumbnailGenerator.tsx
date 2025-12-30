@@ -221,7 +221,7 @@ export default function AIThumbnailGenerator() {
                             <button
                                 key={i}
                                 onClick={() => setPrompt(example)}
-                                className="text-xs px-3 py-1.5 bg-white dark:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-red-500 hover:text-red-500 transition-colors"
+                                className="text-xs px-3 py-1.5 bg-white dark:bg-gray-700 rounded-full border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-emerald-500 hover:text-emerald-500 transition-colors"
                             >
                                 {example.length > 40 ? example.substring(0, 40) + "..." : example}
                             </button>
@@ -232,7 +232,7 @@ export default function AIThumbnailGenerator() {
                 {/* Loading State */}
                 {loading && (
                     <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-12 text-center">
-                        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center animate-pulse">
+                        <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center animate-pulse">
                             <FaImage className="w-10 h-10 text-white" />
                         </div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">

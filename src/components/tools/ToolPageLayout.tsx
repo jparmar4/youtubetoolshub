@@ -118,7 +118,7 @@ export default function ToolPageLayout({
                             <ol className="space-y-4">
                                 {howTo.map((step, i) => (
                                     <li key={i} className="flex gap-4">
-                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold text-sm border border-pink-200 dark:border-pink-800">
+                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm border border-pink-200 dark:border-pink-800">
                                             {i + 1}
                                         </span>
                                         <span className="text-slate-600 dark:text-slate-300 pt-1">

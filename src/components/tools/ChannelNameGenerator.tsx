@@ -218,7 +218,7 @@ export default function ChannelNameGenerator() {
 
                 {error && (
                     <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
-                        <p className="text-red-600 dark:text-red-400">{error}</p>
+                        <p className="text-emerald-600 dark:text-emerald-400">{error}</p>
                     </div>
                 )}
 
@@ -255,9 +255,9 @@ export default function ChannelNameGenerator() {
                                 const Icon = cat.icon;
                                 const colorClasses: Record<string, string> = {
                                     blue: "from-blue-500 to-cyan-500 bg-blue-50",
-                                    purple: "from-purple-500 to-pink-500 bg-purple-50",
+                                    purple: "from-purple-500 to-emerald-500 bg-purple-50",
                                     yellow: "from-yellow-500 to-orange-500 bg-yellow-50",
-                                    pink: "from-pink-500 to-rose-500 bg-pink-50",
+                                    pink: "from-emerald-500 to-rose-500 bg-pink-50",
                                     green: "from-green-500 to-emerald-500 bg-green-50",
                                 };
 

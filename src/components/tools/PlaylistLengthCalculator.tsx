@@ -204,7 +204,7 @@ export default function PlaylistLengthCalculator() {
                         </div>
 
                         {/* Main Result */}
-                        <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-8 text-center text-white shadow-lg shadow-red-500/20">
+                        <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-2xl p-8 text-center text-white shadow-lg shadow-emerald-500/20">
                             <div className="text-red-100 mb-2 font-medium">Total Duration</div>
                             <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
                                 {formatFullDuration(result.totalSeconds)}

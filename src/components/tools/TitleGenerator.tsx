@@ -305,7 +305,7 @@ export default function TitleGenerator() {
                 {/* Error Display */}
                 {error && (
                     <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800">
-                        <p className="text-red-600 dark:text-red-400 font-medium flex items-center gap-2">
+                        <p className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-2">
                             <FaInfoCircle /> {error}
                         </p>
                     </div>
@@ -315,9 +315,9 @@ export default function TitleGenerator() {
                 {loading && (
                     <div className="py-12 text-center space-y-4">
                         <div className="inline-block relative">
-                            <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-red-500 animate-spin" />
+                            <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-emerald-500 animate-spin" />
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <FaMagic className="text-red-500 animate-pulse" />
+                                <FaMagic className="text-emerald-500 animate-pulse" />
                             </div>
                         </div>
                         <p className="text-gray-500 text-lg">Analyzing 1,000+ viral titles...</p>

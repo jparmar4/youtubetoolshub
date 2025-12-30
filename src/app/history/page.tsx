@@ -256,7 +256,7 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
 
                 <button
                     onClick={onDelete}
-                    className="p-2 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                    className="p-2 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
                     title="Delete item"
                 >
                     <FaTrash size={14} />

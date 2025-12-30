@@ -68,7 +68,7 @@ export default function AdPlaceholder({ size = "inline", className = "" }: AdPla
                 </p>
                 <Link
                     href="/pricing"
-                    className="inline-flex items-center gap-1 mt-2 text-xs text-red-500 hover:text-red-600"
+                    className="inline-flex items-center gap-1 mt-2 text-xs text-emerald-500 hover:text-emerald-600"
                 >
                     <FaCrown className="w-3 h-3" />
                     Remove ads with Pro
