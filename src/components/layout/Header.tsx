@@ -162,9 +162,7 @@ function Header() {
                     {/* Right Section */}
                     <div className="flex items-center gap-4">
                         {/* Theme Toggle - only render after mount to avoid hydration mismatch */}
-                        {mounted && (
-                            {/* Theme toggle removed - single Emerald theme only */ }
-                        )}
+                        {/* Theme toggle removed - single Emerald theme only */}
 
                         {/* User Menu */}
                         <UserMenu />
