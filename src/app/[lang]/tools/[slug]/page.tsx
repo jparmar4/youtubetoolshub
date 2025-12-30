@@ -157,7 +157,7 @@ export default async function ToolPage({
             <div className="min-h-screen py-20 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-12">
-                    <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500" /></div>}>
+                    <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" /></div>}>
                         <ToolComponent />
                     </Suspense>
 
@@ -188,7 +188,7 @@ export default async function ToolPage({
                                 <div className="space-y-6">
                                     {tool.howTo.steps.map((step, idx) => (
                                         <div key={idx} className="flex gap-4">
-                                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold border border-indigo-200 dark:border-indigo-800">
+                                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold border border-pink-200 dark:border-pink-800">
                                                 {idx + 1}
                                             </div>
                                             <div>
@@ -213,7 +213,7 @@ export default async function ToolPage({
                                 </h2>
                                 <div className="space-y-4">
                                     {tool.faqs.map((faq, idx) => (
-                                        <div key={idx} className="border-b border-indigo-100 dark:border-indigo-900/30 last:border-0 pb-4 last:pb-0">
+                                        <div key={idx} className="border-b border-pink-100 dark:border-pink-900/30 last:border-0 pb-4 last:pb-0">
                                             <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                                                 {faq.question}
                                             </h3>

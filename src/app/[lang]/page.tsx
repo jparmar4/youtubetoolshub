@@ -37,7 +37,7 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div className="animate-fade-in-up">
-            <span className="inline-block py-1 px-3 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm animate-glow-pulse">
+            <span className="inline-block py-1 px-3 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-sm font-medium mb-6 backdrop-blur-sm animate-glow-pulse">
               AI-Powered YouTube Growth
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight">
@@ -51,7 +51,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-5 justify-center">
               <Link href="/tools">
-                <Button size="lg" className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white shadow-[0_0_20px_rgba(99,102,241,0.5)] border-none">
+                <Button size="lg" className="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white shadow-[0_0_20px_rgba(219,39,119,0.5)] border-none">
                   <FaRocket className="mr-2" />
                   Explore All Tools
                 </Button>
@@ -146,7 +146,7 @@ export default function Home() {
                 key={i}
                 className="glass-premium rounded-2xl p-8 text-center hover:bg-white/5 transition-colors group"
               >
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <benefit.icon className="w-8 h-8" />
                 </div>
                 <h3 className="font-semibold text-xl text-white mb-3">
@@ -188,7 +188,7 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link href="/blog">
-              <Button variant="ghost" className="text-indigo-400 hover:text-indigo-300">
+              <Button variant="ghost" className="text-pink-400 hover:text-pink-300">
                 Read More Articles
                 <FaArrowRight className="ml-2" />
               </Button>
@@ -199,7 +199,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-indigo-900/20" />
+        <div className="absolute inset-0 bg-pink-900/20" />
         <div className="nebula-bg opacity-30" />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -210,7 +210,7 @@ export default function Home() {
             Join thousands of creators who use our free tools to save time and grow their audience.
           </p>
           <Link href="/tools">
-            <Button size="lg" className="bg-white text-indigo-900 hover:bg-slate-100 font-bold px-10 py-4 h-auto text-lg">
+            <Button size="lg" className="bg-white text-pink-900 hover:bg-slate-100 font-bold px-10 py-4 h-auto text-lg">
               Start Creating Now
               <FaArrowRight className="ml-2" />
             </Button>

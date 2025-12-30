@@ -11,10 +11,10 @@ export const siteConfig = {
 
   // Colors (used as CSS variables)
   colors: {
-    primary: "#6366f1", // Indigo 500
-    primaryDark: "#4338ca",
-    secondary: "#0f172a",
-    accent: "#f43f5e",
+    primary: "#db2777", // Pink 600
+    primaryDark: "#be185d", // Pink 700
+    secondary: "#0f172a", // Slate 900
+    accent: "#f472b6", // Pink 400
     success: "#22c55e",
     warning: "#eab308",
     error: "#ef4444",

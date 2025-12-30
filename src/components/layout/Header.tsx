@@ -59,7 +59,7 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
         <Link
             href="/dashboard"
             onClick={onClick}
-            className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl"
+            className="text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-pink-50 dark:hover:bg-pink-900/20 rounded-xl"
         >
             <span>🚀</span>
             Dashboard
@@ -118,15 +118,15 @@ function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 z-50 glass-premium border-b border-indigo-500/10">
+        <header className="sticky top-0 z-50 glass-premium border-b border-pink-500/10">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group" prefetch={true}>
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform duration-300">
                             <FaYoutube className="w-5 h-5" />
                         </div>
-                        <span className="font-bold text-xl text-slate-900 dark:text-white hidden sm:block tracking-tight group-hover:text-indigo-500 transition-colors">
+                        <span className="font-bold text-xl text-slate-900 dark:text-white hidden sm:block tracking-tight group-hover:text-pink-500 transition-colors">
                             {siteConfig.name}
                         </span>
                     </Link>
@@ -138,7 +138,7 @@ function Header() {
                             <NavLink
                                 key={item.name}
                                 href={item.href}
-                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
                             >
                                 {item.name}
                             </NavLink>
@@ -152,7 +152,7 @@ function Header() {
                             <NavLink
                                 key={item.name}
                                 href={item.href}
-                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
                             >
                                 {item.name}
                             </NavLink>
@@ -191,7 +191,7 @@ function Header() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>
@@ -206,7 +206,7 @@ function Header() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-pink-50 dark:hover:bg-pink-900/20 hover:text-pink-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>

@@ -17,7 +17,7 @@ export default function ToolsPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16 animate-fade-in-up">
-                    <span className="inline-block py-1 px-3 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 backdrop-blur-sm">
+                    <span className="inline-block py-1 px-3 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-400 text-sm font-medium mb-6 backdrop-blur-sm">
                         Professional Suite
                     </span>
                     <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -35,7 +35,7 @@ export default function ToolsPage() {
                         const categoryTools = getToolsByCategory(category.id);
                         return (
                             <section key={category.id} className="animate-fade-in-up delay-100">
-                                <div className="mb-8 border-l-4 border-indigo-500 pl-4">
+                                <div className="mb-8 border-l-4 border-pink-500 pl-4">
                                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                                         {category.name}
                                     </h2>

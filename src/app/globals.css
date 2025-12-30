@@ -3,30 +3,32 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Midnight Nebula Pro - Medium Dark (Slate/Indigo Base) */
+  /* Midnight Nebula Pro - Pink Premium (Slate/Pink Base) */
   --background: #0f172a;
-  /* Slate 900 - Lighter than Deep Space */
+  /* Slate 900 */
   --foreground: #f8fafc;
 
-  /* Primary - Neon Cyan & Electric Purple */
-  --primary: #8b5cf6;
-  --primary-light: #a78bfa;
-  --primary-dark: #7c3aed;
-  --primary-glow: rgba(139, 92, 246, 0.5);
+  /* Primary - Premium Dark Pink & Rose */
+  --primary: #db2777;
+  /* Pink 600 */
+  --primary-light: #f472b6;
+  /* Pink 400 */
+  --primary-dark: #be185d;
+  /* Pink 700 */
+  --primary-glow: rgba(219, 39, 119, 0.5);
 
   /* Accents */
-  --secondary: #1e1b4b;
-  --accent: #22d3ee;
+  --secondary: #831843;
+  /* Pink 900 */
+  --accent: #fbcfe8;
+  /* Pink 200 */
 
-  /* Surface - Lighter for Medium Dark feel */
+  /* Surface */
   --surface-100: #1e293b;
-  /* Slate 800 */
   --surface-200: #334155;
-  /* Slate 700 */
   --surface-300: #475569;
-  /* Slate 600 */
 
-  /* Card Gradients - More visible in Medium Dark */
+  /* Card Gradients */
   --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.5));
   --border-color: rgba(255, 255, 255, 0.15);
 }
@@ -35,12 +37,12 @@
   /* Identical to root */
   --background: #0f172a;
   --foreground: #f8fafc;
-  --primary: #8b5cf6;
-  --primary-light: #a78bfa;
-  --primary-dark: #7c3aed;
-  --primary-glow: rgba(139, 92, 246, 0.5);
-  --secondary: #1e1b4b;
-  --accent: #22d3ee;
+  --primary: #db2777;
+  --primary-light: #f472b6;
+  --primary-dark: #be185d;
+  --primary-glow: rgba(219, 39, 119, 0.5);
+  --secondary: #831843;
+  --accent: #fbcfe8;
   --surface-100: #1e293b;
   --surface-200: #334155;
   --surface-300: #475569;
@@ -137,14 +139,14 @@ h6 {
 
 /* Text Gradients */
 .text-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, #f472b6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-cyan {
-  background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #f472b6 0%, #db2777 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

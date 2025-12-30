@@ -118,7 +118,7 @@ export default function ToolPageLayout({
                             <ol className="space-y-4">
                                 {howTo.map((step, i) => (
                                     <li key={i} className="flex gap-4">
-                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm border border-indigo-200 dark:border-indigo-800">
+                                        <span className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold text-sm border border-pink-200 dark:border-pink-800">
                                             {i + 1}
                                         </span>
                                         <span className="text-slate-600 dark:text-slate-300 pt-1">
@@ -155,7 +155,7 @@ export default function ToolPageLayout({
                             </h2>
                             <div className="space-y-6">
                                 {faq.map((item, i) => (
-                                    <div key={i} className="border-b border-indigo-100 dark:border-indigo-900/30 pb-6 last:border-b-0 last:pb-0">
+                                    <div key={i} className="border-b border-pink-100 dark:border-pink-900/30 pb-6 last:border-b-0 last:pb-0">
                                         <h3 className="font-semibold text-white mb-2">
                                             {item.question}
                                         </h3>
