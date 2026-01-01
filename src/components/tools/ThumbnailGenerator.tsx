@@ -99,7 +99,7 @@ export default function ThumbnailGenerator() {
 
     const handleSave = async (idea: ThumbnailIdea) => {
         saveItem({
-            type: 'thumbnail',
+            type: 'other',
             toolSlug: 'youtube-thumbnail-generator',
             content: { title: idea.text, description: idea.trigger }
         });
