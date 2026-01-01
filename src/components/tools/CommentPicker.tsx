@@ -10,34 +10,6 @@ import confetti from "canvas-confetti";
 import { saveHistory } from "@/lib/history";
 
 
-const faq = [
-    {
-        question: "Is this tool free?",
-        answer: "Yes, this Random Comment Picker is 100% free to use for your giveaways and contests."
-    },
-    {
-        question: "Does it include replies?",
-        answer: "Currently, we only pick from top-level comments to ensure fairness, as replies are often discussions."
-    },
-    {
-        question: "How do you filter duplicates?",
-        answer: "If you check 'Filter Duplicates', we only count one comment per user. Even if they commented 10 times, they only have 1 chance to win."
-    },
-    {
-        question: "Is it truly random?",
-        answer: "Yes, we use a cryptographically secure random number generator to select the winner from the list of qualified comments."
-    },
-];
-
-const howTo = [
-    "Copy the URL of your YouTube video",
-    "Paste it into the box below and click 'Load Comments'",
-    "Choose your settings (Filter duplicates, specific text)",
-    "Click 'Pick Winner' to randomly select a lucky commenter"
-];
-
-const seoContent = `Pick a random winner for your YouTube giveaway or contest with our free Comment Picker. 
-Fair, transparent, and easy to use. Filter out duplicates and spammers to ensure a legitimate winner every time.`;
 
 interface Comment {
     id: string;
@@ -191,9 +163,6 @@ export default function CommentPicker() {
             title="YouTube Comment Picker"
             slug="youtube-comment-picker"
             description="Pick a random winner for your YouTube giveaway. Filter duplicates and find a fair winner instantly."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 {/* Input Section */}

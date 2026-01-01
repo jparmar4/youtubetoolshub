@@ -23,31 +23,6 @@ const toneOptions = [
     { value: "tech", label: "Tech & Modern" },
 ];
 
-const faq = [
-    {
-        question: "What makes a good YouTube channel name?",
-        answer: "A good channel name is memorable (say it once, remember forever), easy to spell when heard, available as @handle on socials, and works as your brand grows."
-    },
-    {
-        question: "Should I use my real name?",
-        answer: "Personal names work great for personal brands and vlogs. Brand names work better for topic-focused channels where personality matters less than content."
-    },
-    {
-        question: "Can I change my channel name later?",
-        answer: "Yes, but it's not recommended. Changing your name confuses subscribers and hurts brand recognition. Choose carefully from the start."
-    },
-];
-
-const howTo = [
-    "Enter your channel's niche or main topic",
-    "Select a tone that matches your brand personality",
-    "Click 'Generate Names' to get AI suggestions",
-    "Browse names by category (Personal, Creative, Action, Abstract, Descriptive)",
-    "Check availability on YouTube, Instagram, Twitter before deciding"
-];
-
-const seoContent = `Find the perfect YouTube channel name with our AI-powered generator. Get 15 unique, memorable name ideas organized by naming style - from personal brands to creative compounds. Each name is designed to be easy to spell, memorable, and available-friendly for consistent branding across platforms.`;
-
 // New Interfaces
 interface BrandName {
     name: string;
@@ -176,9 +151,6 @@ export default function ChannelNameGenerator() {
             title="AI Brand Name Consultant"
             slug="youtube-channel-name-generator"
             description="Get 15 assessed channel names. We analyze availability potential, brand vibe, and trust score."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" toolSlug="youtube-channel-name-generator" />

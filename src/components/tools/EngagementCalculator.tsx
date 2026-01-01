@@ -9,31 +9,6 @@ import { calculateEngagementRate, formatNumber } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
 
 
-const faq = [
-    {
-        question: "What is a good engagement rate on YouTube?",
-        answer: "Generally, 2-5% is average, 5-10% is good, and 10%+ is excellent. However, rates vary by niche and channel size. Smaller channels often have higher engagement rates."
-    },
-    {
-        question: "How is engagement rate calculated?",
-        answer: "Engagement rate = ((Likes + Comments + Shares) / Views) × 100. This measures how actively viewers interact with your content."
-    },
-    {
-        question: "Why is engagement important?",
-        answer: "High engagement signals to YouTube's algorithm that your content is valuable, potentially leading to better recommendations and more views."
-    },
-];
-
-const howTo = [
-    "Enter the total number of views on your video",
-    "Enter the total number of likes received",
-    "Enter the total number of comments",
-    "Enter the total number of shares (if known)",
-    "Click 'Calculate Engagement' to see your rate"
-];
-
-const seoContent = `Calculate your YouTube video's engagement rate with our free calculator. Measure how actively your audience interacts with your content based on views, likes, comments, and shares. Understand if your engagement is below average, good, or excellent compared to industry benchmarks.`;
-
 export default function EngagementCalculator() {
     const [views, setViews] = useState("");
     const [likes, setLikes] = useState("");
@@ -54,7 +29,7 @@ export default function EngagementCalculator() {
 
         // Save to Cloud History
         try {
-            saveHistory('youtube-engagement-calculator', {
+            saveHistory('youtube-engagement-rate-calculator', {
                 views: viewsNum,
                 likes: likesNum,
                 comments: commentsNum,
@@ -85,11 +60,8 @@ export default function EngagementCalculator() {
     return (
         <ToolPageLayout
             title="YouTube Engagement Rate Calculator"
-            slug="youtube-engagement-calculator"
+            slug="youtube-engagement-rate-calculator"
             description="Calculate your video's engagement rate and compare to benchmarks"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 {/* Input Section */}

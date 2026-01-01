@@ -14,30 +14,7 @@ import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 
-const faq = [
-    {
-        question: "How many hashtags should I use on YouTube?",
-        answer: "YouTube shows the first 3 hashtags above your title. You can add more in the description, but 3-5 strategic hashtags is generally optimal."
-    },
-    {
-        question: "Do hashtags help with YouTube SEO?",
-        answer: "Yes, hashtags are clickable links that help categorize your content. They can help viewers discover your videos when searching or clicking related hashtags."
-    },
-    {
-        question: "What's the difference between broad and specific hashtags?",
-        answer: "Broad hashtags like #YouTube reach more people but have more competition. Specific hashtags like #YouTubeTutorial2024 are more targeted and can help you stand out."
-    },
-];
 
-const howTo = [
-    "Enter your video topic in the input field",
-    "Add your niche for smarter suggestions",
-    "Click 'Generate Hashtags' to get AI suggestions",
-    "Review Broad, Niche, and Trending categories",
-    "Copy the best mix for your video"
-];
-
-const seoContent = `Generate relevant YouTube hashtags for your videos with our AI-powered Hashtag Generator. Get both broad reach hashtags and specific niche hashtags to maximize your video's discoverability. Our tool helps you find the perfect hashtag combinations for your content.`;
 
 interface HashtagItem {
     tag: string;
@@ -194,9 +171,6 @@ export default function HashtagGenerator() {
             title="Professional Hashtag Generator"
             slug="youtube-hashtag-generator"
             description="Generate high-performing hashtags categorized by reach and relevance."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-hashtag-generator" />

@@ -110,9 +110,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Favicons */}
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/icon.svg" />
+        {/* Favicons handled by app/icon.tsx */}
 
         {/* JSON-LD Structured Data for SEO */}
         <script

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import AdPlaceholder from "@/components/ui/AdPlaceholder";
-import { getFAQSchema, getHowToSchema, getSoftwareApplicationSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import MotionWrapper from "@/components/ui/MotionWrapper";
 import ToolHistory from "./ToolHistory";
@@ -27,64 +26,8 @@ export default function ToolPageLayout({
     // Generate slug from title if not provided
     const toolSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-    // Generate structured data for SEO
-    const toolSchema = getSoftwareApplicationSchema({
-        name: title,
-        description: description,
-        url: `${siteConfig.url}/tools/${toolSlug}`,
-        category: "YouTube Tools",
-    });
-
-    const breadcrumbSchema = getBreadcrumbSchema([
-        { name: "Home", url: siteConfig.url },
-        { name: "Tools", url: `${siteConfig.url}/tools` },
-        { name: title, url: `${siteConfig.url}/tools/${toolSlug}` },
-    ]);
-
-    const faqSchema = faq.length > 0 ? getFAQSchema(faq) : null;
-
-    const howToSchema = howTo.length > 0 ? getHowToSchema({
-        name: `How to Use ${title}`,
-        description: description,
-        steps: howTo.map((step, i) => ({
-            name: `Step ${i + 1}`,
-            text: step,
-        })),
-        totalTime: "PT3M",
-    }) : null;
-
     return (
         <>
-            {/* JSON-LD Structured Data for SEO */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(toolSchema),
-                }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(breadcrumbSchema),
-                }}
-            />
-            {faqSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(faqSchema),
-                    }}
-                />
-            )}
-            {howToSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(howToSchema),
-                    }}
-                />
-            )}
-
             <div className="w-full">
                 <div className="max-w-6xl mx-auto">
                     {/* Header */}

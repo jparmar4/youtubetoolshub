@@ -21,36 +21,6 @@ interface TagResult {
     shortTags?: string[];
 }
 
-const faq = [
-    {
-        question: "How many tags should I use on YouTube?",
-        answer: "YouTube allows up to 500 characters for tags. Use 15-30 strategic tags, prioritizing quality over quantity. The first 3-5 tags are weighted most heavily by the algorithm."
-    },
-    {
-        question: "Do YouTube tags still matter in 2024?",
-        answer: "Yes! While titles and descriptions are more important, tags help YouTube understand your content and suggest it to relevant viewers. They're especially useful for new channels building authority."
-    },
-    {
-        question: "What's the best tag strategy?",
-        answer: "Use a mix: 3-5 primary exact-match tags first, then search query variations, broad category tags, and specific long-tail phrases. Include trending/timely tags when relevant."
-    },
-    {
-        question: "Should I use the same tags on every video?",
-        answer: "No! While some channel-specific tags are fine, each video should have unique tags matching its specific content. This helps YouTube understand each video's unique value."
-    },
-];
-
-const howTo = [
-    "Enter your video topic or title",
-    "Optionally add your niche for more targeted tags",
-    "Click 'Generate Tags' to get SEO-optimized keywords",
-    "Review tags organized by category (Primary, Search, Trending, etc.)",
-    "Copy all tags at once or individually",
-    "Paste into YouTube Studio - primary tags first!"
-];
-
-const seoContent = `Generate winning YouTube tags that actually rank with our AI-powered Tag Generator. Our tool uses proven SEO strategies to create primary keywords, search query tags, trending variations, and long-tail phrases that help YouTube's algorithm discover and recommend your content. Maximize your video's visibility with strategic tagging.`;
-
 export default function TagGenerator() {
     const [topic, setTopic] = useState("");
     const [niche, setNiche] = useState("");
@@ -205,9 +175,6 @@ export default function TagGenerator() {
             title="YouTube Tag Generator"
             slug="youtube-tag-generator"
             description="Generate SEO-optimized, trending tags that help your videos rank"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" toolSlug="youtube-tag-generator" />

@@ -9,35 +9,6 @@ import { FaDownload, FaImage } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
 
 
-const faq = [
-    {
-        question: "What is a YouTube thumbnail?",
-        answer: "A YouTube thumbnail is the small preview image that represents a video. It's one of the first things viewers see when browsing YouTube, making it crucial for attracting clicks and views."
-    },
-    {
-        question: "Can I use downloaded thumbnails?",
-        answer: "You should only download and use thumbnails that you have permission to use. Downloading thumbnails for reference or personal use is generally acceptable, but using someone else's thumbnail for your own videos may violate copyright laws."
-    },
-    {
-        question: "What resolution thumbnails can I download?",
-        answer: "We provide thumbnails in four different resolutions: Maximum Resolution (1280x720), Standard Definition (640x480), High Quality (480x360), and Medium Quality (320x180)."
-    },
-    {
-        question: "Why isn't the maximum resolution thumbnail available?",
-        answer: "Not all YouTube videos have maximum resolution thumbnails available. If the uploader didn't upload a custom HD thumbnail, only the standard resolutions will be available."
-    },
-];
-
-const howTo = [
-    "Copy the URL of any YouTube video you want to get the thumbnail from",
-    "Paste the video URL into the input field above",
-    "Click the 'Fetch Thumbnails' button to load all available thumbnail sizes",
-    "Preview the thumbnails and click 'Download' on your preferred resolution",
-    "The thumbnail will be saved to your downloads folder"
-];
-
-const seoContent = `Download high-quality thumbnails from any YouTube video instantly and for free. Our YouTube Thumbnail Downloader extracts all available thumbnail resolutions including HD quality images. Whether you need thumbnails for reference, creating video compilations, or personal archiving, our tool makes it simple. Just paste a YouTube video URL and get access to all thumbnail sizes in one click.`;
-
 export default function ThumbnailDownloader() {
     const [url, setUrl] = useState("");
     const [thumbnails, setThumbnails] = useState<ReturnType<typeof getThumbnailUrls> | null>(null);
@@ -78,9 +49,6 @@ export default function ThumbnailDownloader() {
             title="YouTube Thumbnail Downloader"
             slug="youtube-thumbnail-downloader"
             description="Download high-quality thumbnails from any YouTube video in multiple resolutions"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 {/* Input Section */}

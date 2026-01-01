@@ -32,82 +32,12 @@ const toneOptions = [
     { value: "educational", label: "Clear & Concise (Best for Tutorials)" },
 ];
 
-const faq = [
-    {
-        question: "Why should I include keywords?",
-        answer: "Keywords help YouTube understand your video. We recommend adding 2-3 main keywords you want to rank for, and the AI will naturally weave them into the text."
-    },
-    {
-        question: "What is the 'YouTube Preview'?",
-        answer: "It shows exactly how your description will look to a viewer on a desktop, including the 'Show More' cutoff point, so you can ensure your hook is visible."
-    },
-    {
-        question: "Can I edit the result?",
-        answer: "Yes! Switch to 'Edit Mode' to tweak the text perfectly before copying."
-    },
-];
-
-const howTo = [
-    "Enter your video topic (be specific about the value)",
-    "Add 1-2 main keywords for SEO ranking",
-    "Choose a Tone that matches your channel style",
-    "Click Generate to get a human-sounding description",
-    "Use the Preview tab to check your 'Show More' hook"
-];
-
-const seoContent = `Create compelling YouTube descriptions that boost your video's discoverability with our AI-powered Description Generator. Our tool creates structured descriptions with engaging hooks, informative bullet points, strategic calls-to-action, and relevant hashtags to help your videos rank higher in search results and keep viewers engaged.`;
-
-// Helper function to format JSON description to readable text
-function formatDescriptionFromJSON(jsonString: string): string {
-    try {
-        const cleaned = jsonString.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
-        const data = JSON.parse(cleaned);
-        const desc = data.description || data;
-
-        let formatted = "";
-
-        if (desc.hook) formatted += desc.hook + "\n\n";
-        if (desc.video_summary || desc.summary) formatted += (desc.video_summary || desc.summary) + "\n\n";
-
-        if (desc.timestamps && Array.isArray(desc.timestamps) && desc.timestamps.length > 0) {
-            formatted += "⏱️ TIMESTAMPS:\n";
-            desc.timestamps.forEach((ts: string) => formatted += ts + "\n");
-            formatted += "\n";
-        }
-
-        if (desc.key_points && Array.isArray(desc.key_points) && desc.key_points.length > 0) {
-            formatted += "📌 WHAT YOU'LL LEARN:\n";
-            desc.key_points.forEach((point: string) => formatted += point + "\n");
-            formatted += "\n";
-        }
-
-        if (desc.resources_links || desc.resources) {
-            formatted += "🔗 RESOURCES & LINKS:\n";
-            formatted += (desc.resources_links || desc.resources) + "\n\n";
-        }
-
-        if (desc.call_to_action || desc.cta) formatted += (desc.call_to_action || desc.cta) + "\n\n";
-
-        if (desc.hashtags) {
-            formatted += "─────────────────────\n";
-            formatted += desc.hashtags + "\n";
-        }
-
-        return formatted.trim();
-    } catch {
-        return jsonString;
-    }
-}
-
 export default function DescriptionGenerator() {
     return (
         <ToolPageLayout
             title="Optimized Description Generator"
             slug="youtube-description-generator"
             description="Create SEO-ready, human-sounding descriptions that get clicks."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
                 <DescriptionGeneratorContent />

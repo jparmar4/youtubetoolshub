@@ -39,31 +39,6 @@ const regionOptions = [
     { value: "au", label: "Australia" },
 ];
 
-const faq = [
-    {
-        question: "How are trending videos selected?",
-        answer: "We use the official YouTube Data API to fetch the real-time trending videos for your selected region."
-    },
-    {
-        question: "How often is the data updated?",
-        answer: "The trending list is updated in real-time as YouTube updates its charts."
-    },
-    {
-        question: "How do AI suggestions work?",
-        answer: "Our AI analyzes current trends and generates specific video ideas tailored to your niche that capitalize on these trends."
-    },
-];
-
-const howTo = [
-    "Select your target region to see what's trending there",
-    "Browse the top trending videos for inspiration",
-    "Enter your niche (e.g., 'Tech', 'Cooking') to get AI ideas",
-    "Click 'Get Trending Ideas' to generate viral video concepts",
-    "Use these insights to create timely, relevant content"
-];
-
-const seoContent = `Stay ahead of the curve with our YouTube Trend & Topic Helper. Discover what's trending in your region right now and get AI-powered video ideas tailored to your niche. Leveraging real-time YouTube data and advanced AI, this tool helps you identify viral opportunities and create content that viewers are searching for.`;
-
 export default function TrendHelper() {
     const [region, setRegion] = useState("us");
     const [niche, setNiche] = useState("");
@@ -187,9 +162,6 @@ export default function TrendHelper() {
             title="YouTube Trend & Topic Helper"
             slug="youtube-trend-helper"
             description="See what's actually trending on YouTube right now"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" toolSlug="youtube-trend-helper" />

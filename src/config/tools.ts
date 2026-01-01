@@ -64,24 +64,28 @@ export const tools: Tool[] = [
             name: "How to Download a YouTube Thumbnail",
             description: "Follow these simple steps to download any YouTube video thumbnail in seconds.",
             steps: [
-                { name: "Copy Video URL", text: "Go to YouTube, find the video you want, and copy its URL from the address bar or share button." },
-                { name: "Paste and Search", text: "Paste the URL into our tool's search box above and click the 'Get Thumbnail' button." },
-                { name: "Select Resolution", text: "Choose your desired resolution (HD, SD, or Normal) and click 'Download' to save the image to your device." }
+                { name: "Copy Video URL", text: "Copy the URL of any YouTube video you want to get the thumbnail from." },
+                { name: "Paste and Fetch", text: "Paste the video URL into the input field above and click 'Fetch Thumbnails'." },
+                { name: "Download", text: "Preview available sizes and click 'Download' on your preferred resolution (HD, SD, or Low)." }
             ],
             totalTime: "PT1M"
         },
         faqs: [
             {
-                question: "Is it legal to download YouTube thumbnails?",
-                answer: "Yes, it is legal to download thumbnails for fair use purposes, such as reference, criticism, or personal archiving. However, you should not use someone else's thumbnail as your own without permission, as copyright laws apply."
+                question: "What is a YouTube thumbnail?",
+                answer: "A YouTube thumbnail is the small preview image that represents a video. It's one of the first things viewers see when browsing YouTube, making it crucial for attracting clicks and views."
             },
             {
-                question: "What is the highest quality thumbnail available?",
-                answer: "The highest quality is usually 'Max Res' (1920x1080 or 1280x720), depending on what the creator uploaded. Our tool automatically fetches the highest resolution available."
+                question: "Can I use downloaded thumbnails?",
+                answer: "You should only download and use thumbnails that you have permission to use. Downloading thumbnails for reference or personal use is generally acceptable, but using someone else's thumbnail for your own videos may violate copyright laws."
             },
             {
-                question: "Does this tool work on mobile?",
-                answer: "Yes! Our YouTube Thumbnail Downloader works perfectly on all devices, including iPhones, Android phones, tablets, and desktop computers."
+                question: "What resolution thumbnails can I download?",
+                answer: "We provide thumbnails in four different resolutions: Maximum Resolution (1280x720), Standard Definition (640x480), High Quality (480x360), and Medium Quality (320x180)."
+            },
+            {
+                question: "Why isn't the maximum resolution thumbnail available?",
+                answer: "Not all YouTube videos have maximum resolution thumbnails available. If the uploader didn't upload a custom HD thumbnail, only the standard resolutions will be available."
             }
         ]
     },
@@ -95,6 +99,41 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube thumbnail text", "thumbnail text generator", "catchy thumbnail text", "thumbnail ideas", "ai thumbnail text"],
+        content: [
+            {
+                title: "Generate Viral-Worthy Thumbnail Text",
+                content: "Generate viral-worthy text for your YouTube thumbnails with our AI Thumbnail Text Generator. Create punchy, click-optimized copy that grabs attention and improves your CTR. Whether you need bold, shocking, or professional text, our AI analyzes successful trends to give you the best options for your video."
+            },
+            {
+                title: "Psychology-Backed Suggestions",
+                content: "Our AI doesn't just generate random words. It analyzes psychological triggers (Curiosity, Urgency, Negativity Bias) to create text that compels viewers to click. We also provide color suggestions to ensure your text pops against the background."
+            }
+        ],
+        howTo: {
+            name: "How to Generate Thumbnail Text",
+            description: "Create punchy, psychological hooks for your thumbnails in seconds.",
+            steps: [
+                { name: "Enter Video Topic", text: "Type a brief topic or title for your video (e.g., 'I tried the most dangerous sport')." },
+                { name: "Select Style & Emotion", text: "Choose a visual style (e.g., 'Bold & Colorful') and the emotion you want to trigger (e.g., 'Excited')." },
+                { name: "Generate", text: "Click 'Generate Concepts' to get 6 unique text ideas with color and layout suggestions." },
+                { name: "Save", text: "Save the best ideas to your dashboard or copy them directly to Canva/Photoshop." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Why is thumbnail text important?",
+                answer: "Thumbnail text (copy) complements your image to secure the click. It should be short, punchy, and create curiosity without repeating your title."
+            },
+            {
+                question: "How long should thumbnail text be?",
+                answer: "Keep it under 4 words. Large, readable text is crucial for mobile viewers. Less is often more."
+            },
+            {
+                question: "What color text works best?",
+                answer: "High contrast is key. White text on red/black backgrounds, or yellow text on dark backgrounds usually performs best. Our AI suggests colors for each idea."
+            }
+        ]
     },
     {
         slug: "youtube-ai-thumbnail-generator",
@@ -174,41 +213,91 @@ export const tools: Tool[] = [
         icon: FaAlignLeft,
         isAI: true,
         keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator"],
-    },
-    {
-        slug: "youtube-tag-generator",
-        name: "YouTube Tag Generator",
-        description: "Generate relevant tags and keywords for your YouTube videos. Get both short and long-tail keywords.",
-        shortDescription: "Generate SEO tags for videos",
-        category: "seo-metadata",
-        icon: FaTags,
-        isAI: true,
-        isFeatured: true,
-        keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags"],
         content: [
             {
-                title: "Boost Discovery with SEO Tags",
-                content: "YouTube tags (keywords) help the algorithm understand your video's context. While their weight has decreased, they are still vital for misspelled queries and establishing relevance. Our tool generates 100% relevant, high-volume tags."
+                title: "Generate SEO-Optimized Descriptions",
+                content: "Create compelling YouTube descriptions that boost your video's discoverability with our AI-powered Description Generator. Our tool creates structured descriptions with engaging hooks, informative bullet points, strategic calls-to-action, and relevant hashtags to help your videos rank higher in search results and keep viewers engaged."
+            },
+            {
+                title: "Why Structure Matters",
+                content: "A well-structured description helps YouTube understand your video context. By including timestamps, key takeaways, and relevant keywords naturally, you increase the chances of appearing in suggested videos and search results."
             }
         ],
         howTo: {
-            name: "How to Generate Video Tags",
-            description: "Find the best keywords for your video in seconds.",
+            name: "How to Generate a YouTube Description",
+            description: "Create a professional, SEO-ready video description in seconds.",
             steps: [
-                { name: "Enter Keyword", text: "Type your main video topic (e.g., 'fitness tips')." },
-                { name: "Generate", text: "Click the generate button." },
-                { name: "Copy & Paste", text: "Copy the list of comma-separated tags and paste them directly into your YouTube video details." }
+                { name: "Enter Video Topic", text: "Enter your video topic or a brief summary (be specific about the value provided)." },
+                { name: "Add Keywords", text: "Add 1-2 main keywords for SEO ranking that you want to target." },
+                { name: "Select Tone", text: "Choose a Tone that matches your channel style (e.g., Casual, Professional, Excited)." },
+                { name: "Generate", text: "Click 'Generate' to get a human-sounding description with timestamps and emojis." },
+                { name: "Preview & Edit", text: "Use the Preview tab to check your 'Show More' hook, then edit if needed." }
             ],
             totalTime: "PT1M"
         },
         faqs: [
             {
-                question: "How many tags should I use?",
-                answer: "YouTube allows up to 500 characters for tags. We recommend using 10-15 highly relevant tags rather than stuffing irrelevant ones."
+                question: "Why should I include keywords?",
+                answer: "Keywords help YouTube understand your video. We recommend adding 2-3 main keywords you want to rank for, and the AI will naturally weave them into the text."
             },
             {
-                question: "Do tags help with views?",
-                answer: "Yes, they help YouTube categorize your content, especially when your video is new and has no view history."
+                question: "What is the 'YouTube Preview'?",
+                answer: "It shows exactly how your description will look to a viewer on a desktop, including the 'Show More' cutoff point, so you can ensure your hook is visible."
+            },
+            {
+                question: "Can I edit the result?",
+                answer: "Yes! Switch to 'Edit Mode' to tweak the text perfectly before copying."
+            }
+        ]
+    },
+    {
+        slug: "youtube-tag-generator",
+        name: "YouTube Tag Generator",
+        description: "Generate SEO-optimized, trending tags that help your videos rank. Get primary, search, and long-tail keywords.",
+        shortDescription: "Generate SEO tags for videos",
+        category: "seo-metadata",
+        icon: FaTags,
+        isAI: true,
+        isFeatured: true,
+        keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags", "youtube tag finder"],
+        content: [
+            {
+                title: "Generate SEO-Optimized Tags",
+                content: "Generate winning YouTube tags that actually rank with our AI-powered Tag Generator. Our tool uses proven SEO strategies to create primary keywords, search query tags, trending variations, and long-tail phrases that help YouTube's algorithm discover and recommend your content. Maximize your video's visibility with strategic tagging."
+            },
+            {
+                title: "Why Tags Still Matter",
+                content: "While titles and descriptions are crucial, tags help YouTube understand the context of your video, especially for misspelled searches or establishing topic relevance. They are a key signal for the recommendation algorithm."
+            }
+        ],
+        howTo: {
+            name: "How to Generate YouTube Tags",
+            description: "Get the perfect mix of tags for your video in seconds.",
+            steps: [
+                { name: "Enter Topic", text: "Enter your video topic or title (be specific)." },
+                { name: "Add Niche", text: "Optionally add your niche for more targeted tags (e.g., Gaming, Tech)." },
+                { name: "Generate", text: "Click 'Generate Tags' to get SEO-optimized keywords organized by category." },
+                { name: "Review", text: "Review Primary, Search, and Long-Tail tags." },
+                { name: "Copy & Paste", text: "Copy the tags and paste them into your YouTube video details." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How many tags should I use on YouTube?",
+                answer: "YouTube allows up to 500 characters for tags. Use 15-30 strategic tags, prioritizing quality over quantity. The first 3-5 tags are weighted most heavily by the algorithm."
+            },
+            {
+                question: "Do YouTube tags still matter?",
+                answer: "Yes! While titles and descriptions are more important, tags help YouTube understand your content and suggest it to relevant viewers. They're especially useful for new channels building authority."
+            },
+            {
+                question: "What's the best tag strategy?",
+                answer: "Use a mix: 3-5 primary exact-match tags first, then search query variations, broad category tags, and specific long-tail phrases. Include trending/timely tags when relevant."
+            },
+            {
+                question: "Should I use the same tags on every video?",
+                answer: "No! Each video should have unique tags matching its specific content. This helps YouTube understand each video's unique value."
             }
         ]
     },
@@ -226,33 +315,129 @@ export const tools: Tool[] = [
     // Channel Research & Growth Tools
     {
         slug: "youtube-video-ideas-generator",
-        name: "YouTube Video Ideas Generator",
-        description: "Get 20+ unique video ideas for your niche using AI. Perfect for content planning and avoiding creator's block.",
+        name: "Strategic Video Ideas Generator",
+        description: "Get proven video concepts tailored to your channel size and growth goals. Includes titles, thumbnails, and difficulty ratings.",
         shortDescription: "AI video ideas for your niche",
         category: "channel-growth",
         icon: FaLightbulb,
         isAI: true,
-        keywords: ["video ideas generator", "youtube content ideas", "video topics", "what to post on youtube", "content inspiration"],
+        keywords: ["video ideas generator", "youtube content ideas", "video topics", "viral video ideas", "content inspiration", "youtube growth strategy"],
+        content: [
+            {
+                title: "Strategic Video Concepts, Not Just Topics",
+                content: "Generate high-potential YouTube video ideas tailored to your specific channel size and goals. Unlike generic generators, our AI acts as a growth strategist, suggesting concepts that match your current stage (0 subs vs 100k subs) and objective (viral views vs loyal subscribers). Get complete concepts with titles, thumbnail ideas, and execution difficulty ratings."
+            }
+        ],
+        howTo: {
+            name: "How to Generate Video Ideas",
+            description: "Get viral-ready video concepts for your niche.",
+            steps: [
+                { name: "Enter Niche", text: "Enter your specific niche (e.g., 'Fitness for busy dads')." },
+                { name: "Select Context", text: "Choose your current Channel Size for realistic ideas." },
+                { name: "Set Goal", text: "Choose your Content Goal (Views vs. Subs)." },
+                { name: "Generate", text: "Click 'Generate' to get strategized video concepts." },
+                { name: "Review Strategy", text: "Review the 'Viral Score' and 'Thumbnail Concept' for each idea." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Why does channel size matter?",
+                answer: "A small channel needs 'Searchable' or 'High Value' content to get discovered. A big channel can rely on 'Personality' and 'Storytelling' because they already have an audience. The AI adjusts ideas based on this context."
+            },
+            {
+                question: "What is the 'Difficulty' rating?",
+                answer: "It estimates how hard the video is to make. 'Easy' might be a talking head video, while 'Hard' implies complex editing, b-roll, or a challenge/vlog format."
+            },
+            {
+                question: "How do I use the Thumbnail Concept?",
+                answer: "The AI suggests a visual to pair with the title. This is crucial because Title + Thumbnail = Click. Use it as a starting point for your design."
+            }
+        ]
     },
+
     {
         slug: "youtube-trend-helper",
         name: "YouTube Trend & Topic Helper",
-        description: "Discover trending topics in your niche. Get AI-powered suggestions for viral video ideas.",
-        shortDescription: "Find trending topics",
+        description: "Discover trending topics in your region and get AI-powered video ideas tailored to your niche using real-time YouTube data.",
+        shortDescription: "Find trending topics & viral ideas",
         category: "channel-growth",
         icon: FaChartLine,
         isAI: true,
-        keywords: ["youtube trends", "trending topics", "viral video ideas", "what is trending on youtube", "niche research"],
+        keywords: ["youtube trends", "trending topics", "viral video ideas", "what is trending on youtube", "niche research", "youtube trend finder"],
+        content: [
+            {
+                title: "Spot Trends Before They Fade",
+                content: "Stay ahead of the curve with our YouTube Trend & Topic Helper. Discover what's trending in your region right now and get AI-powered video ideas tailored to your niche. Leveraging real-time YouTube data and advanced AI, this tool helps you identify viral opportunities and create content that viewers are searching for."
+            }
+        ],
+        howTo: {
+            name: "How to Find Trending Topics",
+            description: "Identify viral opportunities in 3 steps.",
+            steps: [
+                { name: "Global Trends", text: "Select your target region to see what's trending there." },
+                { name: "Niche Ideas", text: "Enter your niche (e.g., 'Tech', 'Cooking') to get tailored AI suggestions." },
+                { name: "Generate", text: "Click 'Get Trending Ideas' to generate viral video concepts." },
+                { name: "Create", text: "Use these real-time insights to create timely, relevant content." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How are trending videos selected?",
+                answer: "We use the official YouTube Data API to fetch the real-time trending videos for your selected region."
+            },
+            {
+                question: "How often is the data updated?",
+                answer: "The trending list is updated in real-time as YouTube updates its charts."
+            },
+            {
+                question: "How do AI suggestions work?",
+                answer: "Our AI analyzes current trends and generates specific video ideas tailored to your niche that capitalize on these trends."
+            }
+        ]
     },
     {
         slug: "youtube-content-calendar-generator",
         name: "Content Calendar Generator",
-        description: "Generate a complete content calendar with video ideas. Plan your uploads for weeks ahead.",
+        description: "Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule with video ideas tailored to your niche.",
         shortDescription: "Plan your content schedule",
         category: "channel-growth",
         icon: FaCalendarAlt,
         isAI: true,
-        keywords: ["content calendar generator", "youtube upload schedule", "content planner", "video content plan", "social media calendar"],
+        keywords: ["content calendar generator", "youtube upload schedule", "content planner", "video content plan", "social media calendar", "youtube scheduler"],
+        content: [
+            {
+                title: "Plan Your Path to Success",
+                content: "Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule in seconds. Whether you're a daily vlogger or a weekly educator, our tool generates engaging video ideas and organizes them into a balanced calendar to keep your audience growing and engaged."
+            }
+        ],
+        howTo: {
+            name: "How to Generate a Content Calendar",
+            description: "Create a strategic content plan in seconds.",
+            steps: [
+                { name: "Enter Niche", text: "Enter your channel's niche or main topic (e.g., 'Tech tutorials')." },
+                { name: "Set Frequency", text: "Select how often you want to post videos (e.g., Weekly)." },
+                { name: "Set Duration", text: "Choose the duration for your calendar (e.g., 30 days)." },
+                { name: "Generate", text: "Click 'Generate Calendar' to get a complete content plan." },
+                { name: "Download", text: "Download the calendar as a CSV file to execute your plan." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How does the calendar generator work?",
+                answer: "Our AI analyzes your niche and generates a balanced content schedule with diverse video types (Tutorials, Vlogs, Shorts, etc.) suitable for your posting frequency."
+            },
+            {
+                question: "Can I edit the generated calendar?",
+                answer: "Currently, you can download the calendar as a CSV file and edit it in Excel or Google Sheets. In-app editing is coming soon."
+            },
+            {
+                question: "What's the best posting frequency?",
+                answer: "Consistency is key. It's better to post one high-quality video weekly than to burn out trying to post daily. Choose a schedule you can maintain long-term."
+            }
+        ]
     },
 
     // Analytics & Earnings Tools
@@ -300,12 +485,43 @@ export const tools: Tool[] = [
     {
         slug: "youtube-engagement-rate-calculator",
         name: "Engagement Rate Calculator",
-        description: "Calculate your video's engagement rate based on views, likes, comments, and shares.",
+        description: "Calculate your YouTube video's engagement rate. Measure how actively your audience interacts with your content.",
         shortDescription: "Measure video engagement",
         category: "analytics-earnings",
         icon: FaChartBar,
         isAI: false,
-        keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis"],
+        keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis", "youtube analytics"],
+        content: [
+            {
+                title: "Why Engagement Rate Matters",
+                content: "Your engagement rate is a key metric that YouTube uses to decide whether to promote your video. High engagement (likes, comments, shares) signals to the algorithm that viewers value your content, leading to more impressions and growth. Use this calculator to track your performance against industry benchmarks."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate Engagement Rate",
+            description: "Check your engagement score in seconds.",
+            steps: [
+                { name: "Enter Views", text: "Enter the total number of views on your video." },
+                { name: "Enter Likes", text: "Input the total number of likes." },
+                { name: "Enter Comments", text: "Input the total number of comments." },
+                { name: "Calculate", text: "Click 'Calculate Engagement' to see your percentage and a rating (e.g., 'Good', 'Excellent')." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What is a good engagement rate on YouTube?",
+                answer: "Generally, 3-5% is considered average, while anything above 10% is excellent. Smaller channels often have higher engagement rates than massive ones."
+            },
+            {
+                question: "How is engagement rate calculated?",
+                answer: "We use the standard formula: ((Likes + Comments + Shares) / Total Views) × 100. This gives you a percentage representing active viewer participation."
+            },
+            {
+                question: "How can I improve my engagement?",
+                answer: "Ask a specific question in your video (CTAs), reply to every comment in the first 24 hours, and use community posts to keep the conversation going."
+            }
+        ]
     },
     {
         slug: "youtube-title-ab-tester",
@@ -328,7 +544,38 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaUser,
         isAI: true,
-        keywords: ["channel name generator", "youtube name ideas", "creative channel names", "brand name generator", "cool youtube names"],
+        keywords: ["channel name generator", "youtube name ideas", "creative channel names", "brand name generator", "cool youtube names", "youtube channel namer"],
+        content: [
+            {
+                title: "Find Your Perfect Brand Name",
+                content: "Find the perfect YouTube channel name with our AI-powered generator. Get 15 unique, memorable name ideas organized by naming style - from personal brands to creative compounds. Each name is designed to be easy to spell, memorable, and availability-friendly for consistent branding across platforms."
+            }
+        ],
+        howTo: {
+            name: "How to Generate a Channel Name",
+            description: "Find a unique brand name in seconds.",
+            steps: [
+                { name: "Enter Niche", text: "Enter your channel's niche or main topic (e.g., 'Coding for kids')." },
+                { name: "Select Vibe", text: "Select a tone that matches your brand personality (e.g., 'Fun', 'Professional')." },
+                { name: "Generate", text: "Click 'Generate Names' to get AI suggestions organized by category." },
+                { name: "Check Availability", text: "Use the built-in check button to see if the handle is available on YouTube." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What makes a good YouTube channel name?",
+                answer: "A good channel name is memorable (say it once, remember forever), easy to spell when heard, available as @handle on socials, and works as your brand grows."
+            },
+            {
+                question: "Should I use my real name?",
+                answer: "Personal names work great for personal brands and vlogs. Brand names work better for topic-focused channels where personality matters less than content."
+            },
+            {
+                question: "Can I change my channel name later?",
+                answer: "Yes, but it's not recommended. Changing your name confuses subscribers and hurts brand recognition. Choose carefully from the start."
+            }
+        ]
     },
     {
         slug: "youtube-hashtag-generator",
@@ -339,6 +586,38 @@ export const tools: Tool[] = [
         icon: FaHashtag,
         isAI: true,
         keywords: ["youtube hashtag generator", "video hashtags", "best hashtags for youtube", "viral hashtags", "hashtag finder"],
+        content: [
+            {
+                title: "Generate Viral Hashtags",
+                content: "Generate relevant YouTube hashtags for your videos with our AI-powered Hashtag Generator. Get both broad reach hashtags and specific niche hashtags to maximize your video's discoverability. Our tool helps you find the perfect hashtag combinations for your content."
+            }
+        ],
+        howTo: {
+            name: "How to Generate Best Hashtags",
+            description: "Get the perfect mix of broad and niche hashtags.",
+            steps: [
+                { name: "Enter Topic", text: "Enter your video topic in the input field." },
+                { name: "Add Niche", text: "Add your niche for smarter suggestions." },
+                { name: "Generate", text: "Click 'Generate Hashtags' to get AI suggestions." },
+                { name: "Review", text: "Review Broad, Niche, and Trending categories." },
+                { name: "Copy", text: "Copy the best mix for your video description." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How many hashtags should I use on YouTube?",
+                answer: "YouTube shows the first 3 hashtags above your title. You can add more in the description, but 3-5 strategic hashtags is generally optimal."
+            },
+            {
+                question: "Do hashtags help with YouTube SEO?",
+                answer: "Yes, hashtags are clickable links that help categorize your content. They can help viewers discover your videos when searching or clicking related hashtags."
+            },
+            {
+                question: "What's the difference between broad and specific hashtags?",
+                answer: "Broad hashtags like #YouTube reach more people but have more competition. Specific hashtags like #YouTubeTutorial2024 are more targeted and can help you stand out."
+            }
+        ]
     },
     {
         slug: "youtube-intro-script-generator",
@@ -378,37 +657,88 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaTrophy,
         isAI: false,
-        keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment"],
+        keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment", "youtube comment raffle"],
+        content: [
+            {
+                title: "Fair & Random Comment Picker",
+                content: "Pick a random winner for your YouTube giveaway or contest with our free Comment Picker. Fair, transparent, and easy to use. Filter out duplicates and spammers to ensure a legitimate winner every time."
+            }
+        ],
+        howTo: {
+            name: "How to Pick a Random Winner",
+            description: "Select a winner for your contest in seconds.",
+            steps: [
+                { name: "Paste Link", text: "Copy the URL of your YouTube video and paste it into the box." },
+                { name: "Load Comments", text: "Click 'Load Comments' to fetch all eligible entries." },
+                { name: "Apply Filters", text: "Choose your settings (Filter duplicates, require specific text)." },
+                { name: "Pick Winner", text: "Click 'Pick Winner' to randomly select a lucky commenter." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Is this tool free?",
+                answer: "Yes, this Random Comment Picker is 100% free to use for your giveaways and contests."
+            },
+            {
+                question: "Does it include replies?",
+                answer: "Currently, we only pick from top-level comments to ensure fairness, as replies are often discussions."
+            },
+            {
+                question: "How do you filter duplicates?",
+                answer: "If you check 'Filter Duplicates', we only count one comment per user. Even if they commented 10 times, they only have 1 chance to win."
+            },
+            {
+                question: "Is it truly random?",
+                answer: "Yes, we use a cryptographically secure random number generator to select the winner from the list of qualified comments."
+            }
+        ]
     },
     {
         slug: "youtube-channel-audit",
         name: "Channel Health Auditor",
-        description: "Get a comprehensive health check for your YouTube channel. Analyze your thumbnails, titles, and engagement consistency.",
+        description: "Get a comprehensive health check for your YouTube channel. Analyze your thumbnails, titles, and engagement consistency with our AI Auditor.",
         shortDescription: "Audit your channel health",
         category: "channel-growth",
         icon: FaChartBar,
         isAI: true,
         isFeatured: true,
-        keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel"],
+        keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel", "youtube seo check"],
         content: [
             {
-                title: "What is a Channel Audit?",
-                content: "A channel audit is a deep dive into your channel's performance metrics. We analyze your public data to identify strengths (what's working) and weaknesses (what needs improvement)."
+                title: "Comprehensive Channel Health Check",
+                content: "Is your YouTube channel optimized for growth? Our Channel Health Auditor acts as your personal consultant, analyzing critical metrics like Title Optimization, Thumbnail Quality, Upload Consistency, and Engagement Rate. Get a clear 0-100 score and actionable feedback to fix what's holding you back."
             },
             {
-                title: "How to Improve Your Health Score?",
-                content: "To boost your score, focus on three pillars: Consistency (upload schedule), Packaging (Thumbnails/Titles), and Engagement (Replying to comments). tackling these areas usually results in immediate growth."
+                title: "What We Analyze",
+                content: "We look at the 'Big 3' growth factors: Packaging (Do your Titles & Thumbnails click?), Consistency (Is your schedule reliable?), and Community (Are you engaging with viewers?). Improving these specific areas is the fastest way to trigger the YouTube algorithm."
             }
         ],
         howTo: {
-            name: "How to Audit Your Channel",
-            description: "Get your channel score in seconds.",
+            name: "How to Audit Your YouTube Channel",
+            description: "Get a professional channel review in 3 steps.",
             steps: [
-                { name: "Enter Handle", text: "Type your channel handle (e.g., @YourChannel)." },
-                { name: "Run Audit", text: "Click the 'Audit Channel' button to start the analysis." },
-                { name: "Review Score", text: "See your overall 0-100 score and get specific actionable advice." }
-            ]
-        }
+                { name: "Enter Handle", text: "Type your YouTube channel handle (e.g., @YourChannel) or Channel ID." },
+                { name: "Run Analysis", text: "Click 'Audit Channel' to scan your channel's public data." },
+                { name: "Review Score", text: "See your overall Health Score (0-100) and letter grade." },
+                { name: "Fix Issues", text: "Read the specific feedback for each metric (e.g., 'Improve Thumbnail Contrast') and implement changes." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What is a good Channel Health Score?",
+                answer: "A score above 70 is considered 'Healthy'. Above 90 is 'Excellent'. If your score is below 50, you likely have low-hanging fruit to fix, such as inconsistent uploads or poor SEO."
+            },
+            {
+                question: "Is this audit tool safe?",
+                answer: "Yes! We only analyze public data visible on YouTube. We do not require access to your private account or studio dashboard."
+            },
+            {
+                question: "How often should I audit my channel?",
+                answer: "We recommend a quick check-up once a month to ensure you're maintaining best practices, or whenever you notice a dip in views."
+            }
+        ]
     },
 ];
 

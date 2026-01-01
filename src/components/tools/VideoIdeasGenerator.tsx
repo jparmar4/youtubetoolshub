@@ -35,40 +35,6 @@ const goalOptions = [
     { value: "money", label: "Make Money (Sales/Sponsors)" },
 ];
 
-const faq = [
-    {
-        question: "Why does channel size matter?",
-        answer: "A small channel needs 'Searchable' or 'High Value' content to get discovered. A big channel can rely on 'Personality' and 'Storytelling' because they already have an audience. The AI adjusts ideas based on this context."
-    },
-    {
-        question: "What is the 'Difficulty' rating?",
-        answer: "It estimates how hard the video is to make. 'Easy' might be a talking head video, while 'Hard' implies complex editing, b-roll, or a challenge/vlog format."
-    },
-    {
-        question: "How do I use the Thumbnail Concept?",
-        answer: "The AI suggests a visual to pair with the title. This is crucial because Title + Thumbnail = Click. Use it as a starting point for your design."
-    },
-];
-
-const howTo = [
-    "Enter your niche (e.g., 'Fitness for busy dads')",
-    "Select your current Channel Size for realistic ideas",
-    "Choose your Content Goal (Views vs. Subs)",
-    "Click 'Generate' to get strategized video concepts",
-    "Review the 'Viral Score' and 'Thumbnail Concept'"
-];
-
-const seoContent = `Generate high-potential YouTube video ideas tailored to your specific channel size and goals. Unlike generic generators, our AI acts as a growth strategist, suggesting concepts that match your current stage (0 subs vs 100k subs) and objective (viral views vs loyal subscribers). Get complete concepts with titles, thumbnail ideas, and execution difficulty ratings.`;
-
-interface VideoIdea {
-    title: string;
-    concept: string;
-    score: number;
-    difficulty: string;
-    angle: string;
-    thumbnail_concept: string;
-}
-
 export default function VideoIdeasGenerator() {
     const [niche, setNiche] = useState("");
     const [level, setLevel] = useState("beginner");
@@ -211,9 +177,6 @@ export default function VideoIdeasGenerator() {
             title="Strategic Video Ideas Generator"
             slug="youtube-video-ideas-generator"
             description="Get proven video concepts tailored to your channel size and growth goals."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-video-ideas-generator" />

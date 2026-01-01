@@ -25,32 +25,6 @@ const frequencyOptions = [
     { value: "triweekly", label: "Tri-Weekly (3 videos/week)" },
 ];
 
-const faq = [
-    {
-        question: "How does the calendar generator work?",
-        answer: "Our AI analyzes your niche and generates a balanced content schedule with diverse video types (Tutorials, Vlogs, Shorts, etc.) suitable for your posting frequency."
-    },
-    {
-        question: "Can I edit the generated calendar?",
-        answer: "Currently, you can download the calendar as a CSV file and edit it in Excel or Google Sheets. In-app editing is coming soon."
-    },
-    {
-        question: "What's the best posting frequency?",
-        answer: "Consistency is key. It's better to post one high-quality video weekly than to burn out trying to post daily. Choose a schedule you can maintain long-term."
-    },
-];
-
-const howTo = [
-    "Enter your channel's niche or main topic",
-    "Select how often you want to post videos",
-    "Choose the duration for your calendar (e.g., 30 days)",
-    "Click 'Generate Calendar' to get a complete content plan",
-    "Review your scheduled video ideas and types",
-    "Download the calendar as a CSV file to track your progress"
-];
-
-const seoContent = `Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule in seconds. Whether you're a daily vlogger or a weekly educator, our tool generates engaging video ideas and organizes them into a balanced calendar to keep your audience growing and engaged.`;
-
 export default function ContentCalendarGenerator() {
     const [niche, setNiche] = useState("");
     const [frequency, setFrequency] = useState("weekly");
@@ -148,9 +122,6 @@ export default function ContentCalendarGenerator() {
             title="YouTube Content Calendar Generator"
             slug="youtube-content-calendar-generator"
             description="Plan your content schedule with AI-generated video ideas"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <UsageBanner type="ai" toolSlug="youtube-content-calendar-generator" />
