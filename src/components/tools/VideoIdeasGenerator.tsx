@@ -35,6 +35,15 @@ const goalOptions = [
     { value: "money", label: "Make Money (Sales/Sponsors)" },
 ];
 
+interface VideoIdea {
+    title: string;
+    concept: string;
+    score: number;
+    difficulty: string;
+    angle: string;
+    thumbnail_concept: string;
+}
+
 export default function VideoIdeasGenerator() {
     const [niche, setNiche] = useState("");
     const [level, setLevel] = useState("beginner");
