@@ -276,14 +276,37 @@ function DescriptionGeneratorContent() {
     );
 }
 
-function formatDescriptionFromJSON(jsonResult: string | Record<string, unknown>): string {
+function formatDescriptionFromJSON(jsonResult: string | Record<string, any>): string {
     try {
         let content = jsonResult;
 
         // If it's already an object, use it directly
         if (typeof content !== 'string') {
-            const typedContent = content as { description?: string; result?: string };
-            return typedContent.description || typedContent.result || JSON.stringify(content);
+            const typedContent = content as { description?: any; result?: string };
+
+            // Handle the specific structured output from our AI prompt
+            if (typedContent.description && typeof typedContent.description === 'object' && !Array.isArray(typedContent.description)) {
+                const d = typedContent.description;
+                return [
+                    d.hook,
+                    "",
+                    d.video_summary,
+                    "",
+                    "TIMESTAMPS:",
+                    Array.isArray(d.timestamps) ? d.timestamps.join('\n') : d.timestamps,
+                    "",
+                    "KEY TAKEAWAYS:",
+                    Array.isArray(d.key_points) ? d.key_points.join('\n') : d.key_points,
+                    "",
+                    d.resources_links,
+                    "",
+                    d.call_to_action,
+                    "",
+                    d.hashtags
+                ].filter(Boolean).join('\n');
+            }
+
+            return typedContent.description || typedContent.result || JSON.stringify(content, null, 2);
         }
 
         // Check if it's a JSON string
@@ -293,8 +316,12 @@ function formatDescriptionFromJSON(jsonResult: string | Record<string, unknown>)
                 const cleaned = content.replace(/```json\s*|\s*```/g, '').trim();
                 const parsed = JSON.parse(cleaned);
 
-                // Return description field if available, otherwise join array or return raw
-                return parsed.description || parsed.result || (Array.isArray(parsed) ? parsed.join('\n') : content);
+                // Recursively call for the parsed object to handle the logic above
+                if (typeof parsed === 'object' && parsed !== null) {
+                    return formatDescriptionFromJSON(parsed);
+                }
+
+                return String(parsed);
             } catch {
                 // If parse fails, return content as is (might be raw text)
                 return content;
@@ -305,6 +332,6 @@ function formatDescriptionFromJSON(jsonResult: string | Record<string, unknown>)
         return content.replace(/```json\s*|\s*```/g, '').trim();
     } catch (e) {
         console.error("Error formatting description:", e);
-        return String(jsonResult);
+        return typeof jsonResult === 'string' ? jsonResult : String(jsonResult);
     }
 }
