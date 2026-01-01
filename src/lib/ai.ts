@@ -154,9 +154,10 @@ Each object must have:
 GENERATE 10 TITLES NOW:`,
 
     descriptionGenerator: (topic: string, videoType: string, tone: string = "Casual & Friendly", keywords: string = "") => `
-# Task: Write a YouTube Description That Sounds 100% Human
+# Task: Write a World-Class YouTube Description
+
 ## Your Role
-You are a successful YouTuber who writes descriptions that feel personal, authentic, and engaging. Your descriptions read like a friend recommending a video, not a robot generating content.
+You are a top 0.1% YouTube strategist who has written descriptions for channels with 10M+ subscribers. Your descriptions drive engagement, boost watch time, and convert viewers into subscribers.
 
 ## Input
 - **Video Topic**: "${topic}"
@@ -164,88 +165,71 @@ You are a successful YouTuber who writes descriptions that feel personal, authen
 - **Tone**: ${tone}
 - **Keywords to Include**: ${keywords}
 
-## CRITICAL: How to Sound Human, Not AI
+## CRITICAL INSTRUCTIONS
 
-### DO THIS:
-- Write casually like you're texting a friend about your video
-- Use "I", "you", "we" naturally throughout  
-- Start with excitement or a personal hook, not generic phrases
-- Include natural imperfections (casual grammar is OK)
-- Use contractions: "you'll", "I've", "don't", "here's"
-- Add personal touches: "honestly", "trust me", "real talk"
-- Make timestamps feel conversational, not robotic
-- Use emojis sparingly and authentically (2-4 max per section)
+### Voice & Style
+- Write like a confident creator who genuinely loves their content
+- Sound conversational but polished — like a pro YouTuber, not a friend texting
+- Be specific to the topic, never generic
+- Every sentence should add value or intrigue
+- Use power words that create urgency and curiosity
 
-### NEVER DO THIS:
-- Start with "In this video" or "Welcome to my channel"
-- Use phrases like "comprehensive guide" or "everything you need to know"
-- Sound like a commercial or press release
-- Use overly perfect grammar everywhere
-- Add emojis to every single line
-- Use "embark on a journey" or other AI clichés
-- Sound like you're trying too hard to be professional
+### Structure (Output as PLAIN TEXT, ready to paste into YouTube)
 
-## Structure (Make It Feel Natural):
+**LINE 1-2: THE HOOK**
+Open with something that makes people NEED to read more. Options:
+- A bold claim or result ("This one change doubled my [result]")
+- A pattern interrupt ("Everyone's doing [X] wrong. Here's the truth.")
+- Specific intrigue ("After testing 47 methods, only 3 actually worked.")
 
-### 1. Opening Hook (2-3 lines) (must include primary keyword naturally)
-Write like you're excited to share something with a friend.
-Examples:
-- "Okay so I finally figured out why [problem] happens..."
-- "This changed everything for me and I had to share"
-- "Real talk – if you're struggling with [topic], watch this"
+**LINE 3-5: THE PROMISE**
+Tell them exactly what value they'll get. Be specific:
+- What problem you solve
+- What transformation or result they'll achieve
+- Why THIS video is different from the 100 others on the topic
 
-### 2. What's In This Video (3-4 lines)
-Casually explain what they'll learn. Be specific but conversational.
-- Don't list features, tell them what they'll GET from watching
-- Mention something unexpected or a "secret" you share
+**TIMESTAMPS** (with compelling section names)
+0:00 [Hook/Intro - make it intriguing]
+X:XX [First major point - specific benefit-driven title]
+X:XX [The breakthrough moment]
+X:XX [Advanced tip or secret]
+X:XX [Summary + what to do next]
 
-### 3. Timestamps
-Format them naturally:
-0:00 intro (or skip to 1:30 if you know the basics)
-1:30 the thing everyone gets wrong
-3:45 my actual process
-6:00 the results + what surprised me
+**KEY INSIGHTS** (4-5 punchy bullet points)
+Use arrows (→) and write insights that make people want to watch:
+→ [Specific insight that challenges common belief]
+→ [The "secret" or counterintuitive truth]
+→ [Practical takeaway they can use immediately]
+→ [Result or transformation they'll achieve]
 
-### 4. Quick Takeaways (4-5 bullets)
-Use casual bullet points, not formal lists:
-→ The one thing that actually matters
-→ Why most people overcomplicate this
-→ What I'd do differently (learned this the hard way)
+**RESOURCES**
+━━━━━━━━━━━━━━━━━━━━
+🔗 Links mentioned in this video:
+[Link to resource 1]
+[Link to resource 2]
 
-### 5. Links & Resources
-Keep it simple:
-"Stuff I mentioned:"
-[Link placeholder]
-[Link placeholder]
+📱 Connect with me:
+Instagram: @[handle]
+Twitter: @[handle]
+━━━━━━━━━━━━━━━━━━━━
 
-"Find me here:"
-IG: [placeholder]
-Twitter: [placeholder]
+**CALL TO ACTION** (1-2 lines, genuine not pushy)
+Something like: "If this saved you time/money/frustration, a like helps more than you know. And if you're serious about [topic], subscribe — I post [value proposition] every [frequency]."
 
-### 6. CTA (Natural, not pushy)
-Sound genuine:
-- "If this helped, a like would mean a lot 👍"
-- "Subscribe if you want more of this kind of content"
-- "Drop a comment – I actually read them all"
+**HASHTAGS** (5-7 strategic ones at the very end)
+#Hashtag1 #Hashtag2 #Hashtag3 #Hashtag4 #Hashtag5
 
-### 7. Hashtags (5-7 max)
-Mix specific + broad, placed at the very end
+## Quality Standards
+- NO generic phrases like "In this video" or "Welcome to my channel"
+- NO AI clichés like "dive into", "embark on a journey", "unlock your potential"
+- Every line must be specific to the actual topic "${topic}"
+- Timestamps must have creative, benefit-driven section names
+- The description should make someone want to watch even if they only read it
 
 ## Output Format
-Return a JSON object with this structure:
-{
-  "description": {
-    "hook": "Your natural opening hook",
-    "video_summary": "Casual explanation of what's in the video",
-    "timestamps": ["0:00 intro", "1:30 section name", ...],
-    "key_points": ["→ Point 1", "→ Point 2", ...],
-    "resources_links": "Stuff I mentioned section + social links",
-    "call_to_action": "Natural CTA",
-    "hashtags": "#Tag1 #Tag2 #Tag3..."
-  }
-}
+Return ONLY the plain text description, ready to paste into YouTube. No JSON, no markdown code blocks, no extra formatting. Just the description text exactly as it should appear.
 
-Make it sound like a real person wrote this while excited about their video!`,
+Write the description now:`,
 
     tagGenerator: (topic: string, niche?: string, targetAudience?: string) => `
 # Task: Generate Winning YouTube Tags That Actually Rank
