@@ -275,3 +275,36 @@ function DescriptionGeneratorContent() {
         </div>
     );
 }
+
+function formatDescriptionFromJSON(jsonResult: string | Record<string, unknown>): string {
+    try {
+        let content = jsonResult;
+
+        // If it's already an object, use it directly
+        if (typeof content !== 'string') {
+            const typedContent = content as { description?: string; result?: string };
+            return typedContent.description || typedContent.result || JSON.stringify(content);
+        }
+
+        // Check if it's a JSON string
+        if (content.trim().startsWith('{') || content.trim().startsWith('[')) {
+            try {
+                // Clean markdown code blocks if present
+                const cleaned = content.replace(/```json\s*|\s*```/g, '').trim();
+                const parsed = JSON.parse(cleaned);
+
+                // Return description field if available, otherwise join array or return raw
+                return parsed.description || parsed.result || (Array.isArray(parsed) ? parsed.join('\n') : content);
+            } catch {
+                // If parse fails, return content as is (might be raw text)
+                return content;
+            }
+        }
+
+        // If it's just a string, return it clean of markdown code blocks
+        return content.replace(/```json\s*|\s*```/g, '').trim();
+    } catch (e) {
+        console.error("Error formatting description:", e);
+        return String(jsonResult);
+    }
+}
