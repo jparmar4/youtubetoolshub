@@ -1,6 +1,8 @@
 "use client";
 
 import { FaCrown } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface PaymentButtonProps {
     plan: "monthly" | "yearly";
@@ -14,7 +16,15 @@ const PAYMENT_LINKS = {
 };
 
 export default function PaymentButton({ plan, className = "" }: PaymentButtonProps) {
+    const { data: session } = useSession();
+    const router = useRouter();
+
     const handlePayment = () => {
+        if (!session) {
+            router.push(`/sign-in?callbackUrl=${encodeURIComponent(window.location.pathname)}`);
+            return;
+        }
+
         // Open Razorpay payment link in a new tab
         window.open(PAYMENT_LINKS[plan], "_blank");
     };
