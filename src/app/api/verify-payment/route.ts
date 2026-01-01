@@ -8,14 +8,17 @@ export async function POST(request: Request) {
 
     try {
         const {
-            razorpay_order_id,
             razorpay_payment_id,
+            razorpay_subscription_id,
             razorpay_signature,
             userEmail,
+            planType
         } = await request.json();
 
-        // Verify signature
-        const body = razorpay_order_id + "|" + razorpay_payment_id;
+        // Verify signature for Subscription
+        // Signature = HMAC_SHA256(payment_id + "|" + subscription_id, secret)
+        const body = razorpay_payment_id + "|" + razorpay_subscription_id;
+
         const expectedSignature = crypto
             .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
             .update(body.toString())
@@ -24,30 +27,32 @@ export async function POST(request: Request) {
         const isValid = expectedSignature === razorpay_signature;
 
         if (isValid) {
-            // Payment verified successfully
-            // TODO: Save subscription to database
-            // TODO: Send confirmation email
-            console.log("Payment verified for:", userEmail);
-            console.log("Payment ID:", razorpay_payment_id);
+            console.log("Subscription Payment verified for:", userEmail);
+            console.log("Subscription ID:", razorpay_subscription_id);
 
-            // Determine Plan Duration (Simple heuristic or pass it in body)
-            // For now, defaulting to 1 month from now for standard upgrades
+            // Determine Start/End Dates based on plan
             const startDate = new Date();
             const endDate = new Date();
-            endDate.setDate(endDate.getDate() + 30); // Default to monthly
+
+            if (planType === 'yearly') {
+                endDate.setFullYear(endDate.getFullYear() + 1);
+            } else {
+                endDate.setMonth(endDate.getMonth() + 1); // Default monthly
+            }
 
             // Insert/Update Subscription
             try {
                 // Ensure date format is compatible
                 const startDateStr = startDate.toISOString();
                 const endDateStr = endDate.toISOString();
+                const planName = planType === 'yearly' ? 'pro-yearly' : 'pro-monthly';
 
                 await db.sql`
                     INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)
-                    VALUES (${userEmail}, 'pro-monthly', 'active', ${startDateStr}, ${endDateStr}, ${razorpay_payment_id})
+                    VALUES (${userEmail}, ${planName}, 'active', ${startDateStr}, ${endDateStr}, ${razorpay_payment_id})
                     ON CONFLICT (user_email)
                     DO UPDATE SET 
-                        plan = 'pro-monthly', 
+                        plan = ${planName}, 
                         status = 'active', 
                         start_date = ${startDateStr}, 
                         end_date = ${endDateStr}, 
@@ -60,8 +65,9 @@ export async function POST(request: Request) {
 
             return NextResponse.json({
                 success: true,
-                message: "Payment verified successfully",
+                message: "Subscription verified successfully",
                 paymentId: razorpay_payment_id,
+                subscriptionId: razorpay_subscription_id
             });
         } else {
             return NextResponse.json(
