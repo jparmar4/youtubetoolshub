@@ -54,10 +54,14 @@ export async function POST(request: Request) {
             keyId: process.env.RAZORPAY_KEY_ID
         });
 
-    } catch (error) {
-        console.error("Error creating subscription:", error);
+    } catch (error: any) {
+        console.error("Error creating subscription:", JSON.stringify(error, null, 2));
         return NextResponse.json(
-            { success: false, error: "Failed to create subscription" },
+            {
+                success: false,
+                error: error.message || error.description || "Failed to create subscription",
+                details: error
+            },
             { status: 500 }
         );
     }
