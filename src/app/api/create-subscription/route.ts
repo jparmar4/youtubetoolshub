@@ -12,6 +12,15 @@ export async function POST(request: Request) {
             );
         }
 
+        // Check environment variables first
+        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+            console.error("Razorpay keys not configured");
+            return NextResponse.json(
+                { success: false, error: "Payment gateway configuration error" },
+                { status: 500 }
+            );
+        }
+
         const { plan } = await request.json();
 
         // Plan IDs provided by user
@@ -30,14 +39,11 @@ export async function POST(request: Request) {
         }
 
         const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID!,
-            key_secret: process.env.RAZORPAY_KEY_SECRET!,
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET,
         });
 
         // Create Subscription
-        // Note: 'total_count' is optional (default usually infinite/until cancelled)
-        // We set it to something large or omit it for indefinite subscriptions usually.
-        // But for clarity, we just let it be default.
         const subscription = await razorpay.subscriptions.create({
             plan_id: selectedPlanId,
             customer_notify: 1,
