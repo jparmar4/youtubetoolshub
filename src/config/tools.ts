@@ -145,6 +145,40 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai thumbnail generator", "youtube thumbnail creator", "ai image generator for youtube", "custom thumbnail maker", "generate youtube thumbnails"],
+        content: [
+            {
+                title: "Create High-CTR Thumbnails with AI",
+                content: "Stop struggling with Photoshop. Our AI Thumbnail Generator creates professional, eye-catching thumbnails in seconds. Just describe your video concept, and our advanced AI will generate a unique, high-resolution image tailored to grab attention on YouTube. Perfect for vloggers, gamers, and educators who want to stand out."
+            },
+            {
+                title: "Why AI Thumbnails Work",
+                content: "YouTube is a visual platform. If your thumbnail doesn't pop, your video doesn't get clicked. Our AI is trained on millions of viral videos to understand what visual elements drive clicks—bright colors, expressive faces, and clear focal points. Get the same quality as top YouTubers without hiring a designer."
+            }
+        ],
+        howTo: {
+            name: "How to Generate AI Thumbnails",
+            description: "Create a custom thumbnail in 3 easy steps.",
+            steps: [
+                { name: "Describe Your Vision", text: "Enter a detailed description of the thumbnail you want (e.g., 'shocked gamer face with neon background')." },
+                { name: "Select Style", text: "Choose a style that fits your channel: 'Photorealistic', 'Cartoon', '3D Render', or 'Anime'." },
+                { name: "Generate & Download", text: "Click 'Generate' to see your unique thumbnail. Download the high-res image and upload it to YouTube." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Is it free to generate thumbnails?",
+                answer: "Yes, you can generate standard thumbnails for free. We offer premium features for higher resolution and advanced styles, but the core tool is accessible to everyone."
+            },
+            {
+                question: "Do I own the copyright to the image?",
+                answer: "Yes! You own full rights to the images you generate. You can use them on YouTube, social media, or your website without worrying about copyright strikes."
+            },
+            {
+                question: "What makes a good thumbnail prompt?",
+                answer: "Be specific. Instead of 'gamer', try 'excited gamer wearing headphones, purple lighting, digital art style'. The more detail you provide about lighting, mood, and style, the better the result."
+            }
+        ]
     },
     {
         slug: "youtube-ai-thumbnail-prompt",
@@ -156,6 +190,41 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt"],
+        content: [
+            {
+                title: "Master the Art of AI Prompts",
+                content: "The secret to amazing AI art isn't the tool—it's the prompt. Our AI Thumbnail Prompt Generator takes your simple idea and expands it into a highly detailed, professional prompt optimized for Midjourney, DALL-E, and Stable Diffusion. We include technical keywords for lighting, composition, and style that most users forget."
+            },
+            {
+                title: "Compatible with All Major AI Models",
+                content: "Whether you use Midjourney v6, DALL-E 3, or open-source Stable Diffusion, our prompts are engineered to work. We understand the specific 'language' each model prefers, helping you get consistent, high-quality results every time."
+            }
+        ],
+        howTo: {
+            name: "How to Create Perfect Prompts",
+            description: "Turn basic ideas into pro-level AI prompts.",
+            steps: [
+                { name: "Enter Concept", text: "Type a basic idea of what you want (e.g., 'dog playing poker')." },
+                { name: "Select AI Model", text: "Choose which AI you're using (Midjourney, DALL-E, etc.) to optimize the syntax." },
+                { name: "Enhance", text: "Click 'Generate Prompt' to receive a detailed paragraph including lighting, camera angles, and artistic style." },
+                { name: "Copy & Paste", text: "Copy the enhanced prompt and paste it into your AI image generator." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Why do I need a prompt generator?",
+                answer: "AI models can be picky. A simple prompt like 'cat' gives boring results. Our generator adds modifiers like 'cinematic lighting, 8k resolution, unreal engine 5 render' to force the AI to create high-quality output."
+            },
+            {
+                question: "Does this work for Midjourney?",
+                answer: "Yes, specifically for Midjourney! We include parameters like --ar 16:9 (aspect ratio) and --v 6 (version) automatically if you select the Midjourney option."
+            },
+            {
+                question: "Can I use these prompts for non-YouTube images?",
+                answer: "Absolutely. While we focus on thumbnails, these high-quality prompts work for blog headers, social media posts, and digital art projects."
+            }
+        ]
     },
 
     // SEO & Metadata Tools
@@ -310,6 +379,41 @@ export const tools: Tool[] = [
         icon: FaSearch,
         isAI: false,
         keywords: ["youtube tag extractor", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video"],
+        content: [
+            {
+                title: "Spy on Your Competitors' Strategy",
+                content: "Ever wonder why certain videos strictly rank #1? Often, it's their hidden meta tags. Our YouTube Tag Extractor reveals the exact keywords successful channels use. By analyzing these tags, you can discover high-value keywords, understand how the algorithm categorizes their content, and apply similar strategies to your own videos to boost rankings."
+            },
+            {
+                title: "Safe & Legal Research",
+                content: "Analyzing public metadata is a standard SEO practice. This tool simply reads the public code of the YouTube page to find the 'keywords' meta tag that isn't visible on the screen. It's a powerful way to perform competitive analysis without violating any terms of service."
+            }
+        ],
+        howTo: {
+            name: "How to Extract Tags from Any Video",
+            description: "Reveal hidden video tags in seconds.",
+            steps: [
+                { name: "Find a Video", text: "Go to YouTube and find a popular video in your niche." },
+                { name: "Copy Link", text: "Copy the video URL from your browser address bar." },
+                { name: "Extract", text: "Paste the link above and click 'Extract Tags'. We'll instantly list every tag used on that video." },
+                { name: "Copy & Use", text: "Click to copy individual tags or 'Copy All' to save them for your own video metadata." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Can I just copy all tags from a viral video?",
+                answer: "You can, but you shouldn't blindly copy them. Only use tags that are relevant to YOUR video. Using irrelevant tags (misleading metadata) is against YouTube policy and can hurt your channel."
+            },
+            {
+                question: "Why can't I see tags on YouTube anymore?",
+                answer: "YouTube hid tags from the public view years ago because they wanted to clean up the interface. However, they are still in the page code and used by the algorithm."
+            },
+            {
+                question: "How many tags should I steal?",
+                answer: "Look for patterns across 3-5 top videos. If they all use 'vegan meal prep', that's a tag you should probably use. Don't just copy one video's tags entirely."
+            }
+        ]
     },
 
     // Channel Research & Growth Tools
@@ -533,6 +637,41 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["title ab tester", "youtube title rater", "title comparison", "best title checker", "click through rate tool"],
+        content: [
+            {
+                title: "Stop Guessing, Start Testing",
+                content: "Which title will get more clicks? 'How to Make Money' or 'I Made $1000 in 24 Hours'? Top YouTubers don't guess—they test. Our Title A/B Score Checker analyzes your title options against proven viral patterns to predict which one will have a higher Click-Through Rate (CTR)."
+            },
+            {
+                title: "The Science of the Click",
+                content: "We evaluate titles based on three core metrics: Emotional Impact, Curiosity Gap, and Clarity. By comparing two variations side-by-side, you can choose the one that is statistically more likely to win the click."
+            }
+        ],
+        howTo: {
+            name: "How to A/B Test Your Titles",
+            description: "Pick the winning title in 3 steps.",
+            steps: [
+                { name: "Draft Options", text: "Come up with two different angles for your video title (e.g., Short vs. Long, Negative vs. Positive)." },
+                { name: "Enter Titles", text: "Paste Title A and Title B into the comparison fields." },
+                { name: "Analyze", text: "Click 'Compare Titles' to see a side-by-side breakdown." },
+                { name: "Select Winner", text: "Use the title with the higher 'Viral Potential' score for your video." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What is A/B testing?",
+                answer: "A/B testing is comparing two versions of something to see which performs better. In this case, we use AI to simulate how real viewers would react to your different title options."
+            },
+            {
+                question: "Can I test thumbnails too?",
+                answer: "Currently, this tool focuses on text. For thumbnail testing, we recommend using our Thumbnail Downloader to compare your design against competitors."
+            },
+            {
+                question: "How accurate is the score?",
+                answer: "Our scoring is based on analysis of high-performing YouTube videos. While no tool can guarantee views, high-scoring titles generally follow the patterns of viral content."
+            }
+        ]
     },
 
     // Utility & Fun Tools
@@ -628,6 +767,41 @@ export const tools: Tool[] = [
         icon: FaMicrophone,
         isAI: true,
         keywords: ["intro script generator", "youtube intro writer", "video hook generator", "script writing ai", "youtube script maker"],
+        content: [
+            {
+                title: "Hook Viewers in the First 30 Seconds",
+                content: "The first 30 seconds of your video determine its success. If viewers click away, YouTube stops recommending it. Our AI Intro Script Generator writes compelling hooks that grab attention immediately. We use proven frameworks like 'Problem-Agitation-Solution' and 'Open Loops' to ensure viewers stay watching until the end."
+            },
+            {
+                title: "Stop Starting with 'Hey Guys'",
+                content: "Generic intros kill retention. Our AI generates professional, structured openings that state exactly what the video is about, why it matters, and what the viewer will gain. No fluff, just value."
+            }
+        ],
+        howTo: {
+            name: "How to Write a Killer Intro",
+            description: "Generate a retention-boosting script in 3 steps.",
+            steps: [
+                { name: "Enter Topic", text: "Tell us what your video is about (e.g., 'How to bake a cake without eggs')." },
+                { name: "Choose Hook Style", text: "Select a framework: 'Storytelling', 'Shocking Fact', or 'Direct Promise'." },
+                { name: "Generate", text: "Get 3 unique script options. Read them out loud to see which one sounds most natural." },
+                { name: "Filming", text: "Use the generated script verbatim or tweak it to match your voice. Record it with high energy!" }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How long should an intro be?",
+                answer: "Ideally, under 60 seconds. The best intros are often 15-30 seconds. Get straight to the point and deliver on the promise of your title."
+            },
+            {
+                question: "What is a 'Hook'?",
+                answer: "A hook is the very first sentence. It must confirm the viewer clicked the right video and give them a reason to keep watching. Example: 'In this video, I'll show you how to double your money...'"
+            },
+            {
+                question: "Can I use this for Shorts?",
+                answer: "Yes! Select the 'Short/Punchy' style for 60-second vertical videos. These intros are even faster and more aggressive to stop the scroll."
+            }
+        ]
     },
     {
         slug: "youtube-channel-id-finder",
@@ -638,6 +812,41 @@ export const tools: Tool[] = [
         icon: FaIdCard,
         isAI: false,
         keywords: ["channel id finder", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle"],
+        content: [
+            {
+                title: "Find Any Channel ID Instantly",
+                content: "Need a YouTube Channel ID for an API integration, social blade lookup, or marketing tool? YouTube often hides these IDs behind custom handles (like @MrBeast). Our tool digs into the channel data to reveal the permanent Channel ID (UC...) and User ID required for developers and marketers."
+            },
+            {
+                title: "Why You Need the ID",
+                content: "Custom URLs change, but Channel IDs are forever. If you're building an app, setting up an RSS feed, or whitelisting a channel for ads, you need the immutable ID, not the vanity URL. We make finding it simple."
+            }
+        ],
+        howTo: {
+            name: "How to Find a Channel ID",
+            description: "Get the permanent ID in seconds.",
+            steps: [
+                { name: "Copy Link", text: "Go to the YouTube channel page and copy the URL (e.g., youtube.com/@user)." },
+                { name: "Paste", text: "Paste the link into the box above." },
+                { name: "Find", text: "Click 'Find ID'. We'll process the request instantly." },
+                { name: "Copy ID", text: "Copy the 'Channel ID' (starts with UC) for your use." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What is a Channel ID?",
+                answer: "It's a unique string starting with 'UC' (e.g., UC12345...) that permanently identifies a YouTube channel, unlike handles which can be changed."
+            },
+            {
+                question: "Can I find my own ID?",
+                answer: "Yes! But it's often easier to use this tool than to dig through your advanced account settings page."
+            },
+            {
+                question: "Is this legal?",
+                answer: "100%. Channel IDs are public information used by YouTube's API. We just make them easier to find."
+            }
+        ]
     },
     {
         slug: "youtube-playlist-length-calculator",
@@ -648,6 +857,41 @@ export const tools: Tool[] = [
         icon: FaListUl,
         isAI: false,
         keywords: ["playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time"],
+        content: [
+            {
+                title: "Plan Your Binge-Watching Sessions",
+                content: "Whether you're studying a course or catching up on a vlog series, knowing the total runtime is essential. Our Playlist Length Calculator sums up the duration of every video in a playlist. It even calculates how much time you save by watching at 1.25x, 1.5x, or 2x speed."
+            },
+            {
+                title: "Perfect for Students & Researchers",
+                content: "Don't guess if you have time to finish that lecture series. Get the exact hour and minute count instantly. You can select up to 500 videos at once."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate Playlist Duration",
+            description: "See exactly how long a playlist takes to watch.",
+            steps: [
+                { name: "Get Link", text: "Copy the URL of a YouTube playlist (must be public)." },
+                { name: "Paste & Calculate", text: "Paste it above and hit 'Calculate Length'." },
+                { name: "Review Stats", text: "See the total time, average video length, and fastest possible watch time." },
+                { name: "Plan", text: "Use the 'Watch at 2x' stat to see if you can cram it in before the deadline!" }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Does this work on 'Watch Later'?",
+                answer: "No, 'Watch Later' is a private playlist. The playlist must be Public or Unlisted for our tool to access it."
+            },
+            {
+                question: "What is the limit?",
+                answer: "We maximize content for performance. Extremely large playlists (1000+ videos) might take a moment to process, but we handle most standard sizes instantly."
+            },
+            {
+                question: "Is the calculation accurate?",
+                answer: "Yes, it is precise to the second, summing up the exact duration of every video file in the list."
+            }
+        ]
     },
     {
         slug: "youtube-comment-picker",
