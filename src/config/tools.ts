@@ -18,6 +18,8 @@ export interface Tool {
     category: string;
     icon: IconType;
     isAI: boolean;
+    seoTitle?: string;
+    seoDescription?: string;
     isFeatured?: boolean;
     keywords: string[];
     content?: { title: string; content: string }[];
@@ -43,6 +45,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-downloader",
         name: "YouTube Thumbnail Downloader",
+        seoTitle: "Free YouTube Thumbnail Downloader (HD, 4K, 8K) - No Watermark",
+        seoDescription: "Download high-quality YouTube thumbnails in 1080p, 4K, and 8K. Fast, free, and no watermark. Save thumbnails from any video instantly.",
         description: "Download high-quality thumbnails from any YouTube video. Get all resolutions including HD and SD versions.",
         shortDescription: "Download thumbnails from any YouTube video",
         category: "thumbnail-media",
@@ -231,6 +235,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-title-generator",
         name: "YouTube Title Generator",
+        seoTitle: "Free YouTube Title Generator - AI Optimized SEO Titles (2026)",
+        seoDescription: "Generate viral, high-CTR YouTube titles with AI. Get catchy, SEO-optimized title ideas for your videos in seconds. Free tool, no sign-up.",
         description: "Generate SEO-optimized, clickable YouTube titles using AI. Choose from different tones and languages.",
         shortDescription: "AI-generated SEO titles",
         category: "seo-metadata",
@@ -276,6 +282,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-description-generator",
         name: "YouTube Description Generator",
+        seoTitle: "AI YouTube Description Generator - SEO Optimized Templates",
+        seoDescription: "Create professional, SEO-friendly YouTube descriptions in one click. Our AI generates hooks, timestamps, and hashtags to boost your video rankings.",
         description: "Create engaging video descriptions with AI. Includes hooks, bullet points, CTAs, and hashtags.",
         shortDescription: "AI-powered video descriptions",
         category: "seo-metadata",
@@ -322,6 +330,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tag-generator",
         name: "YouTube Tag Generator",
+        seoTitle: "YouTube Tag Generator - Find High Ranking Keywords (Free)",
+        seoDescription: "Find the best SEO tags for your YouTube videos. Our free AI tag generator discovers trending, high-volume keywords to help you rank #1.",
         description: "Generate SEO-optimized, trending tags that help your videos rank. Get primary, search, and long-tail keywords.",
         shortDescription: "Generate SEO tags for videos",
         category: "seo-metadata",

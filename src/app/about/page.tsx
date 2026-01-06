@@ -5,8 +5,8 @@ import { FaRocket, FaBolt, FaStar, FaCheck, FaUsers, FaHeart, FaShieldAlt, FaLig
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-    title: "About Us",
-    description: "Learn about YouTube Tools Hub - your all-in-one platform for YouTube creators with free tools powered by AI.",
+    title: "About YouTube Tools Hub - Our Mission to Help Creators Grow (2026)",
+    description: "YouTube Tools Hub provides free AI-powered tools for creators. Learn about our mission to democratize video growth with SEO, specialized tools, and expert content.",
     alternates: {
         canonical: "/about",
     },

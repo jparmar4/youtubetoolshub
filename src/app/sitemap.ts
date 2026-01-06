@@ -55,19 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         });
     }
 
-    // Programmatic Niche Pages
-    tools.forEach((tool) => {
-        if (programmaticTools.includes(tool.slug)) {
-            niches.forEach((niche: any) => {
-                allEntries.push({
-                    url: `${baseUrl}/tools/${tool.slug}/${niche.id}`,
-                    lastModified: new Date(),
-                    changeFrequency: 'weekly',
-                    priority: 0.8,
-                });
-            });
-        }
-    });
+
 
     return allEntries;
 }

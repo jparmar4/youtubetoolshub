@@ -76,12 +76,12 @@ export async function generateMetadata({
     }
 
     return {
-        title: tool.name,
-        description: tool.description,
+        title: tool.seoTitle || tool.name,
+        description: tool.seoDescription || tool.description,
         keywords: tool.keywords,
         openGraph: {
-            title: `${tool.name} | YouTube Tools Hub`,
-            description: tool.description,
+            title: `${tool.seoTitle || tool.name} | YouTube Tools Hub`,
+            description: tool.seoDescription || tool.description,
             type: "website",
         },
         alternates: {

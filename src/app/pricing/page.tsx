@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import PricingClient from "@/components/pricing/PricingClient";
 
 export const metadata: Metadata = {
-    title: "Pricing - YouTube Tools Hub",
-    description: "Simple, honest pricing for YouTube creators. Start free, upgrade for unlimited AI access.",
+    title: "Pricing - Free vs Premium Plans (Save 50% Today)",
+    description: "Compare Free vs Premium plans. Get unlimited access to AI Title Generator, 4K Thumbnail Downloader, and advanced SEO insights. Start for free.",
     alternates: {
         canonical: "/pricing",
     },

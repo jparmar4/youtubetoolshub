@@ -104,12 +104,14 @@ export function getSoftwareApplicationSchema(tool: {
         name: tool.name,
         description: tool.description,
         url: tool.url,
-        applicationCategory: "WebApplication",
-        operatingSystem: "Any",
+        applicationCategory: tool.category === "utility-fun" ? "UtilityApplication" : "MultimediaApplication",
+        applicationSubCategory: "YouTube Tools",
+        operatingSystem: "Web Browser",
         offers: {
             "@type": "Offer",
             price: "0",
             priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
         },
         aggregateRating: {
             "@type": "AggregateRating",
