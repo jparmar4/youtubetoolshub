@@ -186,7 +186,7 @@ export default async function BlogPostPage({
                         )}
 
                         {/* Article Content */}
-                        <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-headings:font-bold prose-p:text-slate-600 prose-p:leading-8 prose-strong:text-slate-900 prose-li:text-slate-600 prose-a:text-purple-600 hover:prose-a:text-purple-700 prose-a:font-medium prose-blockquote:border-l-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg">
+                        <div className="max-w-none">
                             {processContent(post.content)}
                         </div>
 

@@ -783,5 +783,15 @@ So let's dive right in. The first thing you need to understand is...`;
         ]);
     }
 
+    if (lowerPrompt.includes("sponsorship") || lowerPrompt.includes("estimate")) {
+        return JSON.stringify({
+            lowEstimate: 450,
+            highEstimate: 850,
+            currency: "USD",
+            explanation: "Based on the Tech niche average of $18-$34 CPM. Your high engagement rate suggests you can command the upper end of this range.",
+            pitchTip: "Highlight your audience retention metrics in your media kit - brands pay a premium for 'sticky' viewers."
+        });
+    }
+
     return "Generated content will appear here when AI_API_KEY is configured.";
 }
