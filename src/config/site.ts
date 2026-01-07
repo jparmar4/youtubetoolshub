@@ -89,6 +89,10 @@ export const siteConfig = {
       locale: "en_US",
       siteName: "YouTube Tools Hub",
     },
+    indexNow: {
+      key: process.env.INDEXNOW_KEY || "64e8bd30cdad4ba794ae7005b00dfa6e",
+      url: "https://www.youtubetoolshub.com",
+    },
   },
 
   // Contact
