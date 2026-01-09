@@ -4,8 +4,8 @@ import { getAllBlogPosts } from "@/config/blog";
 import { FaClock, FaUser, FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Blog - YouTube Growth Tips & Tutorials",
-    description: "Practical tips, honest advice, and in-depth guides to help you grow your YouTube channel. Written by creators, for creators.",
+    title: "YouTube Growth Blog – FREE Tips, Tutorials & Strategies (2026)",
+    description: "📈 Proven YouTube growth strategies from 6-figure creators. Thumbnails, SEO, monetization, viral titles & more. Updated weekly. 100% actionable tips!",
     alternates: {
         canonical: "/blog",
     },

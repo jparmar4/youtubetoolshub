@@ -187,13 +187,15 @@ export const tools: Tool[] = [
     {
         slug: "youtube-ai-thumbnail-prompt",
         name: "AI Thumbnail Prompt Generator",
+        seoTitle: "FREE AI Thumbnail Prompt Generator – Midjourney & DALL-E Prompts",
+        seoDescription: "🎨 Generate PRO-LEVEL AI thumbnail prompts for Midjourney, DALL-E & Stable Diffusion. Copy-paste ready. 100% free, no signup required!",
         description: "Generate professional AI prompts for stunning YouTube thumbnails. Works with DALL-E, Midjourney, Stable Diffusion, and any AI image generator.",
         shortDescription: "Create perfect AI image prompts",
         category: "thumbnail-media",
         icon: FaRocket,
         isAI: true,
         isFeatured: true,
-        keywords: ["ai prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt"],
+        keywords: ["ai prompt generator", "thumbnail prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt", "ai thumbnail prompt generator free"],
         content: [
             {
                 title: "Master the Art of AI Prompts",

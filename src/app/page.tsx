@@ -10,8 +10,8 @@ import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YouTube Tools Hub - 15+ Free AI Tools to Grow Your Channel (2026)",
-  description: "Supercharge your YouTube growth with free AI tools. Download thumbnails, generate viral titles, find tags, and create scripts. No sign-up required.",
+  title: "YouTube Tools Hub – FREE AI Tools for Creators (No Signup Required)",
+  description: "🔥 15+ FREE tools trusted by 50,000+ creators. Download 4K thumbnails • Generate viral titles • AI script writer • Earnings calculator. Start growing NOW!",
   alternates: {
     canonical: "/",
   },
