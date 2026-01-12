@@ -137,10 +137,10 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense - Lazy Loaded for Performance */}
+        {/* AdSense - Faster Loading for Revenue */}
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           crossOrigin="anonymous"
         />
         {/* Microsoft Clarity */}

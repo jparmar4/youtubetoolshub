@@ -32,19 +32,20 @@ export default function GoogleAd({
     useEffect(() => {
         try {
             if (typeof window !== "undefined") {
-                // Check if the ad slot is already filled to prevent duplicate pushes
                 const adElement = adRef.current;
-                if (adElement && adElement.innerHTML === "") {
+                // Check if the ad slot is already filled to prevent duplicate pushes
+                // We look for the data-ad-status attribute which AdSense adds, or if content exists
+                if (adElement && !adElement.getAttribute("data-ad-status")) {
                     (window.adsbygoogle = window.adsbygoogle || []).push({});
                 }
             }
         } catch (err) {
             console.error("AdsByGoogle error:", err);
         }
-    }, []);
+    }, [slot]); // Re-run if slot changes
 
     return (
-        <div className={`google-ad-container w-full flex justify-center my-6 ${className || ""}`}>
+        <div className={`google-ad-container w-full flex justify-center my-6 min-h-[280px] ${className || ""}`}>
             <ins
                 ref={adRef}
                 className="adsbygoogle"
