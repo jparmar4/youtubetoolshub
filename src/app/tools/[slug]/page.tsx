@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 // Import all tool components
 import ThumbnailDownloader from "@/components/tools/ThumbnailDownloader";
@@ -160,6 +161,11 @@ export default async function ToolPage({
                     <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" /></div>}>
                         <ToolComponent />
                     </Suspense>
+
+                    {/* Google Ad: Tool Banner Horizontal */}
+                    <div className="flex justify-center my-8">
+                        <GoogleAd slot="5848325027" className="w-full max-w-4xl" />
+                    </div>
 
                     {/* Content Sections (GEO Optimized) */}
                     <div className="max-w-4xl mx-auto space-y-12">
