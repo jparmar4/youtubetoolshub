@@ -57,5 +57,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 
 
+    // Dynamic programmatic niche pages
+    for (const toolSlug of programmaticTools) {
+        for (const niche of niches) {
+            allEntries.push({
+                url: `${baseUrl}/tools/${toolSlug}/${niche.id}`,
+                lastModified: new Date(),
+                changeFrequency: 'weekly',
+                priority: 0.8,
+            });
+        }
+    }
+
     return allEntries;
 }

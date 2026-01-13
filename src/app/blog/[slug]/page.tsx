@@ -164,98 +164,82 @@ export default async function BlogPostPage({
                     </div>
                 </header>
 
-                {/* Content Layout */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                        {/* Main Article Column */}
-                        <article className="lg:col-span-8">
-                            {/* Google Ad: Mobile Banner */}
-                            <div className="lg:hidden mb-10">
-                                <GoogleAd slot="5848325027" className="w-full" />
-                            </div>
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    {/* Main Article Column */}
+                    <article>
+                        {/* Google Ad: Mobile Banner */}
+                        <div className="mb-10">
+                            <GoogleAd slot="5848325027" className="w-full" />
+                        </div>
 
-                            {/* Cover Image */}
-                            {post.coverImage && (
-                                <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
-                                    <NextImage
-                                        src={post.coverImage}
-                                        alt={post.imageAlt || post.title}
-                                        width={1200}
-                                        height={630}
-                                        priority
-                                        className="w-full h-auto object-cover"
-                                    />
+                        {/* Cover Image */}
+                        {post.coverImage && (
+                            <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
+                                <NextImage
+                                    src={post.coverImage}
+                                    alt={post.imageAlt || post.title}
+                                    width={1200}
+                                    height={630}
+                                    priority
+                                    className="w-full h-auto object-cover"
+                                />
+                            </div>
+                        )}
+
+                        {/* Article Content */}
+                        <div className="max-w-none">
+                            {processContent(post.content)}
+                        </div>
+
+                        {/* FAQ Section */}
+                        {post.faq && post.faq.length > 0 && (
+                            <div className="mt-16 mb-12">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                    <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
+                                        <FaQuestionCircle />
+                                    </span>
+                                    Frequently Asked Questions
+                                </h3>
+                                <div className="space-y-4">
+                                    {post.faq.map((item, index) => (
+                                        <details
+                                            key={index}
+                                            className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
+                                        >
+                                            <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
+                                                <span className="pr-4">{item.question}</span>
+                                                <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
+                                            </summary>
+                                            <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
+                                                {item.answer}
+                                            </div>
+                                        </details>
+                                    ))}
                                 </div>
-                            )}
-
-                            {/* Article Content */}
-                            <div className="max-w-none">
-                                {processContent(post.content)}
                             </div>
+                        )}
 
-                            {/* FAQ Section */}
-                            {post.faq && post.faq.length > 0 && (
-                                <div className="mt-16 mb-12">
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                        <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
-                                            <FaQuestionCircle />
+                        {/* Tags */}
+                        <div className="mt-16 pt-8 border-t border-slate-200">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                                <div className="flex flex-wrap gap-2">
+                                    {post.keywords.map((keyword) => (
+                                        <span
+                                            key={keyword}
+                                            className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
+                                        >
+                                            {keyword}
                                         </span>
-                                        Frequently Asked Questions
-                                    </h3>
-                                    <div className="space-y-4">
-                                        {post.faq.map((item, index) => (
-                                            <details
-                                                key={index}
-                                                className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
-                                            >
-                                                <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
-                                                    <span className="pr-4">{item.question}</span>
-                                                    <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
-                                                </summary>
-                                                <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
-                                                    {item.answer}
-                                                </div>
-                                            </details>
-                                        ))}
-                                    </div>
+                                    ))}
                                 </div>
-                            )}
-
-                            {/* Tags */}
-                            <div className="mt-16 pt-8 border-t border-slate-200">
-                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                                    <div className="flex flex-wrap gap-2">
-                                        {post.keywords.map((keyword) => (
-                                            <span
-                                                key={keyword}
-                                                className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
-                                            >
-                                                {keyword}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <ShareButtons
-                                        url={`${siteConfig.url}/blog/${slug}`}
-                                        title={post.title}
-                                        description={post.metaDescription}
-                                    />
-                                </div>
+                                <ShareButtons
+                                    url={`${siteConfig.url}/blog/${slug}`}
+                                    title={post.title}
+                                    description={post.metaDescription}
+                                />
                             </div>
-                        </article>
-
-                        {/* Sidebar */}
-                        <aside className="lg:col-span-4 space-y-8">
-                            {/* Sticky Container */}
-                            <div className="sticky top-24 space-y-8">
-                                {/* Google Ad: Sidebar Vertical */}
-                                <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 shadow-sm flex justify-center min-h-[600px]">
-                                    <GoogleAd slot="8474488368" className="w-full" />
-                                </div>
-
-                                {/* Table of Contents or other sidebar widgets could go here */}
-                            </div>
-                        </aside>
-                    </div>
+                        </div>
+                    </article>
                 </div>
 
                 {/* Related Posts */}
