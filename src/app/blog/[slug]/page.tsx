@@ -169,9 +169,9 @@ export default async function BlogPostPage({
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         {/* Main Article Column */}
                         <article className="lg:col-span-8">
-                            {/* Ad Placeholder (Mobile Only) */}
+                            {/* Google Ad: Mobile Banner */}
                             <div className="lg:hidden mb-10">
-                                <AdPlaceholder size="banner" />
+                                <GoogleAd slot="5848325027" className="w-full" />
                             </div>
 
                             {/* Cover Image */}

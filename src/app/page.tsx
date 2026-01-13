@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaArrowRight, FaRocket, FaCheck, FaBolt, FaStar } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import AdPlaceholder from "@/components/ui/AdPlaceholder";
+import GoogleAd from "@/components/ads/GoogleAd";
 import { getFeaturedTools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
@@ -85,9 +85,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad Space */}
+      {/* Google Ad: Homepage Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <AdPlaceholder size="banner" />
+        <GoogleAd slot="5848325027" className="w-full" />
       </div>
 
       {/* Featured Tools Section */}

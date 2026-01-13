@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import AdPlaceholder from "@/components/ui/AdPlaceholder";
+import GoogleAd from "@/components/ads/GoogleAd";
 import { siteConfig } from "@/config/site";
 import MotionWrapper from "@/components/ui/MotionWrapper";
 import ToolHistory from "./ToolHistory";
@@ -47,9 +47,9 @@ export default function ToolPageLayout({
                         </MotionWrapper>
                     </div>
 
-                    {/* Ad Placeholder */}
+                    {/* Google Ad: Inline */}
                     <div className="mb-8">
-                        <AdPlaceholder size="inline" />
+                        <GoogleAd slot="5848325027" className="w-full" />
                     </div>
 
                     {/* How to Use Section */}
@@ -85,9 +85,9 @@ export default function ToolPageLayout({
                         </div>
                     )}
 
-                    {/* Ad Placeholder - Sidebar alternative */}
+                    {/* Google Ad: Bottom Banner */}
                     <div className="mb-8">
-                        <AdPlaceholder size="banner" />
+                        <GoogleAd slot="5848325027" className="w-full" />
                     </div>
 
                     {/* FAQ Section */}

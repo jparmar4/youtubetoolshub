@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isPremiumUser } from "@/lib/usage";
 
 declare global {
     interface Window {
@@ -28,8 +29,15 @@ export default function GoogleAd({
     className,
 }: GoogleAdProps) {
     const adRef = useRef<HTMLModElement>(null);
+    const [shouldShowAd, setShouldShowAd] = useState(true);
 
     useEffect(() => {
+        // Check premium status
+        if (isPremiumUser()) {
+            setShouldShowAd(false);
+            return;
+        }
+
         try {
             if (typeof window !== "undefined") {
                 const adElement = adRef.current;
@@ -43,6 +51,10 @@ export default function GoogleAd({
             console.error("AdsByGoogle error:", err);
         }
     }, [slot]); // Re-run if slot changes
+
+    if (!shouldShowAd) {
+        return null;
+    }
 
     return (
         <div className={`google-ad-container w-full flex justify-center my-6 min-h-[280px] ${className || ""}`}>
