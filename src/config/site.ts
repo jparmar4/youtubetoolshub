@@ -107,7 +107,7 @@ export const siteConfig = {
       siteName: "YouTube Tools Hub",
     },
     indexNow: {
-      key: process.env.INDEXNOW_KEY || "64e8bd30cdad4ba794ae7005b00dfa6e",
+      key: process.env.INDEXNOW_KEY || "01d46652569c40eaa19149073834de57",
       url: "https://www.youtubetoolshub.com",
     },
   },
