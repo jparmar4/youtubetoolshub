@@ -56,8 +56,18 @@ export default function GoogleAd({
         return null;
     }
 
+    const isDev = process.env.NODE_ENV === "development";
+
     return (
-        <div className={`google-ad-container w-full flex justify-center my-6 min-h-[280px] ${className || ""}`}>
+        <div className={`google-ad-container w-full flex justify-center my-6 min-h-[280px] relative ${className || ""}`}>
+            {isDev && (
+                <div className="absolute inset-0 flex items-center justify-center bg-stripes-gray opacity-50 z-0 pointer-events-none border-2 border-dashed border-red-300">
+                    <div className="text-center p-2 bg-white/90 rounded shadow-sm z-10">
+                        <p className="text-xs font-bold text-red-500 uppercase">Dev Mode: Ad Slot</p>
+                        <p className="text-[10px] text-slate-500 font-mono mt-0.5">{slot} ({format})</p>
+                    </div>
+                </div>
+            )}
             <ins
                 ref={adRef}
                 className="adsbygoogle"
