@@ -4900,7 +4900,7 @@ export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
 };
 
 export const getAllBlogPosts = (): BlogPost[] => {
-    return blogPosts;
+    return [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 
 export const getBlogPostsByCategory = (category: string): BlogPost[] => {
