@@ -102,6 +102,14 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        {/* hreflang tags for geo-targeting high-CPC countries */}
+        <link rel="alternate" hrefLang="en-US" href="https://www.youtubetoolshub.com" />
+        <link rel="alternate" hrefLang="en-GB" href="https://www.youtubetoolshub.com" />
+        <link rel="alternate" hrefLang="en-AU" href="https://www.youtubetoolshub.com" />
+        <link rel="alternate" hrefLang="en-CA" href="https://www.youtubetoolshub.com" />
+        <link rel="alternate" hrefLang="en" href="https://www.youtubetoolshub.com" />
+        <link rel="alternate" hrefLang="x-default" href="https://www.youtubetoolshub.com" />
+
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />

@@ -51,38 +51,55 @@ export const siteConfig = {
     defaultTitle: "YouTube Tools Hub – 15+ FREE AI Tools for Creators ✓ No Signup",
     defaultDescription: "🚀 Grow your YouTube channel FAST with 15+ free AI tools. Download HD thumbnails, generate viral titles & optimize tags instantly. Zero signup. 100% free.",
     keywords: [
-      // Core English Keywords
-      "youtube tools",
-      "youtube thumbnail downloader",
-      "youtube seo tools free",
-      "youtube title generator",
-      "youtube tag extractor",
-      "youtube automation tools",
-      "youtube earnings calculator",
-      "youtube channel growth",
-      "ai content generator for youtube",
-      "free youtube analytics",
-      "video marketing tools",
-      "content creator toolkit",
+      // High-CPC Core Keywords (Finance/Business Intent)
+      "youtube monetization calculator",
+      "youtube earnings estimator",
+      "youtube cpm rates by country",
+      "youtube revenue calculator usa",
+      "how much youtube pays per view",
+      "youtube adsense earnings",
+      "youtube sponsorship rates",
+      "youtube creator income",
 
-      // Long-tail AEO Queries (Answer Engine Optimization)
-      "how to grow youtube channel 2026",
-      "best free youtube tools for small channels",
-      "youtube monetization requirements calculator",
-      "ai tool for youtube video ideas",
-      "generate viral youtube titles free",
-      "download youtube thumbnail high quality 4k",
+      // High-CPC Business/Software Keywords
+      "youtube automation software",
+      "best youtube marketing tools",
+      "youtube seo software free",
+      "professional youtube tools",
+      "youtube analytics dashboard",
+      "youtube growth software",
+      "ai youtube optimization",
+      "youtube business tools",
 
-      // Global/Multilingual Intent (GEO)
-      "descargar miniatuaras youtube", // Spanish
-      "ferramentas youtube gratis", // Portuguese
-      "youtube seo optimierung", // German
-      "outils youtube gratuit", // French
-      "youtube tag generator hindi",
-      "free youtube tools usa",
-      "youtube growth tools uk",
-      "youtube analytics australia",
-      "canada youtube creator tools"
+      // High-CPC Creator Professional Keywords
+      "youtube channel management tools",
+      "youtube content strategy tools",
+      "youtube thumbnail design software",
+      "youtube title optimizer",
+      "youtube tag research tool",
+      "video marketing automation",
+
+      // US-Targeted High Intent Keywords
+      "best youtube tools usa 2026",
+      "youtube creator toolkit america",
+      "free youtube tools for professionals",
+      "youtube monetization guide usa",
+      "youtube partner program calculator",
+
+      // Long-tail High-CPC Keywords
+      "how to make money on youtube 2026",
+      "youtube faceless channel income",
+      "youtube shorts monetization rates",
+      "youtube studio alternatives free",
+      "ai tools for youtube creators",
+      "youtube growth strategy tools",
+
+      // Premium Advertiser Trigger Keywords
+      "youtube business account setup",
+      "youtube channel investment",
+      "youtube creator economy tools",
+      "professional content creation",
+      "video marketing roi calculator"
     ],
     openGraph: {
       type: "website",

@@ -10,8 +10,20 @@ import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YouTube Tools Hub – FREE AI Tools for Creators (No Signup Required)",
-  description: "🔥 15+ FREE tools trusted by 50,000+ creators. Download 4K thumbnails • Generate viral titles • AI script writer • Earnings calculator. Start growing NOW!",
+  title: "YouTube Tools Hub – FREE AI Monetization & Growth Tools for Creators 2026",
+  description: "🚀 Professional YouTube tools trusted by 50,000+ US creators. Calculate earnings, optimize CPM, download 4K thumbnails & generate viral titles. Free monetization calculator included!",
+  keywords: [
+    "youtube monetization tools",
+    "youtube earnings calculator usa",
+    "youtube cpm calculator",
+    "youtube revenue estimator",
+    "youtube growth software",
+    "ai youtube tools",
+    "youtube business tools",
+    "professional youtube marketing",
+    "youtube automation software",
+    "youtube channel management"
+  ],
   alternates: {
     canonical: "/",
   },

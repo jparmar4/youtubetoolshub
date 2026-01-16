@@ -3,8 +3,19 @@ import { ToolCard } from "@/components/ui/Card";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 
 export const metadata: Metadata = {
-    title: "All YouTube Tools",
-    description: "Browse all 16+ free YouTube tools: thumbnail downloader, title generator, tag extractor, earnings calculator, and more AI-powered automation tools.",
+    title: "Professional YouTube Marketing & Monetization Tools 2026 | Free AI Suite",
+    description: "🔥 16+ FREE professional YouTube tools for US creators. CPM calculator, revenue estimator, AI thumbnail generator, SEO optimizer. Trusted by 50K+ professional content creators.",
+    keywords: [
+        "youtube marketing tools",
+        "professional youtube software",
+        "youtube monetization calculator",
+        "youtube cpm optimizer",
+        "youtube revenue tools",
+        "youtube business automation",
+        "ai content creator tools",
+        "youtube analytics software",
+        "video marketing tools usa"
+    ],
     alternates: {
         canonical: "/tools",
     },

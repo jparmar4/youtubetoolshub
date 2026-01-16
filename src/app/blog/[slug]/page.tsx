@@ -34,12 +34,26 @@ export async function generateMetadata({
         description: post.metaDescription,
         keywords: post.keywords,
         authors: [{ name: post.author }],
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+                'max-video-preview': -1,
+            },
+        },
         openGraph: {
             title: post.title,
             description: post.metaDescription,
             type: "article",
             publishedTime: post.date,
+            modifiedTime: post.date,
             authors: [post.author],
+            section: post.category,
+            tags: post.keywords,
             images: [
                 {
                     url: post.coverImage,
@@ -172,119 +186,89 @@ export default async function BlogPostPage({
                     </div>
                 </header>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Main Article Column */}
-                    <div className="lg:col-span-8">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    {/* Main Article - Full Width Centered */}
+                    <div>
                         <article>
                             {/* Google Ad: Mobile Top Banner */}
 
 
                             {/* Cover Image */}
                             {post.coverImage && (
-                                <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
+                                <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-lg">
                                     <NextImage
                                         src={post.coverImage}
                                         alt={post.imageAlt || post.title}
-                                        width={1200}
-                                        height={630}
+                                        fill
+                                        className="object-cover"
                                         priority
-                                        className="w-full h-auto object-cover"
                                     />
                                 </div>
                             )}
 
                             {/* Article Content */}
-                            <div className="max-w-none">
+                            <div
+                                className="prose prose-lg prose-slate max-w-none 
+                                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
+                                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-slate-200
+                                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
+                                prose-p:text-slate-600 prose-p:leading-relaxed
+                                prose-a:text-purple-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                                prose-strong:text-slate-900 prose-strong:font-bold
+                                prose-ul:my-6 prose-li:text-slate-600
+                                prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-1 prose-blockquote:rounded-r-lg
+                                prose-code:text-purple-600 prose-code:bg-purple-100 prose-code:px-2 prose-code:py-0.5 prose-code:rounded prose-code:font-medium
+                                prose-pre:bg-slate-900 prose-pre:rounded-xl
+                                prose-img:rounded-xl prose-img:shadow-md"
+                            >
                                 {processContent(post.content)}
                             </div>
 
-                            {/* FAQ Section */}
-                            {post.faq && post.faq.length > 0 && (
-                                <div className="mt-16 mb-12">
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                        <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
-                                            <FaQuestionCircle />
-                                        </span>
-                                        Frequently Asked Questions
-                                    </h3>
-                                    <div className="space-y-4">
-                                        {post.faq.map((item, index) => (
-                                            <details
-                                                key={index}
-                                                className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
-                                            >
-                                                <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
-                                                    <span className="pr-4">{item.question}</span>
-                                                    <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
-                                                </summary>
-                                                <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
-                                                    {item.answer}
-                                                </div>
-                                            </details>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-
                             {/* Tags */}
-                            <div className="mt-16 pt-8 border-t border-slate-200">
-                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                            {post.keywords && post.keywords.length > 0 && (
+                                <div className="mt-12 pt-8 border-t border-slate-200">
+                                    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h3>
                                     <div className="flex flex-wrap gap-2">
-                                        {post.keywords.map((keyword) => (
+                                        {post.keywords.slice(0, 8).map((keyword, index) => (
                                             <span
-                                                key={keyword}
-                                                className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
+                                                key={index}
+                                                className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors cursor-default"
                                             >
                                                 {keyword}
                                             </span>
                                         ))}
                                     </div>
-                                    <ShareButtons
-                                        url={`${siteConfig.url}/blog/${slug}`}
-                                        title={post.title}
-                                        description={post.metaDescription}
-                                    />
                                 </div>
+                            )}
+
+                            {/* FAQ Section */}
+                            {post.faq && post.faq.length > 0 && (
+                                <div className="mt-16 p-8 bg-slate-50 rounded-2xl">
+                                    <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                        <span className="text-3xl">❓</span>
+                                        Frequently Asked Questions
+                                    </h2>
+                                    <div className="space-y-6">
+                                        {post.faq.map((item, index) => (
+                                            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+                                                <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
+                                                <p className="text-slate-600 leading-relaxed">{item.answer}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Share */}
+                            <div className="mt-12 pt-8 border-t border-slate-200">
+                                <ShareButtons
+                                    url={`https://www.youtubetoolshub.com/blog/${post.slug}`}
+                                    title={post.title}
+                                    description={post.metaDescription}
+                                />
                             </div>
                         </article>
                     </div>
-
-                    {/* Desktop Sidebar */}
-                    <aside className="hidden lg:block lg:col-span-4 space-y-8">
-                        {/* Sticky Container */}
-                        <div className="sticky top-32 space-y-8">
-                            {/* Ad Widget */}
-
-
-                            {/* Popular Tools Widget */}
-                            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl">
-                                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                                    <span className="text-purple-400">⚡</span>
-                                    Popular Free Tools
-                                </h3>
-                                <ul className="space-y-3">
-                                    <li>
-                                        <Link href="/tools/youtube-thumbnail-downloader" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
-                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Thumbnail Downloader</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/tools/youtube-tag-generator" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
-                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Tag Generator</span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/tools/youtube-title-generator" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
-                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Title Generator</span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                                <Link href="/tools" className="mt-6 w-full py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold text-sm text-center block transition-colors">
-                                    View All Tools
-                                </Link>
-                            </div>
-                        </div>
-                    </aside>
                 </div>
 
                 {/* Related Posts */}
