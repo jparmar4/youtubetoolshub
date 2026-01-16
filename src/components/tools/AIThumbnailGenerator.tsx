@@ -11,6 +11,7 @@ import { useUsage } from "@/hooks/useUsage";
 import { isPremiumUser } from "@/lib/usage";
 import { saveHistory } from "@/lib/history";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
+import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
 
 const styleOptions = [
     { value: "gaming", label: "Gaming" },
@@ -171,45 +172,47 @@ export default function AIThumbnailGenerator() {
                 <UsageBanner type="image" toolSlug="youtube-ai-thumbnail-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
-                {/* Input Section */}
-                <div className="space-y-4">
-                    <Input
-                        label="Describe Your Thumbnail"
-                        placeholder="e.g., Person looking shocked at laptop screen with vibrant colors"
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                        error={error}
-                    />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Select
-                            label="Thumbnail Style"
-                            options={styleOptions}
-                            value={style}
-                            onChange={(e) => setStyle(e.target.value)}
+                <ToolAuthGuard>
+                    {/* Input Section */}
+                    <div className="space-y-4">
+                        <Input
+                            label="Describe Your Thumbnail"
+                            placeholder="e.g., Person looking shocked at laptop screen with vibrant colors"
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            error={error}
                         />
-                        <div className="flex items-end">
-                            <Button
-                                onClick={handleGenerate}
-                                isLoading={loading}
-                                disabled={loading}
-                                className="w-full"
-                            >
-                                {loading ? (
-                                    <>
-                                        <FaSpinner className="mr-2 animate-spin" />
-                                        Generating 2 Options...
-                                    </>
-                                ) : (
-                                    <>
-                                        <FaMagic className="mr-2" />
-                                        Generate Thumbnails
-                                    </>
-                                )}
-                            </Button>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <Select
+                                label="Thumbnail Style"
+                                options={styleOptions}
+                                value={style}
+                                onChange={(e) => setStyle(e.target.value)}
+                            />
+                            <div className="flex items-end">
+                                <Button
+                                    onClick={handleGenerate}
+                                    isLoading={loading}
+                                    disabled={loading}
+                                    className="w-full"
+                                >
+                                    {loading ? (
+                                        <>
+                                            <FaSpinner className="mr-2 animate-spin" />
+                                            Generating 2 Options...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FaMagic className="mr-2" />
+                                            Generate Thumbnails
+                                        </>
+                                    )}
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ToolAuthGuard>
 
                 {/* Example Prompts */}
                 <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">

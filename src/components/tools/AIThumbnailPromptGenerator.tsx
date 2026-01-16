@@ -10,6 +10,7 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaRocket, FaLightbulb, FaStar } from "react-icons/fa";
+import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
 import { saveHistory } from "@/lib/history";
 import { useSearchParams } from "next/navigation";
 
@@ -233,67 +234,69 @@ function AIThumbnailPromptGeneratorContent() {
             <UsageBanner type="ai" toolSlug="youtube-ai-thumbnail-prompt" />
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
-            {/* Hero Input Section */}
-            <div className="bg-gradient-to-r from-purple-600 via-emerald-500 to-emerald-500 rounded-2xl p-[2px]">
-                <div className="bg-white rounded-2xl p-6">
-                    <div className="flex items-center gap-2 mb-4">
-                        <FaRocket className="text-purple-500 text-xl" />
-                        <h3 className="text-lg font-bold text-slate-900">
-                            Describe Your Video
-                        </h3>
+            <ToolAuthGuard>
+                {/* Hero Input Section */}
+                <div className="bg-gradient-to-r from-purple-600 via-emerald-500 to-emerald-500 rounded-2xl p-[2px]">
+                    <div className="bg-white rounded-2xl p-6">
+                        <div className="flex items-center gap-2 mb-4">
+                            <FaRocket className="text-purple-500 text-xl" />
+                            <h3 className="text-lg font-bold text-slate-900">
+                                Describe Your Video
+                            </h3>
+                        </div>
+                        <Input
+                            placeholder="e.g., How I Made $10,000 in One Week with AI, 10 iPhone Tricks You Didn't Know, My Morning Routine..."
+                            value={videoTopic}
+                            onChange={(e) => setVideoTopic(e.target.value)}
+                            error={error}
+                        />
                     </div>
-                    <Input
-                        placeholder="e.g., How I Made $10,000 in One Week with AI, 10 iPhone Tricks You Didn't Know, My Morning Routine..."
-                        value={videoTopic}
-                        onChange={(e) => setVideoTopic(e.target.value)}
-                        error={error}
-                    />
                 </div>
-            </div>
 
-            {/* Options Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Select
-                    label="Content Niche"
-                    options={nicheOptions}
-                    value={niche}
-                    onChange={(e) => setNiche(e.target.value)}
-                />
-                <Select
-                    label="Main Subject"
-                    options={subjectOptions}
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                />
-                <Select
-                    label="Mood & Emotion"
-                    options={moodOptions}
-                    value={mood}
-                    onChange={(e) => setMood(e.target.value)}
-                />
-                <Select
-                    label="Color Scheme"
-                    options={colorSchemeOptions}
-                    value={colorScheme}
-                    onChange={(e) => setColorScheme(e.target.value)}
-                />
-                <Select
-                    label="Composition"
-                    options={compositionOptions}
-                    value={composition}
-                    onChange={(e) => setComposition(e.target.value)}
-                />
-                <div className="flex items-end">
-                    <Button
-                        onClick={handleGenerate}
-                        isLoading={loading}
-                        className="w-full bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700"
-                    >
-                        <FaMagic className="mr-2" />
-                        Generate AI Prompts
-                    </Button>
+                {/* Options Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Select
+                        label="Content Niche"
+                        options={nicheOptions}
+                        value={niche}
+                        onChange={(e) => setNiche(e.target.value)}
+                    />
+                    <Select
+                        label="Main Subject"
+                        options={subjectOptions}
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)}
+                    />
+                    <Select
+                        label="Mood & Emotion"
+                        options={moodOptions}
+                        value={mood}
+                        onChange={(e) => setMood(e.target.value)}
+                    />
+                    <Select
+                        label="Color Scheme"
+                        options={colorSchemeOptions}
+                        value={colorScheme}
+                        onChange={(e) => setColorScheme(e.target.value)}
+                    />
+                    <Select
+                        label="Composition"
+                        options={compositionOptions}
+                        value={composition}
+                        onChange={(e) => setComposition(e.target.value)}
+                    />
+                    <div className="flex items-end">
+                        <Button
+                            onClick={handleGenerate}
+                            isLoading={loading}
+                            className="w-full bg-gradient-to-r from-purple-600 to-emerald-600 hover:from-purple-700 hover:to-emerald-700"
+                        >
+                            <FaMagic className="mr-2" />
+                            Generate AI Prompts
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            </ToolAuthGuard>
 
             {/* Quick Templates */}
             <div className="bg-slate-50 rounded-2xl p-6">

@@ -69,6 +69,9 @@ export default async function middleware(request: NextRequest) {
     // Protect /tools/* routes if they require auth
     // Previously: const isToolPage = i18n.locales.some(locale => pathname.startsWith(`/${locale}/tools/`));
     // New: Check for /tools/
+    // 2. Auth Protection for Tools (DISABLED for Growth)
+    // We want to allow unrestricted access to likely tools to boost traffic and ad revenue
+    /*
     const isToolPage = pathname.startsWith("/tools/");
 
     if (isToolPage) {
@@ -82,6 +85,7 @@ export default async function middleware(request: NextRequest) {
             return NextResponse.redirect(signInUrl);
         }
     }
+    */
 
     return NextResponse.next();
 }

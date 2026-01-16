@@ -13,18 +13,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         signIn: "/sign-in",
         error: "/auth/error",
     },
-    callbacks: {
-        authorized({ auth, request: { nextUrl } }) {
-            const isLoggedIn = !!auth?.user;
-            const isOnTool = nextUrl.pathname.startsWith("/tools/");
-
-            if (isOnTool) {
-                if (isLoggedIn) return true;
-                return false; // Redirect to sign-in page
-            }
-
-            return true;
-        },
+    session: {
+        strategy: "jwt",
+        maxAge: 2 * 60 * 60, // 2 hours
     },
     debug: process.env.NODE_ENV === "development",
     trustHost: true,

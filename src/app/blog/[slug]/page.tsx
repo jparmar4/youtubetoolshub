@@ -261,7 +261,7 @@ export default async function BlogPostPage({
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 block">
                                     Advertisement
                                 </span>
-                                <GoogleAd slot="5848325027" className="w-full !my-0 !min-h-[600px]" style={{ minHeight: "600px" }} />
+                                <GoogleAd slot="5848325027" format="vertical" className="w-full !my-0 !min-h-[600px]" style={{ minHeight: "600px" }} />
                             </div>
 
                             {/* Popular Tools Widget */}
