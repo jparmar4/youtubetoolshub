@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
-import AdPlaceholder from "@/components/ui/AdPlaceholder";
-import GoogleAd from "@/components/ads/GoogleAd";
+
 import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
@@ -178,9 +177,7 @@ export default async function BlogPostPage({
                     <div className="lg:col-span-8">
                         <article>
                             {/* Google Ad: Mobile Top Banner */}
-                            <div className="mb-10 lg:hidden">
-                                <GoogleAd slot="5848325027" className="w-full" />
-                            </div>
+
 
                             {/* Cover Image */}
                             {post.coverImage && (
@@ -257,12 +254,7 @@ export default async function BlogPostPage({
                         {/* Sticky Container */}
                         <div className="sticky top-32 space-y-8">
                             {/* Ad Widget */}
-                            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 block">
-                                    Advertisement
-                                </span>
-                                <GoogleAd slot="5848325027" format="vertical" className="w-full !my-0 !min-h-[600px]" style={{ minHeight: "600px" }} />
-                            </div>
+
 
                             {/* Popular Tools Widget */}
                             <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl">

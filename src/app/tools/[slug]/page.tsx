@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
-import GoogleAd from "@/components/ads/GoogleAd";
+
 
 // Import all tool components
 import ThumbnailDownloader from "@/components/tools/ThumbnailDownloader";
@@ -162,83 +162,31 @@ export default async function ToolPage({
                         <ToolComponent />
                     </Suspense>
 
-                    {/* Google Ad: Tool Banner Horizontal */}
-                    <div className="flex justify-center my-8">
-                        <GoogleAd slot="5848325027" className="w-full max-w-4xl" />
-                    </div>
 
-                    {/* Content Sections (GEO Optimized) */}
-                    <div className="max-w-4xl mx-auto space-y-12">
-                        {/* Main Content */}
-                        {tool.content && (
-                            <div className="space-y-8 animate-fade-in-up">
-                                {tool.content.map((section, idx) => (
-                                    <div key={idx} className="glass-premium rounded-2xl p-8 shadow-sm">
-                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                                            {section.title}
-                                        </h2>
-                                        <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-300">
-                                            <p>{section.content}</p>
-                                        </div>
+
+                    {/* FAQ Section */}
+                    {tool.faqs && (
+                        <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-200">
+                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                                Frequently Asked Questions
+                            </h2>
+                            <div className="space-y-4">
+                                {tool.faqs.map((faq, idx) => (
+                                    <div key={idx} className="border-b border-pink-100 dark:border-pink-900/30 last:border-0 pb-4 last:pb-0">
+                                        <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                            {faq.question}
+                                        </h3>
+                                        <p className="text-slate-600 dark:text-slate-300">
+                                            {faq.answer}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
-                        )}
-
-                        {/* How To Section */}
-                        {tool.howTo && (
-                            <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-100">
-                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    {tool.howTo.name}
-                                </h2>
-                                <div className="space-y-6">
-                                    {tool.howTo.steps.map((step, idx) => (
-                                        <div key={idx} className="flex gap-4">
-                                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 flex items-center justify-center font-bold border border-pink-200 dark:border-pink-800">
-                                                {idx + 1}
-                                            </div>
-                                            <div>
-                                                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                                                    {step.name}
-                                                </h3>
-                                                <p className="text-slate-600 dark:text-slate-400">
-                                                    {step.text}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Google Ad: Tool Bottom Banner */}
-                        <div className="flex justify-center my-8">
-                            <GoogleAd slot="5848325027" className="w-full max-w-4xl" />
                         </div>
-
-                        {/* FAQ Section */}
-                        {tool.faqs && (
-                            <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-200">
-                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                    Frequently Asked Questions
-                                </h2>
-                                <div className="space-y-4">
-                                    {tool.faqs.map((faq, idx) => (
-                                        <div key={idx} className="border-b border-pink-100 dark:border-pink-900/30 last:border-0 pb-4 last:pb-0">
-                                            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                                                {faq.question}
-                                            </h3>
-                                            <p className="text-slate-600 dark:text-slate-300">
-                                                {faq.answer}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
+
         </>
     );
 }

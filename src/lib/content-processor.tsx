@@ -2,7 +2,7 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaCheckCircle, FaBolt } from "react-icons/fa";
-import GoogleAd from "@/components/ads/GoogleAd";
+
 
 // Map of keywords to tool URLs
 // We'll generate this from the tools config + manual additions if needed
@@ -372,38 +372,7 @@ export function processContent(content: string): React.ReactNode[] {
             </p>
         );
 
-        // Inject Ad after 3rd paragraph (index logic isn't perfect with line splitting but checking element count is safer)
-        // Let's count paragraphs added to elements
-        const paragraphCount = elements.filter(el =>
-            typeof el === 'object' &&
-            el !== null &&
-            'type' in el &&
-            (el as any).type === 'p' &&
-            // Exclude blockquote paragraphs if any slipped in (though they are wrapped in blockquote usually)
-            !(el as any).props?.className?.includes('border-l-4')
-        ).length;
 
-        // Inject ad only once, after 3rd paragraph
-        // We use a specific key to check if we already added it
-        const adAlreadyAdded = elements.some(el =>
-            typeof el === 'object' &&
-            el !== null &&
-            'key' in el &&
-            (el as any).key === 'in-content-ad'
-        );
-
-        if (paragraphCount === 3 && !adAlreadyAdded) {
-            elements.push(
-                <div key="in-content-ad" className="my-10 flex justify-center">
-                    <GoogleAd
-                        slot="5441130911"
-                        format="fluid"
-                        layout="in-article"
-                        className="w-full"
-                    />
-                </div>
-            );
-        }
     });
 
     // Flush any remaining items
