@@ -211,6 +211,11 @@ export default async function ToolPage({
                             </div>
                         )}
 
+                        {/* Google Ad: Tool Bottom Banner */}
+                        <div className="flex justify-center my-8">
+                            <GoogleAd slot="5848325027" className="w-full max-w-4xl" />
+                        </div>
+
                         {/* FAQ Section */}
                         {tool.faqs && (
                             <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-200">

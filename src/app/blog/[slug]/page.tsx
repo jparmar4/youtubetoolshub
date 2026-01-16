@@ -173,82 +173,126 @@ export default async function BlogPostPage({
                     </div>
                 </header>
 
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
                     {/* Main Article Column */}
-                    <article>
-                        {/* Google Ad: Mobile Banner */}
-                        <div className="mb-10">
-                            <GoogleAd slot="5848325027" className="w-full" />
-                        </div>
-
-                        {/* Cover Image */}
-                        {post.coverImage && (
-                            <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
-                                <NextImage
-                                    src={post.coverImage}
-                                    alt={post.imageAlt || post.title}
-                                    width={1200}
-                                    height={630}
-                                    priority
-                                    className="w-full h-auto object-cover"
-                                />
+                    <div className="lg:col-span-8">
+                        <article>
+                            {/* Google Ad: Mobile Top Banner */}
+                            <div className="mb-10 lg:hidden">
+                                <GoogleAd slot="5848325027" className="w-full" />
                             </div>
-                        )}
 
-                        {/* Article Content */}
-                        <div className="max-w-none">
-                            {processContent(post.content)}
-                        </div>
-
-                        {/* FAQ Section */}
-                        {post.faq && post.faq.length > 0 && (
-                            <div className="mt-16 mb-12">
-                                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                    <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
-                                        <FaQuestionCircle />
-                                    </span>
-                                    Frequently Asked Questions
-                                </h3>
-                                <div className="space-y-4">
-                                    {post.faq.map((item, index) => (
-                                        <details
-                                            key={index}
-                                            className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
-                                        >
-                                            <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
-                                                <span className="pr-4">{item.question}</span>
-                                                <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
-                                            </summary>
-                                            <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
-                                                {item.answer}
-                                            </div>
-                                        </details>
-                                    ))}
+                            {/* Cover Image */}
+                            {post.coverImage && (
+                                <div className="mb-12 rounded-3xl overflow-hidden shadow-2xl shadow-purple-900/5 border border-slate-100">
+                                    <NextImage
+                                        src={post.coverImage}
+                                        alt={post.imageAlt || post.title}
+                                        width={1200}
+                                        height={630}
+                                        priority
+                                        className="w-full h-auto object-cover"
+                                    />
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {/* Tags */}
-                        <div className="mt-16 pt-8 border-t border-slate-200">
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                                <div className="flex flex-wrap gap-2">
-                                    {post.keywords.map((keyword) => (
-                                        <span
-                                            key={keyword}
-                                            className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
-                                        >
-                                            {keyword}
+                            {/* Article Content */}
+                            <div className="max-w-none">
+                                {processContent(post.content)}
+                            </div>
+
+                            {/* FAQ Section */}
+                            {post.faq && post.faq.length > 0 && (
+                                <div className="mt-16 mb-12">
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                        <span className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
+                                            <FaQuestionCircle />
                                         </span>
-                                    ))}
+                                        Frequently Asked Questions
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {post.faq.map((item, index) => (
+                                            <details
+                                                key={index}
+                                                className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm"
+                                            >
+                                                <summary className="flex items-center justify-between p-5 cursor-pointer font-bold text-slate-900 hover:bg-slate-50 transition-colors">
+                                                    <span className="pr-4">{item.question}</span>
+                                                    <FaChevronDown className="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform" />
+                                                </summary>
+                                                <div className="px-5 pb-5 pt-0 text-slate-600 leading-relaxed border-t border-transparent group-open:border-slate-100 group-open:pt-4">
+                                                    {item.answer}
+                                                </div>
+                                            </details>
+                                        ))}
+                                    </div>
                                 </div>
-                                <ShareButtons
-                                    url={`${siteConfig.url}/blog/${slug}`}
-                                    title={post.title}
-                                    description={post.metaDescription}
-                                />
+                            )}
+
+                            {/* Tags */}
+                            <div className="mt-16 pt-8 border-t border-slate-200">
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                                    <div className="flex flex-wrap gap-2">
+                                        {post.keywords.map((keyword) => (
+                                            <span
+                                                key={keyword}
+                                                className="px-3 py-1 bg-white border border-slate-200 text-slate-600 rounded-full text-sm hover:border-purple-300 hover:text-purple-600 transition-colors cursor-default"
+                                            >
+                                                {keyword}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <ShareButtons
+                                        url={`${siteConfig.url}/blog/${slug}`}
+                                        title={post.title}
+                                        description={post.metaDescription}
+                                    />
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    {/* Desktop Sidebar */}
+                    <aside className="hidden lg:block lg:col-span-4 space-y-8">
+                        {/* Sticky Container */}
+                        <div className="sticky top-32 space-y-8">
+                            {/* Ad Widget */}
+                            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 block">
+                                    Advertisement
+                                </span>
+                                <GoogleAd slot="5848325027" className="w-full !my-0 !min-h-[600px]" style={{ minHeight: "600px" }} />
+                            </div>
+
+                            {/* Popular Tools Widget */}
+                            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white shadow-xl">
+                                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                    <span className="text-purple-400">⚡</span>
+                                    Popular Free Tools
+                                </h3>
+                                <ul className="space-y-3">
+                                    <li>
+                                        <Link href="/tools/youtube-thumbnail-downloader" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
+                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Thumbnail Downloader</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/tools/youtube-tag-generator" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
+                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Tag Generator</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/tools/youtube-title-generator" className="block p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 group">
+                                            <span className="font-semibold text-sm group-hover:text-purple-300 transition-colors">Title Generator</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                                <Link href="/tools" className="mt-6 w-full py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold text-sm text-center block transition-colors">
+                                    View All Tools
+                                </Link>
                             </div>
                         </div>
-                    </article>
+                    </aside>
                 </div>
 
                 {/* Related Posts */}
