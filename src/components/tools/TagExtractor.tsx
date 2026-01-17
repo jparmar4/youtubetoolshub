@@ -10,6 +10,7 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 interface VideoInfo {
     videoTitle: string;
@@ -165,6 +166,8 @@ export default function TagExtractor() {
                         </Button>
                     </div>
                 </div>
+
+                <HorizontalAd />
 
                 {/* API Key Required Notice */}
                 {isDemo && (

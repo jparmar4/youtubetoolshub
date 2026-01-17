@@ -12,6 +12,7 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaMicrophone, FaSpinner, FaPlay, FaStream } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const personalityOptions = [
     { value: "energetic", label: "Energetic & Excited" },
@@ -206,6 +207,8 @@ export default function IntroScriptGenerator() {
                     <Button onClick={handleGenerate} isLoading={loading} disabled={loading} className="w-full py-4 text-lg">
                         {loading ? "Writing Script..." : "Generate Intro Script"}
                     </Button>
+
+                    <HorizontalAd />
                 </div>
 
                 {error && (

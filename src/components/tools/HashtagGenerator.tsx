@@ -13,6 +13,7 @@ import { safeJSONParse } from "@/lib/utils";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 
@@ -198,6 +199,8 @@ export default function HashtagGenerator() {
                         <FaHashtag className="mr-2" />
                         Generate Strategy
                     </Button>
+
+                    <HorizontalAd />
                 </div>
 
                 {/* Results Section */}

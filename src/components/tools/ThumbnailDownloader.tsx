@@ -8,6 +8,7 @@ import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage } from "react-icons/fa";
 import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 export default function ThumbnailDownloader() {
@@ -72,6 +73,8 @@ export default function ThumbnailDownloader() {
                         </div>
                     </div>
                 </ToolAuthGuard>
+
+                <HorizontalAd />
 
                 {/* Results Section */}
                 {thumbnails && (

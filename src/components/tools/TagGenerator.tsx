@@ -8,6 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 import { saveHistory } from "@/lib/history";
 import { FaMagic, FaSpinner, FaStar, FaSearch, FaHashtag, FaFire, FaLightbulb } from "react-icons/fa";
 
@@ -211,6 +212,8 @@ export default function TagGenerator() {
                         </>
                     )}
                 </Button>
+
+                <HorizontalAd />
 
                 {/* Error Display */}
                 {error && (

@@ -11,6 +11,7 @@ import { FaCalculator, FaDollarSign, FaHandshake, FaChartLine, FaSpinner, FaRock
 import { formatCurrency, formatNumber, calculateEarnings, safeJSONParse } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
 import Select from "@/components/ui/Select";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const faq = [
     {
@@ -172,6 +173,8 @@ export default function EarningsCalculator() {
                             </div>
                         </div>
 
+                        <HorizontalAd />
+
                         {adResult && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 text-white relative overflow-hidden">
@@ -234,6 +237,8 @@ export default function EarningsCalculator() {
                         <Button onClick={handleEstimateSponsorship} isLoading={loading} className="w-full">
                             {loading ? "Analyzing Market Rates..." : "💰 Estimate Deal Value"}
                         </Button>
+
+                        <HorizontalAd />
 
                         {sponsorResult && (
                             <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-white shadow-xl">

@@ -12,6 +12,7 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaStar, FaRegStar, FaPalette, FaBrain } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 // Constants
 const styleOptions = [
@@ -148,6 +149,8 @@ export default function ThumbnailGenerator() {
                         </div>
                     </div>
                 </div>
+
+                <HorizontalAd />
 
                 {/* Results Section */}
                 {results.length > 0 && (

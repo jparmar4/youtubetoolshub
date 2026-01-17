@@ -8,6 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 const faq = [
@@ -156,6 +157,8 @@ export default function ChannelIdFinder() {
                         </div>
                     </div>
                 </div>
+
+                <HorizontalAd />
 
                 {/* Results Section */}
                 {channelData && !loading && (

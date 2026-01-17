@@ -14,6 +14,7 @@ import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const levelOptions = [
     { value: "beginner", label: "Beginner Audience" },
@@ -236,6 +237,8 @@ export default function VideoIdeasGenerator() {
                         <FaMagic className="mr-2" />
                         {loading ? "Strategizing Concepts..." : "Generate Strategic Ideas"}
                     </Button>
+
+                    <HorizontalAd />
                 </div>
 
                 {error && (

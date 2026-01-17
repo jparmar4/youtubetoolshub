@@ -12,6 +12,7 @@ import { isPremiumUser } from "@/lib/usage";
 import { saveHistory } from "@/lib/history";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
 import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const styleOptions = [
     { value: "gaming", label: "Gaming" },
@@ -212,6 +213,8 @@ export default function AIThumbnailGenerator() {
                             </div>
                         </div>
                     </div>
+
+                    <HorizontalAd />
                 </ToolAuthGuard>
 
                 {/* Example Prompts */}

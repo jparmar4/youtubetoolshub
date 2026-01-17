@@ -8,6 +8,7 @@ import { FaSearch, FaSpinner, FaTrophy, FaFilter, FaQuoteLeft } from "react-icon
 import Image from "next/image";
 import confetti from "canvas-confetti";
 import { saveHistory } from "@/lib/history";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 
@@ -223,6 +224,8 @@ export default function CommentPicker() {
                         </div>
                     </div>
                 </div>
+
+                <HorizontalAd />
 
                 {/* Status Bar */}
                 {originalComments.length > 0 && (

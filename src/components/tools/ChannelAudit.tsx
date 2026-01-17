@@ -5,6 +5,7 @@ import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import ShareModal from "@/components/ui/ShareModal";
 import { FaSearch, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaShareAlt, FaSpinner, FaYoutube, FaBookmark } from "react-icons/fa";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface AuditResult {
@@ -161,6 +162,8 @@ export default function ChannelAudit() {
                     </button>
                 </div>
             </div>
+
+            <HorizontalAd />
 
             {/* Results Section */}
             <AnimatePresence>

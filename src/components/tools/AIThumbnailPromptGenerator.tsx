@@ -13,6 +13,7 @@ import { FaMagic, FaRocket, FaLightbulb, FaStar } from "react-icons/fa";
 import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
 import { saveHistory } from "@/lib/history";
 import { useSearchParams } from "next/navigation";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 // Comprehensive options for prompt generation
 const nicheOptions = [
@@ -296,6 +297,8 @@ function AIThumbnailPromptGeneratorContent() {
                         </Button>
                     </div>
                 </div>
+
+                <HorizontalAd />
             </ToolAuthGuard>
 
             {/* Quick Templates */}
