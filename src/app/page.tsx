@@ -11,7 +11,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "YouTube Tools Hub – FREE AI Monetization & Growth Tools for Creators 2026",
-  description: "🚀 Professional YouTube tools trusted by 50,000+ US creators. Calculate earnings, optimize CPM, download 4K thumbnails & generate viral titles. Free monetization calculator included!",
+  description: "Trust 50,000+ creators with pro YouTube tools. Calculate earnings, optimize CPM, get 4K thumbnails & viral titles. Free monetization calculator!",
   keywords: [
     "youtube monetization tools",
     "youtube earnings calculator usa",

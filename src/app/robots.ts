@@ -7,13 +7,46 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/api/', '/sign-in'],
+                disallow: ['/api/', '/sign-in', '/dashboard'],
             },
+            // AI Crawlers - Explicitly allowed for AEO/GEO optimization
             {
-                userAgent: ['GPTBot', 'ChatGPT-User', 'Google-Extended', 'CCBot', 'ClaudeBot', 'PerplexityBot'],
-                allow: '/',
+                userAgent: [
+                    // OpenAI
+                    'GPTBot',
+                    'ChatGPT-User',
+                    'OAI-SearchBot',
+                    // Google AI
+                    'Google-Extended',
+                    'Googlebot',
+                    // Anthropic
+                    'ClaudeBot',
+                    'Claude-Web',
+                    // Perplexity
+                    'PerplexityBot',
+                    // Microsoft/Bing
+                    'Bingbot',
+                    'BingPreview',
+                    // Common Crawl (used by many AI models)
+                    'CCBot',
+                    // Meta
+                    'FacebookBot',
+                    'facebookexternalhit',
+                    // Apple
+                    'Applebot',
+                    // Cohere
+                    'cohere-ai',
+                    // You.com
+                    'YouBot',
+                    // Amazon
+                    'Amazonbot',
+                    // Bytedance
+                    'Bytespider',
+                ],
+                allow: ['/', '/llms.txt', '/llms-full.txt'],
             },
         ],
         sitemap: `${siteConfig.url}/sitemap.xml`,
+        host: siteConfig.url,
     };
 }

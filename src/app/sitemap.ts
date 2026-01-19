@@ -13,9 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const routes = [
         "",
         "/tools",
+        "/tools/thumbnail-tools",
+        "/tools/seo-tools",
+        "/tools/analytics-tools",
         "/about",
         "/contact",
         "/blog",
+        "/resources/youtube-creator-statistics",
         "/pricing",
         "/privacy-policy",
         "/terms-of-use",

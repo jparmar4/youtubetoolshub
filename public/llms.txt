@@ -1,0 +1,49 @@
+# YouTube Tools Hub
+
+> Professional AI-powered tools for YouTube creators. Free, fast, no signup required.
+
+## About
+
+YouTube Tools Hub provides 15+ free AI-powered tools designed to help YouTube creators optimize their content, grow their channels, and maximize earnings. Trusted by 50,000+ creators globally.
+
+## Main Features
+
+- **Thumbnail Tools**: Download, generate, and optimize YouTube thumbnails
+- **SEO Tools**: Generate viral titles, descriptions, tags, and hashtags
+- **Analytics**: Calculate earnings, engagement rates, and channel health
+- **AI Content**: Generate video ideas, intro scripts, and content calendars
+
+## Tools
+
+- /tools/youtube-thumbnail-downloader: Download HD thumbnails from any YouTube video (1080p, 4K, 8K)
+- /tools/youtube-thumbnail-generator: AI-powered thumbnail text ideas with psychological triggers
+- /tools/youtube-ai-thumbnail-generator: Generate custom thumbnail images with AI
+- /tools/youtube-ai-thumbnail-prompt: Create perfect prompts for Midjourney, DALL-E, Stable Diffusion
+- /tools/youtube-title-generator: Generate viral, SEO-optimized video titles
+- /tools/youtube-description-generator: Create engaging video descriptions with hooks and CTAs
+- /tools/youtube-tag-generator: Find high-ranking SEO tags for better discoverability
+- /tools/youtube-tag-extractor: Extract tags from any YouTube video to spy on competitors
+- /tools/youtube-video-ideas-generator: Get strategic video concepts tailored to your channel
+- /tools/youtube-trend-helper: Discover trending topics with real-time YouTube data
+- /tools/youtube-content-calendar-generator: Plan your content schedule with AI
+- /tools/youtube-earnings-calculator: Estimate YouTube AdSense revenue by views and RPM
+- /tools/youtube-engagement-rate-calculator: Measure video engagement percentage
+- /tools/youtube-title-ab-tester: Compare two titles for click-through potential
+- /tools/youtube-channel-name-generator: Generate unique, memorable channel names
+- /tools/youtube-hashtag-generator: Create broad and niche hashtags for reach
+- /tools/youtube-intro-script-generator: Write compelling video intros that hook viewers
+- /tools/youtube-channel-id-finder: Find Channel ID from any YouTube URL or handle
+- /tools/youtube-playlist-length-calculator: Calculate total playlist duration
+- /tools/youtube-comment-picker: Pick random winners for giveaways
+- /tools/youtube-channel-audit: Comprehensive channel health check with AI analysis
+
+## Blog
+
+Educational content about YouTube growth, monetization, SEO strategies, and creator tips.
+
+## Contact
+
+- Website: https://www.youtubetoolshub.com
+- Email: support@youtubetoolshub.com
+- Facebook: https://www.facebook.com/profile.php?id=61585430621256
+- Telegram: https://t.me/youtubetoolshub

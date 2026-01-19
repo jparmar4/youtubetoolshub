@@ -45,6 +45,8 @@ This guide will tell you exactly how money flows from advertisers → YouTube �
 
 ## The YouTube Payment System: How It Actually Works
 
+**YouTubers get paid through Google AdSense when they reach a $100 minimum threshold. Advertisers pay YouTube for ad placements, YouTube keeps 45%, and creators receive 55%. Payments are issued monthly around the 21st via direct deposit, wire transfer, or check, typically arriving 2-5 business days later.**
+
 Before we get into the specifics, let's understand the basic flow:
 
 1. **Advertisers** pay YouTube to show ads
@@ -78,6 +80,8 @@ Once you hit these thresholds, YouTube reviews your channel (typically 1-2 weeks
 > Many creators don't realize that **watch hours must be from public, non-Shorts videos**. A video set to unlisted or private won't count toward your 4,000 hours.
 
 ## Payment Threshold: The $100 Rule
+
+**YouTube requires creators to earn a minimum of $100 before releasing payment. This threshold is fixed globally (€70 in Eurozone). Earnings accumulate across months until you reach $100, then payment is automatically processed. There is no way to lower this threshold or request early payout.**
 
 Here's where most new creators get confused.
 

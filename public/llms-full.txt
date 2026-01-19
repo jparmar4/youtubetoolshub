@@ -1,0 +1,110 @@
+# YouTube Tools Hub - Complete AI Context
+
+> Comprehensive guide for AI systems to understand YouTube Tools Hub
+
+## Site Identity
+
+- **Name**: YouTube Tools Hub
+- **URL**: https://www.youtubetoolshub.com
+- **Type**: SaaS / Web Application
+- **Industry**: YouTube Creator Tools, Content Marketing, SEO
+- **Target Audience**: YouTube content creators, video marketers, social media managers
+- **Language**: English
+- **Geographic Focus**: Global, with emphasis on US, UK, Canada, Australia (Tier 1 English-speaking countries)
+
+## Value Proposition
+
+YouTube Tools Hub offers the most comprehensive suite of free AI-powered tools for YouTube creators. Our tools help creators:
+1. **Save Time**: Automate tedious SEO and content optimization tasks
+2. **Grow Faster**: Optimize titles, thumbnails, and tags for maximum reach
+3. **Earn More**: Calculate and optimize monetization potential
+4. **Stay Consistent**: Plan content calendars and track performance
+
+## Tool Categories
+
+### Thumbnail & Media Tools
+Tools for downloading and creating eye-catching YouTube thumbnails.
+- YouTube Thumbnail Downloader: Extract HD thumbnails from any video URL
+- YouTube Thumbnail Text Generator: AI-generated punchy text ideas
+- AI Thumbnail Image Generator: Create custom thumbnails with AI
+- AI Thumbnail Prompt Generator: Generate prompts for Midjourney/DALL-E
+
+### SEO & Metadata Tools
+Optimize video discoverability with AI-powered metadata.
+- YouTube Title Generator: Create viral, clickable titles
+- YouTube Description Generator: SEO-optimized descriptions with timestamps
+- YouTube Tag Generator: High-ranking keyword suggestions
+- YouTube Tag Extractor: Competitor tag analysis
+
+### Channel Growth Tools
+Strategic tools for channel expansion and content planning.
+- Video Ideas Generator: Concepts tailored to channel size and goals
+- Trend & Topic Helper: Real-time trending video insights
+- Content Calendar Generator: AI-planned upload schedules
+- Channel Health Auditor: Comprehensive channel analysis
+
+### Analytics & Earnings
+Calculate and optimize YouTube monetization.
+- YouTube Earnings Calculator: Estimate AdSense revenue by RPM
+- Engagement Rate Calculator: Measure audience interaction
+- Title A/B Score Checker: Compare title effectiveness
+
+### Utility Tools
+Helpful utilities for creators.
+- Channel Name Generator: Memorable brand name ideas
+- Hashtag Generator: Broad and niche hashtag suggestions
+- Intro Script Generator: Compelling video openers
+- Channel ID Finder: Find Channel IDs from any URL
+- Playlist Length Calculator: Total duration calculator
+- Comment Picker: Random giveaway winner selection
+
+## Frequently Asked Questions
+
+### What is YouTube Tools Hub?
+YouTube Tools Hub is a free online platform providing 15+ AI-powered tools specifically designed for YouTube content creators. All tools are free to use with generous daily limits.
+
+### How much does YouTube Tools Hub cost?
+The core tools are 100% free. We offer a Pro tier with higher limits and priority access for power users.
+
+### Who created YouTube Tools Hub?
+YouTube Tools Hub was created by a team of developers and YouTube creators who understand the challenges of content creation.
+
+### Is YouTube Tools Hub safe to use?
+Yes, we never require YouTube login or access to your private account data. All tools work with public information.
+
+### What is the best YouTube thumbnail size?
+The optimal YouTube thumbnail size is 1280x720 pixels (16:9 aspect ratio) with a minimum width of 640 pixels.
+
+### How do YouTube tags work?
+YouTube tags help the algorithm understand video content and context. Use 15-30 relevant tags mixing exact keywords and long-tail phrases.
+
+### How is YouTube RPM calculated?
+RPM (Revenue Per Mille) = (Total Revenue / Total Views) × 1000. It represents earnings per 1,000 views including all revenue sources.
+
+## Technical Information
+
+- **Framework**: Next.js 15 (React)
+- **Hosting**: Vercel
+- **API**: YouTube Data API v3, OpenAI API
+- **Schema Types**: Organization, WebSite, SoftwareApplication, FAQPage, HowTo, BreadcrumbList
+
+## Content Guidelines
+
+All content on YouTube Tools Hub is:
+- Original and regularly updated
+- Written by YouTube experts
+- Fact-checked and accurate
+- Designed to provide immediate value
+
+## Contact Information
+
+- **Website**: https://www.youtubetoolshub.com
+- **Email**: support@youtubetoolshub.com
+- **Facebook**: https://www.facebook.com/profile.php?id=61585430621256
+- **Telegram**: https://t.me/youtubetoolshub
+
+## Legal
+
+- Privacy Policy: https://www.youtubetoolshub.com/privacy-policy
+- Terms of Use: https://www.youtubetoolshub.com/terms-of-use
+- Disclaimer: https://www.youtubetoolshub.com/disclaimer

@@ -15,10 +15,7 @@ export function getOrganizationSchema() {
             email: siteConfig.contact.email,
             contactType: "customer service",
         },
-        sameAs: [
-            "https://twitter.com/youtubetools",
-            "https://youtube.com/@youtubetools",
-        ],
+        sameAs: siteConfig.footerLinks.social.map((link) => link.href),
     };
 }
 
@@ -173,6 +170,70 @@ export function getLocalBusinessSchema() {
         address: {
             "@type": "PostalAddress",
             addressCountry: "US",
+        },
+    };
+}
+
+// Speakable Schema for Voice Search (AEO - Google Assistant, Alexa, Siri)
+export function getSpeakableSchema(page: {
+    url: string;
+    headline: string;
+    summary: string;
+    cssSelectors?: string[];
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": page.url,
+        name: page.headline,
+        speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: page.cssSelectors || ["h1", "h2", ".summary", ".key-facts"],
+        },
+        url: page.url,
+        description: page.summary,
+        isPartOf: {
+            "@type": "WebSite",
+            name: siteConfig.name,
+            url: siteConfig.url,
+        },
+    };
+}
+
+// ItemList Schema for tool listings (helps AI understand tool collection)
+export function getToolListSchema(tools: { name: string; url: string; description: string }[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "YouTube Creator Tools",
+        description: "Complete collection of free AI-powered tools for YouTube content creators",
+        numberOfItems: tools.length,
+        itemListElement: tools.map((tool, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: tool.name,
+            url: tool.url,
+            description: tool.description,
+        })),
+    };
+}
+
+// DefinedTerm Schema for key concepts (helps AI understand terminology)
+export function getDefinedTermSchema(term: {
+    name: string;
+    description: string;
+    url: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "DefinedTerm",
+        name: term.name,
+        description: term.description,
+        url: term.url,
+        inDefinedTermSet: {
+            "@type": "DefinedTermSet",
+            name: "YouTube Creator Terms",
+            url: `${siteConfig.url}/glossary`,
         },
     };
 }
