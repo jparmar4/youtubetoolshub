@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import SidebarAd from "@/components/ads/SidebarAd";
 import { notFound } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
@@ -299,36 +300,7 @@ export default async function BlogPostPage({
                         {/* Sidebar - Visible on Desktop */}
                         <aside className="hidden lg:block lg:col-span-4 space-y-8">
                             <div className="sticky top-24 space-y-8">
-                                {/* Popular Tools Widget */}
-                                <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                                    <h3 className="font-bold text-slate-900 mb-4 text-lg">Popular Tools</h3>
-                                    <div className="space-y-3">
-                                        <Link href="/tools/youtube-title-generator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
-                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Title Generator</div>
-                                            <div className="text-xs text-slate-500">Create viral video titles</div>
-                                        </Link>
-                                        <Link href="/tools/youtube-earnings-calculator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
-                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Earnings Calculator</div>
-                                            <div className="text-xs text-slate-500">Estimate your potential revenue</div>
-                                        </Link>
-                                        <Link href="/tools/youtube-tag-generator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
-                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Tag Generator</div>
-                                            <div className="text-xs text-slate-500">Video SEO optimization</div>
-                                        </Link>
-                                        <Link href="/tools/youtube-thumbnail-downloader" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
-                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Thumbnail Downloader</div>
-                                            <div className="text-xs text-slate-500">Get high-quality thumbnails</div>
-                                        </Link>
-                                    </div>
-                                </div>
-
-                                {/* Ad Space Placeholder */}
-                                <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 min-h-[300px] flex flex-col items-center justify-center text-center">
-                                    <span className="text-sm font-medium text-slate-400 mb-2">Advertisement</span>
-                                    <div className="text-xs text-slate-400 max-w-[200px]">
-                                        Support us by disabling your ad blocker
-                                    </div>
-                                </div>
+                                <SidebarAd />
                             </div>
                         </aside>
                     </div>
