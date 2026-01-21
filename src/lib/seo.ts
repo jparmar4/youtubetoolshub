@@ -60,10 +60,14 @@ export function getArticleSchema(article: {
     datePublished: string;
     url: string;
     keywords?: string[];
+    imageUrl?: string;
+    dateModified?: string;
+    section?: string;
+    inLanguage?: string;
 }) {
     return {
         "@context": "https://schema.org",
-        "@type": "Article",
+        "@type": "BlogPosting",
         headline: article.title,
         description: article.description,
         author: {
@@ -79,12 +83,15 @@ export function getArticleSchema(article: {
             },
         },
         datePublished: article.datePublished,
-        dateModified: article.datePublished,
+        dateModified: article.dateModified || article.datePublished,
         mainEntityOfPage: {
             "@type": "WebPage",
             "@id": article.url,
         },
         keywords: article.keywords?.join(", "),
+        image: article.imageUrl ? [article.imageUrl] : undefined,
+        articleSection: article.section,
+        inLanguage: article.inLanguage || "en",
     };
 }
 

@@ -7,7 +7,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema } from "@/lib/seo";
 import { processContent } from "@/lib/content-processor";
 
 // Generate static params
@@ -29,6 +29,8 @@ export async function generateMetadata({
         return { title: "Post Not Found" };
     }
 
+    const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();
+
     return {
         title: post.title,
         description: post.metaDescription,
@@ -49,8 +51,8 @@ export async function generateMetadata({
             title: post.title,
             description: post.metaDescription,
             type: "article",
-            publishedTime: post.date,
-            modifiedTime: post.date,
+            publishedTime: isoDate,
+            modifiedTime: isoDate,
             authors: [post.author],
             section: post.category,
             tags: post.keywords,
@@ -91,14 +93,20 @@ export default async function BlogPostPage({
 
     const relatedPosts = getRelatedPosts(slug, 2);
 
+    const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();
+
     // Generate structured data for SEO
     const articleSchema = getArticleSchema({
         title: post.title,
         description: post.metaDescription,
         author: post.author,
-        datePublished: post.date,
+        datePublished: isoDate,
+        dateModified: isoDate,
         url: `${siteConfig.url}/blog/${slug}`,
         keywords: post.keywords,
+        imageUrl: post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined,
+        section: post.category,
+        inLanguage: "en",
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
@@ -109,6 +117,13 @@ export default async function BlogPostPage({
 
     const faqSchema = post.faq ? getFAQSchema(post.faq) : null;
 
+    const speakableSchema = getSpeakableSchema({
+        url: `${siteConfig.url}/blog/${slug}`,
+        headline: post.title,
+        summary: post.metaDescription,
+        cssSelectors: ["h1", ".summary"],
+    });
+
     return (
         <>
             {/* JSON-LD Structured Data */}
@@ -116,6 +131,12 @@ export default async function BlogPostPage({
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(articleSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(speakableSchema),
                 }}
             />
             <script
@@ -190,29 +211,30 @@ export default async function BlogPostPage({
                     </div>
                 </header>
 
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* Main Article - Full Width Centered */}
-                    <div>
-                        <article>
-                            {/* Google Ad: Mobile Top Banner */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        {/* Main Content */}
+                        <div className="lg:col-span-8">
+                            <article>
+                                {/* Google Ad: Mobile Top Banner */}
 
 
-                            {/* Cover Image */}
-                            {post.coverImage && (
-                                <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-lg">
-                                    <NextImage
-                                        src={post.coverImage}
-                                        alt={post.imageAlt || post.title}
-                                        fill
-                                        className="object-cover"
-                                        priority
-                                    />
-                                </div>
-                            )}
+                                {/* Cover Image */}
+                                {post.coverImage && (
+                                    <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-10 shadow-lg">
+                                        <NextImage
+                                            src={post.coverImage}
+                                            alt={post.imageAlt || post.title}
+                                            fill
+                                            className="object-cover"
+                                            priority
+                                        />
+                                    </div>
+                                )}
 
-                            {/* Article Content */}
-                            <div
-                                className="prose prose-lg prose-slate max-w-none 
+                                {/* Article Content */}
+                                <div
+                                    className="prose prose-lg prose-slate max-w-none 
                                 prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
                                 prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-slate-200
                                 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
@@ -224,54 +246,91 @@ export default async function BlogPostPage({
                                 prose-code:text-purple-600 prose-code:bg-purple-100 prose-code:px-2 prose-code:py-0.5 prose-code:rounded prose-code:font-medium
                                 prose-pre:bg-slate-900 prose-pre:rounded-xl
                                 prose-img:rounded-xl prose-img:shadow-md"
-                            >
-                                {processContent(post.content)}
-                            </div>
+                                >
+                                    {processContent(post.content)}
+                                </div>
 
-                            {/* Tags */}
-                            {post.keywords && post.keywords.length > 0 && (
+                                {/* Tags */}
+                                {post.keywords && post.keywords.length > 0 && (
+                                    <div className="mt-12 pt-8 border-t border-slate-200">
+                                        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {post.keywords.slice(0, 8).map((keyword, index) => (
+                                                <span
+                                                    key={index}
+                                                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors cursor-default"
+                                                >
+                                                    {keyword}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* FAQ Section */}
+                                {post.faq && post.faq.length > 0 && (
+                                    <div className="mt-16 p-8 bg-slate-50 rounded-2xl">
+                                        <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                            <span className="text-3xl">❓</span>
+                                            Frequently Asked Questions
+                                        </h2>
+                                        <div className="space-y-6">
+                                            {post.faq.map((item, index) => (
+                                                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+                                                    <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
+                                                    <p className="text-slate-600 leading-relaxed">{item.answer}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Share */}
                                 <div className="mt-12 pt-8 border-t border-slate-200">
-                                    <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {post.keywords.slice(0, 8).map((keyword, index) => (
-                                            <span
-                                                key={index}
-                                                className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors cursor-default"
-                                            >
-                                                {keyword}
-                                            </span>
-                                        ))}
+                                    <ShareButtons
+                                        url={`https://www.youtubetoolshub.com/blog/${post.slug}`}
+                                        title={post.title}
+                                        description={post.metaDescription}
+                                    />
+                                </div>
+                            </article>
+                        </div>
+
+                        {/* Sidebar - Visible on Desktop */}
+                        <aside className="hidden lg:block lg:col-span-4 space-y-8">
+                            <div className="sticky top-24 space-y-8">
+                                {/* Popular Tools Widget */}
+                                <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                                    <h3 className="font-bold text-slate-900 mb-4 text-lg">Popular Tools</h3>
+                                    <div className="space-y-3">
+                                        <Link href="/tools/youtube-title-generator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
+                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Title Generator</div>
+                                            <div className="text-xs text-slate-500">Create viral video titles</div>
+                                        </Link>
+                                        <Link href="/tools/youtube-earnings-calculator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
+                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Earnings Calculator</div>
+                                            <div className="text-xs text-slate-500">Estimate your potential revenue</div>
+                                        </Link>
+                                        <Link href="/tools/youtube-tag-generator" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
+                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Tag Generator</div>
+                                            <div className="text-xs text-slate-500">Video SEO optimization</div>
+                                        </Link>
+                                        <Link href="/tools/youtube-thumbnail-downloader" className="block p-3 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors group">
+                                            <div className="font-bold text-slate-900 group-hover:text-purple-700">Thumbnail Downloader</div>
+                                            <div className="text-xs text-slate-500">Get high-quality thumbnails</div>
+                                        </Link>
                                     </div>
                                 </div>
-                            )}
 
-                            {/* FAQ Section */}
-                            {post.faq && post.faq.length > 0 && (
-                                <div className="mt-16 p-8 bg-slate-50 rounded-2xl">
-                                    <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                        <span className="text-3xl">❓</span>
-                                        Frequently Asked Questions
-                                    </h2>
-                                    <div className="space-y-6">
-                                        {post.faq.map((item, index) => (
-                                            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-                                                <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                                                <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                                            </div>
-                                        ))}
+                                {/* Ad Space Placeholder */}
+                                <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 min-h-[300px] flex flex-col items-center justify-center text-center">
+                                    <span className="text-sm font-medium text-slate-400 mb-2">Advertisement</span>
+                                    <div className="text-xs text-slate-400 max-w-[200px]">
+                                        Support us by disabling your ad blocker
                                     </div>
                                 </div>
-                            )}
-
-                            {/* Share */}
-                            <div className="mt-12 pt-8 border-t border-slate-200">
-                                <ShareButtons
-                                    url={`https://www.youtubetoolshub.com/blog/${post.slug}`}
-                                    title={post.title}
-                                    description={post.metaDescription}
-                                />
                             </div>
-                        </article>
+                        </aside>
                     </div>
                 </div>
 
