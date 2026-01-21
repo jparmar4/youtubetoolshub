@@ -56,7 +56,7 @@ export async function generateMetadata({
             tags: post.keywords,
             images: [
                 {
-                    url: post.coverImage,
+                    url: `${siteConfig.url}${post.coverImage}`,
                     width: 1200,
                     height: 630,
                     alt: post.imageAlt || post.title,
@@ -67,7 +67,7 @@ export async function generateMetadata({
             card: "summary_large_image",
             title: post.title,
             description: post.metaDescription,
-            images: [post.coverImage],
+            images: [`${siteConfig.url}${post.coverImage}`],
         },
         alternates: {
             canonical: `/blog/${slug}`,
@@ -160,6 +160,10 @@ export default async function BlogPostPage({
                         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight tracking-tight">
                             {post.title}
                         </h1>
+
+                        <div className="summary text-lg text-slate-700 leading-relaxed max-w-3xl mb-8">
+                            {post.metaDescription}
+                        </div>
 
                         {/* Meta */}
                         <div className="flex flex-wrap items-center gap-6 text-slate-500 border-t border-b border-slate-200 py-6">

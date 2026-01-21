@@ -60,6 +60,35 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
+    // 0.1 Redirect locale-prefixed URLs to a single canonical URL
+    // This prevents duplicate indexing like /en/blog/... and /blog/... (cannibalization)
+    const legacyLocales = ["en", "es", "hi", "pt"];
+    for (const locale of legacyLocales) {
+        if (locale === i18n.defaultLocale) continue;
+        if (pathname === `/${locale}` || pathname === `/${locale}/`) {
+            const url = request.nextUrl.clone();
+            url.pathname = "/";
+            return NextResponse.redirect(url, 308);
+        }
+        if (pathname.startsWith(`/${locale}/`)) {
+            const url = request.nextUrl.clone();
+            url.pathname = pathname.replace(`/${locale}`, "");
+            return NextResponse.redirect(url, 308);
+        }
+    }
+
+    // Also normalize /en/* to non-locale URLs since English is the default
+    if (pathname === "/en" || pathname === "/en/") {
+        const url = request.nextUrl.clone();
+        url.pathname = "/";
+        return NextResponse.redirect(url, 308);
+    }
+    if (pathname.startsWith("/en/")) {
+        const url = request.nextUrl.clone();
+        url.pathname = pathname.replace("/en", "");
+        return NextResponse.redirect(url, 308);
+    }
+
     // 1. Allow search bots unrestricted access (SEO)
     if (isSearchBot(userAgent)) {
         return NextResponse.next();
@@ -102,6 +131,6 @@ export const config = {
          * - sitemap.xml (sitemap file)
          * - public folder files (images, etc.)
          */
-        "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|ads.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$).*)",
+        "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap_index.xml|feed.xml|ads.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$).*)",
     ],
 };
