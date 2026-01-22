@@ -2,6 +2,7 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaCheckCircle, FaBolt } from "react-icons/fa";
+import InArticleAd from "@/components/ads/InArticleAd";
 
 
 // Map of keywords to tool URLs
@@ -42,6 +43,7 @@ export function processContent(content: string): React.ReactNode[] {
     let listType: 'ul' | 'ol' | null = null;
     let blockquoteItems: string[] = [];
     let blockquoteType: AlertType | null = null;
+    let paragraphCount = 0;
 
     const flushList = (key: string) => {
         if (listItems.length > 0) {
@@ -361,6 +363,11 @@ export function processContent(content: string): React.ReactNode[] {
                     {parseInlineMarkdown(trimmedLine.replace(/\*\*/g, ''), `p-${index}`, false)}
                 </p>
             );
+
+            paragraphCount++;
+            if (paragraphCount === 2) {
+                elements.push(<InArticleAd key={`ad-${index}`} />);
+            }
             return;
         }
 
@@ -371,6 +378,11 @@ export function processContent(content: string): React.ReactNode[] {
                 {parseInlineMarkdown(trimmedLine, `p-${index}`, shouldAutoLink)}
             </p>
         );
+
+        paragraphCount++;
+        if (paragraphCount === 2) {
+            elements.push(<InArticleAd key={`ad-${index}`} />);
+        }
 
 
     });
