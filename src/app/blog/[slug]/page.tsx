@@ -215,7 +215,7 @@ export default async function BlogPostPage({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                         {/* Main Content */}
-                        <div className="lg:col-span-8">
+                        <div className="lg:col-span-8 lg:order-2">
                             <article>
                                 {/* Google Ad: Mobile Top Banner */}
 
@@ -298,7 +298,7 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Sidebar - Visible on Desktop */}
-                        <aside className="hidden lg:block lg:col-span-4 space-y-8">
+                        <aside className="hidden lg:block lg:col-span-4 space-y-8 lg:order-1">
                             <div className="sticky top-24 space-y-8">
                                 <SidebarAd />
                             </div>
@@ -363,4 +363,3 @@ export default async function BlogPostPage({
         </>
     );
 }
-
