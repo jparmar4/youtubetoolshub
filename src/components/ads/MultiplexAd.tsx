@@ -24,7 +24,7 @@ export default function MultiplexAd() {
                 style={{ display: "block" }}
                 data-ad-format="autorelaxed"
                 data-ad-client="ca-pub-1328083083403070"
-                data-ad-slot="PLACEHOLDER_MULTIPLEX_ID"
+                data-ad-slot="3104734850"
             />
         </div>
     );
