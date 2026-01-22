@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import MultiplexAd from "@/components/ads/MultiplexAd";
 import { notFound } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
@@ -319,6 +320,11 @@ export default async function BlogPostPage({
                         </div>
                     </section>
                 )}
+
+                {/* Multiplex Ad - Content Discovery */}
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <MultiplexAd />
+                </section>
 
                 {/* CTA */}
                 <section className="py-20 bg-slate-50">

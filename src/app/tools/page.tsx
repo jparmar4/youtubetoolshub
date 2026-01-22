@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
+import InFeedAd from "@/components/ads/InFeedAd";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 
 export const metadata: Metadata = {
@@ -71,10 +72,15 @@ export default function ToolsPage() {
                                     ))}
                                 </div>
                             </section>
+
                         );
                     })}
+                    {/* In-Feed Ad after lists */}
+                    <div className="max-w-3xl mx-auto">
+                        <InFeedAd />
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

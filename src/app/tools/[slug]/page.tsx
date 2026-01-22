@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 
 
 // Import all tool components
@@ -291,6 +292,10 @@ export default async function ToolPage({
                             </div>
                         </div>
                     )}
+                    {/* Multiplex Ad */}
+                    <div className="animate-fade-in-up delay-300">
+                        <MultiplexAd />
+                    </div>
                 </div>
             </div>
 
