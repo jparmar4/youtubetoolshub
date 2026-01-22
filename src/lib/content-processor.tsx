@@ -324,6 +324,8 @@ export function processContent(content: string): React.ReactNode[] {
                     {trimmedLine.replace('## ', '')}
                 </h2>
             );
+            // Insert ad after H2 (major sections)
+            elements.push(<InArticleAd key={`ad-h2-${index}`} />);
             return;
         }
 
@@ -380,7 +382,8 @@ export function processContent(content: string): React.ReactNode[] {
         );
 
         paragraphCount++;
-        if (paragraphCount === 2) {
+        // Insert ads after paragraph 2 and then every 5 paragraphs
+        if (paragraphCount === 2 || (paragraphCount > 2 && (paragraphCount - 2) % 5 === 0)) {
             elements.push(<InArticleAd key={`ad-${index}`} />);
         }
 

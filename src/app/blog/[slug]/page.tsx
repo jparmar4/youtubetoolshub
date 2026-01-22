@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
 import MultiplexAd from "@/components/ads/MultiplexAd";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 import { notFound } from "next/navigation";
 import NextImage from "next/image";
 import Link from "next/link";
@@ -295,30 +296,39 @@ export default async function BlogPostPage({
 
                 {/* Related Posts */}
                 {relatedPosts.length > 0 && (
-                    <section className="py-16 bg-white border-t border-slate-100">
-                        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-8">
-                                Keep Reading
-                            </h2>
-                            <div className="grid md:grid-cols-2 gap-8">
-                                {relatedPosts.map((relatedPost) => (
-                                    <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
-                                        <article className="h-full bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
-                                            <span className="text-xs font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded-md uppercase tracking-wide">
-                                                {relatedPost.category}
-                                            </span>
-                                            <h3 className="text-xl font-bold text-slate-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors leading-tight">
-                                                {relatedPost.title}
-                                            </h3>
-                                            <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
-                                                {relatedPost.excerpt}
-                                            </p>
-                                        </article>
-                                    </Link>
-                                ))}
+                    <>
+                        {/* Ad before Related Posts */}
+                        <section className="py-8 bg-slate-50">
+                            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <HorizontalAd />
                             </div>
-                        </div>
-                    </section>
+                        </section>
+
+                        <section className="py-16 bg-white border-t border-slate-100">
+                            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <h2 className="text-2xl font-bold text-slate-900 mb-8">
+                                    Keep Reading
+                                </h2>
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    {relatedPosts.map((relatedPost) => (
+                                        <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
+                                            <article className="h-full bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
+                                                <span className="text-xs font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded-md uppercase tracking-wide">
+                                                    {relatedPost.category}
+                                                </span>
+                                                <h3 className="text-xl font-bold text-slate-900 mt-4 mb-3 group-hover:text-purple-600 transition-colors leading-tight">
+                                                    {relatedPost.title}
+                                                </h3>
+                                                <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
+                                                    {relatedPost.excerpt}
+                                                </p>
+                                            </article>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    </>
                 )}
 
                 {/* Multiplex Ad - Content Discovery */}
