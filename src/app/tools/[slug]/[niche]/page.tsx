@@ -27,6 +27,8 @@ import IntroScriptGenerator from "@/components/tools/IntroScriptGenerator";
 import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
 import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
 import CommentPicker from "@/components/tools/CommentPicker";
+import BlogSidebar from "@/components/blog/BlogSidebar";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const toolComponents: Record<string, React.ComponentType> = {
     "youtube-thumbnail-downloader": ThumbnailDownloader,
@@ -148,51 +150,62 @@ export default async function ProgrammaticToolPage({
                 />
             )}
 
-            <div className="space-y-12">
-                <div className="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/30">
-                    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-                        <span className="inline-block px-3 py-1 rounded-full bg-red-100 text-red-600 text-sm font-medium mb-4">
-                            Specialized Tool for {niche.name}
-                        </span>
-                        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-                            {nicheContent.title}
-                        </h1>
-                        <p className="mt-4 text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-                            {nicheContent.description}
-                        </p>
-                    </div>
-                </div>
-
-                <ToolComponent />
-
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 pb-12">
-                    {/* Niche Specific Content */}
-                    <div className="space-y-8">
-                        {nicheContent.content.map((section, idx) => (
-                            <div key={idx} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
-                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                                    {section.title}
-                                </h2>
-                                <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                                    <p>{section.content}</p>
-                                </div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {/* Main Column */}
+                    <div className="lg:col-span-2 space-y-12">
+                        {/* Header Section */}
+                        <div className="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/30 rounded-2xl overflow-hidden">
+                            <div className="py-8 px-4 sm:px-6 text-center">
+                                <span className="inline-block px-3 py-1 rounded-full bg-red-100 text-red-600 text-sm font-medium mb-4">
+                                    Specialized Tool for {niche.name}
+                                </span>
+                                <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                                    {nicheContent.title}
+                                </h1>
+                                <p className="mt-4 text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                                    {nicheContent.description}
+                                </p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
 
-                    {/* Generic Tool Content (Reused) */}
-                    {tool.content && (
-                        <div className="space-y-8 opacity-90">
-                            {tool.content.map((section, idx) => (
-                                <div key={`generic-${idx}`} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-8">
-                                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                        <ToolComponent />
+
+                        <HorizontalAd />
+
+                        {/* Niche Specific Content */}
+                        <div className="space-y-8">
+                            {nicheContent.content.map((section, idx) => (
+                                <div key={idx} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                                         {section.title}
                                     </h2>
-                                    <p className="text-gray-600 dark:text-gray-400">{section.content}</p>
+                                    <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
+                                        <p>{section.content}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
-                    )}
+
+                        {/* Generic Tool Content (Reused) */}
+                        {tool.content && (
+                            <div className="space-y-8 opacity-90">
+                                {tool.content.map((section, idx) => (
+                                    <div key={`generic-${idx}`} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-8">
+                                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                                            {section.title}
+                                        </h2>
+                                        <p className="text-gray-600 dark:text-gray-400">{section.content}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Sidebar Column */}
+                    <div className="max-lg:hidden lg:col-span-1 pt-10">
+                        <BlogSidebar />
+                    </div>
                 </div>
             </div>
         </>
