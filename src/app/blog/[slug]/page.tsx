@@ -174,60 +174,45 @@ export default async function BlogPostPage({
                             Back to Blog
                         </Link>
 
-                        <div className="grid lg:grid-cols-2 gap-12 items-center">
-                            <div>
-                                {/* Category */}
-                                <div className="mb-6 flex justify-center lg:justify-start">
-                                    <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide">
-                                        {post.category}
-                                    </span>
-                                </div>
-
-                                {/* Title */}
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
-                                    {post.title}
-                                </h1>
-
-                                <div className="summary text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8">
-                                    {post.metaDescription}
-                                </div>
-
-                                {/* Meta */}
-                                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-slate-500 border-t border-slate-200 pt-6">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                                            {post.author.charAt(0)}
-                                        </div>
-                                        <div className="text-left">
-                                            <span className="block text-slate-900 font-bold">{post.author}</span>
-                                            <span className="text-sm text-slate-500">{post.authorRole}</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-6">
-                                        <span className="flex items-center gap-2">
-                                            <FaCalendar className="w-4 h-4 text-purple-400" />
-                                            {post.date}
-                                        </span>
-                                        <span className="flex items-center gap-2">
-                                            <FaClock className="w-4 h-4 text-purple-400" />
-                                            {post.readTime}
-                                        </span>
-                                    </div>
-                                </div>
+                        <div className="max-w-4xl mx-auto text-center">
+                            {/* Category */}
+                            <div className="mb-6 flex justify-center">
+                                <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide">
+                                    {post.category}
+                                </span>
                             </div>
 
-                            {/* Featured Image (Moved to Header for better layout) */}
-                            {post.coverImage && (
-                                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10">
-                                    <NextImage
-                                        src={post.coverImage}
-                                        alt={post.imageAlt || post.title}
-                                        fill
-                                        className="object-cover hover:scale-105 transition-transform duration-700"
-                                        priority
-                                    />
+                            {/* Title */}
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
+                                {post.title}
+                            </h1>
+
+                            <div className="summary text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto mb-8">
+                                {post.metaDescription}
+                            </div>
+
+                            {/* Meta */}
+                            <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 border-t border-slate-200 pt-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
+                                        {post.author.charAt(0)}
+                                    </div>
+                                    <div className="text-left">
+                                        <span className="block text-slate-900 font-bold">{post.author}</span>
+                                        <span className="text-sm text-slate-500">{post.authorRole}</span>
+                                    </div>
                                 </div>
-                            )}
+                                <div className="flex items-center gap-6">
+                                    <span className="flex items-center gap-2">
+                                        <FaCalendar className="w-4 h-4 text-purple-400" />
+                                        {post.date}
+                                    </span>
+                                    <span className="flex items-center gap-2">
+                                        <FaClock className="w-4 h-4 text-purple-400" />
+                                        {post.readTime}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
@@ -238,8 +223,21 @@ export default async function BlogPostPage({
 
                         {/* Main Content Column */}
                         <div className="lg:col-span-2">
+                            {/* Featured Image (Moved from Header) */}
+                            {post.coverImage && (
+                                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
+                                    <NextImage
+                                        src={post.coverImage}
+                                        alt={post.imageAlt || post.title}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                </div>
+                            )}
+
                             {/* High Value Top Ad Unit - Above Fold */}
-                            <div className="mb-10 lg:-mt-6">
+                            <div className="mb-10">
                                 <HorizontalAd />
                             </div>
 
