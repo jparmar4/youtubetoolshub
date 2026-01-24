@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 
 // Import all tool components
@@ -190,22 +191,20 @@ export default async function ToolPage({
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
+                    {/* Breadcrumb Navigation */}
+                    <div className="mb-8">
+                        <Breadcrumb
+                            items={[
+                                { name: "Home", href: "/" },
+                                { name: "Tools", href: "/tools" },
+                                { name: tool.name }
+                            ]}
+                        />
+                    </div>
+
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Column */}
                         <div className="lg:col-span-2 space-y-12">
-                            {/* breadcrumbs */}
-                            <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
-                                <Link href="/" className="hover:text-purple-600 transition-colors">
-                                    Home
-                                </Link>
-                                <span>/</span>
-                                <Link href="/tools" className="hover:text-purple-600 transition-colors">
-                                    Tools
-                                </Link>
-                                <span>/</span>
-                                <span className="text-slate-900 font-medium">{tool.name}</span>
-                            </nav>
-
                             <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" /></div>}>
                                 <ToolComponent />
                             </Suspense>

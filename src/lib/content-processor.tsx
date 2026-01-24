@@ -4,6 +4,12 @@ import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaCheckCircle, FaBolt } from "react-icons/fa";
 import InArticleAd from "@/components/ads/InArticleAd";
 
+// AEO Components
+import QuickAnswer from "@/components/blog/aeo/QuickAnswer";
+import KeyTakeaways from "@/components/blog/aeo/KeyTakeaways";
+import ProsCons from "@/components/blog/aeo/ProsCons";
+import ExpertQuote from "@/components/blog/aeo/ExpertQuote";
+
 
 // Map of keywords to tool URLs
 // We'll generate this from the tools config + manual additions if needed
@@ -35,14 +41,24 @@ const manualKeywords: Record<string, string> = {
 Object.assign(keywordMap, manualKeywords);
 
 type AlertType = 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION' | 'QUOTE';
+type AeoType = 'QUICK_ANSWER' | 'KEY_TAKEAWAYS' | 'PROS_CONS' | 'EXPERT_QUOTE';
 
 export function processContent(content: string): React.ReactNode[] {
     const lines = content.split('\n');
     const elements: React.ReactNode[] = [];
+
+    // State for standard lists
     let listItems: string[] = [];
     let listType: 'ul' | 'ol' | null = null;
+
+    // State for blockquotes/alerts
     let blockquoteItems: string[] = [];
     let blockquoteType: AlertType | null = null;
+
+    // State for AEO components
+    let aeoType: AeoType | null = null;
+    let aeoLines: string[] = [];
+
     let paragraphCount = 0;
 
     const flushList = (key: string) => {
@@ -125,6 +141,69 @@ export function processContent(content: string): React.ReactNode[] {
 
             blockquoteItems = [];
             blockquoteType = null;
+        }
+    };
+
+    const flushAEO = (key: string) => {
+        if (aeoType && aeoLines.length > 0) {
+            switch (aeoType) {
+                case 'QUICK_ANSWER':
+                    // Just join lines with <br> or paragraphs
+                    elements.push(
+                        <QuickAnswer key={key}>
+                            {aeoLines.map((line, i) => (
+                                <p key={i} className={i > 0 ? "mt-2" : ""}>{parseInlineMarkdown(line, `qa-${key}-${i}`, true)}</p>
+                            ))}
+                        </QuickAnswer>
+                    );
+                    break;
+                case 'KEY_TAKEAWAYS':
+                    // Expect lines starting with -
+                    const points = aeoLines
+                        .filter(l => l.trim().startsWith('-'))
+                        .map(l => l.trim().replace(/^-\s*/, ''));
+                    elements.push(<KeyTakeaways key={key} points={points} />);
+                    break;
+                case 'PROS_CONS':
+                    // Parse PROS: ... CONS: ...
+                    // This is a bit manual
+                    const pros: string[] = [];
+                    const cons: string[] = [];
+                    let currentSection: 'PROS' | 'CONS' | null = null;
+
+                    aeoLines.forEach(line => {
+                        const tLine = line.trim();
+                        if (tLine.toUpperCase() === 'PROS:') { currentSection = 'PROS'; return; }
+                        if (tLine.toUpperCase() === 'CONS:') { currentSection = 'CONS'; return; }
+
+                        if (currentSection && (tLine.startsWith('+') || tLine.startsWith('-'))) {
+                            const text = tLine.substring(1).trim();
+                            if (currentSection === 'PROS') pros.push(text);
+                            else cons.push(text);
+                        }
+                    });
+                    elements.push(<ProsCons key={key} pros={pros} cons={cons} />);
+                    break;
+                case 'EXPERT_QUOTE':
+                    // Parse key=value lines
+                    const props: any = {};
+                    aeoLines.forEach(line => {
+                        const [k, ...v] = line.split('=');
+                        if (k && v) props[k.trim()] = v.join('=').trim().replace(/^"|"$/g, '');
+                    });
+                    elements.push(
+                        <ExpertQuote
+                            key={key}
+                            quote={props.quote || ""}
+                            author={props.author || ""}
+                            role={props.role || ""}
+                            image={props.image}
+                        />
+                    );
+                    break;
+            }
+            aeoType = null;
+            aeoLines = [];
         }
     };
 
@@ -274,10 +353,58 @@ export function processContent(content: string): React.ReactNode[] {
     lines.forEach((line, index) => {
         const trimmedLine = line.trim();
 
-        // Empty line - flush list/blockquotes and add spacing
+        // Empty line
         if (trimmedLine === '') {
+            if (aeoType) {
+                // Do NOT flush AEO on empty line, allow multi-line content
+                // But maybe we should? No, let's treat ::: as delimiter
+                // Actually to support multi-line QuickAnswer paragraphs, allow empty lines
+                return;
+            }
             flushList(`list-${index}`);
             flushBlockquote(`quote-${index}`);
+            return;
+        }
+
+        // Custom AEO Block Start/End detection
+        if (trimmedLine.startsWith(':::')) {
+            if (aeoType) {
+                // Close current block
+                flushAEO(`aeo-${index}`);
+            } else {
+                // Start new block
+                const type = trimmedLine.replace(':::', '').trim().toUpperCase();
+                if (type === 'QUICK-ANSWER') aeoType = 'QUICK_ANSWER';
+                else if (type === 'KEY-TAKEAWAYS') aeoType = 'KEY_TAKEAWAYS';
+                else if (type === 'PROS-CONS') aeoType = 'PROS_CONS';
+                else if (type === 'EXPERT-QUOTE') aeoType = 'EXPERT_QUOTE';
+            }
+            return; // Skip the delimiter line
+        }
+
+        // If inside AEO block, capture lines
+        if (aeoType) {
+            if (trimmedLine) aeoLines.push(trimmedLine);
+            return;
+        }
+
+        // YouTube Embed Detection (Standalone Line)
+        const ytRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^& \n<]+)(?:&.*)?$/;
+        const ytMatch = trimmedLine.match(ytRegex);
+        if (ytMatch && ytMatch[1]) {
+            flushList(`list-${index}`);
+            flushBlockquote(`quote-${index}`);
+            elements.push(
+                <div key={index} className="my-10 relative w-full aspect-video rounded-2xl overflow-hidden shadow-xl shadow-purple-900/10">
+                    <iframe
+                        src={`https://www.youtube.com/embed/${ytMatch[1]}`}
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="absolute top-0 left-0 w-full h-full border-0"
+                    />
+                </div>
+            );
             return;
         }
 
@@ -393,6 +520,21 @@ export function processContent(content: string): React.ReactNode[] {
     // Flush any remaining items
     flushList('list-final');
     flushBlockquote('quote-final');
+    flushAEO('aeo-final');
 
     return elements;
+}
+
+// Helper to extract YouTube IDs for Schema
+export function extractYoutubeVideoIds(content: string): string[] {
+    const ids: string[] = [];
+    // Regex for standard and short YouTube URLs
+    const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
+    let match;
+    while ((match = regex.exec(content)) !== null) {
+        if (match[1]) {
+            ids.push(match[1]);
+        }
+    }
+    return [...new Set(ids)]; // Unique IDs
 }

@@ -10,8 +10,8 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema } from "@/lib/seo";
-import { processContent } from "@/lib/content-processor";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema } from "@/lib/seo";
+import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 
 // Generate static params
@@ -128,6 +128,16 @@ export default async function BlogPostPage({
         cssSelectors: ["h1", ".summary"],
     });
 
+    const videoIds = extractYoutubeVideoIds(post.content);
+    const videoSchemas = videoIds.map(id => getVideoObjectSchema({
+        name: `${post.title} (Video)`,
+        description: `Video content from: ${post.title}`,
+        thumbnailUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
+        uploadDate: isoDate, // Fallback to post date as we don't have video API access
+        embedUrl: `https://www.youtube.com/embed/${id}`,
+        contentUrl: `https://www.youtube.com/watch?v=${id}`
+    }));
+
     return (
         <>
             {/* JSON-LD Structured Data */}
@@ -157,6 +167,15 @@ export default async function BlogPostPage({
                     }}
                 />
             )}
+            {videoSchemas.map((schema, i) => (
+                <script
+                    key={`video-schema-${i}`}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(schema),
+                    }}
+                />
+            ))}
 
             <div className="min-h-screen bg-slate-50">
                 {/* Header */}

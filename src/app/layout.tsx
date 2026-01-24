@@ -42,7 +42,12 @@ export const metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-
+  alternates: {
+    canonical: siteConfig.url,
+    languages: {
+      'en': siteConfig.url,
+    },
+  },
 
   openGraph: {
     type: "website",
@@ -66,6 +71,7 @@ export const metadata = {
     description: siteConfig.seo.defaultDescription,
     images: [`${siteConfig.url}/og-image.png`],
     creator: "@youtubetools",
+    site: "@youtubetools",
   },
   robots: {
     index: true,
@@ -82,9 +88,13 @@ export const metadata = {
   },
   verification: {
     google: "google299d0fa42c6b8fbb",
+    yandex: "yandex-verification-code",
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
+  other: {
+    "msvalidate.01": "bing-verification-code",
+  },
 };
 
 export default async function RootLayout({
@@ -111,6 +121,15 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* PWA & Mobile SEO Meta Tags */}
+        <meta name="theme-color" content="#a855f7" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="YT Tools Hub" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="YouTube Tools Hub" />
+        <link rel="manifest" href="/manifest.webmanifest" />
 
         {/* Favicons handled by app/icon.tsx */}
 

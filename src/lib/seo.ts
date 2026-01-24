@@ -256,3 +256,85 @@ export function getDefinedTermSchema(term: {
         },
     };
 }
+
+// VideoObject Schema for YouTube video tutorials
+export function getVideoObjectSchema(video: {
+    name: string;
+    description: string;
+    thumbnailUrl: string;
+    uploadDate: string;
+    duration: string;
+    contentUrl?: string;
+    embedUrl?: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: video.name,
+        description: video.description,
+        thumbnailUrl: video.thumbnailUrl,
+        uploadDate: video.uploadDate,
+        duration: video.duration,
+        contentUrl: video.contentUrl,
+        embedUrl: video.embedUrl,
+    };
+}
+
+// Review Schema for tool ratings
+export function getReviewSchema(review: {
+    itemReviewed: string;
+    reviewRating: {
+        ratingValue: string;
+        bestRating: string;
+        worstRating: string;
+    };
+    author: {
+        "@type": string;
+        name: string;
+    };
+    reviewBody?: string;
+    datePublished?: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        itemReviewed: {
+            "@type": "SoftwareApplication",
+            name: review.itemReviewed,
+        },
+        reviewRating: {
+            "@type": "Rating",
+            ratingValue: review.reviewRating.ratingValue,
+            bestRating: review.reviewRating.bestRating || "5",
+            worstRating: review.reviewRating.worstRating || "1",
+        },
+        author: {
+            "@type": review.author["@type"] || "Person",
+            name: review.author.name,
+        },
+        reviewBody: review.reviewBody,
+        datePublished: review.datePublished,
+    };
+}
+
+// AggregateRating Schema for overall tool ratings
+export function getAggregateRatingSchema(rating: {
+    itemReviewed: string;
+    ratingValue: string;
+    ratingCount: string;
+    bestRating?: string;
+    worstRating?: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "AggregateRating",
+        itemReviewed: {
+            "@type": "SoftwareApplication",
+            name: rating.itemReviewed,
+        },
+        ratingValue: rating.ratingValue,
+        ratingCount: rating.ratingCount,
+        bestRating: rating.bestRating || "5",
+        worstRating: rating.worstRating || "1",
+    };
+}

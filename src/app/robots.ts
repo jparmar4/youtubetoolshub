@@ -29,22 +29,22 @@ export default function robots(): MetadataRoute.Robots {
                     'BingPreview',
                     // Common Crawl (used by many AI models)
                     'CCBot',
-                    // Meta
-                    'FacebookBot',
-                    'facebookexternalhit',
-                    // Apple
-                    'Applebot',
-                    // Cohere
+                    'CCBot-2.0',
+                    // Other AI crawlers
+                    'anthropic-ai',
                     'cohere-ai',
-                    // You.com
+                    'meta-ai',
                     'YouBot',
-                    // Amazon
-                    'Amazonbot',
-                    // Bytedance
-                    'Bytespider',
+                    'Applebot',
+                    'Slackbot',
+                    'TelegramBot',
+                    'WhatsApp',
+                    'FacebookBot',
+                    'LinkedInBot',
+                    'TwitterBot',
                 ],
-                allow: ['/', '/llms.txt', '/llms-full.txt'],
-                disallow: ['/api/', '/sign-in', '/dashboard'],
+                allow: '/',
+                disallow: ['/api/', '/sign-in'],
             },
         ],
         sitemap: `${siteConfig.url}/sitemap_index.xml`,

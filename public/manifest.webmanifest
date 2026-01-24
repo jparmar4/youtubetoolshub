@@ -1,0 +1,29 @@
+{
+  "name": "YouTube Tools Hub - Free AI Tools for Creators",
+  "short_name": "YT Tools Hub",
+  "description": "15+ FREE AI-powered YouTube tools for creators. Download thumbnails, generate titles, optimize SEO, and calculate earnings.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a855f7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["productivity", "utilities", "business"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "id": "youtube-tools-hub"
+}

@@ -92,7 +92,7 @@ export default function ThumbnailDownloader() {
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={thumb.url}
-                                            alt={`${thumb.quality} thumbnail`}
+                                            alt={`YouTube video thumbnail in ${thumb.quality} quality (${thumb.dimension})`}
                                             className="w-full h-full object-cover"
                                             onError={(e) => {
                                                 const target = e.target as HTMLImageElement;

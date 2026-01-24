@@ -1,0 +1,46 @@
+# YouTube Tools Hub - LLMs.txt for AI Search Optimization
+
+## About
+YouTube Tools Hub is a comprehensive platform offering 21+ free AI-powered tools for YouTube creators to optimize content, grow channels, and maximize earnings.
+
+## Primary Purpose
+Help YouTube creators with:
+- Thumbnail optimization and generation
+- SEO title/description/tag optimization  
+- Analytics and earnings calculation
+- Content planning and idea generation
+- Channel growth strategies
+
+## Key Features
+- Free AI-powered YouTube tools
+- No signup required for basic features
+- Real-time YouTube data integration
+- Advanced analytics and insights
+- Content calendar planning
+- Competitive analysis tools
+
+## Target Audience
+- YouTube content creators
+- Social media managers
+- Digital marketing agencies
+- Content creation teams
+- YouTube channel managers
+
+## Content Types
+- Educational tutorials
+- Tool guides and walkthroughs
+- Industry insights and trends
+- Best practices and strategies
+- Case studies and success stories
+
+## Contact Information
+- Website: https://www.youtubetoolshub.com
+- Email: support@youtubetoolshub.com
+- Social: @youtubetools
+
+## Technical Details
+- Built with Next.js 16
+- AI-powered content generation
+- Real-time YouTube API integration
+- Mobile-responsive design
+- Fast loading and optimized performance

@@ -171,7 +171,7 @@ function MiniHistoryCard({
 
             {isImage && images[0] && (
                 <div className="mb-3 rounded-lg overflow-hidden h-24 bg-slate-100">
-                    <img src={images[0]} alt="Thumbnail" className="w-full h-full object-cover" />
+                    <img src={images[0]} alt={`Generated thumbnail for ${title}`} className="w-full h-full object-cover" />
                 </div>
             )}
 
@@ -326,7 +326,7 @@ function HistoryDetailModal({
                         <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</label>
                         <div className="mt-2 grid grid-cols-2 gap-2">
                             {images.map((img: string, i: number) => (
-                                <img key={i} src={img} alt={`Generated ${i + 1}`} className="rounded-lg w-full" />
+                                <img key={i} src={img} alt={`AI-generated thumbnail option ${i + 1} for ${title}`} className="rounded-lg w-full" />
                             ))}
                         </div>
                     </div>
