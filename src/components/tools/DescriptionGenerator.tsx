@@ -279,37 +279,37 @@ function DescriptionGeneratorContent() {
     );
 }
 
-function formatDescriptionFromJSON(jsonResult: string | Record<string, any>): string {
+function formatDescriptionFromJSON(jsonResult: string | Record<string, unknown>): string {
     try {
-        let content = jsonResult;
+        const content = jsonResult;
 
         // If it's already an object, use it directly
         if (typeof content !== 'string') {
-            const typedContent = content as { description?: any; result?: string };
+            const typedContent = content as { description?: unknown; result?: string };
 
             // Handle the specific structured output from our AI prompt
             if (typedContent.description && typeof typedContent.description === 'object' && !Array.isArray(typedContent.description)) {
-                const d = typedContent.description;
+                const d = typedContent.description as Record<string, unknown>;
                 return [
-                    d.hook,
+                    getString(d.hook),
                     "",
-                    d.video_summary,
+                    getString(d.video_summary),
                     "",
                     "TIMESTAMPS:",
-                    Array.isArray(d.timestamps) ? d.timestamps.join('\n') : d.timestamps,
+                    Array.isArray(d.timestamps) ? d.timestamps.join('\n') : String(d.timestamps || ''),
                     "",
                     "KEY TAKEAWAYS:",
-                    Array.isArray(d.key_points) ? d.key_points.join('\n') : d.key_points,
+                    Array.isArray(d.key_points) ? d.key_points.join('\n') : String(d.key_points || ''),
                     "",
-                    d.resources_links,
+                    getString(d.resources_links),
                     "",
-                    d.call_to_action,
+                    getString(d.call_to_action),
                     "",
-                    d.hashtags
+                    getString(d.hashtags)
                 ].filter(Boolean).join('\n');
             }
 
-            return typedContent.description || typedContent.result || JSON.stringify(content, null, 2);
+            return getString(typedContent.description) || typedContent.result || JSON.stringify(content, null, 2);
         }
 
         // Check if it's a JSON string
@@ -337,4 +337,8 @@ function formatDescriptionFromJSON(jsonResult: string | Record<string, any>): st
         console.error("Error formatting description:", e);
         return typeof jsonResult === 'string' ? jsonResult : String(jsonResult);
     }
+}
+
+function getString(value: unknown): string {
+    return typeof value === "string" ? value : String(value || "");
 }

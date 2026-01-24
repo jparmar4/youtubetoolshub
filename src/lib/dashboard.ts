@@ -3,7 +3,7 @@ import { isPremiumUser } from "./usage";
 export interface SavedItem {
     id: string;
     type: 'audit' | 'title' | 'idea' | 'hashtag' | 'other'; // Added 'other' for flexibility
-    content: any;
+    content: unknown;
     date: string;
     toolSlug: string;
 }
@@ -36,7 +36,7 @@ export const saveItem = async (item: Omit<SavedItem, 'id' | 'date'>) => {
 interface HistoryItem {
     id: string;
     tool_slug: string;
-    content: any;
+    content: unknown;
     created_at: string;
 }
 

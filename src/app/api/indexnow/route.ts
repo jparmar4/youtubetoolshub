@@ -3,6 +3,7 @@ import { submitToIndexNow } from "@/lib/indexnow";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import { tools } from "@/config/tools";
+import { niches, programmaticTools } from "@/config/programmatic";
 
 export async function GET() {
     try {
@@ -17,6 +18,13 @@ export async function GET() {
         // Add tools
         tools.forEach((tool) => {
             urls.push(`${baseUrl}/tools/${tool.slug}`);
+        });
+
+        // Add programmatic niche tool pages
+        programmaticTools.forEach((toolSlug) => {
+            niches.forEach((niche) => {
+                urls.push(`${baseUrl}/tools/${toolSlug}/${niche.id}`);
+            });
         });
 
         // Add blog posts (latest 10 to avoid payload limits if any, though IndexNow allows up to 10k)

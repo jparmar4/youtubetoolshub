@@ -105,34 +105,52 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Legal Links */}
-                    <div>
-                        <h3 className="font-semibold text-slate-900 mb-4">Legal</h3>
-                        <ul className="space-y-2">
-                            {siteConfig.footerLinks.legal.map((item) => (
-                                <li key={item.name}>
-                                    <Link
-                                        href={item.href}
-                                        className="text-sm hover:text-purple-400 transition-colors"
-                                    >
-                                        {item.name}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                {/* Resources Links */}
+                <div>
+                    <h3 className="font-semibold text-slate-900 mb-4">Resources</h3>
+                    <ul className="space-y-2">
+                        {/* Resources are optional */}
+                        {siteConfig.footerLinks.resources?.map((item) => (
+                            <li key={item.name}>
+                                <Link
+                                    href={item.href}
+                                    className="text-sm hover:text-purple-600 transition-colors"
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-slate-500 text-sm">
-                        © {currentYear} {siteConfig.name}. All rights reserved.
-                    </p>
-                    <p className="text-slate-500 text-sm flex items-center gap-1">
-                        Made with <FaHeart className="text-purple-500" /> for YouTube Creators
-                    </p>
+                {/* Legal Links */}
+                <div>
+                    <h3 className="font-semibold text-slate-900 mb-4">Legal</h3>
+                    <ul className="space-y-2">
+                        {siteConfig.footerLinks.legal.map((item) => (
+                            <li key={item.name}>
+                                <Link
+                                    href={item.href}
+                                    className="text-sm hover:text-purple-400 transition-colors"
+                                >
+                                    {item.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
-        </footer>
+
+            {/* Bottom Bar */}
+            <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-slate-500 text-sm">
+                    © {currentYear} {siteConfig.name}. All rights reserved.
+                </p>
+                <p className="text-slate-500 text-sm flex items-center gap-1">
+                    Made with <FaHeart className="text-purple-500" /> for YouTube Creators
+                </p>
+            </div>
+        </div>
+        </footer >
     );
 }

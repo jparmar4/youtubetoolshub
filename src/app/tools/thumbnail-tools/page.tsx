@@ -142,8 +142,8 @@ export default function ThumbnailToolsHub() {
                             <ul className="text-slate-600 space-y-2 mb-4">
                                 <li><strong>Analyze competitors</strong> by downloading their thumbnails</li>
                                 <li><strong>Generate viral text</strong> that triggers curiosity and emotion</li>
-                                <li><strong>Create unique images</strong> that don't exist in stock libraries</li>
-                                <li><strong>Maintain consistency</strong> across your channel's branding</li>
+                                <li><strong>Create unique images</strong> that don&apos;t exist in stock libraries</li>
+                                <li><strong>Maintain consistency</strong> across your channel&apos;s branding</li>
                             </ul>
                         </div>
                     </div>

@@ -88,6 +88,21 @@ export async function generateMetadata({
             title: `${tool.seoTitle || tool.name} | YouTube Tools Hub`,
             description: tool.seoDescription || tool.description,
             type: "website",
+            url: `${siteConfig.url}/tools/${tool.slug}`,
+            images: [
+                {
+                    url: `${siteConfig.url}/og-image.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: tool.name,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: tool.seoTitle || tool.name,
+            description: tool.seoDescription || tool.description,
+            images: [`${siteConfig.url}/og-image.png`],
         },
         alternates: {
             canonical: `/tools/${tool.slug}`,
@@ -118,7 +133,7 @@ export default async function ToolPage({
         name: tool.name,
         description: tool.description,
         url: `${siteConfig.url}/tools/${tool.slug}`,
-        category: "UtilityApplication", // or MultimediaApplication
+        category: tool.category,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([

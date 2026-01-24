@@ -4,7 +4,7 @@ export interface HistoryItem {
     id: string;
     user_id: string;
     tool_slug: string;
-    content: any;
+    content: unknown;
     created_at: string;
 }
 
@@ -20,7 +20,7 @@ const getLocalHistory = (): HistoryItem[] => {
     }
 };
 
-const saveLocalHistory = (toolSlug: string, content: any): HistoryItem => {
+const saveLocalHistory = (toolSlug: string, content: unknown): HistoryItem => {
     const items = getLocalHistory();
     const newItem: HistoryItem = {
         id: crypto.randomUUID(),
@@ -36,7 +36,7 @@ const saveLocalHistory = (toolSlug: string, content: any): HistoryItem => {
     return newItem;
 };
 
-export const saveHistory = async (toolSlug: string, content: any) => {
+export const saveHistory = async (toolSlug: string, content: unknown) => {
     // Try to save to cloud first
     try {
         const res = await fetch('/api/history', {

@@ -60,12 +60,13 @@ export async function POST(request: Request) {
             keyId: process.env.RAZORPAY_KEY_ID
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error creating subscription:", JSON.stringify(error, null, 2));
+        const errorMessage = error instanceof Error ? error.message : "Failed to create subscription";
         return NextResponse.json(
             {
                 success: false,
-                error: error.message || error.description || "Failed to create subscription",
+                error: errorMessage,
                 details: error
             },
             { status: 500 }

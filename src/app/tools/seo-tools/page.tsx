@@ -141,7 +141,7 @@ export default function SEOToolsHub() {
                         </h2>
                         <div className="prose prose-lg max-w-none">
                             <p className="text-slate-600 leading-relaxed mb-4">
-                                YouTube processes <strong>3 billion searches per month</strong>, making it the world's second-largest search engine. Without proper SEO, your videos are invisible.
+                                YouTube processes <strong>3 billion searches per month</strong>, making it the world&apos;s second-largest search engine. Without proper SEO, your videos are invisible.
                             </p>
                             <h3 className="text-xl font-bold text-slate-900 mb-3">The YouTube Algorithm Prioritizes:</h3>
                             <ul className="text-slate-600 space-y-2 mb-4">

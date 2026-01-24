@@ -44,6 +44,7 @@ export default function robots(): MetadataRoute.Robots {
                     'Bytespider',
                 ],
                 allow: ['/', '/llms.txt', '/llms-full.txt'],
+                disallow: ['/api/', '/sign-in', '/dashboard'],
             },
         ],
         sitemap: `${siteConfig.url}/sitemap_index.xml`,

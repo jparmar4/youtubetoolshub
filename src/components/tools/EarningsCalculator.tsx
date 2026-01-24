@@ -251,7 +251,7 @@ export default function EarningsCalculator() {
                                     <p className="mb-4">{sponsorResult.explanation}</p>
                                     <div className="border-t border-white/20 pt-4">
                                         <p className="font-semibold text-purple-200 mb-2">📢 Pitch Tip</p>
-                                        <p className="italic">"{sponsorResult.pitchTip}"</p>
+                                        <p className="italic">&quot;{sponsorResult.pitchTip}&quot;</p>
                                     </div>
                                 </div>
                             </div>

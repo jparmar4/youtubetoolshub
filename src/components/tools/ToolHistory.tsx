@@ -7,6 +7,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { formatDate } from "@/lib/utils";
 import CopyButton from "@/components/ui/CopyButton";
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null;
+}
+
+function getString(value: unknown): string | undefined {
+    return typeof value === "string" ? value : undefined;
+}
+
+function getStringArray(value: unknown): string[] {
+    if (!Array.isArray(value)) return [];
+    return value.filter((v): v is string => typeof v === "string");
+}
+
 export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     const [history, setHistory] = useState<HistoryItem[]>([]);
     const [loading, setLoading] = useState(true);
@@ -109,18 +122,26 @@ function MiniHistoryCard({
     onClick: () => void;
     onDelete: (e: React.MouseEvent) => void;
 }) {
-    const title = item.content.title || item.content.topic || item.content.prompt || "Untitled";
+    const content = isRecord(item.content) ? item.content : {};
+    const title =
+        getString(content.title) ||
+        getString(content.topic) ||
+        getString(content.prompt) ||
+        "Untitled";
 
-    const getDescription = (content: Record<string, unknown>) => {
-        if (content.description) return String(content.description);
-        if (content.concept) return String(content.concept);
-        if (content.script) return String(content.script).slice(0, 80) + "...";
-        if (Array.isArray(content)) return `${content.length} items`;
-        if (content.results && Array.isArray(content.results)) return `${content.results.length} results`;
+    const getDescription = (value: unknown) => {
+        if (typeof value === "string") return value;
+        if (Array.isArray(value)) return `${value.length} items`;
+        if (!isRecord(value)) return "Click to view details";
+        if (value.description) return String(value.description);
+        if (value.concept) return String(value.concept);
+        if (value.script) return String(value.script).slice(0, 80) + "...";
+        if (value.results && Array.isArray(value.results)) return `${value.results.length} results`;
         return "Click to view details";
     };
 
-    const isImage = item.tool_slug.includes('thumbnail') && (item.content.images || item.content.thumbnail_concept);
+    const images = getStringArray(content.images);
+    const isImage = item.tool_slug.includes("thumbnail") && (images.length > 0 || !!getString(content.thumbnail_concept));
 
     return (
         <motion.div
@@ -148,9 +169,9 @@ function MiniHistoryCard({
                 {title}
             </h4>
 
-            {isImage && item.content.images && item.content.images[0] && (
+            {isImage && images[0] && (
                 <div className="mb-3 rounded-lg overflow-hidden h-24 bg-slate-100">
-                    <img src={item.content.images[0]} alt="Thumbnail" className="w-full h-full object-cover" />
+                    <img src={images[0]} alt="Thumbnail" className="w-full h-full object-cover" />
                 </div>
             )}
 
@@ -195,16 +216,33 @@ function HistoryDetailModal({
             );
         }
 
+        if (!isRecord(content)) {
+            return (
+                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                    <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{JSON.stringify(content, null, 2)}</p>
+                </div>
+            );
+        }
+
+        const title = getString(content.title);
+        const concept = getString(content.concept);
+        const description = getString(content.description);
+        const thumbnailConcept = getString(content.thumbnail_concept);
+        const difficulty = getString(content.difficulty);
+        const angle = getString(content.angle);
+        const images = getStringArray(content.images);
+        const score = typeof content.score === "number" ? content.score : Number(content.score);
+
         // Render structured content
         return (
             <div className="space-y-4">
-                {content.title && (
+                {title && (
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Title</label>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-slate-800 font-medium">{content.title}</p>
+                            <p className="text-slate-800 font-medium">{title}</p>
                             <button
-                                onClick={() => handleCopy(content.title)}
+                                onClick={() => handleCopy(title)}
                                 className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
@@ -213,13 +251,13 @@ function HistoryDetailModal({
                     </div>
                 )}
 
-                {content.concept && (
+                {concept && (
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Concept</label>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-slate-800">{content.concept}</p>
+                            <p className="text-slate-800">{concept}</p>
                             <button
-                                onClick={() => handleCopy(content.concept)}
+                                onClick={() => handleCopy(concept)}
                                 className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
@@ -228,13 +266,13 @@ function HistoryDetailModal({
                     </div>
                 )}
 
-                {content.description && (
+                {description && (
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Description</label>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-slate-800 whitespace-pre-wrap">{content.description}</p>
+                            <p className="text-slate-800 whitespace-pre-wrap">{description}</p>
                             <button
-                                onClick={() => handleCopy(content.description)}
+                                onClick={() => handleCopy(description)}
                                 className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
@@ -243,13 +281,13 @@ function HistoryDetailModal({
                     </div>
                 )}
 
-                {content.thumbnail_concept && (
+                {thumbnailConcept && (
                     <div>
                         <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Thumbnail Concept</label>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
-                            <p className="text-slate-800 italic">"{content.thumbnail_concept}"</p>
+                            <p className="text-slate-800 italic">&quot;{thumbnailConcept}&quot;</p>
                             <button
-                                onClick={() => handleCopy(content.thumbnail_concept)}
+                                onClick={() => handleCopy(thumbnailConcept)}
                                 className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
                             >
                                 <FaCopy size={14} />
@@ -258,36 +296,36 @@ function HistoryDetailModal({
                     </div>
                 )}
 
-                {content.score && (
+                {Number.isFinite(score) && score > 0 && (
                     <div className="flex items-center gap-4">
                         <div>
                             <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</label>
-                            <p className={`text-2xl font-black mt-1 ${content.score >= 90 ? "text-green-500" :
-                                content.score >= 80 ? "text-blue-500" : "text-yellow-500"
+                            <p className={`text-2xl font-black mt-1 ${score >= 90 ? "text-green-500" :
+                                score >= 80 ? "text-blue-500" : "text-yellow-500"
                                 }`}>
-                                {content.score}
+                                {score}
                             </p>
                         </div>
-                        {content.difficulty && (
+                        {difficulty && (
                             <div>
                                 <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Difficulty</label>
-                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{content.difficulty}</p>
+                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{difficulty}</p>
                             </div>
                         )}
-                        {content.angle && (
+                        {angle && (
                             <div>
                                 <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Angle</label>
-                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{content.angle}</p>
+                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{angle}</p>
                             </div>
                         )}
                     </div>
                 )}
 
-                {content.images && content.images.length > 0 && (
+                {images.length > 0 && (
                     <div>
                         <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</label>
                         <div className="mt-2 grid grid-cols-2 gap-2">
-                            {content.images.map((img: string, i: number) => (
+                            {images.map((img: string, i: number) => (
                                 <img key={i} src={img} alt={`Generated ${i + 1}`} className="rounded-lg w-full" />
                             ))}
                         </div>
@@ -297,10 +335,13 @@ function HistoryDetailModal({
         );
     };
 
-    const fullText = typeof content === 'string' ? content :
-        [content.title, content.concept, content.description, content.thumbnail_concept]
-            .filter(Boolean)
-            .join('\n\n');
+    const fullText = (() => {
+        if (typeof content === "string") return content;
+        if (!isRecord(content)) return JSON.stringify(content, null, 2);
+        return [getString(content.title), getString(content.concept), getString(content.description), getString(content.thumbnail_concept)]
+            .filter((v): v is string => typeof v === "string" && v.length > 0)
+            .join("\n\n");
+    })();
 
     return (
         <motion.div

@@ -182,19 +182,32 @@ export default function HistoryPage() {
 }
 
 function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: number, onDelete: (e: React.MouseEvent) => void }) {
-    // Determine content type and display logic
-    const isImage = item.tool_slug.includes('thumbnail') && (item.content.images || item.content.thumbnail_concept);
-    const title = item.content.title || item.content.topic || item.content.prompt || "Untitled Generation";
+    // Helper type guards
+    const isRecord = (value: unknown): value is Record<string, unknown> => 
+        typeof value === "object" && value !== null;
+    const getString = (value: unknown): string | undefined => 
+        typeof value === "string" ? value : undefined;
+    const getStringArray = (value: unknown): string[] => 
+        Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+
+    const content = isRecord(item.content) ? item.content : {};
+    const images = getStringArray(content.images);
+    const isImage = item.tool_slug.includes('thumbnail') && (images.length > 0 || !!getString(content.thumbnail_concept));
+    const title = getString(content.title) || getString(content.topic) || getString(content.prompt) || "Untitled Generation";
 
     // Smart description extractor
-    const getDescription = (content: any) => {
-        if (content.description) return content.description;
-        if (content.concept) return content.concept;
-        if (content.hook) return content.hook;
-        if (content.script) return content.script.slice(0, 150) + "...";
+    const getDescription = (content: unknown) => {
+        if (typeof content === "string") return content;
+        if (typeof content === "object" && content !== null) {
+            const obj = content as Record<string, unknown>;
+            if (typeof obj.description === "string") return obj.description;
+            if (typeof obj.concept === "string") return obj.concept;
+            if (typeof obj.hook === "string") return obj.hook;
+            if (typeof obj.script === "string") return obj.script.slice(0, 150) + "...";
+            if (Array.isArray(obj.results)) return `${obj.results.length} results generated`;
+            if (Array.isArray(obj.calendar)) return `${obj.calendar.length} day calendar`;
+        }
         if (Array.isArray(content)) return `${content.length} items generated`;
-        if (content.results && Array.isArray(content.results)) return `${content.results.length} results generated`;
-        if (content.calendar && Array.isArray(content.calendar)) return `${content.calendar.length} day calendar`;
         return JSON.stringify(content).slice(0, 100);
     };
 
@@ -206,7 +219,7 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
         return <FaFileAlt />;
     };
 
-    const copyText = typeof item.content === 'string' ? item.content : JSON.stringify(item.content, null, 2);
+    const copyText = typeof item.content === 'string' ? item.content : JSON.stringify(content, null, 2);
 
     return (
         <motion.div
@@ -234,10 +247,10 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
                 </h3>
 
                 {/* Image Preview (if applicable) */}
-                {isImage && item.content.images && item.content.images[0] && (
+                {isImage && images[0] && (
                     <div className="mb-4 rounded-xl overflow-hidden aspect-video relative bg-slate-100 dark:bg-slate-800">
                         <img
-                            src={item.content.images[0]}
+                            src={images[0]}
                             alt="Generated content"
                             className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                         />

@@ -43,6 +43,11 @@ export const siteConfig = {
       { name: "Telegram", href: "https://t.me/youtubetoolshub", icon: "telegram" },
       { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61585430621256", icon: "facebook" },
     ],
+    resources: [
+      { name: "YT Tools Hub vs TubeBuddy", href: "/tools/vs/tubebuddy" },
+      { name: "YT Tools Hub vs VidIQ", href: "/tools/vs/vidiq" },
+      { name: "Why Choose Us", href: "/blog/why-youtube-tools-hub" },
+    ],
   },
 
   // SEO Defaults

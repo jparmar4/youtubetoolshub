@@ -81,8 +81,9 @@ export default function DashboardPage() {
 
     const usagePercent = (used: number, limit: number | string) => {
         if (limit === 'Unlimited') return 0;
-        // @ts-ignore
-        return Math.min(100, (used / limit) * 100);
+        const numericLimit = typeof limit === "number" ? limit : Number(limit);
+        if (!Number.isFinite(numericLimit) || numericLimit <= 0) return 0;
+        return Math.min(100, (used / numericLimit) * 100);
     };
 
     const getToolBySlug = (slug: string) => tools.find(t => t.slug === slug);
@@ -222,6 +223,8 @@ export default function DashboardPage() {
 
                     {/* Right Column - Workflow & Tools */}
                     <div className="lg:col-span-2 space-y-8">
+
+
 
                         {/* Hero Card - Smart Workflow */}
                         <div className="relative overflow-hidden bg-gradient-to-br from-purple-600 to-indigo-600 rounded-3xl p-8 text-white shadow-xl group">

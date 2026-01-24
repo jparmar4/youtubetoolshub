@@ -11,9 +11,34 @@ interface PaymentButtonProps {
 }
 
 // Razorpay type definition
+interface RazorpayOptions {
+    key: string;
+    subscription_id: string;
+    name: string;
+    description: string;
+    handler: (response: RazorpayResponse) => Promise<void>;
+    prefill: {
+        email: string;
+        name: string;
+    };
+    theme: {
+        color: string;
+    };
+}
+
+interface RazorpayResponse {
+    razorpay_payment_id: string;
+    razorpay_subscription_id: string;
+    razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+    open: () => void;
+}
+
 declare global {
     interface Window {
-        Razorpay: any;
+        Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
     }
 }
 
@@ -63,12 +88,12 @@ export default function PaymentButton({ plan, className = "" }: PaymentButtonPro
                 return;
             }
 
-            const options = {
+            const options: RazorpayOptions = {
                 key: data.keyId,
                 subscription_id: data.subscriptionId,
                 name: "Youtube Tools Hub",
                 description: `Pro ${plan.charAt(0).toUpperCase() + plan.slice(1)} Subscription`,
-                handler: async function (response: any) {
+                handler: async function (response: RazorpayResponse) {
                     // Verify Payment
                     const verifyRes = await fetch("/api/verify-payment", {
                         method: "POST",
@@ -91,6 +116,10 @@ export default function PaymentButton({ plan, className = "" }: PaymentButtonPro
                     } else {
                         alert("Payment verification failed: " + verifyData.error);
                     }
+                },
+                prefill: {
+                    email: session.user?.email || "",
+                    name: session.user?.name || "",
                 },
                 theme: {
                     color: "#7c3aed", // Purple

@@ -101,14 +101,22 @@ export function getSoftwareApplicationSchema(tool: {
     description: string;
     url: string;
     category: string;
+    rating?: {
+        ratingValue: string;
+        ratingCount: string;
+        bestRating?: string;
+        worstRating?: string;
+    };
 }) {
+    const applicationCategory = tool.category === "thumbnail-media" ? "MultimediaApplication" : "UtilityApplication";
+
     return {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: tool.name,
         description: tool.description,
         url: tool.url,
-        applicationCategory: tool.category === "utility-fun" ? "UtilityApplication" : "MultimediaApplication",
+        applicationCategory,
         applicationSubCategory: "YouTube Tools",
         operatingSystem: "Web Browser",
         offers: {
@@ -117,13 +125,17 @@ export function getSoftwareApplicationSchema(tool: {
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
         },
-        aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.8",
-            ratingCount: "1250",
-            bestRating: "5",
-            worstRating: "1",
-        },
+        ...(tool.rating
+            ? {
+                  aggregateRating: {
+                      "@type": "AggregateRating",
+                      ratingValue: tool.rating.ratingValue,
+                      ratingCount: tool.rating.ratingCount,
+                      bestRating: tool.rating.bestRating || "5",
+                      worstRating: tool.rating.worstRating || "1",
+                  },
+              }
+            : {}),
     };
 }
 

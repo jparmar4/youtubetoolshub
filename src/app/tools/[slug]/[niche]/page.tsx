@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getToolBySlug, tools } from "@/config/tools";
 import { niches, getNicheContent, programmaticTools } from "@/config/programmatic";
 import { siteConfig } from "@/config/site";
-import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema } from "@/lib/seo";
 
 // Import all tool components (reusing the main page imports)
 // Note: In a real app we might want to move the component mapping to a shared file
@@ -94,6 +94,21 @@ export async function generateMetadata({
             title: `${tool.name} for ${niche.name} - Boost Your Views`,
             description: nicheContent.description,
             type: "website",
+            url: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
+            images: [
+                {
+                    url: `${siteConfig.url}/og-image.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: `${tool.name} for ${niche.name}`,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${tool.name} for ${niche.name} Channels (2025) | Free Tool`,
+            description: nicheContent.description,
+            images: [`${siteConfig.url}/og-image.png`],
         },
         alternates: {
             canonical: `/tools/${tool.slug}/${niche.id}`,
@@ -117,6 +132,13 @@ export default async function ProgrammaticToolPage({
     const ToolComponent = toolComponents[slug];
     const nicheContent = getNicheContent(tool.name, niche);
 
+    const toolSchema = getSoftwareApplicationSchema({
+        name: `${tool.name} for ${niche.name}`,
+        description: nicheContent.description,
+        url: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
+        category: tool.category,
+    });
+
     // Merge niche FAQs with generic tool FAQs
     const combinedFaqs = [
         ...(tool.faqs || []),
@@ -135,6 +157,12 @@ export default async function ProgrammaticToolPage({
 
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(toolSchema),
+                }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{

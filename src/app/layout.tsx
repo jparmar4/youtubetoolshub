@@ -6,7 +6,6 @@ import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
-import { i18n } from "@/lib/i18n";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 

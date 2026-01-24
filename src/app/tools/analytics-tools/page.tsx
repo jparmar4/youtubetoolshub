@@ -87,7 +87,7 @@ export default function AnalyticsToolsHub() {
 
                     {/* Quick Summary */}
                     <div className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500 mb-12">
-                        <h2 className="text-lg font-bold text-purple-600 mb-2">⚡ What You'll Discover</h2>
+                        <h2 className="text-lg font-bold text-purple-600 mb-2">⚡ What You&apos;ll Discover</h2>
                         <ul className="text-slate-700 text-lg space-y-2">
                             <li>✓ Estimate your monthly and yearly YouTube revenue by niche</li>
                             <li>✓ Calculate engagement rates to prove audience quality to sponsors</li>
@@ -130,7 +130,7 @@ export default function AnalyticsToolsHub() {
                             </p>
                             <h3 className="text-xl font-bold text-slate-900 mb-3">1. RPM (Revenue Per Mille)</h3>
                             <p className="text-slate-600 leading-relaxed mb-4">
-                                Your actual earnings per 1,000 views after YouTube's cut. Finance niches earn $40+ RPM while gaming earns $2-5 RPM. <strong>Niche selection is everything.</strong>
+                                Your actual earnings per 1,000 views after YouTube&apos;s cut. Finance niches earn $40+ RPM while gaming earns $2-5 RPM. <strong>Niche selection is everything.</strong>
                             </p>
                             <h3 className="text-xl font-bold text-slate-900 mb-3">2. Engagement Rate</h3>
                             <p className="text-slate-600 leading-relaxed mb-4">

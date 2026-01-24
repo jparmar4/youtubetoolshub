@@ -204,7 +204,7 @@ export default function RefundPolicyPage() {
                                 5. Contact for Refund Queries
                             </h2>
                             <p className="text-slate-600 mb-6 text-lg">
-                                If you have any questions about refunds or cancellations, we're here to help:
+                                If you have any questions about refunds or cancellations, we&apos;re here to help:
                             </p>
                             <Link
                                 href={`mailto:${siteConfig.contact.email}`}

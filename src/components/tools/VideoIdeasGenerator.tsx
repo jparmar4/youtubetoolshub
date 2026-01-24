@@ -135,14 +135,17 @@ export default function VideoIdeasGenerator() {
                 // Handle backward compatibility or new format
                 if (Array.isArray(parsed)) {
                     // Normalize data structure if needed
-                    const normalized: VideoIdea[] = parsed.map((item: any) => ({
-                        title: item.title || "",
-                        concept: item.concept || "",
-                        score: item.score || 80,
-                        difficulty: item.difficulty || "Medium",
-                        angle: item.angle || "Strategic",
-                        thumbnail_concept: item.thumbnail_concept || "Descriptive visual relating to title."
-                    }));
+                    const normalized: VideoIdea[] = parsed.map((item: unknown) => {
+                        const obj = typeof item === "object" && item !== null ? item as Record<string, unknown> : {};
+                        return {
+                            title: typeof obj.title === "string" ? obj.title : "",
+                            concept: typeof obj.concept === "string" ? obj.concept : "",
+                            score: typeof obj.score === "number" ? obj.score : 80,
+                            difficulty: typeof obj.difficulty === "string" ? obj.difficulty : "Medium",
+                            angle: typeof obj.angle === "string" ? obj.angle : "Strategic",
+                            thumbnail_concept: typeof obj.thumbnail_concept === "string" ? obj.thumbnail_concept : "Descriptive visual relating to title."
+                        };
+                    });
 
                     setIdeas(normalized);
                     increment("youtube-video-ideas-generator"); // Only increment after success

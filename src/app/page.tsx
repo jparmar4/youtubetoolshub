@@ -123,7 +123,6 @@ export default function Home() {
                 description={tool.shortDescription}
                 href={`/tools/${tool.slug}`}
                 isAI={tool.isAI}
-                // @ts-ignore - passing extra prop for new design if supported or will be ignored
                 className="glass-premium hover:-translate-y-2 transition-transform duration-300"
               />
             ))}

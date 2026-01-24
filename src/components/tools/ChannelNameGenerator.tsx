@@ -89,7 +89,7 @@ export default function ChannelNameGenerator() {
 
             // Handle both legacy string arrays (fallback) and new object arrays
             // We can safely parse the result, then check the structure
-            let parsed: any;
+            let parsed: unknown;
             try {
                 const resultStr = data.result.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
                 parsed = JSON.parse(resultStr);
@@ -100,21 +100,23 @@ export default function ChannelNameGenerator() {
 
             // Normalizing data: if it's old string[], convert to mock objects
             const normalized: ChannelNameResults = {};
-            Object.keys(parsed).forEach(key => {
-                const val = parsed[key];
-                if (Array.isArray(val)) {
-                    if (typeof val[0] === 'string') {
-                        normalized[key] = val.map((s: string) => ({
-                            name: s,
-                            vibe: "Classic",
-                            score: 85,
-                            reason: "Standard generated name"
-                        }));
-                    } else {
-                        normalized[key] = val; // It's already the new BrandName[] format
+            if (typeof parsed === "object" && parsed !== null) {
+                Object.keys(parsed).forEach(key => {
+                    const val = (parsed as Record<string, unknown>)[key];
+                    if (Array.isArray(val)) {
+                        if (typeof val[0] === 'string') {
+                            normalized[key] = val.map((s: string) => ({
+                                name: s,
+                                vibe: "Classic",
+                                score: 85,
+                                reason: "Standard generated name"
+                            }));
+                        } else {
+                            normalized[key] = val as BrandName[]; // It's already the new BrandName[] format
+                        }
                     }
-                }
-            });
+                });
+            }
 
             setNames(normalized);
 

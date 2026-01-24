@@ -2,13 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
+declare global {
+    interface Window {
+        adsbygoogle: unknown[];
+    }
+}
+
 export default function SidebarAd() {
     const adRef = useRef<boolean>(false);
 
     useEffect(() => {
         if (adRef.current) return;
         try {
-            // @ts-ignore
             (window.adsbygoogle = window.adsbygoogle || []).push({});
             adRef.current = true;
         } catch (error) {

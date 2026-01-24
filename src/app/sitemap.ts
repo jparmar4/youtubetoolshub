@@ -2,12 +2,11 @@ import { MetadataRoute } from 'next';
 import { tools } from '@/config/tools';
 import { getAllBlogPosts } from '@/config/blog';
 import { siteConfig } from '@/config/site';
-import { i18n } from '@/lib/i18n';
+import { niches, programmaticTools } from '@/config/programmatic';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = siteConfig.url;
     const blogPosts = getAllBlogPosts();
-    const { niches, programmaticTools } = require('@/config/programmatic');
 
     // Base routes (without locale)
     const routes = [
@@ -25,6 +24,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/terms-of-use",
         "/disclaimer",
         "/refund-policy",
+        "/tools/vs/tubebuddy",
+        "/tools/vs/vidiq",
+        "/blog/why-youtube-tools-hub",
     ];
 
     const allEntries: MetadataRoute.Sitemap = [];
