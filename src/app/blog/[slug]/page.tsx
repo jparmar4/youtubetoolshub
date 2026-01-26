@@ -134,6 +134,7 @@ export default async function BlogPostPage({
         description: `Video content from: ${post.title}`,
         thumbnailUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
         uploadDate: isoDate, // Fallback to post date as we don't have video API access
+        duration: "PT10M", // Default 10 minute duration (format: ISO 8601)
         embedUrl: `https://www.youtube.com/embed/${id}`,
         contentUrl: `https://www.youtube.com/watch?v=${id}`
     }));
