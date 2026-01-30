@@ -6,6 +6,13 @@ export const metadata: Metadata = {
     title: "YouTube Tools Hub vs TubeBuddy: 2026 Comparison",
     description: "Compare YouTube Tools Hub AI vs TubeBuddy. Discover which YouTube growth tool is better for you. Free AI tools, unlimited usage, and more.",
     keywords: ["YouTube Tools Hub vs TubeBuddy", "TubeBuddy alternative", "free youtube tools", "youtube seo tools comparison"],
+    alternates: {
+        canonical: "/tools/vs/tubebuddy",
+        languages: {
+            "en": "/tools/vs/tubebuddy",
+            "x-default": "/tools/vs/tubebuddy",
+        },
+    },
 };
 
 export default function TubeBuddyComparisonPage() {

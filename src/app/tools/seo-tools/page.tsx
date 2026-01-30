@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "/tools/seo-tools",
+        languages: {
+            "en": "/tools/seo-tools",
+            "x-default": "/tools/seo-tools",
+        },
     },
 };
 

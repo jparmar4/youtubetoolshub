@@ -43,9 +43,10 @@ export const metadata = {
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
   alternates: {
-    canonical: siteConfig.url,
+    canonical: '/',
     languages: {
-      'en': siteConfig.url,
+      'en': '/',
+      'x-default': '/',
     },
   },
 
@@ -111,8 +112,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        <link rel="alternate" hrefLang="en" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="x-default" href={siteConfig.url} />
+
 
         <link rel="alternate" type="application/rss+xml" title="YouTube Tools Hub Blog" href={`${siteConfig.url}/feed.xml`} />
 

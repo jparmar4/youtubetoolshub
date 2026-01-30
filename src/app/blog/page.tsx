@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     description: "📈 Proven YouTube growth strategies from 6-figure creators. Thumbnails, SEO, monetization, viral titles & more. Updated weekly. 100% actionable tips!",
     alternates: {
         canonical: "/blog",
+        languages: {
+            "en": "/blog",
+            "x-default": "/blog",
+        },
     },
 };
 

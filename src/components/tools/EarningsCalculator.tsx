@@ -54,12 +54,18 @@ const niches = [
     { value: "entertainment", label: "Entertainment" },
 ];
 
-export default function EarningsCalculator() {
+interface EarningsCalculatorProps {
+    initialRPM?: number;
+    currency?: string;
+    countryName?: string;
+}
+
+export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD", countryName }: EarningsCalculatorProps) {
     const [activeTab, setActiveTab] = useState<"ads" | "sponsorships">("ads");
 
     // Ad Revenue State
     const [views, setViews] = useState("");
-    const [rpm, setRpm] = useState("2.5");
+    const [rpm, setRpm] = useState(initialRPM.toString());
     const [adResult, setAdResult] = useState<{ monthly: number; yearly: number } | null>(null);
 
     // Sponsorship State
@@ -182,12 +188,12 @@ export default function EarningsCalculator() {
                                         <FaDollarSign className="w-24 h-24" />
                                     </div>
                                     <p className="opacity-80 mb-1">Estimated Monthly</p>
-                                    <p className="text-4xl font-bold mb-4">{formatCurrency(adResult.monthly)}</p>
+                                    <p className="text-4xl font-bold mb-4">{formatCurrency(adResult.monthly, currency)}</p>
                                     <div className="bg-white/20 rounded-lg p-3 text-sm">
                                         <p className="font-semibold mb-1 flex items-center"><FaRocket className="mr-2" /> Growth Forecast (Year 1)</p>
                                         <div className="flex justify-between items-center opacity-90">
                                             <span>If you grow 10%/mo:</span>
-                                            <span className="font-bold">{formatCurrency(adResult.monthly * 1.1)}</span>
+                                            <span className="font-bold">{formatCurrency(adResult.monthly * 1.1, currency)}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +203,7 @@ export default function EarningsCalculator() {
                                         <FaChartLine className="mr-2" /> Yearly Projection
                                     </h4>
                                     <p className="text-3xl font-bold text-slate-900 mb-2">
-                                        {formatCurrency(adResult.yearly)}
+                                        {formatCurrency(adResult.yearly, currency)}
                                     </p>
                                     <p className="text-sm text-slate-500">
                                         *Excludes taxes and platform fees.

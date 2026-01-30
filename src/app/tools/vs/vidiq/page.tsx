@@ -6,6 +6,13 @@ export const metadata: Metadata = {
     title: "YouTube Tools Hub vs VidIQ: Best AI Tool for 2026?",
     description: "VidIQ vs YouTube Tools Hub detailed comparison. Which YouTube SEO tool offers better AI insights, keyword research, and growth features?",
     keywords: ["YouTube Tools Hub vs VidIQ", "VidIQ alternative", "best youtube seo tool", "ai youtube growth"],
+    alternates: {
+        canonical: "/tools/vs/vidiq",
+        languages: {
+            "en": "/tools/vs/vidiq",
+            "x-default": "/tools/vs/vidiq",
+        },
+    },
 };
 
 export default function VidIQComparisonPage() {

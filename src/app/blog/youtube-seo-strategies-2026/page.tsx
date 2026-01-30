@@ -20,6 +20,13 @@ export const metadata: Metadata = {
     description: "Complete guide to YouTube SEO with AI-powered strategies",
     images: [`${siteConfig.url}/og-image.png`],
   },
+  alternates: {
+    canonical: "/blog/youtube-seo-strategies-2026",
+    languages: {
+      "en": "/blog/youtube-seo-strategies-2026",
+      "x-default": "/blog/youtube-seo-strategies-2026",
+    },
+  },
 };
 
 const seoStrategies = [
@@ -85,7 +92,7 @@ export default function YouTubeSEOGuidePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      
+
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}

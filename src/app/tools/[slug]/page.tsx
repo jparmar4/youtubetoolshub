@@ -107,6 +107,10 @@ export async function generateMetadata({
         },
         alternates: {
             canonical: `/tools/${tool.slug}`,
+            languages: {
+                'en': `/tools/${tool.slug}`,
+                'x-default': `/tools/${tool.slug}`,
+            },
         },
     };
 }

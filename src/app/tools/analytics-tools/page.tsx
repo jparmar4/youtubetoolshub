@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "/tools/analytics-tools",
+        languages: {
+            "en": "/tools/analytics-tools",
+            "x-default": "/tools/analytics-tools",
+        },
     },
 };
 

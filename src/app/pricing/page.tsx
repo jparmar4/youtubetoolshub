@@ -6,6 +6,10 @@ export const metadata: Metadata = {
     description: "Compare Free vs Premium plans. Get unlimited access to AI Title Generator, 4K Thumbnail Downloader, and advanced SEO insights. Start for free.",
     alternates: {
         canonical: "/pricing",
+        languages: {
+            "en": "/pricing",
+            "x-default": "/pricing",
+        },
     },
 };
 

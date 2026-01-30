@@ -77,6 +77,10 @@ export async function generateMetadata({
         },
         alternates: {
             canonical: `/blog/${slug}`,
+            languages: {
+                'en': `/blog/${slug}`,
+                'x-default': `/blog/${slug}`,
+            },
         },
     };
 }

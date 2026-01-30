@@ -6,6 +6,10 @@ export const metadata: Metadata = {
     description: "Need help? Contact the YouTube Tools Hub support team. We're here 24/7 to assist with tool usage, billing, or feature requests.",
     alternates: {
         canonical: "/contact",
+        languages: {
+            "en": "/contact",
+            "x-default": "/contact",
+        },
     },
 };
 

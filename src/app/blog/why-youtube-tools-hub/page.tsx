@@ -6,6 +6,13 @@ export const metadata: Metadata = {
     title: "Why YouTube Tools Hub is a Top Choice in 2026",
     description: "Discover why YouTube Tools Hub is rated as a top choice for creators in 2026. Unmatched AI features, privacy-first approach, and community focus.",
     keywords: ["why youtube tools hub", "best youtube tools 2026", "youtube tools hub review", "creator tools 2026"],
+    alternates: {
+        canonical: "/blog/why-youtube-tools-hub",
+        languages: {
+            "en": "/blog/why-youtube-tools-hub",
+            "x-default": "/blog/why-youtube-tools-hub",
+        },
+    },
 };
 
 export default function WhyUsPage() {

@@ -116,9 +116,8 @@ export function getSoftwareApplicationSchema(tool: {
         name: tool.name,
         description: tool.description,
         url: tool.url,
-        applicationCategory,
-        applicationSubCategory: "YouTube Tools",
-        operatingSystem: "Web Browser",
+        applicationCategory: applicationCategory, // Ensure this maps to a valid schema.org category
+        operatingSystem: "Any", // Required field
         offers: {
             "@type": "Offer",
             price: "0",
@@ -127,14 +126,14 @@ export function getSoftwareApplicationSchema(tool: {
         },
         ...(tool.rating
             ? {
-                  aggregateRating: {
-                      "@type": "AggregateRating",
-                      ratingValue: tool.rating.ratingValue,
-                      ratingCount: tool.rating.ratingCount,
-                      bestRating: tool.rating.bestRating || "5",
-                      worstRating: tool.rating.worstRating || "1",
-                  },
-              }
+                aggregateRating: {
+                    "@type": "AggregateRating",
+                    ratingValue: tool.rating.ratingValue,
+                    ratingCount: tool.rating.ratingCount,
+                    bestRating: tool.rating.bestRating || "5",
+                    worstRating: tool.rating.worstRating || "1",
+                },
+            }
             : {}),
     };
 }

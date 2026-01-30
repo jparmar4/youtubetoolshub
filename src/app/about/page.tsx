@@ -9,6 +9,10 @@ export const metadata: Metadata = {
     description: "YouTube Tools Hub provides free AI-powered tools for creators. Learn about our mission to democratize video growth with SEO, specialized tools, and expert content.",
     alternates: {
         canonical: "/about",
+        languages: {
+            "en": "/about",
+            "x-default": "/about",
+        },
     },
 };
 

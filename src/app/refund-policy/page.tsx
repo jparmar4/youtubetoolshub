@@ -18,6 +18,10 @@ export const metadata: Metadata = {
     description: "Refund and Cancellation Policy for YouTube Tools Hub subscriptions. Learn about our refund terms, cancellation process, and billing policies.",
     alternates: {
         canonical: "/refund-policy",
+        languages: {
+            "en": "/refund-policy",
+            "x-default": "/refund-policy",
+        },
     },
 };
 

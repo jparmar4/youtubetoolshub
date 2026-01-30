@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     description: "Disclaimer for YouTube Tools Hub - Important information about our tools, content accuracy, and limitations.",
     alternates: {
         canonical: "/disclaimer",
+        languages: {
+            "en": "/disclaimer",
+            "x-default": "/disclaimer",
+        },
     },
 };
 

@@ -8,6 +8,10 @@ export const metadata: Metadata = {
     description: "Privacy Policy for YouTube Tools Hub - Learn how we handle your data and protect your privacy.",
     alternates: {
         canonical: "/privacy-policy",
+        languages: {
+            "en": "/privacy-policy",
+            "x-default": "/privacy-policy",
+        },
     },
 };
 

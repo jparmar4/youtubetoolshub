@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "/tools/thumbnail-tools",
+        languages: {
+            "en": "/tools/thumbnail-tools",
+            "x-default": "/tools/thumbnail-tools",
+        },
     },
 };
 
