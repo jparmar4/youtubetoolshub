@@ -3,6 +3,7 @@ import { tools } from '@/config/tools';
 import { getAllBlogPosts } from '@/config/blog';
 import { siteConfig } from '@/config/site';
 import { niches, programmaticTools } from '@/config/programmatic';
+import { countryCPMData } from '@/lib/cpm-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = siteConfig.url;
@@ -73,6 +74,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
                 priority: 0.8,
             });
         }
+    }
+
+    // Country-specific earnings calculator pages
+    for (const country of countryCPMData) {
+        allEntries.push({
+            url: `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        });
     }
 
     return allEntries;
