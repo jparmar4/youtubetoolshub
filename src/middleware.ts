@@ -88,6 +88,14 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.redirect(url, 308);
     }
 
+    // 0.2 Normalize trailing slashes (remove trailing slash to prevent duplicates)
+    // Skip for root path "/" which should not have trailing slash stripped
+    if (pathname !== "/" && pathname.endsWith("/")) {
+        const url = request.nextUrl.clone();
+        url.pathname = pathname.slice(0, -1);
+        return NextResponse.redirect(url, 308);
+    }
+
     // 1. Allow search bots unrestricted access (SEO)
     if (isSearchBot(userAgent)) {
         return NextResponse.next();

@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Tools Hub",
   description: "Get answers to common questions about our free YouTube tools, AI features, pricing, and how to grow your channel faster with YouTube Tools Hub.",
   keywords: ["youtube tools faq", "youtube seo questions", "youtube creator tools help", "youtubetoolshub support"],
+  alternates: {
+    canonical: "/faq",
+  },
   openGraph: {
     title: "FAQ - YouTube Tools Hub",
     description: "Find answers about our free YouTube creator tools and AI features",
@@ -90,7 +93,7 @@ export default function FAQPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      
+
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}

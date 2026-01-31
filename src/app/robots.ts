@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/api/', '/sign-in', '/dashboard'],
+                disallow: ['/api/', '/sign-in', '/dashboard', '/history', '/upgrade', '/auth/'],
             },
             // AI Crawlers - Explicitly allowed for AEO/GEO optimization
             {
