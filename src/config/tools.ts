@@ -96,6 +96,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-generator",
         name: "YouTube Thumbnail Text Generator",
+        seoTitle: "YouTube Thumbnail Text Generator - AI-Powered Viral Text Ideas",
+        seoDescription: "Generate catchy, click-worthy thumbnail text with AI. Get 6 punchy text variations with color suggestions. Psychology-backed hooks that boost CTR. 100% free!",
         description: "Generate catchy thumbnail text ideas using AI. Get punchy, clickable text suggestions for your video thumbnails.",
         shortDescription: "AI-powered thumbnail text ideas",
         category: "thumbnail-media",
@@ -142,6 +144,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-ai-thumbnail-generator",
         name: "AI Thumbnail Image Generator",
+        seoTitle: "AI Thumbnail Generator - Create Stunning YouTube Thumbnails Free",
+        seoDescription: "Generate professional YouTube thumbnails with AI in seconds. Describe your vision, get unique high-CTR images. Works for any niche. Free, no watermarks!",
         description: "Generate stunning thumbnail images with AI. Just describe what you want and get a unique, professional thumbnail in seconds.",
         shortDescription: "Generate thumbnail images with AI",
         category: "thumbnail-media",
@@ -385,6 +389,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tag-extractor",
         name: "YouTube Tag Extractor",
+        seoTitle: "YouTube Tag Extractor - Copy Tags from Any Video (Free)",
+        seoDescription: "Extract hidden tags from any YouTube video in seconds. See what keywords top creators use. Spy on competitor SEO strategies. 100% free, no signup required!",
         description: "Extract tags from any YouTube video URL. See what keywords successful videos are using.",
         shortDescription: "Extract tags from any video",
         category: "seo-metadata",
@@ -432,6 +438,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-video-ideas-generator",
         name: "Strategic Video Ideas Generator",
+        seoTitle: "YouTube Video Ideas Generator - AI-Powered Content Ideas Free",
+        seoDescription: "Generate viral YouTube video ideas tailored to your niche and channel size. Get complete concepts with titles, thumbnail ideas, and difficulty ratings. Free AI tool!",
         description: "Get proven video concepts tailored to your channel size and growth goals. Includes titles, thumbnails, and difficulty ratings.",
         shortDescription: "AI video ideas for your niche",
         category: "channel-growth",
@@ -475,6 +483,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-trend-helper",
         name: "YouTube Trend & Topic Helper",
+        seoTitle: "YouTube Trending Topics Finder - Real-Time Trend Ideas (2026)",
+        seoDescription: "Discover what's trending on YouTube right now in your region. Get AI-powered video ideas based on real-time data. Capitalize on viral opportunities. Free tool!",
         description: "Discover trending topics in your region and get AI-powered video ideas tailored to your niche using real-time YouTube data.",
         shortDescription: "Find trending topics & viral ideas",
         category: "channel-growth",
@@ -516,6 +526,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-content-calendar-generator",
         name: "Content Calendar Generator",
+        seoTitle: "YouTube Content Calendar Generator - AI-Powered Schedule Planner",
+        seoDescription: "Generate a strategic YouTube content calendar with AI. Get 30 days of video ideas organized by date. Download CSV. Perfect for consistent uploading. 100% free!",
         description: "Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule with video ideas tailored to your niche.",
         shortDescription: "Plan your content schedule",
         category: "channel-growth",
@@ -560,6 +572,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-earnings-calculator",
         name: "YouTube Earnings Calculator",
+        seoTitle: "YouTube Earnings Calculator - Estimate Revenue by Views & RPM (2026)",
+        seoDescription: "Calculate your YouTube earnings based on daily views and RPM. Estimate monthly and yearly AdSense revenue. Includes niche CPM benchmarks. Free, instant results!",
         description: "Estimate your YouTube earnings based on views and RPM. Calculate monthly and yearly revenue.",
         shortDescription: "Calculate your potential earnings",
         category: "analytics-earnings",
@@ -601,6 +615,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-engagement-rate-calculator",
         name: "Engagement Rate Calculator",
+        seoTitle: "YouTube Engagement Rate Calculator - Measure Video Performance Free",
+        seoDescription: "Calculate your YouTube engagement rate instantly. Enter views, likes, and comments to get your percentage score. Compare against industry benchmarks. Free tool!",
         description: "Calculate your YouTube video's engagement rate. Measure how actively your audience interacts with your content.",
         shortDescription: "Measure video engagement",
         category: "analytics-earnings",
@@ -690,6 +706,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-name-generator",
         name: "Channel Name Generator",
+        seoTitle: "YouTube Channel Name Generator - AI-Powered Brand Name Ideas",
+        seoDescription: "Generate unique, memorable YouTube channel names with AI. Get 15 brand name ideas organized by style. Check availability on YouTube. 100% free, instant results!",
         description: "Generate unique, memorable YouTube channel name ideas. Find the perfect name for your brand.",
         shortDescription: "Find your perfect channel name",
         category: "utility-fun",
@@ -731,6 +749,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-hashtag-generator",
         name: "YouTube Hashtag Generator",
+        seoTitle: "YouTube Hashtag Generator - AI-Powered Hashtag Finder (Free)",
+        seoDescription: "Generate viral YouTube hashtags with AI. Get broad reach and niche-specific hashtags. Optimize discoverability with trending hashtag suggestions. Free tool!",
         description: "Generate relevant hashtags for your YouTube videos. Get broad and specific hashtag suggestions.",
         shortDescription: "Generate video hashtags",
         category: "utility-fun",
@@ -773,6 +793,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-intro-script-generator",
         name: "Intro Script Generator",
+        seoTitle: "YouTube Intro Script Generator - AI Video Hook Writer (Free)",
+        seoDescription: "Generate killer YouTube intro scripts with AI. Hook viewers in the first 30 seconds with proven frameworks. Stop viewers from clicking away. 100% free tool!",
         description: "Create engaging video intro scripts with AI. Hook your viewers in the first 15-30 seconds.",
         shortDescription: "Write compelling intros",
         category: "utility-fun",
@@ -818,6 +840,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-id-finder",
         name: "YouTube Channel ID Finder",
+        seoTitle: "YouTube Channel ID Finder - Get Any Channel's UC ID (Free)",
+        seoDescription: "Find the unique Channel ID (UC...) for any YouTube channel instantly. Works with handles, URLs, and video links. Essential for developers and marketers. Free tool!",
         description: "Find the unique Channel ID (UC...) and User ID for any YouTube channel. Works with handles, channel URLs, and video links.",
         shortDescription: "Find any YouTube Channel ID",
         category: "utility-fun",
@@ -863,6 +887,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-playlist-length-calculator",
         name: "YouTube Playlist Length Calculator",
+        seoTitle: "YouTube Playlist Length Calculator - Total Duration Finder (Free)",
+        seoDescription: "Calculate the total runtime of any YouTube playlist instantly. See how long at 1.25x, 1.5x, and 2x speed. Perfect for students and course takers. 100% free!",
         description: "Calculate the total length of any YouTube playlist. See how long it takes to specific speeds (1.25x, 1.5x, 2x).",
         shortDescription: "Calculate playlist duration",
         category: "utility-fun",
@@ -908,6 +934,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-comment-picker",
         name: "YouTube Comment Picker",
+        seoTitle: "YouTube Comment Picker - Random Giveaway Winner Selector (Free)",
+        seoDescription: "Pick a random winner for your YouTube giveaway or contest. Fair, transparent selection with spam filtering. Filter duplicates for legitimate results. 100% free!",
         description: "Pick a random winner for your YouTube giveaway or contest. Filter duplicates and spammers fairly.",
         shortDescription: "Pick random comment winner",
         category: "utility-fun",
@@ -953,6 +981,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-audit",
         name: "Channel Health Auditor",
+        seoTitle: "YouTube Channel Audit Tool - AI-Powered Health Score Checker",
+        seoDescription: "Get a comprehensive health check for your YouTube channel. AI analyzes thumbnails, titles, consistency, and engagement. Get actionable insights. Free audit tool!",
         description: "Get a comprehensive health check for your YouTube channel. Analyze your thumbnails, titles, and engagement consistency with our AI Auditor.",
         shortDescription: "Audit your channel health",
         category: "channel-growth",
