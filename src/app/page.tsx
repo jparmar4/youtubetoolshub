@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaArrowRight, FaRocket, FaCheck, FaBolt, FaStar } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 
 import { getFeaturedTools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -103,7 +104,7 @@ export default function Home() {
 
       {/* Google Ad: Homepage Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
+        <HorizontalAd />
       </div>
 
       {/* Featured Tools Section */}

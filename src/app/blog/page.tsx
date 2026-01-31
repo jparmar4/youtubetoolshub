@@ -6,6 +6,18 @@ import { FaClock, FaUser, FaArrowRight } from "react-icons/fa";
 export const metadata: Metadata = {
     title: "YouTube Growth Blog – FREE Tips, Tutorials & Strategies (2026)",
     description: "📈 Proven YouTube growth strategies from 6-figure creators. Thumbnails, SEO, monetization, viral titles & more. Updated weekly. 100% actionable tips!",
+    keywords: [
+        "youtube monetization tips",
+        "youtube earnings guide",
+        "how to grow on youtube",
+        "youtube seo strategies",
+        "youtube thumbnail tips",
+        "youtube creator advice",
+        "youtube channel growth",
+        "youtube revenue optimization",
+        "youtube marketing strategies",
+        "youtube content creation tips"
+    ],
     alternates: {
         canonical: "/blog",
         languages: {
