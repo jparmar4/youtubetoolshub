@@ -7,6 +7,7 @@ import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHow
 import { siteConfig } from "@/config/site";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import HorizontalAd from "@/components/ads/HorizontalAd";
+import InArticleAd from "@/components/ads/InArticleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
@@ -260,13 +261,19 @@ export default async function ToolPage({
                             {/* Tool Content & AEO Section */}
                             <div className="space-y-12 animate-fade-in-up delay-100">
                                 {tool.content?.map((section, idx) => (
-                                    <div key={idx} className="glass-premium rounded-2xl p-8 shadow-sm">
-                                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                                            {section.title}
-                                        </h2>
-                                        <p className="text-slate-600 leading-relaxed text-lg">
-                                            {section.content}
-                                        </p>
+                                    <div key={idx}>
+                                        <div className="glass-premium rounded-2xl p-8 shadow-sm">
+                                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                                                {section.title}
+                                            </h2>
+                                            <p className="text-slate-600 leading-relaxed text-lg">
+                                                {section.content}
+                                            </p>
+                                        </div>
+                                        {/* Insert Ad between sections */}
+                                        {idx < (tool.content?.length || 0) - 1 && idx % 2 === 0 && (
+                                            <InArticleAd />
+                                        )}
                                     </div>
                                 ))}
 

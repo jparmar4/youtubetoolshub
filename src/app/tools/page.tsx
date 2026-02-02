@@ -80,34 +80,42 @@ export default function ToolsPage() {
 
                     {/* Tools by Category */}
                     <div className="space-y-20">
-                        {toolCategories.map((category) => {
+                        {toolCategories.map((category, index) => {
                             const categoryTools = getToolsByCategory(category.id);
                             return (
-                                <section key={category.id} className="animate-fade-in-up delay-100">
-                                    <div className="mb-8 border-l-4 border-purple-500 pl-4 bg-white/50 p-4 rounded-r-xl">
-                                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-                                            {category.name}
-                                        </h2>
-                                        <p className="text-slate-600">
-                                            {category.description}
-                                        </p>
-                                    </div>
+                                <div key={category.id}>
+                                    {/* Insert Ad after every 2 categories */}
+                                    {index > 0 && index % 2 === 0 && (
+                                        <div className="max-w-3xl mx-auto mb-16">
+                                            <InFeedAd />
+                                        </div>
+                                    )}
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                        {categoryTools.map((tool) => (
-                                            <ToolCard
-                                                key={tool.slug}
-                                                icon={<tool.icon />}
-                                                title={tool.name}
-                                                description={tool.shortDescription}
-                                                href={`/tools/${tool.slug}`}
-                                                isAI={tool.isAI}
-                                                className="hover:-translate-y-1 transition-all duration-300"
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
+                                    <section className="animate-fade-in-up delay-100">
+                                        <div className="mb-8 border-l-4 border-purple-500 pl-4 bg-white/50 p-4 rounded-r-xl">
+                                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+                                                {category.name}
+                                            </h2>
+                                            <p className="text-slate-600">
+                                                {category.description}
+                                            </p>
+                                        </div>
 
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                            {categoryTools.map((tool) => (
+                                                <ToolCard
+                                                    key={tool.slug}
+                                                    icon={<tool.icon />}
+                                                    title={tool.name}
+                                                    description={tool.shortDescription}
+                                                    href={`/tools/${tool.slug}`}
+                                                    isAI={tool.isAI}
+                                                    className="hover:-translate-y-1 transition-all duration-300"
+                                                />
+                                            ))}
+                                        </div>
+                                    </section>
+                                </div>
                             );
                         })}
                         {/* In-Feed Ad after lists */}

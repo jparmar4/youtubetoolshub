@@ -27,10 +27,10 @@ export default function InFeedAd() {
             <ins
                 className="adsbygoogle"
                 style={{ display: "block" }}
-                data-ad-format="fluid"
-                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
                 data-ad-client="ca-pub-1328083083403070"
-                data-ad-slot="PLACEHOLDER_SLOT_ID"
+                data-ad-slot="5848325027"
             />
         </div>
     );

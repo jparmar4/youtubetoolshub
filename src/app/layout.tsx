@@ -8,6 +8,7 @@ import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
+import BottomStickyAd from "@/components/ads/BottomStickyAd";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -183,6 +184,7 @@ export default async function RootLayout({
             <Footer />
             <ScrollToTop />
             <CookieConsent />
+            <BottomStickyAd />
           </UsageProvider>
         </AuthProvider>
       </body>

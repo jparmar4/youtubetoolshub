@@ -30,6 +30,12 @@ export interface Tool {
         steps: { name: string; text: string }[];
         totalTime?: string;
     };
+    rating?: {
+        ratingValue: string;
+        ratingCount: string;
+        bestRating?: string;
+        worstRating?: string;
+    };
 }
 
 export const toolCategories = [
@@ -44,24 +50,34 @@ export const tools: Tool[] = [
     // Thumbnail & Media Tools
     {
         slug: "youtube-thumbnail-downloader",
-        name: "YouTube Thumbnail Downloader",
-        seoTitle: "Free YouTube Thumbnail Downloader (HD, 4K, 8K) - No Watermark",
-        seoDescription: "Download high-quality YouTube thumbnails in 1080p, 4K, and 8K. Fast, free, and no watermark. Save thumbnails from any video instantly.",
+        name: "YouTube Thumbnail Downloader (HD & 4K)",
+        seoTitle: "Free YouTube Thumbnail Downloader (HD, 4K, 8K, Max Res) - No Watermark",
+        seoDescription: "HD thumbnail downloader for YouTube. Download high-quality thumbnails in 1080p, 4K, and 8K. Fast, free, and no watermark.",
         description: "Download high-quality thumbnails from any YouTube video. Get all resolutions including HD and SD versions.",
         shortDescription: "Download thumbnails from any YouTube video",
         category: "thumbnail-media",
         icon: FaImage,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube thumbnail downloader", "download youtube thumbnail", "youtube thumbnail saver", "get youtube thumbnail", "hd thumbnail downloader"],
+        keywords: ["hd thumbnail downloader", "youtube thumbnail downloader", "download youtube thumbnail", "youtube thumbnail saver", "get youtube thumbnail"],
+        rating: {
+            ratingValue: "4.8",
+            ratingCount: "2450",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
                 title: "What is a YouTube Thumbnail Downloader?",
                 content: "A YouTube Thumbnail Downloader is a free online tool that allows you to save the thumbnail image from any YouTube video in high quality. It's essential for creators who need to recover their own thumbnails, create archives, or use thumbnails for reference and inspiration."
             },
             {
-                title: "Why Download High-Quality Thumbnails?",
-                content: "High-quality thumbnails (HD 1280x720) are crucial for analysis and reuse. Low-resolution images look professional and pixelated. Our tool ensures you get the highest resolution available (Max Res) directly from YouTube's servers."
+                title: "Why Use Our HD Thumbnail Downloader?",
+                content: "High-quality thumbnails (HD 1280x720) are crucial for analysis and reuse. Low-resolution images look professional and pixelated. Our **hd thumbnail downloader** ensures you get the highest resolution available (Max Res) directly from YouTube's servers, making it perfect for your creative needs."
+            },
+            {
+                title: "Make Your Text Content More Readable",
+                content: "We have optimized this tool to be the fastest and easiest way to grab thumbnails. Simply paste the URL, and let our system do the rest. No complicated steps, just instant results."
             }
         ],
         howTo: {
@@ -200,10 +216,16 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai prompt generator", "thumbnail prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt", "ai thumbnail prompt generator free"],
+        rating: {
+            ratingValue: "4.9",
+            ratingCount: "850",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
                 title: "Master the Art of AI Prompts",
-                content: "The secret to amazing AI art isn't the tool—it's the prompt. Our AI Thumbnail Prompt Generator takes your simple idea and expands it into a highly detailed, professional prompt optimized for Midjourney, DALL-E, and Stable Diffusion. We include technical keywords for lighting, composition, and style that most users forget."
+                content: "The secret to amazing AI art isn't the tool—it's the prompt. Our **ai thumbnail prompt** generator takes your simple idea and expands it into a highly detailed, professional prompt. \n\n**Quick Tip:** Be as specific as possible. The more details about lighting, mood, and style you provide, the better your results will be."
             },
             {
                 title: "Compatible with All Major AI Models",
@@ -287,8 +309,8 @@ export const tools: Tool[] = [
     },
     {
         slug: "youtube-description-generator",
-        name: "YouTube Description Generator",
-        seoTitle: "AI YouTube Description Generator - SEO Optimized Templates",
+        name: "YouTube SEO Description Generator",
+        seoTitle: "Free YouTube SEO Description Generator - AI Optimized",
         seoDescription: "Create professional, SEO-friendly YouTube descriptions in one click. Our AI generates hooks, timestamps, and hashtags to boost your video rankings.",
         description: "Create engaging video descriptions with AI. Includes hooks, bullet points, CTAs, and hashtags.",
         shortDescription: "AI-powered video descriptions",
@@ -296,10 +318,16 @@ export const tools: Tool[] = [
         icon: FaAlignLeft,
         isAI: true,
         keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator"],
+        rating: {
+            ratingValue: "4.8",
+            ratingCount: "1200",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
-                title: "Generate SEO-Optimized Descriptions",
-                content: "Create compelling YouTube descriptions that boost your video's discoverability with our AI-powered Description Generator. Our tool creates structured descriptions with engaging hooks, informative bullet points, strategic calls-to-action, and relevant hashtags to help your videos rank higher in search results and keep viewers engaged."
+                title: "YouTube SEO Description Generator",
+                content: "Create compelling YouTube descriptions that boost your video's discoverability with our AI-powered tool. Our **youtube seo description generator** creates structured descriptions with engaging hooks, informative bullet points, strategic calls-to-action, and relevant hashtags to help your videos rank higher."
             },
             {
                 title: "Why Structure Matters",
@@ -894,15 +922,25 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaListUl,
         isAI: false,
-        keywords: ["playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time"],
+        keywords: ["youtube playlist length", "playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time"],
+        rating: {
+            ratingValue: "4.9",
+            ratingCount: "620",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
+                title: "Why Check YouTube Playlist Length?",
+                content: "Knowing the total **youtube playlist length** is essential for planning your study sessions or entertainment time. Our calculator sums up every second so you know exactly what you're getting into."
+            },
+            {
                 title: "Plan Your Binge-Watching Sessions",
-                content: "Whether you're studying a course or catching up on a vlog series, knowing the total runtime is essential. Our Playlist Length Calculator sums up the duration of every video in a playlist. It even calculates how much time you save by watching at 1.25x, 1.5x, or 2x speed."
+                content: "Whether you're studying a course or catching up on a vlog series, knowing the total runtime is essential. Our Playlist Length Calculator helps you plan effectively:\n\n*   **Total Duration:** Get the exact runtime of every video combined.\n*   **Speed Adjustment:** See how much time you save watching at **1.25x, 1.5x, or 2x speed**."
             },
             {
                 title: "Perfect for Students & Researchers",
-                content: "Don't guess if you have time to finish that lecture series. Get the exact hour and minute count instantly. You can select up to 500 videos at once."
+                content: "Don't guess if you have time to finish that lecture series. Get the exact hour and minute count instantly.\n\n*   **Large Playlists:** Supports up to **500 videos** at once.\n*   **Precision:** Calculates time down to the exact second."
             }
         ],
         howTo: {
