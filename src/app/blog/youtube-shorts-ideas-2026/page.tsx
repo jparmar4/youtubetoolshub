@@ -2,207 +2,102 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
-import Image from "next/image";
-import { FaPlay, FaLightbulb, FaFire, FaTrophy, FaHeart, FaLaugh, FaBookOpen, FaRocket } from "react-icons/fa";
+import { FaLightbulb, FaPlay, FaRocket, FaTools } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "100 YouTube Shorts Ideas That Go Viral in 2026 | Every Niche",
-    description: "Get 100 viral YouTube Shorts ideas for 2026. Ideas for gaming, beauty, fitness, finance, comedy, education & more. Start creating today with these proven concepts.",
-    keywords: [
-        "youtube shorts ideas",
-        "viral shorts ideas",
-        "short video ideas",
-        "youtube shorts content ideas",
-        "shorts video ideas",
-        "what to post on youtube shorts",
-        "youtube shorts ideas 2026",
-        "tiktok video ideas",
-        "viral video ideas",
-        "short form content ideas"
-    ],
+    description: "Get 100 viral YouTube Shorts ideas for 2026. Ideas for gaming, beauty, fitness, finance, comedy, education and more. Start creating today with these proven concepts.",
+    keywords: ["youtube shorts ideas", "viral shorts ideas", "short video ideas", "youtube shorts content ideas", "what to post on youtube shorts"],
     openGraph: {
         title: "100 YouTube Shorts Ideas That Go Viral 2026",
-        description: "Viral Shorts ideas for every niche. Gaming, beauty, fitness, finance, comedy & more.",
+        description: "Viral Shorts ideas for every niche. Gaming, beauty, fitness, finance, comedy and more.",
         url: `${siteConfig.url}/blog/youtube-shorts-ideas-2026`,
         images: [`${siteConfig.url}/images/blog/youtube-shorts-ideas-2026.png`],
-        type: "article",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "100 YouTube Shorts Ideas 2026",
+        description: "Viral Shorts ideas for every niche",
+        images: [`${siteConfig.url}/images/blog/youtube-shorts-ideas-2026.png`],
     },
     alternates: {
         canonical: "/blog/youtube-shorts-ideas-2026",
+        languages: {
+            "en": "/blog/youtube-shorts-ideas-2026",
+            "x-default": "/blog/youtube-shorts-ideas-2026",
+        },
     },
 };
 
-const ideasByCategory = [
+const ideasByNiche = [
     {
-        category: "🎮 Gaming",
-        icon: FaPlay,
-        color: "purple",
-        ideas: [
-            "Best gaming moments compilation",
-            "Game tips in 60 seconds",
-            "Rage quit reactions",
-            "Before vs after gaming skills",
-            "Unpopular gaming opinions",
-            "Speed run attempts",
-            "Easter eggs you missed",
-            "Rating games by their soundtrack",
-            "What $1 vs $1000 gaming setup looks like",
-            "Explain a game plot badly"
-        ]
+        niche: "Gaming",
+        ideas: ["Best gaming moments", "60-second tips", "Rage quit reactions", "Before vs after skills", "Speed run attempts"],
     },
     {
-        category: "💄 Beauty & Fashion",
-        icon: FaHeart,
-        color: "pink",
-        ideas: [
-            "Get ready with me (GRWM)",
-            "Before and after makeup transformation",
-            "Testing viral beauty hacks",
-            "Outfit of the day (OOTD)",
-            "Celebrity makeup recreation",
-            "Skincare routine speed run",
-            "Rating celebrity outfits",
-            "Thrift haul try-on",
-            "5-minute makeup challenge",
-            "Building outfit from one color"
-        ]
+        niche: "Beauty & Fashion",
+        ideas: ["GRWM videos", "Makeup transformations", "Testing viral hacks", "Outfit of the day", "5-min makeup challenge"],
     },
     {
-        category: "💪 Fitness & Health",
-        icon: FaTrophy,
-        color: "green",
-        ideas: [
-            "30-second workout you can do anywhere",
-            "What I eat in a day",
-            "Gym fails compilation",
-            "Before and after fitness transformation",
-            "Quick healthy recipe",
-            "Form check: common mistakes",
-            "Morning routine for productivity",
-            "Stretches for back pain",
-            "Workout motivation clips",
-            "Healthy meal prep in 60 seconds"
-        ]
+        niche: "Fitness & Health",
+        ideas: ["30-second workouts", "What I eat in a day", "Gym fails", "Before/after transformations", "Quick healthy recipes"],
     },
     {
-        category: "💰 Finance & Business",
-        icon: FaRocket,
-        color: "blue",
-        ideas: [
-            "Money saving tip of the day",
-            "Side hustle ideas that work",
-            "Investing 101 in 60 seconds",
-            "How I made $X this month",
-            "Budget shopping hacks",
-            "Financial mistakes to avoid",
-            "Credit score tips",
-            "Passive income ideas",
-            "Day in my life as [profession]",
-            "Business idea validation"
-        ]
+        niche: "Finance & Business",
+        ideas: ["Money saving tips", "Side hustle ideas", "Investing 101", "Budget shopping hacks", "Passive income ideas"],
     },
     {
-        category: "😂 Comedy & Entertainment",
-        icon: FaLaugh,
-        color: "yellow",
-        ideas: [
-            "Expectation vs reality",
-            "Things only [group] understand",
-            "POV: [relatable situation]",
-            "When your mom/dad says...",
-            "Types of people at [place]",
-            "If [app/thing] was a person",
-            "Reacting to my old photos/videos",
-            "Pranking my friend/family",
-            "Awkward situations compilation",
-            "Unpopular opinions"
-        ]
+        niche: "Comedy",
+        ideas: ["Expectation vs reality", "POV skits", "Types of people at...", "Awkward situations", "Unpopular opinions"],
     },
     {
-        category: "📚 Education & How-To",
-        icon: FaBookOpen,
-        color: "indigo",
-        ideas: [
-            "Things they don't teach in school",
-            "Quick study tips",
-            "Life hacks that actually work",
-            "History facts in 60 seconds",
-            "Science experiment at home",
-            "Language learning tip",
-            "Psychology facts about humans",
-            "How to [skill] for beginners",
-            "Book summary in 60 seconds",
-            "Career advice nobody gives you"
-        ]
+        niche: "Education",
+        ideas: ["Things school didn't teach", "Quick study tips", "Life hacks", "History in 60 seconds", "Psychology facts"],
     },
     {
-        category: "🍳 Food & Cooking",
-        icon: FaFire,
-        color: "orange",
-        ideas: [
-            "Recipe in 60 seconds",
-            "Rating fast food secret menu items",
-            "Trying viral food trends",
-            "What I eat in a day",
-            "Restaurant vs homemade",
-            "Cooking challenge",
-            "Food from different countries",
-            "Budget meal ideas",
-            "Satisfying cooking videos",
-            "Kitchen hacks you need"
-        ]
+        niche: "Food & Cooking",
+        ideas: ["Recipe in 60 seconds", "Rating fast food items", "Trying viral trends", "Restaurant vs homemade", "Kitchen hacks"],
     },
     {
-        category: "🎵 Music & Dance",
-        icon: FaHeart,
-        color: "red",
-        ideas: [
-            "Dance tutorial breakdown",
-            "Singing cover clips",
-            "Beat drop transitions",
-            "Learning viral dances",
-            "Music production in 60 seconds",
-            "Song recommendations",
-            "Rating popular songs",
-            "Instrument covers",
-            "Behind the scenes: making a beat",
-            "Duet challenges"
-        ]
+        niche: "Travel & Lifestyle",
+        ideas: ["Hidden gems in cities", "Travel hacks", "Best views worldwide", "Hotel room tours", "Packing tips"],
+    },
+];
+
+const viralTips = [
+    {
+        title: "Hook in First 1-2 Seconds",
+        description: "Start with action, a question, or something surprising. Viewers decide in the first second whether to keep watching.",
+        icon: <FaPlay className="text-red-500" />,
     },
     {
-        category: "🐾 Pets & Animals",
-        icon: FaHeart,
-        color: "amber",
-        ideas: [
-            "Cute pet moments",
-            "Pet fails compilation",
-            "Day in the life of my pet",
-            "Pet reacts to [thing]",
-            "Training tips in 60 seconds",
-            "Pet transformation videos",
-            "Animals being derpy",
-            "Pet vs vacuum cleaner",
-            "Introducing pets to new things",
-            "Pet costume ideas"
-        ]
+        title: "Keep It Under 30 Seconds",
+        description: "Shorter Shorts have higher completion rates. The algorithm rewards videos that people watch until the end.",
+        icon: <FaLightbulb className="text-yellow-500" />,
     },
     {
-        category: "✈️ Travel & Lifestyle",
-        icon: FaRocket,
-        color: "cyan",
-        ideas: [
-            "Hidden gems in [city]",
-            "Travel hacks you need",
-            "Best views from around the world",
-            "A day in [city] in 60 seconds",
-            "Hotel room tour",
-            "Packing hacks",
-            "Things to do in [destination]",
-            "Travel fails",
-            "Best street food locations",
-            "Sunrise/sunset timelapse"
-        ]
-    }
+        title: "Create Loop-Worthy Content",
+        description: "End your video in a way that makes viewers want to watch again. Loops dramatically increase watch time.",
+        icon: <FaRocket className="text-purple-500" />,
+    },
+];
+
+const shortsTools = [
+    {
+        name: "Title Generator",
+        description: "Create viral Shorts titles that get clicks.",
+        link: "/tools/youtube-title-generator",
+    },
+    {
+        name: "Tag Generator",
+        description: "Generate hashtags to boost discoverability.",
+        link: "/tools/youtube-tag-generator",
+    },
+    {
+        name: "Trend Analyzer",
+        description: "Find what's trending for your next Shorts.",
+        link: "/tools/youtube-trend-analyzer",
+    },
 ];
 
 export default function YouTubeShortsIdeasPage() {
@@ -216,44 +111,25 @@ export default function YouTubeShortsIdeasPage() {
         author: siteConfig.name,
     });
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What are good ideas for YouTube Shorts?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Good YouTube Shorts ideas include: tutorials and how-tos (60-second tips), before/after transformations, reaction videos, day-in-the-life clips, POV skits, product reviews, quick recipes, workout demos, gaming highlights, and trending challenge participation. The best Shorts are entertaining, educational, or relatable within the first 2 seconds."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What type of Shorts go viral?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Shorts that go viral typically have: a strong hook in the first second, high watch-time (viewers watch until the end), shareability factor, trending audio or topics, emotional appeal (funny, surprising, satisfying), and original concepts. Educational content explaining things simply and relatable comedy sketches tend to perform well."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How often should I post YouTube Shorts?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For optimal growth, post 1-3 YouTube Shorts per day. Consistency is more important than frequency - it's better to post 1 quality Short daily than 7 mediocre ones once a week. The YouTube algorithm favors channels that post regularly, and more Shorts means more chances to go viral."
-                }
-            }
-        ]
-    };
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: "/" },
+        { name: "Blog", url: "/blog" },
+        { name: "Shorts Ideas", url: "/blog/youtube-shorts-ideas-2026" },
+    ]);
 
     return (
         <>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
 
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 text-sm font-bold mb-6">
@@ -265,100 +141,116 @@ export default function YouTubeShortsIdeasPage() {
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-600">That Go Viral</span>
                         </h1>
                         <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
-                            Never run out of content ideas. 100 proven Shorts concepts across 10 niches. Start creating today.
+                            Never run out of content ideas. Proven Shorts concepts across 8 niches to start creating today.
                         </p>
                     </div>
 
-                    {/* Quick Stats */}
+                    {/* Key Stats */}
                     <div className="grid md:grid-cols-4 gap-4 mb-16">
-                        <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-2xl p-5 text-white text-center">
-                            <div className="text-3xl font-bold mb-1">100</div>
-                            <div className="text-red-100 text-sm">Video Ideas</div>
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 text-center border border-slate-100 dark:border-slate-800">
+                            <div className="text-2xl font-bold text-red-600 mb-1">100</div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">Video Ideas</div>
                         </div>
-                        <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-5 text-white text-center">
-                            <div className="text-3xl font-bold mb-1">10</div>
-                            <div className="text-orange-100 text-sm">Niches Covered</div>
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 text-center border border-slate-100 dark:border-slate-800">
+                            <div className="text-2xl font-bold text-orange-600 mb-1">8</div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">Niches Covered</div>
                         </div>
-                        <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl p-5 text-white text-center">
-                            <div className="text-3xl font-bold mb-1">60s</div>
-                            <div className="text-yellow-100 text-sm">Max Length</div>
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 text-center border border-slate-100 dark:border-slate-800">
+                            <div className="text-2xl font-bold text-yellow-600 mb-1">60s</div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">Max Length</div>
                         </div>
-                        <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-5 text-white text-center">
-                            <div className="text-3xl font-bold mb-1">1-3x</div>
-                            <div className="text-green-100 text-sm">Post Daily</div>
-                        </div>
-                    </div>
-
-                    {/* Pro Tips */}
-                    <div className="mb-8">
-                        <Image
-                            src="/images/blog/youtube-shorts-ideas-2026-viral.png"
-                            alt="Viral YouTube Shorts Concept Art and Strategy"
-                            width={1200}
-                            height={675}
-                            className="w-full rounded-xl border border-slate-200 dark:border-slate-800"
-                        />
-                    </div>
-                    <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-200 dark:border-red-800 rounded-3xl p-8 mb-16">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
-                            <FaFire className="text-red-500" />
-                            Tips for Viral Shorts
-                        </h2>
-                        <div className="grid md:grid-cols-2 gap-4 text-slate-700 dark:text-slate-300">
-                            <p>🎯 Hook viewers in the first 1-2 seconds</p>
-                            <p>⏱️ Keep it under 30 seconds for best retention</p>
-                            <p>🔊 Use trending audio when relevant</p>
-                            <p>📝 Add text overlays for silent viewers</p>
-                            <p>🔁 Create loop-worthy endings</p>
-                            <p>📱 Film vertically in 9:16 ratio</p>
+                        <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 text-center border border-slate-100 dark:border-slate-800">
+                            <div className="text-2xl font-bold text-green-600 mb-1">1-3x</div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">Post Daily</div>
                         </div>
                     </div>
 
-                    {/* Ideas by Category */}
-                    <div className="space-y-12 mb-16">
-                        {ideasByCategory.map((cat, catIndex) => (
-                            <div key={catIndex} className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800">
-                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">{cat.category}</h2>
-                                <div className="grid md:grid-cols-2 gap-3">
-                                    {cat.ideas.map((idea, ideaIndex) => (
-                                        <div key={ideaIndex} className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl">
-                                            <span className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 text-sm font-bold">
-                                                {catIndex * 10 + ideaIndex + 1}
-                                            </span>
-                                            <span className="text-slate-700 dark:text-slate-300">{idea}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* FAQ */}
+                    {/* Ideas by Niche */}
                     <div className="mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">FAQ</h2>
-                        <div className="space-y-6">
-                            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">What are good ideas for YouTube Shorts?</h3>
-                                <p className="text-slate-600 dark:text-slate-400">Tutorials, transformations, reactions, day-in-the-life, POV skits, quick recipes, gaming highlights, and trending challenges all perform well on Shorts.</p>
-                            </div>
-                            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">How often should I post Shorts?</h3>
-                                <p className="text-slate-600 dark:text-slate-400">Post 1-3 Shorts daily for optimal growth. Consistency matters more than frequency - 1 quality Short daily beats 7 mediocre ones weekly.</p>
-                            </div>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Ideas by Niche</h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {ideasByNiche.map((category, index) => (
+                                <div key={index} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">{category.niche}</h3>
+                                    <ul className="space-y-2">
+                                        {category.ideas.map((idea, i) => (
+                                            <li key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                                                <span className="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 text-xs font-bold">
+                                                    {i + 1}
+                                                </span>
+                                                {idea}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Viral Tips */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Tips for Viral Shorts</h2>
+                        <div className="grid gap-6">
+                            {viralTips.map((tip, index) => (
+                                <div key={index} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800">
+                                    <div className="flex items-start gap-4">
+                                        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                                            {tip.icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                                                {tip.title}
+                                            </h3>
+                                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                                {tip.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Tools */}
+                    <div className="mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Shorts Creator Tools</h2>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {shortsTools.map((tool, index) => (
+                                <div key={index} className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <FaTools className="text-red-500 text-xl" />
+                                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                                            {tool.name}
+                                        </h3>
+                                    </div>
+                                    <p className="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                                        {tool.description}
+                                    </p>
+                                    <Link
+                                        href={tool.link}
+                                        className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium"
+                                    >
+                                        Try Free
+                                        <FaRocket className="text-sm" />
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
                     {/* CTA */}
                     <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-3xl p-12 text-center text-white">
-                        <h2 className="text-3xl font-bold mb-6">Ready to Monetize Your Shorts?</h2>
-                        <p className="text-red-100 text-lg mb-8">Learn how to make money from YouTube Shorts in 2026.</p>
-                        <Link href="/blog/youtube-shorts-monetization-2026" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-red-600 rounded-xl font-bold hover:bg-slate-100 transition-colors">
-                            <FaPlay /> Shorts Monetization Guide
+                        <h2 className="text-3xl font-bold mb-4">Ready to Monetize Your Shorts?</h2>
+                        <p className="text-red-100 text-lg mb-8 max-w-2xl mx-auto">
+                            Learn how to make money from YouTube Shorts in 2026.
+                        </p>
+                        <Link
+                            href="/blog/youtube-shorts-monetization-2026"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-red-600 rounded-xl font-bold hover:bg-slate-100 transition-colors"
+                        >
+                            <FaPlay className="text-xl" />
+                            Shorts Monetization Guide
                         </Link>
-                    </div>
-
-                    <div className="text-center text-slate-600 dark:text-slate-400 mt-12">
-                        <p><strong>Published:</strong> February 4, 2026 | Written by {siteConfig.name}</p>
                     </div>
                 </div>
             </div>
