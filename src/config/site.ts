@@ -3,8 +3,8 @@
 export const siteConfig = {
   // Branding
   name: "YouTube Tools Hub",
-  tagline: "All-in-One YouTube Automation Tools – Free & Fast",
-  description: "Free YouTube tools for creators: thumbnail downloader, title generator, tag extractor, earnings calculator, and more. Boost your channel growth with AI-powered automation.",
+  tagline: "The World's #1 Suite of Free YouTube Growth & AI Tools 2026",
+  description: "🔥 Trusted by 50,000+ creators. YouTube Tools Hub is the definitive free suite for channel automation, SEO, and growth. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm instantly.",
 
   // URLs
   url: "https://www.youtubetoolshub.com",
@@ -53,36 +53,39 @@ export const siteConfig = {
   // SEO Defaults
   seo: {
     titleTemplate: "%s | YouTube Tools Hub",
-    defaultTitle: "YouTube Tools Hub – 15+ FREE AI Tools for Creators ✓ No Signup",
-    defaultDescription: "🚀 Grow your YouTube channel FAST with 15+ free AI tools. Download HD thumbnails, generate viral titles & optimize tags instantly. Zero signup. 100% free.",
+    defaultTitle: "YouTube Tools Hub – 15+ FREE AI Growth Tools for Creators (2026) ✓ No Signup",
+    defaultDescription: "🚀 The final YouTube toolkit for 2026. Get 15+ free AI tools: HD thumbnail downloader, viral title generator, ROI calculator & SEO tags. Zero signup. 100% free for professional creators.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
-      "youtube monetization calculator",
-      "youtube earnings estimator",
-      "youtube cpm rates by country",
+      "youtube monetization calculator 2026",
+      "youtube earnings estimator tool",
+      "youtube cpm rates by country 2026",
       "youtube revenue calculator usa",
       "how much youtube pays per view",
-      "youtube adsense earnings",
-      "youtube sponsorship rates",
-      "youtube creator income",
+      "youtube adsense earnings calculator",
+      "youtube sponsorship rates finder",
+      "youtube creator income estimator",
+      "youtube revenue per view calculator",
 
       // High-CPC Business/Software Keywords
-      "youtube automation software",
-      "best youtube marketing tools",
+      "youtube automation software free",
+      "best youtube marketing tools 2026",
       "youtube seo software free",
-      "professional youtube tools",
-      "youtube analytics dashboard",
-      "youtube growth software",
-      "ai youtube optimization",
-      "youtube business tools",
+      "professional youtube growth tools",
+      "youtube analytics dashboard free",
+      "youtube growth software for creators",
+      "ai youtube optimization tool",
+      "youtube business tools suite",
+      "youtube competition analysis free",
 
       // High-CPC Creator Professional Keywords
       "youtube channel management tools",
       "youtube content strategy tools",
-      "youtube thumbnail design software",
-      "youtube title optimizer",
-      "youtube tag research tool",
-      "video marketing automation",
+      "youtube thumbnail design online free",
+      "youtube title optimizer ai",
+      "youtube tag research tool free",
+      "video marketing automation software",
+      "youtube subscriber growth tools",
 
       // US-Targeted High Intent Keywords
       "best youtube tools usa 2026",
@@ -90,21 +93,24 @@ export const siteConfig = {
       "free youtube tools for professionals",
       "youtube monetization guide usa",
       "youtube partner program calculator",
+      "youtube tax calculator for creators",
 
       // Long-tail High-CPC Keywords
       "how to make money on youtube 2026",
-      "youtube faceless channel income",
-      "youtube shorts monetization rates",
+      "youtube faceless channel income guide",
+      "youtube shorts monetization rates 2026",
       "youtube studio alternatives free",
-      "ai tools for youtube creators",
-      "youtube growth strategy tools",
+      "ai tools for youtube creators no sign up",
+      "youtube growth strategy tools 2026",
+      "youtube algorithm hack tools",
 
       // Premium Advertiser Trigger Keywords
       "youtube business account setup",
-      "youtube channel investment",
+      "youtube channel investment advice",
       "youtube creator economy tools",
-      "professional content creation",
-      "video marketing roi calculator"
+      "professional content creation suite",
+      "video marketing roi calculator",
+      "youtube advertising cost estimator"
     ],
     openGraph: {
       type: "website",

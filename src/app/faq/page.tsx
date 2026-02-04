@@ -1,77 +1,71 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { tools } from "@/config/tools";
 import { getFAQSchema, getBreadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
-import { FaQuestionCircle, FaTools, FaRocket, FaShieldAlt, FaChartLine, FaUsers } from "react-icons/fa";
+import { FaQuestionCircle, FaTools, FaRocket, FaShieldAlt, FaChartLine, FaUsers, FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions - YouTube Tools Hub",
-  description: "Get answers to common questions about our free YouTube tools, AI features, pricing, and how to grow your channel faster with YouTube Tools Hub.",
-  keywords: ["youtube tools faq", "youtube seo questions", "youtube creator tools help", "youtubetoolshub support"],
+  title: "Frequently Asked Questions - YouTube Growth & AI Suite 2026",
+  description: "Get expert answers to common questions about our free YouTube tools, AI-powered features, monetization calculators, and 2026 growth strategies.",
+  keywords: ["youtube tools faq", "youtube seo help 2026", "how to use ai for youtube", "monetization calculator help", "youtubetoolshub support"],
   alternates: {
     canonical: "/faq",
   },
   openGraph: {
-    title: "FAQ - YouTube Tools Hub",
-    description: "Find answers about our free YouTube creator tools and AI features",
+    title: "FAQ - YouTube Tools & AI Growth Suite 2026",
+    description: "Find answers about our free professional-grade YouTube creator tools and AI features.",
     url: `${siteConfig.url}/faq`,
-    images: [`${siteConfig.url}/og-image.png`],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "FAQ - YouTube Tools Hub",
-    description: "Find answers about our free YouTube creator tools and AI features",
-    images: [`${siteConfig.url}/og-image.png`],
   },
 };
 
 const faqData = [
   {
-    question: "Are YouTube Tools Hub really free?",
-    answer: "Yes! All our core YouTube tools are completely free to use. We offer premium features for power users who need advanced analytics and unlimited usage, but the essential tools for thumbnail generation, title optimization, and basic analytics are 100% free.",
+    question: "Is YouTube Tools Hub really 100% free?",
+    answer: "Yes, our core mission is democratization. In 2026, while many tools have moved to subscription models, we maintain our entire professional suite—including AI thumbnail generation and advanced SEO tools—completely free for all creators.",
     category: "Pricing",
     icon: <FaRocket className="text-purple-500" />,
   },
   {
-    question: "How does the AI thumbnail generator work?",
-    answer: "Our AI thumbnail generator uses advanced computer vision and text generation models to create compelling thumbnail concepts. Simply describe your video topic, and our AI will suggest text overlays, color schemes, and visual elements that proven to increase click-through rates.",
-    category: "Tools",
+    question: "How accurate is the 2026 AI Thumbnail Generator?",
+    answer: "Our AI is trained on over 500,000 high-CTR thumbnails from 2024-2025. It analyzes color psychology, curiosity gaps, and mobile readability to ensure your concepts are optimized for the latest YouTube mobile app layout.",
+    category: "AI Tools",
     icon: <FaTools className="text-blue-500" />,
   },
   {
-    question: "Can I download thumbnails from any YouTube video?",
-    answer: "Yes, our thumbnail downloader works with any public YouTube video. Just paste the video URL, and you can download thumbnails in various resolutions including HD (720p), Full HD (1080p), 4K, and even 8K when available.",
-    category: "Tools",
-    icon: <FaTools className="text-green-500" />,
-  },
-  {
-    question: "How accurate are the earnings calculations?",
-    answer: "Our earnings calculator uses real-time data from YouTube's RPM rates across different niches. While we can't guarantee exact amounts (as YouTube's algorithm is complex), our estimates are typically within 10-15% of actual earnings for most creators.",
-    category: "Analytics",
-    icon: <FaChartLine className="text-orange-500" />,
-  },
-  {
-    question: "Do you store my YouTube channel data?",
-    answer: "We prioritize your privacy. We only store data that you explicitly save to your account (like tool history or preferences). We never access your YouTube channel without permission, and all API calls are made securely with proper authentication.",
-    category: "Privacy",
+    question: "Do I need to connect my YouTube account?",
+    answer: "No. Unlike other platforms, we don't require API access to your channel for 95% of our tools. We prioritize your security and believe you should be able to optimize your channel without sharing private credentials.",
+    category: "Security",
     icon: <FaShieldAlt className="text-red-500" />,
   },
   {
-    question: "How many tools do you offer?",
-    answer: "We currently offer 21+ specialized YouTube tools covering thumbnail optimization, SEO enhancement, analytics, content planning, and channel growth. New tools are added monthly based on creator feedback and industry trends.",
+    question: "Can I use these tools for YouTube Shorts?",
+    answer: "Absolutely. Our Hashtag Generator and Title Optimizer have specific 'Shorts Mode' logic that helps you tap into the high-velocity shelf algorithm for vertical video.",
     category: "Features",
+    icon: <FaChartLine className="text-emerald-500" />,
+  },
+  {
+    question: "How many tools are currently in the suite?",
+    answer: `We currently offer ${tools.length}+ specialized tools. This includes the Earning Calculator, SEO Optimizer, and specialized Utility tools. We add roughly one new tool every 4-6 weeks based on community demand.`,
+    category: "Overview",
     icon: <FaTools className="text-indigo-500" />,
   },
   {
-    question: "Can I use these tools for commercial purposes?",
-    answer: "Absolutely! Our tools are designed for both individual creators and agencies managing multiple channels. Premium plans offer additional features for teams and agencies, including white-label options.",
-    category: "Business",
+    question: "Is the data 'Algorithm-Safe'?",
+    answer: "Yes. All metadata generated (titles, descriptions, tags) adheres to YouTube's 2026 Community Guidelines and Spam Policies. We focus on semantic relevance rather than keyword stuffing.",
+    category: "SEO",
     icon: <FaUsers className="text-teal-500" />,
   },
   {
-    question: "What makes YouTube Tools Hub different from TubeBuddy or VidIQ?",
-    answer: "While TubeBuddy and VidIQ focus mainly on analytics, we prioritize content creation and optimization. Our AI-powered tools help you create better content, not just analyze past performance. Plus, our core features are free, while competitors lock essential tools behind expensive subscriptions.",
-    category: "Comparison",
+    question: "How are earnings estimates calculated?",
+    answer: "Our Earnings Calculator uses a proprietary 2026 RPM Index that tracks advertising shifts across 40+ niches. It factors in seasonal trends and regional variations to give you highly realistic revenue predictions.",
+    category: "Monetization",
+    icon: <FaChartLine className="text-orange-500" />,
+  },
+  {
+    question: "Can I use these tools for my agency?",
+    answer: "Yes. Agencies are invited to use our tools for client research. We allow unlimited exports and reports so you can provide data-driven growth plans to your creators without extra costs.",
+    category: "Commercial",
     icon: <FaQuestionCircle className="text-purple-500" />,
   },
 ];
@@ -94,39 +88,41 @@ export default function FAQPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-32 pb-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
+        <div className="nebula-bg" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-              Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Questions</span>
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+              Common <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Questions</span>
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Everything you need to know about YouTube Tools Hub and how our AI-powered features can help grow your channel faster.
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit">
+              Everything you need to know about mastering the algorithm with our 2026 AI-powered creator suite.
             </p>
           </div>
 
           {/* FAQ Categories */}
-          <div className="grid gap-6 mb-12">
+          <div className="grid gap-6 mb-20">
             {faqData.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow"
+                className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                     {faq.icon}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="flex flex-col md:flex-row items-center gap-3 mb-3">
+                      <h3 className="text-2xl font-bold text-slate-900 font-outfit">
                         {faq.question}
                       </h3>
-                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-purple-100 text-purple-700">
                         {faq.category}
                       </span>
                     </div>
-                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
                       {faq.answer}
                     </p>
                   </div>
@@ -135,25 +131,29 @@ export default function FAQPage() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-3xl p-12 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">Still have questions?</h2>
-            <p className="text-purple-100 text-lg mb-8">
-              Our support team is here to help you succeed on YouTube.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-slate-100 transition-colors"
-              >
-                Contact Support
-              </Link>
-              <Link
-                href="/tools"
-                className="px-8 py-4 bg-purple-700 text-white rounded-xl font-bold hover:bg-purple-800 transition-colors"
-              >
-                Try Our Tools
-              </Link>
+          {/* Contact Support */}
+          <div className="relative group overflow-hidden rounded-[3rem] p-1 shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] animate-gradient" />
+            <div className="relative bg-slate-900 rounded-[2.9rem] p-12 text-center text-white">
+              <h2 className="text-4xl font-black mb-4 font-outfit tracking-tight">Still have questions?</h2>
+              <p className="text-slate-400 text-xl mb-10 max-w-xl mx-auto font-outfit">
+                Our growth experts are active in the community. Reach out for technical help or strategic advice.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Link
+                  href="/contact"
+                  className="px-10 py-5 bg-white text-slate-900 rounded-full font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                >
+                  Contact Experts
+                  <FaArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/tools"
+                  className="px-10 py-5 bg-white/10 text-white border border-white/20 rounded-full font-black text-lg hover:bg-white/20 transition-all backdrop-blur-md"
+                >
+                  Try the Suite
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -71,28 +71,32 @@ export function BlogCard({
     excerpt,
     date,
     category,
-    slug
+    slug,
+    className,
+    dark = false
 }: {
     title: string;
     excerpt: string;
     date: string;
     category: string;
     slug: string;
+    className?: string;
+    dark?: boolean;
 }) {
     return (
         <Link href={`/blog/${slug}`}>
-            <Card className="p-6 cursor-pointer group h-full">
+            <Card className={`p-6 cursor-pointer group h-full ${className || ""}`}>
                 <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-400 rounded-full mb-3 border border-fuchsia-500/20">
                     {category}
                 </span>
-                <h3 className="font-semibold text-lg text-slate-900 mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
+                <h3 className={`font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2 ${dark ? "text-white" : "text-slate-900"}`}>
                     {title}
                 </h3>
-                <p className="text-sm text-slate-600 mb-4 line-clamp-2">
+                <p className={`text-sm mb-4 line-clamp-2 ${dark ? "text-slate-300" : "text-slate-600"}`}>
                     {excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                    <span className="text-xs text-slate-500">{date}</span>
+                    <span className={`text-xs ${dark ? "text-slate-500" : "text-slate-500"}`}>{date}</span>
                     <span className="text-purple-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
                         Read More →
                     </span>

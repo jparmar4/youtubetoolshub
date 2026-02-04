@@ -1,55 +1,27 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { FaImage, FaMagic, FaRocket } from "react-icons/fa";
+import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
-    title: "Thumbnail Tools - Download, Generate & Optimize YouTube Thumbnails",
-    description: "Complete suite of free YouTube thumbnail tools. Download HD thumbnails, generate AI images, create text overlays, and get Midjourney prompts. 4 powerful tools in one place.",
-    keywords: ["youtube thumbnail tools", "thumbnail downloader", "ai thumbnail generator", "thumbnail maker", "youtube thumbnail creator"],
+    title: "YouTube Thumbnail Tools - HD Downloader & AI Generator 2026",
+    description: "The ultimate YouTube thumbnail toolkit for 2026. Download HD thumbnails, generate AI images, optimize text hooks, and get pro-level prompts for Midjourney & DALL-E. Free tools!",
+    keywords: ["youtube thumbnail tools", "thumbnail downloader hd", "ai thumbnail generator", "thumbnail text ideas", "thumbnail psychology 2026", "midjourney prompts for youtube"],
     openGraph: {
-        title: "4 Free YouTube Thumbnail Tools | Download, Generate & Optimize",
-        description: "Download HD thumbnails, generate AI images, create viral text, and get pro-level Midjourney prompts. Everything you need for click-worthy thumbnails.",
+        title: "4 Free YouTube Thumbnail Tools | AI Generators & HD Downloaders",
+        description: "Everything you need to create, download, and optimize viral YouTube thumbnails in 2026. Boost your click-through rate with AI-powered tools.",
         type: "website",
+        url: `${siteConfig.url}/tools/thumbnail-tools`,
     },
     alternates: {
         canonical: "/tools/thumbnail-tools",
-        languages: {
-            "en": "/tools/thumbnail-tools",
-            "x-default": "/tools/thumbnail-tools",
-        },
     },
 };
 
-const thumbnailTools = [
-    {
-        slug: "youtube-thumbnail-downloader",
-        name: "YouTube Thumbnail Downloader",
-        description: "Download high-quality thumbnails from any YouTube video in HD, 4K, and 8K resolutions.",
-        icon: FaImage,
-    },
-    {
-        slug: "youtube-thumbnail-generator",
-        name: "YouTube Thumbnail Text Generator",
-        description: "Generate catchy thumbnail text ideas using AI with psychological triggers and color suggestions.",
-        icon: FaMagic,
-    },
-    {
-        slug: "youtube-ai-thumbnail-generator",
-        name: "AI Thumbnail Image Generator",
-        description: "Create stunning custom thumbnail images with AI in seconds. Just describe what you want.",
-        icon: FaImage,
-    },
-    {
-        slug: "youtube-ai-thumbnail-prompt",
-        name: "AI Thumbnail Prompt Generator",
-        description: "Generate professional AI prompts for Midjourney, DALL-E, and Stable Diffusion thumbnail creation.",
-        icon: FaRocket,
-    },
-];
-
 export default function ThumbnailToolsHub() {
+    const thumbnailTools = getToolsByCategory("thumbnail-media");
+
     const toolListSchema = getToolListSchema(
         thumbnailTools.map((tool) => ({
             name: tool.name,
@@ -81,29 +53,46 @@ export default function ThumbnailToolsHub() {
                             Tools
                         </Link>
                         <span>/</span>
-                        <span className="text-slate-900 font-medium">Thumbnail Tools</span>
+                        <span className="text-slate-900 font-medium font-outfit">Thumbnail Tools</span>
                     </nav>
 
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight">
-                            YouTube Thumbnail Tools
+                        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight font-outfit">
+                            YouTube Thumbnail Tools 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                            Everything you need to create, download, and optimize viral YouTube thumbnails.
-                            4 powerful AI tools to boost your click-through rate.
+                            Create, download, and optimize thumbnails that stop the scroll. Our 2026 AI-powered toolkit helps you master the "packaging" of your video for maximum CTR.
                         </p>
                     </div>
 
-                    {/* Quick Summary */}
-                    <div className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500 mb-12">
-                        <h2 className="text-lg font-bold text-purple-600 mb-2">⚡ What You Can Do</h2>
-                        <ul className="text-slate-700 text-lg space-y-2">
-                            <li>✓ Download any YouTube thumbnail in multiple resolutions (SD to 8K)</li>
-                            <li>✓ Generate AI-powered thumbnail text with psychological hooks</li>
-                            <li>✓ Create custom thumbnail images using AI generators</li>
-                            <li>✓ Get professional prompts for Midjourney, DALL-E, and Stable Diffusion</li>
-                        </ul>
+                    {/* Quick Strategy Guide */}
+                    <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-purple-500 mb-12 shadow-sm">
+                        <h2 className="text-xl font-bold text-purple-600 mb-4 flex items-center gap-2">
+                            🚀 The 2026 Click-Through Rate Blueprint
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6 text-slate-700">
+                            <ul className="space-y-3">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span><strong>AI Integration:</strong> Use AI to generate unique faces and backgrounds that don't look like generic stock photos.</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span><strong>High-Energy Faces:</strong> Use our AI generator for exaggerated, high-quality emotional expressions.</span>
+                                </li>
+                            </ul>
+                            <ul className="space-y-3">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span><strong>Color Theory:</strong> Prioritize high-contrast palettes (Red/White or Yellow/Black) optimized for dark mode users.</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span><strong>Mobile-First Design:</strong> 80% of views are on mobile. Keep text under 3 words for readability.</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     {/* Tools Grid */}
@@ -112,17 +101,22 @@ export default function ThumbnailToolsHub() {
                             <Link
                                 key={tool.slug}
                                 href={`/tools/${tool.slug}`}
-                                className="group glass-premium rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+                                className="group glass-premium rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-white/20"
                             >
-                                <div className="flex items-start gap-4">
-                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
-                                        <tool.icon className="w-7 h-7" />
+                                <div className="flex items-start gap-5">
+                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-500">
+                                        <tool.icon className="w-8 h-8" />
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
-                                            {tool.name}
-                                        </h3>
-                                        <p className="text-slate-600 leading-relaxed">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors font-outfit">
+                                                {tool.name}
+                                            </h3>
+                                            {tool.isAI && (
+                                                <span className="px-2 py-0.5 rounded-full bg-purple-100 text-purple-600 text-[10px] font-bold uppercase tracking-wider">AI</span>
+                                            )}
+                                        </div>
+                                        <p className="text-slate-600 leading-relaxed text-lg">
                                             {tool.description}
                                         </p>
                                     </div>
@@ -131,34 +125,49 @@ export default function ThumbnailToolsHub() {
                         ))}
                     </div>
 
-                    {/* Why Thumbnails Matter - SEO Content */}
-                    <div className="glass-premium rounded-2xl p-8 mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                            Why YouTube Thumbnails Matter in 2026
-                        </h2>
-                        <div className="prose prose-lg max-w-none">
-                            <p className="text-slate-600 leading-relaxed mb-4">
-                                Your thumbnail is the first thing viewers see. Studies show that <strong>90% of top-performing videos</strong> use custom thumbnails, and they can increase your click-through rate by up to <strong>300%</strong>.
-                            </p>
-                            <p className="text-slate-600 leading-relaxed mb-4">
-                                In the age of AI, creating professional thumbnails has never been easier. Our suite of tools helps you:
-                            </p>
-                            <ul className="text-slate-600 space-y-2 mb-4">
-                                <li><strong>Analyze competitors</strong> by downloading their thumbnails</li>
-                                <li><strong>Generate viral text</strong> that triggers curiosity and emotion</li>
-                                <li><strong>Create unique images</strong> that don&apos;t exist in stock libraries</li>
-                                <li><strong>Maintain consistency</strong> across your channel&apos;s branding</li>
-                            </ul>
+                    {/* Deep Dive Content - E-E-A-T Optimized */}
+                    <div className="grid lg:grid-cols-3 gap-8 mb-12">
+                        <div className="lg:col-span-2 space-y-8">
+                            <div className="glass-premium rounded-3xl p-10 shadow-sm">
+                                <h2 className="text-3xl font-bold text-slate-900 mb-6 font-outfit">
+                                    Thumbnail Psychology: Why It Matters in 2026
+                                </h2>
+                                <div className="prose prose-lg max-w-none text-slate-600">
+                                    <p className="mb-4">
+                                        In 2026, the YouTube algorithm is smarter but the human brain remains the same. Your thumbnail isn't just a picture; it's a <strong>psychological bridge</strong> between a viewer's curiosity and your video's value.
+                                    </p>
+                                    <p className="mb-4">
+                                        Our suite of tools is designed to help you master the three pillars of thumbnail success:
+                                    </p>
+                                    <ul className="space-y-4">
+                                        <li><strong>1. The Curiosity Gap:</strong> Use our AI Text Generator to create hooks that tell a segment of a story but leave the "How" for the video.</li>
+                                        <li><strong>2. Visual Hierarchy:</strong> Analyze top-performing competitors with our Downloader to see where they place their focal points (typically the 'Emotional Center' of the frame).</li>
+                                        <li><strong>3. Brand Consistency:</strong> Use our AI Image tools to generate custom assets that give your channel a unique "visual fingerprint" that viewers recognize instantly in their feed.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-1">
+                            <div className="glass-premium rounded-3xl p-8 bg-gradient-to-b from-slate-900 to-slate-800 text-white border-0 shadow-2xl">
+                                <h3 className="text-xl font-bold mb-4">Pro Tip: 8K Downloader</h3>
+                                <p className="text-slate-300 mb-6 leading-relaxed">
+                                    Using our HD Downloader to study 4K and 8K thumbnails allows you to see the micro-adjustments top creators (like MrBeast or Peter McKinnon) make to their contrast and saturation—details invisible at lower resolutions.
+                                </p>
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-slate-400">
+                                    "Small tweaks in lighting can increase CTR by 2-5% overnight."
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* CTA */}
+                    {/* Final CTA */}
                     <div className="text-center">
                         <Link
                             href="/tools"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl"
+                            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-bold text-lg transition-all shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1"
                         >
-                            Explore All Tools
+                            Explore Growth & SEO Tools
                         </Link>
                     </div>
                 </div>
