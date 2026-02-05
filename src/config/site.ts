@@ -110,7 +110,14 @@ export const siteConfig = {
       "youtube creator economy tools",
       "professional content creation suite",
       "video marketing roi calculator",
-      "youtube advertising cost estimator"
+      "youtube advertising cost estimator",
+
+      // AI Specific High-Value Keywords
+      "ai youtube video summarizer free",
+      "youtube script generator ai free",
+      "ai youtube description generator",
+      "free ai tools for youtubers 2026",
+      "youtube channel name generator ai"
     ],
     openGraph: {
       type: "website",

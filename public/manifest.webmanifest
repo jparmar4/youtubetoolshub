@@ -21,9 +21,51 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["productivity", "utilities", "business"],
+  "categories": [
+    "productivity",
+    "utilities",
+    "business"
+  ],
   "lang": "en",
   "dir": "ltr",
   "scope": "/",
-  "id": "youtube-tools-hub"
+  "id": "youtube-tools-hub",
+  "shortcuts": [
+    {
+      "name": "Tools",
+      "short_name": "Tools",
+      "description": "Access 15+ Free AI Tools",
+      "url": "/tools",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Latest YouTube Growth Insights",
+      "url": "/blog",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "ROI Calc",
+      "short_name": "Calc",
+      "description": "Calculate Channel Earnings",
+      "url": "/tools/youtube-earnings-calculator",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }

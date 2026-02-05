@@ -350,20 +350,87 @@ export function processContent(content: string): React.ReactNode[] {
     };
 
 
+    // State for tables
+    let tableLines: string[] = [];
+
+    const flushTable = (key: string) => {
+        if (tableLines.length > 0) {
+            const lines = tableLines.filter(l => l.trim().startsWith('|'));
+            if (lines.length < 2) {
+                // Not a valid table structure (needs at least header and separator)
+                tableLines.forEach((line, i) => {
+                    elements.push(
+                        <p key={`${key}-fallback-${i}`} className="text-slate-600 my-5 leading-8 text-[1.1rem]">
+                            {parseInlineMarkdown(line, `${key}-p-${i}`, true)}
+                        </p>
+                    );
+                });
+            } else {
+                const headerLine = lines[0];
+                const separatorLine = lines[1];
+                const rowLines = lines.slice(2);
+
+                const headers = headerLine.split('|').filter((_, i, arr) => i > 0 && i < arr.length - 1).map(h => h.trim());
+
+                elements.push(
+                    <div key={key} className="my-10 overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="bg-slate-50 border-b border-slate-200">
+                                    {headers.map((header, i) => (
+                                        <th key={i} className="px-6 py-4 text-sm font-bold text-slate-900 uppercase tracking-wider">
+                                            {parseInlineMarkdown(header, `th-${key}-${i}`, false)}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-200">
+                                {rowLines.map((row, i) => {
+                                    const cells = row.split('|').filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
+                                    return (
+                                        <tr key={i} className="hover:bg-slate-50 transition-colors">
+                                            {cells.map((cell, j) => (
+                                                <td key={j} className="px-6 py-4 text-slate-600 text-sm leading-relaxed">
+                                                    {parseInlineMarkdown(cell, `td-${key}-${i}-${j}`, true)}
+                                                </td>
+                                            ))}
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                );
+            }
+            tableLines = [];
+        }
+    };
+
     lines.forEach((line, index) => {
         const trimmedLine = line.trim();
 
         // Empty line
         if (trimmedLine === '') {
             if (aeoType) {
-                // Do NOT flush AEO on empty line, allow multi-line content
-                // But maybe we should? No, let's treat ::: as delimiter
-                // Actually to support multi-line QuickAnswer paragraphs, allow empty lines
                 return;
             }
             flushList(`list-${index}`);
             flushBlockquote(`quote-${index}`);
+            flushTable(`table-${index}`);
             return;
+        }
+
+        // Table Detection
+        if (trimmedLine.startsWith('|')) {
+            flushList(`list-${index}`);
+            flushBlockquote(`quote-${index}`);
+            tableLines.push(trimmedLine);
+            return;
+        }
+
+        // If line does not start with |, flush any active table
+        if (!trimmedLine.startsWith('|')) {
+            flushTable(`table-${index}`);
         }
 
         // Custom AEO Block Start/End detection

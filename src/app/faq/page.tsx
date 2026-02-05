@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
-import { getFAQSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { getFAQSchema, getBreadcrumbSchema, getSpeakableSchema } from "@/lib/seo";
 import Link from "next/link";
 import { FaQuestionCircle, FaTools, FaRocket, FaShieldAlt, FaChartLine, FaUsers, FaArrowRight } from "react-icons/fa";
 
@@ -77,6 +77,13 @@ export default function FAQPage() {
     { name: "FAQ", url: "/faq" },
   ]);
 
+  const speakableSchema = getSpeakableSchema({
+    url: `${siteConfig.url}/faq`,
+    headline: "Frequently Asked Questions",
+    summary: "Get expert answers to common questions about our free YouTube tools, AI-powered features, monetization calculators, and 2026 growth strategies.",
+    cssSelectors: ["h1", ".faq-summary"]
+  });
+
   return (
     <>
       <script
@@ -86,6 +93,10 @@ export default function FAQPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 
       <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
@@ -97,7 +108,7 @@ export default function FAQPage() {
             <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
               Common <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Questions</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
               Everything you need to know about mastering the algorithm with our 2026 AI-powered creator suite.
             </p>
           </div>

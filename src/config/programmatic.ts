@@ -62,6 +62,27 @@ export const niches: Niche[] = [
         keywords: ["finance", "investing", "stock market", "crypto", "business", "money"],
         description: "personal finance, investing, and business tips",
         examples: ["Stock Market Update", "Crypto News", "Budgeting Tips", "Passive Income"]
+    },
+    {
+        id: "asmr",
+        name: "ASMR & Relaxation",
+        keywords: ["asmr", "relaxation", "sleep", "triggers", "whispering", "satisfying"],
+        description: "audio-visual relaxation triggers and sleep aid",
+        examples: ["Sleep Triggers", "Tapping Sounds", "Roleplay ASMR", "Soft Spoken"]
+    },
+    {
+        id: "diy",
+        name: "DIY & Crafts",
+        keywords: ["diy", "crafts", "homemade", "tutorial", "life hacks", "art"],
+        description: "do-it-yourself projects, crafts, and life hacks",
+        examples: ["Room Decor DIY", "Paper Crafts", "Life Hacks", "Pottery"]
+    },
+    {
+        id: "music",
+        name: "Music & Production",
+        keywords: ["music", "production", "covers", "original song", "beat making", "instrumental"],
+        description: "music videos, covers, and production tutorials",
+        examples: ["Piano Cover", "Beat Making", "Song Release", "Music Theory"]
     }
 ];
 
