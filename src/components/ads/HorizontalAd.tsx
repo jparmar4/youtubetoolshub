@@ -25,8 +25,7 @@ export default function HorizontalAd() {
         <div className="w-full flex flex-col items-center my-8 overflow-hidden">
             <div className="text-xs text-slate-400 mb-1">Advertisement</div>
             <ins
-                className="adsbygoogle"
-                style={{ display: "block", width: "100%" }}
+                className="adsbygoogle block w-full"
                 data-ad-client="ca-pub-1328083083403070"
                 data-ad-slot="5848325027"
                 data-ad-format="auto"

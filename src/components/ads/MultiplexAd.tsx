@@ -25,8 +25,7 @@ export default function MultiplexAd() {
         <div className="w-full py-8">
             <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide font-medium text-center">Sponsored Links</div>
             <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
+                className="adsbygoogle block"
                 data-ad-format="autorelaxed"
                 data-ad-client="ca-pub-1328083083403070"
                 data-ad-slot="3104734850"

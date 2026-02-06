@@ -57,8 +57,7 @@ export default function BottomStickyAd() {
                     <div className="absolute top-0 left-2 text-[8px] md:text-[10px] text-slate-400 uppercase tracking-widest pointer-events-none">Advertisement</div>
 
                     <ins
-                        className="adsbygoogle"
-                        style={{ display: "block", width: "100%", height: "100%", maxHeight: "90px" }}
+                        className="adsbygoogle block w-full h-full max-h-[90px]"
                         data-ad-client="ca-pub-1328083083403070"
                         data-ad-slot="5848325027"
                         data-ad-format="horizontal"

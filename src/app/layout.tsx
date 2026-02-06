@@ -9,6 +9,7 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import BottomStickyAd from "@/components/ads/BottomStickyAd";
+import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -191,6 +192,7 @@ export default async function RootLayout({
             <ScrollToTop />
             <CookieConsent />
             <BottomStickyAd />
+            <PrivacyH1Fix />
           </UsageProvider>
         </AuthProvider>
       </body>

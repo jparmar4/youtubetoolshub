@@ -53,8 +53,8 @@ export const siteConfig = {
   // SEO Defaults
   seo: {
     titleTemplate: "%s | YouTube Tools Hub",
-    defaultTitle: "YouTube Tools Hub – 15+ FREE AI Growth Tools for Creators (2026) ✓ No Signup",
-    defaultDescription: "🚀 The final YouTube toolkit for 2026. Get 15+ free AI tools: HD thumbnail downloader, viral title generator, ROI calculator & SEO tags. Zero signup. 100% free for professional creators.",
+    defaultTitle: "YouTube Tools Hub – #1 Free AI Tools for Thumbnail Generation & Growth (2026)",
+    defaultDescription: "🚀 Start Now with the world's most advanced YouTube Tools Hub. Get 15+ free AI tools: HD thumbnail generator, viral title optimizer, ROI calculator & growth suite. 100% free.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",

@@ -12,8 +12,8 @@ import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YouTube Tools Hub – #1 AI Growth & ROI Suite 2026 (Free)",
-  description: "🔥 Empower your AI-native creator workflow with the world's most advanced YouTube toolkit. 16+ free tools: click-through prediction, revenue ROI calculators & semantic SEO. Trusted by 100,000+ scaling channels.",
+  title: "YouTube Tools Hub – #1 AI Growth, Thumbnail Generator & Analytics (Free)",
+  description: "🔥 Start Now with YouTube Tools Hub. Empower your workflow with the world's most advanced tools: thumbnail generator, click-through prediction, & revenue ROI calculators. Trusted by 100,000+ scaling channels.",
   keywords: [
     "youtube monetization suite 2026",
     "youtube ai growth tools",
