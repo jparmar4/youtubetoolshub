@@ -90,13 +90,11 @@ export const metadata = {
   },
   verification: {
     google: "google299d0fa42c6b8fbb",
-    yandex: "yandex-verification-code",
+    // Add Yandex verification when available: yandex: "your-yandex-code",
+    // Add Bing verification when available via other: { "msvalidate.01": "your-bing-code" }
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
-  other: {
-    "msvalidate.01": "bing-verification-code",
-  },
 };
 
 export default async function RootLayout({
@@ -116,6 +114,14 @@ export default async function RootLayout({
 
 
         <link rel="alternate" type="application/rss+xml" title="YouTube Tools Hub Blog" href={`${siteConfig.url}/feed.xml`} />
+
+        {/* hreflang for international SEO - targeting key English-speaking markets */}
+        <link rel="alternate" hrefLang="en-US" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-GB" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-CA" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-AU" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-IN" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="x-default" href={siteConfig.url} />
 
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

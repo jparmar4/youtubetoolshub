@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getAllBlogPosts } from "@/config/blog";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import InFeedAd from "@/components/ads/InFeedAd";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 
 export const metadata: Metadata = {
     title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
@@ -49,6 +52,10 @@ export default function BlogPage() {
                     </div>
                 </div>
             </section>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+                <HorizontalAd />
+            </div>
 
             {/* Featured Post */}
             <section className="pb-24">
@@ -102,6 +109,10 @@ export default function BlogPage() {
                 </div>
             </section>
 
+            <div className="max-w-4xl mx-auto px-4 mb-24">
+                <InFeedAd />
+            </div>
+
             {/* Other Posts */}
             <section className="py-24 bg-slate-900 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,6 +144,10 @@ export default function BlogPage() {
                     </div>
                 </div>
             </section>
+
+            <div className="max-w-7xl mx-auto px-4 py-12 bg-white">
+                <MultiplexAd />
+            </div>
 
             {/* CTA Section */}
             <section className="py-32 relative overflow-hidden">
