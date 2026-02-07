@@ -125,7 +125,14 @@ export async function POST(request: Request) {
 
         const result = await generateAIText(prompt);
 
-        return NextResponse.json({ result });
+        return NextResponse.json(
+            { result },
+            {
+                headers: {
+                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+                },
+            }
+        );
     } catch (error) {
         console.error("Generation error:", error);
         return NextResponse.json(

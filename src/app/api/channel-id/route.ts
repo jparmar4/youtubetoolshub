@@ -2,6 +2,9 @@
 import { NextResponse } from "next/server";
 import { extractVideoId } from "@/lib/utils";
 
+// Use Edge runtime for faster cold starts and lower CPU usage
+export const runtime = "edge";
+
 export async function POST(req: Request) {
     try {
         const { query } = await req.json();
@@ -111,15 +114,22 @@ export async function POST(req: Request) {
 
         const channelDetails = detailsData.items[0];
 
-        return NextResponse.json({
-            id: channelDetails.id,
-            title: channelDetails.snippet.title,
-            description: channelDetails.snippet.description,
-            customUrl: channelDetails.snippet.customUrl,
-            publishedAt: channelDetails.snippet.publishedAt,
-            thumbnails: channelDetails.snippet.thumbnails,
-            statistics: channelDetails.statistics,
-        });
+        return NextResponse.json(
+            {
+                id: channelDetails.id,
+                title: channelDetails.snippet.title,
+                description: channelDetails.snippet.description,
+                customUrl: channelDetails.snippet.customUrl,
+                publishedAt: channelDetails.snippet.publishedAt,
+                thumbnails: channelDetails.snippet.thumbnails,
+                statistics: channelDetails.statistics,
+            },
+            {
+                headers: {
+                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+                },
+            }
+        );
 
     } catch (error) {
         console.error("Channel ID API error:", error);

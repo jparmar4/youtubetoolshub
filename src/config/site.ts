@@ -52,9 +52,9 @@ export const siteConfig = {
 
   // SEO Defaults
   seo: {
-    titleTemplate: "%s | YouTube Tools Hub",
-    defaultTitle: "YouTube Tools Hub – #1 Free AI Tools for Thumbnail Generation & Growth (2026)",
-    defaultDescription: "🚀 Start Now with the world's most advanced YouTube Tools Hub. Get 15+ free AI tools: HD thumbnail generator, viral title optimizer, ROI calculator & growth suite. 100% free.",
+    titleTemplate: "%s | YouTube Tools Hub – Free AI Tools 2026",
+    defaultTitle: "YouTube Tools Hub – 15+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
+    defaultDescription: "🚀 Grow your YouTube channel FREE in 2026! 15+ AI-powered tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor. Trusted by 100,000+ creators. No signup required.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",

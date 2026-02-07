@@ -8,26 +8,43 @@
  * AI_MODEL=gpt-4o-mini  (optional, defaults to gpt-4o-mini)
  */
 
+import { aiCache, hashString } from "./cache";
+
 // Types for AI generation
 export interface AIGenerationOptions {
     temperature?: number;
     maxTokens?: number;
+    skipCache?: boolean; // Allow bypassing cache if needed
 }
 
 /**
  * Generate AI text based on a prompt
+ * Uses LRU cache to avoid repeat API calls for similar prompts
  */
 export async function generateAIText(
     prompt: string,
     options: AIGenerationOptions = {}
 ): Promise<string> {
-    const { temperature = 0.8, maxTokens = 2000 } = options;
+    const { temperature = 0.8, maxTokens = 2000, skipCache = false } = options;
+
+    // Create cache key from prompt hash + parameters
+    const cacheKey = `ai_${hashString(prompt)}_${temperature}_${maxTokens}`;
+
+    // Check cache first (unless explicitly skipped)
+    if (!skipCache) {
+        const cached = aiCache.get(cacheKey);
+        if (cached) {
+            console.log("[AI Cache] HIT - returning cached response");
+            return cached;
+        }
+    }
 
     const apiKey = process.env.AI_API_KEY;
     const model = process.env.AI_MODEL || "gpt-4o-mini";
 
     if (!apiKey) {
         console.warn("AI_API_KEY not configured. Returning mock response.");
+        // Don't cache mock responses
         return getMockResponse(prompt);
     }
 
@@ -60,7 +77,12 @@ export async function generateAIText(
         }
 
         const data = await response.json();
-        return data.choices[0].message.content;
+        const result = data.choices[0].message.content;
+
+        // Store in cache for future requests
+        aiCache.set(cacheKey, result);
+
+        return result;
     } catch (error) {
         console.error("AI generation error:", error);
         throw error;

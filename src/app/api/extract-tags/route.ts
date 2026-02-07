@@ -9,6 +9,9 @@ import { NextRequest, NextResponse } from "next/server";
  * Get API key at: https://console.developers.google.com/
  */
 
+// Use Edge runtime for faster cold starts and lower CPU usage
+export const runtime = "edge";
+
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const videoId = searchParams.get("videoId");
@@ -62,14 +65,21 @@ export async function GET(req: NextRequest) {
         // Extract tags (may be undefined if video has no tags)
         const tags = snippet.tags || [];
 
-        return NextResponse.json({
-            success: true,
-            tags: tags,
-            videoTitle: snippet.title,
-            channelTitle: snippet.channelTitle,
-            description: snippet.description?.substring(0, 300),
-            publishedAt: snippet.publishedAt
-        });
+        return NextResponse.json(
+            {
+                success: true,
+                tags: tags,
+                videoTitle: snippet.title,
+                channelTitle: snippet.channelTitle,
+                description: snippet.description?.substring(0, 300),
+                publishedAt: snippet.publishedAt
+            },
+            {
+                headers: {
+                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+                },
+            }
+        );
 
     } catch (error) {
         console.error("Tag extraction error:", error);

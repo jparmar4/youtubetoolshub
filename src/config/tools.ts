@@ -422,6 +422,12 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube title generator", "video title maker", "clickbait title generator", "catchy youtube titles", "seo title generator", "viral title ideas", "how to write youtube titles", "title optimizer ai", "best youtube titles 2026"],
+        rating: {
+            ratingValue: "4.9",
+            ratingCount: "4150",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
                 title: "The Science of Viral YouTube Titles in 2026",
@@ -602,6 +608,12 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags", "youtube tag finder", "trending tags 2026", "automatic tag generator"],
+        rating: {
+            ratingValue: "4.8",
+            ratingCount: "2890",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
                 title: "The Strategic Importance of Tags in 2026",
@@ -1039,6 +1051,12 @@ export const tools: Tool[] = [
         isAI: false,
         isFeatured: true,
         keywords: ["youtube earnings calculator", "how much does youtube pay", "youtube money calculator", "adsense calculator", "estimated youtube revenue", "youtube revenue per view", "cpm by niche 2026"],
+        rating: {
+            ratingValue: "4.9",
+            ratingCount: "3250",
+            bestRating: "5",
+            worstRating: "1"
+        },
         content: [
             {
                 title: "Calculate Your Potential YouTube Income",

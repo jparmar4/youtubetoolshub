@@ -7,6 +7,9 @@ import { NextRequest, NextResponse } from "next/server";
  * Configure YOUTUBE_API_KEY in your .env.local file
  */
 
+// Use Edge runtime for faster cold starts and lower CPU usage
+export const runtime = "edge";
+
 // Region codes for YouTube API (ISO 3166-1 alpha-2)
 const REGION_CODES: Record<string, string> = {
     // Americas
@@ -94,12 +97,19 @@ export async function GET(req: NextRequest) {
             tags: item.snippet.tags?.slice(0, 10) || []
         }));
 
-        return NextResponse.json({
-            success: true,
-            region: regionCode,
-            videos: videos,
-            count: videos.length
-        });
+        return NextResponse.json(
+            {
+                success: true,
+                region: regionCode,
+                videos: videos,
+                count: videos.length
+            },
+            {
+                headers: {
+                    "Cache-Control": "s-maxage=1800, stale-while-revalidate=3600",
+                },
+            }
+        );
 
     } catch (error) {
         console.error("Trending fetch error:", error);

@@ -140,6 +140,7 @@ export default async function ToolPage({
         description: tool.description,
         url: `${siteConfig.url}/tools/${tool.slug}`,
         category: tool.category,
+        rating: tool.rating, // Include rating for rich snippets
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([

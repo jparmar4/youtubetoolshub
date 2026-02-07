@@ -2,6 +2,9 @@
 import { NextResponse } from "next/server";
 import { parseDuration } from "@/lib/utils";
 
+// Use Edge runtime for faster cold starts and lower CPU usage
+export const runtime = "edge";
+
 export async function POST(req: Request) {
     try {
         const { query } = await req.json();
@@ -95,12 +98,19 @@ export async function POST(req: Request) {
             nextPageToken = itemsData.nextPageToken || null;
         }
 
-        return NextResponse.json({
-            playlistInfo,
-            videoCount,
-            totalSeconds,
-            averageSeconds: videoCount > 0 ? Math.round(totalSeconds / videoCount) : 0,
-        });
+        return NextResponse.json(
+            {
+                playlistInfo,
+                videoCount,
+                totalSeconds,
+                averageSeconds: videoCount > 0 ? Math.round(totalSeconds / videoCount) : 0,
+            },
+            {
+                headers: {
+                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+                },
+            }
+        );
 
     } catch (error) {
         console.error("Playlist API error:", error);
