@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
 import InFeedAd from "@/components/ads/InFeedAd";
+import HorizontalAd from "@/components/ads/HorizontalAd";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
@@ -80,6 +81,11 @@ export default function ToolsPage() {
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
                             Everything you need to master the algorithm, optimize for search, and scale your monetization. From AI-driven thumbnails to expert-level SEO—completely free for creators.
                         </p>
+                    </div>
+
+                    {/* Above-the-fold Ad Placement */}
+                    <div className="max-w-4xl mx-auto mb-16">
+                        <HorizontalAd />
                     </div>
 
                     {/* Tools by Category */}

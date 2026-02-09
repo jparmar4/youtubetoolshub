@@ -9,6 +9,7 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import BottomStickyAd from "@/components/ads/BottomStickyAd";
+import HeaderAd from "@/components/ads/HeaderAd";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
@@ -187,6 +188,7 @@ export default async function RootLayout({
         <AuthProvider>
           <UsageProvider>
             <Header />
+            <HeaderAd />
             <main className="flex-1">{children}</main>
             <Footer />
             <ScrollToTop />
