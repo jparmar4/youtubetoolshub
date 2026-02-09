@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
-import { FaLink, FaCode, FaCopy, FaHeart, FaStar, FaRocket, FaHandshake, FaChartLine } from "react-icons/fa";
+import { FaLink, FaCode, FaHeart, FaStar, FaRocket, FaHandshake, FaChartLine } from "react-icons/fa";
+import CopyButton from "@/components/ui/CopyButton";
 
 export const metadata: Metadata = {
   title: "Link to Us – Embed Badges & Backlink Resources | YouTube Tools Hub",
@@ -112,27 +113,6 @@ const BACKLINK_OPPORTUNITIES = [
   },
 ];
 
-function CopyButton({ textToCopy, snippetId }: { textToCopy: string; snippetId: string }) {
-  return (
-    <button
-      id={`copy-btn-${snippetId}`}
-      onClick={() => {
-        navigator.clipboard.writeText(textToCopy);
-        const btn = document.getElementById(`copy-btn-${snippetId}`);
-        if (btn) {
-          btn.textContent = "✓ Copied!";
-          setTimeout(() => {
-            btn.textContent = "Copy Code";
-          }, 2000);
-        }
-      }}
-      className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-lg transition-colors"
-    >
-      Copy Code
-    </button>
-  );
-}
-
 export default function LinkToUsPage() {
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: siteConfig.url },
@@ -235,7 +215,7 @@ export default function LinkToUsPage() {
                     <span className="text-xs text-gray-400">
                       HTML • Copy and paste into your site
                     </span>
-                    <CopyButton textToCopy={snippet.code} snippetId={snippet.id} />
+                    <CopyButton text={snippet.code} variant="button" label="Copy Code" />
                   </div>
                 </div>
                 {/* Preview */}
