@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FaTimes } from "react-icons/fa";
 
 declare global {
   interface Window {
@@ -10,35 +9,29 @@ declare global {
 }
 
 /**
- * BottomStickyAd — Fixed bottom anchor ad (high viewability = high RPM)
+ * BottomStickyAd — Fixed bottom anchor ad
  *
- * FIXES from previous version:
- * 1. Reduced delay from 3s to 1s — faster appearance = more impressions
- * 2. Added proper ad initialization check to prevent double-push errors
- * 3. Improved close button positioning and accessibility
- * 4. Added page engagement check — only show after user has scrolled
- *    (indicates engagement, better ad quality score)
- * 5. Persists close state only for current page, not entire session
- *    (user closing on one page shouldn't kill revenue on all pages)
- * 6. Better mobile spacing to avoid accidental clicks (policy violation risk)
+ * Policy / UX notes:
+ * - No custom "Close Ad" overlay or dismissal UI is rendered by this component.
+ * - The ad is labeled "Advertisement" and avoids accidental-click risk by keeping
+ *   adequate padding around the ad area.
  *
- * Revenue impact: Anchor/sticky ads typically generate 15-25% of total AdSense revenue.
- * Showing them faster with better viewability can increase RPM by 10-20%.
+ * If you want a dismissible anchor, use an AdSense-supported anchor format/UI,
+ * not a custom overlay on top of an ad slot.
  */
 export default function BottomStickyAd() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isClosed, setIsClosed] = useState(false);
   const adRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Show ad after a short delay AND after user has scrolled at least once
-    // This ensures the user is engaged (better ad quality + viewability score)
+    // This helps avoid rendering an anchor immediately on load.
     let scrollTriggered = false;
     let timerDone = false;
 
     const tryShow = () => {
-      if (scrollTriggered && timerDone && !isClosed) {
+      if (scrollTriggered && timerDone) {
         setIsVisible(true);
       }
     };
@@ -75,11 +68,11 @@ export default function BottomStickyAd() {
       clearTimeout(fallbackTimer);
       window.removeEventListener("scroll", handleScrollPassive);
     };
-  }, [isClosed]);
+  }, []);
 
   // Initialize ad when visible
   useEffect(() => {
-    if (!isVisible || isClosed || adRef.current) return;
+    if (!isVisible || adRef.current) return;
 
     // Small delay to ensure DOM is ready
     const timer = setTimeout(() => {
@@ -107,7 +100,8 @@ export default function BottomStickyAd() {
                     "data-adsbygoogle-status",
                   );
                   if (currentStatus === "unfilled") {
-                    setIsClosed(true);
+                    // Hide the sticky container if AdSense returns no fill
+                    setIsVisible(false);
                     observer.disconnect();
                   }
                 }
@@ -127,7 +121,8 @@ export default function BottomStickyAd() {
                 status === "unfilled" ||
                 (status === "done" && adContent === "")
               ) {
-                setIsClosed(true);
+                // Hide the sticky container if AdSense returns no fill / empty render
+                setIsVisible(false);
                 observer.disconnect();
               }
             }, 3000);
@@ -139,10 +134,9 @@ export default function BottomStickyAd() {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [isVisible, isClosed]);
+  }, [isVisible]);
 
-  // Don't render if closed
-  if (!isVisible || isClosed) return null;
+  if (!isVisible) return null;
 
   return (
     <div
@@ -169,27 +163,13 @@ export default function BottomStickyAd() {
 
       {/* Ad Container */}
       <div className="relative w-full bg-white border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-        {/* Close Button — positioned clearly above the ad to prevent accidental clicks */}
-        <div className="absolute -top-9 right-3 z-10">
-          <button
-            onClick={() => setIsClosed(true)}
-            className="flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 text-white rounded-full pl-2.5 pr-2 py-1.5 shadow-lg transition-all hover:scale-105 active:scale-95 backdrop-blur-sm"
-            aria-label="Close advertisement"
-          >
-            <span className="text-[10px] uppercase font-bold tracking-wider leading-none">
-              Close Ad
-            </span>
-            <FaTimes className="text-xs" />
-          </button>
-        </div>
-
         {/* "Ad" label for AdSense policy compliance */}
         <div className="absolute top-0.5 left-2 text-[8px] text-slate-400 uppercase tracking-widest pointer-events-none select-none">
           Advertisement
         </div>
 
-        {/* Ad unit container — proper sizing for anchor format */}
-        <div className="w-full flex items-center justify-center px-2 py-1.5 min-h-[50px] md:min-h-[90px] max-h-[100px] overflow-hidden">
+        {/* Ad unit container — keep padding to reduce accidental clicks */}
+        <div className="w-full flex items-center justify-center px-3 py-2 min-h-[50px] md:min-h-[90px] max-h-[100px] overflow-hidden">
           <ins
             className="adsbygoogle"
             style={{
