@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
-import InFeedAd from "@/components/ads/InFeedAd";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
@@ -88,9 +86,6 @@ export default function ToolsPage() {
           </div>
 
           {/* Above-the-fold Ad Placement */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <HorizontalAd />
-          </div>
 
           {/* Tools by Category */}
           <div className="space-y-32">
@@ -98,13 +93,6 @@ export default function ToolsPage() {
               const categoryTools = getToolsByCategory(category.id);
               return (
                 <div key={category.id}>
-                  {/* Insert Ad after every 2 categories */}
-                  {index > 0 && index % 2 === 0 && (
-                    <div className="max-w-4xl mx-auto mb-20">
-                      <InFeedAd />
-                    </div>
-                  )}
-
                   <section className="animate-fade-in-up">
                     <div className="mb-12 flex flex-col items-center text-center">
                       <h2 className="text-4xl font-bold text-slate-900 mb-4 font-outfit relative">
@@ -189,9 +177,6 @@ export default function ToolsPage() {
             </div>
 
             {/* Final In-Feed Ad after lists */}
-            <div className="max-w-4xl mx-auto pt-10">
-              <InFeedAd />
-            </div>
           </div>
         </div>
       </div>

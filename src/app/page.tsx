@@ -11,8 +11,6 @@ import {
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -347,9 +345,7 @@ export default function Home() {
       </section>
 
       {/* Ad: Contextual Placement */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <HorizontalAd />
-      </div>
+      {/* Manual Ad removed (Auto Ads only) */}
 
       {/* Tools Showcase */}
       <section className="py-32 bg-slate-50 relative overflow-hidden">
@@ -590,9 +586,7 @@ export default function Home() {
       </section>
 
       {/* Ad: Content Discovery */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <MultiplexAd />
-      </div>
+      {/* Manual Ad removed (Auto Ads only) */}
 
       {/* Heroic CTA Section */}
       <section className="py-32 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[5rem]">
