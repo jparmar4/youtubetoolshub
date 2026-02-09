@@ -61,7 +61,7 @@ export const AD_SLOTS = {
   STICKY_SIDEBAR: "8474488368",
 
   /** In-feed ad (between list items) */
-  IN_FEED: "5848325027",
+  IN_FEED: "2197690717",
 } as const;
 
 export type AdSlotKey = keyof typeof AD_SLOTS;
