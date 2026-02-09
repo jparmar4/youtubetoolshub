@@ -54,11 +54,11 @@ export const AD_SLOTS = {
   /** Multiplex ad grid (related content style) */
   MULTIPLEX: "3104734850",
 
-  /** Sidebar display ad */
-  SIDEBAR: "5848325027",
+  /** Sidebar display ad (vertical) */
+  SIDEBAR: "8474488368",
 
-  /** Sticky sidebar ad (stays visible on scroll) */
-  STICKY_SIDEBAR: "5848325027",
+  /** Sticky sidebar ad (stays visible on scroll - vertical) */
+  STICKY_SIDEBAR: "8474488368",
 
   /** In-feed ad (between list items) */
   IN_FEED: "5848325027",
@@ -104,7 +104,7 @@ function isAdSenseReady(): boolean {
 function whenAdSenseReady(callback: () => void, maxWaitMs = 10000): () => void {
   if (isAdSenseReady()) {
     callback();
-    return () => {};
+    return () => { };
   }
 
   // Add to pending queue
@@ -180,17 +180,17 @@ export function initializeAd(
   const { delay = 50, maxWait = 10000, onError, onLoad } = options;
 
   // Server-side guard
-  if (typeof window === "undefined") return () => {};
+  if (typeof window === "undefined") return () => { };
 
   // No container provided
   if (!container) {
     console.warn(`[AdSense] No container found for ad "${adId}"`);
-    return () => {};
+    return () => { };
   }
 
   // Already initialized — prevent double-push
   if (initializedAds.has(adId)) {
-    return () => {};
+    return () => { };
   }
 
   let cancelled = false;
@@ -339,7 +339,7 @@ export function initializeAdOnView(
     adOptions?: Parameters<typeof initializeAd>[2];
   } = {}
 ): () => void {
-  if (typeof window === "undefined" || !container) return () => {};
+  if (typeof window === "undefined" || !container) return () => { };
 
   const { rootMargin = "200px", threshold = 0, adOptions } = options;
 
