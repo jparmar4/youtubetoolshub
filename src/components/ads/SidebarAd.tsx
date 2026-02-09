@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
     interface Window {
@@ -10,20 +8,81 @@ declare global {
 
 export default function SidebarAd() {
     const adRef = useRef<boolean>(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [adError, setAdError] = useState(false);
 
     useEffect(() => {
         if (adRef.current) return;
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            adRef.current = true;
-        } catch (error) {
-            console.error("AdSense error:", error);
-        }
+
+        const timer = setTimeout(() => {
+            try {
+                if (typeof window !== "undefined" && containerRef.current) {
+                    const insElement =
+                        containerRef.current.querySelector("ins.adsbygoogle");
+
+                    if (
+                        insElement &&
+                        !insElement.getAttribute("data-adsbygoogle-status")
+                    ) {
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                        adRef.current = true;
+
+                        // Watch for status changes to detect "unfilled" state
+                        const observer = new MutationObserver((mutations) => {
+                            mutations.forEach((mutation) => {
+                                if (
+                                    mutation.type === "attributes" &&
+                                    mutation.attributeName === "data-adsbygoogle-status"
+                                ) {
+                                    const currentStatus = insElement.getAttribute(
+                                        "data-adsbygoogle-status",
+                                    );
+                                    if (currentStatus === "unfilled") {
+                                        setAdError(true);
+                                        observer.disconnect();
+                                    }
+                                }
+                            });
+                        });
+
+                        observer.observe(insElement, {
+                            attributes: true,
+                            attributeFilter: ["data-adsbygoogle-status"],
+                        });
+
+                        // Backup timer
+                        setTimeout(() => {
+                            const status = insElement.getAttribute("data-adsbygoogle-status");
+                            const adContent = insElement.innerHTML.trim();
+                            if (
+                                status === "unfilled" ||
+                                (status === "done" && adContent === "")
+                            ) {
+                                setAdError(true);
+                                observer.disconnect();
+                            }
+                        }, 3000);
+                    }
+                }
+            } catch (error) {
+                console.error("SidebarAd: AdSense error:", error);
+                setAdError(true);
+            }
+        }, 100);
+
+        return () => clearTimeout(timer);
     }, []);
 
+    if (adError) return null;
+
     return (
-        <div className="w-full flex flex-col items-center overflow-hidden bg-slate-50 rounded-2xl border border-slate-100 p-4">
-            <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide font-medium">Advertisement</div>
+        <div
+            ref={containerRef}
+            className="w-full flex flex-col items-center overflow-hidden bg-slate-50 rounded-2xl border border-slate-100 p-4"
+        >
+            <div className="text-xs text-slate-400 mb-2 uppercase tracking-wide font-medium">
+                Advertisement
+            </div>
             <div className="w-full min-h-[500px] flex items-center justify-center bg-white rounded-xl">
                 <ins
                     className="adsbygoogle"

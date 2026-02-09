@@ -105,7 +105,6 @@ export default function HorizontalAd() {
         }
 
         // Guard: check if AdSense already processed this element
-        // This happens in React StrictMode (double effect execution) or fast re-renders
         const status = insElement.getAttribute("data-adsbygoogle-status");
         if (status === "done" || status === "loaded") {
           adInitialized.current = true;
@@ -113,7 +112,6 @@ export default function HorizontalAd() {
         }
 
         // Guard: check if the element has layout dimensions
-        // AdSense silently fails on zero-width elements
         const rect = insElement.getBoundingClientRect();
         if (rect.width === 0) {
           // Element not laid out yet — retry after the next paint
@@ -138,15 +136,40 @@ export default function HorizontalAd() {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         adInitialized.current = true;
 
-        // Watch for unfilled ads and hide container if no ad served
+        // Watch for status changes to detect "unfilled" state
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (
+              mutation.type === "attributes" &&
+              mutation.attributeName === "data-adsbygoogle-status"
+            ) {
+              const currentStatus = insElement.getAttribute(
+                "data-adsbygoogle-status",
+              );
+              if (currentStatus === "unfilled") {
+                setHasError(true);
+                observer.disconnect();
+              }
+            }
+          });
+        });
+
+        observer.observe(insElement, {
+          attributes: true,
+          attributeFilter: ["data-adsbygoogle-status"],
+        });
+
+        // Backup timer: if still empty/unfilled after 3s, collapse it
+        // This handles cases where the MutationObserver might miss it or the ad script hangs
         setTimeout(() => {
           const status = insElement.getAttribute("data-adsbygoogle-status");
           const adContent = insElement.innerHTML.trim();
-          // If status is "unfilled" or the ins element is empty after a delay, hide it
           if (status === "unfilled" || (status === "done" && adContent === "")) {
-            setHasError(true); // This will collapse the container
+            setHasError(true);
+            observer.disconnect();
           }
-        }, 2000);
+        }, 3000);
+
       } catch (error) {
         console.error(`[HorizontalAd] AdSense error for ${adId}:`, error);
         setHasError(true);
@@ -187,8 +210,8 @@ export default function HorizontalAd() {
       */}
       <div
         className={`w-full flex items-center justify-center rounded-lg transition-all duration-300 ${isNearViewport
-            ? "min-h-[90px] md:min-h-[100px] bg-slate-50/30"
-            : "min-h-[50px]"
+          ? "min-h-[90px] md:min-h-[100px] bg-slate-50/30"
+          : "min-h-[50px]"
           }`}
       >
         {/*

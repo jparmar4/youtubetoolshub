@@ -87,14 +87,41 @@ export default function MultiplexAd() {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         adInitialized.current = true;
 
-        // Watch for unfilled ads and hide container if no ad served
+        // Watch for status changes to detect "unfilled" state
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (
+              mutation.type === "attributes" &&
+              mutation.attributeName === "data-adsbygoogle-status"
+            ) {
+              const currentStatus = insElement.getAttribute(
+                "data-adsbygoogle-status",
+              );
+              if (currentStatus === "unfilled") {
+                setHasError(true);
+                observer.disconnect();
+              }
+            }
+          });
+        });
+
+        observer.observe(insElement, {
+          attributes: true,
+          attributeFilter: ["data-adsbygoogle-status"],
+        });
+
+        // Backup timer
         setTimeout(() => {
           const status = insElement.getAttribute("data-adsbygoogle-status");
           const adContent = insElement.innerHTML.trim();
-          if (status === "unfilled" || (status === "done" && adContent === "")) {
+          if (
+            status === "unfilled" ||
+            (status === "done" && adContent === "")
+          ) {
             setHasError(true);
+            observer.disconnect();
           }
-        }, 2500);
+        }, 3000);
       } catch (error) {
         console.error("[MultiplexAd] AdSense error:", error);
         setHasError(true);
