@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 declare global {
   interface Window {
@@ -121,8 +122,8 @@ export default function HeaderAd() {
               minHeight: "50px" /* Mobile minimum */,
               maxHeight: "120px" /* Cap height to prevent layout shift */,
             }}
-            data-ad-client="ca-pub-1328083083403070"
-            data-ad-slot="5848325027"
+            data-ad-client={AD_CLIENT}
+            data-ad-slot={AD_SLOTS.HEADER}
             data-ad-format="horizontal"
             data-full-width-responsive="true"
           />

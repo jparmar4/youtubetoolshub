@@ -126,17 +126,19 @@ const nextConfig: NextConfig = {
             key: "Cross-Origin-Resource-Policy",
             value: "cross-origin",
           },
-          // Content-Security-Policy: Balanced for AdSense + Analytics + Clarity
+          // Content-Security-Policy: Comprehensive for AdSense + Analytics + Clarity
+          // AdSense requires many Google subdomains for scripts, iframes, and API calls.
+          // Missing domains cause ads to render as blank white space.
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://www.clarity.ms https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://adservice.google.co.* https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://pagead2.googlesyndication.com https://www.clarity.ms https://*.clarity.ms https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://*.googleapis.com",
-              "frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google",
+              "connect-src 'self' https://*.googlesyndication.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://adservice.google.co.* https://*.googleapis.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.clarity.ms https://*.clarity.ms https://*.google.com",
+              "frame-src 'self' https://*.googlesyndication.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.google.com https://*.google.com https://*.googleadservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.googletagmanager.com",
               "frame-ancestors 'self'",
               "object-src 'none'",
               "base-uri 'self'",

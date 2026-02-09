@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 declare global {
   interface Window {
@@ -178,8 +179,8 @@ export default function BottomStickyAd() {
               height: "auto",
               maxHeight: "90px",
             }}
-            data-ad-client="ca-pub-1328083083403070"
-            data-ad-slot="5848325027"
+            data-ad-client={AD_CLIENT}
+            data-ad-slot={AD_SLOTS.BOTTOM_STICKY}
             data-ad-format="horizontal"
             data-full-width-responsive="true"
           />
