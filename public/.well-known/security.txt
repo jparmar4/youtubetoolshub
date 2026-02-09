@@ -1,0 +1,36 @@
+# YouTube Tools Hub Security Policy
+# https://www.youtubetoolshub.com/.well-known/security.txt
+# Standard: RFC 9116 (https://www.rfc-editor.org/rfc/rfc9116)
+# Last Updated: 2026-02-09
+
+Contact: mailto:support@youtubetoolshub.com
+Preferred-Languages: en
+Canonical: https://www.youtubetoolshub.com/.well-known/security.txt
+Expires: 2027-02-09T00:00:00.000Z
+
+# Policy
+# We welcome responsible disclosure of security vulnerabilities.
+# Please email us at support@youtubetoolshub.com with details.
+# We aim to acknowledge reports within 48 hours and resolve
+# confirmed issues within 14 business days.
+
+# Scope
+# This policy applies to all services hosted on:
+# - https://www.youtubetoolshub.com
+# - https://www.youtubetoolshub.com/api/*
+# - https://www.youtubetoolshub.com/tools/*
+
+# Out of Scope
+# - Third-party services (YouTube Data API, Google AdSense, OpenAI API)
+# - Social media profiles (Facebook, Telegram)
+
+# Encryption
+# We support TLS 1.2+ on all endpoints.
+# HSTS is enforced with a max-age of 31536000 seconds.
+
+# Trust & Compliance
+# - Google AdSense approved publisher
+# - YouTube Data API v3 compliant
+# - SSL/TLS encrypted (HTTPS enforced)
+# - GDPR compliant (no personal data collection for free tools)
+# - No user credentials stored for core tool usage

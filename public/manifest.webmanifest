@@ -1,7 +1,7 @@
 {
   "name": "YouTube Tools Hub - Free AI Tools for Creators",
   "short_name": "YT Tools Hub",
-  "description": "15+ FREE AI-powered YouTube tools for creators. Download thumbnails, generate titles, optimize SEO, and calculate earnings.",
+  "description": "21+ FREE AI-powered YouTube tools for creators. Download thumbnails, generate titles, optimize SEO, and calculate earnings.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -34,7 +34,7 @@
     {
       "name": "Tools",
       "short_name": "Tools",
-      "description": "Access 15+ Free AI Tools",
+      "description": "Access 21+ Free AI Tools",
       "url": "/tools",
       "icons": [
         {

@@ -11,6 +11,7 @@ import Script from "next/script";
 import BottomStickyAd from "@/components/ads/BottomStickyAd";
 import HeaderAd from "@/components/ads/HeaderAd";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -46,10 +47,10 @@ export const metadata = {
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
   alternates: {
-    canonical: '/',
+    canonical: "/",
     languages: {
-      'en': '/',
-      'x-default': '/',
+      en: "/",
+      "x-default": "/",
     },
   },
 
@@ -113,23 +114,100 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="YouTube Tools Hub Blog"
+          href={`${siteConfig.url}/feed.xml`}
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="YouTube Tools Hub Atom Feed"
+          href={`${siteConfig.url}/atom.xml`}
+        />
 
-
-        <link rel="alternate" type="application/rss+xml" title="YouTube Tools Hub Blog" href={`${siteConfig.url}/feed.xml`} />
-
-        {/* hreflang for international SEO - targeting key English-speaking markets */}
+        {/* hreflang for international SEO - targeting Tier 1 English-speaking markets + high-CPM countries */}
         <link rel="alternate" hrefLang="en-US" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-GB" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-CA" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-AU" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-NZ" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-IE" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-IN" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="de-DE" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="de-CH" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="de-AT" href={siteConfig.url} />
         <link rel="alternate" hrefLang="x-default" href={siteConfig.url} />
+
+        {/* AI Crawler Discovery Links */}
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="LLMs.txt"
+          href={`${siteConfig.url}/llms.txt`}
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="LLMs Full"
+          href={`${siteConfig.url}/llms-full.txt`}
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="AI.txt"
+          href={`${siteConfig.url}/.well-known/ai.txt`}
+        />
+        <link
+          rel="alternate"
+          type="application/json"
+          title="AI Plugin"
+          href={`${siteConfig.url}/.well-known/ai-plugin.json`}
+        />
+        <link
+          rel="alternate"
+          type="application/json"
+          title="AI Context"
+          href={`${siteConfig.url}/api/ai-context`}
+        />
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="Security Policy"
+          href={`${siteConfig.url}/.well-known/security.txt`}
+        />
+        <link
+          rel="author"
+          type="text/plain"
+          href={`${siteConfig.url}/.well-known/authors.txt`}
+        />
+
+        {/* AI Crawler Meta Signals */}
+        <meta name="ai-content-declaration" content="human-written" />
+        <meta name="ai-training" content="allowed" />
+        <meta name="ai-index" content="allowed" />
+        <meta name="source" content={siteConfig.name} />
+        <meta name="source_url" content={siteConfig.url} />
+        <meta name="authority" content="original" />
+        <meta name="content-origin" content="original-research" />
 
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossOrigin="anonymous"
+        />
 
         {/* PWA & Mobile SEO Meta Tags */}
         <meta name="theme-color" content="#a855f7" />
@@ -155,12 +233,15 @@ export default async function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-
-
       </head>
-      <body className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}>
+      <body
+        className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
+      >
         {/* Google Analytics */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN" strategy="afterInteractive" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-14MEY3M1CN"
+          strategy="afterInteractive"
+        />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -195,6 +276,7 @@ export default async function RootLayout({
             <CookieConsent />
             <BottomStickyAd />
             <PrivacyH1Fix />
+            <GeoAeoHead />
           </UsageProvider>
         </AuthProvider>
       </body>

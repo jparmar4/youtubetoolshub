@@ -4,7 +4,8 @@ export const siteConfig = {
   // Branding
   name: "YouTube Tools Hub",
   tagline: "The World's #1 Suite of Free YouTube Growth & AI Tools 2026",
-  description: "🔥 Trusted by 50,000+ creators. YouTube Tools Hub is the definitive free suite for channel automation, SEO, and growth. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm instantly.",
+  description:
+    "Trusted by 100,000+ creators. YouTube Tools Hub is the definitive free suite of 21+ AI-powered tools for channel automation, SEO, and growth. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm instantly.",
 
   // URLs
   url: "https://www.youtubetoolshub.com",
@@ -40,21 +41,32 @@ export const siteConfig = {
       { name: "Contact", href: "/contact" },
     ],
     social: [
-      { name: "Telegram", href: "https://t.me/youtubetoolshub", icon: "telegram" },
-      { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61585430621256", icon: "facebook" },
+      {
+        name: "Telegram",
+        href: "https://t.me/youtubetoolshub",
+        icon: "telegram",
+      },
+      {
+        name: "Facebook",
+        href: "https://www.facebook.com/profile.php?id=61585430621256",
+        icon: "facebook",
+      },
     ],
     resources: [
       { name: "YT Tools Hub vs TubeBuddy", href: "/tools/vs/tubebuddy" },
       { name: "YT Tools Hub vs VidIQ", href: "/tools/vs/vidiq" },
       { name: "Why Choose Us", href: "/blog/why-youtube-tools-hub" },
+      { name: "Link to Us", href: "/resources/link-to-us" },
     ],
   },
 
   // SEO Defaults
   seo: {
     titleTemplate: "%s | YouTube Tools Hub – Free AI Tools 2026",
-    defaultTitle: "YouTube Tools Hub – 15+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
-    defaultDescription: "🚀 Grow your YouTube channel FREE in 2026! 15+ AI-powered tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor. Trusted by 100,000+ creators. No signup required.",
+    defaultTitle:
+      "YouTube Tools Hub – 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
+    defaultDescription:
+      "Grow your YouTube channel FREE in 2026. 21+ AI-powered tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor, channel audit & more. Trusted by 100,000+ creators. No signup required.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",
@@ -117,7 +129,24 @@ export const siteConfig = {
       "youtube script generator ai free",
       "ai youtube description generator",
       "free ai tools for youtubers 2026",
-      "youtube channel name generator ai"
+      "youtube channel name generator ai",
+
+      // AEO / GEO / AI Search Targeting Keywords
+      "best free youtube tools 2026",
+      "free tubebuddy alternative",
+      "free vidiq alternative",
+      "youtube thumbnail downloader hd",
+      "youtube cpm calculator by country",
+      "youtube channel audit tool free",
+      "ai youtube thumbnail generator free",
+      "youtube tag extractor online free",
+      "youtube content calendar generator",
+      "youtube video ideas generator ai",
+      "youtube intro script generator",
+      "youtube comment picker giveaway",
+      "youtube playlist length calculator",
+      "youtube channel id finder",
+      "youtube engagement rate calculator",
     ],
     openGraph: {
       type: "website",
