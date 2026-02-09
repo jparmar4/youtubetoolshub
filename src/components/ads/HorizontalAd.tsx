@@ -137,6 +137,16 @@ export default function HorizontalAd() {
         // ✅ All checks passed — push the ad
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         adInitialized.current = true;
+
+        // Watch for unfilled ads and hide container if no ad served
+        setTimeout(() => {
+          const status = insElement.getAttribute("data-adsbygoogle-status");
+          const adContent = insElement.innerHTML.trim();
+          // If status is "unfilled" or the ins element is empty after a delay, hide it
+          if (status === "unfilled" || (status === "done" && adContent === "")) {
+            setHasError(true); // This will collapse the container
+          }
+        }, 2000);
       } catch (error) {
         console.error(`[HorizontalAd] AdSense error for ${adId}:`, error);
         setHasError(true);
@@ -176,11 +186,10 @@ export default function HorizontalAd() {
         The transition makes the expansion smooth rather than jarring.
       */}
       <div
-        className={`w-full flex items-center justify-center rounded-lg transition-all duration-300 ${
-          isNearViewport
+        className={`w-full flex items-center justify-center rounded-lg transition-all duration-300 ${isNearViewport
             ? "min-h-[90px] md:min-h-[100px] bg-slate-50/30"
             : "min-h-[50px]"
-        }`}
+          }`}
       >
         {/*
           Only render the <ins> element when the container is near the viewport.

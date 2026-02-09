@@ -48,6 +48,15 @@ export default function HeaderAd() {
           ) {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
             adRef.current = true;
+
+            // Watch for unfilled ads and hide container if no ad served
+            setTimeout(() => {
+              const status = insElement.getAttribute("data-adsbygoogle-status");
+              const adContent = insElement.innerHTML.trim();
+              if (status === "unfilled" || (status === "done" && adContent === "")) {
+                setAdError(true);
+              }
+            }, 2000);
           }
         }
       } catch (err) {

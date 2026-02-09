@@ -117,6 +117,15 @@ export default function InArticleAd() {
         // Push the ad
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         adInitialized.current = true;
+
+        // Watch for unfilled ads and hide container if no ad served
+        setTimeout(() => {
+          const status = insElement.getAttribute("data-adsbygoogle-status");
+          const adContent = insElement.innerHTML.trim();
+          if (status === "unfilled" || (status === "done" && adContent === "")) {
+            setHasError(true);
+          }
+        }, 2000);
       } catch (error) {
         console.error(`[InArticleAd] AdSense error for ${adId}:`, error);
         setHasError(true);
@@ -146,9 +155,8 @@ export default function InArticleAd() {
 
       {/* Ad container with minimum height to prevent CLS (layout shift) */}
       <div
-        className={`w-full flex items-center justify-center bg-slate-50/50 rounded-lg overflow-hidden transition-all duration-300 ${
-          isVisible ? "min-h-[100px]" : "min-h-[50px]"
-        }`}
+        className={`w-full flex items-center justify-center bg-slate-50/50 rounded-lg overflow-hidden transition-all duration-300 ${isVisible ? "min-h-[100px]" : "min-h-[50px]"
+          }`}
       >
         {/*
           Only render the <ins> element when the container is near the viewport.
