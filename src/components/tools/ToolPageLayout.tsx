@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
-import MotionWrapper from "@/components/ui/MotionWrapper";
+// Dynamic import to avoid loading framer-motion on server
+import dynamic from "next/dynamic";
+const MotionWrapper = dynamic(() => import("@/components/ui/MotionWrapper"), { ssr: false });
 import ToolHistory from "./ToolHistory";
 
 interface ToolPageLayoutProps {

@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Script from "next/script";
 import { siteConfig } from "@/config/site";
 
 // ============================================================
@@ -34,13 +33,13 @@ interface GeoAeoHeadProps {
   description?: string;
   /** Specific entity type for knowledge graph disambiguation */
   entityType?:
-    | "Organization"
-    | "WebApplication"
-    | "SoftwareApplication"
-    | "Article"
-    | "FAQPage"
-    | "HowTo"
-    | "WebPage";
+  | "Organization"
+  | "WebApplication"
+  | "SoftwareApplication"
+  | "Article"
+  | "FAQPage"
+  | "HowTo"
+  | "WebPage";
   /** Primary topic/keyword for the page */
   primaryTopic?: string;
   /** Comma-separated list of key facts AI should surface */
@@ -526,25 +525,25 @@ export default function GeoAeoHead({
     }),
     ...(keyFacts &&
       keyFacts.length > 0 && {
-        mainEntity: keyFacts.map((fact) => ({
-          "@type": "Statement",
-          text: fact,
-        })),
-      }),
+      mainEntity: keyFacts.map((fact) => ({
+        "@type": "Statement",
+        text: fact,
+      })),
+    }),
     ...(isTool &&
       toolName && {
-        mainEntityOfPage: {
-          "@type": "SoftwareApplication",
-          name: toolName,
-          applicationCategory: toolCategory || "UtilityApplication",
-          operatingSystem: "Any",
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-          },
+      mainEntityOfPage: {
+        "@type": "SoftwareApplication",
+        name: toolName,
+        applicationCategory: toolCategory || "UtilityApplication",
+        operatingSystem: "Any",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
         },
-      }),
+      },
+    }),
     potentialAction: {
       "@type": "ReadAction",
       target: pageUrl,
@@ -691,20 +690,16 @@ export default function GeoAeoHead({
       {/* STRUCTURED DATA: JSON-LD                  */}
       {/* ========================================== */}
       {/* Page Context Schema (every page) */}
-      <Script
-        id="geo-aeo-page-context"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(pageContextSchema),
         }}
       />
       {/* Knowledge Graph Schema (homepage & about only) */}
       {isHomepage && (
-        <Script
-          id="geo-aeo-knowledge-graph"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getKnowledgeGraphSchema()),
           }}
@@ -712,10 +707,8 @@ export default function GeoAeoHead({
       )}
       {/* WebApplication Schema (homepage only) */}
       {isHomepage && (
-        <Script
-          id="geo-aeo-webapp"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getWebApplicationSchema()),
           }}
@@ -723,10 +716,8 @@ export default function GeoAeoHead({
       )}
       {/* ProfilePage Schema (homepage only — for Knowledge Panel) */}
       {isHomepage && (
-        <Script
-          id="geo-aeo-profile-page"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getProfilePageSchema()),
           }}
@@ -734,10 +725,8 @@ export default function GeoAeoHead({
       )}
       {/* Service Schema (homepage only — for Tier 1 geo targeting) */}
       {isHomepage && (
-        <Script
-          id="geo-aeo-service"
+        <script
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getServiceSchema()),
           }}

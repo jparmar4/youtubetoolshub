@@ -337,3 +337,41 @@ export function getAggregateRatingSchema(rating: {
         worstRating: rating.worstRating || "1",
     };
 }
+
+// CollectionPage Schema for blog index and category pages
+export function getCollectionPageSchema(collection: {
+    name: string;
+    description: string;
+    url: string;
+    items: { name: string; url: string; datePublished?: string; image?: string }[];
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: collection.name,
+        description: collection.description,
+        url: collection.url,
+        isPartOf: {
+            "@type": "WebSite",
+            name: siteConfig.name,
+            url: siteConfig.url,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url,
+        },
+        mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: collection.items.length,
+            itemListElement: collection.items.map((item, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: item.url,
+                name: item.name,
+                ...(item.image && { image: item.image }),
+                ...(item.datePublished && { datePublished: item.datePublished }),
+            })),
+        },
+    };
+}

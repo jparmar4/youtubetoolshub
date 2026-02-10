@@ -80,6 +80,15 @@ export async function generateMetadata({
                 'x-default': `/blog/${slug}`,
             },
         },
+        other: {
+            'article:author': post.author,
+            'article:published_time': isoDate,
+            'article:modified_time': isoDate,
+            'article:section': post.category,
+            ...Object.fromEntries(
+                post.keywords.slice(0, 10).map((kw, i) => [`article:tag:${i}`, kw])
+            ),
+        },
     };
 }
 
@@ -243,7 +252,7 @@ export default async function BlogPostPage({
                                 <div className="flex items-center gap-6">
                                     <span className="flex items-center gap-2">
                                         <FaCalendar className="w-4 h-4 text-purple-400" />
-                                        {post.date}
+                                        <time dateTime={isoDate}>{post.date}</time>
                                     </span>
                                     <span className="flex items-center gap-2">
                                         <FaClock className="w-4 h-4 text-purple-400" />
@@ -274,7 +283,7 @@ export default async function BlogPostPage({
                                 </div>
                             )}
 
-                            <article>
+                            <article itemScope itemType="https://schema.org/Article">
                                 {/* Article Content */}
                                 <div
                                     className="prose prose-lg prose-slate max-w-none 

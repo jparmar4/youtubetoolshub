@@ -254,8 +254,8 @@ export default async function RootLayout({
           strategy="afterInteractive"
           crossOrigin="anonymous"
         />
-        {/* Microsoft Clarity */}
-        <Script id="clarity-script" strategy="afterInteractive">
+        {/* Microsoft Clarity — lazyOnload: analytics-only, not revenue-critical */}
+        <Script id="clarity-script" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

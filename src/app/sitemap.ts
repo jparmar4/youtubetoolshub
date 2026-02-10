@@ -34,6 +34,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const allEntries: MetadataRoute.Sitemap = [];
 
+  // Fixed date for truly static pages (updated when site is redeployed)
+  const staticLastModified = new Date('2026-02-10');
+
   // Static pages with priority tiers
   const highPriorityRoutes = [
     "/tools",
@@ -45,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const route of routes) {
     allEntries.push({
       url: `${baseUrl}${route}`,
-      lastModified: new Date(),
+      lastModified: route === "" ? new Date() : staticLastModified,
       changeFrequency: route === "" ? "daily" : "weekly",
       priority:
         route === "" ? 1 : highPriorityRoutes.includes(route) ? 0.8 : 0.7,
@@ -78,13 +81,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Dynamic blog pages
+  // Dynamic blog pages with image sitemaps
   for (const post of blogPosts) {
     allEntries.push({
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 0.8,
+      images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
     });
   }
 

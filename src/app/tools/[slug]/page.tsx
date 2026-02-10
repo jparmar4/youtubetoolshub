@@ -113,6 +113,17 @@ export async function generateMetadata({
                 'x-default': `/tools/${tool.slug}`,
             },
         },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+                'max-video-preview': -1,
+            },
+        },
     };
 }
 
