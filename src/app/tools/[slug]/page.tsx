@@ -5,6 +5,8 @@ import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import { niches, programmaticTools } from "@/config/programmatic";
+import { countryCPMData } from "@/lib/cpm-data";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import InArticleAd from "@/components/ads/InArticleAd";
@@ -225,6 +227,57 @@ export default async function ToolPage({
                             <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" /></div>}>
                                 <ToolComponent />
                             </Suspense>
+
+                            {/* Internal Linking for Programmatic Tools */}
+                            {programmaticTools.includes(tool.slug) && (
+                                <div className="glass-premium rounded-2xl p-8 border border-purple-100 dark:border-purple-900/30">
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                        <span className="text-purple-500">✨</span>
+                                        Specialized Versions
+                                    </h3>
+                                    <p className="text-slate-600 dark:text-gray-400 mb-6">
+                                        Using a specific niche? Try our optimized versions of this tool:
+                                    </p>
+                                    <div className="flex flex-wrap gap-3">
+                                        {niches.map((niche) => (
+                                            <Link
+                                                key={niche.id}
+                                                href={`/tools/${tool.slug}/${niche.id}`}
+                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                            >
+                                                {niche.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Internal Linking for Earnings Calculator (Countries) */}
+                            {tool.slug === "youtube-earnings-calculator" && (
+                                <div className="glass-premium rounded-2xl p-8 border border-green-100 dark:border-green-900/30">
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                        <span className="text-green-500">🌍</span>
+                                        Browse by Country
+                                    </h3>
+                                    <div className="flex flex-wrap gap-3">
+                                        {countryCPMData.slice(0, 12).map((country) => (
+                                            <Link
+                                                key={country.slug}
+                                                href={`/tools/youtube-earnings-calculator/${country.slug}`}
+                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:border-green-500 hover:text-green-600 transition-colors"
+                                            >
+                                                {country.flag} {country.name}
+                                            </Link>
+                                        ))}
+                                        <Link
+                                            href="/tools/youtube-earnings-calculator"
+                                            className="px-4 py-2 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors"
+                                        >
+                                            View All Countries
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Horizontal Ad after tool usage */}
                             <HorizontalAd />
