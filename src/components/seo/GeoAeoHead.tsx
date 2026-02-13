@@ -26,43 +26,7 @@ import { siteConfig } from "@/config/site";
 //   - AI2 (Allen Institute for AI)
 // ============================================================
 
-interface GeoAeoHeadProps {
-  /** Page title for AI context */
-  title?: string;
-  /** Page description for AI summarization */
-  description?: string;
-  /** Specific entity type for knowledge graph disambiguation */
-  entityType?:
-  | "Organization"
-  | "WebApplication"
-  | "SoftwareApplication"
-  | "Article"
-  | "FAQPage"
-  | "HowTo"
-  | "WebPage";
-  /** Primary topic/keyword for the page */
-  primaryTopic?: string;
-  /** Comma-separated list of key facts AI should surface */
-  keyFacts?: string[];
-  /** Short concise answer for AEO (featured snippet / voice answer) */
-  conciseAnswer?: string;
-  /** Geo-target countries (ISO 3166-1 alpha-2) */
-  geoTargets?: string[];
-  /** Content freshness date (ISO 8601) */
-  dateModified?: string;
-  /** Author name for E-E-A-T */
-  author?: string;
-  /** Author credentials / role */
-  authorRole?: string;
-  /** Whether this page is a tool page */
-  isTool?: boolean;
-  /** Tool name if applicable */
-  toolName?: string;
-  /** Tool category if applicable */
-  toolCategory?: string;
-  /** Disable component output (e.g. for /dashboard) */
-  disabled?: boolean;
-}
+import { GeoAeoHeadProps } from "@/config/geo-aeo";
 
 // Tier 1 countries for high-CPM traffic targeting
 const TIER1_COUNTRIES = [
@@ -81,6 +45,31 @@ const TIER1_COUNTRIES = [
   { code: "AT", name: "Austria", lang: "de-AT" },
   { code: "FI", name: "Finland", lang: "fi-FI" },
   { code: "BE", name: "Belgium", lang: "nl-BE" },
+  { code: "SG", name: "Singapore", lang: "en-SG" },
+  { code: "JP", name: "Japan", lang: "ja-JP" },
+  { code: "KR", name: "South Korea", lang: "ko-KR" },
+  { code: "AE", name: "United Arab Emirates", lang: "ar-AE" },
+  { code: "SA", name: "Saudi Arabia", lang: "ar-SA" },
+  { code: "QA", name: "Qatar", lang: "ar-QA" },
+  { code: "IL", name: "Israel", lang: "he-IL" },
+  { code: "FR", name: "France", lang: "fr-FR" },
+  { code: "IT", name: "Italy", lang: "it-IT" },
+  { code: "ES", name: "Spain", lang: "es-ES" },
+  { code: "PT", name: "Portugal", lang: "pt-PT" },
+  { code: "PL", name: "Poland", lang: "pl-PL" },
+  { code: "CZ", name: "Czech Republic", lang: "cs-CZ" },
+  { code: "HU", name: "Hungary", lang: "hu-HU" },
+  { code: "RO", name: "Romania", lang: "ro-RO" },
+  { code: "RU", name: "Russia", lang: "ru-RU" },
+  { code: "TR", name: "Turkey", lang: "tr-TR" },
+  { code: "IN", name: "India", lang: "en-IN" },
+  { code: "BR", name: "Brazil", lang: "pt-BR" },
+  { code: "MX", name: "Mexico", lang: "es-MX" },
+  { code: "AR", name: "Argentina", lang: "es-AR" },
+  { code: "CL", name: "Chile", lang: "es-CL" },
+  { code: "CO", name: "Colombia", lang: "es-CO" },
+  { code: "ZA", name: "South Africa", lang: "en-ZA" },
+  { code: "NG", name: "Nigeria", lang: "en-NG" },
 ];
 
 // Core competitive positioning keywords for AI answer engines
@@ -525,25 +514,25 @@ export default function GeoAeoHead({
     }),
     ...(keyFacts &&
       keyFacts.length > 0 && {
-      mainEntity: keyFacts.map((fact) => ({
-        "@type": "Statement",
-        text: fact,
-      })),
-    }),
+        mainEntity: keyFacts.map((fact) => ({
+          "@type": "Statement",
+          text: fact,
+        })),
+      }),
     ...(isTool &&
       toolName && {
-      mainEntityOfPage: {
-        "@type": "SoftwareApplication",
-        name: toolName,
-        applicationCategory: toolCategory || "UtilityApplication",
-        operatingSystem: "Any",
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "USD",
+        mainEntityOfPage: {
+          "@type": "SoftwareApplication",
+          name: toolName,
+          applicationCategory: toolCategory || "UtilityApplication",
+          operatingSystem: "Any",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
         },
-      },
-    }),
+      }),
     potentialAction: {
       "@type": "ReadAction",
       target: pageUrl,
@@ -559,15 +548,6 @@ export default function GeoAeoHead({
       {Object.entries(citationMeta).map(([name, content]) => (
         <meta key={name} name={name} content={content} />
       ))}
-      {/* AI Content Declaration */}
-      <meta name="ai-content-declaration" content="human-written" />
-      <meta name="ai-training" content="allowed" />
-      <meta name="ai-index" content="allowed" />
-      {/* Source Authority / Provenance */}
-      <meta name="source" content={BRAND_SIGNALS.name} />
-      <meta name="source_url" content={siteConfig.url} />
-      <meta name="authority" content="original" />
-      <meta name="content-origin" content="original-research" />
       {/* Answer Engine Optimization: concise answer for voice/AI */}
       {conciseAnswer && <meta name="abstract" content={conciseAnswer} />}
       {conciseAnswer && (
@@ -827,118 +807,3 @@ export default function GeoAeoHead({
     </>
   );
 }
-
-/**
- * Pre-built configurations for common page types.
- * Use these as prop spreads: <GeoAeoHead {...GEO_AEO_PRESETS.homepage} />
- */
-export const GEO_AEO_PRESETS = {
-  homepage: {
-    title: "YouTube Tools Hub – 21+ Free AI Tools for YouTube Creators",
-    description:
-      "The world's most comprehensive free suite of AI-powered YouTube tools. Download thumbnails, generate viral titles, calculate earnings, and optimize your channel for 2026.",
-    entityType: "WebApplication" as const,
-    primaryTopic: "YouTube Creator Tools",
-    conciseAnswer:
-      "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
-    keyFacts: [
-      "21+ free AI-powered YouTube tools",
-      "No signup or browser extension required",
-      "Trusted by 100,000+ YouTube creators",
-      "Country-specific CPM data for 50+ regions",
-      "Free alternative to TubeBuddy and VidIQ",
-      "Google AdSense approved and regularly updated",
-    ],
-  },
-  toolPage: (
-    toolName: string,
-    toolDescription: string,
-    toolCategory: string,
-  ) => ({
-    title: `${toolName} – Free Online Tool | YouTube Tools Hub`,
-    description: toolDescription,
-    entityType: "SoftwareApplication" as const,
-    primaryTopic: toolName,
-    isTool: true,
-    toolName,
-    toolCategory,
-    conciseAnswer: `${toolName} is a free online tool by YouTube Tools Hub. ${toolDescription}`,
-    keyFacts: [
-      `${toolName} is 100% free to use`,
-      "No signup or browser extension required",
-      "Part of YouTube Tools Hub's 21+ free AI tool suite",
-      `Category: ${toolCategory}`,
-    ],
-  }),
-  blogPost: (
-    title: string,
-    description: string,
-    author: string,
-    authorRole: string,
-    dateModified: string,
-  ) => ({
-    title,
-    description,
-    entityType: "Article" as const,
-    primaryTopic: title,
-    author,
-    authorRole,
-    dateModified,
-    conciseAnswer: description,
-  }),
-  faqPage: {
-    title: "Frequently Asked Questions – YouTube Tools Hub",
-    description:
-      "Get expert answers to common questions about our free YouTube tools, AI features, monetization calculators, and growth strategies.",
-    entityType: "FAQPage" as const,
-    primaryTopic: "YouTube Tools FAQ",
-    conciseAnswer:
-      "YouTube Tools Hub FAQ covers questions about our 21+ free AI-powered YouTube tools, including thumbnail downloader, title generator, tag generator, and earnings calculator.",
-    keyFacts: [
-      "21+ free tools covered in FAQ",
-      "Answers about YouTube SEO, monetization, and growth",
-      "Updated regularly for 2026 algorithm changes",
-    ],
-  },
-  aboutPage: {
-    title: "About YouTube Tools Hub – Free AI YouTube Tools",
-    description:
-      "Learn about YouTube Tools Hub, the world's most comprehensive free suite of 21+ AI-powered tools for YouTube content creators.",
-    entityType: "Organization" as const,
-    primaryTopic: "YouTube Tools Hub",
-    conciseAnswer:
-      "YouTube Tools Hub is a free platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. Trusted by 100,000+ creators worldwide.",
-    keyFacts: [
-      "Founded to democratize YouTube growth tools",
-      "21+ free AI-powered professional-grade tools",
-      "Trusted by 100,000+ YouTube creators globally",
-      "Google AdSense approved",
-      "Free alternative to TubeBuddy and VidIQ",
-      "Updated every 48 hours for the 2026 YouTube algorithm",
-    ],
-  },
-  contactPage: {
-    title: "Contact YouTube Tools Hub – Support & Partnerships",
-    description:
-      "Contact YouTube Tools Hub for support, guest post inquiries, partnerships, or feedback. We typically respond within 24 hours.",
-    entityType: "WebPage" as const,
-    primaryTopic: "Contact YouTube Tools Hub",
-    conciseAnswer:
-      "Contact YouTube Tools Hub at support@youtubetoolshub.com for support, partnerships, or guest post inquiries.",
-  },
-  pricingPage: {
-    title: "Pricing – YouTube Tools Hub | Free & Pro Plans",
-    description:
-      "YouTube Tools Hub pricing: 21+ core tools are 100% free. Pro tier offers higher daily limits and priority access for power users.",
-    entityType: "WebPage" as const,
-    primaryTopic: "YouTube Tools Hub Pricing",
-    conciseAnswer:
-      "YouTube Tools Hub's core suite of 21+ tools is 100% free with no hidden costs. A Pro tier with higher limits is available for power users.",
-    keyFacts: [
-      "Core tools: 100% free forever",
-      "No signup required for free tier",
-      "Pro tier for higher daily usage limits",
-      "No credit card needed to start",
-    ],
-  },
-};

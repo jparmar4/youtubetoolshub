@@ -4,6 +4,8 @@ import { getToolBySlug, tools } from "@/config/tools";
 import { niches, getNicheContent, programmaticTools } from "@/config/programmatic";
 import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema } from "@/lib/seo";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 // Import all tool components (reusing the main page imports)
 // Note: In a real app we might want to move the component mapping to a shared file
@@ -117,6 +119,16 @@ export async function generateMetadata({
                 'x-default': `/tools/${tool.slug}/${niche.id}`,
             },
         },
+        other: {
+            "primaryTopic": `${tool.name} for ${niche.name}`,
+            "abstract": nicheContent.description,
+            "key-facts": [
+                `Optimized specifically for ${niche.name} channels`,
+                `Targeting ${niche.keywords.slice(0, 3).join(", ")} keywords`,
+                "100% free with no signup required",
+                "Powered by YouTube Tools Hub AI"
+            ].join(", "),
+        }
     };
 }
 
@@ -161,6 +173,14 @@ export default async function ProgrammaticToolPage({
 
     return (
         <>
+            {/* AI Search & GEO/AEO Optimization Signals */}
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.nichePage(
+                    tool.name,
+                    niche.name,
+                    nicheContent.description
+                )}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{

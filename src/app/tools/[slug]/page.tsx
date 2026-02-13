@@ -12,6 +12,8 @@ import HorizontalAd from "@/components/ads/HorizontalAd";
 import InArticleAd from "@/components/ads/InArticleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 
 // Import all tool components
@@ -115,6 +117,16 @@ export async function generateMetadata({
                 'x-default': `/tools/${tool.slug}`,
             },
         },
+        other: {
+            "primaryTopic": tool.name,
+            "abstract": tool.seoDescription || tool.description,
+            "key-facts": [
+                `${tool.name} is 100% free with no signup`,
+                "Powered by YouTube Tools Hub AI suite",
+                `Category: ${tool.category}`,
+                "Optimized for 2026 YouTube algorithm"
+            ].join(", "),
+        },
         robots: {
             index: true,
             follow: true,
@@ -164,6 +176,15 @@ export default async function ToolPage({
 
     return (
         <>
+            {/* AI Search & GEO/AEO Optimization Signals */}
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.toolPage(
+                    tool.name,
+                    tool.seoDescription || tool.description,
+                    tool.category
+                )}
+            />
+
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"

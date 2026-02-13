@@ -10,6 +10,8 @@ import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import HeaderAd from "@/components/ads/HeaderAd";
+import BottomStickyAd from "@/components/ads/BottomStickyAd";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -96,6 +98,23 @@ export const metadata = {
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
+  // AI Crawler Meta Signals - Server Side for better discoverability
+  other: {
+    "ai-content-declaration": "human-written",
+    "ai-training": "allowed",
+    "ai-index": "allowed",
+    source: siteConfig.name,
+    source_url: siteConfig.url,
+    authority: "original",
+    "content-origin": "original-research",
+    // Bot-specific signals
+    "xai-grok": "index, follow",
+    deepseekbot: "index, follow",
+    mistralbot: "index, follow",
+    bravebot: "index, follow",
+    amazonbot: "index, follow",
+    "google-extended": "index, follow, max-snippet:-1, max-image-preview:large",
+  },
 };
 
 export default async function RootLayout({
@@ -125,17 +144,47 @@ export default async function RootLayout({
           href={`${siteConfig.url}/atom.xml`}
         />
 
-        {/* hreflang for international SEO - targeting Tier 1 English-speaking markets + high-CPM countries */}
+        {/* hreflang for international SEO - targeting 50+ high-CPM countries worldwide */}
         <link rel="alternate" hrefLang="en-US" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-GB" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-CA" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-AU" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="de-DE" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="nl-NL" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="de-CH" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="nb-NO" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="sv-SE" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="da-DK" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-NZ" href={siteConfig.url} />
         <link rel="alternate" hrefLang="en-IE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-IN" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="de-DE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="de-CH" href={siteConfig.url} />
         <link rel="alternate" hrefLang="de-AT" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="fi-FI" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="nl-BE" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-SG" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ja-JP" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ko-KR" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ar-AE" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ar-SA" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ar-QA" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="he-IL" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="fr-FR" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="it-IT" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="es-ES" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="pt-PT" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="pl-PL" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="cs-CZ" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="hu-HU" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ro-RO" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="ru-RU" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="tr-TR" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-IN" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="pt-BR" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="es-MX" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="es-AR" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="es-CL" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="es-CO" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-ZA" href={siteConfig.url} />
+        <link rel="alternate" hrefLang="en-NG" href={siteConfig.url} />
         <link rel="alternate" hrefLang="x-default" href={siteConfig.url} />
 
         {/* AI Crawler Discovery Links */}
@@ -181,14 +230,7 @@ export default async function RootLayout({
           href={`${siteConfig.url}/.well-known/authors.txt`}
         />
 
-        {/* AI Crawler Meta Signals */}
-        <meta name="ai-content-declaration" content="human-written" />
-        <meta name="ai-training" content="allowed" />
-        <meta name="ai-index" content="allowed" />
-        <meta name="source" content={siteConfig.name} />
-        <meta name="source_url" content={siteConfig.url} />
-        <meta name="authority" content="original" />
-        <meta name="content-origin" content="original-research" />
+        {/* DNS Prefetch for external resources */}
 
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -267,7 +309,9 @@ export default async function RootLayout({
         <AuthProvider>
           <UsageProvider>
             <Header />
+            <HeaderAd />
             <main className="flex-1">{children}</main>
+            <BottomStickyAd />
             <Footer />
             <ScrollToTop />
             <CookieConsent />

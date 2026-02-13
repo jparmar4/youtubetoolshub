@@ -78,7 +78,10 @@
     "authors_txt": "https://www.youtubetoolshub.com/.well-known/authors.txt",
     "sitemap": "https://www.youtubetoolshub.com/sitemap.xml",
     "rss_feed": "https://www.youtubetoolshub.com/feed.xml",
-    "atom_feed": "https://www.youtubetoolshub.com/atom.xml"
+    "atom_feed": "https://www.youtubetoolshub.com/atom.xml",
+    "api_docs": "https://www.youtubetoolshub.com/api-docs",
+    "tools_api": "https://www.youtubetoolshub.com/api/tools",
+    "faqs_api": "https://www.youtubetoolshub.com/api/faqs"
   },
   "trust_signals": {
     "google_adsense_approved": true,

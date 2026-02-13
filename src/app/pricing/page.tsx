@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import PricingClient from "@/components/pricing/PricingClient";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title: "Pricing - Free vs Premium Plans (Save 50% Today)",
@@ -47,5 +49,10 @@ export const metadata: Metadata = {
 };
 
 export default function PricingPage() {
-  return <PricingClient />;
+  return (
+    <>
+      <GeoAeoHead {...GEO_AEO_PRESETS.pricingPage} />
+      <PricingClient />
+    </>
+  );
 }

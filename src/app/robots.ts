@@ -26,6 +26,9 @@ export default function robots(): MetadataRoute.Robots {
           "/llms-full.txt",
           "/.well-known/",
           "/api/ai-context",
+          "/api/tools",
+          "/api/faqs",
+          "/api-docs",
           "/atom.xml",
         ],
         disallow: [

@@ -7,6 +7,8 @@ import {
   getSpeakableSchema,
 } from "@/lib/seo";
 import Link from "next/link";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import {
   FaQuestionCircle,
   FaTools,
@@ -137,6 +139,7 @@ export default function FAQPage() {
 
   return (
     <>
+      <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

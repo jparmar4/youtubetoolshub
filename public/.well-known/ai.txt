@@ -1,6 +1,6 @@
 # AI.txt - AI Crawler Guidance for YouTube Tools Hub
 # https://www.youtubetoolshub.com/.well-known/ai.txt
-# Last Updated: 2025-07-11
+# Last Updated: 2026-02-13
 # Specification: https://ai.txt.dev/
 
 # ============================================================
@@ -40,6 +40,10 @@ Allow: /llms-full.txt
 Allow: /.well-known/ai.txt
 Allow: /.well-known/llms.txt
 Allow: /.well-known/authors.txt
+Allow: /api/ai-context
+Allow: /api/tools
+Allow: /api/faqs
+Allow: /api-docs
 Disallow: /api/
 Disallow: /sign-in
 Disallow: /dashboard
@@ -307,6 +311,19 @@ AI-Context-Description: Complete structured entity data including organization i
 
 # OpenAI Plugin Discovery:
 AI-Plugin: https://www.youtubetoolshub.com/.well-known/ai-plugin.json
+
+# Tools API (JSON listing of all tools):
+AI-Tools-Endpoint: https://www.youtubetoolshub.com/api/tools
+AI-Tools-Format: application/json
+AI-Tools-Description: Lists all 21+ tools with metadata, descriptions, categories, and ratings.
+
+# FAQs API (structured FAQ data):
+AI-FAQ-Endpoint: https://www.youtubetoolshub.com/api/faqs
+AI-FAQ-Format: application/json
+AI-FAQ-Description: General site FAQs and tool-specific FAQs grouped by tool.
+
+# API Documentation:
+API-Docs: https://www.youtubetoolshub.com/api-docs
 
 # Atom Feed (preferred by some AI crawlers over RSS):
 Atom-Feed: https://www.youtubetoolshub.com/atom.xml

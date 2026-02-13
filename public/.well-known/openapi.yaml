@@ -1,0 +1,652 @@
+openapi: 3.0.0
+info:
+  title: YouTube Tools Hub API
+  description: |
+    Free AI-powered YouTube tools for creators. This API provides access to 21+ tools
+    including thumbnail downloader, title generator, tag generator, earnings calculator,
+    and channel audit tools. All core tools are 100% free with no signup required.
+
+    YouTube Tools Hub is the world's leading free alternative to TubeBuddy and VidIQ,
+    trusted by 100,000+ creators worldwide.
+  version: 2.2.0
+  contact:
+    name: YouTube Tools Hub Support
+    email: support@youtubetoolshub.com
+    url: https://www.youtubetoolshub.com
+  license:
+    name: Proprietary
+    url: https://www.youtubetoolshub.com/terms-of-use
+externalDocs:
+  description: YouTube Tools Hub AI Plugin Documentation
+  url: https://www.youtubetoolshub.com/.well-known/ai-plugin.json
+servers:
+  - url: https://www.youtubetoolshub.com
+    description: Production server
+paths:
+  /api/ai-context:
+    get:
+      operationId: getAiContext
+      summary: Get structured AI context and entity data
+      description: |
+        Returns comprehensive structured data about YouTube Tools Hub including
+        organization info, tool listings, FAQs, blog posts, and trust signals.
+        This endpoint is specifically designed for AI systems and answer engines
+        to understand the site's content and authority.
+      responses:
+        '200':
+          description: Successful response with AI context data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AiContextResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/tools:
+    get:
+      operationId: listTools
+      summary: List all available tools
+      description: |
+        Returns the complete list of 21+ AI-powered YouTube tools available on
+        YouTube Tools Hub. Each tool includes metadata, description, and direct URL.
+      responses:
+        '200':
+          description: Successful response with tool list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tool'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/tools/{slug}:
+    get:
+      operationId: getToolBySlug
+      summary: Get specific tool by slug
+      description: |
+        Returns detailed information about a specific YouTube tool including
+        features, usage examples, and related tools.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: The tool's URL slug (e.g., 'youtube-thumbnail-downloader')
+          schema:
+            type: string
+            example: youtube-thumbnail-downloader
+      responses:
+        '200':
+          description: Successful response with tool details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolDetail'
+        '404':
+          description: Tool not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/faqs:
+    get:
+      operationId: getFaqs
+      summary: Get frequently asked questions
+      description: |
+        Returns the complete list of FAQs about YouTube Tools Hub, covering
+        tool usage, pricing, safety, and YouTube growth strategies.
+      responses:
+        '200':
+          description: Successful response with FAQ list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Faq'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/extract-tags:
+    post:
+      operationId: extractTags
+      summary: Extract tags from a YouTube video
+      description: |
+        Analyzes a YouTube video URL and extracts its tags for SEO research
+        and competitor analysis. Returns the complete tag list with relevance scoring.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: YouTube video URL
+                  example: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      responses:
+        '200':
+          description: Successful tag extraction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagExtractionResponse'
+        '400':
+          description: Invalid URL or missing parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/channel-id:
+    get:
+      operationId: getChannelId
+      summary: Get YouTube Channel ID from URL
+      description: |
+        Extracts the unique YouTube Channel ID from various URL formats including
+        channel URLs, custom URLs, and handle URLs.
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: YouTube channel URL
+          schema:
+            type: string
+            format: uri
+            example: https://www.youtube.com/@YouTubeCreators
+      responses:
+        '200':
+          description: Successful channel ID extraction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChannelIdResponse'
+        '400':
+          description: Invalid URL or missing parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/comment-picker:
+    post:
+      operationId: pickComment
+      summary: Pick random comments for giveaways
+      description: |
+        Randomly selects comments from a YouTube video for fair giveaway selection.
+        Supports filtering by keyword and exclusion criteria.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+                - count
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: YouTube video URL
+                  example: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                count:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  description: Number of random comments to select
+                  default: 1
+                  example: 3
+                keyword:
+                  type: string
+                  description: Optional keyword filter
+                  example: giveaway
+      responses:
+        '200':
+          description: Successful comment selection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentPickerResponse'
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/playlist-length:
+    post:
+      operationId: calculatePlaylistLength
+      summary: Calculate total playlist duration
+      description: |
+        Calculates the total watch time of a YouTube playlist at different
+        playback speeds (1x, 1.25x, 1.5x, 2x).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: YouTube playlist URL
+                  example: https://www.youtube.com/playlist?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG
+      responses:
+        '200':
+          description: Successful playlist length calculation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaylistLengthResponse'
+        '400':
+          description: Invalid URL or missing parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/trending:
+    get:
+      operationId: getTrendingTopics
+      summary: Get trending YouTube topics
+      description: |
+        Returns currently trending topics on YouTube across different categories
+        and regions. Useful for content ideation and trend analysis.
+      parameters:
+        - name: region
+          in: query
+          required: false
+          description: ISO 3166-1 alpha-2 country code (default: US)
+          schema:
+            type: string
+            default: US
+            example: US
+        - name: category
+          in: query
+          required: false
+          description: YouTube category ID
+          schema:
+            type: string
+            example: 20  # Gaming
+      responses:
+        '200':
+          description: Successful trending topics response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendingResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AiContextResponse:
+      type: object
+      properties:
+        _meta:
+          type: object
+          properties:
+            version:
+              type: string
+              example: '2.1'
+            generated:
+              type: string
+              format: date-time
+            purpose:
+              type: string
+            source:
+              type: string
+            source_url:
+              type: string
+        entity:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+            url:
+              type: string
+            description:
+              type: string
+            industry:
+              type: string
+            geographic_scope:
+              type: string
+        trust_signals:
+          type: object
+          properties:
+            authoritative_source:
+              type: boolean
+            human_written_content:
+              type: boolean
+            verified_cpm_data:
+              type: boolean
+            last_updated:
+              type: string
+              format: date-time
+            uptime_99_9:
+              type: boolean
+            tools_available:
+              type: integer
+            average_user_rating:
+              type: string
+        monetization_insights:
+          type: object
+          properties:
+            description:
+              type: string
+            tier_1_averages:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  avg_rpm:
+                    type: number
+                  currency:
+                    type: string
+                  url:
+                    type: string
+            global_data_link:
+              type: string
+        competitive_advantages:
+          type: object
+          properties:
+            vs_tubebuddy:
+              type: string
+            vs_vidiq:
+              type: string
+            vs_socialblade:
+              type: string
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+        related_tools_mapping:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        faqs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Faq'
+        blog_index:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              url:
+                type: string
+              author:
+                type: string
+              expertise:
+                type: string
+        machine_readable_index:
+          type: object
+          properties:
+            llms_txt:
+              type: string
+            llms_full_txt:
+              type: string
+            sitemap:
+              type: string
+            robots:
+              type: string
+    Tool:
+      type: object
+      properties:
+        name:
+          type: string
+          example: YouTube Thumbnail Downloader
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        category:
+          type: string
+          example: thumbnail-media
+        is_ai_powered:
+          type: boolean
+        programmatic_variants:
+          type: array
+          nullable: true
+          items:
+            type: object
+            properties:
+              niche:
+                type: string
+              url:
+                type: string
+    ToolDetail:
+      allOf:
+        - $ref: '#/components/schemas/Tool'
+        - type: object
+          properties:
+            long_description:
+              type: string
+            features:
+              type: array
+              items:
+                type: string
+            usage_examples:
+              type: array
+              items:
+                type: string
+            related_tools:
+              type: array
+              items:
+                type: string
+            seo_title:
+              type: string
+            seo_description:
+              type: string
+            keywords:
+              type: array
+              items:
+                type: string
+    Faq:
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+    TagExtractionResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        video_id:
+          type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              tag:
+                type: string
+              relevance:
+                type: number
+                minimum: 0
+                maximum: 1
+        extracted_at:
+          type: string
+          format: date-time
+    ChannelIdResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        channel_id:
+          type: string
+          example: UC_x5XG1OV2P6uZZ5FSM9Ttw
+        channel_name:
+          type: string
+          nullable: true
+        channel_url:
+          type: string
+          format: uri
+    CommentPickerResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        video_id:
+          type: string
+        selected_comments:
+          type: array
+          items:
+            type: object
+            properties:
+              author:
+                type: string
+              text:
+                type: string
+              published_at:
+                type: string
+              comment_id:
+                type: string
+        total_comments_scanned:
+          type: integer
+        selected_count:
+          type: integer
+    PlaylistLengthResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        playlist_id:
+          type: string
+        video_count:
+          type: integer
+        durations:
+          type: object
+          properties:
+            normal:
+              type: string
+              description: ISO 8601 duration format
+              example: PT3H45M30S
+            speed_1_25:
+              type: string
+              example: PT3H0M24S
+            speed_1_5:
+              type: string
+              example: PT2H30M20S
+            speed_2:
+              type: string
+              example: PT1H52M45S
+        total_hours:
+          type: number
+          description: Total hours at normal speed
+    TrendingResponse:
+      type: object
+      properties:
+        region:
+          type: string
+        category:
+          type: string
+          nullable: true
+        trending_topics:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              video_id:
+                type: string
+              channel_title:
+                type: string
+              view_count:
+                type: string
+              published_at:
+                type: string
+              category_id:
+                type: string
+        fetched_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - error
+        - message
+security:
+  - api_key: []
+securitySchemes:
+  api_key:
+    type: apiKey
+    name: X-API-Key
+    in: header
+    description: |
+      API key for authenticated requests. Currently not required for public endpoints,
+      but included for future compatibility.
