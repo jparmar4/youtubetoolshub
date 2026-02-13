@@ -577,7 +577,7 @@ export function processContent(content: string): React.ReactNode[] {
 
         paragraphCount++;
         // Insert ads after paragraph 2 and then every 5 paragraphs
-        if (paragraphCount === 2 || (paragraphCount > 2 && (paragraphCount - 2) % 4 === 0)) {
+        if (paragraphCount === 2 || (paragraphCount > 2 && (paragraphCount - 2) % 6 === 0)) {
             elements.push(<InArticleAd key={`ad-${index}`} />);
         }
 

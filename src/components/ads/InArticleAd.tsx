@@ -182,7 +182,7 @@ export default function InArticleAd() {
 
       {/* Ad container with minimum height to prevent CLS (layout shift) */}
       <div
-        className={`w-full flex items-center justify-center bg-slate-50/50 rounded-lg overflow-hidden transition-all duration-300 ${isVisible ? "min-h-[100px]" : "min-h-[50px]"
+        className={`w-full text-center bg-slate-50/50 rounded-lg overflow-hidden transition-all duration-300 ${isVisible ? "min-h-[100px]" : "min-h-[50px]"
           }`}
       >
         {/*
