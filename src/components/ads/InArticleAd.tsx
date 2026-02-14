@@ -162,9 +162,9 @@ export default function InArticleAd() {
     return () => clearTimeout(timer);
   }, [isVisible, adId, hasError]);
 
-  // If there was an error, collapse the ad space gracefully
+  // If there was an error, collapse the ad space gracefully but keep it mounted
   if (hasError) {
-    return null;
+    return <div className="w-full my-2" aria-hidden="true" />;
   }
 
   return (

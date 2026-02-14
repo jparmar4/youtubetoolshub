@@ -60,6 +60,9 @@ export function processContent(content: string): React.ReactNode[] {
     let aeoLines: string[] = [];
 
     let paragraphCount = 0;
+    let adCount = 0;
+    let h2Count = 0;
+    const MAX_ADS = 5;
 
     const flushList = (key: string) => {
         if (listItems.length > 0) {
@@ -518,8 +521,12 @@ export function processContent(content: string): React.ReactNode[] {
                     {trimmedLine.replace('## ', '')}
                 </h2>
             );
-            // Insert ad after H2 (major sections)
-            elements.push(<InArticleAd key={`ad-h2-${index}`} />);
+            // Insert ad after every 3rd H2, with global cap
+            h2Count++;
+            if (h2Count % 3 === 0 && adCount < MAX_ADS) {
+                elements.push(<InArticleAd key={`ad-h2-${index}`} />);
+                adCount++;
+            }
             return;
         }
 
@@ -561,9 +568,6 @@ export function processContent(content: string): React.ReactNode[] {
             );
 
             paragraphCount++;
-            if (paragraphCount === 2) {
-                elements.push(<InArticleAd key={`ad-${index}`} />);
-            }
             return;
         }
 
@@ -576,9 +580,10 @@ export function processContent(content: string): React.ReactNode[] {
         );
 
         paragraphCount++;
-        // Insert ads after paragraph 2 and then every 5 paragraphs
-        if (paragraphCount === 2 || (paragraphCount > 2 && (paragraphCount - 2) % 6 === 0)) {
+        // Insert ads after paragraph 3 and then every 8 paragraphs, with global cap
+        if (adCount < MAX_ADS && (paragraphCount === 3 || (paragraphCount > 3 && (paragraphCount - 3) % 8 === 0))) {
             elements.push(<InArticleAd key={`ad-${index}`} />);
+            adCount++;
         }
 
 
