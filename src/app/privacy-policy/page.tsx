@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { FaShieldAlt, FaLock, FaCookie, FaUserShield, FaDatabase, FaEnvelope, FaExclamationTriangle, FaCheckCircle } from "react-icons/fa";
+import { FaShieldAlt, FaLock, FaCookie, FaUserShield, FaDatabase, FaEnvelope, FaExclamationTriangle, FaCheckCircle, FaFlagUsa } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "Privacy Policy",
@@ -197,6 +197,34 @@ export default function PrivacyPolicyPage() {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+
+
+                        {/* US State Privacy Rights */}
+                        <div>
+                            <h2 className="flex items-center gap-3 text-2xl font-bold text-slate-900 mb-6">
+                                <span className="p-2 rounded-lg bg-red-100/50 text-red-600">
+                                    <FaFlagUsa className="w-5 h-5" />
+                                </span>
+                                US State Privacy Rights
+                            </h2>
+                            <p className="text-slate-600 mb-6 leading-relaxed text-lg">
+                                If you are a resident of certain US states (including California, Virginia, Colorado, Connecticut, Utah, Indiana, Kentucky, and Rhode Island), you may have additional rights regarding your personal data, such as:
+                            </p>
+                            <ul className="space-y-4">
+                                {[
+                                    "Right to know what personal data is being collected",
+                                    "Right to access your personal data",
+                                    "Right to correct inaccurate personal data",
+                                    "Right to delete your personal data",
+                                    "Right to opt-out of the sale or sharing of your personal data"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-start gap-4 text-slate-600 bg-slate-50 p-4 rounded-xl">
+                                        <FaCheckCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
 
                         {/* Contact */}
