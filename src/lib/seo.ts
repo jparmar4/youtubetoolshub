@@ -561,26 +561,19 @@ export function getNewsArticleSchema(article: {
     };
 }
 
-// QAPage Schema (for FAQ pages - helps with featured snippets)
+// FAQ Schema for standalone FAQ pages (correct flat structure)
 export function getQAPageSchema(faqs: { question: string; answer: string }[]) {
     return {
         "@context": "https://schema.org",
-        "@type": "QAPage",
-        mainEntity: {
-            "@type": "FAQPage",
-            mainEntity: faqs.map((faq) => ({
-                "@type": "Question",
-                name: faq.question,
-                upvoteCount: 1,
-                answerCount: 1,
-                acceptedAnswer: {
-                    "@type": "Answer",
-                    text: faq.answer,
-                    upvoteCount: 1,
-                    url: `${siteConfig.url}/faq`,
-                },
-            })),
-        },
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
     };
 }
 

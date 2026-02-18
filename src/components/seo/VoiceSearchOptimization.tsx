@@ -108,11 +108,11 @@ export default function VoiceSearchOptimization() {
       >
         <meta itemProp="name" content={`${siteConfig.name} - Free AI YouTube Tools`} />
         <meta itemProp="description" content={siteConfig.description} />
-        
-        {/* FAQPage for voice search */}
-        <div itemProp="mainEntity" itemScope itemType="https://schema.org/FAQPage">
+
+        {/* Voice search Q&A items - no FAQPage wrapper to avoid duplicate schema conflicts with page-level FAQ JSON-LD */}
+        <div data-speakable="true">
           {voiceSearchFAQs.map((faq, index) => (
-            <div key={index} itemProp="hasPart" itemScope itemType="https://schema.org/Question">
+            <div key={index} itemScope itemType="https://schema.org/Question">
               <meta itemProp="name" content={faq.question} />
               <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
                 <meta itemProp="text" content={faq.answer} />
