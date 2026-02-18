@@ -4,12 +4,15 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
-import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
+import { getOrganizationSchema, getWebsiteSchema, getDatasetSchema, getMainEntitySchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import TrustSignals from "@/components/seo/TrustSignals";
+import VoiceSearchOptimization from "@/components/seo/VoiceSearchOptimization";
+import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import HeaderAd from "@/components/ads/HeaderAd";
 import BottomStickyAd from "@/components/ads/BottomStickyAd";
 
@@ -66,17 +69,55 @@ export const metadata = {
         url: `${siteConfig.url}/og-image.png`,
         width: 1200,
         height: 630,
+        alt: `${siteConfig.name} - Free AI YouTube Tools for Creators`,
+        type: "image/png",
+      },
+      {
+        url: `${siteConfig.url}/icon.svg`,
+        width: 512,
+        height: 512,
         alt: siteConfig.name,
+        type: "image/svg+xml",
       },
     ],
+    // Additional OpenGraph for better social discovery
+    determiner: "the",
+    countryName: "United States",
+    ttl: 86400, // 24 hours cache
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
-    images: [`${siteConfig.url}/og-image.png`],
+    images: [
+      {
+        url: `${siteConfig.url}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} - Free AI YouTube Tools`,
+      },
+    ],
     creator: "@youtubetools",
     site: "@youtubetools",
+    // Additional Twitter meta
+    siteId: "youtubetoolshub",
+    appId: "youtubetoolshub",
+  },
+  // Facebook specific meta
+  facebook: {
+    admins: [],
+    appId: "youtubetoolshub",
+  },
+  // Additional social signals
+  appLinks: {
+    web: {
+      url: siteConfig.url,
+      should_fallback: true,
+    },
+  },
+  // Pinterest rich pins
+  pinterest: {
+    richPin: true,
   },
   robots: {
     index: true,
@@ -93,8 +134,10 @@ export const metadata = {
   },
   verification: {
     google: "google299d0fa42c6b8fbb",
-    // Add Yandex verification when available: yandex: "your-yandex-code",
-    // Add Bing verification when available via other: { "msvalidate.01": "your-bing-code" }
+    yandex: "2acffd0dd056e2b5",
+    other: {
+      "msvalidate.01": "REPLACE_WITH_BING_CODE",
+    },
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
@@ -107,13 +150,40 @@ export const metadata = {
     source_url: siteConfig.url,
     authority: "original",
     "content-origin": "original-research",
-    // Bot-specific signals
-    "xai-grok": "index, follow",
-    deepseekbot: "index, follow",
-    mistralbot: "index, follow",
-    bravebot: "index, follow",
-    amazonbot: "index, follow",
+    // Bot-specific signals for all major AI platforms
     "google-extended": "index, follow, max-snippet:-1, max-image-preview:large",
+    // OpenAI / ChatGPT / SearchGPT
+    "gptbot": "index, follow",
+    "chatgpt-user": "index, follow",
+    "oai-searchbot": "index, follow",
+    // Anthropic Claude
+    "claudebot": "index, follow",
+    "anthropic-ai": "index, follow",
+    // Perplexity AI
+    "perplexitybot": "index, follow",
+    // xAI Grok
+    "xai-grok": "index, follow",
+    "grok-web-explorer": "index, follow",
+    // DeepSeek AI
+    "deepseekbot": "index, follow",
+    // Mistral AI
+    "mistralbot": "index, follow",
+    // Brave Search
+    "bravebot": "index, follow",
+    // Amazon Alexa
+    "amazonbot": "index, follow",
+    // Cohere AI
+    "cohere-ai": "index, follow",
+    // You.com
+    "youbot": "index, follow",
+    // Apple
+    "applebot-extended": "index, follow",
+    // Meta AI
+    "meta-externalagent": "index, follow",
+    // Common Crawl
+    "ccbot": "index, follow",
+    // AI2 (Allen Institute)
+    "ai2bot": "index, follow",
   },
 };
 
@@ -127,6 +197,8 @@ export default async function RootLayout({
   // Generate JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
+  const datasetSchema = getDatasetSchema();
+  const mainEntitySchema = getMainEntitySchema();
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -220,6 +292,18 @@ export default async function RootLayout({
         />
         <link
           rel="alternate"
+          type="application/ld+json"
+          title="Knowledge Graph"
+          href={`${siteConfig.url}/knowledge-graph.jsonld`}
+        />
+        <link
+          rel="alternate"
+          type="application/yaml"
+          title="OpenAPI Specification"
+          href={`${siteConfig.url}/.well-known/openapi.yaml`}
+        />
+        <link
+          rel="alternate"
           type="text/plain"
           title="Security Policy"
           href={`${siteConfig.url}/.well-known/security.txt`}
@@ -273,6 +357,18 @@ export default async function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(mainEntitySchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(datasetSchema),
+          }}
+        />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -317,6 +413,9 @@ export default async function RootLayout({
             <CookieConsent />
             <PrivacyH1Fix />
             <GeoAeoHead />
+            <TrustSignals />
+            <VoiceSearchOptimization />
+            <AnswerBoxes />
           </UsageProvider>
         </AuthProvider>
       </body>

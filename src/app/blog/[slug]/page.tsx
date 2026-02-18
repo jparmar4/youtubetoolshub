@@ -8,9 +8,11 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema } from "@/lib/seo";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 import BlogSidebar from "@/components/blog/BlogSidebar";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 // Generate static params
 export function generateStaticParams() {
@@ -147,19 +149,40 @@ export default async function BlogPostPage({
         worstRating: post.rating.worstRating
     }) : null;
 
+    // NewsArticle schema for Google Discover and Top Stories
+    const newsArticleSchema = getNewsArticleSchema({
+        title: post.title,
+        description: post.metaDescription,
+        author: post.author,
+        datePublished: isoDate,
+        dateModified: isoDate,
+        url: `${siteConfig.url}/blog/${slug}`,
+        imageUrl: post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined,
+        section: post.category,
+        keywords: post.keywords,
+    });
+
     const videoIds = extractYoutubeVideoIds(post.content);
     const videoSchemas = videoIds.map(id => getVideoObjectSchema({
         name: `${post.title} (Video)`,
         description: `Video content from: ${post.title}`,
         thumbnailUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
-        uploadDate: isoDate, // Fallback to post date as we don't have video API access
-        duration: "PT10M", // Default 10 minute duration (format: ISO 8601)
+        uploadDate: isoDate,
+        duration: "PT10M",
         embedUrl: `https://www.youtube.com/embed/${id}`,
         contentUrl: `https://www.youtube.com/watch?v=${id}`
     }));
 
     return (
         <>
+            {/* GEO/AEO Head for AI discoverability */}
+            <GeoAeoHead {...GEO_AEO_PRESETS.blogPost(
+                post.title,
+                post.metaDescription,
+                post.author,
+                post.authorRole || "Content Strategist",
+                isoDate,
+            )} />
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"
@@ -195,6 +218,12 @@ export default async function BlogPostPage({
                     }}
                 />
             )}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(newsArticleSchema),
+                }}
+            />
             {videoSchemas.map((schema, i) => (
                 <script
                     key={`video-schema-${i}`}

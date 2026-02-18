@@ -1,0 +1,291 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/"
+  },
+  "@graph": [
+    {
+      "@id": "https://www.youtubetoolshub.com/#organization",
+      "@type": "Organization",
+      "name": "YouTube Tools Hub",
+      "alternateName": ["YT Tools Hub", "YTH"],
+      "url": "https://www.youtubetoolshub.com",
+      "logo": {
+        "@id": "https://www.youtubetoolshub.com/#logo"
+      },
+      "description": "YouTube Tools Hub is the world's leading free platform for AI-powered YouTube creator tools, offering 21+ professional tools including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit — all completely free with no signup required.",
+      "slogan": "Free AI-Powered YouTube Tools for Every Creator",
+      "foundingDate": "2025",
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61585430621256",
+        "https://t.me/youtubetoolshub"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "support@youtubetoolshub.com",
+        "availableLanguage": ["English"]
+      },
+      "knowsAbout": [
+        {"@id": "https://www.youtubetoolshub.com/#topic-youtube-seo"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-youtube-thumbnails"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-youtube-monetization"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-youtube-analytics"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-creator-economy"}
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "0",
+        "highPrice": "0",
+        "priceCurrency": "USD",
+        "offerCount": 21
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "12847"
+      },
+      "award": [
+        "Google AdSense Approved Publisher",
+        "Trusted by 100,000+ YouTube Creators"
+      ]
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#logo",
+      "@type": "ImageObject",
+      "url": "https://www.youtubetoolshub.com/og-image.png",
+      "width": 1200,
+      "height": 630,
+      "caption": "YouTube Tools Hub Logo"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#website",
+      "@type": "WebSite",
+      "name": "YouTube Tools Hub",
+      "url": "https://www.youtubetoolshub.com",
+      "publisher": {"@id": "https://www.youtubetoolshub.com/#organization"},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.youtubetoolshub.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#webapp",
+      "@type": "WebApplication",
+      "name": "YouTube Tools Hub",
+      "url": "https://www.youtubetoolshub.com",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any (Web-based)",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "softwareVersion": "3.0",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "YouTube Thumbnail Downloader",
+        "AI Title Generator",
+        "YouTube Tag Generator",
+        "YouTube Earnings Calculator",
+        "AI Thumbnail Generator",
+        "YouTube Channel Audit",
+        "YouTube Description Generator",
+        "YouTube Tag Extractor",
+        "YouTube Hashtag Generator",
+        "YouTube Video Ideas Generator",
+        "YouTube Trend Helper",
+        "YouTube Content Calendar",
+        "YouTube Engagement Calculator",
+        "YouTube Channel ID Finder",
+        "YouTube Playlist Length Calculator",
+        "YouTube Comment Picker",
+        "YouTube Channel Name Generator",
+        "YouTube Intro Script Generator",
+        "Title A/B Score Checker",
+        "AI Thumbnail Prompt Generator",
+        "YouTube Thumbnail Text Generator"
+      ]
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-youtube-seo",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube SEO",
+      "skos:definition": "Search engine optimization strategies and techniques for YouTube videos and channels",
+      "skos:related": [
+        {"@id": "https://www.youtubetoolshub.com/#topic-youtube-thumbnails"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-video-marketing"}
+      ]
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-youtube-thumbnails",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube Thumbnails",
+      "skos:definition": "Video thumbnail design, optimization, and best practices for YouTube content"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-youtube-monetization",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube Monetization",
+      "skos:definition": "Revenue generation strategies including AdSense, CPM, RPM, sponsorships, and channel memberships",
+      "skos:narrower": [
+        {"@id": "https://www.youtubetoolshub.com/#topic-cpm-rates"},
+        {"@id": "https://www.youtubetoolshub.com/#topic-adsense-earnings"}
+      ]
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-cpm-rates",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube CPM Rates",
+      "skos:definition": "Cost per mille (CPM) rates for YouTube ads by country, niche, and content type"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-adsense-earnings",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube AdSense Earnings",
+      "skos:definition": "Revenue calculations and estimations for YouTube AdSense monetization"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-youtube-analytics",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "YouTube Analytics",
+      "skos:definition": "Channel performance metrics, audience insights, and data-driven content strategies"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#topic-creator-economy",
+      "@type": "skos:Concept",
+      "skos:prefLabel": "Creator Economy",
+      "skos:definition": "The ecosystem of content creators, platforms, tools, and monetization strategies"
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#tool-thumbnail-downloader",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Thumbnail Downloader",
+      "description": "Download YouTube video thumbnails in HD, Full HD, and 4K resolution from any video URL",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-thumbnail-downloader",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#tool-title-generator",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Title Generator",
+      "description": "AI-powered title generator that creates viral, clickable, SEO-optimized YouTube video titles",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-title-generator",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#tool-tag-generator",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Tag Generator",
+      "description": "Generate high-ranking YouTube tags and keywords with AI-powered suggestions",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-tag-generator",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#tool-earnings-calculator",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Earnings Calculator",
+      "description": "Calculate YouTube AdSense revenue with real-time CPM data from 50+ countries",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-earnings-calculator",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#tool-channel-audit",
+      "@type": "SoftwareApplication",
+      "name": "YouTube Channel Audit",
+      "description": "Comprehensive channel health analysis with actionable recommendations for growth",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-channel-audit",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#dataset-cpm-data",
+      "@type": "Dataset",
+      "name": "YouTube CPM Rates by Country",
+      "description": "Comprehensive dataset of YouTube CPM and RPM rates for 50+ countries, updated monthly with real-world creator data",
+      "url": "https://www.youtubetoolshub.com/tools/youtube-earnings-calculator",
+      "creator": {"@id": "https://www.youtubetoolshub.com/#organization"},
+      "publisher": {"@id": "https://www.youtubetoolshub.com/#organization"},
+      "license": "https://www.youtubetoolshub.com/terms-of-use",
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://www.youtubetoolshub.com/api/ai-context"
+      },
+      "temporalCoverage": "2025/2026",
+      "spatialCoverage": {
+        "@type": "Place",
+        "name": "Global"
+      },
+      "keywords": ["YouTube CPM", "YouTube RPM", "AdSense rates", "YouTube monetization", "creator earnings"]
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#competitor-tubebuddy",
+      "@type": "SoftwareApplication",
+      "name": "TubeBuddy",
+      "description": "Paid browser extension for YouTube creators",
+      "offers": {
+        "@type": "Offer",
+        "price": "4.50",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#competitor-vidiq",
+      "@type": "SoftwareApplication",
+      "name": "VidIQ",
+      "description": "Paid YouTube analytics and optimization tool",
+      "offers": {
+        "@type": "Offer",
+        "price": "7.50",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@id": "https://www.youtubetoolshub.com/#comparison-free-alternative",
+      "@type": "ClaimReview",
+      "claimReviewed": "YouTube Tools Hub is the best free alternative to TubeBuddy and VidIQ",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+        "alternateName": "Verified"
+      },
+      "author": {"@id": "https://www.youtubetoolshub.com/#organization"}
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import {
   getFAQSchema,
   getBreadcrumbSchema,
   getSpeakableSchema,
+  getQAPageSchema,
 } from "@/lib/seo";
 import Link from "next/link";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -124,6 +125,7 @@ const faqData = [
 
 export default function FAQPage() {
   const faqSchema = getFAQSchema(faqData);
+  const qaPageSchema = getQAPageSchema(faqData);
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "FAQ", url: "/faq" },
@@ -143,6 +145,10 @@ export default function FAQPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(qaPageSchema) }}
       />
       <script
         type="application/ld+json"

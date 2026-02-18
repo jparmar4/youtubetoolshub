@@ -1,0 +1,445 @@
+# ============================================================
+# YouTube Tools Hub - Robots.txt
+# Comprehensive crawler directives for all search engines and AI bots
+# ============================================================
+
+# Allow all crawlers by default
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard
+Disallow: /sign-in
+Disallow: /auth
+Disallow: /history
+Disallow: /upgrade
+Disallow: /*?*utm_*
+Disallow: /*?*ref_*
+
+# Crawl-delay for respectful crawling (Bing, Yandex, Baidu)
+Crawl-delay: 1
+
+# ============================================================
+# Google Bots - Full Access
+# ============================================================
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard
+Disallow: /sign-in
+Disallow: /auth
+Disallow: /history
+Disallow: /upgrade
+
+# Google AI/SGE/Gemini crawlers
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+Disallow: /auth
+Disallow: /history
+Disallow: /upgrade
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Google Image Bot
+User-agent: Googlebot-Image
+Allow: /
+Allow: /og-image.png
+Allow: /images/
+
+# Google News (for Discover eligibility)
+User-agent: Googlebot-News
+Allow: /
+Allow: /blog/
+
+# ============================================================
+# Bing/Microsoft Bots - Full Access
+# ============================================================
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard
+Disallow: /sign-in
+Disallow: /auth
+Disallow: /history
+Disallow: /upgrade
+Crawl-delay: 1
+
+User-agent: MSNBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Microsoft Copilot/AI
+User-agent: Microsoft-Preview
+Allow: /
+
+# ============================================================
+# AI Search Engine Bots - Full Access
+# ============================================================
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# OpenAI / ChatGPT / SearchGPT
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# xAI Grok
+User-agent: Grok-Web-Explorer
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+User-agent: xAI-Grok
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# DeepSeek AI
+User-agent: DeepSeekBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Mistral AI
+User-agent: MistralBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Alibaba Qwen / Tongyi
+User-agent: QwenBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Google Gemini / Vertex AI
+User-agent: Google-CloudVertexBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+User-agent: Gemini
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Moonshot AI (Kimi)
+User-agent: KimiBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# ByteDance (Doubao)
+User-agent: DoubaoBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Zhipu AI (ChatGLM)
+User-agent: ChatGLM
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Inflection AI (Pi)
+User-agent: InflectionBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Reka AI
+User-agent: RekaBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Adept AI
+User-agent: AdeptBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Character.AI
+User-agent: CharacterBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Perplexity Labs
+User-agent: PerplexityLabs
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Sensity
+User-agent: SensityBot
+Allow: /
+Disallow: /api/
+
+# Tavily (AI search API)
+User-agent: TavilyBot
+Allow: /
+Disallow: /api/
+
+# Exa (AI search)
+User-agent: ExaBot
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# Alternative Search Engines
+# ============================================================
+
+# Brave Search
+User-agent: BraveBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# You.com AI
+User-agent: YouBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+
+# Neeva/Arc
+User-agent: Neevabot
+Allow: /
+Disallow: /api/
+
+# Kagi
+User-agent: kagibot
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# Social Media & Content Platforms
+# ============================================================
+
+# Facebook/Meta
+User-agent: FacebookBot
+Allow: /
+Allow: /og-image.png
+Disallow: /api/
+Disallow: /dashboard
+
+User-agent: meta-externalagent
+Allow: /
+Disallow: /api/
+
+# Twitter/X
+User-agent: TwitterBot
+Allow: /
+Allow: /og-image.png
+Disallow: /api/
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+Allow: /og-image.png
+Disallow: /api/
+
+# Pinterest
+User-agent: Pinterest
+Allow: /
+Allow: /og-image.png
+Allow: /images/
+Disallow: /api/
+
+# Reddit
+User-agent: redditbot
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# Voice Assistant Crawlers
+# ============================================================
+
+# Amazon Alexa
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# Apple Siri/Applebot
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# International Search Engines
+# ============================================================
+
+# Yandex (Russia)
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+Crawl-delay: 2
+
+# Baidu (China)
+User-agent: Baiduspider
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /sign-in
+Crawl-delay: 2
+
+# Naver (Korea)
+User-agent: NaverBot
+Allow: /
+Disallow: /api/
+
+# Daum (Korea)
+User-agent: Daum
+Allow: /
+Disallow: /api/
+
+# Seznam (Czech)
+User-agent: SeznamBot
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# Research & Academic Crawlers
+# ============================================================
+
+# Common Crawl (used by many AI models for training)
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+
+# AI2 (Allen Institute for AI)
+User-agent: AI2Bot
+Allow: /
+Disallow: /api/
+
+# Internet Archive
+User-agent: archive.org_bot
+Allow: /
+
+# ============================================================
+# SEO Tools & Analytics (Allow for visibility)
+# ============================================================
+
+User-agent: AhrefsBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+User-agent: MJ12bot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+User-agent: DotBot
+Allow: /
+Disallow: /api/
+Crawl-delay: 2
+
+User-agent: Screaming Frog
+Allow: /
+Disallow: /api/
+
+# ============================================================
+# Sitemaps & AI Discovery Files
+# ============================================================
+
+# Main sitemap
+Sitemap: https://www.youtubetoolshub.com/sitemap.xml
+
+# News sitemap for Google Discover
+Sitemap: https://www.youtubetoolshub.com/sitemap-news.xml
+
+# Image sitemap
+Sitemap: https://www.youtubetoolshub.com/sitemap-images.xml
+
+# Video sitemap
+Sitemap: https://www.youtubetoolshub.com/sitemap-videos.xml
+
+# AI crawler resources
+Sitemap: https://www.youtubetoolshub.com/llms.txt
+Sitemap: https://www.youtubetoolshub.com/llms-full.txt
+
+# RSS/Atom feeds
+Sitemap: https://www.youtubetoolshub.com/feed.xml
+Sitemap: https://www.youtubetoolshub.com/atom.xml
+
+# Host directive (for Yandex)
+Host: https://www.youtubetoolshub.com

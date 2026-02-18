@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/blog",
     "/faq",
+    "/search",
     "/resources/youtube-creator-statistics",
     "/resources/link-to-us",
     "/pricing",
@@ -59,6 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const aiDiscoveryFiles = [
     { path: "/llms.txt", priority: 0.3 },
     { path: "/llms-full.txt", priority: 0.3 },
+    { path: "/knowledge-graph.jsonld", priority: 0.4 },
     { path: "/atom.xml", priority: 0.3 },
     { path: "/api/ai-context", priority: 0.2 },
   ];
@@ -71,13 +73,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Dynamic tool pages
+  // Dynamic tool pages with image sitemaps
   for (const tool of tools) {
     allEntries.push({
       url: `${baseUrl}/tools/${tool.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
+      images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],
     });
   }
 

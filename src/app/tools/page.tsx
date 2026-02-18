@@ -4,6 +4,8 @@ import { ToolCard } from "@/components/ui/Card";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title: "21+ Professional YouTube Growth & AI Tools 2026 | Free Suite",
@@ -49,6 +51,20 @@ export default function ToolsPage() {
 
   return (
     <>
+      {/* GEO/AEO Head for AI discoverability */}
+      <GeoAeoHead
+        title="21+ Free YouTube Tools – Complete AI Suite for Creators"
+        description="The world's most comprehensive free suite of AI-powered YouTube tools. Download thumbnails, generate viral titles, calculate earnings, and optimize your channel SEO."
+        entityType="WebApplication"
+        primaryTopic="YouTube Creator Tools Suite"
+        conciseAnswer="YouTube Tools Hub offers 21+ free AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required."
+        keyFacts={[
+          "21+ free AI-powered YouTube tools",
+          "No signup or browser extension required",
+          "Tools organized into 5 categories: Thumbnail, SEO, Growth, Analytics, Utility",
+          "Free alternative to TubeBuddy and VidIQ",
+        ]}
+      />
       {/* JSON-LD Structured Data for SEO */}
       <script
         type="application/ld+json"
