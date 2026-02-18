@@ -137,6 +137,7 @@ export const metadata = {
     yandex: "2acffd0dd056e2b5",
     other: {
       "msvalidate.01": "REPLACE_WITH_BING_CODE",
+      "p:domain_verify": "7a89fa765200911761904c63c0b70f34",
     },
   },
   category: "technology",
@@ -332,6 +333,9 @@ export default async function RootLayout({
           href="https://pagead2.googlesyndication.com"
           crossOrigin="anonymous"
         />
+
+        {/* Pinterest Business Verification */}
+        <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />
 
         {/* PWA & Mobile SEO Meta Tags */}
         <meta name="theme-color" content="#a855f7" />
