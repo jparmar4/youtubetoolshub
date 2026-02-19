@@ -1,3 +1,4 @@
+import React from "react";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
@@ -5,7 +6,6 @@ import {
   getFAQSchema,
   getBreadcrumbSchema,
   getSpeakableSchema,
-  getQAPageSchema,
 } from "@/lib/seo";
 import Link from "next/link";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -19,6 +19,8 @@ import {
   FaUsers,
   FaArrowRight,
 } from "react-icons/fa";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Growth & AI Suite 2026",
@@ -125,7 +127,6 @@ const faqData = [
 
 export default function FAQPage() {
   const faqSchema = getFAQSchema(faqData);
-  const qaPageSchema = getQAPageSchema(faqData);
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "FAQ", url: "/faq" },
@@ -141,14 +142,10 @@ export default function FAQPage() {
 
   return (
     <>
-      <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} />
+      <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} entityType="WebPage" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(qaPageSchema) }}
       />
       <script
         type="application/ld+json"
@@ -180,30 +177,40 @@ export default function FAQPage() {
           {/* FAQ Categories */}
           <div className="grid gap-6 mb-20">
             {faqData.map((faq, index) => (
-              <div
-                key={index}
-                className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
-              >
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    {faq.icon}
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row items-center gap-3 mb-3">
-                      <h3 className="text-2xl font-bold text-slate-900 font-outfit">
-                        {faq.question}
-                      </h3>
-                      <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-purple-100 text-purple-700">
-                        {faq.category}
-                      </span>
+              <React.Fragment key={index}>
+                <div
+                  className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
+                >
+                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                      {faq.icon}
                     </div>
-                    <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
-                      {faq.answer}
-                    </p>
+                    <div className="flex-1 text-center md:text-left">
+                      <div className="flex flex-col md:flex-row items-center gap-3 mb-3">
+                        <h3 className="text-2xl font-bold text-slate-900 font-outfit">
+                          {faq.question}
+                        </h3>
+                        <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-purple-100 text-purple-700">
+                          {faq.category}
+                        </span>
+                      </div>
+                      <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
+                        {faq.answer}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+                {/* Ad: Midway through FAQ list */}
+                {index === Math.floor(faqData.length / 2) - 1 && (
+                  <HorizontalAd />
+                )}
+              </React.Fragment>
             ))}
+          </div>
+
+          {/* Ad: Multiplex at bottom of FAQ */}
+          <div className="mb-12">
+            <MultiplexAd />
           </div>
 
           {/* Contact Support */}

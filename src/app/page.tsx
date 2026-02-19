@@ -11,6 +11,8 @@ import {
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -344,8 +346,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad: Contextual Placement */}
-      {/* Manual Ad removed (Auto Ads only) */}
+      {/* Ad: Between Hero and Tools — highest viewability placement */}
+      <HorizontalAd />
 
       {/* Tools Showcase */}
       <section className="py-32 bg-slate-50 relative overflow-hidden">
@@ -467,6 +469,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Ad: Between Authority and SmartWorkflow */}
+      <HorizontalAd />
+
       <SmartWorkflow />
 
       {/* Benefits Bridge */}
@@ -585,8 +590,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad: Content Discovery */}
-      {/* Manual Ad removed (Auto Ads only) */}
+      {/* Ad: Content Discovery — Multiplex before CTA */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <MultiplexAd />
+      </div>
 
       {/* Heroic CTA Section */}
       <section className="py-32 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[5rem]">

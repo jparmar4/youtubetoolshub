@@ -693,8 +693,6 @@ export default function robots(): MetadataRoute.Robots {
     // ─── Sitemaps ───
     sitemap: [
       `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/sitemap_index.xml`,
-      `${baseUrl}/llms.txt`,
     ],
 
     // ─── Host directive (canonical domain) ───

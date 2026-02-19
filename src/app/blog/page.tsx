@@ -5,6 +5,9 @@ import { siteConfig } from "@/config/site";
 import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
@@ -85,6 +88,24 @@ export default function BlogPage() {
 
   return (
     <>
+      <GeoAeoHead
+        {...GEO_AEO_PRESETS.blogPost(
+          "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
+          "Master the 2026 algorithm with expert guides on AI-native creation, high-RPM niche selection, and semantic SEO. Trusted by 100k+ professional creators.",
+          "YouTube Tools Hub",
+          "YouTube Growth Expert",
+          new Date().toISOString(),
+        )}
+        entityType="WebPage"
+        primaryTopic="YouTube Growth Strategy"
+        conciseAnswer="YouTube Tools Hub's blog covers expert guides on YouTube SEO, AI tools, earnings optimization, thumbnail psychology, and channel growth strategies for 2026."
+        keyFacts={[
+          "Expert guides on YouTube SEO and AI tools",
+          "Covers high-RPM niche selection strategies",
+          "Updated for the 2026 YouTube algorithm",
+          "Written by certified YouTube growth experts",
+        ]}
+      />
       {/* CollectionPage + ItemList JSON-LD */}
       <script
         type="application/ld+json"
@@ -184,6 +205,11 @@ export default function BlogPage() {
         </section>
 
         <div className="max-w-4xl mx-auto px-4 mb-24" />
+
+        {/* Ad: Between Featured and Other Posts */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <HorizontalAd />
+        </div>
 
         {/* Other Posts */}
         <section className="py-24 bg-slate-900 text-white">

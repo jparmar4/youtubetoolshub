@@ -521,9 +521,9 @@ export function processContent(content: string): React.ReactNode[] {
                     {trimmedLine.replace('## ', '')}
                 </h2>
             );
-            // Insert ad after every 3rd H2, with global cap
+            // Insert ad after every 2nd H2, with global cap
             h2Count++;
-            if (h2Count % 3 === 0 && adCount < MAX_ADS) {
+            if (h2Count % 2 === 0 && adCount < MAX_ADS) {
                 elements.push(<InArticleAd key={`ad-h2-${index}`} />);
                 adCount++;
             }
@@ -580,8 +580,8 @@ export function processContent(content: string): React.ReactNode[] {
         );
 
         paragraphCount++;
-        // Insert ads after paragraph 3 and then every 8 paragraphs, with global cap
-        if (adCount < MAX_ADS && (paragraphCount === 3 || (paragraphCount > 3 && (paragraphCount - 3) % 8 === 0))) {
+        // Insert ads after paragraph 3 and then every 5 paragraphs, with global cap
+        if (adCount < MAX_ADS && (paragraphCount === 3 || (paragraphCount > 3 && (paragraphCount - 3) % 5 === 0))) {
             elements.push(<InArticleAd key={`ad-${index}`} />);
             adCount++;
         }

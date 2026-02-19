@@ -13,6 +13,8 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 
 // Generate static params
 export function generateStaticParams() {
@@ -312,6 +314,9 @@ export default async function BlogPostPage({
                                 </div>
                             )}
 
+                            {/* Ad: Before article content */}
+                            <HorizontalAd />
+
                             <article itemScope itemType="https://schema.org/Article">
                                 {/* Article Content */}
                                 <div
@@ -375,6 +380,9 @@ export default async function BlogPostPage({
                                     />
                                 </div>
                             </article>
+
+                            {/* Ad: After article content — Multiplex for related content style */}
+                            <MultiplexAd />
 
                             {/* Related Posts (Mobile/Tablet only here, maybe? No, keep at bottom for all) */}
                             {/* Actually, let's keep related posts full width or inside the column? 

@@ -189,6 +189,6 @@ export const config = {
      * - .well-known directory (ai.txt, security.txt, ai-plugin.json, etc.)
      * - public folder files (images, etc.)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap_index.xml|feed.xml|atom.xml|ads.txt|llms.txt|llms-full.txt|authors.txt|\\.well-known|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$|.*\\.txt$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap_index.xml|feed.xml|atom.xml|ads.txt|llms.txt|llms-full.txt|knowledge-graph.jsonld|authors.txt|\\.well-known|01d46652569c40eaa19149073834de57.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$|.*\\.txt$).*)",
   ],
 };

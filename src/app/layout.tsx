@@ -49,13 +49,6 @@ export const metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: "/",
-    languages: {
-      en: "/",
-      "x-default": "/",
-    },
-  },
 
   openGraph: {
     type: "website",
@@ -217,48 +210,7 @@ export default async function RootLayout({
           href={`${siteConfig.url}/atom.xml`}
         />
 
-        {/* hreflang for international SEO - targeting 50+ high-CPM countries worldwide */}
-        <link rel="alternate" hrefLang="en-US" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-GB" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-CA" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-AU" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="de-DE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="nl-NL" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="de-CH" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="nb-NO" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="sv-SE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="da-DK" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-NZ" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-IE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="de-AT" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="fi-FI" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="nl-BE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-SG" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ja-JP" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ko-KR" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ar-AE" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ar-SA" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ar-QA" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="he-IL" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="fr-FR" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="it-IT" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="es-ES" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="pt-PT" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="pl-PL" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="cs-CZ" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="hu-HU" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ro-RO" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="ru-RU" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="tr-TR" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-IN" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="pt-BR" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="es-MX" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="es-AR" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="es-CL" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="es-CO" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-ZA" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="en-NG" href={siteConfig.url} />
-        <link rel="alternate" hrefLang="x-default" href={siteConfig.url} />
+
 
         {/* AI Crawler Discovery Links */}
         <link
