@@ -33,7 +33,7 @@ export default function MultiplexAd() {
           }
         },
         {
-          rootMargin: "400px 0px",
+          rootMargin: "800px 0px",
           threshold: 0,
         },
       );

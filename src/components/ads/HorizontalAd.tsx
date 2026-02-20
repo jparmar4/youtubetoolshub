@@ -49,7 +49,12 @@ export default function HorizontalAd() {
   const containerRef = useRef<HTMLDivElement>(null);
   const adInitialized = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [adId] = useState(() => `horizontal-ad-${++horizontalAdCounter}`);
+  const [adIndex] = useState(() => ++horizontalAdCounter);
+  const [adId] = useState(() => `horizontal-ad-${adIndex}`);
+  const [adSlotId] = useState(() => {
+    const slots = AD_SLOTS.HORIZONTAL;
+    return Array.isArray(slots) ? slots[(adIndex - 1) % slots.length] : slots;
+  });
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -68,10 +73,10 @@ export default function HorizontalAd() {
           }
         },
         {
-          // Start loading 300px before the ad enters the viewport
-          // This gives the ad network time to fetch and render the creative
-          // before the user actually sees the placement
-          rootMargin: "300px 0px",
+          // Start loading 800px before the ad enters the viewport
+          // This gives the ad network plenty of time to fetch and render the creative
+          // before the user actually sees the placement, increasing impressions.
+          rootMargin: "800px 0px",
           threshold: 0,
         },
       );
@@ -235,7 +240,7 @@ export default function HorizontalAd() {
               minHeight: "90px",
             }}
             data-ad-client={AD_CLIENT}
-            data-ad-slot={AD_SLOTS.HORIZONTAL}
+            data-ad-slot={adSlotId}
             data-ad-format="auto"
             data-full-width-responsive="true"
           />

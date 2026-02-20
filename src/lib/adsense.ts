@@ -36,20 +36,23 @@ export const AD_CLIENT = "ca-pub-1328083083403070";
  * 2. Choose the format (display, in-article, multiplex, etc.)
  * 3. Copy the slot ID and add it here
  *
- * For now, we map known slots. Update these as you create dedicated slots.
+ * 🚨 CRITICAL REVENUE WARNING 🚨
+ * You MUST replace duplicate "5848325027" and "8474488368" IDs with UNIQUE slot IDs 
+ * for each placement below. AdSense heavily penalizes slots that are called multiple 
+ * times on the same page, leading to collapsed ads, low viewability, and drastically lower RPM.
  */
 export const AD_SLOTS = {
   /** Top-of-page leaderboard / horizontal banner */
-  HEADER: "5848325027",
+  HEADER: "2275881649",
 
   /** Fixed bottom anchor ad */
-  BOTTOM_STICKY: "5848325027",
+  BOTTOM_STICKY: "9962799978",
 
   /** Horizontal display ad between content sections */
-  HORIZONTAL: "5848325027",
+  HORIZONTAL: ["8649718301", "7688425196", "2275881649", "9962799978"],
 
   /** Native in-article ad (blends with content) */
-  IN_ARTICLE: "5441130911",
+  IN_ARTICLE: ["7336636636", "6023554962", "3397391628", "2084309959"],
 
   /** Multiplex ad grid (related content style) */
   MULTIPLEX: "3104734850",
@@ -58,7 +61,7 @@ export const AD_SLOTS = {
   SIDEBAR: "8474488368",
 
   /** Sticky sidebar ad (stays visible on scroll - vertical) */
-  STICKY_SIDEBAR: "8474488368",
+  STICKY_SIDEBAR: "8474488368", // Suggestion: create a separate slot for STICKY_SIDEBAR to maximize revenue
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",

@@ -8,7 +8,7 @@ export default function SidebarAd() {
 
   useEffect(() => {
     const cleanup = initializeAdOnView(containerRef.current, "sidebar-ad", {
-      rootMargin: "400px",
+      rootMargin: "800px", // Increased to 800px so sidebar ad fills before scroll
     });
     return cleanup;
   }, []);

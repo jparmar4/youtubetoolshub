@@ -34,7 +34,12 @@ export default function InArticleAd() {
   const containerRef = useRef<HTMLDivElement>(null);
   const adInitialized = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [adId] = useState(() => `in-article-ad-${++instanceCounter}`);
+  const [adIndex] = useState(() => ++instanceCounter);
+  const [adId] = useState(() => `in-article-ad-${adIndex}`);
+  const [adSlotId] = useState(() => {
+    const slots = AD_SLOTS.IN_ARTICLE;
+    return Array.isArray(slots) ? slots[(adIndex - 1) % slots.length] : slots;
+  });
   const [isVisible, setIsVisible] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -43,8 +48,8 @@ export default function InArticleAd() {
     if (!container || adInitialized.current) return;
 
     // Use IntersectionObserver to lazy-load the ad
-    // rootMargin: "200px" means we start loading 200px BEFORE it enters the viewport
-    // This gives the ad time to load before the user scrolls to it
+    // rootMargin: "800px" means we start loading 800px BEFORE it enters the viewport
+    // This gives the ad plenty of time to load before the user scrolls to it
     if ("IntersectionObserver" in window) {
       observerRef.current = new IntersectionObserver(
         (entries) => {
@@ -56,7 +61,7 @@ export default function InArticleAd() {
           }
         },
         {
-          rootMargin: "200px 0px",
+          rootMargin: "800px 0px",
           threshold: 0,
         },
       );
@@ -201,7 +206,7 @@ export default function InArticleAd() {
             data-ad-layout="in-article"
             data-ad-format="fluid"
             data-ad-client={AD_CLIENT}
-            data-ad-slot={AD_SLOTS.IN_ARTICLE}
+            data-ad-slot={adSlotId}
           />
         )}
       </div>
