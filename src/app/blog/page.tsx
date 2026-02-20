@@ -6,8 +6,10 @@ import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
 import HorizontalAd from "@/components/ads/HorizontalAd";
+import InFeedAd from "@/components/ads/InFeedAd";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { Fragment } from "react";
 
 export const metadata: Metadata = {
   title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
@@ -230,17 +232,19 @@ export default function BlogPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {otherPosts.map((post) => (
-                <BlogCard
-                  key={post.slug}
-                  title={post.title}
-                  excerpt={post.excerpt}
-                  date={post.date}
-                  category={post.category}
-                  slug={post.slug}
-                  className="bg-white/5 border-white/10 hover:bg-white/10"
-                  dark={true}
-                />
+              {otherPosts.map((post, index) => (
+                <Fragment key={post.slug}>
+                  <BlogCard
+                    title={post.title}
+                    excerpt={post.excerpt}
+                    date={post.date}
+                    category={post.category}
+                    slug={post.slug}
+                    className="bg-white/5 border-white/10 hover:bg-white/10"
+                    dark={true}
+                  />
+                  {index === 1 && <InFeedAd />}
+                </Fragment>
               ))}
             </div>
           </div>

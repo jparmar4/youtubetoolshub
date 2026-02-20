@@ -6,6 +6,8 @@ import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import InFeedAd from "@/components/ads/InFeedAd";
+import { Fragment } from "react";
 
 export const metadata: Metadata = {
   title: "21+ Professional YouTube Growth & AI Tools 2026 | Free Suite",
@@ -154,16 +156,18 @@ export default function ToolsPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {categoryTools.map((tool) => (
-                        <ToolCard
-                          key={tool.slug}
-                          icon={<tool.icon />}
-                          title={tool.name}
-                          description={tool.shortDescription}
-                          href={`/tools/${tool.slug}`}
-                          isAI={tool.isAI}
-                          className="hover:-translate-y-2 transition-all duration-500 shadow-sm hover:shadow-xl border-white/40 glass-premium"
-                        />
+                      {categoryTools.map((tool, idx) => (
+                        <Fragment key={tool.slug}>
+                          <ToolCard
+                            icon={<tool.icon />}
+                            title={tool.name}
+                            description={tool.shortDescription}
+                            href={`/tools/${tool.slug}`}
+                            isAI={tool.isAI}
+                            className="hover:-translate-y-2 transition-all duration-500 shadow-sm hover:shadow-xl border-white/40 glass-premium"
+                          />
+                          {idx === 2 && <InFeedAd />}
+                        </Fragment>
                       ))}
                     </div>
                   </section>
