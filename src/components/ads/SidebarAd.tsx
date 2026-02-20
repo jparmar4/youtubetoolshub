@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { initializeAdOnView, AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+
+let sidebarCounter = 0;
 
 export default function SidebarAd() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [instanceId] = useState(() => `sidebar-ad-${++sidebarCounter}`);
 
   useEffect(() => {
-    const cleanup = initializeAdOnView(containerRef.current, "sidebar-ad", {
+    const cleanup = initializeAdOnView(containerRef.current, instanceId, {
       rootMargin: "800px", // Increased to 800px so sidebar ad fills before scroll
     });
     return cleanup;

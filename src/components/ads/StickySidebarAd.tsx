@@ -2,16 +2,20 @@
 
 import { useEffect, useRef } from "react";
 import { initializeAdOnView, AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+import { useState } from "react";
+
+let stickySidebarCounter = 0;
 
 export default function StickySidebarAd() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [instanceId] = useState(() => `sticky-sidebar-${++stickySidebarCounter}`);
 
   useEffect(() => {
-    const cleanup = initializeAdOnView(containerRef.current, "sticky-sidebar-ad", {
-      rootMargin: "400px",
+    const cleanup = initializeAdOnView(containerRef.current, instanceId, {
+      rootMargin: "800px",
     });
     return cleanup;
-  }, []);
+  }, [instanceId]);
 
   return (
     <div
