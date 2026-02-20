@@ -14,7 +14,6 @@ import TrustSignals from "@/components/seo/TrustSignals";
 import VoiceSearchOptimization from "@/components/seo/VoiceSearchOptimization";
 import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import HeaderAd from "@/components/ads/HeaderAd";
-import BottomStickyAd from "@/components/ads/BottomStickyAd";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -373,7 +372,6 @@ export default async function RootLayout({
             <Header />
             <HeaderAd />
             <main className="flex-1">{children}</main>
-            <BottomStickyAd />
             <Footer />
             <ScrollToTop />
             <CookieConsent />
