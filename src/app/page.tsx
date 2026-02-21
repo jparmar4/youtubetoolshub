@@ -19,7 +19,7 @@ import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
-import { getFAQSchema, getSpeakableSchema, getToolListSchema } from "@/lib/seo";
+import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title:
@@ -133,6 +133,11 @@ export default function Home() {
     })),
   );
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: siteConfig.url },
+    { name: "Tools", url: `${siteConfig.url}/tools` },
+  ]);
+
   // AEO: Concise answer block for AI featured snippets
   const aeoAnswerSchema = {
     "@context": "https://schema.org",
@@ -215,46 +220,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aeoAnswerSchema) }}
       />
-
-      {/* ── AEO: Hidden semantic content for AI snippet extraction ── */}
-      <div
-        data-nosnippet
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          width: "1px",
-          height: "1px",
-          padding: 0,
-          margin: "-1px",
-          overflow: "hidden",
-          clip: "rect(0, 0, 0, 0)",
-          whiteSpace: "nowrap",
-          borderWidth: 0,
-        }}
-      >
-        <div data-speakable="true">
-          <p>
-            YouTube Tools Hub is a free online platform providing 21+ AI-powered
-            tools for YouTube content creators. All core tools are 100% free
-            with no signup required. It is the leading free alternative to
-            TubeBuddy and VidIQ.
-          </p>
-          <p>
-            Tools include: YouTube Thumbnail Downloader (HD, 4K, 8K), AI
-            Thumbnail Generator, Title Generator, Description Generator, Tag
-            Generator, Tag Extractor, Hashtag Generator, Title A/B Tester, Video
-            Ideas Generator, Trend Helper, Content Calendar Generator, Channel
-            Audit, Intro Script Generator, Earnings Calculator (50+ country CPM
-            data), Engagement Rate Calculator, Channel Name Generator, Channel
-            ID Finder, Playlist Length Calculator, and Comment Picker.
-          </p>
-          <p>
-            Trusted by 100,000+ YouTube creators worldwide. Google AdSense
-            approved. Updated every 48 hours for the latest YouTube algorithm.
-            Available at youtubetoolshub.com.
-          </p>
-        </div>
-      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       {/* Hero Section - Midnight Nebula */}
       <section className="relative overflow-hidden min-h-[95vh] flex items-center justify-center">
@@ -348,6 +317,40 @@ export default function Home() {
 
       {/* Ad: Between Hero and Tools — highest viewability placement */}
       <HorizontalAd />
+
+      {/* ── AEO: Visible Key Facts for AI snippet extraction & user trust ── */}
+      <section className="py-16 bg-white border-b border-slate-100" data-speakable="true">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit tracking-tight">
+              What is <span className="text-purple-600">YouTube Tools Hub</span>?
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
+              <div className="text-4xl mb-4">🛠️</div>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">21+ Free AI Tools</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                YouTube Tools Hub is a free online platform providing 21+ AI-powered tools for YouTube creators. No signup required. The leading free alternative to TubeBuddy and VidIQ.
+              </p>
+            </div>
+            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
+              <div className="text-4xl mb-4">🎬</div>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Includes: Thumbnail Downloader (HD, 4K, 8K), AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator (50+ country CPM data), Channel Audit, and more.
+              </p>
+            </div>
+            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
+              <div className="text-4xl mb-4">🌍</div>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Trusted Worldwide</h3>
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Trusted by 100,000+ YouTube creators worldwide. Google AdSense approved. Updated every 48 hours for the latest YouTube algorithm changes. Available at youtubetoolshub.com.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Tools Showcase */}
       <section className="py-32 bg-slate-50 relative overflow-hidden">

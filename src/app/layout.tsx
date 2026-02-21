@@ -128,7 +128,7 @@ export const metadata = {
     google: "google299d0fa42c6b8fbb",
     yandex: "2acffd0dd056e2b5",
     other: {
-      "msvalidate.01": "REPLACE_WITH_BING_CODE",
+      "msvalidate.01": "0FEE172B08E59C4D96EC21C37F806047",
       "p:domain_verify": "7a89fa765200911761904c63c0b70f34",
     },
   },
