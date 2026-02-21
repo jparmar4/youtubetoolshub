@@ -61,7 +61,7 @@ export const AD_SLOTS = {
   SIDEBAR: "8474488368",
 
   /** Sticky sidebar ad (stays visible on scroll - vertical) */
-  STICKY_SIDEBAR: "8474488368", // Suggestion: create a separate slot for STICKY_SIDEBAR to maximize revenue
+  STICKY_SIDEBAR: "5848325027",
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",
