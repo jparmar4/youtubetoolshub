@@ -25,15 +25,13 @@ export function VoiceSearchAnswer({ question, answer, context }: VoiceSearchOpti
   return (
     <div
       data-speakable="true"
-      itemScope
-      itemType="https://schema.org/Question"
       className="sr-only"
       aria-hidden="true"
     >
-      <meta itemProp="name" content={question} />
-      <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-        <meta itemProp="text" content={answer} />
-        {context && <meta itemProp="description" content={context} />}
+      <h3>{question}</h3>
+      <div>
+        <p>{answer}</p>
+        {context && <p>{context}</p>}
       </div>
     </div>
   );
@@ -112,10 +110,10 @@ export default function VoiceSearchOptimization() {
         {/* Voice search Q&A items - no FAQPage wrapper to avoid duplicate schema conflicts with page-level FAQ JSON-LD */}
         <div data-speakable="true">
           {voiceSearchFAQs.map((faq, index) => (
-            <div key={index} itemScope itemType="https://schema.org/Question">
-              <meta itemProp="name" content={faq.question} />
-              <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-                <meta itemProp="text" content={faq.answer} />
+            <div key={index}>
+              <h3 className="sr-only">{faq.question}</h3>
+              <div>
+                <p>{faq.answer}</p>
               </div>
             </div>
           ))}

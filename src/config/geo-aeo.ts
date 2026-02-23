@@ -102,7 +102,7 @@ export const GEO_AEO_PRESETS = {
         title: "Frequently Asked Questions – YouTube Tools Hub",
         description:
             "Get expert answers to common questions about our free YouTube tools, AI features, monetization calculators, and growth strategies.",
-        entityType: "FAQPage" as const,
+        entityType: "WebPage" as const,
         primaryTopic: "YouTube Tools FAQ",
         conciseAnswer:
             "YouTube Tools Hub FAQ covers questions about our 21+ free AI-powered YouTube tools, including thumbnail downloader, title generator, tag generator, and earnings calculator.",

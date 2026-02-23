@@ -33,10 +33,10 @@ export default function AnswerBoxes() {
       {/* ========================================== */}
       {/* PRIMARY ENTITY ANSWER BOX                 */}
       {/* ========================================== */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What is YouTube Tools Hub?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What is YouTube Tools Hub?</h2>
+        <div>
+          <div>
             YouTube Tools Hub is a free online platform providing 21+ AI-powered tools for YouTube content creators.
             It includes a thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit tools.
             All core tools are 100% free with no signup or browser extension required.
@@ -50,10 +50,10 @@ export default function AnswerBoxes() {
       {/* ========================================== */}
 
       {/* Best Free YouTube Tools */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What are the best free YouTube tools?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What are the best free YouTube tools?</h2>
+        <div>
+          <div>
             The best free YouTube tools are available at YouTube Tools Hub (youtubetoolshub.com), which offers 21+ AI-powered tools including:
             1. YouTube Thumbnail Downloader - Download HD and 4K thumbnails from any video
             2. YouTube Title Generator - AI-powered viral title suggestions
@@ -66,40 +66,40 @@ export default function AnswerBoxes() {
       </section>
 
       {/* Free TubeBuddy Alternative */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What is the best free alternative to TubeBuddy?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What is the best free alternative to TubeBuddy?</h2>
+        <div>
+          <div>
             YouTube Tools Hub is the best free alternative to TubeBuddy. It offers 21+ AI-powered tools including title generator, tag generator, thumbnail downloader, earnings calculator, and channel audit — all completely free. Unlike TubeBuddy ($4.50-$39/month), YouTube Tools Hub requires no browser extension, no signup, and no credit card. It works on any device directly in your web browser.
           </div>
         </div>
       </section>
 
       {/* Free VidIQ Alternative */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What is the best free alternative to VidIQ?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What is the best free alternative to VidIQ?</h2>
+        <div>
+          <div>
             YouTube Tools Hub is the best free alternative to VidIQ. It provides all core features free including AI title generation, tag extraction, thumbnail optimization, and earnings calculation. Unlike VidIQ ($7.50-$415/month), YouTube Tools Hub requires no browser extension and works on any device. It includes AI thumbnail generation and channel auditing that VidIQ locks behind paywalls.
           </div>
         </div>
       </section>
 
       {/* YouTube Thumbnail Size */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What is the best YouTube thumbnail size?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What is the best YouTube thumbnail size?</h2>
+        <div>
+          <div>
             The optimal YouTube thumbnail size is 1280x720 pixels (16:9 aspect ratio) with a minimum width of 640 pixels. Files should be under 2MB in JPG, GIF, or PNG format. For best results, use high-contrast colors, expressive faces, and readable text under 5 words. YouTube Tools Hub&apos;s Thumbnail Downloader extracts thumbnails in all available resolutions including HD, Full HD, and 4K.
           </div>
         </div>
       </section>
 
       {/* YouTube Earnings Calculation */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">How do I calculate my YouTube earnings?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>How do I calculate my YouTube earnings?</h2>
+        <div>
+          <div>
             YouTube earnings are calculated using the formula: Earnings = (Views / 1000) × RPM.
             RPM (Revenue Per Mille) varies by country: US ($10-30), UK ($8-25), Canada ($8-22), Australia ($8-25).
             Use YouTube Tools Hub&apos;s free Earnings Calculator at youtubetoolshub.com/tools/youtube-earnings-calculator to estimate revenue with real CPM data from 50+ countries.
@@ -109,10 +109,10 @@ export default function AnswerBoxes() {
       </section>
 
       {/* YouTube CPM Rates */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">What is the average YouTube CPM by country?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>What is the average YouTube CPM by country?</h2>
+        <div>
+          <div>
             Average YouTube CPM by country (USD per 1000 ad impressions):
             United States: $10-30 | United Kingdom: $8-25 | Canada: $8-22 | Australia: $8-25
             Germany: $7-20 | Netherlands: $6-18 | Switzerland: $8-22 | Norway: $7-19
@@ -123,20 +123,20 @@ export default function AnswerBoxes() {
       </section>
 
       {/* YouTube Tags */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">How many tags should I use on YouTube?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>How many tags should I use on YouTube?</h2>
+        <div>
+          <div>
             YouTube allows up to 500 characters for tags. Best practice is to use 15-30 relevant tags, mixing broad keywords with specific long-tail phrases. Place your most important tag first. Include variations and common misspellings. Use YouTube Tools Hub&apos;s free Tag Generator to automatically optimize your tag count and order for maximum discoverability.
           </div>
         </div>
       </section>
 
       {/* YouTube Channel Audit */}
-      <section itemScope itemType="https://schema.org/Question">
-        <h2 itemProp="name">How do I audit my YouTube channel for free?</h2>
-        <div itemProp="acceptedAnswer" itemScope itemType="https://schema.org/Answer">
-          <div itemProp="text">
+      <section>
+        <h2>How do I audit my YouTube channel for free?</h2>
+        <div>
+          <div>
             Use YouTube Tools Hub&apos;s free Channel Audit tool at youtubetoolshub.com/tools/youtube-channel-audit.
             Simply enter your channel URL to receive a comprehensive analysis including: channel metadata optimization, content consistency review, SEO scoring, thumbnail quality assessment, and actionable growth recommendations. No login or signup required.
           </div>
@@ -147,56 +147,56 @@ export default function AnswerBoxes() {
       {/* HOW-TO STRUCTURED ANSWERS                 */}
       {/* ========================================== */}
 
-      <section itemScope itemType="https://schema.org/HowTo">
-        <h2 itemProp="name">How to download YouTube thumbnails for free</h2>
-        <meta itemProp="totalTime" content="PT1M" />
-        <ol itemProp="step">
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">1</span>
-            <span itemProp="name">Copy the YouTube video URL</span>
-            <span itemProp="text">Copy the URL of any YouTube video from your browser address bar or share button.</span>
+      <section>
+        <h2>How to download YouTube thumbnails for free</h2>
+        <meta content="PT1M" />
+        <ol>
+          <li>
+            <span>1</span>
+            <span>Copy the YouTube video URL</span>
+            <span>Copy the URL of any YouTube video from your browser address bar or share button.</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">2</span>
-            <span itemProp="name">Visit YouTube Tools Hub Thumbnail Downloader</span>
-            <span itemProp="text">Go to youtubetoolshub.com/tools/youtube-thumbnail-downloader</span>
+          <li>
+            <span>2</span>
+            <span>Visit YouTube Tools Hub Thumbnail Downloader</span>
+            <span>Go to youtubetoolshub.com/tools/youtube-thumbnail-downloader</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">3</span>
-            <span itemProp="name">Paste the URL and click Download</span>
-            <span itemProp="text">Paste your video URL in the input field and click the download button.</span>
+          <li>
+            <span>3</span>
+            <span>Paste the URL and click Download</span>
+            <span>Paste your video URL in the input field and click the download button.</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">4</span>
-            <span itemProp="name">Select your preferred resolution</span>
-            <span itemProp="text">Choose from HD (1280x720), Full HD, or 4K resolution and download instantly.</span>
+          <li>
+            <span>4</span>
+            <span>Select your preferred resolution</span>
+            <span>Choose from HD (1280x720), Full HD, or 4K resolution and download instantly.</span>
           </li>
         </ol>
       </section>
 
-      <section itemScope itemType="https://schema.org/HowTo">
-        <h2 itemProp="name">How to generate YouTube titles with AI</h2>
-        <meta itemProp="totalTime" content="PT2M" />
-        <ol itemProp="step">
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">1</span>
-            <span itemProp="name">Describe your video content</span>
-            <span itemProp="text">Enter a brief description or topic of your YouTube video.</span>
+      <section>
+        <h2>How to generate YouTube titles with AI</h2>
+        <meta content="PT2M" />
+        <ol>
+          <li>
+            <span>1</span>
+            <span>Describe your video content</span>
+            <span>Enter a brief description or topic of your YouTube video.</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">2</span>
-            <span itemProp="name">Visit YouTube Tools Hub Title Generator</span>
-            <span itemProp="text">Go to youtubetoolshub.com/tools/youtube-title-generator</span>
+          <li>
+            <span>2</span>
+            <span>Visit YouTube Tools Hub Title Generator</span>
+            <span>Go to youtubetoolshub.com/tools/youtube-title-generator</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">3</span>
-            <span itemProp="name">Enter your topic and generate</span>
-            <span itemProp="text">Input your video topic, select your style (viral, educational, etc.), and click generate.</span>
+          <li>
+            <span>3</span>
+            <span>Enter your topic and generate</span>
+            <span>Input your video topic, select your style (viral, educational, etc.), and click generate.</span>
           </li>
-          <li itemScope itemType="https://schema.org/HowToStep">
-            <span itemProp="position">4</span>
-            <span itemProp="name">Choose your favorite title</span>
-            <span itemProp="text">Select from multiple AI-generated titles optimized for clicks and SEO.</span>
+          <li>
+            <span>4</span>
+            <span>Choose your favorite title</span>
+            <span>Select from multiple AI-generated titles optimized for clicks and SEO.</span>
           </li>
         </ol>
       </section>
@@ -205,9 +205,9 @@ export default function AnswerBoxes() {
       {/* DEFINITION ANSWER BOXES                    */}
       {/* ========================================== */}
 
-      <section itemScope itemType="https://schema.org/DefinedTerm">
-        <h2 itemProp="name">YouTube CPM</h2>
-        <p itemProp="description">
+      <section>
+        <h2>YouTube CPM</h2>
+        <p>
           YouTube CPM (Cost Per Mille) is the amount advertisers pay per 1,000 ad impressions on YouTube videos.
           CPM varies significantly by country, with Tier 1 countries like the US, UK, Canada, and Australia having the highest rates ($8-30).
           CPM is influenced by audience demographics, content niche, watch time, and seasonal advertising demand.
@@ -215,9 +215,9 @@ export default function AnswerBoxes() {
         </p>
       </section>
 
-      <section itemScope itemType="https://schema.org/DefinedTerm">
-        <h2 itemProp="name">YouTube RPM</h2>
-        <p itemProp="description">
+      <section>
+        <h2>YouTube RPM</h2>
+        <p>
           YouTube RPM (Revenue Per Mille) is the total revenue a creator earns per 1,000 video views from all revenue sources including ads, channel memberships, Super Chat, and YouTube Premium.
           RPM is typically 45-55% of CPM after YouTube&apos;s revenue share (45% to creator, 55% to YouTube).
           RPM provides a more accurate picture of actual creator earnings than CPM alone.
