@@ -10,11 +10,10 @@ import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/bl
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema } from "@/lib/seo";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
-import BlogSidebar from "@/components/blog/BlogSidebar";
+
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
 
 // Generate static params
 export function generateStaticParams() {
@@ -296,11 +295,11 @@ export default async function BlogPostPage({
                 </header>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* 2-Column Layout */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    {/* Single Column Layout — sidebar removed */}
+                    <div className="max-w-4xl mx-auto">
 
                         {/* Main Content Column */}
-                        <div className="lg:col-span-2">
+                        <div>
                             {/* Featured Image (Moved from Header) */}
                             {post.coverImage && (
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
@@ -381,8 +380,6 @@ export default async function BlogPostPage({
                                 </div>
                             </article>
 
-                            {/* Ad: After article content — Multiplex for related content style */}
-                            <MultiplexAd />
 
                             {/* Related Posts (Mobile/Tablet only here, maybe? No, keep at bottom for all) */}
                             {/* Actually, let's keep related posts full width or inside the column? 
@@ -413,10 +410,7 @@ export default async function BlogPostPage({
                             </div>
                         </div>
 
-                        {/* Sidebar Column (Desktop) */}
-                        <div className="hidden lg:block lg:col-span-1">
-                            <BlogSidebar />
-                        </div>
+                        {/* Sidebar removed — ads managed via AdSense auto ads settings */}
 
                     </div>
                 </div>
