@@ -19,14 +19,14 @@ import { siteConfig } from "@/config/site";
 export default function newsSitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   const blogPosts = getAllBlogPosts();
-  
+
   // Filter to recent posts (last 30 days for news sitemap)
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-  
+
   const recentPosts = blogPosts.filter(post => {
     const postDate = new Date(post.date);
-    return postDate >= thirtyDaysAgo;
+    return !isNaN(postDate.getTime()) && postDate >= thirtyDaysAgo;
   });
 
   return recentPosts.map(post => ({

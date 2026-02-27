@@ -134,16 +134,9 @@ export const metadata = {
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
-  alternates: {
-    canonical: siteConfig.url,
-    languages: {
-      "en-US": siteConfig.url,
-      "en-GB": siteConfig.url,
-      "en-CA": siteConfig.url,
-      "en-AU": siteConfig.url,
-      "x-default": siteConfig.url,
-    },
-  },
+  // NOTE: No global canonical here — each page sets its own via alternates.canonical
+  // in its own generateMetadata(). A global canonical would override every child page
+  // and cause Google to see the homepage URL as canonical for ALL pages.
   // AI Crawler Meta Signals - Server Side for better discoverability
   other: {
     "ai-content-declaration": "human-written",

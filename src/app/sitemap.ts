@@ -67,9 +67,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic blog pages with image sitemaps
   for (const post of blogPosts) {
+    const postDate = new Date(post.date);
+    const safeDate = isNaN(postDate.getTime()) ? new Date() : postDate;
     allEntries.push({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
+      lastModified: safeDate,
       changeFrequency: "weekly",
       priority: 0.8,
       images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
