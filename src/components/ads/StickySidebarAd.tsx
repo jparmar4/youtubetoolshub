@@ -1,26 +1,35 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { initializeAdOnView, AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { initializeAd, resetAd, AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 let stickySidebarCounter = 0;
 
 export default function StickySidebarAd() {
   const containerRef = useRef<HTMLDivElement>(null);
+  // Stable instance ID per mount — unique across navigations
   const [instanceId] = useState(() => `sticky-sidebar-${++stickySidebarCounter}`);
 
   useEffect(() => {
-    const cleanup = initializeAdOnView(containerRef.current, instanceId, {
-      rootMargin: "800px",
+    // Reset so re-navigation to a blog post re-initializes the ad
+    resetAd(instanceId);
+
+    // 300ms delay lets the sticky sidebar finish its CSS layout pass
+    // before AdSense measures the <ins> element dimensions
+    const cleanup = initializeAd(containerRef.current, instanceId, {
+      delay: 300,
     });
-    return cleanup;
+
+    return () => {
+      cleanup();
+      resetAd(instanceId);
+    };
   }, [instanceId]);
 
   return (
     <div
       ref={containerRef}
-      className="w-full flex flex-col items-center overflow-hidden bg-white rounded-2xl border border-slate-100 p-3 shadow-sm"
+      className="w-full flex flex-col items-center bg-white rounded-2xl border border-slate-100 p-3 shadow-sm"
     >
       <div className="text-[10px] text-slate-400 mb-2 uppercase tracking-widest font-medium">
         Advertisement
@@ -29,9 +38,8 @@ export default function StickySidebarAd() {
         className="adsbygoogle"
         style={{
           display: "block",
-          width: "300px",
-          height: "600px",
-          maxWidth: "100%",
+          width: "100%",
+          minHeight: "250px",
         }}
         data-ad-client={AD_CLIENT}
         data-ad-slot={AD_SLOTS.STICKY_SIDEBAR}
