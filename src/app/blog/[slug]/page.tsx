@@ -296,11 +296,11 @@ export default async function BlogPostPage({
                 </header>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* Single-Column Layout (sidebar ad removed, using auto ads) */}
-                    <div className="grid grid-cols-1 gap-12">
+                    {/* 2-Column Layout: content + sidebar (auto ads fill the sidebar) */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
                         {/* Main Content Column */}
-                        <div className="max-w-4xl mx-auto w-full">
+                        <div className="lg:col-span-2">
                             {/* Featured Image (Moved from Header) */}
                             {post.coverImage && (
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
@@ -411,7 +411,8 @@ export default async function BlogPostPage({
                             </div>
                         </div>
 
-
+                        {/* Sidebar Column — kept for auto ads placement */}
+                        <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 self-start" />
 
                     </div>
                 </div>
