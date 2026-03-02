@@ -14,7 +14,7 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import BlogSidebar from "@/components/blog/BlogSidebar";
+
 
 // Generate static params
 export function generateStaticParams() {
@@ -296,11 +296,11 @@ export default async function BlogPostPage({
                 </header>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* 2-Column Layout */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    {/* Single-Column Layout (sidebar ad removed, using auto ads) */}
+                    <div className="grid grid-cols-1 gap-12">
 
                         {/* Main Content Column */}
-                        <div className="lg:col-span-2">
+                        <div className="max-w-4xl mx-auto w-full">
                             {/* Featured Image (Moved from Header) */}
                             {post.coverImage && (
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
@@ -411,10 +411,7 @@ export default async function BlogPostPage({
                             </div>
                         </div>
 
-                        {/* Sidebar Column (Desktop) */}
-                        <div className="hidden lg:block lg:col-span-1">
-                            <BlogSidebar />
-                        </div>
+
 
                     </div>
                 </div>
