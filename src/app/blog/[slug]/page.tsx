@@ -14,7 +14,7 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-
+import BlogSidebar from "@/components/blog/BlogSidebar";
 
 // Generate static params
 export function generateStaticParams() {
@@ -411,8 +411,8 @@ export default async function BlogPostPage({
                             </div>
                         </div>
 
-                        {/* Sidebar Column — kept for auto ads placement */}
-                        <aside className="hidden lg:block lg:col-span-1 lg:sticky lg:top-24 self-start" />
+                        {/* Sidebar Column */}
+                        <BlogSidebar />
 
                     </div>
                 </div>
