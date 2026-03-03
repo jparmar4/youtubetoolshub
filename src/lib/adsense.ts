@@ -58,10 +58,10 @@ export const AD_SLOTS = {
   MULTIPLEX: "3104734850",
 
   /** Sidebar display ad (vertical) */
-  SIDEBAR: "8474488368",
+  SIDEBAR: "9342904756",
 
   /** Sticky sidebar ad (stays visible on scroll - vertical) */
-  STICKY_SIDEBAR: "8474488368",
+  STICKY_SIDEBAR: "9342904756",
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",
