@@ -14,6 +14,7 @@ import TrustSignals from "@/components/seo/TrustSignals";
 import VoiceSearchOptimization from "@/components/seo/VoiceSearchOptimization";
 import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import HeaderAd from "@/components/ads/HeaderAd";
+import AdRecovery from "@/components/ads/AdRecovery";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -327,6 +328,9 @@ export default async function RootLayout({
             __html: JSON.stringify(datasetSchema),
           }}
         />
+
+        {/* Ad Blocking Recovery Tags */}
+        <AdRecovery />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
