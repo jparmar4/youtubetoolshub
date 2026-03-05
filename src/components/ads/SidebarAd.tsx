@@ -27,15 +27,13 @@ export default function SidebarAd() {
       <ins
         className="adsbygoogle"
         style={{
-          display: "block",
+          display: "inline-block", // Explicit sizing works better with inline-block
           width: "300px",
           height: "250px",
-          maxWidth: "100%",
         }}
         data-ad-client={AD_CLIENT}
         data-ad-slot={AD_SLOTS.SIDEBAR}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
+      // Removing format="auto" and responsive="true" to enforce the strict 300x250 square
       />
     </div>
   );
