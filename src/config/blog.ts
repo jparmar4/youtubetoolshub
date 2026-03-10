@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
             bestRating: "5",
             worstRating: "1"
         },
-        content: \`
+        content: `
 Burnout is the number one reason YouTube channels die. Not a bad algorithm update. Not a low view count. Not even bad content. It's the sheer exhaustion of showing up to film, edit, and publish week after week, indefinitely, with no finish line in sight.
 
 I've spoken with hundreds of creators who quit not because they weren't growing, but because the treadmill never stopped. If that sounds familiar, what you need isn't more motivation — you need a better system. Specifically, you need to understand **youtube content batching**.
@@ -285,7 +285,7 @@ When you film a video at 11 PM the night before it's supposed to publish because
 When you filmed that same video three weeks ago, replete and energetic on a well-planned batch day, with a polished script and a properly lit setup? That's a different video. That's the kind of video that builds a channel.
 
 The batch system doesn't just save time. It makes every video you produce measurably better. Start small — batch just two videos on your next free weekend. You'll feel the difference immediately.
-\`,
+`,
         faq: [
             {
                 question: "What is YouTube content batching?",
