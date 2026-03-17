@@ -175,7 +175,7 @@ Adding text on screen is only half the battle. If you want these tools to actual
 ### 1. Hardcode for Retention, SRT for Search
 When you hardcode captions (burn them directly into the video file), you ensure that mobile viewers watching with sound off still consume your content. This drives up Average View Duration (AVD), which is the king metric for the YouTube algorithm. 
 
-However, you should *also* export the plain `.srt` file from your AI tool and upload it manually to YouTube's "Subtitles" tab. According to major industry studies like [Backlinko's YouTube Ranking Factors](https://backlinko.com/youtube-ranking-factors), search engines crawl this uploaded text file to understand the exact context of your video, feeding directly into Answer Engine Optimization (AEO).
+However, you should *also* export the plain \`.srt\` file from your AI tool and upload it manually to YouTube's "Subtitles" tab. According to major industry studies like [Backlinko's YouTube Ranking Factors](https://backlinko.com/youtube-ranking-factors), search engines crawl this uploaded text file to understand the exact context of your video, feeding directly into Answer Engine Optimization (AEO).
 
 ### 2. The Title-Caption Alignment Strategy
 If your video is about "budget microphones," that exact phrase needs to appear in your thumbnail, your spoken audio in the first 15 seconds, your on-screen AI captions, and your metadata. Use our [YouTube Title Generator](/tools/youtube-title-generator) to nail the phrasing, then map that exact phrasing into your scripted, closed-captioned hook. The algorithm rewards consistency.
