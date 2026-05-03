@@ -1,6 +1,8 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Output standalone for Hostinger Node.js deployment
+  output: "standalone",
 
-const nextConfig: NextConfig = {
   // Enable React Strict Mode for better development
   reactStrictMode: true,
 
