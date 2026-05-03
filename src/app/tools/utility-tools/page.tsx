@@ -160,7 +160,7 @@ export default function UtilityToolsHub() {
 }
 
 // Helper for icon
-function FaBolt(props: any) {
+function FaBolt(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             stroke="currentColor"

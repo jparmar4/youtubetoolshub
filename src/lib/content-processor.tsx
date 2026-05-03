@@ -189,7 +189,7 @@ export function processContent(content: string): React.ReactNode[] {
                     break;
                 case 'EXPERT_QUOTE':
                     // Parse key=value lines
-                    const props: any = {};
+                    const props: Record<string, string> = {};
                     aeoLines.forEach(line => {
                         const [k, ...v] = line.split('=');
                         if (k && v) props[k.trim()] = v.join('=').trim().replace(/^"|"$/g, '');

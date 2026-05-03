@@ -265,6 +265,10 @@ export async function GET() {
       "monetization_suite": ["youtube-earnings-calculator", "youtube-engagement-rate-calculator"],
       "planning_suite": ["youtube-video-ideas-generator", "youtube-trend-helper", "youtube-content-calendar-generator"],
     },
+    structured_data: {
+      knowledge_graph: knowledgeGraph,
+      tool_entities: toolEntities,
+    },
     faqs: faqEntities,
     blog_index: blogPosts.slice(0, 15).map(p => ({
       title: p.title,
