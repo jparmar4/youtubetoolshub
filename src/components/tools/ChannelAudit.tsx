@@ -252,7 +252,7 @@ export default function ChannelAudit() {
                                                         await navigator.share({
                                                             title: content.title,
                                                             text: content.text,
-                                                            url: "https://youtubetoolshub.com/tools/youtube-channel-audit"
+                                                            url: "https://www.youtubetoolshub.com/tools/youtube-channel-audit"
                                                         });
                                                     } catch (err) {
                                                         // User cancelled or error, fallback to modal if needed, but usually just ignore cancel
@@ -309,7 +309,7 @@ export default function ChannelAudit() {
                     onClose={() => setShowShareModal(false)}
                     title={getShareContent().title}
                     text={getShareContent().text}
-                    url="https://youtubetoolshub.com/tools/youtube-channel-audit"
+                    url="https://www.youtubetoolshub.com/tools/youtube-channel-audit"
                 />
             )}
         </div>

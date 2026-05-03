@@ -12,7 +12,7 @@ interface ShareModalProps {
     url?: string;
 }
 
-export default function ShareModal({ isOpen, onClose, title, text, url = "https://youtubetoolshub.com" }: ShareModalProps) {
+export default function ShareModal({ isOpen, onClose, title, text, url = "https://www.youtubetoolshub.com" }: ShareModalProps) {
     const [copied, setCopied] = useState(false);
     const fullText = `${text}\n\n${url}`;
 
