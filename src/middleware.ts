@@ -102,10 +102,11 @@ export default async function middleware(request: NextRequest) {
   const host = request.headers.get("host");
 
   // 0. Redirect non-www to www (SEO Canonicalization)
-  if (host === "youtubetoolshub.com") {
-    const url = new URL(request.url);
-    url.hostname = "www.youtubetoolshub.com";
-    return NextResponse.redirect(url);
+  if (host === "youtubetoolshub.com" || host?.startsWith("youtubetoolshub.com:")) {
+    return NextResponse.redirect(
+      `https://www.youtubetoolshub.com${pathname}${request.nextUrl.search}`,
+      301
+    );
   }
 
   // 0.1 Redirect locale-prefixed URLs to a single canonical URL

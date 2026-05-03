@@ -12,12 +12,8 @@ process.env.NODE_ENV = 'production';
 if (!process.env.PORT) {
   process.env.PORT = '3000';
 }
-// Also set HOSTNAME to listen on all interfaces
-if (!process.env.HOSTNAME) {
-  process.env.HOSTNAME = '0.0.0.0';
-}
 
-console.log(`[server] Starting on port ${process.env.PORT}, host ${process.env.HOSTNAME}`);
+console.log(`[server] Starting on port ${process.env.PORT}`);
 
 // Ensure the current working directory is the root of the project
 process.chdir(__dirname);
