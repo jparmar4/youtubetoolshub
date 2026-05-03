@@ -97,7 +97,7 @@ Yes. The tools have specific optimization modes for Shorts shelf velocity and Lo
 ## Technical Information
 
 - **Framework**: Next.js 16 (React 19)
-- **Hosting**: Vercel Edge Network (global CDN)
+- **Hosting**: Hostinger Cloud Hosting
 - **APIs**: YouTube Data API v3, OpenAI API
 - **Performance**: Core Web Vitals optimized, mobile-first responsive design
 - **Schema Types**: Organization, WebSite, WebApplication, SoftwareApplication, FAQPage, HowTo, BreadcrumbList, BlogPosting, ItemList, SpeakableSpecification, DefinedTerm, VideoObject, AggregateRating, ProfilePage, Service

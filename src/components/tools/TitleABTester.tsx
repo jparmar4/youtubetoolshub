@@ -169,7 +169,7 @@ export default function TitleABTester() {
 
                         {/* Winner Banner */}
                         <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white shadow-xl text-center">
-                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+                            <div className="absolute inset-0 bg-white/10 opacity-20"></div>
                             <div className="relative z-10">
                                 <div className="inline-block bg-white/20 backdrop-blur-md rounded-full px-4 py-1 text-sm font-semibold mb-4">
                                     🏆 AI CONFIDENCE: {result.confidence}%

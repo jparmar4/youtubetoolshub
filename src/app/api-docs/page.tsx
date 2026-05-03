@@ -276,7 +276,7 @@ export default function APIDocsPage() {
                                     <p>
                                         <strong>Rate limiting</strong> applies to tool-execution
                                         endpoints (extract-tags, channel-id, etc.) at the
-                                        Vercel Edge Network level.
+                                        hosting platform level.
                                     </p>
                                 </div>
                                 <div className="flex items-start gap-3">
