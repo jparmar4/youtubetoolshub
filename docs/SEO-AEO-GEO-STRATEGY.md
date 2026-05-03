@@ -65,7 +65,7 @@ YouTube Tools Hub is a free SaaS platform with 21+ AI-powered tools for YouTube 
 
 ### ✅ Strengths
 
-1. **Next.js 15 with SSR** — Fast server-rendered pages, excellent Core Web Vitals
+1. **Next.js 16 with SSR** — Fast server-rendered pages, excellent Core Web Vitals
 2. **Comprehensive structured data** — 13+ schema types implemented
 3. **AI-first design** — `llms.txt`, `ai.txt`, speakable schemas, AI crawler allowance
 4. **Programmatic SEO** — Auto-generated niche and country pages for long-tail traffic

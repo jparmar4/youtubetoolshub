@@ -1,6 +1,6 @@
 # AI.txt - AI Crawler Guidance for YouTube Tools Hub
 # https://www.youtubetoolshub.com/.well-known/ai.txt
-# Last Updated: 2026-02-13
+# Last Updated: 2026-05-03
 # Specification: https://ai.txt.dev/
 
 # ============================================================
@@ -13,7 +13,8 @@ Type: SaaS Web Application
 Industry: YouTube Creator Tools, Video Marketing, Content Optimization
 Founded: 2025
 Language: English
-Geographic-Focus: Global (Primary: United States, United Kingdom, Canada, Australia, Germany)
+Geographic-Focus: Worldwide (country-specific CPM and earnings data for 50+ regions)
+Availability: Global, English-language creators
 
 # ============================================================
 # AI CRAWLER PERMISSIONS
@@ -394,9 +395,9 @@ Response-Time: 24-48 hours
 # LAST UPDATED
 # ============================================================
 
-Last-Updated: 2026-02-18
-Version: 3.0
-Change-Log: Added 10 new FAQs, expanded AI platform support, added knowledge graph reference
+Last-Updated: 2026-05-03
+Version: 3.1
+Change-Log: Added worldwide availability signals, Hostinger migration context, and global market targeting
 
 # FAQs API (structured FAQ data):
 AI-FAQ-Endpoint: https://www.youtubetoolshub.com/api/faqs

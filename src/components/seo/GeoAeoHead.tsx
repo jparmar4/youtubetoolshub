@@ -568,11 +568,11 @@ export default function GeoAeoHead({
       {/* ========================================== */}
       {/* GEO-TARGETING FOR TIER 1 COUNTRIES        */}
       {/* ========================================== */}
-      <meta name="geo.region" content={resolvedGeoTargets.join(",")} />
-      <meta name="geo.placename" content="Global" />
-      <meta name="ICBM" content="37.7749, -122.4194" />{" "}
-      {/* US-centric default */}
-      <meta name="geo.position" content="37.7749;-122.4194" />
+      <meta name="geo.region" content="001" />
+      <meta name="geo.placename" content="Worldwide" />
+      <meta name="content-language" content="en" />
+      <meta name="available-language" content="English" />
+      <meta name="global-markets" content={siteConfig.globalMarkets.join(", ")} />
       <meta
         name="target"
         content={resolvedGeoTargets

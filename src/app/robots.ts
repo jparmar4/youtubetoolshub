@@ -692,6 +692,7 @@ export default function robots(): MetadataRoute.Robots {
 
     // ─── Sitemaps ───
     sitemap: [
+      `${baseUrl}/sitemap_index.xml`,
       `${baseUrl}/sitemap.xml`,
       `${baseUrl}/sitemap-news.xml`,
       `${baseUrl}/sitemap-images.xml`,

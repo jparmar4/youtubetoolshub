@@ -77,10 +77,11 @@ export function getOrganizationSchema() {
             "YouTube Shorts Optimization",
         ],
         // Geographic focus
-        areaServed: {
-            "@type": "AdministrativeArea",
-            name: "Global",
-        },
+        areaServed: siteConfig.globalMarkets.map((market) => ({
+            "@type": market === "Worldwide" ? "AdministrativeArea" : "Country",
+            name: market,
+        })),
+        availableLanguage: ["English"],
         // Brand information
         brand: {
             "@type": "Brand",
@@ -101,6 +102,7 @@ export function getWebsiteSchema() {
         url: siteConfig.url,
         description: siteConfig.description,
         inLanguage: "en",
+        availableLanguage: ["English"],
         // Link to organization entity
         publisher: {
             "@id": `${siteConfig.url}/#organization`,

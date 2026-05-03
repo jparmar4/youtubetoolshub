@@ -89,7 +89,7 @@ export async function generateMetadata({
     const nicheContent = getNicheContent(tool.name, niche);
 
     return {
-        title: `${tool.name} for ${niche.name} Channels (2025) | Free Tool`,
+        title: `${tool.name} for ${niche.name} Channels (2026) | Free Tool`,
         description: nicheContent.description,
         keywords: [...tool.keywords, ...niche.keywords, `${tool.name} for ${niche.name}`],
         openGraph: {
@@ -108,7 +108,7 @@ export async function generateMetadata({
         },
         twitter: {
             card: "summary_large_image",
-            title: `${tool.name} for ${niche.name} Channels (2025) | Free Tool`,
+            title: `${tool.name} for ${niche.name} Channels (2026) | Free Tool`,
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },

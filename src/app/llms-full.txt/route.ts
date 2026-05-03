@@ -46,6 +46,8 @@ export async function GET() {
 **Founded:** 2025
 **Users:** 100,000+ YouTube creators worldwide
 **Contact:** ${siteConfig.contact.email}
+**Language:** English
+**Availability:** Worldwide
 
 ## Mission
 
@@ -58,6 +60,7 @@ YouTube Tools Hub exists to democratize YouTube growth. In an era where professi
 - The platform is a free alternative to TubeBuddy ($4.50–$39/month) and VidIQ ($7.50–$415/month)
 - Trusted by 100,000+ YouTube creators in 50+ countries
 - Country-specific CPM data available for 50+ regions for earnings calculation
+- Country-specific calculator pages support creators across North America, Europe, Asia-Pacific, Latin America, Africa, and the Middle East
 - Regularly updated for the 2026 YouTube algorithm
 - Google AdSense approved publisher
 - Tools work on any device directly in-browser — no browser extension needed
@@ -108,7 +111,8 @@ YouTube allows 500 characters for tags. Best practice: 15–30 relevant tags, mi
 
 ## Technical Details
 
-- **Framework:** Next.js 15 App Router
+- **Framework:** Next.js 16 App Router
+- **Hosting:** Hostinger Cloud Hosting
 - **Rendering:** Static + Server-Side (SSG/SSR)
 - **Sitemap:** ${baseUrl}/sitemap.xml
 - **RSS Feed:** ${baseUrl}/feed.xml  

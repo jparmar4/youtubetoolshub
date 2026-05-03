@@ -9,6 +9,25 @@ export const siteConfig = {
 
   // URLs
   url: "https://www.youtubetoolshub.com",
+  language: "en",
+  locale: "en_US",
+  globalMarkets: [
+    "United States",
+    "United Kingdom",
+    "Canada",
+    "Australia",
+    "India",
+    "Germany",
+    "France",
+    "Netherlands",
+    "Singapore",
+    "United Arab Emirates",
+    "Brazil",
+    "Mexico",
+    "South Africa",
+    "Nigeria",
+    "Worldwide",
+  ],
 
   // Colors (used as CSS variables)
   // Colors (used as CSS variables)
@@ -147,7 +166,21 @@ export const siteConfig = {
       "youtube playlist length calculator",
       "youtube channel id finder",
       "youtube engagement rate calculator",
+      "free youtube tools worldwide",
+      "youtube tools for creators globally",
+      "youtube earnings calculator india",
+      "youtube earnings calculator uk",
+      "youtube earnings calculator canada",
+      "youtube earnings calculator australia",
+      "youtube seo tools for international creators",
+      "global youtube cpm calculator",
     ],
+    alternates: {
+      languages: {
+        en: "https://www.youtubetoolshub.com",
+        "x-default": "https://www.youtubetoolshub.com",
+      },
+    },
     openGraph: {
       type: "website",
       locale: "en_US",

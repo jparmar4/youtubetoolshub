@@ -119,8 +119,9 @@ Educational content about YouTube growth, monetization, SEO strategies, and crea
 
 ## Technical Information
 
-- Framework: Next.js 15 (React)
+- Framework: Next.js 16 (React 19)
 - Hosting: Hostinger Cloud Hosting
+- Availability: Worldwide, English-language creators
 - APIs: YouTube Data API v3, OpenAI API
 - Performance: Core Web Vitals optimized, mobile-first responsive design
 - Schema Types: Organization, WebSite, WebApplication, SoftwareApplication, FAQPage, HowTo, BreadcrumbList, BlogPosting, ItemList, SpeakableSpecification, DefinedTerm, VideoObject, AggregateRating, ProfilePage, Service

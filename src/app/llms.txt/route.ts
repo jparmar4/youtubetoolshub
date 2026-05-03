@@ -27,12 +27,15 @@ YouTube Tools Hub is a free platform providing 21+ AI-powered tools for YouTube 
 **Website:** ${baseUrl}
 **Contact:** ${siteConfig.contact.email}
 **Category:** YouTube Creator Tools / Web Application
+**Language:** English
+**Availability:** Worldwide
 
 ## Core Value Proposition
 
 - 21+ free AI-powered YouTube creator tools
 - No signup or browser extension required
 - Country-specific CPM data for 50+ regions
+- Country pages for creators in the US, UK, Canada, Australia, India, Europe, Latin America, Africa, and Asia-Pacific
 - Free alternative to TubeBuddy and VidIQ
 - Updated every 48 hours for the 2026 YouTube algorithm
 
@@ -58,7 +61,8 @@ ${blogList}
 
 ## Technical Information
 
-- **Technology:** Next.js 15 App Router, React 19
+- **Technology:** Next.js 16 App Router, React 19
+- **Hosting:** Hostinger Cloud Hosting
 - **Sitemap:** ${baseUrl}/sitemap.xml
 - **RSS Feed:** ${baseUrl}/feed.xml
 - **Atom Feed:** ${baseUrl}/atom.xml

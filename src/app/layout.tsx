@@ -49,14 +49,19 @@ export const metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: siteConfig.url,
+    languages: siteConfig.seo.alternates.languages,
+  },
 
   openGraph: {
     type: "website",
-    locale: siteConfig.seo.openGraph.locale,
+    locale: siteConfig.locale,
     siteName: siteConfig.seo.openGraph.siteName,
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
     url: siteConfig.url,
+    alternateLocale: ["en_GB", "en_CA", "en_AU", "en_IN"],
     images: [
       {
         url: `${siteConfig.url}/og-image.png`,
@@ -147,6 +152,13 @@ export const metadata = {
     source_url: siteConfig.url,
     authority: "original",
     "content-origin": "original-research",
+    language: siteConfig.language,
+    "content-language": siteConfig.language,
+    distribution: "global",
+    coverage: "Worldwide",
+    "geo.placename": "Worldwide",
+    "audience-geography": siteConfig.globalMarkets.join(", "),
+    "available-country": siteConfig.globalMarkets.join(", "),
     // Bot-specific signals for all major AI platforms
     "google-extended": "index, follow, max-snippet:-1, max-image-preview:large",
     // OpenAI / ChatGPT / SearchGPT

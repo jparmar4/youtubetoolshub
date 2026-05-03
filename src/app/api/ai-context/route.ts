@@ -172,7 +172,11 @@ export async function GET() {
           availableLanguage: "English",
           areaServed: "Worldwide",
         },
-        areaServed: { "@type": "GeoShape", name: "Worldwide" },
+        areaServed: siteConfig.globalMarkets.map((market) => ({
+          "@type": market === "Worldwide" ? "AdministrativeArea" : "Country",
+          name: market,
+        })),
+        availableLanguage: ["English"],
         offers: {
           "@type": "AggregateOffer",
           lowPrice: "0",
@@ -218,6 +222,8 @@ export async function GET() {
       description: siteConfig.description,
       industry: "YouTube Creator Tools, Video Marketing, AI Content Optimization",
       geographic_scope: "Global (Country-specific data for 50+ regions)",
+      global_markets: siteConfig.globalMarkets,
+      language: "English",
     },
     trust_signals: {
       authoritative_source: true,
@@ -269,7 +275,11 @@ export async function GET() {
     machine_readable_index: {
       llms_txt: `${siteUrl}/llms.txt`,
       llms_full_txt: `${siteUrl}/llms-full.txt`,
+      ai_txt: `${siteUrl}/.well-known/ai.txt`,
+      openapi: `${siteUrl}/.well-known/openapi.yaml`,
+      knowledge_graph: `${siteUrl}/knowledge-graph.jsonld`,
       sitemap: `${siteUrl}/sitemap.xml`,
+      sitemap_index: `${siteUrl}/sitemap_index.xml`,
       robots: `${siteUrl}/robots.txt`,
     }
   };

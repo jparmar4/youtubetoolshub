@@ -8,6 +8,12 @@ import { countryCPMData } from "@/lib/cpm-data";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   const blogPosts = getAllBlogPosts();
+  const getAlternates = (url: string) => ({
+    languages: {
+      en: url,
+      "x-default": url,
+    },
+  });
 
   // Base routes (without locale)
   const routes = [
@@ -45,23 +51,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resources/link-to-us",
   ];
   for (const route of routes) {
+    const url = `${baseUrl}${route}`;
     allEntries.push({
-      url: `${baseUrl}${route}`,
+      url,
       lastModified: route === "" ? new Date() : staticLastModified,
       changeFrequency: route === "" ? "daily" : "weekly",
       priority:
         route === "" ? 1 : highPriorityRoutes.includes(route) ? 0.8 : 0.7,
+      alternates: getAlternates(url),
     });
   }
 
   // Dynamic tool pages with image sitemaps
   for (const tool of tools) {
+    const url = `${baseUrl}/tools/${tool.slug}`;
     allEntries.push({
-      url: `${baseUrl}/tools/${tool.slug}`,
+      url,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
       images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],
+      alternates: getAlternates(url),
     });
   }
 
@@ -69,34 +79,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const post of blogPosts) {
     const postDate = new Date(post.date);
     const safeDate = isNaN(postDate.getTime()) ? new Date() : postDate;
+    const url = `${baseUrl}/blog/${post.slug}`;
     allEntries.push({
-      url: `${baseUrl}/blog/${post.slug}`,
+      url,
       lastModified: safeDate,
       changeFrequency: "weekly",
       priority: 0.8,
       images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
+      alternates: getAlternates(url),
     });
   }
 
   // Dynamic programmatic niche pages
   for (const toolSlug of programmaticTools) {
     for (const niche of niches) {
+      const url = `${baseUrl}/tools/${toolSlug}/${niche.id}`;
       allEntries.push({
-        url: `${baseUrl}/tools/${toolSlug}/${niche.id}`,
+        url,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.8,
+        alternates: getAlternates(url),
       });
     }
   }
 
   // Country-specific earnings calculator pages
   for (const country of countryCPMData) {
+    const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
-      url: `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`,
+      url,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
+      alternates: getAlternates(url),
     });
   }
 
