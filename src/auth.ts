@@ -2,7 +2,17 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import { siteConfig } from "@/config/site";
 
-const canonicalAuthUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL || siteConfig.url;
+function getCanonicalAuthUrl() {
+    const configuredUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL;
+
+    if (process.env.NODE_ENV === "development" && configuredUrl) {
+        return configuredUrl.replace(/\/$/, "");
+    }
+
+    return siteConfig.url.replace(/\/$/, "");
+}
+
+const canonicalAuthUrl = getCanonicalAuthUrl();
 
 process.env.AUTH_URL = canonicalAuthUrl;
 process.env.NEXTAUTH_URL = canonicalAuthUrl;
