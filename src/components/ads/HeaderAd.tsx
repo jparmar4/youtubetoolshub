@@ -35,8 +35,8 @@ export default function HeaderAd() {
     // Prevent double initialization (React Strict Mode / re-renders)
     if (adRef.current) return;
 
-    // Small delay to ensure AdSense script is loaded
-    const timer = setTimeout(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const loadAd = () => {
       try {
         if (typeof window !== "undefined" && containerRef.current) {
           const insElement =
@@ -91,7 +91,25 @@ export default function HeaderAd() {
         console.error("HeaderAd: AdSense initialization error:", err);
         setAdError(true);
       }
-    }, 100);
+    };
+
+    // Let the main content paint first. AdSense can queue requests even if its
+    // script finishes later, but it should not compete with LCP.
+    if ("requestIdleCallback" in window) {
+      const idleCallbackId = window.requestIdleCallback(
+        () => {
+          timer = setTimeout(loadAd, 1500);
+        },
+        { timeout: 3000 },
+      );
+
+      return () => {
+        window.cancelIdleCallback(idleCallbackId);
+        clearTimeout(timer);
+      };
+    }
+
+    timer = setTimeout(loadAd, 2500);
 
     return () => clearTimeout(timer);
   }, []);

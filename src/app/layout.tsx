@@ -9,10 +9,6 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
-import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import TrustSignals from "@/components/seo/TrustSignals";
-import VoiceSearchOptimization from "@/components/seo/VoiceSearchOptimization";
-import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import HeaderAd from "@/components/ads/HeaderAd";
 import AdRecovery from "@/components/ads/AdRecovery";
 
@@ -360,10 +356,10 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense - Faster Loading for Revenue */}
+        {/* AdSense - delayed so it does not compete with initial content rendering */}
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
         />
         {/* Microsoft Clarity — lazyOnload: analytics-only, not revenue-critical */}
@@ -385,10 +381,6 @@ export default async function RootLayout({
             <ScrollToTop />
             <CookieConsent />
             <PrivacyH1Fix />
-            <GeoAeoHead />
-            <TrustSignals />
-            <VoiceSearchOptimization />
-            <AnswerBoxes />
           </UsageProvider>
         </AuthProvider>
       </body>
