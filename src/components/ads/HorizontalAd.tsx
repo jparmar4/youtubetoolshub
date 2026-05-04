@@ -1,43 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useId } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 /**
  * HorizontalAd — Full-width responsive display ad for between content sections
  *
  * KEY OPTIMIZATIONS:
- * 1. Lazy loading via IntersectionObserver — ad only initializes when the
- *    container is 300px from entering the viewport. This:
- *    - Improves Core Web Vitals (less CLS, faster LCP)
- *    - Increases viewability score → AdSense serves higher-paying ads
- *    - Reduces wasted impressions on ads users never scroll to
- *
- * 2. Proper initialization guard — prevents the common "All ins elements
- *    in the DOM already have ads" double-push error that silently kills ad revenue
- *
- * 3. Unique instance ID — allows multiple HorizontalAd components on the same
- *    page without conflicting with each other (e.g., homepage has 2+)
- *
- * 4. Minimum height placeholder — prevents Cumulative Layout Shift (CLS) when
- *    the ad loads. CLS is a Core Web Vitals metric that directly affects rankings.
- *
- * 5. Graceful error handling — if the ad fails, the container collapses cleanly
- *    instead of leaving an ugly blank space
- *
- * PLACEMENT GUIDE:
- * - Use between major content sections (after hero, between tool grid and FAQ, etc.)
- * - Maximum 1 HorizontalAd per screen-height of content (avoid ad stacking)
- * - Best performing position: directly after the user completes an action
- *   (e.g., after using a tool, after reading a section)
- *
- * Revenue impact: Horizontal display ads are the bread-and-butter of AdSense revenue.
- * With proper lazy loading, viewability jumps from ~40% to ~75%+, which can
- * increase effective CPM by 30-50% because AdSense rewards high-viewability placements.
+ * 1. Lazy loading via IntersectionObserver
+ * 2. Proper initialization guard
+ * 3. Unique instance ID via useId() to prevent hydration mismatches
+ * 4. Minimum height placeholder
+ * 5. Graceful error handling
  */
-
-// Global counter for unique instance IDs across multiple mounts
-let horizontalAdCounter = 0;
 
 declare global {
   interface Window {
@@ -49,11 +24,15 @@ export default function HorizontalAd() {
   const containerRef = useRef<HTMLDivElement>(null);
   const adInitialized = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [adIndex] = useState(() => ++horizontalAdCounter);
-  const [adId] = useState(() => `horizontal-ad-${adIndex}`);
+  
+  const reactId = useId();
+  // Sanitize the ID to be a valid CSS selector and DOM id
+  const [adId] = useState(() => `horizontal-ad-${reactId.replace(/[^a-zA-Z0-9]/g, '')}`);
+  
   const [adSlotId] = useState(() => {
     const slots = AD_SLOTS.HORIZONTAL;
-    return Array.isArray(slots) ? slots[(adIndex - 1) % slots.length] : slots;
+    // Just pick a random slot from the array if it's an array
+    return Array.isArray(slots) ? slots[Math.floor(Math.random() * slots.length)] : slots;
   });
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [hasError, setHasError] = useState(false);

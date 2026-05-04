@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useId } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 declare global {
@@ -9,13 +9,14 @@ declare global {
   }
 }
 
-let multiplexAdCounter = 0;
-
 export default function MultiplexAd() {
   const containerRef = useRef<HTMLDivElement>(null);
   const adInitialized = useRef(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const [adId] = useState(() => "multiplex-ad-" + String(++multiplexAdCounter));
+  
+  const reactId = useId();
+  const [adId] = useState(() => `multiplex-ad-${reactId.replace(/[^a-zA-Z0-9]/g, '')}`);
+  
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [hasError, setHasError] = useState(false);
 
