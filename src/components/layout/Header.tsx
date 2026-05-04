@@ -106,7 +106,7 @@ function Header() {
                     </div>
 
                     {/* Right Section */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                         {/* Theme Toggle - only render after mount to avoid hydration mismatch */}
                         {/* Theme toggle removed - single Emerald theme only */}
 

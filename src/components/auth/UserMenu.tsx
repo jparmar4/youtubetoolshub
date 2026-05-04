@@ -33,7 +33,7 @@ export default function UserMenu() {
         return (
             <Link
                 href="/sign-in"
-                className="px-4 py-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
                 Sign In
             </Link>
