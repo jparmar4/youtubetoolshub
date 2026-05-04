@@ -89,9 +89,21 @@ function handleStaticRequest(req, res, nextHandler) {
   // ── Serve /_next/static/* ──
   if (pathname.startsWith('/_next/static/')) {
     const relative = pathname.slice('/_next/static/'.length);
+    let served = false;
     for (const base of STATIC_PATHS) {
-      if (serveFile(path.join(base, relative), res, true)) return;
+      if (serveFile(path.join(base, relative), res, true)) {
+        served = true;
+        break;
+      }
     }
+    if (!served) {
+      // Explicit 404 for missing static chunks instead of falling through to Next.js handler.
+      // If Next.js handles it, it returns an HTML 404 which causes strict MIME checking errors in the browser,
+      // preventing the Next.js client router from recovering gracefully.
+      res.writeHead(404, { 'Content-Type': 'application/javascript; charset=utf-8' });
+      res.end();
+    }
+    return;
   }
 
   // ── Serve public files ──
