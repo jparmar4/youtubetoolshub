@@ -7,8 +7,6 @@ const fs = require('fs');
 process.env.NODE_ENV = 'production';
 
 // ─── CRITICAL: Set PORT before requiring standalone server ───
-// Hostinger assigns a dynamic port via process.env.PORT.
-// Next.js standalone reads PORT at import time — it MUST be set first.
 if (!process.env.PORT) {
   process.env.PORT = '3000';
 }
@@ -19,14 +17,17 @@ console.log(`[server] Starting on port ${process.env.PORT}`);
 process.chdir(__dirname);
 
 // ─── Static file directories ───
-// Primary: Inside the standalone build (populated by copy-standalone.js)
-const STANDALONE_STATIC = path.join(__dirname, '.next', 'standalone', '.next', 'static');
-const STANDALONE_PUBLIC = path.join(__dirname, '.next', 'standalone', 'public');
-// Fallback: Original build output (for direct builds without copy step)
-const BUILD_STATIC = path.join(__dirname, '.next', 'static');
-const BUILD_PUBLIC = path.join(__dirname, 'public');
+// We look in multiple possible locations to be absolutely sure we find them
+const STATIC_PATHS = [
+  path.join(__dirname, '.next', 'static'),
+  path.join(__dirname, '.next', 'standalone', '.next', 'static'),
+];
 
-// ─── MIME type mapping ───
+const PUBLIC_PATHS = [
+  path.join(__dirname, 'public'),
+  path.join(__dirname, '.next', 'standalone', 'public'),
+];
+
 const MIME_TYPES = {
   '.js':          'application/javascript; charset=utf-8',
   '.mjs':         'application/javascript; charset=utf-8',
@@ -51,9 +52,6 @@ const MIME_TYPES = {
   '.webmanifest': 'application/manifest+json; charset=utf-8',
 };
 
-/**
- * Serve a file from disk. Returns true if served, false if not found.
- */
 function serveFile(filePath, res, isImmutable) {
   try {
     if (!fs.existsSync(filePath)) return false;
@@ -73,86 +71,67 @@ function serveFile(filePath, res, isImmutable) {
 
     fs.createReadStream(filePath).pipe(res);
     return true;
-  } catch {
+  } catch (e) {
+    console.error(`[server] Error serving ${filePath}:`, e.message);
     return false;
   }
 }
 
-/**
- * Custom static file request handler.
- * Checks local disk before falling through to Next.js.
- */
 function handleStaticRequest(req, res, nextHandler) {
-  // Parse the URL path safely
   let pathname = '/';
   try {
-    pathname = decodeURIComponent(new URL(`http://localhost${req.url || '/'}`).pathname);
-  } catch {
+    const urlObj = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+    pathname = decodeURIComponent(urlObj.pathname);
+  } catch (e) {
     pathname = (req.url || '/').split('?')[0];
   }
 
-  // ── /_next/static/* — immutable JS/CSS/font chunks ──
+  // ── Serve /_next/static/* ──
   if (pathname.startsWith('/_next/static/')) {
     const relative = pathname.slice('/_next/static/'.length);
-    if (
-      serveFile(path.join(STANDALONE_STATIC, relative), res, true) ||
-      serveFile(path.join(BUILD_STATIC, relative), res, true)
-    ) return;
+    for (const base of STATIC_PATHS) {
+      if (serveFile(path.join(base, relative), res, true)) return;
+    }
   }
 
-  // ── Public files (/favicon.ico, /robots.txt, /og-image.png, etc.) ──
-  // Skip API and Next internals — let Next.js handle those
-  if (
-    !pathname.startsWith('/_next/') &&
-    !pathname.startsWith('/api/')
-  ) {
-    // Only try exact file paths (not directory index files)
-    const filePath = pathname === '/' ? null : pathname;
-    if (filePath && (
-      serveFile(path.join(STANDALONE_PUBLIC, filePath), res, false) ||
-      serveFile(path.join(BUILD_PUBLIC, filePath), res, false)
-    )) return;
+  // ── Serve public files ──
+  if (!pathname.startsWith('/_next/') && !pathname.startsWith('/api/')) {
+    const cleanPath = pathname === '/' ? null : pathname;
+    if (cleanPath) {
+      for (const base of PUBLIC_PATHS) {
+        if (serveFile(path.join(base, cleanPath), res, false)) return;
+      }
+    }
   }
 
-  // ── Fall through: Next.js handles everything else ──
+  // ── Fall through to Next.js ──
   nextHandler(req, res);
 }
 
-// ─── Monkey-patch http.createServer to wrap the Next.js handler ───
-// This intercepts the server Next.js standalone creates so we can
-// inject our static file logic before it gets to Next's handler.
+// Intercept server creation
 const _createServer = http.createServer.bind(http);
-http.createServer = function (optionsOrHandler, maybeHandler) {
-  let opts = {};
-  let handler;
-
-  if (typeof optionsOrHandler === 'function') {
-    handler = optionsOrHandler;
-  } else {
-    opts = optionsOrHandler || {};
-    handler = maybeHandler;
-  }
-
-  const wrapped = (req, res) => handleStaticRequest(req, res, handler);
-  return _createServer(opts, wrapped);
+http.createServer = function (opts, handler) {
+  const h = typeof opts === 'function' ? opts : handler;
+  const o = typeof opts === 'function' ? {} : opts;
+  
+  return _createServer(o, (req, res) => handleStaticRequest(req, res, h));
 };
 
-// ─── Load the Next.js standalone server ───
-require('./.next/standalone/server.js');
-
-// ─── Keep-alive ping (prevents Hostinger Passenger sleep) ───
-const SITE_URL = process.env.AUTH_URL || `http://localhost:${process.env.PORT}`;
-
-function keepAlive() {
-  const pingUrl = new URL('/api/health', SITE_URL);
-  const protocol = pingUrl.protocol === 'https:' ? https : http;
-  const req = protocol.request(pingUrl, { method: 'GET', timeout: 10000 }, (r) => r.resume());
-  req.on('error', () => { /* silently ignore */ });
-  req.end();
+// Start Next.js
+try {
+  require('./.next/standalone/server.js');
+} catch (e) {
+  console.error('[server] Failed to load standalone server:', e.message);
+  console.log('[server] Attempting fallback to build directory...');
+  // If standalone is missing, this is likely local dev or a broken build
+  process.exit(1);
 }
 
-// Wait 30 seconds for full startup, then ping every 5 minutes
-setTimeout(() => {
-  keepAlive();
-  setInterval(keepAlive, 5 * 60 * 1000);
-}, 30000);
+// Keep-alive ping
+const SITE_URL = process.env.AUTH_URL || `http://localhost:${process.env.PORT}`;
+setInterval(() => {
+  try {
+    const protocol = SITE_URL.startsWith('https') ? https : http;
+    protocol.get(`${SITE_URL}/api/health`, (r) => r.resume()).on('error', () => {});
+  } catch (e) {}
+}, 5 * 60 * 1000);
