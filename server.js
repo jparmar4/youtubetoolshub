@@ -9,7 +9,6 @@ process.env.NODE_ENV = 'production';
 // ─── CRITICAL: Set PORT before requiring standalone server ───
 // Hostinger assigns a dynamic port via process.env.PORT.
 // Next.js standalone reads PORT at import time — it MUST be set first.
-// If PORT is not set (local dev), default to 3000.
 if (!process.env.PORT) {
   process.env.PORT = '3000';
 }
@@ -19,136 +18,141 @@ console.log(`[server] Starting on port ${process.env.PORT}`);
 // Ensure the current working directory is the root of the project
 process.chdir(__dirname);
 
-const STATIC_DIR = path.join(__dirname, '.next', 'standalone', '.next', 'static');
-const PUBLIC_DIR = path.join(__dirname, '.next', 'standalone', 'public');
+// ─── Static file directories ───
+// Primary: Inside the standalone build (populated by copy-standalone.js)
+const STANDALONE_STATIC = path.join(__dirname, '.next', 'standalone', '.next', 'static');
+const STANDALONE_PUBLIC = path.join(__dirname, '.next', 'standalone', 'public');
+// Fallback: Original build output (for direct builds without copy step)
+const BUILD_STATIC = path.join(__dirname, '.next', 'static');
+const BUILD_PUBLIC = path.join(__dirname, 'public');
 
-// Fallback static directories (for local dev or if standalone copy wasn't run)
-const STATIC_DIR_FALLBACK = path.join(__dirname, '.next', 'static');
-const PUBLIC_DIR_FALLBACK = path.join(__dirname, 'public');
-
-// MIME type mapping for common file extensions
+// ─── MIME type mapping ───
 const MIME_TYPES = {
-  '.js': 'application/javascript; charset=utf-8',
-  '.mjs': 'application/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.html': 'text/html; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.gif': 'image/gif',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-  '.webp': 'image/webp',
-  '.avif': 'image/avif',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-  '.ttf': 'font/ttf',
-  '.eot': 'application/vnd.ms-fontobject',
-  '.txt': 'text/plain; charset=utf-8',
-  '.xml': 'application/xml; charset=utf-8',
+  '.js':          'application/javascript; charset=utf-8',
+  '.mjs':         'application/javascript; charset=utf-8',
+  '.css':         'text/css; charset=utf-8',
+  '.html':        'text/html; charset=utf-8',
+  '.json':        'application/json; charset=utf-8',
+  '.jsonld':      'application/ld+json; charset=utf-8',
+  '.png':         'image/png',
+  '.jpg':         'image/jpeg',
+  '.jpeg':        'image/jpeg',
+  '.gif':         'image/gif',
+  '.svg':         'image/svg+xml',
+  '.ico':         'image/x-icon',
+  '.webp':        'image/webp',
+  '.avif':        'image/avif',
+  '.woff':        'font/woff',
+  '.woff2':       'font/woff2',
+  '.ttf':         'font/ttf',
+  '.eot':         'application/vnd.ms-fontobject',
+  '.txt':         'text/plain; charset=utf-8',
+  '.xml':         'application/xml; charset=utf-8',
   '.webmanifest': 'application/manifest+json; charset=utf-8',
 };
 
 /**
- * Try to serve a static file from one of the given directories.
- * Returns true if the file was served, false otherwise.
+ * Serve a file from disk. Returns true if served, false if not found.
  */
-function tryServeStaticFile(filePath, res) {
-  if (!fs.existsSync(filePath)) return false;
+function serveFile(filePath, res, isImmutable) {
+  try {
+    if (!fs.existsSync(filePath)) return false;
+    const stat = fs.statSync(filePath);
+    if (!stat.isFile()) return false;
 
-  const stat = fs.statSync(filePath);
-  if (!stat.isFile()) return false;
+    const ext = path.extname(filePath).toLowerCase();
+    const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
 
-  const ext = path.extname(filePath).toLowerCase();
-  const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
+    res.writeHead(200, {
+      'Content-Type': mimeType,
+      'Content-Length': stat.size,
+      'Cache-Control': isImmutable
+        ? 'public, max-age=31536000, immutable'
+        : 'public, max-age=86400',
+    });
 
-  res.writeHead(200, {
-    'Content-Type': mimeType,
-    'Content-Length': stat.size,
-    // Cache static assets aggressively
-    'Cache-Control': filePath.includes('/_next/static/')
-      ? 'public, max-age=31536000, immutable'
-      : 'public, max-age=86400',
-  });
-
-  fs.createReadStream(filePath).pipe(res);
-  return true;
+    fs.createReadStream(filePath).pipe(res);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
-// ─── Intercept the original http.createServer to add static file fallback ───
-const originalCreateServer = http.createServer.bind(http);
-http.createServer = function (options, handler) {
-  // Handle both (options, handler) and (handler) signatures
-  if (typeof options === 'function') {
-    handler = options;
-    options = {};
+/**
+ * Custom static file request handler.
+ * Checks local disk before falling through to Next.js.
+ */
+function handleStaticRequest(req, res, nextHandler) {
+  // Parse the URL path safely
+  let pathname = '/';
+  try {
+    pathname = decodeURIComponent(new URL(`http://localhost${req.url || '/'}`).pathname);
+  } catch {
+    pathname = (req.url || '/').split('?')[0];
   }
 
-  const wrappedHandler = function (req, res) {
-    let pathname = '/';
-    try {
-      // Use WHATWG URL API to parse the request URL (avoids url.parse() deprecation)
-      const baseUrl = `http://localhost${req.url || '/'}`;
-      pathname = decodeURIComponent(new URL(baseUrl).pathname);
-    } catch {
-      pathname = req.url ? req.url.split('?')[0] : '/';
-    }
+  // ── /_next/static/* — immutable JS/CSS/font chunks ──
+  if (pathname.startsWith('/_next/static/')) {
+    const relative = pathname.slice('/_next/static/'.length);
+    if (
+      serveFile(path.join(STANDALONE_STATIC, relative), res, true) ||
+      serveFile(path.join(BUILD_STATIC, relative), res, true)
+    ) return;
+  }
 
-    // ── Serve /_next/static/* ──
-    if (pathname.startsWith('/_next/static/')) {
-      const relativePath = pathname.replace('/_next/static/', '');
-      const filePath1 = path.join(STATIC_DIR, relativePath);
-      const filePath2 = path.join(STATIC_DIR_FALLBACK, relativePath);
+  // ── Public files (/favicon.ico, /robots.txt, /og-image.png, etc.) ──
+  // Skip API and Next internals — let Next.js handle those
+  if (
+    !pathname.startsWith('/_next/') &&
+    !pathname.startsWith('/api/')
+  ) {
+    // Only try exact file paths (not directory index files)
+    const filePath = pathname === '/' ? null : pathname;
+    if (filePath && (
+      serveFile(path.join(STANDALONE_PUBLIC, filePath), res, false) ||
+      serveFile(path.join(BUILD_PUBLIC, filePath), res, false)
+    )) return;
+  }
 
-      if (tryServeStaticFile(filePath1, res)) return;
-      if (tryServeStaticFile(filePath2, res)) return;
-    }
+  // ── Fall through: Next.js handles everything else ──
+  nextHandler(req, res);
+}
 
-    // ── Serve public files (e.g. /favicon.ico, /robots.txt) ──
-    if (!pathname.startsWith('/_next/') && !pathname.startsWith('/api/')) {
-      const cleanPath = pathname === '/' ? '' : pathname;
-      const pubFile1 = path.join(PUBLIC_DIR, cleanPath);
-      const pubFile2 = path.join(PUBLIC_DIR_FALLBACK, cleanPath);
+// ─── Monkey-patch http.createServer to wrap the Next.js handler ───
+// This intercepts the server Next.js standalone creates so we can
+// inject our static file logic before it gets to Next's handler.
+const _createServer = http.createServer.bind(http);
+http.createServer = function (optionsOrHandler, maybeHandler) {
+  let opts = {};
+  let handler;
 
-      if (tryServeStaticFile(pubFile1, res)) return;
-      if (tryServeStaticFile(pubFile2, res)) return;
-    }
+  if (typeof optionsOrHandler === 'function') {
+    handler = optionsOrHandler;
+  } else {
+    opts = optionsOrHandler || {};
+    handler = maybeHandler;
+  }
 
-    // ── Fall through to Next.js handler ──
-    handler(req, res);
-  };
-
-  return originalCreateServer(options, wrappedHandler);
+  const wrapped = (req, res) => handleStaticRequest(req, res, handler);
+  return _createServer(opts, wrapped);
 };
 
-// Next.js standalone outputs a 'server.js' file in '.next/standalone'
-// We require it here so Hostinger LiteSpeed/Passenger can start it
+// ─── Load the Next.js standalone server ───
 require('./.next/standalone/server.js');
 
-// ─── Keep-alive ping to prevent cold starts on Hostinger ───
-// Pings the server every 5 minutes so Passenger never puts it to sleep
+// ─── Keep-alive ping (prevents Hostinger Passenger sleep) ───
 const SITE_URL = process.env.AUTH_URL || `http://localhost:${process.env.PORT}`;
-const PING_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 function keepAlive() {
   const pingUrl = new URL('/api/health', SITE_URL);
-  const client = pingUrl.protocol === 'https:' ? https : http;
-
-  // Temporarily bypass our wrapper for the keep-alive ping
-  const req = client.request(pingUrl, { method: 'GET', timeout: 10000 }, (res) => {
-    res.resume();
-  });
-
-  req.on('error', () => {
-    // Silently ignore ping errors
-  });
-
+  const protocol = pingUrl.protocol === 'https:' ? https : http;
+  const req = protocol.request(pingUrl, { method: 'GET', timeout: 10000 }, (r) => r.resume());
+  req.on('error', () => { /* silently ignore */ });
   req.end();
 }
 
-// Start pinging after 30 seconds (allow server to fully start first)
+// Wait 30 seconds for full startup, then ping every 5 minutes
 setTimeout(() => {
   keepAlive();
-  setInterval(keepAlive, PING_INTERVAL);
+  setInterval(keepAlive, 5 * 60 * 1000);
 }, 30000);
