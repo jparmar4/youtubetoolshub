@@ -337,8 +337,6 @@ export default async function RootLayout({
           }}
         />
 
-        {/* Ad Blocking Recovery Tags */}
-        <AdRecovery />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -356,11 +354,12 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense - delayed so it does not compete with initial content rendering */}
+        {/* AdSense - afterInteractive ensures it loads right after hydration */}
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           crossOrigin="anonymous"
+          data-ad-client="ca-pub-1328083083403070"
         />
         {/* Microsoft Clarity — lazyOnload: analytics-only, not revenue-critical */}
         <Script id="clarity-script" strategy="lazyOnload">
@@ -381,6 +380,8 @@ export default async function RootLayout({
             <ScrollToTop />
             <CookieConsent />
             <PrivacyH1Fix />
+            {/* Ad Blocking Recovery Tags - MUST be in body, not head */}
+            <AdRecovery />
           </UsageProvider>
         </AuthProvider>
       </body>

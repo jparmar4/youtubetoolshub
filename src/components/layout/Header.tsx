@@ -116,7 +116,7 @@ function Header() {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={toggleMenu}
-                            className="md:hidden p-2 rounded-xl bg-slate-800 text-slate-300"
+                            className="md:hidden p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200"
                             aria-label="Toggle menu"
                             aria-expanded={isMenuOpen}
                         >
@@ -127,15 +127,15 @@ function Header() {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden py-4 border-t border-slate-800 animate-fade-in-up">
-                        <div className="flex flex-col gap-2">
+                    <div className="md:hidden py-4 border-t border-slate-200/60 animate-fade-in-up">
+                        <div className="flex flex-col gap-1">
                             {/* Home Link (First) */}
                             {siteConfig.nav.filter(item => item.href === '/').map((item) => (
                                 <NavLink
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-slate-300 hover:bg-purple-900/20 hover:text-purple-400 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>
@@ -150,7 +150,7 @@ function Header() {
                                     key={item.name}
                                     href={item.href}
                                     onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-slate-300 hover:bg-purple-900/20 hover:text-purple-400 font-medium transition-colors"
+                                    className="px-4 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-600 font-medium transition-colors"
                                 >
                                     {item.name}
                                 </NavLink>
