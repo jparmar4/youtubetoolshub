@@ -23,7 +23,7 @@ import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchem
 
 export const metadata: Metadata = {
   title:
-    "YouTube Tools Hub – 21+ Free AI Tools | Thumbnail Generator, Earnings Calculator 2026",
+    "YouTube Tools Hub - 21+ Free AI Tools | Thumbnail Generator, Earnings Calculator 2026",
   description:
     "Grow your YouTube channel FREE with 21+ AI tools. Generate viral thumbnails, calculate CPM earnings, extract competitor tags, and optimize SEO. Trusted by 100,000+ creators worldwide in 2026.",
   keywords: [
@@ -51,7 +51,7 @@ const homeFAQs = [
   {
     question: "Is YouTube Tools Hub really 100% free for 2026?",
     answer:
-      "Absolutely. We are committed to democratizing growth tools. Our entire professional suite—including AI Click-Through Prediction, Revenue Calculators, and SEO Tag Generators—is free for all creators with no hidden costs.",
+      "Absolutely. We are committed to democratizing growth tools. Our entire professional suite, including AI Click-Through Prediction, Revenue Calculators, and SEO Tag Generators, is free for all creators with no hidden costs.",
   },
   {
     question: "How does the 'AI Team' concept work?",
@@ -123,7 +123,7 @@ export default function Home() {
 
   const speakableSchema = getSpeakableSchema({
     url: siteConfig.url,
-    headline: "YouTube Tools Hub – 21+ Free AI Tools for YouTube Creators",
+    headline: "YouTube Tools Hub - 21+ Free AI Tools for YouTube Creators",
     summary:
       "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required. Trusted by 100,000+ creators worldwide.",
     cssSelectors: ["h1", "h2", ".summary", ".key-facts", "[data-speakable]"],
@@ -147,7 +147,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${siteConfig.url}/#webpage`,
-    name: "YouTube Tools Hub – 21+ Free AI Tools for YouTube Creators",
+    name: "YouTube Tools Hub - 21+ Free AI Tools for YouTube Creators",
     url: siteConfig.url,
     description:
       "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
@@ -254,7 +254,7 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
               The world&apos;s most advanced suite of{" "}
               <strong>21+ professional-grade AI tools</strong> is now yours.
-              From click-through prediction to revenue ROI—completely free.
+              From click-through prediction to revenue ROI, completely free.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -319,7 +319,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad: Between Hero and Tools — highest viewability placement */}
+      {/* Ad: Between Hero and Tools - highest viewability placement */}
       <HorizontalAd />
 
       {/* ── AEO: Visible Key Facts for AI snippet extraction & user trust ── */}
@@ -332,21 +332,27 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="text-4xl mb-4">🛠️</div>
+              <div className="mb-4 flex justify-center text-purple-600">
+                <FaBolt className="h-10 w-10" aria-hidden="true" />
+              </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">21+ Free AI Tools</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 YouTube Tools Hub is a free online platform providing 21+ AI-powered tools for YouTube creators. No signup required. The leading free alternative to TubeBuddy and VidIQ.
               </p>
             </div>
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="text-4xl mb-4">🎬</div>
+              <div className="mb-4 flex justify-center text-pink-600">
+                <FaMagic className="h-10 w-10" aria-hidden="true" />
+              </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 Includes: Thumbnail Downloader (HD, 4K, 8K), AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator (50+ country CPM data), Channel Audit, and more.
               </p>
             </div>
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="text-4xl mb-4">🌍</div>
+              <div className="mb-4 flex justify-center text-indigo-600">
+                <FaCheck className="h-10 w-10" aria-hidden="true" />
+              </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Trusted Worldwide</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 Trusted by 100,000+ YouTube creators worldwide. Google AdSense approved. Updated every 48 hours for the latest YouTube algorithm changes. Available at youtubetoolshub.com.
@@ -491,7 +497,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-slate-500 max-w-3xl mx-auto font-outfit font-medium italic">
               "We provide the enterprise-level leverage that was previously only
-              available to the biggest media agencies—now 100% free."
+              available to the biggest media agencies, now 100% free."
             </p>
           </div>
 
@@ -597,7 +603,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad: Content Discovery — Multiplex before CTA */}
+      {/* Ad: Content Discovery - Multiplex before CTA */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <MultiplexAd />
       </div>
@@ -629,7 +635,7 @@ export default function Home() {
             </Button>
           </Link>
           <div className="mt-12 text-slate-500 font-black text-xs uppercase tracking-[0.3em]">
-            No Account Required • Instant Results • Scale Effortlessly
+            No Account Required | Instant Results | Scale Effortlessly
           </div>
         </div>
       </section>

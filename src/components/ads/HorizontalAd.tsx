@@ -63,7 +63,13 @@ export default function HorizontalAd() {
       observerRef.current.observe(container);
     } else {
       // Fallback: if IntersectionObserver isn't available, load immediately
-      setIsNearViewport(true);
+      const fallbackTimer = setTimeout(() => {
+        setIsNearViewport(true);
+      }, 0);
+
+      return () => {
+        clearTimeout(fallbackTimer);
+      };
     }
 
     return () => {

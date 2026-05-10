@@ -41,7 +41,13 @@ export default function MultiplexAd() {
 
       observerRef.current.observe(container);
     } else {
-      setIsNearViewport(true);
+      const fallbackTimer = setTimeout(() => {
+        setIsNearViewport(true);
+      }, 0);
+
+      return () => {
+        clearTimeout(fallbackTimer);
+      };
     }
 
     return () => {

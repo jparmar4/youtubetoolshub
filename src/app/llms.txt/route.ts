@@ -17,7 +17,7 @@ export async function GET() {
         .map((p) => `- [${p.title}](${baseUrl}/blog/${p.slug}): ${p.excerpt.substring(0, 120)}...`)
         .join("\n");
 
-    const content = `# YouTube Tools Hub – llms.txt
+    const content = `# YouTube Tools Hub - llms.txt
 > ${siteConfig.description}
 
 ## About

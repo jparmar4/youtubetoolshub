@@ -136,11 +136,21 @@ export const metadata = {
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
-  // NOTE: No global canonical here — each page sets its own via alternates.canonical
+  // NOTE: No global canonical here - each page sets its own via alternates.canonical
   // in its own generateMetadata(). A global canonical would override every child page
   // and cause Google to see the homepage URL as canonical for ALL pages.
   // AI Crawler Meta Signals - Server Side for better discoverability
   other: {
+    "citation_title": siteConfig.seo.defaultTitle,
+    "citation_author": siteConfig.name,
+    "citation_publisher": siteConfig.name,
+    "citation_public_url": siteConfig.url,
+    "citation_language": siteConfig.language,
+    "DC.title": siteConfig.seo.defaultTitle,
+    "DC.creator": siteConfig.name,
+    "DC.description": siteConfig.seo.defaultDescription,
+    "DC.publisher": siteConfig.name,
+    "DC.language": siteConfig.language,
     "ai-content-declaration": "human-written",
     "ai-training": "allowed",
     "ai-index": "allowed",
@@ -361,7 +371,7 @@ export default async function RootLayout({
           crossOrigin="anonymous"
           data-ad-client="ca-pub-1328083083403070"
         />
-        {/* Microsoft Clarity — lazyOnload: analytics-only, not revenue-critical */}
+        {/* Microsoft Clarity - lazyOnload: analytics-only, not revenue-critical */}
         <Script id="clarity-script" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){

@@ -1,6 +1,3 @@
-
-import { siteConfig } from "@/config/site";
-
 export interface GeoAeoHeadProps {
     /** Page title for AI context */
     title?: string;
@@ -46,7 +43,7 @@ export interface GeoAeoHeadProps {
  */
 export const GEO_AEO_PRESETS = {
     homepage: {
-        title: "YouTube Tools Hub – 21+ Free AI Tools for YouTube Creators",
+        title: "YouTube Tools Hub - 21+ Free AI Tools for YouTube Creators",
         description:
             "The world's most comprehensive free suite of AI-powered YouTube tools. Download thumbnails, generate viral titles, calculate earnings, and optimize your channel for 2026.",
         entityType: "WebApplication" as const,
@@ -67,7 +64,7 @@ export const GEO_AEO_PRESETS = {
         toolDescription: string,
         toolCategory: string,
     ) => ({
-        title: `${toolName} – Free Online Tool | YouTube Tools Hub`,
+        title: `${toolName} - Free Online Tool | YouTube Tools Hub`,
         description: toolDescription,
         entityType: "SoftwareApplication" as const,
         primaryTopic: toolName,
@@ -99,7 +96,7 @@ export const GEO_AEO_PRESETS = {
         conciseAnswer: description,
     }),
     faqPage: {
-        title: "Frequently Asked Questions – YouTube Tools Hub",
+        title: "Frequently Asked Questions - YouTube Tools Hub",
         description:
             "Get expert answers to common questions about our free YouTube tools, AI features, monetization calculators, and growth strategies.",
         entityType: "WebPage" as const,
@@ -113,7 +110,7 @@ export const GEO_AEO_PRESETS = {
         ],
     },
     aboutPage: {
-        title: "About YouTube Tools Hub – Free AI YouTube Tools",
+        title: "About YouTube Tools Hub - Free AI YouTube Tools",
         description:
             "Learn about YouTube Tools Hub, the world's most comprehensive free suite of 21+ AI-powered tools for YouTube content creators.",
         entityType: "Organization" as const,
@@ -130,7 +127,7 @@ export const GEO_AEO_PRESETS = {
         ],
     },
     contactPage: {
-        title: "Contact YouTube Tools Hub – Support & Partnerships",
+        title: "Contact YouTube Tools Hub - Support & Partnerships",
         description:
             "Contact YouTube Tools Hub for support, guest post inquiries, partnerships, or feedback. We typically respond within 24 hours.",
         entityType: "WebPage" as const,
@@ -139,7 +136,7 @@ export const GEO_AEO_PRESETS = {
             "Contact YouTube Tools Hub at support@youtubetoolshub.com for support, partnerships, or guest post inquiries.",
     },
     pricingPage: {
-        title: "Pricing – YouTube Tools Hub | Free & Pro Plans",
+        title: "Pricing - YouTube Tools Hub | Free & Pro Plans",
         description:
             "YouTube Tools Hub pricing: 21+ core tools are 100% free. Pro tier offers higher daily limits and priority access for power users.",
         entityType: "WebPage" as const,
@@ -154,7 +151,7 @@ export const GEO_AEO_PRESETS = {
         ],
     },
     comparisonPage: (competitorName: string) => ({
-        title: `YouTube Tools Hub vs ${competitorName} – 2026 Comparison`,
+        title: `YouTube Tools Hub vs ${competitorName} - 2026 Comparison`,
         description: `Compare YouTube Tools Hub AI features and pricing with ${competitorName}. Discover why YouTube Tools Hub is the best free AI-powered alternative for creators.`,
         entityType: "WebPage" as const,
         primaryTopic: `${competitorName} Alternative`,

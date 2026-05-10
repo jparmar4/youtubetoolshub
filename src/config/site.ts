@@ -81,9 +81,9 @@ export const siteConfig = {
 
   // SEO Defaults
   seo: {
-    titleTemplate: "%s | YouTube Tools Hub – Free AI Tools 2026",
+    titleTemplate: "%s | YouTube Tools Hub - Free AI Tools 2026",
     defaultTitle:
-      "YouTube Tools Hub – 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
+      "YouTube Tools Hub - 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
     defaultDescription:
       "Grow your YouTube channel FREE in 2026. 21+ AI-powered tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor, channel audit & more. Trusted by 100,000+ creators. No signup required.",
     keywords: [
