@@ -96,9 +96,9 @@ export default function YouTubeSEOStrategiesPage() {
   });
 
   const breadcrumbSchema = getBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Blog", url: "/blog" },
-    { name: "SEO Strategies", url: "/blog/youtube-seo-strategies-2026" },
+    { name: "Home", url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/blog` },
+    { name: "SEO Strategies", url: `${siteConfig.url}/blog/youtube-seo-strategies-2026` },
   ]);
 
   return (

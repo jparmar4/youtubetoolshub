@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
-import { FaTools, FaMagic, FaChartLine, FaArrowRight } from "react-icons/fa";
+import { FaMagic, FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "YouTube Utility & Productivity Tools - Scale Your Workflow 2026",

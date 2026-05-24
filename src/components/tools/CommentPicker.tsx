@@ -256,7 +256,7 @@ export default function CommentPicker() {
                                 <div className="w-24 h-24 rounded-full border-4 border-yellow-400 shadow-xl overflow-hidden relative">
                                     <Image
                                         src={winner.authorProfileImageUrl}
-                                        alt={winner.authorDisplayName}
+                                        alt={`${winner.authorDisplayName} YouTube profile picture`}
                                         fill
                                         className="object-cover"
                                     />

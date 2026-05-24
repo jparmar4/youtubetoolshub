@@ -9,7 +9,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaSpinner, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag, FaImage } from "react-icons/fa";
+import { FaMagic, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag, FaImage } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";

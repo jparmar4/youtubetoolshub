@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/refund-policy",
     "/tools/vs/tubebuddy",
     "/tools/vs/vidiq",
+    "/search",
   ];
 
   const allEntries: MetadataRoute.Sitemap = [];

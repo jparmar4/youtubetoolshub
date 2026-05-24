@@ -68,16 +68,7 @@ const nextConfig = {
         ],
       },
 
-      // ─── JS/CSS bundles: long cache with revalidation ───
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
+
 
       // ─── Global security + SEO headers (all routes) ───
       {

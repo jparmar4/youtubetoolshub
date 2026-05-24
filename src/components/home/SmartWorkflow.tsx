@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { FaRocket, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaRocket, FaArrowRight } from "react-icons/fa";
 
 interface WorkflowStep {
     id: number;
@@ -54,22 +53,7 @@ const workflowSteps: WorkflowStep[] = [
 ];
 
 export default function SmartWorkflow() {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [workflowData, setWorkflowData] = useState<string>("");
-    const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
-
-    const handleStepComplete = (stepId: number, data: string) => {
-        setCompletedSteps(prev => new Set(prev).add(stepId));
-        setWorkflowData(data);
-        if (stepId < workflowSteps.length) {
-            setCurrentStep(stepId);
-        }
-    };
-
     const getStepLink = (step: WorkflowStep) => {
-        if (step.paramKey && workflowData) {
-            return `/tools/${step.toolSlug}?${step.paramKey}=${encodeURIComponent(workflowData)}`;
-        }
         return `/tools/${step.toolSlug}`;
     };
 
@@ -125,9 +109,7 @@ export default function SmartWorkflow() {
                     <div className="hidden lg:block absolute top-[28%] left-[10%] w-[80%] h-1 bg-gradient-to-r from-transparent via-purple-300 to-transparent -translate-y-1/2 z-0" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                        {workflowSteps.map((step, index) => {
-                            const isCompleted = completedSteps.has(step.id);
-                            const isActive = index === currentStep;
+                        {workflowSteps.map((step) => {
                             const colors = colorClasses[step.color];
 
                             return (
@@ -143,7 +125,7 @@ export default function SmartWorkflow() {
                                         <div
                                             className={`w-14 h-14 rounded-2xl ${colors.bg} ${colors.text} flex items-center justify-center text-xl font-bold mb-6 mx-auto shadow-sm group-hover:rotate-6 transition-transform duration-300`}
                                         >
-                                            {isCompleted ? <FaCheck /> : step.id}
+                                            {step.id}
                                         </div>
                                         <h3 className="font-bold text-xl text-slate-900 mb-3 text-center group-hover:text-purple-700 transition-colors">
                                             {step.title}

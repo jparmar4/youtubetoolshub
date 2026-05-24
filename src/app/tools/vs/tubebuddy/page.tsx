@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaCheck, FaTimes, FaRocket, FaYoutube, FaDollarSign, FaRobot } from "react-icons/fa";
+import { FaCheck, FaTimes, FaDollarSign, FaRobot } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";

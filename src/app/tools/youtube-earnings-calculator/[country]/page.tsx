@@ -13,6 +13,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
+import { ToolContextProvider } from "@/components/tools/ToolContext";
 
 export function generateStaticParams() {
     return countryCPMData.map((country) => ({
@@ -135,11 +136,13 @@ export default async function CountryEarningsPage({
                          I'll pass them as props even if it ignores them for now, then fix the component.
                      */}
                             <div className="bg-white rounded-3xl p-1 shadow-xl shadow-green-900/5 border border-slate-100">
-                                <EarningsCalculator
-                                    initialRPM={countryData.rpmRange.avg}
-                                    currency={countryData.currency}
-                                    countryName={countryData.name}
-                                />
+                                <ToolContextProvider value={{ hideHeader: true }}>
+                                    <EarningsCalculator
+                                        initialRPM={countryData.rpmRange.avg}
+                                        currency={countryData.currency}
+                                        countryName={countryData.name}
+                                    />
+                                </ToolContextProvider>
                             </div>
 
                             <HorizontalAd />

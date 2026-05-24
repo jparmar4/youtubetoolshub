@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { FaCrown, FaChartBar, FaRocket, FaFire, FaLightbulb, FaMagic, FaImage, FaYoutube, FaArrowRight, FaHistory, FaClock, FaCheckCircle, FaStar } from "react-icons/fa";
+import { FaCrown, FaChartBar, FaRocket, FaFire, FaLightbulb, FaMagic, FaImage, FaArrowRight, FaHistory, FaClock, FaCheckCircle, FaStar } from "react-icons/fa";
 import { useUsage } from "@/hooks/useUsage";
 import { tools } from "@/config/tools";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, ToolCard } from "@/components/ui/Card";
 import { getSavedItems, SavedItem } from "@/lib/dashboard";
-import { formatDistanceToNow } from "date-fns";
 
 interface TrendingVideo {
     id: string;

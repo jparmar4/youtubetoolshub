@@ -36,6 +36,10 @@ export interface Tool {
         bestRating?: string;
         worstRating?: string;
     };
+    definitionBlock?: {
+        title: string;
+        text: string;
+    };
 }
 
 export const toolCategories = [
@@ -60,6 +64,10 @@ export const tools: Tool[] = [
         isAI: false,
         isFeatured: true,
         keywords: ["hd thumbnail downloader", "youtube thumbnail downloader", "download youtube thumbnail", "youtube thumbnail saver", "get youtube thumbnail", "4k thumbnail downloader", "full hd youtube thumbnail", "save thumbnail image", "thumbnail grabber online"],
+        definitionBlock: {
+            title: "What is YouTube Thumbnail Downloader?",
+            text: "YouTube Thumbnail Downloader is a free online tool that lets you grab and save any YouTube video or Shorts thumbnail in HD, 4K, or 8K resolution. Simply copy and paste the video link to extract and save the original thumbnail image instantly, with no watermarks or registrations required."
+        },
         rating: {
             ratingValue: "4.8",
             ratingCount: "2450",
@@ -608,6 +616,10 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags", "youtube tag finder", "trending tags 2026", "automatic tag generator"],
+        definitionBlock: {
+            title: "What is YouTube Tag Generator?",
+            text: "YouTube Tag Generator is a free AI-powered search optimization tool that automatically creates relevant, high-performing tags and keywords for your YouTube videos. Using advanced search intent mapping, it builds tag lists that improve video rankings, search discoverability, and YouTube recommendation placements."
+        },
         rating: {
             ratingValue: "4.8",
             ratingCount: "2890",
@@ -1051,6 +1063,10 @@ export const tools: Tool[] = [
         isAI: false,
         isFeatured: true,
         keywords: ["youtube earnings calculator", "how much does youtube pay", "youtube money calculator", "adsense calculator", "estimated youtube revenue", "youtube revenue per view", "cpm by niche 2026"],
+        definitionBlock: {
+            title: "What is YouTube Earnings Calculator?",
+            text: "YouTube Earnings Calculator is a free online estimator that projects your potential YouTube AdSense revenue and brand sponsorship values. By inputting your average video views and selecting your content niche, you can instantly estimate your monthly and yearly income based on real-time CPM rates."
+        },
         rating: {
             ratingValue: "4.9",
             ratingCount: "3250",

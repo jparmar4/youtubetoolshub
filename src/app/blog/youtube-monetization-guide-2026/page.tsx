@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
-import { FaDollarSign, FaChartLine, FaLightbulb, FaRocket, FaTools, FaTrophy } from "react-icons/fa";
+import { FaDollarSign, FaChartLine, FaLightbulb, FaRocket, FaTools } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: "YouTube Monetization Guide 2026: Maximize Earnings with AI Analytics",
@@ -77,9 +77,9 @@ export default function MonetizationGuidePage() {
   });
 
   const breadcrumbSchema = getBreadcrumbSchema([
-    { name: "Home", url: "/" },
-    { name: "Blog", url: "/blog" },
-    { name: "YouTube Monetization Guide 2026", url: "/blog/youtube-monetization-guide-2026" },
+    { name: "Home", url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/blog` },
+    { name: "YouTube Monetization Guide 2026", url: `${siteConfig.url}/blog/youtube-monetization-guide-2026` },
   ]);
 
   return (

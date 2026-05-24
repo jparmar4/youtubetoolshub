@@ -1,6 +1,6 @@
 "use client";
 
-import { siteConfig } from "@/config/site";
+
 
 /**
  * AnswerBoxes Component

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
     title: "YouTube Creator Statistics 2026 - Views, Earnings & Growth Data",

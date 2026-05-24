@@ -82,7 +82,7 @@ function handleStaticRequest(req, res, nextHandler) {
   try {
     const urlObj = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
     pathname = decodeURIComponent(urlObj.pathname);
-  } catch (e) {
+  } catch {
     pathname = (req.url || '/').split('?')[0];
   }
 
@@ -145,5 +145,5 @@ setInterval(() => {
   try {
     const protocol = SITE_URL.startsWith('https') ? https : http;
     protocol.get(`${SITE_URL}/api/health`, (r) => r.resume()).on('error', () => {});
-  } catch (e) {}
+  } catch {}
 }, 5 * 60 * 1000);

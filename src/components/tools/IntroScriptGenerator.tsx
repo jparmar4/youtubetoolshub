@@ -9,7 +9,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMicrophone, FaSpinner, FaPlay, FaStream } from "react-icons/fa";
+import { FaMicrophone, FaPlay } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
 import HorizontalAd from "@/components/ads/HorizontalAd";

@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
 // Fetch usage
-export async function GET(request: Request) {
+export async function GET() {
     try {
         const session = await auth();
         // If no user, we can returns null or specific status. 
@@ -57,7 +57,6 @@ export async function POST(request: Request) {
         `;
 
         let currentUsage = {};
-        let needsReset = true;
 
         if (rows.length > 0) {
             const record = rows[0];
@@ -66,7 +65,6 @@ export async function POST(request: Request) {
 
             if (recordDate === today) {
                 currentUsage = record.usage_data;
-                needsReset = false;
             }
         }
 

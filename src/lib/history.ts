@@ -55,7 +55,7 @@ export const saveHistory = async (toolSlug: string, content: unknown) => {
 
         const data = await res.json();
         return data; // { id, success: true }
-    } catch (error) {
+    } catch {
         // Fallback to local storage for guests or offline
         // console.log("Saving to local history (fallback)");
         return saveLocalHistory(toolSlug, content);
@@ -81,7 +81,7 @@ export const getHistory = async (toolSlug?: string) => {
         }
 
         return cloudHistory as HistoryItem[];
-    } catch (error) {
+    } catch {
         // Return local history for guests
         let local = getLocalHistory();
         if (toolSlug) {
@@ -107,7 +107,7 @@ export const deleteHistory = async (id: string) => {
             // Let's force check local too.
             throw new Error("Not found in cloud or error");
         }
-    } catch (error) {
+    } catch {
         // Delete from local
         const items = getLocalHistory().filter(item => item.id !== id);
         localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(items));

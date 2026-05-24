@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useCallback, memo } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes, FaYoutube } from "react-icons/fa";
 import { siteConfig } from "@/config/site";

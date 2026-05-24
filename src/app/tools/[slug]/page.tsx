@@ -159,6 +159,14 @@ export default async function ToolPage({
         notFound();
     }
 
+    // Get up to 5 related tools in the same category
+    let relatedTools = tools.filter((t) => t.category === tool.category && t.slug !== tool.slug);
+    if (relatedTools.length < 5) {
+        const extraTools = tools.filter((t) => t.slug !== tool.slug && !relatedTools.some((r) => r.slug === t.slug));
+        relatedTools = [...relatedTools, ...extraTools];
+    }
+    relatedTools = relatedTools.slice(0, 5);
+
     // Generate JSON-LD Structured Data
     const toolSchema = getSoftwareApplicationSchema({
         name: tool.name,
@@ -412,10 +420,58 @@ export default async function ToolPage({
                                     </div>
                                 </div>
                             )}
+
+                            {/* Related Tools for Mobile */}
+                            <div className="lg:hidden glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                    <span className="text-purple-500">🔗</span>
+                                    Related Tools
+                                </h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {relatedTools.map((t) => {
+                                        const Icon = t.icon;
+                                        return (
+                                            <Link
+                                                key={t.slug}
+                                                href={`/tools/${t.slug}`}
+                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
+                                            >
+                                                <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
+                                                    <Icon />
+                                                </span>
+                                                <span className="font-medium text-sm">{t.name}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Sidebar Column */}
-                        <div className="max-lg:hidden lg:col-span-1 pt-20">
+                        <div className="max-lg:hidden lg:col-span-1 space-y-8 pt-20">
+                            <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30">
+                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                    <span className="text-purple-500">🔗</span>
+                                    Related Tools
+                                </h3>
+                                <div className="space-y-3">
+                                    {relatedTools.map((t) => {
+                                        const Icon = t.icon;
+                                        return (
+                                            <Link
+                                                key={t.slug}
+                                                href={`/tools/${t.slug}`}
+                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
+                                            >
+                                                <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
+                                                    <Icon />
+                                                </span>
+                                                <span className="font-medium text-sm">{t.name}</span>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            </div>
                             <BlogSidebar />
                         </div>
                     </div>

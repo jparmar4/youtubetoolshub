@@ -5,7 +5,7 @@ import { getHistory, deleteHistory, HistoryItem } from "@/lib/history";
 import { FaHistory, FaTrash, FaTimes, FaCopy, FaCheck } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDate } from "@/lib/utils";
-import CopyButton from "@/components/ui/CopyButton";
+import Image from "next/image";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null;
@@ -26,20 +26,19 @@ export default function ToolHistory({ toolSlug }: { toolSlug: string }) {
     const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null);
 
     useEffect(() => {
+        const loadHistory = async () => {
+            try {
+                setLoading(true);
+                const data = await getHistory(toolSlug);
+                setHistory(data);
+            } catch (err) {
+                console.error("Failed to load tool history", err);
+            } finally {
+                setLoading(false);
+            }
+        };
         loadHistory();
     }, [toolSlug]);
-
-    const loadHistory = async () => {
-        try {
-            setLoading(true);
-            const data = await getHistory(toolSlug);
-            setHistory(data);
-        } catch (err) {
-            console.error("Failed to load tool history", err);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this item?")) return;
@@ -170,8 +169,14 @@ function MiniHistoryCard({
             </h4>
 
             {isImage && images[0] && (
-                <div className="mb-3 rounded-lg overflow-hidden h-24 bg-slate-100">
-                    <img src={images[0]} alt={`Generated thumbnail for ${title}`} className="w-full h-full object-cover" />
+                <div className="relative h-24 mb-3 rounded-lg overflow-hidden bg-slate-100">
+                    <Image
+                        src={images[0]}
+                        alt={`Generated thumbnail for ${title}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover"
+                    />
                 </div>
             )}
 
@@ -326,7 +331,15 @@ function HistoryDetailModal({
                         <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</label>
                         <div className="mt-2 grid grid-cols-2 gap-2">
                             {images.map((img: string, i: number) => (
-                                <img key={i} src={img} alt={`AI-generated thumbnail option ${i + 1} for ${title}`} className="rounded-lg w-full" />
+                                <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-slate-100">
+                                    <Image
+                                        src={img}
+                                        alt={`AI-generated thumbnail option ${i + 1} for ${title}`}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover"
+                                    />
+                                </div>
                             ))}
                         </div>
                     </div>

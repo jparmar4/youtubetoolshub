@@ -5,7 +5,6 @@ import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
 
@@ -107,7 +106,7 @@ export default function ToolsPage() {
 
           {/* Tools by Category */}
           <div className="space-y-32">
-            {toolCategories.map((category, index) => {
+            {toolCategories.map((category) => {
               const categoryTools = getToolsByCategory(category.id);
               return (
                 <div key={category.id}>

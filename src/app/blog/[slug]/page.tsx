@@ -5,7 +5,7 @@ import NextImage from "next/image";
 import Link from "next/link";
 
 import ShareButtons from "@/components/ui/ShareButtons";
-import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaQuestionCircle, FaChevronDown } from "react-icons/fa";
+import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema } from "@/lib/seo";

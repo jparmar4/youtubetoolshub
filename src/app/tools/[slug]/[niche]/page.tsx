@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { ToolContextProvider } from "@/components/tools/ToolContext";
 
 // Import all tool components (reusing the main page imports)
 // Note: In a real app we might want to move the component mapping to a shared file
@@ -221,7 +222,9 @@ export default async function ProgrammaticToolPage({
                             </div>
                         </div>
 
-                        <ToolComponent />
+                        <ToolContextProvider value={{ hideHeader: true }}>
+                            <ToolComponent />
+                        </ToolContextProvider>
 
                         <HorizontalAd />
 

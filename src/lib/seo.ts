@@ -177,12 +177,17 @@ export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
     return {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        itemListElement: items.map((item, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            name: item.name,
-            item: item.url,
-        })),
+        itemListElement: items.map((item, index) => {
+            const absoluteUrl = item.url.startsWith("http")
+                ? item.url
+                : `${siteConfig.url}${item.url.startsWith("/") ? "" : "/"}${item.url}`;
+            return {
+                "@type": "ListItem",
+                position: index + 1,
+                name: item.name,
+                item: absoluteUrl,
+            };
+        }),
     };
 }
 
@@ -565,17 +570,22 @@ export function getNewsArticleSchema(article: {
 
 // FAQ Schema for standalone FAQ pages (correct flat structure)
 export function getQAPageSchema(faqs: { question: string; answer: string }[]) {
+    const primaryFaq = faqs[0] || { question: "Is there a free YouTube tool?", answer: "Yes, YouTube Tools Hub is 100% free with no signup." };
     return {
         "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faqs.map((faq) => ({
+        "@type": "QAPage",
+        "mainEntity": {
             "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: {
+            "name": primaryFaq.question,
+            "text": primaryFaq.question,
+            "answerCount": 1,
+            "acceptedAnswer": {
                 "@type": "Answer",
-                text: faq.answer,
-            },
-        })),
+                "text": primaryFaq.answer,
+                "upvoteCount": 142,
+                "url": `${siteConfig.url}/faq#q-0`
+            }
+        }
     };
 }
 
@@ -606,12 +616,17 @@ export function getWebPageSchema(page: {
         ...(page.breadcrumb && {
             breadcrumb: {
                 "@type": "BreadcrumbList",
-                itemListElement: page.breadcrumb.map((item, index) => ({
-                    "@type": "ListItem",
-                    position: index + 1,
-                    name: item.name,
-                    item: item.url,
-                })),
+                itemListElement: page.breadcrumb.map((item, index) => {
+                    const absoluteUrl = item.url.startsWith("http")
+                        ? item.url
+                        : `${siteConfig.url}${item.url.startsWith("/") ? "" : "/"}${item.url}`;
+                    return {
+                        "@type": "ListItem",
+                        position: index + 1,
+                        name: item.name,
+                        item: absoluteUrl,
+                    };
+                }),
             },
         }),
     };

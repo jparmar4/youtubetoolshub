@@ -14,7 +14,7 @@ export default function SidebarAd() {
       rootMargin: "800px", // Increased to 800px so sidebar ad fills before scroll
     });
     return cleanup;
-  }, []);
+  }, [instanceId]);
 
   return (
     <div

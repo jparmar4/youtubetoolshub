@@ -170,7 +170,7 @@ export default function ChannelIdFinder() {
                                     <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-md">
                                         <Image
                                             src={channelData.thumbnails.high.url}
-                                            alt={channelData.title}
+                                            alt={`${channelData.title} YouTube Channel profile picture`}
                                             fill
                                             className="object-cover"
                                         />

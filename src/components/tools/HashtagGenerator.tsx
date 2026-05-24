@@ -12,7 +12,7 @@ import { FaHashtag, FaBookmark, FaCheckCircle, FaFire, FaLayerGroup, FaBullseye 
 import { safeJSONParse } from "@/lib/utils";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
@@ -112,7 +112,6 @@ export default function HashtagGenerator() {
     ] : [];
 
     const spaceFormat = allHashtags.join(" ");
-    const commaFormat = allHashtags.join(", ");
 
     const CategorySection = ({
         title,

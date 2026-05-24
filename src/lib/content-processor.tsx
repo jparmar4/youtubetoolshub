@@ -1,7 +1,7 @@
 import Link from "next/link";
 import NextImage from "next/image";
 import { tools } from "@/config/tools";
-import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaCheckCircle, FaBolt } from "react-icons/fa";
+import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
 import InArticleAd from "@/components/ads/InArticleAd";
 
 // AEO Components
@@ -26,6 +26,7 @@ const manualKeywords: Record<string, string> = {
     "thumbnail downloader": "/tools/youtube-thumbnail-downloader",
     "thumbnail text generator": "/tools/youtube-thumbnail-generator",
     "ai thumbnail generator": "/tools/youtube-ai-thumbnail-generator",
+    "thumbnail generator": "/tools/youtube-thumbnail-generator",
     "title generator": "/tools/youtube-title-generator",
     "description generator": "/tools/youtube-description-generator",
     "tag generator": "/tools/youtube-tag-generator",
@@ -36,6 +37,18 @@ const manualKeywords: Record<string, string> = {
     "channel name generator": "/tools/youtube-channel-name-generator",
     "hashtag generator": "/tools/youtube-hashtag-generator",
     "intro script": "/tools/youtube-intro-script-generator",
+    "tag extractor": "/tools/youtube-tag-extractor",
+    "engagement calculator": "/tools/youtube-engagement-rate-calculator",
+    "engagement rate calculator": "/tools/youtube-engagement-rate-calculator",
+    "title a/b tester": "/tools/youtube-title-ab-tester",
+    "title ab tester": "/tools/youtube-title-ab-tester",
+    "channel id finder": "/tools/youtube-channel-id-finder",
+    "playlist length calculator": "/tools/youtube-playlist-length-calculator",
+    "comment picker": "/tools/youtube-comment-picker",
+    "channel audit": "/tools/youtube-channel-audit",
+    "youtube tools": "/tools",
+    "creator tools": "/tools",
+    "free youtube tools": "/tools",
 };
 
 Object.assign(keywordMap, manualKeywords);
@@ -298,8 +311,12 @@ export function processContent(content: string): React.ReactNode[] {
                 // simple auto-linking implementation
                 let textSegments: (string | React.ReactNode)[] = [part];
 
+                // Sort keywords by length in descending order to avoid greedy shorter matches
+                const sortedKeywords = Object.keys(keywordMap).sort((a, b) => b.length - a.length);
+
                 // For each keyword in our map
-                for (const [keyword, url] of Object.entries(keywordMap)) {
+                for (const keyword of sortedKeywords) {
+                    const url = keywordMap[keyword];
                     // Skip if we've already linked this keyword globally
                     if (linkedKeywords.has(keyword)) continue;
 
@@ -370,7 +387,6 @@ export function processContent(content: string): React.ReactNode[] {
                 });
             } else {
                 const headerLine = lines[0];
-                const separatorLine = lines[1];
                 const rowLines = lines.slice(2);
 
                 const headers = headerLine.split('|').filter((_, i, arr) => i > 0 && i < arr.length - 1).map(h => h.trim());

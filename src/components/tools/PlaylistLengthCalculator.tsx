@@ -184,7 +184,7 @@ export default function PlaylistLengthCalculator() {
                                         result.playlistInfo.thumbnail ? (
                                             <Image
                                                 src={result.playlistInfo.thumbnail}
-                                                alt={result.playlistInfo.title}
+                                                alt={`${result.playlistInfo.title} YouTube playlist thumbnail preview`}
                                                 fill
                                                 className="object-cover"
                                             />

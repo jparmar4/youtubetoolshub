@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { auth } from "@/auth"; // Keep existing auth
 import { i18n } from "@/lib/i18n";
-import { match as matchLocale } from "@formatjs/intl-localematcher";
-import Negotiator from "negotiator";
 
 // Common search engine bot user agents
 const BOT_USER_AGENTS = [
@@ -82,19 +79,6 @@ function isSearchBot(userAgent: string | null): boolean {
   return BOT_USER_AGENTS.some((bot) => lowerUA.includes(bot));
 }
 
-function getLocale(request: NextRequest): string {
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
-
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  const locales = i18n.locales;
-
-  try {
-    return matchLocale(languages, locales, i18n.defaultLocale);
-  } catch (e) {
-    return i18n.defaultLocale;
-  }
-}
 
 export default async function middleware(request: NextRequest) {
   const userAgent = request.headers.get("user-agent");

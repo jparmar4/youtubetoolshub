@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
-import { FaRocket, FaLightbulb, FaChartLine, FaArrowRight, FaBrain } from "react-icons/fa";
+import { FaRocket, FaArrowRight, FaBrain } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "YouTube Channel Research & Growth Tools - AI Strategist 2026",

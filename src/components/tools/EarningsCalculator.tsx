@@ -7,7 +7,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaCalculator, FaDollarSign, FaHandshake, FaChartLine, FaSpinner, FaRocket } from "react-icons/fa";
+import { FaCalculator, FaDollarSign, FaHandshake, FaChartLine, FaRocket } from "react-icons/fa";
 import { formatCurrency, formatNumber, calculateEarnings, safeJSONParse } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
 import Select from "@/components/ui/Select";
@@ -60,7 +60,7 @@ interface EarningsCalculatorProps {
     countryName?: string;
 }
 
-export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD", countryName }: EarningsCalculatorProps) {
+export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" }: EarningsCalculatorProps) {
     const [activeTab, setActiveTab] = useState<"ads" | "sponsorships">("ads");
 
     // Ad Revenue State
