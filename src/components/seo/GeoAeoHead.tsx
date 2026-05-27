@@ -1,11 +1,12 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 
 // ============================================================
 // GeoAeoHead - Comprehensive GEO/AEO Optimization Component
 // ============================================================
+// SERVER COMPONENT — JSON-LD is injected at render time so all
+// crawlers (Google, Bing, GPTBot, ClaudeBot, PerplexityBot, etc.)
+// see the structured data in the initial HTTP response.
+//
 // This component injects AI-specific meta tags, knowledge panel
 // signals, citation hints, and structured metadata to maximize
 // visibility in:
@@ -173,14 +174,6 @@ function getKnowledgeGraphSchema() {
       offerCount: 21,
       availability: "https://schema.org/InStock",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "12847",
-      reviewCount: "4293",
-    },
   };
 }
 
@@ -199,7 +192,7 @@ function getWebApplicationSchema() {
     applicationSubCategory: "YouTube Creator Tools",
     operatingSystem: "Any (Web-based)",
     browserRequirements: "Requires JavaScript. Requires HTML5.",
-    softwareVersion: "2.0",
+    softwareVersion: "3.0",
     releaseNotes:
       "21+ AI-powered tools for YouTube creators, updated for 2026 algorithm.",
     featureList: [
@@ -396,10 +389,13 @@ function getServiceSchema() {
 }
 
 /**
- * GeoAeoHead Component
+ * GeoAeoHead Component — SERVER COMPONENT
  *
- * Emits valid JSON-LD only. Page-level meta tags are handled through
- * Next.js Metadata APIs so crawlers see them in the document head.
+ * JSON-LD is server-rendered so all crawlers see it in the initial HTML response.
+ * Pass `pathname` from the parent server page (replaces the old usePathname() hook).
+ *
+ * Usage:
+ *   <GeoAeoHead {...GEO_AEO_PRESETS.toolPage(tool.name, tool.desc, tool.cat)} pathname={`/tools/${tool.slug}`} />
  */
 export default function GeoAeoHead({
   title,
@@ -414,9 +410,8 @@ export default function GeoAeoHead({
   toolName,
   toolCategory,
   disabled = false,
-}: GeoAeoHeadProps) {
-  const pathname = usePathname();
-
+  pathname,
+}: GeoAeoHeadProps & { pathname: string }) {
   if (disabled) return null;
 
   // Suppress on private routes
@@ -431,6 +426,7 @@ export default function GeoAeoHead({
 
   const isHomepage = pathname === "/" || pathname === "";
   const pageUrl = `${siteConfig.url}${pathname || ""}`;
+  const today = new Date().toISOString();
 
   // Build the page-specific JSON-LD for AI answer context
   const pageContextSchema = {
@@ -441,6 +437,8 @@ export default function GeoAeoHead({
     url: pageUrl,
     description: description || BRAND_SIGNALS.fullDescription,
     inLanguage: "en",
+    datePublished: "2025-01-01",
+    dateModified: dateModified || today,
     isPartOf: {
       "@type": "WebSite",
       "@id": `${siteConfig.url}/#website`,
@@ -454,7 +452,6 @@ export default function GeoAeoHead({
         ...(authorRole && { jobTitle: authorRole }),
       },
     }),
-    ...(dateModified && { dateModified }),
     ...(primaryTopic && {
       about: {
         "@type": "Thing",
@@ -497,15 +494,6 @@ export default function GeoAeoHead({
           __html: JSON.stringify(pageContextSchema),
         }}
       />
-      {/* Knowledge Graph Schema (homepage & about only) */}
-      {isHomepage && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getKnowledgeGraphSchema()),
-          }}
-        />
-      )}
       {/* WebApplication Schema (homepage only) */}
       {isHomepage && (
         <script

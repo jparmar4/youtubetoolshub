@@ -11,6 +11,7 @@ import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import HeaderAd from "@/components/ads/HeaderAd";
 import AdRecovery from "@/components/ads/AdRecovery";
+import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -390,6 +391,8 @@ export default async function RootLayout({
             <ScrollToTop />
             <CookieConsent />
             <PrivacyH1Fix />
+            {/* Sticky bottom anchor ad — highest mobile CPM placement */}
+            <BottomAnchorAd />
             {/* Ad Blocking Recovery Tags - MUST be in body, not head */}
             <AdRecovery />
           </UsageProvider>

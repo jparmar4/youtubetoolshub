@@ -40,8 +40,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const allEntries: MetadataRoute.Sitemap = [];
 
-  // Fixed date for truly static pages (updated when site is redeployed)
-  const staticLastModified = new Date('2026-02-19');
+  // Fixed date for truly static pages (always fresh)
+  const staticLastModified = new Date();
 
   // Static pages with priority tiers
   const highPriorityRoutes = [

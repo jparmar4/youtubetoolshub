@@ -95,6 +95,7 @@ export default async function CountryEarningsPage({
                     countryData.currency,
                     countryData.rpmRange.avg
                 )}
+                pathname={`/tools/youtube-earnings-calculator/${country}`}
             />
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />

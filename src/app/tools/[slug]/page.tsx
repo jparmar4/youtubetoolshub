@@ -191,6 +191,7 @@ export default async function ToolPage({
                     tool.seoDescription || tool.description,
                     tool.category
                 )}
+                pathname={`/tools/${tool.slug}`}
             />
 
             {/* JSON-LD Structured Data */}

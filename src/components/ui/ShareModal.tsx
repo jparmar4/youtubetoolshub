@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTwitter, FaWhatsapp, FaLinkedin, FaFacebook, FaCopy, FaTimes, FaCheck } from "react-icons/fa";
 import { useState } from "react";
+import { siteConfig } from "@/config/site";
 
 interface ShareModalProps {
     isOpen: boolean;
@@ -12,7 +13,7 @@ interface ShareModalProps {
     url?: string;
 }
 
-export default function ShareModal({ isOpen, onClose, title, text, url = "https://www.youtubetoolshub.com" }: ShareModalProps) {
+export default function ShareModal({ isOpen, onClose, title, text, url = siteConfig.url }: ShareModalProps) {
     const [copied, setCopied] = useState(false);
     const fullText = `${text}\n\n${url}`;
 

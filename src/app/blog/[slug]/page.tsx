@@ -14,6 +14,8 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
+import InArticleAd from "@/components/ads/InArticleAd";
+import MultiplexAd from "@/components/ads/MultiplexAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 
 // Generate static params
@@ -184,7 +186,7 @@ export default async function BlogPostPage({
                 post.author,
                 post.authorRole || "Content Strategist",
                 isoDate,
-            )} />
+            )} pathname={`/blog/${post.slug}`} />
             {/* JSON-LD Structured Data */}
             <script
                 type="application/ld+json"
@@ -374,18 +376,17 @@ export default async function BlogPostPage({
                                 {/* Share */}
                                 <div className="mt-12 pt-8 border-t border-slate-200">
                                     <ShareButtons
-                                        url={`https://www.youtubetoolshub.com/blog/${post.slug}`}
+                                        url={`${siteConfig.url}/blog/${post.slug}`}
                                         title={post.title}
                                         description={post.metaDescription}
                                     />
                                 </div>
                             </article>
 
+                            {/* Ad: After article content — high viewability, user just finished reading */}
+                            <InArticleAd />
 
-                            {/* Related Posts (Mobile/Tablet only here, maybe? No, keep at bottom for all) */}
-                            {/* Actually, let's keep related posts full width or inside the column? 
-                                 Inside the column is better for reading flow on desktop. 
-                             */}
+                            {/* Related Posts */}
                             <div className="mt-16">
                                 {relatedPosts.length > 0 && (
                                     <>
@@ -417,6 +418,11 @@ export default async function BlogPostPage({
                     </div>
                 </div>
 
+
+                {/* Multiplex Ad: Content discovery before CTA */}
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+                    <MultiplexAd />
+                </div>
 
                 {/* CTA */}
                 <section className="py-20 bg-slate-50">

@@ -181,6 +181,7 @@ export default async function ProgrammaticToolPage({
                     niche.name,
                     nicheContent.description
                 )}
+                pathname={`/tools/${tool.slug}/${niche.id}`}
             />
             <script
                 type="application/ld+json"

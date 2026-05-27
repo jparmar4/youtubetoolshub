@@ -1,6 +1,5 @@
-"use client";
-
 import { FaShieldAlt, FaUsers, FaLock, FaYoutube, FaCheckCircle } from "react-icons/fa";
+import { siteConfig } from "@/config/site";
 
 /**
  * TrustSignals Component
@@ -50,7 +49,7 @@ export default function TrustSignals() {
         style={{ display: "none" }}
       >
         <meta itemProp="name" content="YouTube Tools Hub" />
-        <meta itemProp="url" content="https://www.youtubetoolshub.com" />
+        <meta itemProp="url" content={siteConfig.url} />
         <meta itemProp="foundingDate" content="2025" />
         <meta itemProp="award" content="Google AdSense Approved Publisher" />
         <meta itemProp="award" content="Trusted by 100,000+ YouTube Creators" />

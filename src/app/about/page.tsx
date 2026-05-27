@@ -14,6 +14,8 @@ import {
   FaMagic,
 } from "react-icons/fa";
 import Button from "@/components/ui/Button";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026",
@@ -128,6 +130,7 @@ const stats = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-slate-50 relative overflow-hidden">
+      <GeoAeoHead {...GEO_AEO_PRESETS.aboutPage} pathname="/about" />
       <div className="nebula-bg" />
 
       {/* Hero Section */}

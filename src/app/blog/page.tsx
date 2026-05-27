@@ -47,10 +47,10 @@ export const metadata: Metadata = {
     description:
       "Master the 2026 algorithm with expert guides on AI-native creation, high-RPM niche selection, and semantic SEO. Trusted by 100k+ professional creators.",
     type: "website",
-    url: "https://www.youtubetoolshub.com/blog",
+    url: `${siteConfig.url}/blog`,
     images: [
       {
-        url: "https://www.youtubetoolshub.com/og-image.png",
+        url: `${siteConfig.url}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "YouTube Tools Hub Blog – Strategy & Growth Insights",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
     description:
       "Master the 2026 algorithm with expert guides on AI-native creation, high-RPM niche selection, and semantic SEO.",
-    images: ["https://www.youtubetoolshub.com/og-image.png"],
+    images: [`${siteConfig.url}/og-image.png`],
   },
 };
 
@@ -107,6 +107,7 @@ export default function BlogPage() {
           "Updated for the 2026 YouTube algorithm",
           "Written by certified YouTube growth experts",
         ]}
+        pathname="/blog"
       />
       {/* CollectionPage + ItemList JSON-LD */}
       <script

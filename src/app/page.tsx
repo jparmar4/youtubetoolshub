@@ -20,6 +20,10 @@ import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
 import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import AnswerBoxes from "@/components/seo/AnswerBoxes";
+import TrustSignals from "@/components/seo/TrustSignals";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title:
@@ -207,6 +211,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      {/* ── GEO/AEO: Knowledge Graph, WebApplication, ProfilePage, Service ── */}
+      <GeoAeoHead {...GEO_AEO_PRESETS.homepage} pathname="/" />
+      {/* ── AEO/GEO: Featured Snippet Answer Boxes for Search Crawlers and AI Engines ── */}
+      <AnswerBoxes />
       {/* ── AEO/GEO: JSON-LD Structured Data for AI Answer Engines ── */}
       <script
         type="application/ld+json"
@@ -639,6 +647,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* E-E-A-T Trust Badges */}
+      <div className="py-12 bg-slate-50 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <TrustSignals />
+        </div>
+      </div>
     </div>
   );
 }

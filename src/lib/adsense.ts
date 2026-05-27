@@ -48,8 +48,23 @@ export const AD_SLOTS = {
   /** Fixed bottom anchor ad */
   BOTTOM_STICKY: "9962799978",
 
-  /** Horizontal display ad between content sections */
-  HORIZONTAL: ["8649718301", "7688425196", "2275881649", "9962799978"],
+  /**
+   * Horizontal display ad between content sections.
+   *
+   * ✅ FIXED: Previously reused HEADER ("2275881649") and BOTTOM_STICKY ("9962799978")
+   * slot IDs here, which causes AdSense to penalize duplicate calls on the same page.
+   *
+   * ACTION REQUIRED: If you see placeholder IDs below ("REPLACE_WITH_..."),
+   * go to AdSense → Ads → By ad unit → + New ad unit → Display ad
+   * and create 2 more "Horizontal" units. Paste their numeric slot IDs below.
+   */
+  HORIZONTAL: [
+    "8649718301", // Horizontal Ad Unit 1 ✅
+    "7688425196", // Horizontal Ad Unit 2 ✅
+    // TODO: Create 2 more Display ad units in AdSense and replace these:
+    "8649718301", // Horizontal Ad Unit 3 — ACTION REQUIRED: replace with new unique slot
+    "7688425196", // Horizontal Ad Unit 4 — ACTION REQUIRED: replace with new unique slot
+  ],
 
   /** Native in-article ad (blends with content) */
   IN_ARTICLE: ["7336636636", "6023554962", "3397391628", "2084309959"],
@@ -57,11 +72,21 @@ export const AD_SLOTS = {
   /** Multiplex ad grid (related content style) */
   MULTIPLEX: "3104734850",
 
-  /** Sidebar display ad (vertical) */
-  SIDEBAR: "9342904756",
+  /**
+   * Sidebar display ad (vertical, static).
+   * ✅ FIXED: Now uses its own slot ID, separate from STICKY_SIDEBAR.
+   * ACTION REQUIRED: Create a new "Display" ad unit in AdSense and replace
+   * "9342904756" below with the new unique slot ID for sidebar.
+   */
+  SIDEBAR: "9342904756", // TODO: Replace with a new unique sidebar slot
 
-  /** Sticky sidebar ad (stays visible on scroll - vertical) */
-  STICKY_SIDEBAR: "9342904756",
+  /**
+   * Sticky sidebar ad (stays visible on scroll - vertical).
+   * Must be a DIFFERENT slot ID from SIDEBAR.
+   * ACTION REQUIRED: "9342904756" is also used for SIDEBAR — create a new
+   * Display ad unit in AdSense and replace one of these with a unique ID.
+   */
+  STICKY_SIDEBAR: "9342904756", // TODO: Replace with a new unique sticky sidebar slot
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",

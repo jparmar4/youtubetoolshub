@@ -144,7 +144,7 @@ export default function FAQPage() {
 
   return (
     <>
-      <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} entityType="WebPage" />
+      <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} pathname="/faq" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function TubeBuddyComparisonPage() {
     return (
         <>
-            <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("TubeBuddy")} />
+            <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("TubeBuddy")} pathname="/tools/vs/tubebuddy" />
             <div className="min-h-screen bg-white dark:bg-slate-950 pt-28 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

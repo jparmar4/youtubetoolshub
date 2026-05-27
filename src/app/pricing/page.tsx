@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import PricingClient from "@/components/pricing/PricingClient";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Pricing - Free vs Premium Plans (Save 50% Today)",
@@ -22,10 +23,10 @@ export const metadata: Metadata = {
     description:
       "YouTube Tools Hub pricing: 21+ core tools are 100% free forever. Pro tier offers higher daily limits and priority access for power users. No credit card required.",
     type: "website",
-    url: "https://www.youtubetoolshub.com/pricing",
+    url: `${siteConfig.url}/pricing`,
     images: [
       {
-        url: "https://www.youtubetoolshub.com/og-image.png",
+        url: `${siteConfig.url}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "YouTube Tools Hub Pricing – Free & Pro Plans",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     title: "Pricing – YouTube Tools Hub | Free & Pro Plans",
     description:
       "21+ core tools are 100% free forever. Pro tier offers higher daily limits and priority access. No credit card required to start.",
-    images: ["https://www.youtubetoolshub.com/og-image.png"],
+    images: [`${siteConfig.url}/og-image.png`],
   },
   alternates: {
     canonical: "/pricing",
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <GeoAeoHead {...GEO_AEO_PRESETS.pricingPage} />
+      <GeoAeoHead {...GEO_AEO_PRESETS.pricingPage} pathname="/pricing" />
       <PricingClient />
     </>
   );

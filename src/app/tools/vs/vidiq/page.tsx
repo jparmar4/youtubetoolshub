@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function VidIQComparisonPage() {
     return (
         <>
-            <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("VidIQ")} />
+            <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("VidIQ")} pathname="/tools/vs/vidiq" />
             <div className="min-h-screen bg-white dark:bg-slate-950 pt-28 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 

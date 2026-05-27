@@ -1,7 +1,3 @@
-"use client";
-
-
-
 /**
  * AnswerBoxes Component
  * 
@@ -17,7 +13,6 @@ export default function AnswerBoxes() {
   return (
     <div
       className="sr-only"
-      aria-hidden="true"
       style={{
         position: "absolute",
         width: "1px",

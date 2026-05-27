@@ -246,6 +246,8 @@ export function getSoftwareApplicationSchema(tool: {
         bestRating?: string;
         worstRating?: string;
     };
+    datePublished?: string;
+    dateModified?: string;
 }) {
     const applicationCategory = tool.category === "thumbnail-media" ? "MultimediaApplication" : "UtilityApplication";
 
@@ -257,6 +259,8 @@ export function getSoftwareApplicationSchema(tool: {
         url: tool.url,
         applicationCategory: applicationCategory, // Ensure this maps to a valid schema.org category
         operatingSystem: "Any", // Required field
+        datePublished: tool.datePublished || "2025-01-01",
+        dateModified: tool.dateModified || new Date().toISOString(),
         offers: {
             "@type": "Offer",
             price: "0",

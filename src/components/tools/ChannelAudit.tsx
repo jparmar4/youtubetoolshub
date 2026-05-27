@@ -7,6 +7,7 @@ import ShareModal from "@/components/ui/ShareModal";
 import { FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaShareAlt, FaSpinner, FaYoutube, FaBookmark } from "react-icons/fa";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import { motion, AnimatePresence } from "framer-motion";
+import { siteConfig } from "@/config/site";
 
 interface AuditResult {
     score: number;
@@ -252,7 +253,7 @@ export default function ChannelAudit() {
                                                         await navigator.share({
                                                             title: content.title,
                                                             text: content.text,
-                                                            url: "https://www.youtubetoolshub.com/tools/youtube-channel-audit"
+                                                            url: `${siteConfig.url}/tools/youtube-channel-audit`
                                                         });
                                                     } catch (err) {
                                                         // User cancelled or error, fallback to modal if needed, but usually just ignore cancel
@@ -309,7 +310,7 @@ export default function ChannelAudit() {
                     onClose={() => setShowShareModal(false)}
                     title={getShareContent().title}
                     text={getShareContent().text}
-                    url="https://www.youtubetoolshub.com/tools/youtube-channel-audit"
+                    url={`${siteConfig.url}/tools/youtube-channel-audit`}
                 />
             )}
         </div>

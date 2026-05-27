@@ -65,6 +65,7 @@ export default function ToolsPage() {
           "Tools organized into 5 categories: Thumbnail, SEO, Growth, Analytics, Utility",
           "Free alternative to TubeBuddy and VidIQ",
         ]}
+        pathname="/tools"
       />
       {/* JSON-LD Structured Data for SEO */}
       <script
