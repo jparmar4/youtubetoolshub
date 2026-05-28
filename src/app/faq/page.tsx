@@ -39,10 +39,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/faq",
-    languages: {
-      en: "/faq",
-      "x-default": "/faq",
-    },
+    
   },
   openGraph: {
     title: "FAQ - YouTube Tools & AI Growth Suite 2026",

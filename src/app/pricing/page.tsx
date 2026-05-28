@@ -42,10 +42,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/pricing",
-    languages: {
-      en: "/pricing",
-      "x-default": "/pricing",
-    },
+    
   },
 };
 

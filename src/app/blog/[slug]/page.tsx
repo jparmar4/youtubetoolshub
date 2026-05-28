@@ -8,7 +8,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema, getGlobalAlternates } from "@/lib/seo";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -79,13 +79,7 @@ export async function generateMetadata({
             description: post.metaDescription,
             images: [`${siteConfig.url}${post.coverImage}`],
         },
-        alternates: {
-            canonical: `/blog/${slug}`,
-            languages: {
-                'en': `/blog/${slug}`,
-                'x-default': `/blog/${slug}`,
-            },
-        },
+        alternates: getGlobalAlternates(`/blog/${slug}`),
         other: {
             'article:author': post.author,
             'article:published_time': isoDate,

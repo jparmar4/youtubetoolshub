@@ -12,10 +12,7 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: "/resources/youtube-creator-statistics",
-        languages: {
-            "en": "/resources/youtube-creator-statistics",
-            "x-default": "/resources/youtube-creator-statistics",
-        },
+        
     },
 };
 

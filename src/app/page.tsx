@@ -19,7 +19,7 @@ import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
-import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import TrustSignals from "@/components/seo/TrustSignals";
@@ -42,13 +42,7 @@ export const metadata: Metadata = {
     "youtube tag generator free",
     "youtube growth tools",
   ],
-  alternates: {
-    canonical: "/",
-    languages: {
-      en: "/",
-      "x-default": "/",
-    },
-  },
+  alternates: getGlobalAlternates("/"),
 };
 
 const homeFAQs = [

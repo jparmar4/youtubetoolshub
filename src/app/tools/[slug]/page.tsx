@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
-import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema, getGlobalAlternates } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
@@ -110,13 +110,7 @@ export async function generateMetadata({
             description: tool.seoDescription || tool.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
-        alternates: {
-            canonical: `/tools/${tool.slug}`,
-            languages: {
-                'en': `/tools/${tool.slug}`,
-                'x-default': `/tools/${tool.slug}`,
-            },
-        },
+        alternates: getGlobalAlternates(`/tools/${tool.slug}`),
         other: {
             "primaryTopic": tool.name,
             "abstract": tool.seoDescription || tool.description,

@@ -56,10 +56,7 @@ export async function generateMetadata({
         },
         alternates: {
             canonical: `/tools/youtube-earnings-calculator/${country}`,
-            languages: {
-                'en': `/tools/youtube-earnings-calculator/${country}`,
-                'x-default': `/tools/youtube-earnings-calculator/${country}`,
-            },
+            
         },
         other: {
             "primaryTopic": `YouTube Monetization in ${countryData.name}`,

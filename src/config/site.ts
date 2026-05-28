@@ -176,10 +176,7 @@ export const siteConfig = {
       "global youtube cpm calculator",
     ],
     alternates: {
-      languages: {
-        en: "https://www.youtubetoolshub.com",
-        "x-default": "https://www.youtubetoolshub.com",
-      },
+      
     },
     openGraph: {
       type: "website",

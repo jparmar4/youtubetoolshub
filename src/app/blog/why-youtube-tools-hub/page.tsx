@@ -8,10 +8,7 @@ export const metadata: Metadata = {
     keywords: ["why youtube tools hub", "best youtube tools 2026", "youtube tools hub review", "creator tools 2026"],
     alternates: {
         canonical: "/blog/why-youtube-tools-hub",
-        languages: {
-            "en": "/blog/why-youtube-tools-hub",
-            "x-default": "/blog/why-youtube-tools-hub",
-        },
+        
     },
 };
 

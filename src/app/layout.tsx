@@ -48,7 +48,7 @@ export const metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: siteConfig.url,
-    languages: siteConfig.seo.alternates.languages,
+    
   },
 
   openGraph: {

@@ -22,10 +22,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/blog/youtube-monetization-guide-2026",
-    languages: {
-      "en": "/blog/youtube-monetization-guide-2026",
-      "x-default": "/blog/youtube-monetization-guide-2026",
-    },
+    
   },
 };
 

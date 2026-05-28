@@ -10,10 +10,7 @@ export const metadata: Metadata = {
     keywords: ["YouTube Tools Hub vs VidIQ", "VidIQ alternative", "best youtube seo tool", "ai youtube growth"],
     alternates: {
         canonical: "/tools/vs/vidiq",
-        languages: {
-            "en": "/tools/vs/vidiq",
-            "x-default": "/tools/vs/vidiq",
-        },
+        
     },
 };
 

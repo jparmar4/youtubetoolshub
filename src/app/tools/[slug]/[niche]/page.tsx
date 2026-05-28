@@ -115,10 +115,7 @@ export async function generateMetadata({
         },
         alternates: {
             canonical: `/tools/${tool.slug}/${niche.id}`,
-            languages: {
-                'en': `/tools/${tool.slug}/${niche.id}`,
-                'x-default': `/tools/${tool.slug}/${niche.id}`,
-            },
+            
         },
         other: {
             "primaryTopic": `${tool.name} for ${niche.name}`,

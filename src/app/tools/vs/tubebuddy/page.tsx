@@ -10,10 +10,7 @@ export const metadata: Metadata = {
     keywords: ["YouTube Tools Hub vs TubeBuddy", "TubeBuddy alternative", "free youtube tools", "youtube seo tools comparison"],
     alternates: {
         canonical: "/tools/vs/tubebuddy",
-        languages: {
-            "en": "/tools/vs/tubebuddy",
-            "x-default": "/tools/vs/tubebuddy",
-        },
+        
     },
 };
 

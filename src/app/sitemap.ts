@@ -9,10 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   const blogPosts = getAllBlogPosts();
   const getAlternates = (url: string) => ({
-    languages: {
-      en: url,
-      "x-default": url,
-    },
+    
   });
 
   // Base routes (without locale)

@@ -22,10 +22,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/blog/youtube-seo-strategies-2026",
-    languages: {
-      "en": "/blog/youtube-seo-strategies-2026",
-      "x-default": "/blog/youtube-seo-strategies-2026",
-    },
+    
   },
 };
 
