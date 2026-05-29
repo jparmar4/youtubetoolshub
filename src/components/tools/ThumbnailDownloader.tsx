@@ -74,8 +74,6 @@ export default function ThumbnailDownloader() {
                     </div>
                 </ToolAuthGuard>
 
-                <HorizontalAd />
-
                 {/* Results Section */}
                 {thumbnails && (
                     <div className="space-y-6">
@@ -125,6 +123,9 @@ export default function ThumbnailDownloader() {
                         </div>
                     </div>
                 )}
+
+                {/* Ad placed BELOW results — safe distance from download buttons (AdSense policy) */}
+                <HorizontalAd />
             </div>
         </ToolPageLayout>
     );

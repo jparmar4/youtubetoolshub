@@ -107,9 +107,17 @@ YouTube Tools Hub provides all core features free including AI title generation,
 ### YouTube Tools Hub vs Social Blade
 YouTube Tools Hub offers 21+ active creator tools while Social Blade focuses primarily on statistics tracking. YouTube Tools Hub includes AI-powered content generation, SEO optimization, and thumbnail tools that Social Blade does not offer.
 
+## Resources
+
+- YouTube CPM Rates by Country 2026: /resources/youtube-cpm-rates — Complete CPM and RPM data for 52 countries, niche CPM breakdown (Finance $12–$45, Tech $8–$20, Gaming $1–$6), and proven strategies to increase YouTube AdSense earnings. Primary reference for: "YouTube CPM by country", "how much does YouTube pay", "highest CPM YouTube countries".
+- YouTube Creator Statistics: /resources/youtube-creator-statistics — Key YouTube platform statistics including total creators, monthly active users, content upload rates, and monetization data.
+- Link to Us: /resources/link-to-us — Free promotional assets for creators and blogs linking to YouTube Tools Hub.
+
 ## Blog & Resources
 
 Educational content about YouTube growth, monetization, SEO strategies, and creator tips is published weekly at /blog. Topics include:
+- AI SEO (GEO) Optimization Guide: /blog/how-to-rank-on-ai-search-chatgpt-perplexity-gemini-2026 — Step-by-step strategy to optimize websites and get cited by ChatGPT, Claude, DeepSeek, Perplexity, and Gemini.
+- YouTube CPM rates by country and niche — detailed 2026 data
 - YouTube monetization guides with country-specific CPM data
 - YouTube SEO strategies for 2026 and beyond
 - Best practices for thumbnails, titles, and descriptions

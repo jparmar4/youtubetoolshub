@@ -38,7 +38,7 @@ export const viewport = {
 
 export const metadata = {
   title: {
-    default: siteConfig.seo.defaultTitle,
+    default: "YouTube Tools Hub - 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,

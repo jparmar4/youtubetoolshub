@@ -19,7 +19,7 @@ import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
-import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
+import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getHowToSchema, getGlobalAlternates } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import TrustSignals from "@/components/seo/TrustSignals";
@@ -27,7 +27,7 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title:
-    "YouTube Tools Hub - 21+ Free AI Tools | Thumbnail Generator, Earnings Calculator 2026",
+    "YouTube Tools Hub - 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
   description:
     "Grow your YouTube channel FREE with 21+ AI tools. Generate viral thumbnails, calculate CPM earnings, extract competitor tags, and optimize SEO. Trusted by 100,000+ creators worldwide in 2026.",
   keywords: [
@@ -140,6 +140,31 @@ export default function Home() {
     { name: "Tools", url: `${siteConfig.url}/tools` },
   ]);
 
+  // ── AEO: HowTo schema for Google rich results ──
+  const howToSchema = getHowToSchema({
+    name: "How to Use YouTube Tools Hub to Grow Your Channel",
+    description:
+      "YouTube Tools Hub provides 21+ free AI-powered tools to help YouTube creators grow faster, optimize their SEO, and maximize earnings — no signup required.",
+    totalTime: "PT5M",
+    steps: [
+      {
+        name: "Choose a tool for your goal",
+        text:
+          "Browse the free tool suite at youtubetoolshub.com/tools. Select from Thumbnail Downloader, Title Generator, Earnings Calculator, Tag Generator, Channel Audit, and 16+ more tools — all free with no account required.",
+      },
+      {
+        name: "Enter your YouTube video or channel details",
+        text:
+          "Paste your YouTube video URL or enter your channel details. The AI analyzes your content and generates optimized outputs including titles, tags, descriptions, thumbnail ideas, and earnings estimates with country-specific CPM data.",
+      },
+      {
+        name: "Apply the results to your YouTube channel",
+        text:
+          "Copy the generated titles, tags, descriptions, or download thumbnails directly. Use the earnings calculator results to understand your CPM by country and target higher-paying audiences in the US, UK, Canada, and Australia.",
+      },
+    ],
+  });
+
   // AEO: Concise answer block for AI featured snippets
   const aeoAnswerSchema = {
     "@context": "https://schema.org",
@@ -222,6 +247,11 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      {/* HowTo Schema for Google Rich Results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
       {/* Hero Section - Midnight Nebula */}
