@@ -19,6 +19,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/thumbnail-tools",
     "/tools/seo-tools",
     "/tools/analytics-tools",
+    "/tools/channel-tools",
+    "/tools/utility-tools",
     "/about",
     "/contact",
     "/blog",
@@ -47,6 +49,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/faq",
     "/resources/link-to-us",
+    "/tools/channel-tools",
+    "/tools/utility-tools",
   ];
   for (const route of routes) {
     const url = `${baseUrl}${route}`;

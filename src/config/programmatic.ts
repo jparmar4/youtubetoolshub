@@ -83,6 +83,69 @@ export const niches: Niche[] = [
         keywords: ["music", "production", "covers", "original song", "beat making", "instrumental"],
         description: "music videos, covers, and production tutorials",
         examples: ["Piano Cover", "Beat Making", "Song Release", "Music Theory"]
+    },
+    {
+        id: "pets",
+        name: "Pets & Animals",
+        keywords: ["pets", "dogs", "cats", "animal care", "pet training", "veterinary"],
+        description: "pet care, animal training, and adorable animal content",
+        examples: ["Dog Training Tips", "Cat Behavior", "Pet Grooming", "Exotic Pets"]
+    },
+    {
+        id: "travel",
+        name: "Travel & Adventure",
+        keywords: ["travel", "adventure", "backpacking", "tourism", "travel tips", "destination"],
+        description: "travel vlogs, destination guides, and adventure content",
+        examples: ["Thailand Travel", "Europe Backpacking", "Budget Travel", "Luxury Resort Review"]
+    },
+    {
+        id: "motivation",
+        name: "Motivation & Self-Help",
+        keywords: ["motivation", "self-improvement", "productivity", "mindset", "success", "habits"],
+        description: "personal development, motivation, and productivity",
+        examples: ["Morning Routine", "Goal Setting", "Time Management", "Success Habits"]
+    },
+    {
+        id: "parenting",
+        name: "Parenting & Family",
+        keywords: ["parenting", "baby", "family", "kids", "motherhood", "fatherhood"],
+        description: "parenting advice, family activities, and child development",
+        examples: ["Baby Care Tips", "Toddler Activities", "Family Vacation", "Homeschooling"]
+    },
+    {
+        id: "sports",
+        name: "Sports & Athletics",
+        keywords: ["sports", "football", "basketball", "soccer", "training", "highlights"],
+        description: "sports analysis, training, and highlights",
+        examples: ["NBA Highlights", "Soccer Training", "Gym Workout", "Marathon Prep"]
+    },
+    {
+        id: "comedy",
+        name: "Comedy & Entertainment",
+        keywords: ["comedy", "funny", "sketch", "prank", "stand-up", "entertainment"],
+        description: "comedy sketches, pranks, and entertainment",
+        examples: ["Funny Skit", "Prank Video", "Reaction Video", "Comedy Roast"]
+    },
+    {
+        id: "real-estate",
+        name: "Real Estate & Property",
+        keywords: ["real estate", "property", "house tour", "home buying", "investing", "renovation"],
+        description: "real estate investing, home tours, and property advice",
+        examples: ["House Tour", "First Home Tips", "Property Investment", "Home Renovation"]
+    },
+    {
+        id: "cars",
+        name: "Cars & Automotive",
+        keywords: ["cars", "automotive", "car review", "supercar", "modification", "racing"],
+        description: "car reviews, modifications, and automotive content",
+        examples: ["Car Review", "Supercar Test Drive", "DIY Car Mod", "Drag Race"]
+    },
+    {
+        id: "photography",
+        name: "Photography & Videography",
+        keywords: ["photography", "videography", "camera", "editing", "filmmaking", "drone"],
+        description: "photography tips, video production, and creative filmmaking",
+        examples: ["Photo Editing", "Cinematic B-Roll", "Drone Footage", "Portrait Tips"]
     }
 ];
 
@@ -91,7 +154,12 @@ export const programmaticTools = [
     "youtube-title-generator",
     "youtube-description-generator",
     "youtube-hashtag-generator",
-    "youtube-video-ideas-generator"
+    "youtube-video-ideas-generator",
+    "youtube-intro-script-generator",
+    "youtube-content-calendar-generator",
+    "youtube-channel-name-generator",
+    "youtube-ai-thumbnail-prompt",
+    "youtube-thumbnail-generator"
 ];
 
 export const getNicheContent = (toolName: string, niche: Niche) => {

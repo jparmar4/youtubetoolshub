@@ -14,6 +14,8 @@ import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import ShareButtons from "@/components/ui/ShareButtons";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 
 // Import all tool components
@@ -252,6 +254,16 @@ export default async function ToolPage({
                                 <ToolComponent />
                             </Suspense>
 
+                            {/* Share This Tool */}
+                            <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <p className="text-slate-700 font-medium">Found this tool helpful? Share it with fellow creators!</p>
+                                <ShareButtons
+                                    url={`${siteConfig.url}/tools/${tool.slug}`}
+                                    title={`${tool.name} - Free YouTube Tool`}
+                                    description={tool.shortDescription}
+                                />
+                            </div>
+
                             {/* Internal Linking for Programmatic Tools */}
                             {programmaticTools.includes(tool.slug) && (
                                 <div className="glass-premium rounded-2xl p-8 border border-purple-100 dark:border-purple-900/30">
@@ -415,6 +427,11 @@ export default async function ToolPage({
                                     </div>
                                 </div>
                             )}
+
+                            {/* Newsletter CTA */}
+                            <div className="my-8">
+                                <NewsletterSignup />
+                            </div>
 
                             {/* Related Tools for Mobile */}
                             <div className="lg:hidden glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">

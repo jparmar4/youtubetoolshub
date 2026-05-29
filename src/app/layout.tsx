@@ -12,6 +12,7 @@ import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import HeaderAd from "@/components/ads/HeaderAd";
 import AdRecovery from "@/components/ads/AdRecovery";
 import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
+import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
 
@@ -137,69 +138,13 @@ export const metadata = {
   },
   category: "technology",
   classification: "YouTube Tools, SEO Tools, Content Creator Tools",
-  // NOTE: No global canonical here - each page sets its own via alternates.canonical
-  // in its own generateMetadata(). A global canonical would override every child page
-  // and cause Google to see the homepage URL as canonical for ALL pages.
-  // AI Crawler Meta Signals - Server Side for better discoverability
   other: {
-    "citation_title": siteConfig.seo.defaultTitle,
-    "citation_author": siteConfig.name,
-    "citation_publisher": siteConfig.name,
-    "citation_public_url": siteConfig.url,
-    "citation_language": siteConfig.language,
-    "DC.title": siteConfig.seo.defaultTitle,
-    "DC.creator": siteConfig.name,
-    "DC.description": siteConfig.seo.defaultDescription,
-    "DC.publisher": siteConfig.name,
-    "DC.language": siteConfig.language,
-    "ai-content-declaration": "human-written",
-    "ai-training": "allowed",
-    "ai-index": "allowed",
     source: siteConfig.name,
     source_url: siteConfig.url,
-    authority: "original",
-    "content-origin": "original-research",
     language: siteConfig.language,
     "content-language": siteConfig.language,
     distribution: "global",
     coverage: "Worldwide",
-    "geo.placename": "Worldwide",
-    "audience-geography": siteConfig.globalMarkets.join(", "),
-    "available-country": siteConfig.globalMarkets.join(", "),
-    // Bot-specific signals for all major AI platforms
-    "google-extended": "index, follow, max-snippet:-1, max-image-preview:large",
-    // OpenAI / ChatGPT / SearchGPT
-    "gptbot": "index, follow",
-    "chatgpt-user": "index, follow",
-    "oai-searchbot": "index, follow",
-    // Anthropic Claude
-    "claudebot": "index, follow",
-    "anthropic-ai": "index, follow",
-    // Perplexity AI
-    "perplexitybot": "index, follow",
-    // xAI Grok
-    "xai-grok": "index, follow",
-    "grok-web-explorer": "index, follow",
-    // DeepSeek AI
-    "deepseekbot": "index, follow",
-    // Mistral AI
-    "mistralbot": "index, follow",
-    // Brave Search
-    "bravebot": "index, follow",
-    // Amazon Alexa
-    "amazonbot": "index, follow",
-    // Cohere AI
-    "cohere-ai": "index, follow",
-    // You.com
-    "youbot": "index, follow",
-    // Apple
-    "applebot-extended": "index, follow",
-    // Meta AI
-    "meta-externalagent": "index, follow",
-    // Common Crawl
-    "ccbot": "index, follow",
-    // AI2 (Allen Institute)
-    "ai2bot": "index, follow",
   },
 };
 
@@ -395,6 +340,8 @@ export default async function RootLayout({
             <BottomAnchorAd />
             {/* Ad Blocking Recovery Tags - MUST be in body, not head */}
             <AdRecovery />
+            {/* Exit-intent popup for email capture */}
+            <ExitIntentPopup />
           </UsageProvider>
         </AuthProvider>
       </body>

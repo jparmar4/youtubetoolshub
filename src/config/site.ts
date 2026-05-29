@@ -3,9 +3,9 @@
 export const siteConfig = {
   // Branding
   name: "YouTube Tools Hub",
-  tagline: "The World's #1 Suite of Free YouTube Growth & AI Tools 2026",
+  tagline: "Free YouTube Growth & AI Tools Suite 2026",
   description:
-    "Trusted by 100,000+ creators. YouTube Tools Hub is the definitive free suite of 21+ AI-powered tools for channel automation, SEO, and growth. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm instantly.",
+    "YouTube Tools Hub is the free suite of 21+ AI-powered tools for YouTube channel growth, SEO, and automation. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm — no signup required.",
 
   // URLs
   url: "https://www.youtubetoolshub.com",

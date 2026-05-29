@@ -17,6 +17,7 @@ import HorizontalAd from "@/components/ads/HorizontalAd";
 import InArticleAd from "@/components/ads/InArticleAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 
 // Generate static params
 export function generateStaticParams() {
@@ -376,6 +377,11 @@ export default async function BlogPostPage({
                                     />
                                 </div>
                             </article>
+
+                            {/* Newsletter CTA */}
+                            <div className="my-12">
+                                <NewsletterSignup />
+                            </div>
 
                             {/* Ad: After article content — high viewability, user just finished reading */}
                             <InArticleAd />

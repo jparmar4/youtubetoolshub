@@ -178,14 +178,7 @@ export default function Home() {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
       },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.8",
-        bestRating: "5",
-        worstRating: "1",
-        ratingCount: "12847",
-        reviewCount: "8391",
-      },
+
     },
     significantLink: [
       `${siteConfig.url}/tools`,
@@ -286,26 +279,10 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-70">
               <div className="text-center">
                 <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  100K+
+                  21+
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Creators Empowered
-                </div>
-              </div>
-              <div className="text-center border-l border-slate-200/50">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  35M+
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Insights Generated
-                </div>
-              </div>
-              <div className="text-center border-l border-slate-200/50">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  2026
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Algorithm Optimized
+                  Free AI Tools
                 </div>
               </div>
               <div className="text-center border-l border-slate-200/50">
@@ -314,6 +291,22 @@ export default function Home() {
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
                   Monthly Fees
+                </div>
+              </div>
+              <div className="text-center border-l border-slate-200/50">
+                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
+                  2026
+                </div>
+                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                  Algorithm Updated
+                </div>
+              </div>
+              <div className="text-center border-l border-slate-200/50">
+                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
+                  4.8★
+                </div>
+                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                  User Rating
                 </div>
               </div>
             </div>
@@ -624,7 +617,7 @@ export default function Home() {
             the Algorithm?
           </h2>
           <p className="text-2xl text-slate-400 mb-14 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-            Join 100,000+ creators scaling their vision with the world&apos;s
+            Join creators worldwide scaling their vision with the world&apos;s
             most advanced free AI growth suite.
           </p>
           <Link href="/tools">
