@@ -1,5 +1,4 @@
 import { FaShieldAlt, FaUsers, FaLock, FaYoutube, FaCheckCircle } from "react-icons/fa";
-import { siteConfig } from "@/config/site";
 
 /**
  * TrustSignals Component
@@ -15,56 +14,33 @@ export default function TrustSignals() {
   const signals = [
     {
       icon: FaYoutube,
-      label: "YouTube API Compliant",
-      description: "Official YouTube Data API integration",
+      label: "Creator Tools",
+      description: "Built for YouTube workflows",
     },
     {
       icon: FaUsers,
-      label: "100,000+ Creators",
-      description: "Trusted by content creators worldwide",
+      label: "No Account Needed",
+      description: "Core tools work without signup",
     },
     {
       icon: FaShieldAlt,
-      label: "Google AdSense Approved",
-      description: "Verified publisher status",
+      label: "Public Data Only",
+      description: "No private YouTube access required",
     },
     {
       icon: FaLock,
-      label: "SSL Encrypted",
-      description: "256-bit secure connection",
+      label: "HTTPS Secure",
+      description: "Encrypted browser connection",
     },
     {
       icon: FaCheckCircle,
-      label: "GDPR Compliant",
-      description: "Privacy-first approach",
+      label: "Clear Policies",
+      description: "Privacy, terms, and contact pages available",
     },
   ];
 
   return (
     <>
-      {/* Hidden structured data for AI/SEO */}
-      <div
-        itemScope
-        itemType="https://schema.org/Organization"
-        style={{ display: "none" }}
-      >
-        <meta itemProp="name" content="YouTube Tools Hub" />
-        <meta itemProp="url" content={siteConfig.url} />
-        <meta itemProp="foundingDate" content="2025" />
-        <meta itemProp="award" content="Google AdSense Approved Publisher" />
-        <meta itemProp="award" content="Trusted by 100,000+ YouTube Creators" />
-        <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
-          <meta itemProp="ratingValue" content="4.8" />
-          <meta itemProp="bestRating" content="5" />
-          <meta itemProp="worstRating" content="1" />
-          <meta itemProp="ratingCount" content="12847" />
-        </div>
-        <div itemProp="hasCredential" itemScope itemType="https://schema.org/EducationalOccupationalCredential">
-          <meta itemProp="credentialCategory" content="Certification" />
-          <meta itemProp="name" content="YouTube API Compliant Application" />
-        </div>
-      </div>
-
       {/* Visible trust badges */}
       <div className="flex flex-wrap justify-center gap-4 md:gap-6 py-6">
         {signals.map((signal, index) => (

@@ -8,7 +8,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getAggregateRatingSchema, getNewsArticleSchema, getGlobalAlternates } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getNewsArticleSchema, getGlobalAlternates } from "@/lib/seo";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -140,14 +140,6 @@ export default async function BlogPostPage({
         cssSelectors: ["h1", ".summary"],
     });
 
-    const ratingSchema = post.rating ? getAggregateRatingSchema({
-        itemReviewed: post.title,
-        ratingValue: post.rating.ratingValue,
-        ratingCount: post.rating.ratingCount,
-        bestRating: post.rating.bestRating,
-        worstRating: post.rating.worstRating
-    }) : null;
-
     // NewsArticle schema for Google Discover and Top Stories
     const newsArticleSchema = getNewsArticleSchema({
         title: post.title,
@@ -206,14 +198,6 @@ export default async function BlogPostPage({
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify(faqSchema),
-                    }}
-                />
-            )}
-            {ratingSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(ratingSchema),
                     }}
                 />
             )}

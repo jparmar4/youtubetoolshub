@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema } from "@/lib/seo";
+import { getFAQSchema, getHowToSchema, getBreadcrumbSchema } from "@/lib/seo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
@@ -154,6 +154,7 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
     return (
         <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
             <table className="w-full text-sm">
+                <caption className="sr-only">{tierLabel} YouTube CPM rates by country</caption>
                 <thead>
                     <tr className={`${tierColor} text-white`}>
                         <th className="text-left px-4 py-3 font-bold">Country</th>

@@ -23,28 +23,6 @@ export function getOrganizationSchema() {
         description: siteConfig.description,
         slogan: "Free AI-Powered YouTube Tools for Every Creator",
         foundingDate: "2025",
-        numberOfEmployees: {
-            "@type": "QuantitativeValue",
-            value: 10,
-        },
-        // E-E-A-T: Awards and recognition
-        award: [
-            "Google AdSense Approved Publisher",
-            "Trusted by 100,000+ YouTube Creators",
-        ],
-        // E-E-A-T: Credentials and certifications
-        hasCredential: [
-            {
-                "@type": "EducationalOccupationalCredential",
-                credentialCategory: "Certification",
-                name: "YouTube API Compliant Application",
-            },
-            {
-                "@type": "EducationalOccupationalCredential",
-                credentialCategory: "Certification",
-                name: "GDPR Compliant",
-            },
-        ],
         // Contact information
         contactPoint: [
             {
@@ -278,15 +256,7 @@ export function getSoftwareApplicationSchema(tool: {
                     worstRating: tool.rating.worstRating || "1",
                 },
             }
-            : {
-                aggregateRating: {
-                    "@type": "AggregateRating",
-                    ratingValue: (4.7 + (tool.name.length % 3) * 0.1).toFixed(1),
-                    ratingCount: (1200 + (tool.name.length * 47) % 3000).toString(),
-                    bestRating: "5",
-                    worstRating: "1",
-                },
-            }),
+            : {}),
     };
 }
 
@@ -889,12 +859,6 @@ export function getMainEntitySchema() {
             "price": "0",
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "bestRating": "5",
-            "ratingCount": "12847",
         },
         "featureList": [
             "YouTube Thumbnail Downloader",

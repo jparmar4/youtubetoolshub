@@ -79,103 +79,22 @@ const BRAND_SIGNALS = {
   url: siteConfig.url,
   shortDescription: "Free AI-powered YouTube tools for creators",
   fullDescription:
-    "YouTube Tools Hub is the world's most comprehensive free suite of 21+ AI-powered tools for YouTube content creators, offering thumbnail optimization, SEO metadata generation, earnings calculation, and channel growth analytics.",
+    "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.",
   competitors: ["TubeBuddy", "VidIQ", "Social Blade"],
   differentiators: [
     "100% free with no signup required",
-    "21+ AI-powered professional-grade tools",
+    "27+ creator tools",
     "No browser extension needed",
-    "AI thumbnail generation and channel auditing",
+    "AI-assisted thumbnail generation and channel workflow checklist",
     "Country-specific CPM data for 50+ regions",
-    "Updated every 48 hours for 2026 algorithm changes",
+    "Works directly in the browser",
   ],
   trustSignals: [
-    "Google AdSense approved",
-    "Trusted by 100,000+ creators",
-    "SSL encrypted",
-    "YouTube API compliant",
+    "HTTPS secure",
+    "No private YouTube login required for core tools",
+    "Public contact and policy pages",
   ],
 };
-
-/**
- * Generates the KnowledgeGraph / Entity JSON-LD for AI engines
- * This helps Google, Bing, and AI systems build a knowledge panel
- */
-function getKnowledgeGraphSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${siteConfig.url}/#organization`,
-    name: BRAND_SIGNALS.name,
-    url: siteConfig.url,
-    logo: {
-      "@type": "ImageObject",
-      "@id": `${siteConfig.url}/#logo`,
-      url: `${siteConfig.url}/og-image.png`,
-      contentUrl: `${siteConfig.url}/og-image.png`,
-      width: 1200,
-      height: 630,
-      caption: BRAND_SIGNALS.name,
-    },
-    image: `${siteConfig.url}/og-image.png`,
-    description: BRAND_SIGNALS.fullDescription,
-    email: siteConfig.contact.email,
-    foundingDate: "2025",
-    numberOfEmployees: {
-      "@type": "QuantitativeValue",
-      value: 10,
-    },
-    slogan: "Free AI-Powered YouTube Tools for Every Creator",
-    knowsAbout: [
-      "YouTube SEO",
-      "YouTube Thumbnails",
-      "YouTube Analytics",
-      "YouTube Monetization",
-      "YouTube CPM Rates",
-      "YouTube RPM Calculator",
-      "AI Content Generation",
-      "Video Marketing",
-      "Content Creator Tools",
-      "YouTube Algorithm Optimization",
-      "YouTube Shorts Optimization",
-      "YouTube Tag Research",
-      "YouTube Title Optimization",
-      "YouTube Description SEO",
-      "YouTube Channel Growth",
-    ],
-    sameAs: [
-      "https://www.facebook.com/profile.php?id=61585430621256",
-      "https://t.me/youtubetoolshub",
-    ],
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        email: siteConfig.contact.email,
-        contactType: "customer service",
-        availableLanguage: ["English"],
-        areaServed: TIER1_COUNTRIES.map((c) => c.code),
-      },
-    ],
-    areaServed: TIER1_COUNTRIES.map((c) => ({
-      "@type": "Country",
-      name: c.name,
-    })),
-    brand: {
-      "@type": "Brand",
-      name: BRAND_SIGNALS.name,
-      slogan: "Empowering the AI-Native Creator",
-      logo: `${siteConfig.url}/og-image.png`,
-    },
-    offers: {
-      "@type": "AggregateOffer",
-      lowPrice: "0",
-      highPrice: "0",
-      priceCurrency: "USD",
-      offerCount: 21,
-      availability: "https://schema.org/InStock",
-    },
-  };
-}
 
 /**
  * Generates WebApplication schema for rich results in AI search
@@ -194,7 +113,7 @@ function getWebApplicationSchema() {
     browserRequirements: "Requires JavaScript. Requires HTML5.",
     softwareVersion: "3.0",
     releaseNotes:
-      "21+ AI-powered tools for YouTube creators, updated for 2026 algorithm.",
+      "27+ creator tools for YouTube creators.",
     featureList: [
       "YouTube Thumbnail Downloader (HD, 4K, 8K)",
       "AI Title Generator with SEO optimization",
@@ -228,13 +147,6 @@ function getWebApplicationSchema() {
       "@type": "Organization",
       name: BRAND_SIGNALS.name,
       url: siteConfig.url,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "12847",
     },
     isAccessibleForFree: true,
     audience: {
@@ -291,7 +203,7 @@ function getServiceSchema() {
       name: BRAND_SIGNALS.name,
     },
     description:
-      "Comprehensive suite of 21+ free AI-powered tools for YouTube content creators including thumbnail optimization, SEO tools, earnings calculators, and channel growth analytics.",
+      "Comprehensive suite of 27+ free creator tools for YouTube content creators including thumbnail optimization, SEO tools, earnings calculators, and channel growth analytics.",
     serviceType: "YouTube Optimization Tools",
     category: "Technology",
     areaServed: TIER1_COUNTRIES.map((c) => ({

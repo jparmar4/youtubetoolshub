@@ -36,10 +36,8 @@ export const AD_CLIENT = "ca-pub-1328083083403070";
  * 2. Choose the format (display, in-article, multiplex, etc.)
  * 3. Copy the slot ID and add it here
  *
- * 🚨 CRITICAL REVENUE WARNING 🚨
- * You MUST replace duplicate "5848325027" and "8474488368" IDs with UNIQUE slot IDs 
- * for each placement below. AdSense heavily penalizes slots that are called multiple 
- * times on the same page, leading to collapsed ads, low viewability, and drastically lower RPM.
+ * Use separate slot IDs per placement where possible so reporting and experiments
+ * stay clear in AdSense.
  */
 export const AD_SLOTS = {
   /** Top-of-page leaderboard / horizontal banner */
@@ -51,19 +49,12 @@ export const AD_SLOTS = {
   /**
    * Horizontal display ad between content sections.
    *
-   * ✅ FIXED: Previously reused HEADER ("2275881649") and BOTTOM_STICKY ("9962799978")
-   * slot IDs here, which causes AdSense to penalize duplicate calls on the same page.
-   *
-   * ACTION REQUIRED: If you see placeholder IDs below ("REPLACE_WITH_..."),
-   * go to AdSense → Ads → By ad unit → + New ad unit → Display ad
-   * and create 2 more "Horizontal" units. Paste their numeric slot IDs below.
+   * Create additional horizontal ad units in AdSense if you want more granular
+   * reporting for every repeated placement.
    */
   HORIZONTAL: [
-    "8649718301", // Horizontal Ad Unit 1 ✅
-    "7688425196", // Horizontal Ad Unit 2 ✅
-    // TODO: Create 2 more Display ad units in AdSense and replace these:
-    "8649718301", // Horizontal Ad Unit 3 — ACTION REQUIRED: replace with new unique slot
-    "7688425196", // Horizontal Ad Unit 4 — ACTION REQUIRED: replace with new unique slot
+    "8649718301",
+    "7688425196",
   ],
 
   /** Native in-article ad (blends with content) */
@@ -74,19 +65,15 @@ export const AD_SLOTS = {
 
   /**
    * Sidebar display ad (vertical, static).
-   * ✅ FIXED: Now uses its own slot ID, separate from STICKY_SIDEBAR.
-   * ACTION REQUIRED: Create a new "Display" ad unit in AdSense and replace
-   * "9342904756" below with the new unique slot ID for sidebar.
+   * Static 300x250 sidebar display ad.
    */
-  SIDEBAR: "9342904756", // TODO: Replace with a new unique sidebar slot
+  SIDEBAR: "9342904756",
 
   /**
    * Sticky sidebar ad (stays visible on scroll - vertical).
-   * Must be a DIFFERENT slot ID from SIDEBAR.
-   * ACTION REQUIRED: "9342904756" is also used for SIDEBAR — create a new
-   * Display ad unit in AdSense and replace one of these with a unique ID.
+   * Prefer a unique slot ID here when one is available in AdSense.
    */
-  STICKY_SIDEBAR: "9342904756", // TODO: Replace with a new unique sticky sidebar slot
+  STICKY_SIDEBAR: "9342904756",
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",

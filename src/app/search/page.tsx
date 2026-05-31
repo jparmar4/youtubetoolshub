@@ -9,7 +9,7 @@ import { FaSearch, FaTools, FaBookOpen, FaArrowRight } from "react-icons/fa";
 export const metadata: Metadata = {
     title: "Search YouTube Tools & Guides – YouTube Tools Hub",
     description:
-        "Search across 21+ free YouTube tools and expert blog guides. Find the right tool or strategy for your channel growth in 2026.",
+        "Search across 27+ free YouTube tools and expert blog guides. Find the right tool or strategy for your channel growth in 2026.",
     robots: {
         index: true,
         follow: true,
@@ -218,7 +218,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                             </h3>
                             <p className="text-slate-500 mb-8 max-w-md mx-auto">
                                 Find the perfect YouTube tool or growth strategy from our collection
-                                of 21+ free AI-powered tools and expert guides.
+                                of 27+ free creator tools and expert guides.
                             </p>
                             <div className="flex flex-wrap gap-3 justify-center">
                                 {["thumbnail", "earnings", "SEO", "tags", "hashtag", "title"].map(

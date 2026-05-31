@@ -13,13 +13,13 @@ export async function GET() {
         {
             question: "What is YouTube Tools Hub?",
             answer:
-                "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit tools. No signup required.",
+                "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. No signup required.",
             category: "General",
         },
         {
             question: "How much does YouTube Tools Hub cost?",
             answer:
-                "The core suite of 21+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
+                "The core suite of 27+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
             category: "Pricing",
         },
         {
@@ -29,9 +29,9 @@ export async function GET() {
             category: "Security",
         },
         {
-            question: "What is the best free alternative to TubeBuddy and VidIQ?",
+            question: "What is a free alternative to TubeBuddy and VidIQ?",
             answer:
-                "YouTube Tools Hub is the top free alternative to both TubeBuddy and VidIQ, offering 21+ AI-powered tools including title generation, tag research, thumbnail optimization, earnings calculation, and channel auditing — all completely free with no browser extension required.",
+                "YouTube Tools Hub is a free alternative to both TubeBuddy and VidIQ, offering 27+ creator tools including title generation, tag research, thumbnail utilities, earnings calculation, and a channel workflow checklist with no browser extension required.",
             category: "General",
         },
         {

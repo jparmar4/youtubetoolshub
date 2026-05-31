@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "FAQ - YouTube Tools & AI Growth Suite 2026",
     description:
-      "Find answers about our free professional-grade YouTube creator tools and AI features. 21+ free tools, no signup required.",
+      "Find answers about our free professional-grade YouTube creator tools and AI features. 27+ free tools, no signup required.",
     type: "website",
     url: `${siteConfig.url}/faq`,
     images: [
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "FAQ – YouTube Tools Hub | Free AI Tools for Creators",
     description:
-      "Get expert answers to common questions about our 21+ free YouTube tools, AI features, monetization calculators, and growth strategies.",
+      "Get expert answers to common questions about our 27+ free YouTube tools, AI features, monetization calculators, and growth strategies.",
     images: [`${siteConfig.url}/og-image.png`],
   },
 };
@@ -173,7 +173,7 @@ export default function FAQPage() {
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
               Everything you need to know about mastering the algorithm with our
-              2026 AI-powered creator suite.
+              2026 creator tool suite.
             </p>
           </div>
 

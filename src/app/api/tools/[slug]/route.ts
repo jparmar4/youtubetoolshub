@@ -45,16 +45,6 @@ export async function GET(
         is_featured: tool.isFeatured || false,
         is_free: true,
         keywords: tool.keywords,
-        ...(tool.rating
-            ? {
-                rating: {
-                    value: parseFloat(tool.rating.ratingValue),
-                    count: parseInt(tool.rating.ratingCount),
-                    best: parseFloat(tool.rating.bestRating || "5"),
-                    worst: parseFloat(tool.rating.worstRating || "1"),
-                },
-            }
-            : {}),
         ...(tool.content
             ? {
                 content_sections: tool.content.map((section) => ({

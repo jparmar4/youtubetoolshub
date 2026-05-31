@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 export const metadata: Metadata = {
   title: "Page Not Found (404) | YouTube Tools Hub",
   description:
-    "The page you're looking for doesn't exist or has been moved. Browse our 21+ free AI-powered YouTube tools or return to the homepage.",
+    "The page you're looking for doesn't exist or has been moved. Browse our 27+ free creator tools or return to the homepage.",
   robots: {
     index: false,
     follow: true,

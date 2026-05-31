@@ -9,7 +9,7 @@ interface ResultAdProps {
 
 declare global {
   interface Window {
-    adsbygoogle: Record<string, unknown>[];
+    adsbygoogle: unknown[];
   }
 }
 

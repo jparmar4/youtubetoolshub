@@ -8,10 +8,6 @@ import { countryCPMData } from "@/lib/cpm-data";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   const blogPosts = getAllBlogPosts();
-  const getAlternates = (url: string) => ({
-    
-  });
-
   // Base routes (without locale)
   const routes = [
     "",
@@ -40,8 +36,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const allEntries: MetadataRoute.Sitemap = [];
 
-  // Fixed date for truly static pages (always fresh)
-  const staticLastModified = new Date();
+  // Keep lastmod stable unless the page content materially changes.
+  const staticLastModified = new Date("2026-05-24T00:00:00.000Z");
+  const toolLastModified = new Date("2026-05-24T00:00:00.000Z");
+  const dataLastModified = new Date("2026-05-24T00:00:00.000Z");
 
   // Static pages with priority tiers
   const highPriorityRoutes = [
@@ -58,11 +56,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const url = `${baseUrl}${route}`;
     allEntries.push({
       url,
-      lastModified: route === "" ? new Date() : staticLastModified,
+      lastModified: staticLastModified,
       changeFrequency: route === "" ? "daily" : "weekly",
       priority:
         route === "" ? 1 : highPriorityRoutes.includes(route) ? 0.8 : 0.7,
-      alternates: getAlternates(url),
     });
   }
 
@@ -71,18 +68,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const url = `${baseUrl}/tools/${tool.slug}`;
     allEntries.push({
       url,
-      lastModified: new Date(),
+      lastModified: toolLastModified,
       changeFrequency: "weekly",
       priority: 0.9,
       images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],
-      alternates: getAlternates(url),
     });
   }
 
   // Dynamic blog pages with image sitemaps
   for (const post of blogPosts) {
     const postDate = new Date(post.date);
-    const safeDate = isNaN(postDate.getTime()) ? new Date() : postDate;
+    const safeDate = isNaN(postDate.getTime()) ? staticLastModified : postDate;
     const url = `${baseUrl}/blog/${post.slug}`;
     allEntries.push({
       url,
@@ -90,7 +86,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
       images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
-      alternates: getAlternates(url),
     });
   }
 
@@ -100,10 +95,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const url = `${baseUrl}/tools/${toolSlug}/${niche.id}`;
       allEntries.push({
         url,
-        lastModified: new Date(),
+        lastModified: toolLastModified,
         changeFrequency: "weekly",
         priority: 0.8,
-        alternates: getAlternates(url),
       });
     }
   }
@@ -113,10 +107,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
       url,
-      lastModified: new Date(),
+      lastModified: dataLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
-      alternates: getAlternates(url),
     });
   }
 

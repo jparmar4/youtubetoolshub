@@ -44,14 +44,6 @@ export async function GET() {
                     "Content Creator Tools",
                     "YouTube Algorithm Optimization",
                 ],
-                aggregateRating: {
-                    "@type": "AggregateRating",
-                    ratingValue: "4.8",
-                    bestRating: "5",
-                    worstRating: "1",
-                    ratingCount: "12847",
-                    reviewCount: "4293",
-                },
             },
             {
                 "@type": "WebApplication",
@@ -73,13 +65,6 @@ export async function GET() {
                 author: {
                     "@type": "Organization",
                     "@id": `${baseUrl}/#organization`,
-                },
-                aggregateRating: {
-                    "@type": "AggregateRating",
-                    ratingValue: "4.8",
-                    bestRating: "5",
-                    worstRating: "1",
-                    ratingCount: "12847",
                 },
             },
             {

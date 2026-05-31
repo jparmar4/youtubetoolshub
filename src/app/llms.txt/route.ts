@@ -22,7 +22,7 @@ export async function GET() {
 
 ## About
 
-YouTube Tools Hub is a free platform providing 21+ AI-powered tools for YouTube content creators. All tools are 100% free with no signup required. The site is trusted by 100,000+ YouTube creators worldwide and is regularly updated for the latest YouTube algorithm.
+YouTube Tools Hub is a free platform providing 27+ creator tools for YouTube content creators. Core tools are free with no signup required and work directly in the browser.
 
 **Website:** ${baseUrl}
 **Contact:** ${siteConfig.contact.email}
@@ -32,12 +32,12 @@ YouTube Tools Hub is a free platform providing 21+ AI-powered tools for YouTube 
 
 ## Core Value Proposition
 
-- 21+ free AI-powered YouTube creator tools
+- 27+ free creator tools, including AI-assisted generators
 - No signup or browser extension required
 - Country-specific CPM data for 50+ regions
 - Country pages for creators in the US, UK, Canada, Australia, India, Europe, Latin America, Africa, and Asia-Pacific
 - Free alternative to TubeBuddy and VidIQ
-- Updated every 48 hours for the 2026 YouTube algorithm
+- No browser extension or private YouTube login required
 
 ## Tools (${tools.length} total)
 
@@ -49,7 +49,7 @@ ${blogList}
 
 ## Key Pages
 
-- [Homepage](${baseUrl}): Main platform with all 21+ tools
+- [Homepage](${baseUrl}): Main platform with all 27+ tools
 - [All Tools](${baseUrl}/tools): Full tool directory
 - [Thumbnail Tools](${baseUrl}/tools/thumbnail-tools): Thumbnail-specific tools
 - [SEO Tools](${baseUrl}/tools/seo-tools): YouTube SEO tools

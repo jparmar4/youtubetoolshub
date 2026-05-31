@@ -48,7 +48,7 @@ const EMBED_SNIPPETS = [
     id: "badge-medium",
     label: "Medium Badge (300x100)",
     description: "A medium-sized badge great for resource pages and partner sections.",
-    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – 21+ Free AI YouTube Tools" target="_blank" rel="noopener"><img src="https://www.youtubetoolshub.com/images/badge-medium.png" alt="YouTube Tools Hub – Free AI YouTube Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
+    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – 27+ Free YouTube Creator Tools" target="_blank" rel="noopener"><img src="https://www.youtubetoolshub.com/images/badge-medium.png" alt="YouTube Tools Hub – Free YouTube Creator Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
   },
   {
     id: "thumbnail-tool",
@@ -74,7 +74,7 @@ const EMBED_SNIPPETS = [
     description: "A styled recommendation box with description — great for resource roundups.",
     code: `<div style="border:2px solid #a855f7;border-radius:12px;padding:20px;max-width:500px;font-family:system-ui,sans-serif;background:#faf5ff">
   <h3 style="margin:0 0 8px;color:#7e22ce;font-size:18px">🚀 YouTube Tools Hub</h3>
-  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">21+ free AI-powered tools for YouTube creators. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
+  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">27+ free creator tools for YouTube creators. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
   <a href="https://www.youtubetoolshub.com" target="_blank" rel="noopener" style="display:inline-block;background:#a855f7;color:#fff;padding:8px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600">Try Free Tools →</a>
 </div>`,
   },
@@ -82,7 +82,7 @@ const EMBED_SNIPPETS = [
     id: "comparison-link",
     label: "TubeBuddy/VidIQ Alternative Link",
     description: "Position us as a free alternative in comparison articles.",
-    code: `<a href="https://www.youtubetoolshub.com" title="Free TubeBuddy & VidIQ Alternative – YouTube Tools Hub" target="_blank" rel="noopener">YouTube Tools Hub – The Best Free Alternative to TubeBuddy & VidIQ (21+ AI Tools)</a>`,
+    code: `<a href="https://www.youtubetoolshub.com" title="Free TubeBuddy & VidIQ Alternative – YouTube Tools Hub" target="_blank" rel="noopener">YouTube Tools Hub – A Free Alternative to TubeBuddy & VidIQ (27+ Creator Tools)</a>`,
   },
 ];
 
@@ -91,7 +91,7 @@ const BACKLINK_OPPORTUNITIES = [
     icon: FaStar,
     title: "Resource Pages & Roundup Posts",
     description:
-      'If you write "Best YouTube Tools" or "Free Creator Resources" articles, we\'d love to be included. Our 21+ free tools make us a valuable addition to any creator resource list.',
+      'If you write "Best YouTube Tools" or "Free Creator Resources" articles, we\'d love to be included. Our 27+ free tools make us a valuable addition to any creator resource list.',
   },
   {
     icon: FaRocket,
@@ -103,7 +103,7 @@ const BACKLINK_OPPORTUNITIES = [
     icon: FaHandshake,
     title: "Guest Post Exchange",
     description:
-      "We welcome high-quality guest posts on our blog about YouTube growth, monetization, and content strategy. In return, you get a contextual backlink from our Google AdSense-approved domain.",
+      "We welcome high-quality guest posts on our blog about YouTube growth, monetization, and content strategy. Accepted posts can include a relevant contextual backlink.",
   },
   {
     icon: FaChartLine,
@@ -141,7 +141,7 @@ export default function LinkToUsPage() {
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Help fellow creators discover our{" "}
-              <strong>21+ free AI-powered YouTube tools</strong> by linking to us
+              <strong>27+ free creator tools</strong> by linking to us
               from your website, blog, or social media. Grab a ready-made embed
               badge or HTML snippet below.
             </p>
@@ -154,7 +154,7 @@ export default function LinkToUsPage() {
             Why Link to YouTube Tools Hub?
           </h2>
           <p className="text-gray-600 text-center max-w-2xl mx-auto mb-10">
-            Every link helps YouTube creators find free, professional-grade tools.
+            Every link helps YouTube creators find useful free tools.
             Here&#39;s why your audience will thank you:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
@@ -243,8 +243,7 @@ export default function LinkToUsPage() {
             <p className="text-purple-100 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
               We accept high-quality guest posts about YouTube growth,
               monetization, SEO, and content creation. You&#39;ll get a contextual
-              backlink from our <strong>Google AdSense-approved</strong> domain
-              with real organic traffic.
+              backlink when the article is relevant and useful for readers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -268,13 +267,11 @@ export default function LinkToUsPage() {
           <div className="prose prose-gray max-w-none">
             <h2>About YouTube Tools Hub</h2>
             <p>
-              <strong>YouTube Tools Hub</strong> is the world&#39;s most
-              comprehensive free suite of AI-powered tools for YouTube content
-              creators. With <strong>21+ professional-grade tools</strong>, we
+              <strong>YouTube Tools Hub</strong> is a free suite of AI-powered
+              tools for YouTube content creators. With <strong>27+ creator tools</strong>, we
               help creators in the{" "}
               <strong>United States, United Kingdom, Canada, Australia</strong>,
-              and 50+ other countries optimize their channels for maximum growth
-              and revenue.
+              and 50+ other countries improve planning, SEO, and revenue estimates.
             </p>
             <p>
               Our tools include a{" "}
@@ -297,9 +294,8 @@ export default function LinkToUsPage() {
               <strong>100% free with no signup required</strong>.
             </p>
             <p>
-              We&#39;re trusted by <strong>100,000+ creators</strong> worldwide,
-              Google AdSense approved, and regularly updated for the latest
-              YouTube algorithm changes. If you run a blog, YouTube channel, or
+              Core tools work directly in the browser with no extension or
+              private YouTube login required. If you run a blog, YouTube channel, or
               resource site in the creator economy space, linking to us provides
               genuine value to your audience.
             </p>

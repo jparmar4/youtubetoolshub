@@ -24161,7 +24161,7 @@ Your video editor is just one piece of the YouTube content creation puzzle. Here
 - **[YouTube Engagement Rate Calculator](/tools/youtube-engagement-rate-calculator)** — Track your performance metrics
 - **[YouTube Channel Audit](/tools/youtube-channel-audit)** — Get a comprehensive channel health check
 
-Don't just edit—optimize your entire workflow. Explore all [21+ free YouTube tools](/tools) on YouTube Tools Hub.
+Don't just edit—optimize your entire workflow. Explore all [27+ free YouTube tools](/tools) on YouTube Tools Hub.
 
 ---
 

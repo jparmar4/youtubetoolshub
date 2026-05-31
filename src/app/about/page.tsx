@@ -20,7 +20,7 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 export const metadata: Metadata = {
   title: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026",
   description:
-    "Learn about YouTube Tools Hub—the world's most advanced suite of free AI-powered tools for creators. Our mission is to democratize YouTube growth for everyone.",
+    "Learn about YouTube Tools Hub, a free suite of AI-powered tools for creators. Our mission is to make YouTube growth workflows easier for everyone.",
   keywords: [
     "about youtube tools hub",
     "creator mission 2026",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About YouTube Tools Hub – Free AI YouTube Tools for Creators",
     description:
-      "YouTube Tools Hub is the world's most comprehensive free suite of 21+ AI-powered tools for YouTube creators. Learn about our mission to democratize YouTube growth.",
+      "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube creators. Learn about our mission to make creator workflows easier.",
     type: "website",
     url: `${siteConfig.url}/about`,
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About YouTube Tools Hub – Free AI YouTube Tools",
     description:
-      "Learn about YouTube Tools Hub—21+ free AI-powered tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.",
+      "Learn about YouTube Tools Hub—27+ free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.",
     images: [`${siteConfig.url}/og-image.png`],
   },
   alternates: {
@@ -83,9 +83,9 @@ const features = [
   },
   {
     icon: FaRocket,
-    title: "Algorithmic Agility",
+    title: "Workflow Agility",
     description:
-      "Our AI is updated weekly to match the latest YouTube algorithm shifts, ensuring your metadata is always optimized for maximum reach.",
+      "Our tools are reviewed as creator workflows change, helping you keep titles, metadata, planning, and monetization research practical.",
     gradient: "from-blue-500 to-cyan-600",
   },
 ];
@@ -105,23 +105,23 @@ const values = [
   },
   {
     icon: FaBrain,
-    title: "State-of-the-Art AI",
+    title: "AI-Assisted Options",
     description:
-      "We use the latest LLMs and computer vision models tailored for video creators.",
+      "Selected tools use AI-assisted generation, while many focused utilities run directly in your browser.",
   },
   {
     icon: FaShieldAlt,
-    title: "Zero Data Footprint",
+    title: "Privacy-Conscious Tools",
     description:
-      "We believe in privacy. Your data remains yours; we don't store or sell user usage.",
+      "Browser-local tools keep their work on your device. API-backed tools use the data needed to complete the request. See our privacy policy for details.",
   },
 ];
 
 const stats = [
-  { value: `${tools.length}+`, label: "AI-Powered Tools" },
-  { value: "100K+", label: "Creators Empowered" },
-  { value: "Zero", label: "Monthly Fees" },
-  { value: "2026", label: "Ready" },
+  { value: `${tools.length}+`, label: "Creator Tools" },
+  { value: "No", label: "Signup Needed" },
+  { value: "Free", label: "Core Tools" },
+  { value: "Yes", label: "Browser Based" },
 ];
 
 export default function AboutPage() {
@@ -145,9 +145,9 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
-              We believe that professional-grade growth tools shouldn't be a
-              luxury. In 2026, we are democratizing the YouTube algorithm for
-              everyone—from the first-time uploader to the global media house.
+              We believe that useful creator tools shouldn't be a
+              luxury. We are making creator research, planning, and monetization
+              workflows easier for everyone, from first-time uploaders to teams.
             </p>
           </div>
 

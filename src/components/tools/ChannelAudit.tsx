@@ -1,318 +1,195 @@
 "use client";
 
 import { useState } from "react";
+import { FaBookmark, FaCheckCircle, FaClipboardCheck, FaShareAlt } from "react-icons/fa";
+import HorizontalAd from "@/components/ads/HorizontalAd";
+import ShareModal from "@/components/ui/ShareModal";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
-import ShareModal from "@/components/ui/ShareModal";
-import { FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaShareAlt, FaSpinner, FaYoutube, FaBookmark } from "react-icons/fa";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
-interface AuditResult {
-    score: number;
-    grade: string;
-    metrics: {
-        name: string;
-        score: number;
-        status: "good" | "warning" | "bad";
-        feedback: string;
-    }[];
-    summary: string;
+interface ChecklistItem {
+    id: string;
+    title: string;
+    description: string;
+    points: number;
+}
+
+const checklist: ChecklistItem[] = [
+    { id: "channel-promise", title: "Clear channel promise", description: "A new viewer can understand your topic and audience from your channel page.", points: 15 },
+    { id: "thumbnail-system", title: "Readable thumbnail system", description: "Recent thumbnails stay legible on mobile and use a consistent visual approach.", points: 20 },
+    { id: "title-quality", title: "Specific video titles", description: "Titles describe a useful outcome, question, comparison, or story without misleading viewers.", points: 20 },
+    { id: "publishing-rhythm", title: "Sustainable publishing rhythm", description: "Your current schedule is realistic enough to maintain without reducing quality.", points: 15 },
+    { id: "retention-review", title: "Regular retention review", description: "You review audience retention and use the drop-off points to improve future videos.", points: 15 },
+    { id: "comment-learning", title: "Audience feedback loop", description: "You use comments and viewer questions to choose or refine future topics.", points: 15 },
+];
+
+function getSummary(score: number) {
+    if (score >= 85) return "Your fundamentals look strong. Pick one experiment for your next three uploads and compare the result in YouTube Studio.";
+    if (score >= 60) return "You have a useful base. Focus on the unchecked items before adding more publishing volume.";
+    return "Start with packaging and a clear audience promise. A smaller, repeatable workflow will make later improvements easier to measure.";
 }
 
 export default function ChannelAudit() {
-    const [channelInput, setChannelInput] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<AuditResult | null>(null);
+    const [channelLabel, setChannelLabel] = useState("");
+    const [selected, setSelected] = useState<string[]>([]);
+    const [score, setScore] = useState<number | null>(null);
     const [saved, setSaved] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
 
-    const analyzeChannel = async () => {
-        if (!channelInput) return;
-        setLoading(true);
-        setResult(null);
+    const toggleItem = (id: string) => {
+        setSelected((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+        setScore(null);
         setSaved(false);
-
-        // Simulation of a complex analysis
-        // In a real app, this would call the YouTube Data API
-        await new Promise(resolve => setTimeout(resolve, 2500));
-
-        // Deterministic "random" score based on input length to be consistent for the same input
-        const seed = channelInput.length;
-        const score = Math.min(98, Math.max(45, 70 + (seed % 30)));
-
-        let grade = "B";
-        if (score >= 90) grade = "A+";
-        else if (score >= 80) grade = "A";
-        else if (score >= 70) grade = "B";
-        else if (score >= 60) grade = "C";
-        else grade = "D";
-
-        setResult({
-            score,
-            grade,
-            metrics: [
-                {
-                    name: "Title Optimization",
-                    score: Math.min(100, score + 10),
-                    status: score > 70 ? "good" : "warning",
-                    feedback: score > 70 ? "Your titles are catchy and well-structured." : "Try adding more emotional keywords to your titles."
-                },
-                {
-                    name: "Thumbnail Quality",
-                    score: Math.min(100, score - 5),
-                    status: score > 80 ? "good" : "warning",
-                    feedback: score > 80 ? "Great use of contrast and faces." : "Thumbnails need more vibrant colors and less text."
-                },
-                {
-                    name: "Upload Consistency",
-                    score: Math.min(100, score + 5),
-                    status: "good",
-                    feedback: "You have a solid upload schedule."
-                },
-                {
-                    name: "Engagement Rate",
-                    score: Math.min(100, score - 15),
-                    status: score > 75 ? "good" : "bad",
-                    feedback: score > 75 ? "Audience interaction is high." : "Reply to more comments to boost engagement."
-                }
-            ],
-            summary: "Your channel has strong potential! Focus on improving click-through rates (CTR) by A/B testing your thumbnails. Your content strategy is solid, but engagement could be higher."
-        });
-
-        // Save to Cloud History
-        try {
-            await saveHistory('youtube-channel-audit', {
-                channelInput,
-                score,
-                grade,
-                summary: "Your channel has strong potential! Focus on improving click-through rates (CTR) by A/B testing your thumbnails. Your content strategy is solid, but engagement could be higher."
-            });
-        } catch (error) {
-            console.error("Failed to save to cloud history:", error);
-        }
-
-        setLoading(false);
     };
 
+    const runAudit = async () => {
+        const nextScore = checklist
+            .filter((item) => selected.includes(item.id))
+            .reduce((total, item) => total + item.points, 0);
+
+        setScore(nextScore);
+        setSaved(false);
+
+        try {
+            await saveHistory("youtube-channel-audit", {
+                channelLabel: channelLabel.trim(),
+                score: nextScore,
+                completedItems: selected,
+            });
+        } catch (error) {
+            console.error("Failed to save audit history:", error);
+        }
+    };
+
+    const recommendations = checklist.filter((item) => !selected.includes(item.id));
+    const shareText = score === null
+        ? ""
+        : `I completed a YouTube channel workflow self-audit and scored ${score}/100. Review your creator workflow with this free checklist.`;
+
     const handleSave = () => {
-        if (!result) return;
+        if (score === null) return;
         saveItem({
-            type: 'audit',
-            toolSlug: 'youtube-channel-audit',
+            type: "audit",
+            toolSlug: "youtube-channel-audit",
             content: {
-                score: result.score,
-                summary: result.summary
-            }
+                score,
+                summary: getSummary(score),
+            },
         });
         setSaved(true);
     };
 
-    const getShareContent = () => {
-        if (!result) return { title: "", text: "" };
-        const bestMetric = result.metrics.reduce((prev, current) => (prev.score > current.score) ? prev : current);
-
-        const text = `I just audited my YouTube channel health! 📊\n\n` +
-            `🏆 Score: ${result.score}/100 (${result.grade})\n` +
-            `✨ Top Strength: ${bestMetric.name}\n\n` +
-            `Check your channel score for free 👇`;
-
-        return {
-            title: "Share Audit Result",
-            text
-        };
-    };
-
     return (
-        <div className="w-full max-w-4xl mx-auto space-y-8">
-            {/* Input Section */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200">
-                <div className="text-center mb-8">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                        Channel Health Checker
-                    </h2>
-                    <p className="text-slate-500">
-                        Enter your Channel Handle or ID to get a comprehensive audit score.
+        <div className="mx-auto w-full max-w-4xl space-y-8">
+            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="mb-6 text-center">
+                    <h1 className="text-3xl font-bold text-slate-900">YouTube Channel Audit Checklist</h1>
+                    <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+                        Review your creator workflow with an honest self-assessment. This tool does not scan YouTube, access private analytics, or generate a hidden algorithm score.
                     </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-                    <div className="relative flex-1">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <FaYoutube className="text-slate-400 text-xl" />
-                        </div>
-                        <input
-                            type="text"
-                            value={channelInput}
-                            onChange={(e) => setChannelInput(e.target.value)}
-                            placeholder="@MrBeast or Channel ID"
-                            className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-slate-900 placeholder-slate-400"
-                        />
-                    </div>
-                    <button
-                        onClick={analyzeChannel}
-                        disabled={loading || !channelInput}
-                        className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-bold rounded-xl shadow-lg hover:shadow-emerald-500/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-w-[160px]"
-                    >
-                        {loading ? (
-                            <><FaSpinner className="animate-spin" /> Analyzing...</>
-                        ) : (
-                            "Audit Channel"
-                        )}
-                    </button>
-                </div>
+                <label className="block text-sm font-medium text-slate-700">
+                    Channel name or handle <span className="text-slate-400">(optional)</span>
+                    <input
+                        value={channelLabel}
+                        onChange={(event) => setChannelLabel(event.target.value)}
+                        placeholder="@yourchannel"
+                        className="mt-2 w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20"
+                    />
+                </label>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+                {checklist.map((item) => {
+                    const checked = selected.includes(item.id);
+                    return (
+                        <label key={item.id} className={`cursor-pointer rounded-lg border p-5 transition-colors ${checked ? "border-green-500 bg-green-50" : "border-slate-200 bg-white hover:border-slate-400"}`}>
+                            <span className="flex gap-3">
+                                <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={() => toggleItem(item.id)}
+                                    className="mt-1 h-4 w-4 accent-green-600"
+                                />
+                                <span>
+                                    <span className="block font-bold text-slate-900">{item.title}</span>
+                                    <span className="mt-1 block text-sm leading-relaxed text-slate-600">{item.description}</span>
+                                </span>
+                            </span>
+                        </label>
+                    );
+                })}
+            </div>
+
+            <div className="flex justify-center">
+                <button
+                    type="button"
+                    onClick={runAudit}
+                    className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-bold text-white transition-colors hover:bg-slate-700"
+                >
+                    <FaClipboardCheck />
+                    Review Checklist
+                </button>
             </div>
 
             <HorizontalAd />
 
-            {/* Results Section */}
-            <AnimatePresence>
-                {result && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="space-y-6"
-                    >
-                        {/* Score Card */}
-                        <div className="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-bl-full pointer-events-none" />
-
-                            <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
-                                {/* Gauge */}
-                                <div className="relative w-48 h-48 flex-shrink-0">
-                                    <svg className="w-full h-full transform -rotate-90">
-                                        <circle
-                                            cx="96"
-                                            cy="96"
-                                            r="88"
-                                            stroke="currentColor"
-                                            strokeWidth="12"
-                                            fill="none"
-                                            className="text-slate-100"
-                                        />
-                                        <circle
-                                            cx="96"
-                                            cy="96"
-                                            r="88"
-                                            stroke="currentColor"
-                                            strokeWidth="12"
-                                            fill="none"
-                                            strokeDasharray={2 * Math.PI * 88}
-                                            strokeDashoffset={2 * Math.PI * 88 * (1 - result.score / 100)}
-                                            className={`transition-all duration-1000 ease-out ${result.score >= 90 ? "text-green-500" :
-                                                result.score >= 70 ? "text-yellow-500" : "text-emerald-500"
-                                                }`}
-                                        />
-                                    </svg>
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                        <span className="text-5xl font-black text-slate-900">
-                                            {result.score}
-                                        </span>
-                                        <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">Health Score</span>
-                                    </div>
-                                </div>
-
-                                {/* Summary */}
-                                <div className="flex-1 text-center md:text-left">
-                                    <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
-                                        <span className={`px-4 py-1 rounded-full text-sm font-bold border ${result.grade.startsWith("A") ? "bg-green-100 text-green-700 border-green-200" :
-                                            result.grade === "B" ? "bg-blue-100 text-blue-700 border-blue-200" :
-                                                "bg-yellow-100 text-yellow-700 border-yellow-200"
-                                            }`}>
-                                            Grade {result.grade}
-                                        </span>
-                                        <span className="text-gray-500 text-sm">Based on simulation logic</span>
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                                        Analysis Complete
-                                    </h3>
-                                    <p className="text-slate-600 mb-6 leading-relaxed">
-                                        {result.summary}
-                                    </p>
-
-                                    <div className="flex items-center justify-center md:justify-start gap-4">
-                                        <button
-                                            onClick={handleSave}
-                                            disabled={saved}
-                                            className={`inline-flex items-center gap-2 px-6 py-2 rounded-xl font-bold transition-all ${saved
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-slate-900 text-white hover:opacity-90 shadow-lg hover:shadow-xl"
-                                                }`}
-                                        >
-                                            {saved ? <FaCheckCircle /> : <FaBookmark />}
-                                            {saved ? "Saved" : "Save Result"}
-                                        </button>
-
-                                        <button
-                                            onClick={async () => {
-                                                const content = getShareContent();
-                                                if (navigator.share) {
-                                                    try {
-                                                        await navigator.share({
-                                                            title: content.title,
-                                                            text: content.text,
-                                                            url: `${siteConfig.url}/tools/youtube-channel-audit`
-                                                        });
-                                                    } catch (err) {
-                                                        // User cancelled or error, fallback to modal if needed, but usually just ignore cancel
-                                                        console.log("Share cancelled or failed", err);
-                                                    }
-                                                } else {
-                                                    setShowShareModal(true);
-                                                }
-                                            }}
-                                            className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
-                                        >
-                                            <FaShareAlt /> Share Result
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+            {score !== null && (
+                <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <div className="text-sm font-bold uppercase text-slate-500">Self-assessment score</div>
+                            <div className="mt-1 text-5xl font-black text-slate-900">{score}<span className="text-xl text-slate-400">/100</span></div>
                         </div>
-
-                        {/* Detailed Metrics */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {result.metrics.map((metric, idx) => (
-                                <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <h4 className="font-bold text-slate-900">{metric.name}</h4>
-                                        {metric.status === "good" ? (
-                                            <FaCheckCircle className="text-green-500 text-xl" />
-                                        ) : metric.status === "warning" ? (
-                                            <FaExclamationTriangle className="text-yellow-500 text-xl" />
-                                        ) : (
-                                            <FaTimesCircle className="text-emerald-500 text-xl" />
-                                        )}
-                                    </div>
-                                    <div className="w-full bg-slate-100 rounded-full h-2 mb-4">
-                                        <div
-                                            className={`h-2 rounded-full ${metric.score >= 80 ? "bg-green-500" :
-                                                metric.score >= 60 ? "bg-yellow-500" : "bg-emerald-500"
-                                                }`}
-                                            style={{ width: `${metric.score}%` }}
-                                        />
-                                    </div>
-                                    <p className="text-sm text-slate-600">
-                                        {metric.feedback}
-                                    </p>
-                                </div>
-                            ))}
+                        <div className="flex flex-wrap gap-3">
+                            <button
+                                type="button"
+                                onClick={handleSave}
+                                disabled={saved}
+                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+                            >
+                                {saved ? <FaCheckCircle className="text-green-600" /> : <FaBookmark />}
+                                {saved ? "Saved" : "Save"}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setShowShareModal(true)}
+                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
+                            >
+                                <FaShareAlt />
+                                Share
+                            </button>
                         </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    </div>
 
-            {result && (
-                <ShareModal
-                    isOpen={showShareModal}
-                    onClose={() => setShowShareModal(false)}
-                    title={getShareContent().title}
-                    text={getShareContent().text}
-                    url={`${siteConfig.url}/tools/youtube-channel-audit`}
-                />
+                    <p className="leading-relaxed text-slate-700">{getSummary(score)}</p>
+
+                    {recommendations.length > 0 ? (
+                        <div>
+                            <h2 className="mb-3 font-bold text-slate-900">Next improvements</h2>
+                            <ul className="space-y-3">
+                                {recommendations.slice(0, 3).map((item) => (
+                                    <li key={item.id} className="rounded-lg bg-slate-50 p-4 text-sm text-slate-700">
+                                        <strong>{item.title}:</strong> {item.description}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <p className="rounded-lg bg-green-50 p-4 text-sm text-green-800">All checklist items are covered. Choose one measurable experiment for your next upload batch.</p>
+                    )}
+                </div>
             )}
+
+            <ShareModal
+                isOpen={showShareModal}
+                onClose={() => setShowShareModal(false)}
+                title="YouTube Channel Workflow Self-Audit"
+                text={shareText}
+                url={`${siteConfig.url}/tools/youtube-channel-audit`}
+            />
         </div>
     );
 }

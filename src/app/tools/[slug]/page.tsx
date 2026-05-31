@@ -40,6 +40,12 @@ import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
 import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
 import CommentPicker from "@/components/tools/CommentPicker";
 import ChannelAudit from "@/components/tools/ChannelAudit";
+import SubscriberCountChecker from "@/components/tools/SubscriberCountChecker";
+import VideoDownloadOptionsGuide from "@/components/tools/VideoDownloadOptionsGuide";
+import TimestampGenerator from "@/components/tools/TimestampGenerator";
+import ShortsScriptPlanner from "@/components/tools/ShortsScriptPlanner";
+import BannerLogoMaker from "@/components/tools/BannerLogoMaker";
+import NicheFinderQuiz from "@/components/tools/NicheFinderQuiz";
 
 // Map slugs to components
 const toolComponents: Record<string, React.ComponentType> = {
@@ -64,6 +70,12 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-playlist-length-calculator": PlaylistLengthCalculator,
     "youtube-comment-picker": CommentPicker,
     "youtube-channel-audit": ChannelAudit,
+    "youtube-subscriber-count-checker": SubscriberCountChecker,
+    "youtube-video-download-options": VideoDownloadOptionsGuide,
+    "youtube-timestamp-generator": TimestampGenerator,
+    "youtube-shorts-script-planner": ShortsScriptPlanner,
+    "youtube-banner-logo-maker": BannerLogoMaker,
+    "youtube-niche-finder-quiz": NicheFinderQuiz,
 };
 
 // Generate static params for all tools
@@ -118,9 +130,9 @@ export async function generateMetadata({
             "abstract": tool.seoDescription || tool.description,
             "key-facts": [
                 `${tool.name} is 100% free with no signup`,
-                "Powered by YouTube Tools Hub AI suite",
+                tool.isAI ? "Uses AI-assisted generation" : "Runs as a focused creator utility",
                 `Category: ${tool.category}`,
-                "Optimized for 2026 YouTube algorithm"
+                "Designed to help YouTube creators complete a specific workflow"
             ].join(", "),
         },
         robots: {
@@ -169,7 +181,6 @@ export default async function ToolPage({
         description: tool.description,
         url: `${siteConfig.url}/tools/${tool.slug}`,
         category: tool.category,
-        rating: tool.rating, // Include rating for rich snippets
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([

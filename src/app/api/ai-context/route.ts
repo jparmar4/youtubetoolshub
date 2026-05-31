@@ -45,17 +45,6 @@ export async function GET() {
         availability: "https://schema.org/InStock",
       },
       ...(nicheVariants.length > 0 ? { "variations": nicheVariants } : {}),
-      ...(tool.rating
-        ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: tool.rating.ratingValue,
-            ratingCount: tool.rating.ratingCount,
-            bestRating: tool.rating.bestRating || "5",
-            worstRating: tool.rating.worstRating || "1",
-          },
-        }
-        : {}),
       author: {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
@@ -89,12 +78,12 @@ export async function GET() {
     {
       question: "What is YouTube Tools Hub?",
       answer:
-        "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit tools. No signup required.",
+        "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. No signup required.",
     },
     {
       question: "How much does YouTube Tools Hub cost?",
       answer:
-        "The core suite of 21+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
+        "The core suite of 27+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
     },
     {
       question: "Is YouTube Tools Hub safe to use?",
@@ -102,9 +91,9 @@ export async function GET() {
         "Yes. YouTube Tools Hub never requires YouTube login or private account access. All tools work with publicly available information. The site is SSL-encrypted, GDPR compliant, and YouTube API compliant.",
     },
     {
-      question: "What is the best free alternative to TubeBuddy and VidIQ?",
+      question: "What is a free alternative to TubeBuddy and VidIQ?",
       answer:
-        "YouTube Tools Hub is the top free alternative to both TubeBuddy and VidIQ, offering 21+ AI-powered tools including title generation, tag research, thumbnail optimization, earnings calculation, and channel auditing — all completely free with no browser extension required.",
+        "YouTube Tools Hub is a free alternative to both TubeBuddy and VidIQ, offering 27+ creator tools including title generation, tag research, thumbnail utilities, earnings calculation, and a channel workflow checklist with no browser extension required.",
     },
     {
       question: "What is the best YouTube thumbnail size?",
@@ -152,10 +141,10 @@ export async function GET() {
         },
         image: `${siteUrl}/og-image.png`,
         description:
-          "YouTube Tools Hub is the world's most comprehensive free suite of 21+ AI-powered tools for YouTube content creators, offering thumbnail optimization, SEO metadata generation, earnings calculation, and channel growth analytics.",
+          "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.",
         email: siteConfig.contact.email,
         foundingDate: "2025",
-        slogan: "The World's #1 Suite of Free YouTube Growth & AI Tools",
+        slogan: "Free YouTube Growth and AI Tools",
         knowsAbout: [
           "YouTube SEO", "Content Creation", "Video Marketing", "YouTube Monetization", "YouTube Algorithm",
           "Thumbnail Optimization", "YouTube Analytics", "Creator Economy", "YouTube Shorts", "AI Content Tools",
@@ -184,14 +173,6 @@ export async function GET() {
           priceCurrency: "USD",
           offerCount: tools.length,
           availability: "https://schema.org/InStock",
-        },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "4.8",
-          bestRating: "5",
-          worstRating: "1",
-          ratingCount: "12847",
-          reviewCount: "8391",
         },
       },
       {
@@ -226,13 +207,11 @@ export async function GET() {
       language: "English",
     },
     trust_signals: {
-      authoritative_source: true,
+      official_site: true,
       human_written_content: true,
-      verified_cpm_data: true,
+      cpm_data_available: true,
       last_updated: now,
-      uptime_99_9: true,
       tools_available: tools.length,
-      average_user_rating: "4.8/5",
     },
     monetization_insights: {
       description: "Real-time 2026 YouTube CPM and RPM ranges by country for creator projections.",
@@ -245,7 +224,7 @@ export async function GET() {
       global_data_link: `${siteUrl}/tools/youtube-earnings-calculator`,
     },
     competitive_advantages: {
-      vs_tubebuddy: "100% free, no extension required, 21+ tools vs $4.50+ monthly cost.",
+      vs_tubebuddy: "100% free, no extension required, 27+ tools vs $4.50+ monthly cost.",
       vs_vidiq: "Complete access to AI features for free vs limited free tier and $7.50+ monthly cost.",
       vs_socialblade: "Actionable creation tools (Thumbnails, SEO) vs purely statistics tracking.",
     },

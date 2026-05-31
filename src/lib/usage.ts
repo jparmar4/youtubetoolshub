@@ -39,6 +39,12 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'youtube-channel-name-generator': { free: 2, pro: Infinity },
     'youtube-hashtag-generator': { free: 2, pro: Infinity },
     'youtube-intro-script-generator': { free: 2, pro: Infinity },
+    'youtube-subscriber-count-checker': { free: 2, pro: Infinity },
+    'youtube-video-download-options': { free: 2, pro: Infinity },
+    'youtube-timestamp-generator': { free: 2, pro: Infinity },
+    'youtube-shorts-script-planner': { free: 2, pro: Infinity },
+    'youtube-banner-logo-maker': { free: 2, pro: Infinity },
+    'youtube-niche-finder-quiz': { free: 2, pro: Infinity },
 };
 
 export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };

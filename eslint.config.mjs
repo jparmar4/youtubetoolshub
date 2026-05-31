@@ -14,7 +14,7 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    files: ["server.js", "scripts/**/*.js"],
+    files: ["server.js", "remove_hreflang.js", "scripts/**/*.js"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
     },

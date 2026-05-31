@@ -27,9 +27,9 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
   title:
-    "YouTube Tools Hub - 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
+    "YouTube Tools Hub - 27+ Free YouTube Tools for Creators | Earnings Calculator & Thumbnails",
   description:
-    "Grow your YouTube channel FREE with 21+ AI tools. Generate viral thumbnails, calculate CPM earnings, extract competitor tags, and optimize SEO. Trusted by 100,000+ creators worldwide in 2026.",
+    "Grow your YouTube channel with 27+ free creator tools. Generate thumbnail ideas, calculate CPM earnings, extract competitor tags, and optimize SEO with no signup required.",
   keywords: [
     "youtube tools free 2026",
     "youtube earnings calculator",
@@ -54,12 +54,12 @@ const homeFAQs = [
   {
     question: "How does the 'AI Team' concept work?",
     answer:
-      "We don't just provide text. Our AI functions as your virtual production team, analyzing over 500,000 successful videos from 2025-2026 to provide creative direction, psychological thumbnail triggers, and algorithmic safety checks.",
+      "The tools combine structured creator workflows with AI prompts for titles, descriptions, thumbnail ideas, and planning. They are designed to speed up research and drafting while leaving final creative decisions in your hands.",
   },
   {
     question: "Are these tools compliant with YouTube Policies?",
     answer:
-      "Yes. Every tool we build follows the latest YouTube Community Guidelines and Google Safe Search standards. Our semantic SEO focus ensures you avoid 'keyword stuffing' while maximizing relevance.",
+      "The tools are designed for public creator workflows and do not require private channel access. They help you write clearer metadata without encouraging spam, misleading tags, or keyword stuffing.",
   },
   {
     question: "Can I use these for YouTube Shorts and Long-form?",
@@ -74,7 +74,7 @@ const homeFAQs = [
   {
     question: "Do I need technical skills to use the AI tools?",
     answer:
-      "No. We've designed the suite for frictionless use. Just paste a link or describe an idea, and our AI does the heavy lifting, providing professional-grade outputs in seconds.",
+      "No. The tools are designed for frictionless use. Paste a link or describe an idea, and the AI helps draft practical outputs you can review and refine.",
   },
 ];
 
@@ -104,7 +104,7 @@ const benefits = [
     icon: FaCheck,
     title: "Zero Friction",
     description:
-      "Instant access to professional-grade tools with no account requirements or credit cards.",
+      "Instant access to creator tools with no account requirements or credit cards.",
   },
 ];
 
@@ -121,9 +121,9 @@ export default function Home() {
 
   const speakableSchema = getSpeakableSchema({
     url: siteConfig.url,
-    headline: "YouTube Tools Hub - 21+ Free AI Tools for YouTube Creators",
+    headline: "YouTube Tools Hub - 27+ Free YouTube Tools for YouTube Creators",
     summary:
-      "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required. Trusted by 100,000+ creators worldwide.",
+      "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
     cssSelectors: ["h1", "h2", ".summary", ".key-facts", "[data-speakable]"],
   });
 
@@ -144,7 +144,7 @@ export default function Home() {
   const howToSchema = getHowToSchema({
     name: "How to Use YouTube Tools Hub to Grow Your Channel",
     description:
-      "YouTube Tools Hub provides 21+ free AI-powered tools to help YouTube creators grow faster, optimize their SEO, and maximize earnings — no signup required.",
+      "YouTube Tools Hub provides 27+ free creator tools to help YouTube creators grow faster, optimize their SEO, and maximize earnings — no signup required.",
     totalTime: "PT5M",
     steps: [
       {
@@ -170,10 +170,10 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${siteConfig.url}/#webpage`,
-    name: "YouTube Tools Hub - 21+ Free AI Tools for YouTube Creators",
+    name: "YouTube Tools Hub - 27+ Free YouTube Tools for YouTube Creators",
     url: siteConfig.url,
     description:
-      "YouTube Tools Hub is a free online platform with 21+ AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
+      "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
     isPartOf: {
       "@type": "WebSite",
       "@id": `${siteConfig.url}/#website`,
@@ -277,8 +277,8 @@ export default function Home() {
               <span className="italic">Exponentially.</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-              The world&apos;s most advanced suite of{" "}
-              <strong>21+ professional-grade AI tools</strong> is now yours.
+              A practical suite of{" "}
+              <strong>27+ free creator tools</strong> is now yours.
               From click-through prediction to revenue ROI, completely free.
             </p>
 
@@ -309,7 +309,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-70">
               <div className="text-center">
                 <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  21+
+                  27+
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
                   Free AI Tools
@@ -333,10 +333,10 @@ export default function Home() {
               </div>
               <div className="text-center border-l border-slate-200/50">
                 <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  4.8★
+                  No
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  User Rating
+                  Signup Needed
                 </div>
               </div>
             </div>
@@ -360,9 +360,9 @@ export default function Home() {
               <div className="mb-4 flex justify-center text-purple-600">
                 <FaBolt className="h-10 w-10" aria-hidden="true" />
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">21+ Free AI Tools</h3>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">27+ Free YouTube Tools</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                YouTube Tools Hub is a free online platform providing 21+ AI-powered tools for YouTube creators. No signup required. The leading free alternative to TubeBuddy and VidIQ.
+                YouTube Tools Hub is a free online platform providing 27+ creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
               </p>
             </div>
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
@@ -378,9 +378,9 @@ export default function Home() {
               <div className="mb-4 flex justify-center text-indigo-600">
                 <FaCheck className="h-10 w-10" aria-hidden="true" />
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Trusted Worldwide</h3>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Accessible Worldwide</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Trusted by 100,000+ YouTube creators worldwide. Google AdSense approved. Updated every 48 hours for the latest YouTube algorithm changes. Available at youtubetoolshub.com.
+                Available worldwide with no browser extension or private YouTube login required. Use the tools directly in your browser at youtubetoolshub.com.
               </p>
             </div>
           </div>
@@ -486,17 +486,18 @@ export default function Home() {
                     The 2026 Standard
                   </h3>
                   <p className="text-xl text-purple-100/80 font-medium leading-relaxed mb-6">
-                    "Our tools are updated every 48 hours to match the shifting
-                    volatility of the YouTube Recommendation Engine."
+                    "Our tools focus on practical creator workflows: clearer
+                    metadata, stronger ideas, better planning, and easier
+                    revenue estimation."
                   </p>
                   <div className="flex items-center gap-4 pt-6 border-t border-white/10">
                     <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center font-black">
                       EE
                     </div>
                     <div>
-                      <div className="font-bold">E-E-A-T Compliance Team</div>
+                      <div className="font-bold">Creator Workflow Notes</div>
                       <div className="text-xs text-purple-300 font-bold uppercase tracking-widest">
-                        Growth Expert Verified
+                        Public Tool Documentation
                       </div>
                     </div>
                   </div>

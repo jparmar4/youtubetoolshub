@@ -38,7 +38,6 @@ export default function robots(): MetadataRoute.Robots {
           "/history",
           "/upgrade",
           "/auth/",
-          "/_next/static/chunks/",
           "/_next/data/",
           "/cdn-cgi/",
         ],

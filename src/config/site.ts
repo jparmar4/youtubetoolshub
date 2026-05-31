@@ -5,7 +5,7 @@ export const siteConfig = {
   name: "YouTube Tools Hub",
   tagline: "Free YouTube Growth & AI Tools Suite 2026",
   description:
-    "YouTube Tools Hub is the free suite of 21+ AI-powered tools for YouTube channel growth, SEO, and automation. Calculate earnings, generate viral titles, download HD thumbnails, and optimize your channel for the 2026 algorithm — no signup required.",
+    "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube channel growth, SEO, and planning. Calculate earnings, generate title ideas, download HD thumbnails, and improve your creator workflow with no signup required.",
 
   // URLs
   url: "https://www.youtubetoolshub.com",
@@ -83,9 +83,9 @@ export const siteConfig = {
   seo: {
     titleTemplate: "%s | YouTube Tools Hub - Free AI Tools 2026",
     defaultTitle:
-      "YouTube Tools Hub - 21+ Free AI Tools for Creators | Earnings Calculator & Thumbnails",
+      "YouTube Tools Hub - 27+ Free YouTube Tools for Creators | Earnings Calculator & Thumbnails",
     defaultDescription:
-      "Grow your YouTube channel FREE in 2026. 21+ AI-powered tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor, channel audit & more. Trusted by 100,000+ creators. No signup required.",
+      "Grow your YouTube channel with 27+ free creator tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor, channel audit, and more. No signup required.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",
@@ -133,7 +133,7 @@ export const siteConfig = {
       "youtube studio alternatives free",
       "ai tools for youtube creators no sign up",
       "youtube growth strategy tools 2026",
-      "youtube algorithm hack tools",
+      "youtube algorithm optimization tools",
 
       // Premium Advertiser Trigger Keywords
       "youtube business account setup",

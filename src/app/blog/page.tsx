@@ -14,7 +14,7 @@ import { Fragment } from "react";
 export const metadata: Metadata = {
   title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
   description:
-    "Master the 2026 algorithm with our expert guides on AI-native creation, high-RPM niche selection, and semantic SEO. Trusted by 100k+ professional creators.",
+    "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
   keywords: [
     "youtube monetization tips 2026",
     "ai youtube strategy",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
     description:
-      "Master the 2026 algorithm with expert guides on AI-native creation, high-RPM niche selection, and semantic SEO. Trusted by 100k+ professional creators.",
+      "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
     type: "website",
     url: `${siteConfig.url}/blog`,
     images: [
@@ -90,9 +90,9 @@ export default function BlogPage() {
       <GeoAeoHead
         {...GEO_AEO_PRESETS.blogPost(
           "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
-          "Master the 2026 algorithm with expert guides on AI-native creation, high-RPM niche selection, and semantic SEO. Trusted by 100k+ professional creators.",
+          "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
           "YouTube Tools Hub",
-          "YouTube Growth Expert",
+          "Creator Tools Team",
           new Date().toISOString(),
         )}
         entityType="WebPage"
@@ -101,8 +101,8 @@ export default function BlogPage() {
         keyFacts={[
           "Expert guides on YouTube SEO and AI tools",
           "Covers high-RPM niche selection strategies",
-          "Updated for the 2026 YouTube algorithm",
-          "Written by certified YouTube growth experts",
+          "Practical creator monetization and planning workflows",
+          "Written for creators, marketers, and agencies",
         ]}
         pathname="/blog"
       />

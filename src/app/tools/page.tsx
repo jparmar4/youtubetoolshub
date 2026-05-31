@@ -9,9 +9,9 @@ import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
 
 export const metadata: Metadata = {
-  title: "21+ Professional YouTube Growth & AI Tools 2026 | Free Suite",
+  title: "27+ Professional YouTube Growth & AI Tools 2026 | Free Suite",
   description:
-    "The world's #1 suite of free YouTube tools. CPM calculators, revenue estimators, AI thumbnail generators, and SEO optimizers. Trusted by 100K+ professional creators in 2026.",
+    "Free YouTube creator tools: CPM calculators, revenue estimators, AI thumbnail generators, SEO optimizers, and planning utilities.",
   keywords: [
     "youtube marketing tools 2026",
     "professional youtube software free",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "All YouTube Tools | Growth, SEO & AI Suite 2026",
     description:
-      "21+ professional grade tools to help you grow your channel, optimize your SEO, and maximize your earnings. 100% free.",
+      "27+ professional grade tools to help you grow your channel, optimize your SEO, and maximize your earnings. 100% free.",
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
@@ -54,13 +54,13 @@ export default function ToolsPage() {
     <>
       {/* GEO/AEO Head for AI discoverability */}
       <GeoAeoHead
-        title="21+ Free YouTube Tools – Complete AI Suite for Creators"
-        description="The world's most comprehensive free suite of AI-powered YouTube tools. Download thumbnails, generate viral titles, calculate earnings, and optimize your channel SEO."
+        title="27+ Free YouTube Tools – Creator Suite for Creators"
+        description="A free suite of creator tools, including AI-assisted generators. Download thumbnails, generate title ideas, calculate earnings, and optimize your channel SEO."
         entityType="WebApplication"
         primaryTopic="YouTube Creator Tools Suite"
-        conciseAnswer="YouTube Tools Hub offers 21+ free AI-powered tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required."
+        conciseAnswer="YouTube Tools Hub offers 27+ free creator tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required."
         keyFacts={[
-          "21+ free AI-powered YouTube tools",
+          "27+ free creator tools",
           "No signup or browser extension required",
           "Tools organized into 5 categories: Thumbnail, SEO, Growth, Analytics, Utility",
           "Free alternative to TubeBuddy and VidIQ",
@@ -97,9 +97,9 @@ export default function ToolsPage() {
               All YouTube Tools
             </h1>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
-              Everything you need to master the algorithm, optimize for search,
-              and scale your monetization. From AI-driven thumbnails to
-              expert-level SEO—completely free for creators.
+              Tools to improve your creator workflow, optimize for search,
+              and estimate monetization. From AI-driven thumbnails to
+              SEO utilities, core features are free for creators.
             </p>
           </div>
 
@@ -178,20 +178,20 @@ export default function ToolsPage() {
             {/* Trust Bar Section */}
             <div className="glass-premium rounded-3xl p-12 text-center border border-white/40 shadow-sm animate-fade-in-up">
               <h3 className="text-2xl font-bold text-slate-900 mb-4 font-outfit italic">
-                "The only toolkit a serious creator needs in 2026."
+                "A practical toolkit for faster creator workflows."
               </h3>
               <div className="flex justify-center items-center gap-8 opacity-40 grayscale">
                 <span className="font-bold text-xl tracking-tighter">
-                  ALGORITHM READY
+                  BROWSER BASED
                 </span>
                 <span className="font-bold text-xl tracking-tighter">
-                  E-E-A-T CERTIFIED
+                  NO SIGNUP NEEDED
                 </span>
                 <span className="font-bold text-xl tracking-tighter">
                   AI POWERED
                 </span>
                 <span className="font-bold text-xl tracking-tighter">
-                  GEO OPTIMIZED
+                  CREATOR FOCUSED
                 </span>
               </div>
             </div>

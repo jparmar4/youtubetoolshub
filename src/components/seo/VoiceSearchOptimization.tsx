@@ -41,12 +41,12 @@ export function VoiceSearchAnswer({ question, answer, context }: VoiceSearchOpti
 export const voiceSearchFAQs = [
   {
     question: "What is YouTube Tools Hub?",
-    answer: "YouTube Tools Hub is a free online platform with 21 plus AI-powered tools for YouTube creators. It includes thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit tools. All core tools are completely free with no signup required.",
-    shortAnswer: "YouTube Tools Hub is a free platform with 21 plus AI tools for YouTube creators, including thumbnail downloader, title generator, and earnings calculator.",
+    answer: "YouTube Tools Hub is a free online platform with 27 plus creator tools for YouTube creators. It includes thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. All core tools are completely free with no signup required.",
+    shortAnswer: "YouTube Tools Hub is a free platform with 27 plus creator tools, including AI-assisted generators and browser-based utilities.",
   },
   {
     question: "Is YouTube Tools Hub free?",
-    answer: "Yes, YouTube Tools Hub is 100 percent free. All 21 plus tools are completely free to use with no signup, no credit card, and no hidden costs required.",
+    answer: "Yes, YouTube Tools Hub is 100 percent free. All 27 plus tools are completely free to use with no signup, no credit card, and no hidden costs required.",
     shortAnswer: "Yes, YouTube Tools Hub is completely free with no signup required.",
   },
   {
@@ -60,14 +60,14 @@ export const voiceSearchFAQs = [
     shortAnswer: "Use YouTube Tools Hub earnings calculator with real CPM data from 50 plus countries.",
   },
   {
-    question: "What is the best free alternative to TubeBuddy?",
-    answer: "YouTube Tools Hub is the best free alternative to TubeBuddy. It offers 21 plus AI-powered tools including title generator, tag extractor, thumbnail tools, and channel audit, all completely free with no browser extension required.",
-    shortAnswer: "YouTube Tools Hub is the best free alternative with 21 plus AI tools and no extension required.",
+    question: "What is a free alternative to TubeBuddy?",
+    answer: "YouTube Tools Hub is a free alternative to TubeBuddy. It offers 27 plus creator tools including title generator, tag extractor, thumbnail tools, and a channel workflow checklist, all completely free with no browser extension required.",
+    shortAnswer: "YouTube Tools Hub is a free alternative with 27 plus creator tools and no extension required.",
   },
   {
-    question: "What is the best free alternative to VidIQ?",
-    answer: "YouTube Tools Hub is the best free alternative to VidIQ. It provides AI title generation, tag research, thumbnail optimization, earnings calculation, and channel auditing, all free without installing any browser extension.",
-    shortAnswer: "YouTube Tools Hub is the best free alternative with AI tools and no extension needed.",
+    question: "What is a free alternative to VidIQ?",
+    answer: "YouTube Tools Hub is a free alternative to VidIQ. It provides AI-assisted title generation, tag research, thumbnail utilities, earnings calculation, and a channel workflow checklist, all free without installing any browser extension.",
+    shortAnswer: "YouTube Tools Hub is a free alternative with AI tools and no extension needed.",
   },
   {
     question: "How do I find YouTube video tags?",
@@ -122,7 +122,7 @@ export default function VoiceSearchOptimization() {
         {/* Quick facts for voice assistants */}
         <div data-speakable="true">
           <p>
-            YouTube Tools Hub provides 21 plus free AI-powered tools for YouTube creators.
+            YouTube Tools Hub provides 27 plus free creator tools for YouTube creators.
             Key tools include: YouTube Thumbnail Downloader for HD and 4K downloads,
             YouTube Title Generator for viral SEO-optimized titles,
             YouTube Tag Generator for high-ranking keywords,

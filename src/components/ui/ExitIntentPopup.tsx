@@ -6,7 +6,15 @@ import Link from "next/link";
 
 export default function ExitIntentPopup() {
     const [isVisible, setIsVisible] = useState(false);
-    const [hasShown, setHasShown] = useState(false);
+    const [hasShown, setHasShown] = useState(() => {
+        if (typeof window === "undefined") return false;
+
+        try {
+            return sessionStorage.getItem("exitPopupShown") === "true";
+        } catch {
+            return false;
+        }
+    });
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
@@ -21,12 +29,7 @@ export default function ExitIntentPopup() {
     }, [hasShown]);
 
     useEffect(() => {
-        try {
-            if (sessionStorage.getItem("exitPopupShown") === "true") {
-                setHasShown(true);
-                return;
-            }
-        } catch { /* ignore */ }
+        if (hasShown) return;
 
         const timer = setTimeout(() => {
             document.addEventListener("mouseleave", handleMouseLeave);
@@ -36,7 +39,7 @@ export default function ExitIntentPopup() {
             clearTimeout(timer);
             document.removeEventListener("mouseleave", handleMouseLeave);
         };
-    }, [handleMouseLeave]);
+    }, [handleMouseLeave, hasShown]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -108,7 +111,7 @@ export default function ExitIntentPopup() {
                                 <div className="space-y-3 mb-6">
                                     <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                                         <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
-                                        <span>21 free AI-powered YouTube tools</span>
+                                        <span>27 free creator YouTube tools</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                                         <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>

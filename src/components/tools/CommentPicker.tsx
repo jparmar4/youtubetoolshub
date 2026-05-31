@@ -134,7 +134,7 @@ export default function CommentPicker() {
         setLoading(true);
         // Simulate "rolling" effect
         setTimeout(async () => {
-            const randomIndex = Math.floor(Math.random() * filteredComments.length);
+            const randomIndex = getSecureRandomIndex(filteredComments.length);
             const luckyWinner = filteredComments[randomIndex];
             setWinner(luckyWinner);
             setLoading(false);
@@ -229,16 +229,19 @@ export default function CommentPicker() {
 
                 {/* Status Bar */}
                 {originalComments.length > 0 && (
-                    <div className="flex flex-wrap items-center justify-between gap-4 bg-blue-50 p-4 rounded-xl text-blue-800">
-                        <div className="font-medium">
-                            Found <span className="font-bold">{originalComments.length}</span> total comments.
-                            <span className="mx-2 opacity-50">|</span>
-                            <span className="font-bold text-green-600">{filteredComments.length}</span> qualified entries.
+                    <div className="space-y-2 bg-blue-50 p-4 rounded-xl text-blue-800">
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                            <div className="font-medium">
+                                Loaded <span className="font-bold">{originalComments.length}</span> public top-level comments.
+                                <span className="mx-2 opacity-50">|</span>
+                                <span className="font-bold text-green-600">{filteredComments.length}</span> qualified entries.
+                            </div>
+                            <Button onClick={pickWinner} isLoading={loading} disabled={loading || filteredComments.length === 0} variant="primary">
+                                <FaTrophy className="mr-2" />
+                                Pick a Winner
+                            </Button>
                         </div>
-                        <Button onClick={pickWinner} isLoading={loading} disabled={loading || filteredComments.length === 0} variant="primary">
-                            <FaTrophy className="mr-2" />
-                            Pick a Winner
-                        </Button>
+                        <p className="text-sm text-blue-700">The draw uses the currently loaded qualified entries. This tool loads up to 2,000 public top-level comments from the YouTube Data API and does not verify subscriptions.</p>
                     </div>
                 )}
 
@@ -307,4 +310,15 @@ export default function CommentPicker() {
 function extractVideoId(url: string) {
     const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([a-zA-Z0-9_-]{11})/);
     return match ? match[1] : null;
+}
+
+function getSecureRandomIndex(length: number) {
+    const values = new Uint32Array(1);
+    const maxUnbiasedValue = Math.floor(0x100000000 / length) * length;
+
+    do {
+        crypto.getRandomValues(values);
+    } while (values[0] >= maxUnbiasedValue);
+
+    return values[0] % length;
 }
