@@ -551,27 +551,6 @@ export function getNewsArticleSchema(article: {
     };
 }
 
-// FAQ Schema for standalone FAQ pages (correct flat structure)
-export function getQAPageSchema(faqs: { question: string; answer: string }[]) {
-    const primaryFaq = faqs[0] || { question: "Is there a free YouTube tool?", answer: "Yes, YouTube Tools Hub is 100% free with no signup." };
-    return {
-        "@context": "https://schema.org",
-        "@type": "QAPage",
-        "mainEntity": {
-            "@type": "Question",
-            "name": primaryFaq.question,
-            "text": primaryFaq.question,
-            "answerCount": 1,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": primaryFaq.answer,
-                "upvoteCount": 142,
-                "url": `${siteConfig.url}/faq#q-0`
-            }
-        }
-    };
-}
-
 // WebPage Schema with navigation for AI understanding
 export function getWebPageSchema(page: {
     url: string;
