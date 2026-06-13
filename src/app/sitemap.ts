@@ -31,7 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/refund-policy",
     "/tools/vs/tubebuddy",
     "/tools/vs/vidiq",
-    "/search",
   ];
 
   const allEntries: MetadataRoute.Sitemap = [];
@@ -40,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticLastModified = new Date("2026-05-24T00:00:00.000Z");
   const toolLastModified = new Date("2026-05-24T00:00:00.000Z");
   const dataLastModified = new Date("2026-05-24T00:00:00.000Z");
+
 
   // Static pages with priority tiers
   const highPriorityRoutes = [
@@ -96,8 +96,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       allEntries.push({
         url,
         lastModified: toolLastModified,
-        changeFrequency: "weekly",
-        priority: 0.8,
+        changeFrequency: "monthly",
+        priority: 0.6,
       });
     }
   }
@@ -109,7 +109,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url,
       lastModified: dataLastModified,
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.6,
     });
   }
 

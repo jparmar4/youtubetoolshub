@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
         "Search across 27+ free YouTube tools and expert blog guides. Find the right tool or strategy for your channel growth in 2026.",
     robots: {
-        index: true,
+        index: false,
         follow: true,
     },
     alternates: {
