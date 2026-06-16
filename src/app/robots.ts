@@ -524,6 +524,73 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
 
+      // ─── Google Gemini / AI Mode ───
+      {
+        userAgent: "Gemini-Web",
+        allow: "/",
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
+      // ─── AI21 Labs (Jamba / J2) ───
+      {
+        userAgent: "AI21Bot",
+        allow: [
+          "/",
+          "/tools/",
+          "/blog/",
+          "/about",
+          "/faq",
+          "/resources/",
+          "/llms.txt",
+          "/llms-full.txt",
+          "/.well-known/",
+          "/api/ai-context",
+        ],
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
+      // ─── WriteSonic / Chatsonic ───
+      {
+        userAgent: "WriteSonicBot",
+        allow: "/",
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
+      // ─── Semrush AI / AI-powered crawlers ───
+      {
+        userAgent: "SemrushBot-AI",
+        allow: "/",
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
       // ─── Neeva / Snowflake AI ───
       {
         userAgent: "NeevaBot",
@@ -662,6 +729,44 @@ export default function robots(): MetadataRoute.Robots {
           "rogerbot",
           "SiteAuditBot",
         ],
+        allow: "/",
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
+      // ─── Exa AI (neural search) ───
+      {
+        userAgent: "ExaBot",
+        allow: [
+          "/",
+          "/tools/",
+          "/blog/",
+          "/about",
+          "/faq",
+          "/resources/",
+          "/llms.txt",
+          "/llms-full.txt",
+          "/api/ai-context",
+        ],
+        disallow: [
+          "/api/",
+          "/sign-in",
+          "/dashboard",
+          "/history",
+          "/upgrade",
+          "/auth/",
+        ],
+      },
+
+      // ─── Nvidia / AI Research crawlers ───
+      {
+        userAgent: "NvidiaBot",
         allow: "/",
         disallow: [
           "/api/",

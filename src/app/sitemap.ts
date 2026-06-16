@@ -31,15 +31,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/refund-policy",
     "/tools/vs/tubebuddy",
     "/tools/vs/vidiq",
+    "/resources/youtube-algorithm-guide",
+    "/resources/youtube-monetization-guide",
+    "/api-docs",
   ];
 
   const allEntries: MetadataRoute.Sitemap = [];
 
   // Keep lastmod stable unless the page content materially changes.
-  const staticLastModified = new Date("2026-05-24T00:00:00.000Z");
-  const toolLastModified = new Date("2026-05-24T00:00:00.000Z");
-  const dataLastModified = new Date("2026-05-24T00:00:00.000Z");
-
+  const staticLastModified = new Date("2026-06-16T00:00:00.000Z");
+  const toolLastModified = new Date("2026-06-16T00:00:00.000Z");
+  const dataLastModified = new Date("2026-06-16T00:00:00.000Z");
 
   // Static pages with priority tiers
   const highPriorityRoutes = [
@@ -48,9 +50,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/faq",
     "/resources/youtube-cpm-rates",
+    "/resources/youtube-creator-statistics",
+    "/resources/youtube-algorithm-guide",
+    "/resources/youtube-monetization-guide",
     "/resources/link-to-us",
     "/tools/channel-tools",
     "/tools/utility-tools",
+    "/tools/seo-tools",
+    "/tools/analytics-tools",
+    "/tools/thumbnail-tools",
+    "/tools/vs/tubebuddy",
+    "/tools/vs/vidiq",
   ];
   for (const route of routes) {
     const url = `${baseUrl}${route}`;

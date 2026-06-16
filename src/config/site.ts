@@ -70,12 +70,31 @@ export const siteConfig = {
         href: "https://www.facebook.com/profile.php?id=61585430621256",
         icon: "facebook",
       },
+      {
+        name: "X (Twitter)",
+        href: "https://x.com/ytoolshub",
+        icon: "twitter",
+      },
+      {
+        name: "Pinterest",
+        href: "https://pinterest.com/youtubetoolshub",
+        icon: "pinterest",
+      },
     ],
     resources: [
       { name: "YT Tools Hub vs TubeBuddy", href: "/tools/vs/tubebuddy" },
       { name: "YT Tools Hub vs VidIQ", href: "/tools/vs/vidiq" },
       { name: "Why Choose Us", href: "/blog/why-youtube-tools-hub" },
       { name: "Link to Us", href: "/resources/link-to-us" },
+      {
+        name: "YouTube Algorithm Guide 2026",
+        href: "/resources/youtube-algorithm-guide",
+      },
+      {
+        name: "YouTube Monetization Guide",
+        href: "/resources/youtube-monetization-guide",
+      },
+      { name: "YouTube CPM Rates 2026", href: "/resources/youtube-cpm-rates" },
     ],
   },
 
@@ -175,9 +194,7 @@ export const siteConfig = {
       "youtube seo tools for international creators",
       "global youtube cpm calculator",
     ],
-    alternates: {
-      
-    },
+    alternates: {},
     openGraph: {
       type: "website",
       locale: "en_US",

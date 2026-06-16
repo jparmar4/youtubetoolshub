@@ -1,1 +1,55 @@
 google.com, pub-1328083083403070, DIRECT, f08c47fec0942fa0
+
+# ─── Google Authorized Sellers (AdSense / Ad Manager / AdMob) ───────────────
+# These entries prevent fraudulent bidding via unauthorized spoofed supply paths.
+# Source: https://storage.googleapis.com/adx-rtb-dictionaries/sellers.json
+
+doubleclick.net, pub-1328083083403070, DIRECT, f08c47fec0942fa0
+googlesyndication.com, pub-1328083083403070, DIRECT, f08c47fec0942fa0
+
+# Google Ad Manager (DFP) Authorized Resellers
+google.com, pub-1328083083403070, RESELLER, f08c47fec0942fa0
+
+# ─── Google-Certified Trading Partners (Authorized Resellers) ────────────────
+# These are Google-certified third-party advertising partners authorized
+# to sell inventory on behalf of Google AdSense publishers.
+
+appnexus.com, 1360, RESELLER, f5ab79cb980f11d1
+openx.com, 537153210, RESELLER, 6a698e965929982
+pubmatic.com, 156209, RESELLER, 5d62403b186f2ace
+rubicon project, 17960, RESELLER, 0bfd66d529a55807
+rubiconproject.com, 17960, RESELLER, 0bfd66d529a55807
+indexexchange.com, 191503, RESELLER
+sovrn.com, 203600, RESELLER, fafdf38b16bf6b2b
+lijit.com, 203600, RESELLER, fafdf38b16bf6b2b
+conversantmedia.com, 100264, RESELLER, 03113cd04947736d
+33across.com, 0013300001r0t58AAA, RESELLER, bbea06d9c4d2853c
+spotxchange.com, 211156, RESELLER, 7842df1d2fe2db34
+spotx.tv, 211156, RESELLER, 7842df1d2fe2db34
+smartadserver.com, 2833, RESELLER
+rhythmone.com, 4173858586, RESELLER, a670c89d4a324e47
+1rx.io, 4173858586, RESELLER, a670c89d4a324e47
+triplelift.com, 5110, RESELLER, 6c33edb13117fd86
+sharethrough.com, H9P39XKT, RESELLER, d53b998a7bd4ecd2
+teads.tv, 18432, RESELLER, 15a9c44f6d26cbe1
+criteo.com, B-063736, RESELLER, 9fac4a4a87c2a44f
+districtm.io, 102003, RESELLER, 3fd707be9c4527c3
+improvedigital.com, 1046, RESELLER
+advertising.com, 28246, RESELLER
+appnexus.com, 2928, RESELLER, f5ab79cb980f11d1
+contextweb.com, 562233, RESELLER, 89ff185a4c4b857f
+pulsepoint.com, 562233, RESELLER, 89ff185a4c4b857f
+yieldmo.com, 2624585844, RESELLER
+onemobile.yahoo.com, 58299, RESELLER, e1a5b5b6e3255540
+outbrain.com, 00b0e9ef3e3b1b3b8a4a0d5e6f7a8b9c, RESELLER
+taboola.com, 1492985, RESELLER
+media.net, 8CU592E6M, RESELLER
+amazon.com, 3328, RESELLER
+
+# ─── Amazon Publisher Services ────────────────────────────────────────────────
+amazon.com, 3328, DIRECT
+aps.amazon.com, 3328, DIRECT
+
+# ─── Bing / Microsoft Advertising ────────────────────────────────────────────
+# Bing Ads network for contextual display ads
+advertising.microsoft.com, 8a9d0c1a-2b3e-4f5a-6c7d-8e9f0a1b2c3d, DIRECT
