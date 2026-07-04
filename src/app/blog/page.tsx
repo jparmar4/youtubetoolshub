@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
@@ -194,17 +195,28 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl hidden lg:block border-8 border-white/50">
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 flex items-center justify-center text-white">
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:scale-125 transition-transform duration-700">
-                        <FaBookOpen className="w-10 h-10" />
+                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl hidden lg:block border-8 border-white/50 bg-slate-100">
+                  {featuredPost.coverImage ? (
+                    <Image
+                      src={featuredPost.coverImage}
+                      alt={featuredPost.title}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 flex items-center justify-center text-white">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:scale-125 transition-transform duration-700">
+                          <FaBookOpen className="w-10 h-10" />
+                        </div>
+                        <span className="font-black text-xs uppercase tracking-[0.3em] opacity-50">
+                          Strategy Guide
+                        </span>
                       </div>
-                      <span className="font-black text-xs uppercase tracking-[0.3em] opacity-50">
-                        Strategy Guide
-                      </span>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </Link>
@@ -245,6 +257,8 @@ export default function BlogPage() {
                     date={post.date}
                     category={post.category}
                     slug={post.slug}
+                    coverImage={post.coverImage}
+                    coverAlt={post.title}
                     className="bg-white/5 border-white/10 hover:bg-white/10"
                     dark={true}
                   />

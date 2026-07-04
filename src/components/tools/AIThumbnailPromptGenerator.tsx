@@ -298,8 +298,9 @@ function AIThumbnailPromptGeneratorContent() {
                     </div>
                 </div>
 
-                <HorizontalAd />
             </ToolAuthGuard>
+
+            <HorizontalAd />
 
             {/* Quick Templates */}
             <div className="bg-slate-50 rounded-2xl p-6">

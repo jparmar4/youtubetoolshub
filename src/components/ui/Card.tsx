@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface CardProps {
@@ -72,6 +73,8 @@ export function BlogCard({
     date,
     category,
     slug,
+    coverImage,
+    coverAlt,
     className,
     dark = false
 }: {
@@ -80,26 +83,41 @@ export function BlogCard({
     date: string;
     category: string;
     slug: string;
+    coverImage?: string;
+    coverAlt?: string;
     className?: string;
     dark?: boolean;
 }) {
     return (
         <Link href={`/blog/${slug}`}>
-            <Card className={`p-6 cursor-pointer group h-full ${className || ""}`}>
-                <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-400 rounded-full mb-3 border border-fuchsia-500/20">
-                    {category}
-                </span>
-                <h3 className={`font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2 ${dark ? "text-white" : "text-slate-900"}`}>
-                    {title}
-                </h3>
-                <p className={`text-sm mb-4 line-clamp-2 ${dark ? "text-slate-300" : "text-slate-600"}`}>
-                    {excerpt}
-                </p>
-                <div className="flex items-center justify-between">
-                    <span className={`text-xs ${dark ? "text-slate-500" : "text-slate-500"}`}>{date}</span>
-                    <span className="text-purple-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
-                        Read More →
+            <Card className={`overflow-hidden cursor-pointer group h-full ${className || ""}`}>
+                {coverImage && (
+                    <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
+                        <Image
+                            src={coverImage}
+                            alt={coverAlt || title}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                    </div>
+                )}
+                <div className="p-6">
+                    <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-400 rounded-full mb-3 border border-fuchsia-500/20">
+                        {category}
                     </span>
+                    <h3 className={`font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2 ${dark ? "text-white" : "text-slate-900"}`}>
+                        {title}
+                    </h3>
+                    <p className={`text-sm mb-4 line-clamp-2 ${dark ? "text-slate-300" : "text-slate-600"}`}>
+                        {excerpt}
+                    </p>
+                    <div className="flex items-center justify-between gap-4">
+                        <span className={`text-xs ${dark ? "text-slate-500" : "text-slate-500"}`}>{date}</span>
+                        <span className="shrink-0 text-purple-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                            Read More -&gt;
+                        </span>
+                    </div>
                 </div>
             </Card>
         </Link>

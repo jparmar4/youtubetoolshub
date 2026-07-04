@@ -616,6 +616,8 @@ export default function Home() {
                 date={post.date}
                 category={post.category}
                 slug={post.slug}
+                coverImage={post.coverImage}
+                coverAlt={post.title}
                 className="glass-premium border-white/40 shadow-sm"
               />
             ))}

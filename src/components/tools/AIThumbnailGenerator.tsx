@@ -214,8 +214,9 @@ export default function AIThumbnailGenerator() {
                         </div>
                     </div>
 
-                    <HorizontalAd />
                 </ToolAuthGuard>
+
+                <HorizontalAd />
 
                 {/* Example Prompts */}
                 <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
