@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
       "youtube search ranking",
       "increase youtube views",
     ],
-    coverImage: "/images/blog/youtube-algorithm-guide-2026-hero.png",
+    coverImage: "/images/blog/youtube-algorithm-2026.png",
     imageAlt:
       "Illustrated diagram of the YouTube algorithm funnel for 2026 showing ranking signals including CTR, watch time, engagement, and personalization flowing into the YouTube recommendation engine.",
     rating: {
@@ -31299,7 +31299,7 @@ Start this week. Film one video. Post it. Film another next week. Stay consisten
       "youtube channel ideas 2026",
       "youtube monetization requirements 2026",
     ],
-    coverImage: "/images/blog/how-to-start-youtube-channel-2026-hero.png",
+    coverImage: "/images/blog/youtube-channel-branding-guide-hero.png",
     imageAlt:
       "A modern creator workspace with a camera, microphone, ring light, and laptop showing YouTube Studio.",
     content: `
@@ -31504,7 +31504,7 @@ For detailed projections, use our [YouTube Earnings Calculator](/tools/youtube-e
       "shorts monetization requirements",
       "youtube shorts vs long form revenue",
     ],
-    coverImage: "/images/blog/youtube-shorts-monetization-2026-hero.png",
+    coverImage: "/images/blog/youtube-shorts-monetization-2026.png",
     imageAlt:
       "A creator phone screen showing YouTube Shorts analytics and revenue dashboard with growing earnings charts.",
     content: `
@@ -31652,7 +31652,7 @@ Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to est
       "how to make money on youtube without showing face",
       "best faceless youtube niches",
     ],
-    coverImage: "/images/blog/faceless-youtube-channel-ideas-hero.png",
+    coverImage: "/images/blog/faceless-youtube-channel-ideas-2026.png",
     imageAlt:
       "A creative workspace showing video editing software, stock footage, AI voiceover tools, and analytics for faceless YouTube content creation.",
     content: `
