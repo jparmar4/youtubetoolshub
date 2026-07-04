@@ -6,7 +6,7 @@ export default function Loading() {
             <div className="flex flex-col items-center gap-6">
                 <LoadingSpinner size="xl" />
                 <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">
-                    Loading awesome tools...
+                    Loading YouTube creator tools...
                 </p>
             </div>
         </div>

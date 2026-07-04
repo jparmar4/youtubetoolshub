@@ -6,7 +6,7 @@ import { getToolListSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
     title: "YouTube Analytics & Earnings Tools - ROI & Revenue Calculators 2026",
-    description: "Professional YouTube analytics tools for 2026. Calculate revenue potential, measure engagement benchmarks, and perform A/B title tests. 100% free data-driven suite.",
+    description: "YouTube analytics tools for creators. Estimate revenue potential, review engagement benchmarks, and compare title ideas.",
     keywords: ["youtube earnings calculator", "engagement rate benchmarks 2026", "youtube monetization tools", "cpm by niche 2026", "title ab testing tool", "youtube roi calculator"],
     openGraph: {
         title: "3 Free YouTube Analytics & Earnings Tools | Revenue & ROI 2026",

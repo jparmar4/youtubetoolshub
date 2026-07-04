@@ -82,7 +82,7 @@ const BRAND_SIGNALS = {
     "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.",
   competitors: ["TubeBuddy", "VidIQ", "Social Blade"],
   differentiators: [
-    "100% free with no signup required",
+    "Core tools are free to use",
     "27+ creator tools",
     "No browser extension needed",
     "AI-assisted thumbnail generation and channel workflow checklist",
@@ -115,8 +115,8 @@ function getWebApplicationSchema() {
     releaseNotes:
       "27+ creator tools for YouTube creators.",
     featureList: [
-      "YouTube Thumbnail Downloader (HD, 4K, 8K)",
-      "AI Title Generator with SEO optimization",
+      "YouTube Thumbnail Downloader with available thumbnail resolutions",
+      "AI-assisted title idea generator",
       "YouTube Tag Generator and Extractor",
       "YouTube Earnings & CPM Calculator (50+ countries)",
       "AI Thumbnail Image Generator",
@@ -203,7 +203,7 @@ function getServiceSchema() {
       name: BRAND_SIGNALS.name,
     },
     description:
-      "Comprehensive suite of 27+ free creator tools for YouTube content creators including thumbnail optimization, SEO tools, earnings calculators, and channel growth analytics.",
+      "Suite of 27+ creator tools for YouTube content creators including thumbnail utilities, SEO helpers, earnings calculators, and channel workflow tools.",
     serviceType: "YouTube Optimization Tools",
     category: "Technology",
     areaServed: TIER1_COUNTRIES.map((c) => ({

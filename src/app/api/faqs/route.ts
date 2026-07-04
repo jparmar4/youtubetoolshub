@@ -19,7 +19,7 @@ export async function GET() {
         {
             question: "How much does YouTube Tools Hub cost?",
             answer:
-                "The core suite of 27+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
+                "The core suite of 27+ tools is free to use. A Pro tier with higher daily limits is available for power users. No credit card required.",
             category: "Pricing",
         },
         {
@@ -55,7 +55,7 @@ export async function GET() {
         {
             question: "How are earnings estimates calculated?",
             answer:
-                "Our Earnings Calculator uses a proprietary 2026 RPM Index that tracks advertising shifts across 40+ niches. It factors in seasonal trends and regional variations to give you highly realistic revenue predictions.",
+                "The Earnings Calculator uses RPM and CPM assumptions by country or niche to create planning estimates. Actual revenue depends on audience location, niche, ad demand, seasonality, and YouTube Studio data.",
             category: "Monetization",
         },
         {

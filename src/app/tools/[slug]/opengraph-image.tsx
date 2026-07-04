@@ -213,7 +213,7 @@ export default async function OGImage({
                                 display: "flex",
                             }}
                         >
-                            100% Free • No Signup
+                            Free to Use
                         </div>
                     </div>
                 </div>

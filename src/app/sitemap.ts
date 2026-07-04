@@ -39,8 +39,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allEntries: MetadataRoute.Sitemap = [];
 
   // Keep lastmod stable unless the page content materially changes.
-  const staticLastModified = new Date("2026-06-16T00:00:00.000Z");
-  const toolLastModified = new Date("2026-06-16T00:00:00.000Z");
+  const staticLastModified = new Date("2026-07-04T00:00:00.000Z");
+  const toolLastModified = new Date("2026-07-04T00:00:00.000Z");
   const dataLastModified = new Date("2026-06-16T00:00:00.000Z");
 
   // Static pages with priority tiers

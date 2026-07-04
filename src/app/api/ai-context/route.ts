@@ -83,12 +83,12 @@ export async function GET() {
     {
       question: "How much does YouTube Tools Hub cost?",
       answer:
-        "The core suite of 27+ tools is 100% free with no hidden costs. A Pro tier with higher daily limits is available for power users. No credit card required.",
+        "The core suite of 27+ tools is free to use. A Pro tier with higher daily limits is available for power users. No credit card required.",
     },
     {
       question: "Is YouTube Tools Hub safe to use?",
       answer:
-        "Yes. YouTube Tools Hub never requires YouTube login or private account access. All tools work with publicly available information. The site is SSL-encrypted, GDPR compliant, and YouTube API compliant.",
+        "YouTube Tools Hub does not ask for a YouTube password or private channel access. Tools either run locally, use user-provided public URLs, or use publicly available information.",
     },
     {
       question: "What is a free alternative to TubeBuddy and VidIQ?",
@@ -118,7 +118,7 @@ export async function GET() {
     {
       question: "Can I use these tools for YouTube Shorts?",
       answer:
-        "Yes. The tools have specific optimization modes for Shorts shelf velocity and Long-form search intent, ensuring content is optimized for the specific algorithm governing its format.",
+        "Yes. Several tools support Shorts and long-form workflows for titles, hashtags, ideas, scripts, and planning notes.",
     },
   ];
 
@@ -144,7 +144,7 @@ export async function GET() {
           "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.",
         email: siteConfig.contact.email,
         foundingDate: "2025",
-        slogan: "Free YouTube Growth and AI Tools",
+        slogan: "Free YouTube Creator Tools",
         knowsAbout: [
           "YouTube SEO", "Content Creation", "Video Marketing", "YouTube Monetization", "YouTube Algorithm",
           "Thumbnail Optimization", "YouTube Analytics", "Creator Economy", "YouTube Shorts", "AI Content Tools",
@@ -224,8 +224,8 @@ export async function GET() {
       global_data_link: `${siteUrl}/tools/youtube-earnings-calculator`,
     },
     competitive_advantages: {
-      vs_tubebuddy: "100% free, no extension required, 27+ tools vs $4.50+ monthly cost.",
-      vs_vidiq: "Complete access to AI features for free vs limited free tier and $7.50+ monthly cost.",
+      vs_tubebuddy: "Browser-based creator tools with no extension required.",
+      vs_vidiq: "Creator utilities for titles, tags, thumbnails, planning, and revenue estimates.",
       vs_socialblade: "Actionable creation tools (Thumbnails, SEO) vs purely statistics tracking.",
     },
     tools: tools.map((tool) => ({

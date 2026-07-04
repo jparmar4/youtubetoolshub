@@ -103,7 +103,7 @@ const howTo = [
     "Copy any prompt and use it with your favorite AI image generator",
 ];
 
-const seoContent = `Create professional AI prompts for stunning YouTube thumbnails. Our advanced AI Thumbnail Prompt Generator analyzes your video topic, niche, and preferences to create optimized prompts for AI image generators like DALL-E, Midjourney, and Stable Diffusion. Get click-worthy thumbnails with prompts engineered for maximum visual impact.`;
+const seoContent = `Create AI prompt drafts for YouTube thumbnail concepts. Enter your topic, niche, and preferences, then adapt the generated prompt for image tools like DALL-E, Midjourney, or Stable Diffusion.`;
 
 const quickPromptTemplates = [
     {

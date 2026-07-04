@@ -64,7 +64,14 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const blogPosts = getAllBlogPosts();
+  const pausedGrowthSlugs = new Set([
+    "insurance-youtube-marketing",
+    "lawyer-youtube-marketing",
+    "youtube-tax-guide-creators-usa-2026",
+  ]);
+  const blogPosts = getAllBlogPosts().filter(
+    (post) => !pausedGrowthSlugs.has(post.slug),
+  );
   const featuredPost = blogPosts[0];
   const otherPosts = blogPosts.slice(1);
 

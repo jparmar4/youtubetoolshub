@@ -9,7 +9,6 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
-import HeaderAd from "@/components/ads/HeaderAd";
 import AdRecovery from "@/components/ads/AdRecovery";
 import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
@@ -330,7 +329,6 @@ export default async function RootLayout({
         <AuthProvider>
           <UsageProvider>
             <Header />
-            <HeaderAd />
             <main className="flex-1">{children}</main>
             <Footer />
             <ScrollToTop />

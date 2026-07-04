@@ -9,24 +9,24 @@ import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
 
 export const metadata: Metadata = {
-  title: "27+ Professional YouTube Growth & AI Tools 2026 | Free Suite",
+  title: "27+ Free YouTube Creator Tools | SEO, Thumbnails & Earnings",
   description:
     "Free YouTube creator tools: CPM calculators, revenue estimators, AI thumbnail generators, SEO optimizers, and planning utilities.",
   keywords: [
-    "youtube marketing tools 2026",
-    "professional youtube software free",
+    "youtube creator tools",
+    "free youtube tools",
     "youtube monetization suite",
-    "youtube cpm calculator 2026",
+    "youtube cpm calculator",
     "youtube revenue estimator",
     "youtube automation tools",
     "ai content creator suite",
-    "rank youtube videos 2026",
+    "youtube seo tools",
     "best youtube growth tools",
   ],
   openGraph: {
-    title: "All YouTube Tools | Growth, SEO & AI Suite 2026",
+    title: "All YouTube Tools | Growth, SEO & Creator Utilities",
     description:
-      "27+ professional grade tools to help you grow your channel, optimize your SEO, and maximize your earnings. 100% free.",
+      "27+ free tools to help creators plan videos, write metadata, make thumbnails, and estimate earnings.",
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
@@ -91,15 +91,15 @@ export default function ToolsPage() {
           {/* Header */}
           <div className="text-center mb-20 animate-fade-in-up">
             <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-lg shadow-purple-500/20">
-              Creator Suite 2026
+              Creator Tool Suite
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 tracking-tight font-outfit">
               All YouTube Tools
             </h1>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
               Tools to improve your creator workflow, optimize for search,
-              and estimate monetization. From AI-driven thumbnails to
-              SEO utilities, core features are free for creators.
+              and estimate monetization. From thumbnail utilities to SEO
+              helpers, core features are free for creators.
             </p>
           </div>
 

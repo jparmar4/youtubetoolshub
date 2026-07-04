@@ -129,7 +129,7 @@ export async function generateMetadata({
             "primaryTopic": tool.name,
             "abstract": tool.seoDescription || tool.description,
             "key-facts": [
-                `${tool.name} is 100% free with no signup`,
+                `${tool.name} is free to use`,
                 tool.isAI ? "Uses AI-assisted generation" : "Runs as a focused creator utility",
                 `Category: ${tool.category}`,
                 "Designed to help YouTube creators complete a specific workflow"
@@ -351,7 +351,7 @@ export default async function ToolPage({
                                     </li>
                                     <li className="flex items-start gap-3">
                                         <span className="text-green-500 font-bold">✓</span>
-                                        <span><strong>Price:</strong> 100% Free, no signup required</span>
+                                        <span><strong>Price:</strong> Free to use</span>
                                     </li>
                                     <li className="flex items-start gap-3">
                                         <span className="text-green-500 font-bold">✓</span>
@@ -359,7 +359,7 @@ export default async function ToolPage({
                                     </li>
                                     <li className="flex items-start gap-3">
                                         <span className="text-green-500 font-bold">✓</span>
-                                        <span><strong>AI-Powered:</strong> {tool.isAI ? "Yes - uses advanced AI" : "No - instant utility tool"}</span>
+                                        <span><strong>AI-Assisted:</strong> {tool.isAI ? "Yes - uses AI-assisted generation" : "No - browser utility tool"}</span>
                                     </li>
                                     {tool.howTo && (
                                         <li className="flex items-start gap-3">
@@ -444,8 +444,8 @@ export default async function ToolPage({
                                 <NewsletterSignup />
                             </div>
 
-                            {/* Related Tools for Mobile */}
-                            <div className="lg:hidden glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
+                            {/* Related Tools */}
+                            <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
                                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                                     <span className="text-purple-500">🔗</span>
                                     Related Tools
@@ -472,33 +472,9 @@ export default async function ToolPage({
 
                         {/* Sidebar Column */}
                         <div className="max-lg:hidden lg:col-span-1 space-y-8 pt-20">
-                            <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30">
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                    <span className="text-purple-500">🔗</span>
-                                    Related Tools
-                                </h3>
-                                <div className="space-y-3">
-                                    {relatedTools.map((t) => {
-                                        const Icon = t.icon;
-                                        return (
-                                            <Link
-                                                key={t.slug}
-                                                href={`/tools/${t.slug}`}
-                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
-                                            >
-                                                <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
-                                                    <Icon />
-                                                </span>
-                                                <span className="font-medium text-sm">{t.name}</span>
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-                            </div>
                             <BlogSidebar />
                         </div>
                     </div>
-
                     {/* Multiplex Ad */}
                     <div className="animate-fade-in-up delay-300 mt-12">
                         <MultiplexAd />

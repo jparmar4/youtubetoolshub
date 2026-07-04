@@ -99,7 +99,7 @@ const howTo = [
     "Use the 'Viral Score' to choose the best option"
 ];
 
-const seoContent = `Generate professional, high-CTR YouTube titles with our advanced AI Title Generator. Unlike basic tools, we provide a "Viral Score" and psychological analysis for every title, helping you understand crucial metrics like curiosity gaps and power words. Tailor results for your specific audience (Beginners vs Experts) and video type (Tutorials vs Vlogs) to skyrocket your views.`;
+const seoContent = `Generate YouTube title drafts with AI-assisted variations. Compare options for clarity, search intent, curiosity, and audience fit before choosing a final title.`;
 
 interface TitleResult {
     title: string;

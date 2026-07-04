@@ -23,12 +23,12 @@ import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions - YouTube Growth & AI Suite 2026",
+  title: "Frequently Asked Questions - YouTube Creator Tools",
   description:
-    "Get expert answers to common questions about our free YouTube tools, AI-powered features, monetization calculators, and 2026 growth strategies.",
+    "Get answers to common questions about YouTube Tools Hub, free creator tools, AI-assisted features, and monetization calculators.",
   keywords: [
     "youtube tools faq",
-    "youtube seo help 2026",
+    "youtube seo help",
     "how to use ai for youtube",
     "monetization calculator help",
     "youtubetoolshub support",
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     
   },
   openGraph: {
-    title: "FAQ - YouTube Tools & AI Growth Suite 2026",
+    title: "FAQ - YouTube Tools Hub",
     description:
-      "Find answers about our free professional-grade YouTube creator tools and AI features. 27+ free tools, no signup required.",
+      "Find answers about YouTube Tools Hub creator tools, AI-assisted features, and monetization calculators.",
     type: "website",
     url: `${siteConfig.url}/faq`,
     images: [
@@ -59,37 +59,37 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "FAQ – YouTube Tools Hub | Free AI Tools for Creators",
     description:
-      "Get expert answers to common questions about our 27+ free YouTube tools, AI features, monetization calculators, and growth strategies.",
+      "Get answers to common questions about YouTube creator tools, AI-assisted features, and monetization calculators.",
     images: [`${siteConfig.url}/og-image.png`],
   },
 };
 
 const faqData = [
   {
-    question: "Is YouTube Tools Hub really 100% free?",
+    question: "Is YouTube Tools Hub free to use?",
     answer:
-      "Yes, our core mission is democratization. In 2026, while many tools have moved to subscription models, we maintain our entire professional suite—including AI thumbnail generation and advanced SEO tools—completely free for all creators.",
+      "Yes. The core creator tools are free to use. Some features may have usage limits or optional account-based access, but you can use the main tools without a paid plan.",
     category: "Pricing",
     icon: <FaRocket className="text-purple-500" />,
   },
   {
-    question: "How accurate is the 2026 AI Thumbnail Generator?",
+    question: "How should I use the AI Thumbnail Generator?",
     answer:
-      "Our AI is trained on over 500,000 high-CTR thumbnails from 2024-2025. It analyzes color psychology, curiosity gaps, and mobile readability to ensure your concepts are optimized for the latest YouTube mobile app layout.",
+      "Use generated thumbnail concepts as drafts. Check that the image matches your actual video, add readable text carefully, and avoid visuals that exaggerate or mislead viewers.",
     category: "AI Tools",
     icon: <FaTools className="text-blue-500" />,
   },
   {
     question: "Do I need to connect my YouTube account?",
     answer:
-      "No. Unlike other platforms, we don't require API access to your channel for 95% of our tools. We prioritize your security and believe you should be able to optimize your channel without sharing private credentials.",
+      "No. Most tools work without private YouTube account access. Some public-data tools may use a video, channel, or playlist URL, but they do not ask for your YouTube password.",
     category: "Security",
     icon: <FaShieldAlt className="text-red-500" />,
   },
   {
     question: "Can I use these tools for YouTube Shorts?",
     answer:
-      "Absolutely. Our Hashtag Generator and Title Optimizer have specific 'Shorts Mode' logic that helps you tap into the high-velocity shelf algorithm for vertical video.",
+      "Yes. Several tools can help draft Shorts titles, hashtags, scripts, and planning notes. Review the output for accuracy and fit before publishing.",
     category: "Features",
     icon: <FaChartLine className="text-emerald-500" />,
   },
@@ -100,16 +100,16 @@ const faqData = [
     icon: <FaTools className="text-indigo-500" />,
   },
   {
-    question: "Is the data 'Algorithm-Safe'?",
+    question: "How should I review generated metadata?",
     answer:
-      "Yes. All metadata generated (titles, descriptions, tags) adheres to YouTube's 2026 Community Guidelines and Spam Policies. We focus on semantic relevance rather than keyword stuffing.",
+      "The tools are designed to encourage relevant metadata rather than keyword stuffing. You should still review every title, tag, and description against YouTube's current policies before publishing.",
     category: "SEO",
     icon: <FaUsers className="text-teal-500" />,
   },
   {
     question: "How are earnings estimates calculated?",
     answer:
-      "Our Earnings Calculator uses a proprietary 2026 RPM Index that tracks advertising shifts across 40+ niches. It factors in seasonal trends and regional variations to give you highly realistic revenue predictions.",
+      "The Earnings Calculator uses RPM and CPM assumptions by country or niche to create planning estimates. Your actual revenue depends on audience location, niche, ad demand, seasonality, and YouTube Studio data.",
     category: "Monetization",
     icon: <FaChartLine className="text-orange-500" />,
   },
@@ -133,7 +133,7 @@ export default function FAQPage() {
     url: `${siteConfig.url}/faq`,
     headline: "Frequently Asked Questions",
     summary:
-      "Get expert answers to common questions about our free YouTube tools, AI-powered features, monetization calculators, and 2026 growth strategies.",
+      "Get answers to common questions about YouTube Tools Hub, free creator tools, AI-assisted features, and monetization calculators.",
     cssSelectors: ["h1", ".faq-summary"],
   });
 
@@ -167,7 +167,7 @@ export default function FAQPage() {
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
               Everything you need to know about mastering the algorithm with our
-              2026 creator tool suite.
+              creator tool suite.
             </p>
           </div>
 

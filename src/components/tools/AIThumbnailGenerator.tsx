@@ -28,7 +28,7 @@ const styleOptions = [
 const faq = [
     {
         question: "How does AI thumbnail generation work?",
-        answer: "Our tool uses advanced AI (FLUX model) to generate unique thumbnail images based on your text description. Simply describe what you want, select a style, and the AI creates custom images."
+        answer: "The tool uses an image generation model to create thumbnail concept drafts from your text description. Review each result for accuracy and edit it before publishing."
     },
     {
         question: "Why do I get 2 images?",

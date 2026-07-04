@@ -7,7 +7,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Pricing - Free vs Premium Plans (Save 50% Today)",
   description:
-    "Compare Free vs Premium plans for YouTube Tools Hub. 27+ core tools are 100% free forever. Get unlimited access to AI Title Generator, 4K Thumbnail Downloader, and advanced SEO insights with Pro.",
+    "Compare Free vs Premium plans for YouTube Tools Hub. Core tools are free to use, while Pro offers higher limits and priority access for power users.",
   keywords: [
     "youtube tools hub pricing",
     "youtube tools hub free",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pricing – YouTube Tools Hub | Free & Pro Plans",
     description:
-      "YouTube Tools Hub pricing: 27+ core tools are 100% free forever. Pro tier offers higher daily limits and priority access for power users. No credit card required.",
+      "YouTube Tools Hub pricing: core tools are free to use. Pro offers higher daily limits and priority access for power users. No credit card required.",
     type: "website",
     url: `${siteConfig.url}/pricing`,
     images: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pricing – YouTube Tools Hub | Free & Pro Plans",
     description:
-      "27+ core tools are 100% free forever. Pro tier offers higher daily limits and priority access. No credit card required to start.",
+      "Core tools are free to use. Pro offers higher daily limits and priority access. No credit card required to start.",
     images: [`${siteConfig.url}/og-image.png`],
   },
   alternates: {

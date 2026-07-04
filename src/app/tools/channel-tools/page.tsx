@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     keywords: ["youtube growth tools", "video ideas generator", "youtube trend finder", "content calendar planner", "channel strategy 2026", "viral content ideas", "youtube algorithm tools"],
     openGraph: {
         title: "AI YouTube Growth & Strategy Suite 2026",
-        description: "Professional-grade research tools to help you master the algorithm and scale your channel. 100% free AI-powered insights.",
+        description: "Research and planning tools to help you review channel ideas, workflows, and public creator signals.",
         type: "website",
         url: `${siteConfig.url}/tools/channel-tools`,
     },

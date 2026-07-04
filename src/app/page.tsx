@@ -47,9 +47,9 @@ export const metadata: Metadata = {
 
 const homeFAQs = [
   {
-    question: "Is YouTube Tools Hub really 100% free for 2026?",
+    question: "Is YouTube Tools Hub free to use?",
     answer:
-      "Absolutely. We are committed to democratizing growth tools. Our entire professional suite, including AI Click-Through Prediction, Revenue Calculators, and SEO Tag Generators, is free for all creators with no hidden costs.",
+      "Yes. The core creator tools on YouTube Tools Hub are free to use, including title, tag, thumbnail, planning, and revenue-estimation utilities.",
   },
   {
     question: "How does the 'AI Team' concept work?",
@@ -64,12 +64,12 @@ const homeFAQs = [
   {
     question: "Can I use these for YouTube Shorts and Long-form?",
     answer:
-      "Yes. Our engines have specific modes for Shorts shelf velocity and Long-form search intent, ensuring your content is optimized for the specific algorithm that governs its format.",
+      "Yes. Several tools include prompts or workflows for Shorts and long-form videos, so you can adapt titles, descriptions, ideas, and planning notes to the format you publish.",
   },
   {
     question: "What is the 'ROI-Focused' Analytics tool?",
     answer:
-      "Unlike basic calculators, our ROI tools factor in 2026 inflation, niche seasonal trends, and regional CPM shifts to give you a business-grade revenue projection for your channel.",
+      "The earnings tools use country and niche assumptions to estimate possible revenue ranges. Treat the results as planning estimates and compare them with your own YouTube Studio analytics.",
   },
   {
     question: "Do I need technical skills to use the AI tools?",
@@ -78,27 +78,36 @@ const homeFAQs = [
   },
 ];
 
-// Get the 3 most recent blog posts
-const blogPosts = getAllBlogPosts().slice(0, 3);
+const pausedGrowthSlugs = new Set([
+  "insurance-youtube-marketing",
+  "lawyer-youtube-marketing",
+  "youtube-tax-guide-creators-usa-2026",
+]);
+
+// Get the 3 most recent creator-tool posts. Keep off-topic YMYL posts out of
+// prominent internal links until they have stronger author/reviewer support.
+const blogPosts = getAllBlogPosts()
+  .filter((post) => !pausedGrowthSlugs.has(post.slug))
+  .slice(0, 3);
 
 const benefits = [
   {
     icon: FaBrain,
-    title: "AI-Native Workflow",
+    title: "AI-Assisted Workflow",
     description:
-      "Seamlessly integrate machine learning into your ideation, research, and scripting phases.",
+      "Use prompts and structured generators to draft titles, descriptions, thumbnails, scripts, and planning notes faster.",
   },
   {
     icon: FaMagic,
     title: "Creative Leverage",
     description:
-      "Automate the data-heavy tasks so you can focus 100% on your unique personality and story.",
+      "Speed up repetitive metadata and planning tasks so you can spend more time on the actual video.",
   },
   {
     icon: FaChartPie,
-    title: "Data-Driven ROI",
+    title: "Revenue Planning",
     description:
-      "Make decisions based on 2026 audience benchmarks and revenue-per-mille projections.",
+      "Estimate CPM and RPM ranges by country or niche, then validate your assumptions in YouTube Studio.",
   },
   {
     icon: FaCheck,
@@ -266,7 +275,7 @@ export default function Home() {
           <div className="animate-fade-in-up">
             <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/40 backdrop-blur-md border border-white/60 text-purple-700 text-xs font-black uppercase tracking-[0.2em] mb-10 shadow-sm">
               <FaBrain className="text-pink-500 animate-glow-pulse" />
-              Empowering the AI-Native Creator 2026
+              Practical tools for YouTube creators
             </span>
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-slate-900 mb-8 tracking-tighter font-outfit leading-[0.9]">
               Scale Your{" "}
@@ -312,7 +321,7 @@ export default function Home() {
                   27+
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Free AI Tools
+                  Free Tools
                 </div>
               </div>
               <div className="text-center border-l border-slate-200/50">
@@ -325,10 +334,10 @@ export default function Home() {
               </div>
               <div className="text-center border-l border-slate-200/50">
                 <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  2026
+                  Fresh
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Algorithm Updated
+                  Creator Workflows
                 </div>
               </div>
               <div className="text-center border-l border-slate-200/50">
@@ -343,9 +352,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Ad: Between Hero and Tools - highest viewability placement */}
-      <HorizontalAd />
 
       {/* ── AEO: Visible Key Facts for AI snippet extraction & user trust ── */}
       <section className="py-16 bg-white border-b border-slate-100" data-speakable="true">
@@ -371,7 +377,7 @@ export default function Home() {
               </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Includes: Thumbnail Downloader (HD, 4K, 8K), AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator (50+ country CPM data), Channel Audit, and more.
+                Includes: Thumbnail Downloader, AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator, Channel Audit, and more.
               </p>
             </div>
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
@@ -395,8 +401,8 @@ export default function Home() {
               Featured Intelligence
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
-              Highly specialized tools that perform millions of calculations to
-              ensure your channel stays ahead of the curve.
+              Focused utilities for thumbnails, metadata, ideas, planning, and
+              revenue estimates.
             </p>
           </div>
 
@@ -435,26 +441,26 @@ export default function Home() {
             <div className="lg:w-1/2">
               <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-10 leading-[0.9] font-outfit tracking-tight">
                 Data Patterns <br />
-                <span className="text-purple-600">Trumping Luck.</span>
+                <span className="text-purple-600">Reducing Guesswork.</span>
               </h2>
               <div className="space-y-8">
                 {[
                   {
                     icon: FaMagic,
-                    title: "Psychological Triggers",
-                    text: "Our models identify curiosity gaps and emotional hooks that stop the scroll.",
+                    title: "Clearer Hooks",
+                    text: "Draft title and thumbnail angles that make the viewer promise easier to understand.",
                     color: "bg-purple-600",
                   },
                   {
                     icon: FaBrain,
-                    title: "Algorithmic safety",
-                    text: "We ensure every piece of metadata is 100% compliant with 2026 guidelines.",
+                    title: "Policy-Aware Workflows",
+                    text: "Use public-data and browser-local tools that avoid private channel access or misleading metadata.",
                     color: "bg-pink-600",
                   },
                   {
                     icon: FaStar,
-                    title: "E-E-A-T Verified",
-                    text: "Insights backed by professional growth experts, not just random AI scripts.",
+                    title: "Documented Tool Notes",
+                    text: "Each priority tool explains what it does, what it cannot verify, and how to use the result responsibly.",
                     color: "bg-indigo-600",
                   },
                 ].map((item, i) => (
@@ -483,7 +489,7 @@ export default function Home() {
               <div className="aspect-[4/5] glass-premium rounded-[4rem] p-1 shadow-2xl overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-900 to-slate-950 p-16 flex flex-col justify-end text-white">
                   <h3 className="text-4xl font-black font-outfit mb-4">
-                    The 2026 Standard
+                    Practical Creator Workflows
                   </h3>
                   <p className="text-xl text-purple-100/80 font-medium leading-relaxed mb-6">
                     "Our tools focus on practical creator workflows: clearer
@@ -518,12 +524,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-24">
             <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-              Why Creators Scaling to{" "}
-              <span className="text-gradient">7-Figures</span> Trust Us
+              Why Creators Use{" "}
+              <span className="text-gradient">YouTube Tools Hub</span>
             </h2>
             <p className="text-xl text-slate-500 max-w-3xl mx-auto font-outfit font-medium italic">
-              "We provide the enterprise-level leverage that was previously only
-              available to the biggest media agencies, now 100% free."
+              "Simple browser-based utilities for common creator tasks,
+              available without a browser extension."
             </p>
           </div>
 
@@ -556,7 +562,7 @@ export default function Home() {
               Mastering the <span className="text-purple-600">Algorithm</span>
             </h2>
             <p className="text-xl text-slate-500 font-outfit font-medium">
-              Insights and technical guidance for the 2026 YouTube landscape.
+              Practical guidance for YouTube planning, metadata, and monetization.
             </p>
           </div>
           <div className="space-y-12">
@@ -643,13 +649,13 @@ export default function Home() {
           <h2 className="text-6xl md:text-9xl font-black text-white mb-12 tracking-tighter font-outfit leading-[0.85]">
             Ready to{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">
-              Transcend
+              Improve
             </span>{" "}
             the Algorithm?
           </h2>
           <p className="text-2xl text-slate-400 mb-14 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-            Join creators worldwide scaling their vision with the world&apos;s
-            most advanced free AI growth suite.
+            Open the free tool suite, choose one creator task, and turn your
+            next video idea into usable titles, tags, descriptions, or estimates.
           </p>
           <Link href="/tools">
             <Button
@@ -666,7 +672,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* E-E-A-T Trust Badges */}
+      {/* Trust Badges */}
       <div className="py-12 bg-slate-50 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <TrustSignals />

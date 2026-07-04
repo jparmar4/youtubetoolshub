@@ -291,7 +291,7 @@ export default function LinkToUsPage() {
                 YouTube Earnings Calculator
               </Link>{" "}
               with CPM data for 50+ countries, and much more — all{" "}
-              <strong>100% free with no signup required</strong>.
+              <strong>free to use</strong>.
             </p>
             <p>
               Core tools work directly in the browser with no extension or

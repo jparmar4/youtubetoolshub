@@ -93,7 +93,7 @@ const features = [
 const values = [
   {
     icon: FaCheck,
-    title: "100% Free Forever",
+    title: "Core Tools Free to Use",
     description:
       "No hidden costs, no 'pro' badges, and no paywalled features for our core suite.",
   },

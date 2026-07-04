@@ -90,11 +90,11 @@ export async function generateMetadata({
     const nicheContent = getNicheContent(tool.name, niche);
 
     return {
-        title: `${tool.name} for ${niche.name} Channels (2026) | Free Tool`,
+        title: `${tool.name} for ${niche.name} Channels | Free Tool`,
         description: nicheContent.description,
         keywords: [...tool.keywords, ...niche.keywords, `${tool.name} for ${niche.name}`],
         openGraph: {
-            title: `${tool.name} for ${niche.name} - Boost Your Views`,
+            title: `${tool.name} for ${niche.name} Channels`,
             description: nicheContent.description,
             type: "website",
             url: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
@@ -109,7 +109,7 @@ export async function generateMetadata({
         },
         twitter: {
             card: "summary_large_image",
-            title: `${tool.name} for ${niche.name} Channels (2026) | Free Tool`,
+            title: `${tool.name} for ${niche.name} Channels | Free Tool`,
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
@@ -133,8 +133,8 @@ export async function generateMetadata({
             "key-facts": [
                 `Optimized specifically for ${niche.name} channels`,
                 `Targeting ${niche.keywords.slice(0, 3).join(", ")} keywords`,
-                "100% free with no signup required",
-                "Powered by YouTube Tools Hub AI"
+                "Free to use",
+                tool.isAI ? "Uses AI-assisted generation" : "Browser-based creator utility"
             ].join(", "),
         }
     };
@@ -168,7 +168,7 @@ export default async function ProgrammaticToolPage({
         ...(tool.faqs || []),
         {
             question: `Is this ${tool.name} good for ${niche.name} channels?`,
-            answer: `Yes! This tool is specifically optimized to generate results relevant to the ${niche.name} niche, helping you rank for ${niche.examples[0]} and related topics.`
+            answer: `Yes. This tool gives ${niche.name} creators a niche-specific starting point for ${niche.examples[0]} and related topics. Review the output before publishing.`
         }
     ];
 

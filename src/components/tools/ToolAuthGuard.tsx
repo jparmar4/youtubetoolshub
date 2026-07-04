@@ -14,7 +14,7 @@ interface ToolAuthGuardProps {
 export default function ToolAuthGuard({
     children,
     title = "Sign In Required",
-    message = "This premium tool uses advanced AI models. Please sign in to continue using it (it's free!)."
+    message = "Please sign in to continue using this tool."
 }: ToolAuthGuardProps) {
     const { data: session, status } = useSession();
 
@@ -62,7 +62,7 @@ export default function ToolAuthGuard({
                     </Link>
                 </div>
                 <p className="mt-4 text-xs text-slate-500">
-                    No credit card required. 100% Free.
+                    No credit card required.
                 </p>
             </div>
         </div>
