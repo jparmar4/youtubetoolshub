@@ -1,14 +1,22 @@
 /**
  * AI Text Generation Utility
- * 
+ *
  * Professional-grade AI prompts for YouTube content creation.
  * Configure in your .env.local file:
- * 
+ *
  * AI_API_KEY=your-openai-api-key-here
  * AI_MODEL=gpt-4o-mini  (optional, defaults to gpt-4o-mini)
  */
 
 import { aiCache, hashString } from "./cache";
+
+/** Thrown when AI is not configured (missing API key). Signals a 503, not a 500. */
+export class AIConfigurationError extends Error {
+    constructor(message = "AI not configured") {
+        super(message);
+        this.name = "AIConfigurationError";
+    }
+}
 
 // Types for AI generation
 export interface AIGenerationOptions {
@@ -134,6 +142,20 @@ Your responses must be:
 
 Always prioritize: Authenticity > Clickbait, Value > Views, Long-term growth > Short-term gains.`;
 };
+
+/**
+ * Mock response for development when AI_API_KEY is not configured
+ */
+function getMockResponse(prompt: string): string {
+    if (prompt.includes("title")) {
+        return JSON.stringify([
+            { title: "How I Grew My Channel to 10K Subscribers in 30 Days", score: 92, method: "Authority/Proof", why: "Specific timeframe + result creates strong curiosity gap." },
+            { title: "Stop Making These 5 YouTube Mistakes (Most Creators Do)", score: 88, method: "Negative Urgency", why: "Fear of missing out combined with specific number." },
+            { title: "The YouTube Algorithm Explained in 10 Minutes", score: 85, method: "Specifics", why: "Searchable topic + time promise reduces commitment barrier." }
+        ]);
+    }
+    return "This is a mock AI response. Please configure AI_API_KEY in your .env.local file to enable real AI generation.";
+}
 
 /**
  * Professional-grade prompts for each tool
@@ -300,7 +322,7 @@ Return ONLY valid JSON with 3 categories:
 {
   "broad": [
      {"tag": "#Hashtag1", "volume": "High", "relevance": "Medium"},
-     {"tag": "#Hashtag2", "volume": "High", "relevance": "Low"} 
+     {"tag": "#Hashtag2", "volume": "High", "relevance": "Low"}
      ... (5-8 tags)
   ],
   "niche": [
@@ -520,11 +542,11 @@ Act as the YouTube Algorithm (RankBrain). Simulate 1,000 impressions for both ti
 Return ONLY valid JSON:
 {
   "winner": "A" or "B",
-  "confidence": 0-100, (How sure are you?)
+  "confidence": 0-100,
   "analysis": "Why the winner won in 1 sentence.",
   "titleA": {
     "score": 0-100,
-    "ctr_prediction": "X.X%", (Likely CTR, e.g. 5.2%)
+    "ctr_prediction": "X.X%",
     "impulse_rating": "High/Medium/Low",
     "strengths": ["list", "of", "strengths"],
     "weaknesses": ["list", "of", "weaknesses"]
@@ -554,8 +576,8 @@ Return ONLY valid JSON:
 ## Output Format
 Return ONLY valid JSON:
 {
-  "lowEstimate": 500, (Number in USD)
-  "highEstimate": 800, (Number in USD)
+  "lowEstimate": 500,
+  "highEstimate": 800,
   "currency": "USD",
   "explanation": "Based on the Tech niche average of $40 CPM...",
   "pitchTip": "Focus on your high retention rate in your email..."
@@ -606,4 +628,3 @@ Return ONLY valid JSON array of 5 detailed prompt strings:
 
 Make each prompt 50-100 words for optimal AI image generator results.`
 };
-
