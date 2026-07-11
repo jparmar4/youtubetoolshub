@@ -8,7 +8,7 @@ export async function ensureTablesExist() {
     try {
         await sql`
       CREATE TABLE IF NOT EXISTS history_items (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
         user_email TEXT NOT NULL,
         tool_slug TEXT NOT NULL,
         content JSONB NOT NULL,

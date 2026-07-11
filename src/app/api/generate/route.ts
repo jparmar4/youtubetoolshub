@@ -1,9 +1,31 @@
 import { NextResponse } from "next/server";
-import { generateAIText, prompts } from "@/lib/ai";
+import { AIConfigurationError, generateAIText, prompts } from "@/lib/ai";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+
+const MAX_REQUEST_BYTES = 16_000;
+const ANONYMOUS_REQUEST_LIMIT = 12;
+const REQUEST_WINDOW_MS = 60 * 60 * 1000;
 
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
+        const rawBody = await request.text();
+        if (rawBody.length > MAX_REQUEST_BYTES) {
+            return NextResponse.json({ error: "Request is too large" }, { status: 413 });
+        }
+
+        const rateLimit = enforceRateLimit(
+            `ai-text:${getRequestIp(request.headers)}`,
+            ANONYMOUS_REQUEST_LIMIT,
+            REQUEST_WINDOW_MS,
+        );
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+            );
+        }
+
+        const body = JSON.parse(rawBody);
         const { tool, ...params } = body;
 
         let prompt: string;
@@ -129,12 +151,18 @@ export async function POST(request: Request) {
             { result },
             {
                 headers: {
-                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+                    "Cache-Control": "private, no-store",
                 },
             }
         );
     } catch (error) {
         console.error("Generation error:", error);
+        if (error instanceof AIConfigurationError) {
+            return NextResponse.json(
+                { error: "AI generation is temporarily unavailable." },
+                { status: 503 },
+            );
+        }
         return NextResponse.json(
             { error: "Failed to generate content" },
             { status: 500 }

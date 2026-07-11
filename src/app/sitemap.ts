@@ -2,7 +2,6 @@ import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
 import { getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -97,19 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
     });
-  }
-
-  // Dynamic programmatic niche pages
-  for (const toolSlug of programmaticTools) {
-    for (const niche of niches) {
-      const url = `${baseUrl}/tools/${toolSlug}/${niche.id}`;
-      allEntries.push({
-        url,
-        lastModified: toolLastModified,
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-    }
   }
 
   // Country-specific earnings calculator pages

@@ -29,6 +29,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        // Replicate AI image generation CDN (generate-image route)
+        protocol: "https",
+        hostname: "replicate.delivery",
+      },
     ],
   },
 
@@ -37,7 +42,7 @@ const nextConfig = {
 
   // Optimize production builds
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
 
   // Experimental features for better performance
@@ -58,16 +63,11 @@ const nextConfig = {
             value: "public, max-age=31536000, immutable",
           },
           {
-            key: "Expires",
-            value: new Date(Date.now() + 31536000000).toUTCString(),
-          },
-          {
             key: "Access-Control-Allow-Origin",
             value: "*",
           },
         ],
       },
-
 
 
       // ─── Global security + SEO headers (all routes) ───

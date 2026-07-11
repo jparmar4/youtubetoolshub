@@ -1,10 +1,10 @@
 /**
  * SEO/AEO/GEO Verification Script
  * Run: node scripts/check-seo.mjs
- * Requires: dev server running at http://localhost:3000
+ * Optional: set SEO_BASE_URL to check a deployed environment.
  */
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = process.env.SEO_BASE_URL || 'http://localhost:3000';
 const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
 const YELLOW = '\x1b[33m';
@@ -83,9 +83,8 @@ async function run() {
         { name: 'SpeakableSpecification JSON-LD', str: '"@type":"SpeakableSpecification"' },
     ]);
 
-    // 2. Blog post – NewsArticle + BlogPosting + BreadcrumbList (dynamic [slug] route)
-    await checkPage('/blog/youtube-banner-makers-2026', 'Blog Post – NewsArticle + BlogPosting + BreadcrumbList', [
-        { name: 'NewsArticle JSON-LD', str: '"NewsArticle"' },
+    // 2. Blog post – BlogPosting + BreadcrumbList (dynamic [slug] route)
+    await checkPage('/blog/youtube-banner-makers-2026', 'Blog Post – BlogPosting + BreadcrumbList', [
         { name: 'BlogPosting JSON-LD', str: '"BlogPosting"' },
         { name: 'SpeakableSpecification JSON-LD', str: '"SpeakableSpecification"' },
         { name: 'BreadcrumbList JSON-LD', str: '"BreadcrumbList"' },
@@ -113,16 +112,15 @@ async function run() {
         { name: 'Offer (free pricing)', str: '"price":"0"' },
     ]);
 
-    // 6. FAQ page – FAQPage + QAPage + SpeakableSpecification
-    await checkPage('/faq', 'FAQ Page – FAQPage + QAPage + SpeakableSpecification', [
+    // 6. FAQ page – FAQPage + SpeakableSpecification
+    await checkPage('/faq', 'FAQ Page – FAQPage + SpeakableSpecification', [
         { name: 'FAQPage JSON-LD', str: '"@type":"FAQPage"' },
-        { name: 'QAPage JSON-LD', str: '"@type":"QAPage"' },
         { name: 'SpeakableSpecification JSON-LD', str: '"@type":"SpeakableSpecification"' },
     ]);
 
-    // 7. Sitemap – /search route + image entries
-    await checkPage('/sitemap.xml', 'Sitemap – Routes + Image Entries', [
-        { name: '/search in sitemap', str: '/search' },
+    // 7. Sitemap – canonical, indexable page coverage
+    await checkPage('/sitemap.xml', 'Sitemap – Canonical Page Coverage', [
+        { name: 'Homepage in sitemap', str: 'https://www.youtubetoolshub.com' },
         { name: 'Image namespace declared', str: 'xmlns:image' },
         { name: 'image:image entries', str: 'image:image' },
         { name: 'Tool pages indexed', str: '/tools/youtube-thumbnail-downloader' },

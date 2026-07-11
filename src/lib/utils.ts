@@ -74,9 +74,13 @@ export function generateCSV<T extends Record<string, unknown>>(data: T[], header
     const rows = data.map(item =>
         headers.map(header => {
             const value = item[header];
-            // Escape quotes and wrap in quotes if contains comma
-            const stringValue = String(value);
-            if (stringValue.includes(',') || stringValue.includes('"')) {
+            const stringValue = value == null ? '' : String(value);
+            // Protect against CSV formula injection (Excel/Sheets command execution)
+            const dangerousChars = ['=', '+', '-', '@', '\t', '\r'];
+            if (dangerousChars.some(c => stringValue.startsWith(c))) {
+                return `"'${stringValue.replace(/"/g, '""')}"`;
+            }
+            if (stringValue.includes(',') || stringValue.includes('"') || stringValue.includes('\n')) {
                 return `"${stringValue.replace(/"/g, '""')}"`;
             }
             return stringValue;
@@ -177,9 +181,9 @@ export function parseDuration(duration: string): number {
     const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
     if (!match) return 0;
 
-    const hours = (parseInt(match[1]) || 0);
-    const minutes = (parseInt(match[2]) || 0);
-    const seconds = (parseInt(match[3]) || 0);
+    const hours = match[1] ? parseInt(match[1], 10) : 0;
+    const minutes = match[2] ? parseInt(match[2], 10) : 0;
+    const seconds = match[3] ? parseInt(match[3], 10) : 0;
 
     return hours * 3600 + minutes * 60 + seconds;
 }

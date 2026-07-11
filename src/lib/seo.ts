@@ -251,7 +251,8 @@ export function getSoftwareApplicationSchema(tool: {
     applicationCategory: applicationCategory, // Ensure this maps to a valid schema.org category
     operatingSystem: "Any", // Required field
     datePublished: tool.datePublished || "2025-01-01",
-    dateModified: tool.dateModified || new Date().toISOString(),
+    // Never claim a new modification date just because the page was rendered.
+    dateModified: tool.dateModified || "2026-07-04",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -750,7 +751,7 @@ export function getDatasetSchema() {
       url: siteConfig.url,
     },
     datePublished: "2025-01-01",
-    dateModified: new Date().toISOString().split("T")[0],
+    dateModified: "2026-07-04",
     license: `${siteConfig.url}/terms-of-use`,
     distribution: [
       {

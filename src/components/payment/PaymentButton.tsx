@@ -102,8 +102,6 @@ export default function PaymentButton({ plan, className = "" }: PaymentButtonPro
                             razorpay_payment_id: response.razorpay_payment_id,
                             razorpay_subscription_id: response.razorpay_subscription_id,
                             razorpay_signature: response.razorpay_signature,
-                            userEmail: session.user?.email, // Pass email to link subscription
-                            planType: plan // Pass plan type to store
                         }),
                     });
 

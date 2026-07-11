@@ -48,10 +48,25 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const { toolSlug, type, content, isPro } = body;
+        const { toolSlug, type, content } = body;
         const email = session.user.email;
 
-        const retentionDays = isPro ? 30 : 5;
+        // Validate toolSlug
+        if (!toolSlug || typeof toolSlug !== "string" || toolSlug.length > 100) {
+            return NextResponse.json({ error: "Invalid toolSlug" }, { status: 400 });
+        }
+
+        // Determine retention server-side from DB — never trust client-supplied isPro
+        const { rows: subRows } = await db.sql`
+            SELECT end_date FROM subscriptions
+            WHERE user_email = ${email} AND status = 'active'
+            LIMIT 1
+        `;
+        const isProServer = Boolean(
+            subRows[0]?.end_date && new Date(subRows[0].end_date) > new Date()
+        );
+        const retentionDays = isProServer ? 30 : 5;
+
         const expiresAt = new Date();
         expiresAt.setDate(expiresAt.getDate() + retentionDays);
 

@@ -48,9 +48,9 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
     // Initial Load
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         try {
             const [usageData, proStatus] = await Promise.all([
                 fetchUserUsage(),
@@ -70,7 +70,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     // Check limit
     const checkLimit = useCallback((slug: string): boolean => {
@@ -100,9 +100,13 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
                 incrementLocalUsage(slug);
             }
         } catch {
-            console.error("Server increment failed");
-            // Revert or just keep optimistic? 
-            // We'll keep optimistic but update local storage as fallback
+            console.error("Server increment failed — reverting optimistic update");
+            // Revert the optimistic update so the user isn't falsely blocked
+            setUsageMap(prev => ({
+                ...prev,
+                [slug]: Math.max(0, (prev[slug] || 1) - 1),
+            }));
+            // Still update local storage as fallback for guests
             incrementLocalUsage(slug);
         }
     }, [isPro]);

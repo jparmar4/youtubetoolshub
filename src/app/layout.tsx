@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
-import { getOrganizationSchema, getWebsiteSchema, getDatasetSchema, getMainEntitySchema } from "@/lib/seo";
+import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
@@ -13,7 +13,7 @@ import AdRecovery from "@/components/ads/AdRecovery";
 import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google"; // New Premium Fonts
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -32,7 +32,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#ffffff",
+  themeColor: "#a855f7", // Brand purple
 };
 
 export const metadata = {
@@ -48,7 +48,6 @@ export const metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: siteConfig.url,
-    
   },
 
   openGraph: {
@@ -58,7 +57,6 @@ export const metadata = {
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
     url: siteConfig.url,
-    alternateLocale: ["en_GB", "en_CA", "en_AU", "en_IN"],
     images: [
       {
         url: `${siteConfig.url}/og-image.png`,
@@ -75,10 +73,9 @@ export const metadata = {
         type: "image/svg+xml",
       },
     ],
-    // Additional OpenGraph for better social discovery
     determiner: "the",
     countryName: "United States",
-    ttl: 86400, // 24 hours cache
+    ttl: 86400,
   },
   twitter: {
     card: "summary_large_image",
@@ -94,13 +91,11 @@ export const metadata = {
     ],
     creator: "@youtubetools",
     site: "@youtubetools",
-    // Additional Twitter meta
     siteId: "youtubetoolshub",
     appId: "youtubetoolshub",
   },
   // Facebook specific meta
   facebook: {
-    admins: [],
     appId: "youtubetoolshub",
   },
   // Additional social signals
@@ -157,8 +152,6 @@ export default async function RootLayout({
   // Generate JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
-  const datasetSchema = getDatasetSchema();
-  const mainEntitySchema = getMainEntitySchema();
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -175,8 +168,6 @@ export default async function RootLayout({
           title="YouTube Tools Hub Atom Feed"
           href={`${siteConfig.url}/atom.xml`}
         />
-
-
 
         {/* AI Crawler Discovery Links */}
         <link
@@ -234,8 +225,6 @@ export default async function RootLayout({
         />
 
         {/* DNS Prefetch for external resources */}
-
-        {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -256,7 +245,6 @@ export default async function RootLayout({
         <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />
 
         {/* PWA & Mobile SEO Meta Tags */}
-        <meta name="theme-color" content="#a855f7" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="YT Tools Hub" />
@@ -279,19 +267,6 @@ export default async function RootLayout({
             __html: JSON.stringify(websiteSchema),
           }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(mainEntitySchema),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(datasetSchema),
-          }}
-        />
-
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -309,12 +284,12 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense - afterInteractive ensures it loads right after hydration */}
+        {/* AdSense — loaded via Next.js Script for proper optimisation */}
         <Script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
           strategy="afterInteractive"
           crossOrigin="anonymous"
-          data-ad-client="ca-pub-1328083083403070"
         />
         {/* Microsoft Clarity - lazyOnload: analytics-only, not revenue-critical */}
         <Script id="clarity-script" strategy="lazyOnload">

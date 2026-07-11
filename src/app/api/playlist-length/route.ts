@@ -25,16 +25,28 @@ export async function POST(req: Request) {
             );
         }
 
-        // Extract playlist ID
+        // Extract playlist ID — handle both full URLs and raw IDs
         let playlistId = query;
-        const urlParams = new URL(query).searchParams;
-        if (urlParams.has("list")) {
-            playlistId = urlParams.get("list")!;
+        try {
+            const urlParams = new URL(query).searchParams;
+            if (urlParams.has("list")) {
+                playlistId = urlParams.get("list")!;
+            }
+        } catch {
+            // Not a valid URL — treat `query` as a raw playlist ID
         }
 
         if (!playlistId) {
             return NextResponse.json(
                 { error: "Invalid playlist URL" },
+                { status: 400 }
+            );
+        }
+
+        // Validate playlist ID format (YouTube playlist IDs start with PL, FL, RD, UU, etc.)
+        if (!/^[A-Za-z0-9_-]{10,50}$/.test(playlistId)) {
+            return NextResponse.json(
+                { error: "Invalid playlist ID format" },
                 { status: 400 }
             );
         }

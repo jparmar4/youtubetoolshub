@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage } from "react-icons/fa";
-import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
 import { saveHistory } from "@/lib/history";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 
@@ -53,26 +52,24 @@ export default function ThumbnailDownloader() {
             description="Download high-quality thumbnails from any YouTube video in multiple resolutions"
         >
             <div className="space-y-6">
-                <ToolAuthGuard title="Free Sign In Required" message="Please sign in to use this unlimited thumbnail downloader tool for free.">
-                    {/* Input Section */}
-                    <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="flex-1">
-                            <Input
-                                label="YouTube Video URL"
-                                placeholder="https://www.youtube.com/watch?v=..."
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
-                                error={error}
-                            />
-                        </div>
-                        <div className="sm:pt-7">
-                            <Button onClick={handleFetch} isLoading={loading}>
-                                <FaImage className="mr-2" />
-                                Fetch Thumbnails
-                            </Button>
-                        </div>
+                {/* This browser-only utility is genuinely free and needs no account. */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                        <Input
+                            label="YouTube Video URL"
+                            placeholder="https://www.youtube.com/watch?v=..."
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            error={error}
+                        />
                     </div>
-                </ToolAuthGuard>
+                    <div className="sm:pt-7">
+                        <Button onClick={handleFetch} isLoading={loading}>
+                            <FaImage className="mr-2" />
+                            Fetch Thumbnails
+                        </Button>
+                    </div>
+                </div>
 
                 {/* Results Section */}
                 {thumbnails && (

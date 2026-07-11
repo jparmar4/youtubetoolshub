@@ -1,8 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+
+/** Escape HTML special characters to prevent injection in email templates */
+function escapeHtml(str: string): string {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 export async function POST(req: NextRequest) {
     try {
+        // Rate limiting: 5 submissions per IP per hour
+        const ip = getRequestIp(req.headers);
+        const rl = enforceRateLimit(`contact:${ip}`, 5, 60 * 60 * 1000);
+        if (!rl.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } }
+            );
+        }
+
         const { name, email, subject, message, website } = await req.json();
 
         // Honeypot spam protection - if this hidden field has a value, it's a bot
@@ -17,6 +38,14 @@ export async function POST(req: NextRequest) {
         if (!name || !email || !subject || !message) {
             return NextResponse.json(
                 { error: "All fields are required" },
+                { status: 400 }
+            );
+        }
+
+        // Validate input lengths
+        if (name.length > 100 || subject.length > 200 || message.length > 5000) {
+            return NextResponse.json(
+                { error: "Input too long" },
                 { status: 400 }
             );
         }
@@ -85,19 +114,19 @@ export async function POST(req: NextRequest) {
                         <div class="content">
                             <div class="field">
                                 <div class="label">👤 Name:</div>
-                                <div class="value">${name}</div>
+                                <div class="value">${escapeHtml(name)}</div>
                             </div>
                             <div class="field">
                                 <div class="label">📧 Email:</div>
-                                <div class="value"><a href="mailto:${email}">${email}</a></div>
+                                <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
                             </div>
                             <div class="field">
                                 <div class="label">📋 Subject:</div>
-                                <div class="value">${subject}</div>
+                                <div class="value">${escapeHtml(subject)}</div>
                             </div>
                             <div class="field">
                                 <div class="label">💬 Message:</div>
-                                <div class="message-box">${message.replace(/\n/g, "<br>")}</div>
+                                <div class="message-box">${escapeHtml(message).replace(/\n/g, "<br>")}</div>
                             </div>
                         </div>
                         <div class="footer">

@@ -113,14 +113,16 @@ export async function generateMetadata({
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
+        // These are helpful pre-filled variants, but not independently researched
+        // editorial pages. Consolidate search signals on the complete tool page.
         alternates: {
-            canonical: `/tools/${tool.slug}/${niche.id}`,
+            canonical: `/tools/${tool.slug}`,
         },
         robots: {
-            index: true,
+            index: false,
             follow: true,
             googleBot: {
-                index: true,
+                index: false,
                 follow: true,
                 'max-image-preview': 'large',
                 'max-snippet': -1,

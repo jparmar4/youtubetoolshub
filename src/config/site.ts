@@ -30,7 +30,6 @@ export const siteConfig = {
   ],
 
   // Colors (used as CSS variables)
-  // Colors (used as CSS variables)
   colors: {
     primary: "#a855f7", // Purple 500
     primaryDark: "#7e22ce", // Purple 700

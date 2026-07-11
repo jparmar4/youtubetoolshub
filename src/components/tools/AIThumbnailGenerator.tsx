@@ -8,7 +8,6 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { isPremiumUser } from "@/lib/usage";
 import { saveHistory } from "@/lib/history";
 import { FaMagic, FaDownload, FaSpinner, FaImage } from "react-icons/fa";
 import ToolAuthGuard from "@/components/tools/ToolAuthGuard";
@@ -92,7 +91,6 @@ export default function AIThumbnailGenerator() {
                 body: JSON.stringify({
                     prompt,
                     style,
-                    isPro: isPremiumUser(),
                 }),
             });
 

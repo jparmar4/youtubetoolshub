@@ -159,7 +159,12 @@ export const incrementLocalUsage = (slug: string): number => {
     return usageData[slug];
 };
 
-// Client-side helper (deprecated for direct checks, but useful for UI display logic)
+/**
+ * @deprecated DO NOT use for access control decisions. This reads from localStorage
+ * which is trivially bypassable via DevTools. Use the server-side
+ * `hasActiveSubscription()` from `@/lib/subscription` for any security-sensitive checks.
+ * Retained only for non-critical UI display hints (e.g., showing/hiding upgrade buttons).
+ */
 export const isPremiumUser = (): boolean => {
     if (typeof window === 'undefined') return false;
     return localStorage.getItem('yt_tools_pro') === 'true';

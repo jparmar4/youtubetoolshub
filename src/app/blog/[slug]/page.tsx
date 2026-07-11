@@ -8,7 +8,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getNewsArticleSchema, getGlobalAlternates } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates } from "@/lib/seo";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -140,19 +140,6 @@ export default async function BlogPostPage({
         cssSelectors: ["h1", ".summary"],
     });
 
-    // NewsArticle schema for Google Discover and Top Stories
-    const newsArticleSchema = getNewsArticleSchema({
-        title: post.title,
-        description: post.metaDescription,
-        author: post.author,
-        datePublished: isoDate,
-        dateModified: isoDate,
-        url: `${siteConfig.url}/blog/${slug}`,
-        imageUrl: post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined,
-        section: post.category,
-        keywords: post.keywords,
-    });
-
     const videoIds = extractYoutubeVideoIds(post.content);
     const videoSchemas = videoIds.map(id => getVideoObjectSchema({
         name: `${post.title} (Video)`,
@@ -201,12 +188,6 @@ export default async function BlogPostPage({
                     }}
                 />
             )}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(newsArticleSchema),
-                }}
-            />
             {videoSchemas.map((schema, i) => (
                 <script
                     key={`video-schema-${i}`}

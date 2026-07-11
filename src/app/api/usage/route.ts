@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { enforceRateLimit } from "@/lib/rate-limit";
 
 // Fetch usage
 export async function GET() {
@@ -45,8 +46,27 @@ export async function POST(request: Request) {
         }
 
         const { toolSlug } = await request.json();
+
+        // Validate toolSlug — must be a non-empty string of known slug characters
+        if (
+            !toolSlug ||
+            typeof toolSlug !== "string" ||
+            !/^[a-z0-9-]{1,80}$/.test(toolSlug)
+        ) {
+            return NextResponse.json({ error: "Invalid toolSlug" }, { status: 400 });
+        }
+
+        // Light rate limiting per user to prevent rapid-fire abuse
         const email = session.user.email;
         const today = new Date().toISOString().split('T')[0];
+        const rateLimit = enforceRateLimit(`usage-post:${email}`, 60, 60_000);
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests" },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+            );
+        }
+
 
         // We need to fetch, check date, increment, and save.
         // Postgres does not have deep merge for jsonb easily for this specific "increment field" logic via single query without functions.

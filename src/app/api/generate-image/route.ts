@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { enforceRateLimit } from "@/lib/rate-limit";
+import { hasActiveSubscription } from "@/lib/subscription";
 
 /**
  * AI Thumbnail Image Generation API
@@ -25,23 +28,32 @@ interface ReplicateResult {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { prompt, style, isPro } = body;
+        const { prompt, style } = body;
 
-        if (!prompt) {
+        if (typeof prompt !== "string" || prompt.trim().length === 0) {
             return NextResponse.json(
                 { error: "Prompt is required" },
                 { status: 400 }
             );
         }
+        if (prompt.length > 2_000) {
+            return NextResponse.json({ error: "Prompt is too long" }, { status: 413 });
+        }
 
-        // Backend Enforcement: Check if user is allowed to generate images
-        // Free users (isPro = false) are not allowed.
-        // Note: For advanced security, this should be validated via session/database,
-        // but for now we rely on the client-passed flag matching the project's current auth architecture.
-        if (!isPro) {
+        const session = await auth();
+        const email = session?.user?.email;
+        if (!email || !(await hasActiveSubscription(email))) {
             return NextResponse.json(
                 { error: "Image generation is a premium feature. Please upgrade to Pro." },
                 { status: 403 }
+            );
+        }
+
+        const rateLimit = enforceRateLimit(`ai-image:${email}`, 10, 60 * 60 * 1000);
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { error: "Image generation limit reached. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
             );
         }
 
@@ -127,7 +139,7 @@ export async function POST(req: NextRequest) {
 /**
  * Poll for prediction result
  */
-async function pollForResult(url: string, apiToken: string, maxAttempts = 60): Promise<ReplicateResult> {
+async function pollForResult(url: string, apiToken: string, maxAttempts = 25): Promise<ReplicateResult> {
     for (let i = 0; i < maxAttempts; i++) {
         await new Promise(resolve => setTimeout(resolve, 1000));
 

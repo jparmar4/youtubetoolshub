@@ -3,8 +3,8 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-// Set environment to production
-process.env.NODE_ENV = 'production';
+// Set environment to production if not already set
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 // ─── CRITICAL: Set PORT before requiring standalone server ───
 if (!process.env.PORT) {
@@ -54,7 +54,6 @@ const MIME_TYPES = {
 
 function serveFile(filePath, res, isImmutable) {
   try {
-    if (!fs.existsSync(filePath)) return false;
     const stat = fs.statSync(filePath);
     if (!stat.isFile()) return false;
 
@@ -71,8 +70,8 @@ function serveFile(filePath, res, isImmutable) {
 
     fs.createReadStream(filePath).pipe(res);
     return true;
-  } catch (e) {
-    console.error(`[server] Error serving ${filePath}:`, e.message);
+  } catch {
+    // File doesn't exist or is unreadable
     return false;
   }
 }
@@ -91,7 +90,10 @@ function handleStaticRequest(req, res, nextHandler) {
     const relative = pathname.slice('/_next/static/'.length);
     let served = false;
     for (const base of STATIC_PATHS) {
-      if (serveFile(path.join(base, relative), res, true)) {
+      const resolved = path.resolve(base, relative);
+      // SECURITY: Prevent path traversal — resolved path must stay within base
+      if (!resolved.startsWith(base)) continue;
+      if (serveFile(resolved, res, true)) {
         served = true;
         break;
       }
@@ -111,7 +113,10 @@ function handleStaticRequest(req, res, nextHandler) {
     const cleanPath = pathname === '/' ? null : pathname;
     if (cleanPath) {
       for (const base of PUBLIC_PATHS) {
-        if (serveFile(path.join(base, cleanPath), res, false)) return;
+        const resolved = path.resolve(base, cleanPath);
+        // SECURITY: Prevent path traversal — resolved path must stay within base
+        if (!resolved.startsWith(base)) continue;
+        if (serveFile(resolved, res, false)) return;
       }
     }
   }
@@ -139,11 +144,10 @@ try {
   process.exit(1);
 }
 
-// Keep-alive ping
-const SITE_URL = process.env.AUTH_URL || `http://localhost:${process.env.PORT}`;
+// Keep-alive ping — use localhost to avoid unnecessary external DNS resolution
+const KEEP_ALIVE_URL = `http://localhost:${process.env.PORT}/api/health`;
 setInterval(() => {
   try {
-    const protocol = SITE_URL.startsWith('https') ? https : http;
-    protocol.get(`${SITE_URL}/api/health`, (r) => r.resume()).on('error', () => {});
+    http.get(KEEP_ALIVE_URL, (r) => r.resume()).on('error', () => {});
   } catch {}
 }, 5 * 60 * 1000);

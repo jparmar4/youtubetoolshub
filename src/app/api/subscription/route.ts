@@ -1,7 +1,7 @@
 
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { db } from "@/lib/db";
+import { hasActiveSubscription } from "@/lib/subscription";
 
 export async function GET() {
     try {
@@ -12,21 +12,7 @@ export async function GET() {
 
         const email = session.user.email;
 
-        const { rows } = await db.sql`
-            SELECT * FROM subscriptions 
-            WHERE user_email = ${email} 
-            AND status = 'active'
-        `;
-
-        if (rows.length > 0) {
-            const sub = rows[0];
-            const endDate = new Date(sub.end_date);
-            if (endDate > new Date()) {
-                return NextResponse.json({ isPro: true, plan: sub.plan });
-            }
-        }
-
-        return NextResponse.json({ isPro: false });
+        return NextResponse.json({ isPro: await hasActiveSubscription(email) });
 
     } catch (error) {
         console.error("Subscription check error:", error);

@@ -9,7 +9,13 @@ import { countryCPMData } from "@/lib/cpm-data";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export async function GET() {
+export async function GET(request: Request) {
+  // Protect this endpoint — only allow requests with the correct admin secret
+  const secret = request.headers.get("x-indexnow-secret");
+  if (!process.env.INDEXNOW_ADMIN_SECRET || secret !== process.env.INDEXNOW_ADMIN_SECRET) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   try {
     const baseUrl = siteConfig.url;
     const urls: string[] = [];

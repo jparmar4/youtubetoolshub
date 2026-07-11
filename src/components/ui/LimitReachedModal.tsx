@@ -80,7 +80,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
                         className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-red-600 to-orange-600 text-white font-medium rounded-xl hover:from-red-500 hover:to-orange-500 transition-all shadow-lg shadow-red-900/20"
                     >
                         <FaCrown />
-                        Upgrade to Pro - $9/mo
+                        Upgrade to Pro — ₹799/mo
                     </Link>
                     <button
                         onClick={onClose}

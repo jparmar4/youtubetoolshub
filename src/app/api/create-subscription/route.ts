@@ -67,7 +67,6 @@ export async function POST(request: Request) {
             {
                 success: false,
                 error: errorMessage,
-                details: error
             },
             { status: 500 }
         );

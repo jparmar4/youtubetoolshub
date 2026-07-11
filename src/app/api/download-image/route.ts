@@ -16,7 +16,31 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        // Fetch the image from the external URL
+        // SECURITY: Validate the URL domain to prevent SSRF attacks
+        const ALLOWED_DOMAINS = [
+            "i.ytimg.com", "i3.ytimg.com", "i4.ytimg.com",
+            "img.youtube.com", "yt3.ggpht.com", "yt3.googleusercontent.com",
+            "lh3.googleusercontent.com", "replicate.delivery",
+            "pbxt.replicate.delivery", "placehold.co",
+        ];
+        try {
+            const parsedUrl = new URL(imageUrl);
+            const hostname = parsedUrl.hostname;
+            const isAllowed = ALLOWED_DOMAINS.some(d => hostname === d || hostname.endsWith("." + d));
+            if (!isAllowed || !["http:", "https:"].includes(parsedUrl.protocol)) {
+                return NextResponse.json(
+                    { error: "Domain not allowed" },
+                    { status: 400 }
+                );
+            }
+        } catch {
+            return NextResponse.json(
+                { error: "Invalid image URL" },
+                { status: 400 }
+            );
+        }
+
+        // Fetch the image from the validated external URL
         const response = await fetch(imageUrl);
 
         if (!response.ok) {

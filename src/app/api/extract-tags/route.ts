@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 /**
  * YouTube Tag Extractor API
@@ -20,6 +21,24 @@ export async function GET(req: NextRequest) {
         return NextResponse.json(
             { error: "Video ID is required" },
             { status: 400 }
+        );
+    }
+
+    // Validate YouTube video ID format (always exactly 11 chars)
+    if (!/^[A-Za-z0-9_-]{11}$/.test(videoId)) {
+        return NextResponse.json(
+            { error: "Invalid video ID format" },
+            { status: 400 }
+        );
+    }
+
+    // Rate limiting: 30 requests/hour per IP
+    const ip = getRequestIp(req.headers);
+    const rl = enforceRateLimit(`extract-tags:${ip}`, 30, 60 * 60 * 1000);
+    if (!rl.allowed) {
+        return NextResponse.json(
+            { error: "Too many requests. Please try again later." },
+            { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } }
         );
     }
 

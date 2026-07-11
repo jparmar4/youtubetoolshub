@@ -1,4 +1,3 @@
-import { isPremiumUser } from "./usage";
 
 export interface SavedItem {
     id: string;
@@ -12,11 +11,10 @@ export const saveItem = async (item: Omit<SavedItem, 'id' | 'date'>) => {
     if (typeof window === 'undefined') return;
 
     try {
-        const isPro = isPremiumUser();
         const response = await fetch('/api/history', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...item, isPro }),
+            body: JSON.stringify(item),
         });
 
         if (!response.ok) throw new Error('Failed to save to cloud');
@@ -73,7 +71,7 @@ export const deleteItem = async (id: string) => {
     if (typeof window === 'undefined') return;
 
     try {
-        await fetch(`/api/history?id=${id}`, { method: 'DELETE' });
+        await fetch(`/api/history?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
     } catch (error) {
         console.error("Delete error:", error);
     }

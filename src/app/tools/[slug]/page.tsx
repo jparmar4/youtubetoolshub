@@ -8,8 +8,6 @@ import { siteConfig } from "@/config/site";
 import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
 import MultiplexAd from "@/components/ads/MultiplexAd";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import InArticleAd from "@/components/ads/InArticleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -326,9 +324,6 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* Horizontal Ad after tool usage */}
-                            <HorizontalAd />
-
                             {/* TL;DR Summary for AI Extraction */}
                             <div className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500">
                                 <h2 className="text-lg font-bold text-purple-600 mb-2 flex items-center gap-2">
@@ -382,10 +377,6 @@ export default async function ToolPage({
                                                 {section.content}
                                             </p>
                                         </div>
-                                        {/* Insert Ad between sections */}
-                                        {idx < (tool.content?.length || 0) - 1 && idx % 2 === 0 && (
-                                            <InArticleAd />
-                                        )}
                                     </div>
                                 ))}
 
@@ -475,7 +466,7 @@ export default async function ToolPage({
                             <BlogSidebar />
                         </div>
                     </div>
-                    {/* Multiplex Ad */}
+                    {/* Keep the result workflow useful: one discovery unit at the end only. */}
                     <div className="animate-fade-in-up delay-300 mt-12">
                         <MultiplexAd />
                     </div>

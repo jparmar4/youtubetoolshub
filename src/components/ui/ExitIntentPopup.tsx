@@ -45,9 +45,23 @@ export default function ExitIntentPopup() {
         e.preventDefault();
         if (!email) return;
         setStatus("loading");
-        await new Promise(resolve => setTimeout(resolve, 800));
-        setStatus("success");
-        setTimeout(() => setIsVisible(false), 2000);
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Newsletter Subscriber",
+                    email,
+                    subject: "Newsletter Signup",
+                    message: "Subscribed via exit-intent popup.",
+                }),
+            });
+            if (!res.ok) throw new Error("Failed");
+            setStatus("success");
+            setTimeout(() => setIsVisible(false), 2000);
+        } catch {
+            setStatus("idle");
+        }
     };
 
     const handleClose = () => {
@@ -164,12 +178,7 @@ export default function ExitIntentPopup() {
                 </div>
             </div>
 
-            <style jsx>{`
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                }
-            `}</style>
+
         </>
     );
 }

@@ -101,7 +101,7 @@ export default function BlogPage() {
           "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
           "YouTube Tools Hub",
           "Creator Tools Team",
-          new Date().toISOString(),
+          "2026-07-04T00:00:00.000Z",
         )}
         entityType="WebPage"
         primaryTopic="YouTube Growth Strategy"

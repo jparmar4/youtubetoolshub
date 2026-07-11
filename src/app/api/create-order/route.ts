@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
+import { auth } from "@/auth";
 
 // Initialize Razorpay lazily to avoid build-time errors
 function getRazorpay() {
@@ -11,6 +12,14 @@ function getRazorpay() {
 
 export async function POST(request: Request) {
     try {
+        const session = await auth();
+        if (!session?.user?.email) {
+            return NextResponse.json(
+                { success: false, error: "Authentication required" },
+                { status: 401 },
+            );
+        }
+
         // Check if keys are configured
         if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
             return NextResponse.json(
@@ -27,7 +36,13 @@ export async function POST(request: Request) {
             yearly: { amount: 699900, currency: "INR", name: "Pro Yearly" },  // ₹6999 (save ~27%)
         };
 
-        const selectedPlan = pricing[plan] || pricing.monthly;
+        const selectedPlan = pricing[plan];
+        if (!selectedPlan) {
+            return NextResponse.json(
+                { success: false, error: "Invalid plan selected" },
+                { status: 400 },
+            );
+        }
 
         const razorpay = getRazorpay();
         const order = await razorpay.orders.create({
@@ -37,6 +52,7 @@ export async function POST(request: Request) {
             notes: {
                 plan: plan,
                 description: selectedPlan.name,
+                user_email: session.user.email,
             },
         });
 

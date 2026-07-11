@@ -1,10 +1,21 @@
 
 import { NextResponse } from "next/server";
 import { extractVideoId } from "@/lib/utils";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
     try {
         const { url } = await req.json();
+
+        // Rate limiting: 10 requests/hour per IP (each call makes up to 20 YouTube API calls)
+        const ip = getRequestIp((req as { headers: Headers }).headers);
+        const rl = enforceRateLimit(`comment-picker:${ip}`, 10, 60 * 60 * 1000);
+        if (!rl.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } }
+            );
+        }
 
         if (!url) {
             return NextResponse.json(
@@ -68,7 +79,7 @@ export async function POST(req: Request) {
                     publishedAt: item.snippet.topLevelComment.snippet.publishedAt,
                     likeCount: item.snippet.topLevelComment.snippet.likeCount,
                 }));
-                allComments = [...allComments, ...comments];
+                allComments.push(...comments);
                 fetchedCount += comments.length;
             }
 

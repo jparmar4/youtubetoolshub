@@ -62,6 +62,8 @@ class LRUCache<T> {
             const firstKey = this.cache.keys().next().value;
             if (firstKey) {
                 this.cache.delete(firstKey);
+            } else {
+                break; // Safety: prevent infinite loop if Map is in an unexpected state
             }
         }
 
@@ -118,7 +120,8 @@ export function hashString(str: string): string {
         hash = ((hash << 5) - hash) + char;
         hash = hash & hash; // Convert to 32-bit integer
     }
-    return hash.toString(36);
+    // Use unsigned right shift to ensure a positive value (avoids leading "-" in cache keys)
+    return (hash >>> 0).toString(36);
 }
 
 // Singleton instances for different cache purposes
