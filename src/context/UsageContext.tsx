@@ -45,11 +45,6 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
     const [limitReachedTool, setLimitReachedTool] = useState<string | null>(null);
 
-    // Initial Load
-    useEffect(() => {
-        loadData();
-    }, [loadData]);
-
     const loadData = useCallback(async () => {
         try {
             const [usageData, proStatus] = await Promise.all([
@@ -71,6 +66,11 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
             setLoading(false);
         }
     }, []);
+
+    // Initial Load
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
 
     // Check limit
     const checkLimit = useCallback((slug: string): boolean => {
