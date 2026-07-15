@@ -76,7 +76,7 @@ export default function BottomAnchorAd() {
         console.error("[BottomAnchorAd] Error:", err);
         setHasFailed(true);
       }
-    }, 800);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [hasFailed, isDismissed, isFilled]);

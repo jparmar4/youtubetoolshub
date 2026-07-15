@@ -66,7 +66,12 @@ export default function NotFound() {
                 href: "/tools/youtube-title-generator",
               },
               { name: "Tag Generator", href: "/tools/youtube-tag-generator" },
-              { name: "About Us", href: "/about" },
+              {
+                name: "Earnings Calculator",
+                href: "/tools/youtube-earnings-calculator",
+              },
+              { name: "All Tools", href: "/tools" },
+              { name: "Blog", href: "/blog" },
             ].map((link) => (
               <Link
                 key={link.href}

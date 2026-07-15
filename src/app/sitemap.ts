@@ -3,6 +3,7 @@ import { tools } from "@/config/tools";
 import { getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
+import { niches, programmaticTools } from "@/config/programmatic";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
@@ -38,9 +39,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allEntries: MetadataRoute.Sitemap = [];
 
   // Keep lastmod stable unless the page content materially changes.
-  const staticLastModified = new Date("2026-07-04T00:00:00.000Z");
-  const toolLastModified = new Date("2026-07-04T00:00:00.000Z");
-  const dataLastModified = new Date("2026-06-16T00:00:00.000Z");
+  const staticLastModified = new Date("2026-07-15T00:00:00.000Z");
+  const toolLastModified = new Date("2026-07-15T00:00:00.000Z");
+  const dataLastModified = new Date("2026-07-15T00:00:00.000Z");
 
   // Static pages with priority tiers
   const highPriorityRoutes = [
@@ -84,6 +85,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // Programmatic niche × tool pages (long-tail SEO)
+  const supportedTools = tools.filter((tool) =>
+    programmaticTools.includes(tool.slug),
+  );
+  for (const tool of supportedTools) {
+    for (const niche of niches) {
+      allEntries.push({
+        url: `${baseUrl}/tools/${tool.slug}/${niche.id}`,
+        lastModified: toolLastModified,
+        changeFrequency: "monthly",
+        priority: 0.55,
+      });
+    }
+  }
+
   // Dynamic blog pages with image sitemaps
   for (const post of blogPosts) {
     const postDate = new Date(post.date);
@@ -105,7 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url,
       lastModified: dataLastModified,
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.65,
     });
   }
 

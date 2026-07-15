@@ -60,12 +60,25 @@ interface EarningsCalculatorProps {
     countryName?: string;
 }
 
-export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" }: EarningsCalculatorProps) {
+const RPM_PRESETS = [
+    { label: "Global ~$2.5", value: 2.5 },
+    { label: "US ~$8.5", value: 8.5 },
+    { label: "UK ~$6.5", value: 6.5 },
+    { label: "India ~$0.8", value: 0.8 },
+    { label: "Finance US ~$12", value: 12 },
+];
+
+export default function EarningsCalculator({
+    initialRPM = 2.5,
+    currency = "USD",
+    countryName,
+}: EarningsCalculatorProps) {
     const [activeTab, setActiveTab] = useState<"ads" | "sponsorships">("ads");
 
     // Ad Revenue State
     const [views, setViews] = useState("");
     const [rpm, setRpm] = useState(initialRPM.toString());
+    const [adError, setAdError] = useState("");
     const [adResult, setAdResult] = useState<{ monthly: number; yearly: number } | null>(null);
 
     // Sponsorship State
@@ -80,8 +93,30 @@ export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" 
     const handleCalculateAds = () => {
         const monthlyViews = parseFloat(views.replace(/,/g, ""));
         const rpmValue = parseFloat(rpm);
-        if (isNaN(monthlyViews) || isNaN(rpmValue)) return;
+        if (isNaN(monthlyViews) || monthlyViews <= 0) {
+            setAdError("Enter monthly views greater than zero");
+            setAdResult(null);
+            return;
+        }
+        if (isNaN(rpmValue) || rpmValue < 0) {
+            setAdError("Enter a valid RPM (e.g. 2.5)");
+            setAdResult(null);
+            return;
+        }
+        setAdError("");
         setAdResult(calculateEarnings(monthlyViews, rpmValue));
+        try {
+            saveHistory("youtube-earnings-calculator", {
+                type: "ads",
+                monthlyViews,
+                rpm: rpmValue,
+                currency,
+                countryName,
+                result: calculateEarnings(monthlyViews, rpmValue),
+            });
+        } catch {
+            /* optional history */
+        }
     };
 
     const handleEstimateSponsorship = async () => {
@@ -157,6 +192,11 @@ export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" 
                 {/* Ad Revenue Tab */}
                 {activeTab === "ads" && (
                     <div className="space-y-6 animate-fade-in">
+                        {countryName && (
+                            <p className="text-sm text-slate-500">
+                                Estimating for <strong>{countryName}</strong> ({currency}). Adjust RPM to match your Studio Analytics.
+                            </p>
+                        )}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <Input
                                 label="Monthly Views"
@@ -165,7 +205,7 @@ export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" 
                                 onChange={(e) => setViews(e.target.value)}
                             />
                             <Input
-                                label="RPM ($)"
+                                label={`RPM (${currency === "USD" ? "$" : currency})`}
                                 type="number"
                                 placeholder="2.5"
                                 value={rpm}
@@ -178,6 +218,28 @@ export default function EarningsCalculator({ initialRPM = 2.5, currency = "USD" 
                                 </Button>
                             </div>
                         </div>
+
+                        <div className="flex flex-wrap gap-2">
+                            <span className="text-xs font-semibold text-slate-500 self-center mr-1">
+                                Quick RPM:
+                            </span>
+                            {RPM_PRESETS.map((p) => (
+                                <button
+                                    key={p.label}
+                                    type="button"
+                                    onClick={() => setRpm(String(p.value))}
+                                    className="px-2.5 py-1 text-xs rounded-full border border-slate-200 bg-slate-50 text-slate-700 hover:border-emerald-400 hover:bg-emerald-50"
+                                >
+                                    {p.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {adError && (
+                            <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                                {adError}
+                            </p>
+                        )}
 
                         <HorizontalAd />
 

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { niches, getNicheContent, programmaticTools } from "@/config/programmatic";
 import { siteConfig } from "@/config/site";
@@ -32,6 +33,7 @@ import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculato
 import CommentPicker from "@/components/tools/CommentPicker";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import HorizontalAd from "@/components/ads/HorizontalAd";
+import { getPriorityTools, getRelatedToolsForPost } from "@/lib/related-tools";
 
 const toolComponents: Record<string, React.ComponentType> = {
     "youtube-thumbnail-downloader": ThumbnailDownloader,
@@ -113,32 +115,33 @@ export async function generateMetadata({
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
-        // These are helpful pre-filled variants, but not independently researched
-        // editorial pages. Consolidate search signals on the complete tool page.
+        // Self-canonical long-tail niche landing pages (unique niche copy + tool)
         alternates: {
-            canonical: `/tools/${tool.slug}`,
+            canonical: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
         },
         robots: {
-            index: false,
+            index: true,
             follow: true,
             googleBot: {
-                index: false,
+                index: true,
                 follow: true,
-                'max-image-preview': 'large',
-                'max-snippet': -1,
-                'max-video-preview': -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+                "max-video-preview": -1,
             },
         },
         other: {
-            "primaryTopic": `${tool.name} for ${niche.name}`,
-            "abstract": nicheContent.description,
+            primaryTopic: `${tool.name} for ${niche.name}`,
+            abstract: nicheContent.description,
             "key-facts": [
-                `Optimized specifically for ${niche.name} channels`,
-                `Targeting ${niche.keywords.slice(0, 3).join(", ")} keywords`,
-                "Free to use",
-                tool.isAI ? "Uses AI-assisted generation" : "Browser-based creator utility"
+                `Free ${tool.name} tailored for ${niche.name} channels`,
+                `Keywords: ${niche.keywords.slice(0, 3).join(", ")}`,
+                "No signup required",
+                tool.isAI
+                    ? "Uses AI-assisted generation"
+                    : "Browser-based creator utility",
             ].join(", "),
-        }
+        },
     };
 }
 
@@ -165,13 +168,14 @@ export default async function ProgrammaticToolPage({
         category: tool.category,
     });
 
-    // Merge niche FAQs with generic tool FAQs
+    // Niche FAQs first (unique), then a few generic tool FAQs
     const combinedFaqs = [
-        ...(tool.faqs || []),
+        ...(nicheContent.faqs || []),
         {
             question: `Is this ${tool.name} good for ${niche.name} channels?`,
-            answer: `Yes. This tool gives ${niche.name} creators a niche-specific starting point for ${niche.examples[0]} and related topics. Review the output before publishing.`
-        }
+            answer: `Yes. This free tool gives ${niche.name} creators a niche-specific starting point for topics like ${niche.examples[0]} and ${niche.examples[1] || niche.examples[0]}. Always review drafts before publishing.`,
+        },
+        ...(tool.faqs || []).slice(0, 3),
     ];
 
     const breadcrumbSchema = getBreadcrumbSchema([
@@ -218,15 +222,21 @@ export default async function ProgrammaticToolPage({
                     {/* Main Column */}
                     <div className="lg:col-span-2 space-y-12">
                         {/* Header Section */}
-                        <div className="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/30 rounded-2xl overflow-hidden">
+                        <div className="bg-purple-50 border border-purple-100 rounded-2xl overflow-hidden">
                             <div className="py-8 px-4 sm:px-6 text-center">
-                                <span className="inline-block px-3 py-1 rounded-full bg-red-100 text-red-600 text-sm font-medium mb-4">
-                                    Specialized Tool for {niche.name}
+                                <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-4">
+                                    Free {niche.name} tool
                                 </span>
-                                <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                                <h1
+                                    className="text-3xl font-extrabold text-gray-900 sm:text-4xl"
+                                    data-speakable
+                                >
                                     {nicheContent.title}
                                 </h1>
-                                <p className="mt-4 text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                                <p
+                                    className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto summary"
+                                    data-speakable
+                                >
                                     {nicheContent.description}
                                 </p>
                             </div>
@@ -238,38 +248,86 @@ export default async function ProgrammaticToolPage({
 
                         <HorizontalAd />
 
-                        {/* Niche Specific Content */}
+                        {/* Niche-specific unique content (primary for long-tail SEO) */}
                         <div className="space-y-8">
                             {nicheContent.content.map((section, idx) => (
-                                <div key={idx} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
-                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                                <div
+                                    key={idx}
+                                    className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+                                >
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                         {section.title}
                                     </h2>
-                                    <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300">
-                                        <p>{section.content}</p>
-                                    </div>
+                                    <p className="text-gray-600 leading-relaxed text-lg">
+                                        {section.content}
+                                    </p>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Generic Tool Content (Reused) */}
-                        {tool.content && (
-                            <div className="space-y-8 opacity-90">
-                                {tool.content.map((section, idx) => (
-                                    <div key={`generic-${idx}`} className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-8">
-                                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                                            {section.title}
-                                        </h2>
-                                        <p className="text-gray-600 dark:text-gray-400">{section.content}</p>
-                                    </div>
-                                ))}
+                        {/* FAQ for AEO */}
+                        {combinedFaqs.length > 0 && (
+                            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                                    {niche.name} FAQ
+                                </h2>
+                                <div className="space-y-6">
+                                    {combinedFaqs.slice(0, 6).map((faq, i) => (
+                                        <div key={i}>
+                                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                                {faq.question}
+                                            </h3>
+                                            <p className="text-gray-600 leading-relaxed">
+                                                {faq.answer}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         )}
+
+                        {/* Related niches internal links */}
+                        <div className="bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                            <h2 className="text-xl font-bold text-gray-900 mb-4">
+                                More niches for {tool.name}
+                            </h2>
+                            <div className="flex flex-wrap gap-2">
+                                {niches
+                                    .filter((n) => n.id !== niche.id)
+                                    .slice(0, 12)
+                                    .map((n) => (
+                                        <Link
+                                            key={n.id}
+                                            href={`/tools/${tool.slug}/${n.id}`}
+                                            className="px-3 py-1.5 text-sm rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700"
+                                        >
+                                            {n.name}
+                                        </Link>
+                                    ))}
+                                <Link
+                                    href={`/tools/${tool.slug}`}
+                                    className="px-3 py-1.5 text-sm rounded-lg bg-purple-600 text-white hover:bg-purple-700"
+                                >
+                                    All-purpose tool
+                                </Link>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Sidebar Column */}
                     <div className="max-lg:hidden lg:col-span-1 pt-10">
-                        <BlogSidebar />
+                        <BlogSidebar
+                            relatedTools={getRelatedToolsForPost(
+                                {
+                                    title: `${tool.name} ${niche.name}`,
+                                    keywords: niche.keywords,
+                                    category: niche.name,
+                                    slug: tool.slug,
+                                },
+                                5,
+                            )}
+                            popularTools={getPriorityTools(6)}
+                        />
                     </div>
                 </div>
             </div>

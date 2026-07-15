@@ -9,29 +9,29 @@ import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
 
 export const metadata: Metadata = {
-  title: "27+ Free YouTube Creator Tools | SEO, Thumbnails & Earnings",
+  title: "27+ Free YouTube Tools | Thumbnail, SEO, Tags & Earnings",
   description:
-    "Free YouTube creator tools: CPM calculators, revenue estimators, AI thumbnail generators, SEO optimizers, and planning utilities.",
+    "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, earnings calculator, channel audit, hashtag generator, and more. No signup.",
   keywords: [
-    "youtube creator tools",
     "free youtube tools",
-    "youtube monetization suite",
-    "youtube cpm calculator",
-    "youtube revenue estimator",
-    "youtube automation tools",
-    "ai content creator suite",
-    "youtube seo tools",
-    "best youtube growth tools",
+    "youtube thumbnail downloader",
+    "youtube tag generator",
+    "youtube title generator",
+    "youtube earnings calculator",
+    "youtube seo tools free",
+    "tubebuddy alternative free",
+    "vidiq alternative free",
+    "youtube channel audit",
   ],
   openGraph: {
-    title: "All YouTube Tools | Growth, SEO & Creator Utilities",
+    title: "27+ Free YouTube Tools | YouTube Tools Hub",
     description:
-      "27+ free tools to help creators plan videos, write metadata, make thumbnails, and estimate earnings.",
+      "Free tools for thumbnails, SEO metadata, earnings estimates, and channel growth. No signup required.",
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
   alternates: {
-    canonical: "/tools",
+    canonical: `${siteConfig.url}/tools`,
   },
 };
 
@@ -93,13 +93,20 @@ export default function ToolsPage() {
             <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-lg shadow-purple-500/20">
               Creator Tool Suite
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 tracking-tight font-outfit">
-              All YouTube Tools
+            <h1
+              className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
+              data-speakable
+            >
+              Free YouTube Tools — SEO, Thumbnails &amp; Earnings Calculators
             </h1>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
-              Tools to improve your creator workflow, optimize for search,
-              and estimate monetization. From thumbnail utilities to SEO
-              helpers, core features are free for creators.
+            <p
+              className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit summary"
+              data-speakable
+            >
+              {tools.length}+ free online tools for YouTube creators: download HD
+              thumbnails, generate titles and tags, calculate CPM earnings by
+              country, audit channels, and plan content — no signup or extension
+              required.
             </p>
           </div>
 

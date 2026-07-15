@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /scratch
+
+# local temp / agent scratch
+.tmp_content_review/
+.indexnow-last-run
+

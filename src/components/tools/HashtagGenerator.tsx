@@ -38,8 +38,13 @@ export default function HashtagGenerator() {
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
+    const [error, setError] = useState("");
+
     const handleGenerate = async () => {
-        if (!topic.trim()) return;
+        if (!topic.trim()) {
+            setError("Please enter a video topic");
+            return;
+        }
 
         if (!checkLimit("youtube-hashtag-generator")) {
             return;
@@ -47,6 +52,7 @@ export default function HashtagGenerator() {
 
         setLoading(true);
         setSaved(false);
+        setError("");
         try {
             const response = await fetch("/api/generate", {
                 method: "POST",
@@ -60,8 +66,8 @@ export default function HashtagGenerator() {
 
             const data = await response.json();
 
-            if (data.error) {
-                console.error("Generation error:", data.error);
+            if (!response.ok || data.error) {
+                setError(data.error || "Failed to generate hashtags. Please try again.");
                 return;
             }
 
@@ -81,8 +87,9 @@ export default function HashtagGenerator() {
             } catch (error) {
                 console.error("Failed to save to cloud history:", error);
             }
-        } catch (error) {
-            console.error("Generation error:", error);
+        } catch (err) {
+            console.error("Generation error:", err);
+            setError("Failed to generate hashtags. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -198,6 +205,11 @@ export default function HashtagGenerator() {
                         <FaHashtag className="mr-2" />
                         Generate Strategy
                     </Button>
+                    {error && (
+                        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                            {error}
+                        </p>
+                    )}
 
                     <HorizontalAd />
                 </div>

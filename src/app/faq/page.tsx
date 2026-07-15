@@ -37,8 +37,7 @@ export const metadata: Metadata = {
     "youtube earnings calculator faq",
   ],
   alternates: {
-    canonical: "/faq",
-    
+    canonical: `${siteConfig.url}/faq`,
   },
   openGraph: {
     title: "FAQ - YouTube Tools Hub",
@@ -116,9 +115,30 @@ const faqData = [
   {
     question: "Can I use these tools for my agency?",
     answer:
-      "Yes. Agencies are invited to use our tools for client research. We allow unlimited exports and reports so you can provide data-driven growth plans to your creators without extra costs.",
+      "Yes. Agencies can use the tools for client research, metadata drafting, and earnings planning. Review outputs before publishing on behalf of clients.",
     category: "Commercial",
     icon: <FaQuestionCircle className="text-purple-500" />,
+  },
+  {
+    question: "What is a free TubeBuddy or VidIQ alternative?",
+    answer:
+      "YouTube Tools Hub is a free browser-based alternative for common creator tasks: tag generation, title ideas, thumbnail download, channel audit, and earnings estimates — without installing a browser extension.",
+    category: "Overview",
+    icon: <FaTools className="text-pink-500" />,
+  },
+  {
+    question: "How do I download a YouTube thumbnail in HD?",
+    answer:
+      "Open the free YouTube Thumbnail Downloader, paste any video or Shorts URL, and download available public thumbnail sizes (including max resolution when YouTube provides it). No account required.",
+    category: "Features",
+    icon: <FaRocket className="text-rose-500" />,
+  },
+  {
+    question: "How much does YouTube pay per 1,000 views?",
+    answer:
+      "YouTube creator revenue is usually measured as RPM (revenue per 1,000 views). Typical ranges are about $0.25–$12+ depending on country, niche, and seasonality. Use the free Earnings Calculator for country-level estimates, then verify in YouTube Studio.",
+    category: "Monetization",
+    icon: <FaChartLine className="text-green-500" />,
   },
 ];
 
@@ -159,11 +179,11 @@ export default function FAQPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
-              Common{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
-                Questions
-              </span>
+            <h1
+              className="text-4xl md:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter"
+              data-speakable
+            >
+              YouTube Tools FAQ — Free Creator Tools, SEO &amp; Earnings
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
               Everything you need to know about mastering the algorithm with our

@@ -5,7 +5,7 @@ import NextImage from "next/image";
 import Link from "next/link";
 
 import ShareButtons from "@/components/ui/ShareButtons";
-import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates } from "@/lib/seo";
@@ -14,10 +14,15 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import InArticleAd from "@/components/ads/InArticleAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import {
+    getRelatedToolsForPost,
+    getPriorityTools,
+    isMonetizationPost,
+} from "@/lib/related-tools";
+import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 // Generate static params
 export function generateStaticParams() {
@@ -107,7 +112,10 @@ export default async function BlogPostPage({
         notFound();
     }
 
-    const relatedPosts = getRelatedPosts(slug, 2);
+    const relatedPosts = getRelatedPosts(slug, 4);
+    const relatedTools = getRelatedToolsForPost(post, 4);
+    const priorityTools = getPriorityTools(6);
+    const showEarningsCta = isMonetizationPost(post);
 
     const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();
 
@@ -279,6 +287,14 @@ export default async function BlogPostPage({
                             {/* Ad: Before article content */}
                             <HorizontalAd />
 
+                            {/* Money posts: calculator CTA above the fold for SEO + conversion */}
+                            {showEarningsCta && (
+                                <EarningsCalculatorCTA
+                                    variant="card"
+                                    contextLabel="Related free tool for this guide"
+                                />
+                            )}
+
                             <article itemScope itemType="https://schema.org/Article">
                                 {/* Article Content */}
                                 <div
@@ -295,8 +311,18 @@ export default async function BlogPostPage({
                                 prose-pre:bg-slate-900 prose-pre:rounded-xl
                                 prose-img:rounded-xl prose-img:shadow-md"
                                 >
-                                    {processContent(post.content)}
+                                    {processContent(post.content, {
+                                        // Mid-article touch after first major section
+                                        injectEarningsCtaAfterH2: showEarningsCta
+                                            ? 1
+                                            : 0,
+                                    })}
                                 </div>
+
+                                {/* End money CTA — final conversion touch */}
+                                {showEarningsCta && (
+                                    <EarningsCalculatorCTA variant="banner" />
+                                )}
 
                                 {/* Tags */}
                                 {post.keywords && post.keywords.length > 0 && (
@@ -333,6 +359,33 @@ export default async function BlogPostPage({
                                     </div>
                                 )}
 
+                                {/* Related free tools CTA — strong internal links for SEO */}
+                                {relatedTools.length > 0 && (
+                                    <div className="mt-12 p-6 md:p-8 rounded-2xl border border-purple-100 bg-gradient-to-br from-purple-50 to-white">
+                                        <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                            <FaTools className="text-purple-600" />
+                                            Free tools for this topic
+                                        </h2>
+                                        <p className="text-slate-600 mb-6">
+                                            Apply what you just read with free creator tools — no signup required.
+                                        </p>
+                                        <div className="grid sm:grid-cols-2 gap-3">
+                                            {relatedTools.map((tool) => (
+                                                <Link
+                                                    key={tool.slug}
+                                                    href={`/tools/${tool.slug}`}
+                                                    className="group flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 hover:border-purple-400 hover:shadow-md transition-all"
+                                                >
+                                                    <span className="font-semibold text-slate-800 group-hover:text-purple-700 text-sm md:text-base">
+                                                        {tool.name}
+                                                    </span>
+                                                    <FaArrowRight className="text-purple-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 {/* Share */}
                                 <div className="mt-12 pt-8 border-t border-slate-200">
                                     <ShareButtons
@@ -347,9 +400,6 @@ export default async function BlogPostPage({
                             <div className="my-12">
                                 <NewsletterSignup />
                             </div>
-
-                            {/* Ad: After article content — high viewability, user just finished reading */}
-                            <InArticleAd />
 
                             {/* Related Posts */}
                             <div className="mt-16">
@@ -368,6 +418,9 @@ export default async function BlogPostPage({
                                                         <h3 className="text-lg font-bold text-slate-900 mt-3 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
                                                             {relatedPost.title}
                                                         </h3>
+                                                        <p className="text-sm text-slate-500 line-clamp-2">
+                                                            {relatedPost.excerpt}
+                                                        </p>
                                                     </article>
                                                 </Link>
                                             ))}
@@ -378,18 +431,20 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Sidebar Column */}
-                        <BlogSidebar />
+                        <BlogSidebar
+                            relatedTools={relatedTools}
+                            popularTools={priorityTools}
+                        />
 
                     </div>
                 </div>
 
-
-                {/* Multiplex Ad: Content discovery before CTA */}
+                {/* Multiplex only once, below fold — reduced ad weight for CWV */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
                     <MultiplexAd />
                 </div>
 
-                {/* CTA */}
+                {/* CTA with specific high-intent tools */}
                 <section className="py-20 bg-slate-50">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="bg-white rounded-[2.5rem] p-8 md:p-12 text-center border border-slate-200 shadow-2xl shadow-purple-900/5 relative overflow-hidden">
@@ -399,15 +454,25 @@ export default async function BlogPostPage({
                                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                                     Ready to Level Up Your Channel?
                                 </h2>
-                                <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto">
-                                    Put these tips into action with our free YouTube tools. Generate better titles,
-                                    plan your content, and grow your audience.
+                                <p className="text-lg text-slate-600 mb-8 max-w-xl mx-auto">
+                                    Put these tips into action with free YouTube tools — titles, tags, thumbnails, and earnings estimates.
                                 </p>
+                                <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-6">
+                                    {(relatedTools.length > 0 ? relatedTools : priorityTools).slice(0, 3).map((tool) => (
+                                        <Link
+                                            key={tool.slug}
+                                            href={`/tools/${tool.slug}`}
+                                            className="inline-flex items-center gap-2 px-5 py-3 bg-purple-50 text-purple-800 rounded-xl font-semibold hover:bg-purple-100 transition-colors text-sm"
+                                        >
+                                            {tool.name.replace(/^YouTube\s+/i, "")}
+                                        </Link>
+                                    ))}
+                                </div>
                                 <Link
                                     href="/tools"
                                     className="inline-flex items-center gap-2 px-10 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-1"
                                 >
-                                    Explore Tools
+                                    Explore All Free Tools
                                     <FaArrowRight />
                                 </Link>
                             </div>

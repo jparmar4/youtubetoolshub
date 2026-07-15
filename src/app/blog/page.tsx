@@ -13,21 +13,21 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
 
 export const metadata: Metadata = {
-  title: "YouTube Strategy Blog 2026 – AI Growth & ROI Insights",
+  title: "YouTube Blog 2026: SEO, Monetization & Growth Guides",
   description:
-    "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
+    "Free YouTube creator guides: SEO checklists, CPM/RPM explained, Shorts monetization, thumbnail psychology, algorithm tips, and AI tools for channel growth in 2026.",
   keywords: [
     "youtube monetization tips 2026",
-    "ai youtube strategy",
-    "youtube roi optimization",
-    "semantic seo for youtube",
-    "youtube thumbnail psychology",
-    "creator economy insights 2026",
-    "youtube channel growth secrets",
+    "youtube seo guide",
+    "youtube cpm rates",
+    "youtube algorithm 2026",
+    "how to grow youtube channel",
+    "youtube shorts monetization",
+    "ai tools for youtube creators",
+    "youtube thumbnail tips",
   ],
   alternates: {
-    canonical: "/blog",
-    
+    canonical: `${siteConfig.url}/blog`,
   },
   robots: {
     index: true,
@@ -70,11 +70,14 @@ export default function BlogPage() {
     "lawyer-youtube-marketing",
     "youtube-tax-guide-creators-usa-2026",
   ]);
+  // Cap initial HTML payload for Core Web Vitals — full archive still linked in sitemap/RSS
+  const POSTS_ON_INDEX = 24;
   const blogPosts = getAllBlogPosts().filter(
     (post) => !pausedGrowthSlugs.has(post.slug),
   );
   const featuredPost = blogPosts[0];
-  const otherPosts = blogPosts.slice(1);
+  const otherPosts = blogPosts.slice(1, POSTS_ON_INDEX);
+  const remainingCount = Math.max(0, blogPosts.length - POSTS_ON_INDEX);
 
   const collectionSchema = getCollectionPageSchema({
     name: "YouTube Strategy Blog 2026",
@@ -141,16 +144,23 @@ export default function BlogPage() {
                 <FaBookOpen className="w-3 h-3" />
                 Creator Intelligence 2026
               </span>
-              <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
-                The{" "}
+              <h1
+                className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter font-outfit"
+                data-speakable
+              >
+                YouTube{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
-                  Strategy
+                  Growth Blog
                 </span>{" "}
-                Ledger
+                — SEO, Monetization &amp; AI Tools
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-                No fluff. No generic advice. Just hard data and AI-native
-                strategies designed to maximize your YouTube ROI in 2026.
+              <p
+                className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary"
+                data-speakable
+              >
+                Practical guides on YouTube SEO, CPM/RPM earnings, Shorts
+                monetization, thumbnail strategy, and free AI tools — written for
+                creators who want clear steps, not fluff.
               </p>
             </div>
           </div>
@@ -266,6 +276,20 @@ export default function BlogPage() {
                 </Fragment>
               ))}
             </div>
+            {remainingCount > 0 && (
+              <p className="mt-12 text-center text-slate-400 text-sm">
+                Showing {POSTS_ON_INDEX} of {blogPosts.length} guides. Browse by
+                topic via internal links, the{" "}
+                <Link href="/feed.xml" className="text-purple-400 underline">
+                  RSS feed
+                </Link>
+                , or search{" "}
+                <Link href="/search" className="text-purple-400 underline">
+                  all articles
+                </Link>
+                .
+              </p>
+            )}
           </div>
         </section>
 

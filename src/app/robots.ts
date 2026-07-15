@@ -795,7 +795,12 @@ export default function robots(): MetadataRoute.Robots {
     ],
 
     // ─── Sitemaps ───
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: [
+      `${baseUrl}/sitemap.xml`,
+      `${baseUrl}/sitemap-index.xml`,
+      `${baseUrl}/sitemap-images.xml`,
+      `${baseUrl}/sitemap-news.xml`,
+    ],
 
     // ─── Host directive (canonical domain) ───
     host: baseUrl,

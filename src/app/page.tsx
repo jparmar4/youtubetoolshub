@@ -24,25 +24,33 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
   title:
-    "YouTube Tools Hub - 27+ Free YouTube Tools for Creators | Earnings Calculator & Thumbnails",
+    "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
   description:
-    "Grow your YouTube channel with 27+ free creator tools. Generate thumbnail ideas, calculate CPM earnings, extract competitor tags, and optimize SEO with no signup required.",
+    "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
   keywords: [
-    "youtube tools free 2026",
+    "free youtube tools",
+    "youtube thumbnail downloader",
+    "youtube tag generator",
+    "youtube title generator",
     "youtube earnings calculator",
-    "youtube thumbnail generator ai",
-    "youtube monetization calculator",
-    "youtube cpm calculator by country",
+    "youtube cpm calculator",
     "free youtube seo tools",
-    "youtube revenue estimator",
-    "ai tools for youtube creators",
-    "youtube tag generator free",
-    "youtube growth tools",
+    "tubebuddy alternative free",
+    "vidiq alternative free",
+    "youtube channel audit free",
   ],
   alternates: getGlobalAlternates("/"),
+  openGraph: {
+    title: "Free YouTube Tools for Creators | YouTube Tools Hub",
+    description:
+      "27+ free tools: thumbnail downloader, tag generator, earnings calculator, and more. No signup required.",
+    url: siteConfig.url,
+    type: "website",
+  },
 };
 
 const homeFAQs = [
@@ -277,18 +285,29 @@ export default function Home() {
               <FaBrain className="text-pink-500 animate-glow-pulse" />
               Practical tools for YouTube creators
             </span>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-slate-900 mb-8 tracking-tighter font-outfit leading-[0.9]">
-              Scale Your{" "}
+            <h1
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit leading-[1.05]"
+              data-speakable
+            >
+              Free{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-600 to-pink-600">
-                YouTube
+                YouTube Tools
               </span>{" "}
-              <br />
-              <span className="italic">Exponentially.</span>
+              for Creators — Thumbnails, SEO &amp; Earnings
             </h1>
-            <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-              A practical suite of{" "}
-              <strong>27+ free creator tools</strong> is now yours.
-              From click-through prediction to revenue ROI, completely free.
+            <p
+              className="text-lg md:text-xl text-slate-600 mb-6 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
+              data-speakable
+            >
+              YouTube Tools Hub is a free suite of{" "}
+              <strong>27+ creator tools</strong>: HD thumbnail downloader, AI
+              title &amp; tag generators, earnings calculator with country CPM
+              data, channel audit, and more. No signup required.
+            </p>
+            <p className="text-base md:text-lg text-slate-500 mb-12 max-w-2xl mx-auto">
+              Plan videos faster, optimize metadata for search, and estimate
+              revenue by country — a practical free alternative to TubeBuddy and
+              VidIQ.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -350,6 +369,23 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Money formula + calculator CTA (high-CPC intent) */}
+      <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit tracking-tight mb-3">
+              How much does{" "}
+              <span className="text-emerald-600">YouTube pay</span>?
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto" data-speakable>
+              Estimated AdSense earnings ≈ (monthly views ÷ 1,000) × RPM. Example:
+              100,000 views at $5 RPM ≈ $500/month. Free calculator — no signup.
+            </p>
+          </div>
+          <EarningsCalculatorCTA variant="card" contextLabel="Free · Instant · 50+ countries" />
         </div>
       </section>
 

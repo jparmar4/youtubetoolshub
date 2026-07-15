@@ -151,3 +151,84 @@ setInterval(() => {
     http.get(KEEP_ALIVE_URL, (r) => r.resume()).on('error', () => {});
   } catch {}
 }, 5 * 60 * 1000);
+
+// ─── Optional: IndexNow only after successful health (host deploy) ───
+// Enable on Hostinger with AUTO_INDEXNOW=1 in environment.
+// Uses a lock file so restarts within INDEXNOW_MIN_HOURS do not re-submit.
+function maybeRunIndexNowOnBoot() {
+  if (process.env.AUTO_INDEXNOW !== '1' && process.env.AUTO_INDEXNOW !== 'true') {
+    return;
+  }
+
+  const minHours = Number(process.env.INDEXNOW_MIN_HOURS || 20);
+  const lockPath = path.join(__dirname, '.indexnow-last-run');
+  const fullSitemap =
+    process.env.AUTO_INDEXNOW_FULL === '1' ||
+    process.env.AUTO_INDEXNOW_FULL === 'true';
+
+  try {
+    if (fs.existsSync(lockPath)) {
+      const last = Number(fs.readFileSync(lockPath, 'utf8').trim());
+      if (last && Date.now() - last < minHours * 60 * 60 * 1000) {
+        console.log(
+          `[server] AUTO_INDEXNOW skipped (last run < ${minHours}h ago)`,
+        );
+        return;
+      }
+    }
+  } catch {
+    // ignore lock read errors
+  }
+
+  const maxAttempts = Number(process.env.INDEXNOW_BOOT_RETRIES || 12);
+  const delayMs = Number(process.env.INDEXNOW_BOOT_DELAY_MS || 5000);
+  let attempt = 0;
+
+  const tryHealthThenIndex = () => {
+    attempt += 1;
+    http
+      .get(KEEP_ALIVE_URL, (res) => {
+        res.resume();
+        if (res.statusCode === 200) {
+          console.log(
+            `[server] Health OK — running post-deploy IndexNow (attempt ${attempt})`,
+          );
+          const { spawn } = require('child_process');
+          const script = path.join(__dirname, 'scripts', 'post-deploy.mjs');
+          const args = fullSitemap
+            ? [script, '--full', '--skip-check']
+            : [script, '--skip-check'];
+          const child = spawn(process.execPath, args, {
+            cwd: __dirname,
+            env: process.env,
+            stdio: 'inherit',
+            detached: true,
+          });
+          child.unref();
+          try {
+            fs.writeFileSync(lockPath, String(Date.now()), 'utf8');
+          } catch (e) {
+            console.warn('[server] Could not write IndexNow lock:', e.message);
+          }
+          return;
+        }
+        scheduleRetry();
+      })
+      .on('error', scheduleRetry);
+  };
+
+  const scheduleRetry = () => {
+    if (attempt >= maxAttempts) {
+      console.warn(
+        `[server] AUTO_INDEXNOW aborted: health never OK after ${maxAttempts} tries`,
+      );
+      return;
+    }
+    setTimeout(tryHealthThenIndex, delayMs);
+  };
+
+  // First attempt after short settle so standalone can finish boot
+  setTimeout(tryHealthThenIndex, delayMs);
+}
+
+maybeRunIndexNowOnBoot();

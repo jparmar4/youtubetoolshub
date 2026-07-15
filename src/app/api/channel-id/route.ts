@@ -36,17 +36,27 @@ export async function POST(req: Request) {
         // But for exact channel ID lookup, channels endpoint is better.
         // Let's stick to search for flexibility, as it handles handles well.
 
-        // If it's a full URL, try to extract the useful part
+        // Resolve channel ID / handle / custom URL into the best API call
         try {
-            if (query.includes('youtube.com/')) {
-                const urlObj = new URL(query);
-                const pathSegments = urlObj.pathname.split('/').filter(Boolean);
-                if (pathSegments[0] === 'channel') {
-                    // specific channel ID
-                    apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart}&id=${pathSegments[1]}&key=${apiKey}`;
-                } else if (pathSegments[0] === 'c' || pathSegments[0] === 'user' || pathSegments[0].startsWith('@')) {
-                    // handle or custom url -> use search
-                    apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(query)}&type=${searchType}&key=${apiKey}`;
+            const normalized = query.trim();
+            // Bare @handle
+            if (/^@[\w.-]+$/.test(normalized)) {
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&forHandle=${encodeURIComponent(normalized)}&key=${apiKey}`;
+            } else if (/^UC[\w-]{20,}$/.test(normalized)) {
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&id=${encodeURIComponent(normalized)}&key=${apiKey}`;
+            } else if (normalized.includes("youtube.com") || normalized.includes("youtu.be")) {
+                const withProtocol = /^https?:\/\//i.test(normalized)
+                    ? normalized
+                    : `https://${normalized}`;
+                const urlObj = new URL(withProtocol);
+                const pathSegments = urlObj.pathname.split("/").filter(Boolean);
+                if (pathSegments[0] === "channel" && pathSegments[1]) {
+                    apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&id=${encodeURIComponent(pathSegments[1])}&key=${apiKey}`;
+                } else if (pathSegments[0]?.startsWith("@")) {
+                    apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&forHandle=${encodeURIComponent(pathSegments[0])}&key=${apiKey}`;
+                } else if (pathSegments[0] === "c" || pathSegments[0] === "user") {
+                    const q = pathSegments[1] || normalized;
+                    apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(q)}&type=${searchType}&key=${apiKey}`;
                 }
             }
         } catch {

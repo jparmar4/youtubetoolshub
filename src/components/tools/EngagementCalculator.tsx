@@ -17,14 +17,21 @@ export default function EngagementCalculator() {
     const [shares, setShares] = useState("");
     const [result, setResult] = useState<{ rate: number; rating: string } | null>(null);
 
+    const [error, setError] = useState("");
+
     const handleCalculate = () => {
         const viewsNum = parseFloat(views.replace(/,/g, "")) || 0;
         const likesNum = parseFloat(likes.replace(/,/g, "")) || 0;
         const commentsNum = parseFloat(comments.replace(/,/g, "")) || 0;
         const sharesNum = parseFloat(shares.replace(/,/g, "")) || 0;
 
-        if (viewsNum === 0) return;
+        if (viewsNum <= 0) {
+            setError("Enter total views greater than zero");
+            setResult(null);
+            return;
+        }
 
+        setError("");
         const engagement = calculateEngagementRate(viewsNum, likesNum, commentsNum, sharesNum);
         setResult(engagement);
 
@@ -52,7 +59,7 @@ export default function EngagementCalculator() {
             case "Average":
                 return "text-yellow-600 bg-yellow-50";
             case "Needs Improvement":
-                return "text-emerald-600 bg-red-50";
+                return "text-red-600 bg-red-50";
             default:
                 return "text-slate-500 bg-slate-50";
         }
@@ -101,6 +108,11 @@ export default function EngagementCalculator() {
                     <FaChartBar className="mr-2" />
                     Calculate Engagement
                 </Button>
+                {error && (
+                    <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                        {error}
+                    </p>
+                )}
 
                 <HorizontalAd />
 

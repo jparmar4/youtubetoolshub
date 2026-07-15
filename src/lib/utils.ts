@@ -4,18 +4,64 @@
 
 /**
  * Extract video ID from a YouTube URL
+ * Supports: watch, youtu.be, embed, /v/, Shorts, live, music.youtube, bare 11-char IDs
  */
 export function extractVideoId(url: string): string | null {
+    if (!url || typeof url !== "string") return null;
+
+    const trimmed = url.trim();
+
+    // Bare video ID
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+        return trimmed;
+    }
+
+    try {
+        // Normalize protocol-relative and bare domains
+        const withProtocol = /^https?:\/\//i.test(trimmed)
+            ? trimmed
+            : trimmed.startsWith("//")
+              ? `https:${trimmed}`
+              : `https://${trimmed.replace(/^(www\.)?/i, "www.")}`;
+
+        const parsed = new URL(withProtocol);
+        const host = parsed.hostname.replace(/^www\./i, "").toLowerCase();
+
+        const isYouTubeHost =
+            host === "youtube.com" ||
+            host === "m.youtube.com" ||
+            host === "music.youtube.com" ||
+            host === "youtube-nocookie.com" ||
+            host === "youtu.be";
+
+        if (!isYouTubeHost) {
+            // Fall through to regex for unusual formats
+        } else if (host === "youtu.be") {
+            const id = parsed.pathname.split("/").filter(Boolean)[0];
+            if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) return id;
+        } else {
+            const v = parsed.searchParams.get("v");
+            if (v && /^[a-zA-Z0-9_-]{11}$/.test(v)) return v;
+
+            // /shorts/ID, /embed/ID, /v/ID, /live/ID, /watch/ID
+            const pathMatch = parsed.pathname.match(
+                /\/(?:shorts|embed|v|live|watch)\/([a-zA-Z0-9_-]{11})/,
+            );
+            if (pathMatch) return pathMatch[1];
+        }
+    } catch {
+        // continue to regex fallback
+    }
+
     const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([a-zA-Z0-9_-]{11})/,
-        /^([a-zA-Z0-9_-]{11})$/
+        /(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|v\/|shorts\/|live\/)|youtu\.be\/|music\.youtube\.com\/watch\?(?:[^#]*&)?v=)([a-zA-Z0-9_-]{11})/i,
+        /[?&]v=([a-zA-Z0-9_-]{11})/,
+        /^([a-zA-Z0-9_-]{11})$/,
     ];
 
     for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match) {
-            return match[1];
-        }
+        const match = trimmed.match(pattern);
+        if (match?.[1]) return match[1];
     }
 
     return null;
@@ -178,7 +224,9 @@ export function safeJSONParse<T>(json: string, fallback: T): T {
  * e.g., PT1H2M10S -> 3730
  */
 export function parseDuration(duration: string): number {
-    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if (!duration || typeof duration !== "string") return 0;
+    // ISO 8601: PT1H2M3S, PT45S, PT1M, etc.
+    const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/i);
     if (!match) return 0;
 
     const hours = match[1] ? parseInt(match[1], 10) : 0;

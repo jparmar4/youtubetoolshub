@@ -3,6 +3,7 @@ import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
 import InArticleAd from "@/components/ads/InArticleAd";
+import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 // AEO Components
 import QuickAnswer from "@/components/blog/aeo/QuickAnswer";
@@ -21,23 +22,37 @@ tools.forEach((tool) => {
     keywordMap[tool.name.toLowerCase()] = `/tools/${tool.slug}`;
 });
 
-// Manual keywords based on common terms
+// Manual keywords based on common terms (longer phrases first via sort at link time)
 const manualKeywords: Record<string, string> = {
     "thumbnail downloader": "/tools/youtube-thumbnail-downloader",
+    "youtube thumbnail downloader": "/tools/youtube-thumbnail-downloader",
+    "hd thumbnail": "/tools/youtube-thumbnail-downloader",
     "thumbnail text generator": "/tools/youtube-thumbnail-generator",
     "ai thumbnail generator": "/tools/youtube-ai-thumbnail-generator",
+    "ai thumbnail prompt": "/tools/youtube-ai-thumbnail-prompt",
     "thumbnail generator": "/tools/youtube-thumbnail-generator",
     "title generator": "/tools/youtube-title-generator",
+    "youtube title generator": "/tools/youtube-title-generator",
     "description generator": "/tools/youtube-description-generator",
+    "youtube description generator": "/tools/youtube-description-generator",
     "tag generator": "/tools/youtube-tag-generator",
+    "youtube tag generator": "/tools/youtube-tag-generator",
+    "video ideas generator": "/tools/youtube-video-ideas-generator",
     "video ideas": "/tools/youtube-video-ideas-generator",
     "trend helper": "/tools/youtube-trend-helper",
+    "content calendar generator": "/tools/youtube-content-calendar-generator",
     "content calendar": "/tools/youtube-content-calendar-generator",
     "earnings calculator": "/tools/youtube-earnings-calculator",
+    "youtube earnings calculator": "/tools/youtube-earnings-calculator",
+    "cpm calculator": "/tools/youtube-earnings-calculator",
+    "revenue calculator": "/tools/youtube-earnings-calculator",
     "channel name generator": "/tools/youtube-channel-name-generator",
     "hashtag generator": "/tools/youtube-hashtag-generator",
+    "youtube hashtag generator": "/tools/youtube-hashtag-generator",
+    "intro script generator": "/tools/youtube-intro-script-generator",
     "intro script": "/tools/youtube-intro-script-generator",
     "tag extractor": "/tools/youtube-tag-extractor",
+    "youtube tag extractor": "/tools/youtube-tag-extractor",
     "engagement calculator": "/tools/youtube-engagement-rate-calculator",
     "engagement rate calculator": "/tools/youtube-engagement-rate-calculator",
     "title a/b tester": "/tools/youtube-title-ab-tester",
@@ -46,9 +61,17 @@ const manualKeywords: Record<string, string> = {
     "playlist length calculator": "/tools/youtube-playlist-length-calculator",
     "comment picker": "/tools/youtube-comment-picker",
     "channel audit": "/tools/youtube-channel-audit",
+    "youtube channel audit": "/tools/youtube-channel-audit",
+    "shorts script": "/tools/youtube-shorts-script-planner",
+    "banner maker": "/tools/youtube-banner-logo-maker",
+    "tubebuddy alternative": "/tools/vs/tubebuddy",
+    "vidiq alternative": "/tools/vs/vidiq",
     "youtube tools": "/tools",
     "creator tools": "/tools",
     "free youtube tools": "/tools",
+    "youtube cpm rates": "/resources/youtube-cpm-rates",
+    "youtube algorithm": "/resources/youtube-algorithm-guide",
+    "youtube monetization": "/resources/youtube-monetization-guide",
 };
 
 Object.assign(keywordMap, manualKeywords);
@@ -56,9 +79,19 @@ Object.assign(keywordMap, manualKeywords);
 type AlertType = 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION' | 'QUOTE';
 type AeoType = 'QUICK_ANSWER' | 'KEY_TAKEAWAYS' | 'PROS_CONS' | 'EXPERT_QUOTE';
 
-export function processContent(content: string): React.ReactNode[] {
+export type ProcessContentOptions = {
+    /** Inject Earnings Calculator banner after the Nth H2 (monetization posts) */
+    injectEarningsCtaAfterH2?: number;
+};
+
+export function processContent(
+    content: string,
+    options: ProcessContentOptions = {},
+): React.ReactNode[] {
     const lines = content.split('\n');
     const elements: React.ReactNode[] = [];
+    const earningsAfterH2 = options.injectEarningsCtaAfterH2 ?? 0;
+    let earningsCtaInserted = false;
 
     // State for standard lists
     let listItems: string[] = [];
@@ -75,7 +108,8 @@ export function processContent(content: string): React.ReactNode[] {
     let paragraphCount = 0;
     let adCount = 0;
     let h2Count = 0;
-    const MAX_ADS = 5;
+    // Cap in-article ads for Core Web Vitals / main-thread budget
+    const MAX_ADS = 2;
 
     const flushList = (key: string) => {
         if (listItems.length > 0) {
@@ -539,7 +573,19 @@ export function processContent(content: string): React.ReactNode[] {
             );
             // Insert ad after every 2nd H2, with global cap
             h2Count++;
-            if (h2Count % 2 === 0 && adCount < MAX_ADS) {
+            if (
+                earningsAfterH2 > 0 &&
+                !earningsCtaInserted &&
+                h2Count === earningsAfterH2
+            ) {
+                elements.push(
+                    <EarningsCalculatorCTA
+                        key={`earnings-cta-h2-${index}`}
+                        variant="banner"
+                    />,
+                );
+                earningsCtaInserted = true;
+            } else if (h2Count % 2 === 0 && adCount < MAX_ADS) {
                 elements.push(<InArticleAd key={`ad-h2-${index}`} />);
                 adCount++;
             }

@@ -37,7 +37,8 @@ export const viewport = {
 
 export const metadata = {
   title: {
-    default: "YouTube Tools Hub - 27+ Free YouTube Tools for Creators | Earnings Calculator & Thumbnails",
+    default:
+      "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,
@@ -89,14 +90,8 @@ export const metadata = {
         alt: `${siteConfig.name} - Free AI YouTube Tools`,
       },
     ],
-    creator: "@youtubetools",
-    site: "@youtubetools",
-    siteId: "youtubetoolshub",
-    appId: "youtubetoolshub",
-  },
-  // Facebook specific meta
-  facebook: {
-    appId: "youtubetoolshub",
+    creator: "@ytoolshub",
+    site: "@ytoolshub",
   },
   // Additional social signals
   appLinks: {
@@ -284,14 +279,14 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense — loaded via Next.js Script for proper optimisation */}
+        {/* AdSense — lazyOnload so it does not compete with LCP/first paint */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
         />
-        {/* Microsoft Clarity - lazyOnload: analytics-only, not revenue-critical */}
+        {/* Microsoft Clarity - analytics only */}
         <Script id="clarity-script" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){

@@ -1054,85 +1054,86 @@ export const tools: Tool[] = [
     {
         slug: "youtube-earnings-calculator",
         name: "YouTube Earnings Calculator",
-        seoTitle: "YouTube Earnings Calculator - Estimate Revenue by Views & RPM",
-        seoDescription: "Calculate your YouTube earnings based on daily views and RPM. Estimate monthly and yearly AdSense revenue. Includes niche CPM benchmarks. Free, instant results!",
-        description: "Estimate possible YouTube earnings based on views and RPM assumptions. Calculate monthly and yearly revenue ranges for planning.",
-        shortDescription: "Calculate your potential earnings",
+        seoTitle: "YouTube Earnings Calculator 2026 — Free RPM, CPM & AdSense Estimator",
+        seoDescription: "Free YouTube earnings calculator: estimate AdSense revenue from views and RPM, compare CPM by country, and plan channel income for 2026. Instant results, no signup.",
+        description: "Estimate YouTube AdSense revenue from monthly views and RPM. Compare country CPM ranges, model high-intent niches, and plan monthly/yearly creator income.",
+        shortDescription: "Estimate AdSense revenue by views & RPM",
         category: "analytics-earnings",
         icon: FaDollarSign,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube earnings calculator", "how much does youtube pay", "youtube money calculator", "adsense calculator", "estimated youtube revenue", "youtube revenue per view", "cpm by niche 2026"],
+        keywords: [
+            "youtube earnings calculator",
+            "youtube money calculator",
+            "youtube rpm calculator",
+            "youtube cpm calculator",
+            "how much does youtube pay per 1000 views",
+            "youtube adsense calculator",
+            "youtube revenue calculator 2026",
+            "how much youtube pays per view",
+            "youtube monetization calculator",
+            "cpm by niche 2026",
+        ],
         definitionBlock: {
-            title: "What is YouTube Earnings Calculator?",
-            text: "YouTube Earnings Calculator is a free online estimator that projects your potential YouTube AdSense revenue and brand sponsorship values. By inputting your average video views and selecting your content niche, you can instantly estimate your monthly and yearly income based on real-time CPM rates."
-        },
-        rating: {
-            ratingValue: "4.9",
-            ratingCount: "3250",
-            bestRating: "5",
-            worstRating: "1"
+            title: "What is a YouTube Earnings Calculator?",
+            text: "A YouTube earnings calculator estimates AdSense income using the formula (views ÷ 1,000) × RPM. YouTube Tools Hub’s free calculator helps creators plan monthly and yearly revenue ranges using RPM assumptions and country/niche context — not as a guaranteed payout."
         },
         content: [
             {
-                title: "Calculate Your Potential YouTube Income",
-                content: "Curious how much money you can make on YouTube? Our Earnings Calculator uses your daily views and estimated RPM (Revenue Per Mille) to project your monthly and yearly income. In 2026, diversification is key, but AdSense remains the foundation of a creator's business."
+                title: "Calculate your potential YouTube income",
+                content: "Enter monthly views and an RPM estimate to project AdSense revenue. Use your real RPM from YouTube Studio when available, or start with $2–$4 globally and $6–$12 for strong US audiences."
             },
             {
-                title: "Understanding RPM vs. CPM",
-                content: "CPM (Cost Per Mille) is what advertisers pay for 1,000 impressions. RPM (Revenue Per Mille) is what *you* take home after YouTube's 45% cut and accounting for non-monetized views. Our calculator focuses on RPM because that's the number that actually hits your bank account."
+                title: "Understanding RPM vs CPM",
+                content: "CPM is what advertisers pay per 1,000 ad impressions. RPM is what you earn per 1,000 video views after YouTube’s share and non-monetized views. This calculator uses RPM because it maps closer to creator payouts."
             },
             {
-                title: "Niche-Based Revenue Benchmarks",
-                content: "Not all views are created equal. A 'Finance' or 'Real Estate' view can be worth 10x more than a 'Comedy' or 'Gaming' view. We provide built-in benchmarks for the top 10 niches to help you estimate your earnings more accurately based on your specific content area."
+                title: "Niche and geography matter",
+                content: "Finance and software views can pay far more than gaming or comedy. Views from the US, UK, Canada, and Australia usually earn more than Tier 3 markets. Browse country-specific calculator pages for localized planning."
             },
             {
-                title: "The Impact of Viewer Geography",
-                content: "Views from Tier 1 countries (USA, UK, Canada) pay significantly higher than global averages. Our tool allows you to adjust your RPM expectations based on where your audience is primarily located, giving you a realistic financial forecast."
-            },
-            {
-                title: "Beyond AdSense: Estimating Total Channel Value",
-                content: "While this tool calculates ad revenue, remember that AdSense usually only makes up 30-50% of a top creator's income. Use these numbers as a baseline to plan your sponsorships, affiliate marketing, and digital product launches."
+                title: "Beyond AdSense",
+                content: "Ad revenue is only one stream. Use these estimates as a baseline, then layer sponsorships, affiliates, memberships, and digital products for total channel value."
             }
         ],
         howTo: {
-            name: "How to Estimate Your Channel's Revenue",
-            description: "Go from 'Views' to 'Dollars' in 3 simple steps.",
+            name: "How to estimate YouTube earnings",
+            description: "Go from views to a planning revenue range in about a minute.",
             steps: [
-                { name: "Enter Your Daily Views", text: "Check your YouTube Studio for your average views over the last 30 days and enter them here." },
-                { name: "Select Your Niche/RPM", text: "Select your niche from the dropdown or manually adjust the RPM slider to match your current performance." },
-                { name: "Analyze Projections", text: "Review your Daily, Monthly, and Yearly estimates. Use these to set your next channel growth and investment goals." }
+                { name: "Enter monthly views", text: "Pull average monthly views from YouTube Studio or enter a planning target." },
+                { name: "Set RPM", text: "Use your Analytics RPM or a realistic range for your audience country and niche." },
+                { name: "Review projections", text: "Check monthly and yearly estimates, then validate with Studio and AdSense." }
             ],
-            totalTime: "PT1M"
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "How much does YouTube pay for 1 million views in 2026?",
-                answer: "On average, 1 million views yields between $2,000 and $5,000 for general entertainment, but can reach $20,000+ for high-RPM niches like Finance or Tech."
+                answer: "Roughly $2,000–$5,000 at $2–$5 RPM for general content, and $8,000–$15,000+ when RPM is $8–$15 in strong Tier 1 + high-intent niches. Always verify in Studio."
             },
             {
                 question: "What is the average RPM on YouTube?",
-                answer: "The platform-wide average RPM is approximately $2.00 to $4.00, though this varies wildly by niche and viewer location."
+                answer: "Many creators see about $2–$4 RPM overall, with wide variance by country and niche."
             },
             {
                 question: "Does YouTube pay for every view?",
-                answer: "No. You only get paid when a viewer sees an ad. Many views are 'Non-Monetized' due to ad-blockers or if the viewer skips the ad too quickly."
+                answer: "No. You earn when ads are shown and monetized. Ad blockers, invalid traffic filters, and skipped ads reduce effective RPM."
             },
             {
                 question: "How can I increase my RPM?",
-                answer: "To increase RPM, make longer videos (8min+ for mid-rolls), target a higher-paying audience (USA/UK), and focus on topics with high advertiser intent (e.g., product reviews)."
+                answer: "Attract more Tier 1 viewers, publish 8+ minute videos for mid-rolls, cover higher-intent topics, and improve retention so more ads complete."
             },
             {
                 question: "Do YouTube Shorts pay as much as long-form?",
-                answer: "No. Shorts use a different revenue-sharing model (the Shorts Fund/Ad Pool) which typically results in much lower RPMs, often around $0.05 to $0.15 per 1,000 views."
+                answer: "Usually no. Shorts typically earn much less per 1,000 views than long-form videos with mid-roll ads."
             },
             {
                 question: "When do I get my first paycheck from YouTube?",
-                answer: "You must first reach 1,000 subscribers and 4,000 watch hours (or 10M Shorts views) to be eligible for monetization. Google pays out once you cross the $100 threshold."
+                answer: "After YPP eligibility (e.g. 1,000 subs + 4,000 watch hours or Shorts path) and after you cross AdSense’s payout threshold (commonly $100)."
             },
             {
-                question: "Does the length of a video affect earnings?",
-                answer: "Yes. Videos over 8 minutes allow for 'Mid-roll' ads, which can effectively double your RPM compared to shorter videos."
+                question: "Does video length affect earnings?",
+                answer: "Yes. Videos over 8 minutes can include mid-roll ads, which often increases total ad impressions and effective earnings."
             },
             {
                 question: "Is AdSense revenue taxed?",

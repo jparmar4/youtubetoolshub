@@ -52,10 +52,8 @@ export default function HorizontalAd() {
           }
         },
         {
-          // Start loading 800px before the ad enters the viewport
-          // This gives the ad network plenty of time to fetch and render the creative
-          // before the user actually sees the placement, increasing impressions.
-          rootMargin: "800px 0px",
+          // Prefetch modestly before view — large rootMargin competes with LCP/TBT
+          rootMargin: "250px 0px",
           threshold: 0,
         },
       );

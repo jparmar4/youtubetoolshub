@@ -18,6 +18,8 @@ const popularTools = [
     name: "Description Generator",
     href: "/tools/youtube-description-generator",
   },
+  { name: "Hashtag Generator", href: "/tools/youtube-hashtag-generator" },
+  { name: "vs TubeBuddy (Free)", href: "/tools/vs/tubebuddy" },
 ];
 
 export default function Footer() {

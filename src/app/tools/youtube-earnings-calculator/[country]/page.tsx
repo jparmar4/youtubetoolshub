@@ -55,7 +55,7 @@ export async function generateMetadata({
             ],
         },
         alternates: {
-            canonical: `/tools/youtube-earnings-calculator/${country}`,
+            canonical: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
         },
         robots: {
             index: true,
@@ -130,11 +130,20 @@ export default async function CountryEarningsPage({
                                     <span className="text-xl">{countryData.flag}</span>
                                     {countryData.name} Edition (2026 Updated)
                                 </div>
-                                <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight">
-                                    YouTube Money Calculator <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">{countryData.name}</span>
+                                <h1
+                                    className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight"
+                                    data-speakable
+                                >
+                                    YouTube Earnings Calculator{" "}
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">
+                                        {countryData.name}
+                                    </span>{" "}
+                                    — CPM &amp; RPM 2026
                                 </h1>
-                                <p className="text-xl text-slate-600">
-                                    Calculate your potential YouTube income based on real {countryData.name} CPM rates ({countryData.currency}).
+                                <p className="text-xl text-slate-600 summary" data-speakable>
+                                    Estimate YouTube income for creators in {countryData.name} using
+                                    updated CPM/RPM ranges ({countryData.currency}). Free planning tool —
+                                    verify results in YouTube Studio.
                                 </p>
                             </div>
 

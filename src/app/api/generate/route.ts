@@ -26,15 +26,55 @@ export async function POST(request: Request) {
         }
 
         const body = JSON.parse(rawBody);
-        const { tool, ...params } = body;
+        const { tool: rawTool, ...params } = body;
+
+        // Normalize legacy / alternate client tool names
+        const toolAliases: Record<string, string> = {
+            "content-calendar": "calendar-generator",
+            "content-calendar-generator": "calendar-generator",
+            "calendar": "calendar-generator",
+            "youtube-content-calendar-generator": "calendar-generator",
+            "thumbnail-generator": "thumbnail-text",
+            "thumbnail-ideas": "thumbnail-text",
+            "intro-generator": "intro-script",
+            "intro-script-generator": "intro-script",
+            "video-ideas-generator": "video-ideas",
+            "channel-name-generator": "channel-name",
+            "sponsorship": "sponsorship-estimator",
+            "earnings-sponsorship": "sponsorship-estimator",
+        };
+        const tool =
+            typeof rawTool === "string"
+                ? toolAliases[rawTool] || rawTool
+                : "";
+
+        // Flexible field aliases used by different client components
+        const topic =
+            params.topic || params.niche || params.videoTopic || params.query || "";
+        const niche = params.niche || params.topic || "";
+        const days =
+            Number(params.days || params.duration || params.dayCount) || 30;
+
+        if (!tool) {
+            return NextResponse.json(
+                { error: "Tool type is required" },
+                { status: 400 },
+            );
+        }
 
         let prompt: string;
 
         // Build prompt based on tool type
         switch (tool) {
             case "title-generator":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.titleGenerator(
-                    params.topic,
+                    topic,
                     params.tone || "Normal",
                     params.language || "English",
                     params.targetAudience,
@@ -43,8 +83,14 @@ export async function POST(request: Request) {
                 break;
 
             case "description-generator":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.descriptionGenerator(
-                    params.topic,
+                    topic,
                     params.videoType || "Tutorial",
                     params.tone || "Casual & Friendly",
                     params.keywords || ""
@@ -52,16 +98,28 @@ export async function POST(request: Request) {
                 break;
 
             case "tag-generator":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.tagGenerator(
-                    params.topic,
-                    params.niche,
+                    topic,
+                    niche || params.niche,
                     params.targetAudience
                 );
                 break;
 
             case "video-ideas":
+                if (!niche) {
+                    return NextResponse.json(
+                        { error: "Niche is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.videoIdeasGenerator(
-                    params.niche,
+                    niche,
                     params.level || "Beginner",
                     params.channelSize,
                     params.contentGoal
@@ -69,42 +127,78 @@ export async function POST(request: Request) {
                 break;
 
             case "trend-helper":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic or niche is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.trendHelper(
-                    params.topic,
+                    topic,
                     params.region || "Global"
                 );
                 break;
 
             case "calendar-generator":
+                if (!niche && !topic) {
+                    return NextResponse.json(
+                        { error: "Niche is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.calendarGenerator(
-                    params.niche,
+                    niche || topic,
                     params.frequency || "Weekly",
-                    params.days || 30
+                    days
                 );
                 break;
 
             case "thumbnail-text":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.thumbnailTextGenerator(
-                    params.topic,
+                    topic,
                     params.style || "Bold & Colorful",
                     params.emotion || "Excited"
                 );
                 break;
 
             case "channel-name":
+                if (!niche && !topic) {
+                    return NextResponse.json(
+                        { error: "Niche is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.channelNameGenerator(
-                    params.niche,
+                    niche || topic,
                     params.tone || "Fun"
                 );
                 break;
 
             case "hashtag-generator":
-                prompt = prompts.hashtagGenerator(params.topic, params.niche);
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
+                prompt = prompts.hashtagGenerator(topic, niche || params.niche);
                 break;
 
             case "intro-script":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Topic is required" },
+                        { status: 400 },
+                    );
+                }
                 prompt = prompts.introScriptGenerator(
-                    params.topic,
+                    topic,
                     params.personality || "Fun",
                     params.length || "10-15 sec",
                     params.structure || "Standard Hook"
@@ -121,8 +215,8 @@ export async function POST(request: Request) {
 
             case "thumbnail-prompt":
                 prompt = prompts.thumbnailPromptGenerator(
-                    params.videoTopic,
-                    params.niche,
+                    params.videoTopic || topic,
+                    niche || params.niche,
                     params.subject,
                     params.mood,
                     params.colorScheme,
@@ -132,7 +226,7 @@ export async function POST(request: Request) {
 
             case "sponsorship-estimator":
                 prompt = prompts.sponsorshipEstimator(
-                    params.niche,
+                    niche || params.niche || topic,
                     params.subscribers,
                     params.dealViews
                 );
@@ -140,7 +234,7 @@ export async function POST(request: Request) {
 
             default:
                 return NextResponse.json(
-                    { error: "Unknown tool type" },
+                    { error: `Unknown tool type: ${tool}` },
                     { status: 400 }
                 );
         }

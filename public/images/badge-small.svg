@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0 0 150 50" role="img" aria-label="YouTube Tools Hub">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7e22ce"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="150" height="50" rx="8" fill="url(#g)"/>
+  <text x="75" y="22" text-anchor="middle" fill="#fff" font-family="system-ui,Segoe UI,sans-serif" font-size="11" font-weight="700">YouTube Tools Hub</text>
+  <text x="75" y="38" text-anchor="middle" fill="#f3e8ff" font-family="system-ui,Segoe UI,sans-serif" font-size="9">27+ Free Creator Tools</text>
+</svg>

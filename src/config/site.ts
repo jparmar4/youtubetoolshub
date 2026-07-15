@@ -94,6 +94,9 @@ export const siteConfig = {
         href: "/resources/youtube-monetization-guide",
       },
       { name: "YouTube CPM Rates 2026", href: "/resources/youtube-cpm-rates" },
+      { name: "Creator Statistics", href: "/resources/youtube-creator-statistics" },
+      { name: "YouTube SEO Blog", href: "/blog" },
+      { name: "FAQ", href: "/faq" },
     ],
   },
 
@@ -101,9 +104,9 @@ export const siteConfig = {
   seo: {
     titleTemplate: "%s | YouTube Tools Hub - Free AI Tools 2026",
     defaultTitle:
-      "YouTube Tools Hub - 27+ Free YouTube Tools for Creators | Earnings Calculator & Thumbnails",
+      "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
     defaultDescription:
-      "Grow your YouTube channel with 27+ free creator tools: thumbnail generator, earnings calculator, SEO optimizer, tag extractor, channel audit, and more. No signup required.",
+      "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",

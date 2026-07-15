@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 const MotionWrapper = dynamic(() => import("@/components/ui/MotionWrapper"), { ssr: false });
 import ToolHistory from "./ToolHistory";
 import { useToolContext } from "./ToolContext";
-import { getToolBySlug } from "@/config/tools";
 
 interface ToolPageLayoutProps {
     title: string;
@@ -29,14 +28,14 @@ export default function ToolPageLayout({
     // Generate slug from title if not provided
     const toolSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     const { hideHeader } = useToolContext();
-    const tool = getToolBySlug(toolSlug);
-    const definitionBlock = tool?.definitionBlock;
+    // Definition blocks / long-form SEO copy live on the parent tool page
+    // so crawlers only see one definition + key-facts block per URL.
 
     return (
         <>
             <div className="w-full">
                 <div className="max-w-6xl mx-auto">
-                    {/* Header */}
+                    {/* Header — use H1 only when parent page does not supply one */}
                     {!hideHeader && (
                         <div className="text-center mb-10 animate-fade-in-up">
                             <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -44,18 +43,6 @@ export default function ToolPageLayout({
                             </h1>
                             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                                 {description}
-                            </p>
-                        </div>
-                    )}
-
-                    {/* Definition Block for Featured Snippets / AI Overviews */}
-                    {!hideHeader && definitionBlock && (
-                        <div className="max-w-2xl mx-auto text-left glass-premium p-6 rounded-2xl border-l-4 border-purple-500 bg-purple-50/20 dark:bg-purple-950/10 mb-10 animate-fade-in-up">
-                            <h2 className="text-xl font-bold text-purple-700 dark:text-purple-400 mb-3">
-                                {definitionBlock.title}
-                            </h2>
-                            <p className="text-slate-700 dark:text-slate-300 text-base leading-relaxed">
-                                {definitionBlock.text}
                             </p>
                         </div>
                     )}

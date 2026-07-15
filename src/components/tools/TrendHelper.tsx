@@ -101,7 +101,10 @@ export default function TrendHelper() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     tool: "trend-helper",
+                    // API prompt uses `topic`; accept niche as the topic seed
+                    topic: niche,
                     niche,
+                    region: "Global",
                 }),
                 signal: controller.signal,
             });

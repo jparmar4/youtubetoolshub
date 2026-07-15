@@ -32,32 +32,42 @@ export default function ContentCalendarGenerator() {
     const [days, setDays] = useState("30");
     const [calendar, setCalendar] = useState<CalendarEntry[]>([]);
     const [loading, setLoading] = useState(false);
-
+    const [error, setError] = useState("");
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
     const handleGenerate = async () => {
-        if (!niche.trim()) return;
+        if (!niche.trim()) {
+            setError("Please enter your niche or channel topic");
+            return;
+        }
 
-        if (!checkLimit("youtube-content-calendar")) {
+        if (!checkLimit("youtube-content-calendar-generator")) {
             return;
         }
 
         setLoading(true);
         setCalendar([]);
+        setError("");
 
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 45000);
+            const dayCount = parseInt(days, 10) || 30;
 
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    tool: "content-calendar",
-                    topic: niche,
-                    frequency: frequencyOptions.find(f => f.value === frequency)?.label,
-                    duration: parseInt(days) || 30,
+                    // API expects calendar-generator (aliases also accepted server-side)
+                    tool: "calendar-generator",
+                    niche: niche.trim(),
+                    topic: niche.trim(),
+                    frequency:
+                        frequencyOptions.find((f) => f.value === frequency)
+                            ?.label || "Weekly",
+                    days: dayCount,
+                    duration: dayCount,
                 }),
                 signal: controller.signal,
             });
@@ -65,8 +75,8 @@ export default function ContentCalendarGenerator() {
             clearTimeout(timeoutId);
             const data = await response.json();
 
-            if (data.error) {
-                console.error("API Error:", data.error);
+            if (!response.ok || data.error) {
+                setError(data.error || "Failed to generate calendar. Please try again.");
                 return;
             }
 
@@ -74,6 +84,12 @@ export default function ContentCalendarGenerator() {
 
             let resultStr = data.result || "";
             resultStr = resultStr.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+
+            // Prefer first JSON array/object if the model wrapped it in prose
+            const arrayMatch = resultStr.match(/\[[\s\S]*\]/);
+            const objectMatch = resultStr.match(/\{[\s\S]*\}/);
+            if (arrayMatch) resultStr = arrayMatch[0];
+            else if (objectMatch) resultStr = objectMatch[0];
 
             try {
                 const parsed = JSON.parse(resultStr);
@@ -100,9 +116,17 @@ export default function ContentCalendarGenerator() {
 
             } catch (e) {
                 console.error("Parsing error", e);
+                setError(
+                    "Could not parse the calendar response. Please try generating again.",
+                );
             }
-        } catch (error) {
-            console.error("Generation error:", error);
+        } catch (err) {
+            console.error("Generation error:", err);
+            setError(
+                err instanceof Error && err.name === "AbortError"
+                    ? "Request timed out. Please try again."
+                    : "Failed to generate calendar. Please try again.",
+            );
         } finally {
             setLoading(false);
         }
@@ -159,6 +183,12 @@ export default function ContentCalendarGenerator() {
                     <FaCalendarAlt className="mr-2" />
                     Generate Calendar
                 </Button>
+
+                {error && (
+                    <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                        {error}
+                    </p>
+                )}
 
                 <HorizontalAd />
 

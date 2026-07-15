@@ -6,7 +6,17 @@
     "dev": "next dev",
     "build": "next build && node scripts/copy-standalone.js",
     "start": "node server.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
+    "seo:indexnow:priority": "node scripts/submit-indexnow.mjs --priority",
+    "seo:check": "node scripts/check-seo.mjs",
+    "seo:tracker": "node scripts/create-outreach-tracker.mjs",
+    "deploy:check": "node scripts/deploy-checklist.mjs",
+    "deploy:check:post": "node scripts/deploy-checklist.mjs --post",
+    "deploy:post": "node scripts/post-deploy.mjs --full",
+    "deploy:post:priority": "node scripts/post-deploy.mjs",
+    "deploy:post:api": "node scripts/post-deploy.mjs --via-api --full",
+    "deploy:post:skip-check": "node scripts/post-deploy.mjs --full --skip-check"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.7.3",

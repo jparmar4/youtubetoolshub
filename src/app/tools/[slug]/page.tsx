@@ -14,6 +14,12 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import { getAllBlogPosts } from "@/config/blog";
+import {
+    getPriorityTools,
+    getRelatedBlogHintsForTool,
+    getRelatedToolsForPost,
+} from "@/lib/related-tools";
 
 
 // Import all tool components
@@ -76,11 +82,13 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-niche-finder-quiz": NicheFinderQuiz,
 };
 
-// Generate static params for all tools
+// Generate static params for all tools (dedicated routes own their own pages)
 export function generateStaticParams() {
-    return tools.map((tool) => ({
-        slug: tool.slug,
-    }));
+    return tools
+        .filter((tool) => tool.slug !== "youtube-earnings-calculator")
+        .map((tool) => ({
+            slug: tool.slug,
+        }));
 }
 
 // Generate metadata for each tool page
@@ -172,6 +180,26 @@ export default async function ToolPage({
         relatedTools = [...relatedTools, ...extraTools];
     }
     relatedTools = relatedTools.slice(0, 5);
+
+    const relatedGuides = getRelatedBlogHintsForTool(
+        tool,
+        getAllBlogPosts().map((p) => ({
+            slug: p.slug,
+            title: p.title,
+            category: p.category,
+            keywords: p.keywords,
+        })),
+        4,
+    );
+    const sidebarTools = getRelatedToolsForPost(
+        {
+            title: tool.name,
+            keywords: tool.keywords,
+            category: tool.category,
+            slug: tool.slug,
+        },
+        5,
+    ).filter((t) => t.slug !== tool.slug);
 
     // Generate JSON-LD Structured Data
     const toolSchema = getSoftwareApplicationSchema({
@@ -324,8 +352,24 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* TL;DR Summary for AI Extraction */}
-                            <div className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500">
+                            {/* AEO definition + TL;DR for featured snippets / AI citations */}
+                            {tool.definitionBlock && (
+                                <div
+                                    className="summary glass-premium rounded-2xl p-6 border-l-4 border-fuchsia-500"
+                                    data-speakable
+                                >
+                                    <h2 className="text-lg font-bold text-fuchsia-600 mb-2">
+                                        {tool.definitionBlock.title}
+                                    </h2>
+                                    <p className="text-slate-700 text-lg leading-relaxed">
+                                        {tool.definitionBlock.text}
+                                    </p>
+                                </div>
+                            )}
+                            <div
+                                className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500"
+                                data-speakable
+                            >
                                 <h2 className="text-lg font-bold text-purple-600 mb-2 flex items-center gap-2">
                                     ⚡ Quick Summary
                                 </h2>
@@ -430,6 +474,37 @@ export default async function ToolPage({
                                 </div>
                             )}
 
+                            {/* Related guides — tool → blog internal links */}
+                            {relatedGuides.length > 0 && (
+                                <div className="glass-premium rounded-2xl p-8 shadow-sm border border-slate-100">
+                                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                                        Related free guides
+                                    </h2>
+                                    <p className="text-slate-600 mb-6">
+                                        Deep-dive articles that pair well with this tool.
+                                    </p>
+                                    <ul className="space-y-3">
+                                        {relatedGuides.map((guide) => (
+                                            <li key={guide.slug}>
+                                                <Link
+                                                    href={`/blog/${guide.slug}`}
+                                                    className="group flex items-start justify-between gap-3 rounded-xl border border-slate-100 bg-white px-4 py-3 hover:border-purple-300 hover:shadow-sm transition-all"
+                                                >
+                                                    <span>
+                                                        <span className="text-xs font-bold uppercase tracking-wide text-purple-600">
+                                                            {guide.category}
+                                                        </span>
+                                                        <span className="block font-semibold text-slate-800 group-hover:text-purple-700">
+                                                            {guide.title}
+                                                        </span>
+                                                    </span>
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
                             {/* Newsletter CTA */}
                             <div className="my-8">
                                 <NewsletterSignup />
@@ -463,7 +538,10 @@ export default async function ToolPage({
 
                         {/* Sidebar Column */}
                         <div className="max-lg:hidden lg:col-span-1 space-y-8 pt-20">
-                            <BlogSidebar />
+                            <BlogSidebar
+                                relatedTools={sidebarTools}
+                                popularTools={getPriorityTools(6)}
+                            />
                         </div>
                     </div>
                     {/* Keep the result workflow useful: one discovery unit at the end only. */}

@@ -7,6 +7,7 @@ import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import { extractVideoId } from "@/lib/utils";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
@@ -65,47 +66,63 @@ export default function TagExtractor() {
         setNoTagsFound(false);
         setIsDemo(false);
 
-        setLoading(true);
-
-        if (!checkLimit("youtube-tag-extractor")) {
-            setLoading(false);
+        const videoId = extractVideoId(url);
+        if (!videoId) {
+            setError(
+                "Please enter a valid YouTube URL (watch, Shorts, youtu.be, or video ID)",
+            );
             return;
         }
+
+        if (!checkLimit("youtube-tag-extractor")) {
+            return;
+        }
+
+        setLoading(true);
 
         try {
             const response = await fetch("/api/extract-tags", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ videoUrl: url }),
+                body: JSON.stringify({ videoUrl: url, videoId }),
             });
 
             const data = await response.json();
 
-            if (data.error) {
-                setError(data.error);
-                if (data.isDemo) setIsDemo(true);
+            if (!response.ok || data.error || data.success === false) {
+                setError(data.error || data.message || "Failed to extract tags");
+                if (data.isDemo || data.demo) setIsDemo(true);
                 return;
             }
 
             increment("youtube-tag-extractor");
 
-            setTags(data.tags || []);
-            setVideoInfo(data.videoInfo || null);
-            setNoTagsFound(data.tags && data.tags.length === 0);
+            const info: VideoInfo | null =
+                data.videoInfo ||
+                (data.videoTitle
+                    ? {
+                          videoTitle: data.videoTitle,
+                          channelTitle: data.channelTitle || "",
+                          publishedAt: data.publishedAt || "",
+                      }
+                    : null);
 
-            // Save to Cloud History
+            setTags(data.tags || []);
+            setVideoInfo(info);
+            setNoTagsFound(!data.tags || data.tags.length === 0);
+
             if (data.tags && data.tags.length > 0) {
                 try {
-                    await saveHistory('youtube-tag-extractor', {
+                    await saveHistory("youtube-tag-extractor", {
                         videoUrl: url,
-                        videoInfo: data.videoInfo,
-                        tags: data.tags
+                        videoId,
+                        videoInfo: info,
+                        tags: data.tags,
                     });
                 } catch (error) {
                     console.error("Failed to save to cloud history:", error);
                 }
             }
-
         } catch (err) {
             console.error("Extraction error:", err);
             setError("Failed to extract tags. Please try again.");

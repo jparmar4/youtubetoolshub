@@ -138,8 +138,8 @@ export default function AboutPage() {
               <FaHeart className="w-3 h-3 text-pink-500 animate-pulse" />
               Empowering the 1% and the 99%
             </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
-              Our Mission for{" "}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+              About YouTube Tools Hub — Free Tools for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600">
                 Creators
               </span>

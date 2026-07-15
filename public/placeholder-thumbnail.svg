@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Thumbnail unavailable">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1033"/>
+      <stop offset="100%" stop-color="#0f0518"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1200" height="640" rx="24" fill="none" stroke="#a855f7" stroke-opacity="0.35" stroke-width="3"/>
+  <circle cx="640" cy="300" r="72" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="3"/>
+  <path d="M610 270 L610 330 L680 300 Z" fill="#e879f9"/>
+  <text x="640" y="420" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,Segoe UI,sans-serif" font-size="36" font-weight="700">Thumbnail unavailable</text>
+  <text x="640" y="470" text-anchor="middle" fill="#94a3b8" font-family="system-ui,Segoe UI,sans-serif" font-size="22">This resolution may not exist for this video</text>
+</svg>

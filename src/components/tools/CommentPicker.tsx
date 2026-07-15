@@ -9,6 +9,7 @@ import Image from "next/image";
 import confetti from "canvas-confetti";
 import { saveHistory } from "@/lib/history";
 import HorizontalAd from "@/components/ads/HorizontalAd";
+import { extractVideoId } from "@/lib/utils";
 
 
 
@@ -304,12 +305,6 @@ export default function CommentPicker() {
             </div>
         </ToolPageLayout>
     );
-}
-
-// Helper to extract video ID (reused but local for safety in rendering link)
-function extractVideoId(url: string) {
-    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([a-zA-Z0-9_-]{11})/);
-    return match ? match[1] : null;
 }
 
 function getSecureRandomIndex(length: number) {

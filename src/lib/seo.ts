@@ -252,7 +252,7 @@ export function getSoftwareApplicationSchema(tool: {
     operatingSystem: "Any", // Required field
     datePublished: tool.datePublished || "2025-01-01",
     // Never claim a new modification date just because the page was rendered.
-    dateModified: tool.dateModified || "2026-07-04",
+    dateModified: tool.dateModified || "2026-07-15",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -751,7 +751,7 @@ export function getDatasetSchema() {
       url: siteConfig.url,
     },
     datePublished: "2025-01-01",
-    dateModified: "2026-07-04",
+    dateModified: "2026-07-15",
     license: `${siteConfig.url}/terms-of-use`,
     distribution: [
       {

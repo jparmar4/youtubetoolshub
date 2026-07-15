@@ -73,9 +73,19 @@ export async function GET(req: NextRequest) {
             extension = "png";
         }
 
-        // Create filename with timestamp
+        // Prefer client-provided filename, fall back to timestamp
+        const requestedName = searchParams.get("filename");
+        const safeName =
+            requestedName &&
+            /^[a-zA-Z0-9._-]{1,120}$/.test(requestedName.replace(/\s+/g, "-"))
+                ? requestedName.replace(/\s+/g, "-")
+                : null;
         const timestamp = Date.now();
-        const filename = `youtube-thumbnail-${timestamp}.${extension}`;
+        const filename = safeName
+            ? safeName.includes(".")
+                ? safeName
+                : `${safeName}.${extension}`
+            : `youtube-thumbnail-${timestamp}.${extension}`;
 
         // Create response with proper headers for browser download
         const headers = new Headers();

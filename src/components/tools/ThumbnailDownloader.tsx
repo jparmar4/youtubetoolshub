@@ -24,7 +24,9 @@ export default function ThumbnailDownloader() {
         const videoId = extractVideoId(url);
 
         if (!videoId) {
-            setError("Please enter a valid YouTube URL");
+            setError(
+                "Please enter a valid YouTube URL (watch, Shorts, youtu.be, or video ID)",
+            );
             setLoading(false);
             return;
         }
@@ -35,13 +37,20 @@ export default function ThumbnailDownloader() {
 
         // Save to Cloud History
         try {
-            saveHistory('youtube-thumbnail-downloader', {
+            saveHistory("youtube-thumbnail-downloader", {
                 url,
                 videoId,
-                thumbnailCount: thumbs.length
+                thumbnailCount: thumbs.length,
             });
         } catch (error) {
             console.error("Failed to save to cloud history:", error);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleFetch();
         }
     };
 
@@ -56,10 +65,11 @@ export default function ThumbnailDownloader() {
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
                         <Input
-                            label="YouTube Video URL"
-                            placeholder="https://www.youtube.com/watch?v=..."
+                            label="YouTube Video or Shorts URL"
+                            placeholder="https://www.youtube.com/watch?v=... or /shorts/..."
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
+                            onKeyDown={handleKeyDown}
                             error={error}
                         />
                     </div>
@@ -70,6 +80,10 @@ export default function ThumbnailDownloader() {
                         </Button>
                     </div>
                 </div>
+                <p className="text-sm text-slate-500">
+                    Supports regular videos, Shorts, youtu.be links, and live replays. Downloads
+                    public thumbnail images YouTube already hosts — no account required.
+                </p>
 
                 {/* Results Section */}
                 {thumbnails && (
@@ -105,10 +119,8 @@ export default function ThumbnailDownloader() {
                                             </p>
                                         </div>
                                         <a
-                                            href={thumb.url}
-                                            download={`thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, '-')}.jpg`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                            href={`/api/download-image?url=${encodeURIComponent(thumb.url)}&filename=${encodeURIComponent(`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`)}`}
+                                            download={`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`}
                                             className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
                                         >
                                             <FaDownload />

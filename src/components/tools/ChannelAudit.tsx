@@ -84,9 +84,11 @@ export default function ChannelAudit() {
         <div className="mx-auto w-full max-w-4xl space-y-8">
             <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
                 <div className="mb-6 text-center">
-                    <h1 className="text-3xl font-bold text-slate-900">YouTube Channel Audit Checklist</h1>
+                    <h1 className="text-3xl font-bold text-slate-900">
+                        Free YouTube Channel Audit Checklist
+                    </h1>
                     <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-                        Review your creator workflow with an honest self-assessment. This tool does not scan YouTube, access private analytics, or generate a hidden algorithm score.
+                        Score your creator workflow with an honest self-assessment. This free channel audit does not scan YouTube, access private analytics, or invent algorithm scores.
                     </p>
                 </div>
 

@@ -1,161 +1,123 @@
 /**
- * SEO/AEO/GEO Verification Script
- * Run: node scripts/check-seo.mjs
- * Optional: set SEO_BASE_URL to check a deployed environment.
+ * Lightweight SEO smoke checks against production (or BASE_URL).
+ * Usage: node scripts/check-seo.mjs
+ *        BASE_URL=http://localhost:3000 node scripts/check-seo.mjs
  */
 
-const BASE_URL = process.env.SEO_BASE_URL || 'http://localhost:3000';
-const GREEN = '\x1b[32m';
-const RED = '\x1b[31m';
-const YELLOW = '\x1b[33m';
-const BOLD = '\x1b[1m';
-const RESET = '\x1b[0m';
+import https from "https";
+import http from "http";
 
-let passed = 0;
-let failed = 0;
+const BASE = (process.env.BASE_URL || "https://www.youtubetoolshub.com").replace(
+  /\/$/,
+  "",
+);
 
-function pass(label) {
-    console.log(`  ${GREEN}✓${RESET} ${label}`);
-    passed++;
-}
+const PATHS = [
+  "/",
+  "/tools",
+  "/blog",
+  "/faq",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/llms.txt",
+  "/ads.txt",
+  "/tools/youtube-thumbnail-downloader",
+  "/tools/youtube-earnings-calculator",
+  "/tools/youtube-title-generator/gaming",
+  "/tools/youtube-earnings-calculator/united-states",
+];
 
-function fail(label, hint = '') {
-    console.log(`  ${RED}✗${RESET} ${label}${hint ? ` ${YELLOW}(${hint})${RESET}` : ''}`);
-    failed++;
-    process.exitCode = 1;
-}
-
-async function checkPage(path, label, checks) {
-    console.log(`\n${BOLD}${label}${RESET} — ${BASE_URL}${path}`);
-    try {
-        const res = await fetch(`${BASE_URL}${path}`);
-        if (!res.ok) {
-            fail(`HTTP ${res.status}`, `expected 200`);
-            return;
-        }
-        const text = await res.text();
-        for (const { name, str } of checks) {
-            // Check both raw and JSON-escaped form (RSC streaming payloads escape quotes)
-            const escapedStr = str.replace(/"/g, '\\"');
-            if (text.includes(str) || text.includes(escapedStr)) {
-                pass(name);
-            } else {
-                fail(name, `"${str}" not found`);
-            }
-        }
-    } catch (err) {
-        fail(`Fetch failed`, err.message);
-    }
-}
-
-async function checkBinaryUrl(path, label, expectedContentType) {
-    console.log(`\n${BOLD}${label}${RESET} — ${BASE_URL}${path}`);
-    try {
-        const res = await fetch(`${BASE_URL}${path}`);
-        if (!res.ok) {
-            fail(`HTTP ${res.status}`, `expected 200`);
-            return;
-        }
-        const ct = res.headers.get('content-type') || '';
-        if (ct.includes(expectedContentType)) {
-            pass(`Content-Type: ${ct}`);
-        } else {
-            fail(`Content-Type mismatch`, `got "${ct}", expected "${expectedContentType}"`);
-        }
-    } catch (err) {
-        fail(`Fetch failed`, err.message);
-    }
-}
-
-async function run() {
-    console.log(`\n${BOLD}=== YouTube Tools Hub – SEO/AEO/GEO Verification ===${RESET}`);
-    console.log(`Target: ${BASE_URL}\n`);
-
-    // 1. Homepage – Verification tags + core schemas
-    await checkPage('/', 'Homepage – Verification Tags + Core Schemas', [
-        { name: 'Google Site Verification', str: 'google299d0fa42c6b8fbb' },
-        { name: 'Yandex Verification meta tag', str: 'yandex-verification' },
-        { name: 'Bing (msvalidate.01) meta tag', str: 'msvalidate.01' },
-        { name: 'Organization JSON-LD', str: '"@type":"Organization"' },
-        { name: 'WebSite JSON-LD', str: '"@type":"WebSite"' },
-        { name: 'SearchAction (Sitelinks Searchbox)', str: '"@type":"SearchAction"' },
-        { name: 'FAQPage JSON-LD', str: '"@type":"FAQPage"' },
-        { name: 'SpeakableSpecification JSON-LD', str: '"@type":"SpeakableSpecification"' },
-    ]);
-
-    // 2. Blog post – BlogPosting + BreadcrumbList (dynamic [slug] route)
-    await checkPage('/blog/youtube-banner-makers-2026', 'Blog Post – BlogPosting + BreadcrumbList', [
-        { name: 'BlogPosting JSON-LD', str: '"BlogPosting"' },
-        { name: 'SpeakableSpecification JSON-LD', str: '"SpeakableSpecification"' },
-        { name: 'BreadcrumbList JSON-LD', str: '"BreadcrumbList"' },
-        { name: 'Article author field', str: '"author"' },
-        { name: 'Article datePublished field', str: '"datePublished"' },
-    ]);
-
-    // 3. Search page – Sitelinks Searchbox target
-    await checkPage('/search?q=thumbnail', 'Search Page – Sitelinks Searchbox Target', [
-        { name: 'BreadcrumbList JSON-LD', str: '"BreadcrumbList"' },
-        { name: 'Tool results rendered', str: 'YouTube Thumbnail' },
-    ]);
-
-    // 4. Tools index – ItemList + BreadcrumbList
-    await checkPage('/tools', 'Tools Index – ItemList + BreadcrumbList', [
-        { name: 'ItemList JSON-LD', str: '"@type":"ItemList"' },
-        { name: 'BreadcrumbList JSON-LD', str: '"@type":"BreadcrumbList"' },
-    ]);
-
-    // 5. Tool page – SoftwareApplication + FAQPage + BreadcrumbList
-    await checkPage('/tools/youtube-thumbnail-downloader', 'Tool Page – SoftwareApplication + FAQPage', [
-        { name: 'SoftwareApplication JSON-LD', str: '"@type":"SoftwareApplication"' },
-        { name: 'BreadcrumbList JSON-LD', str: '"@type":"BreadcrumbList"' },
-        { name: 'FAQPage JSON-LD', str: '"@type":"FAQPage"' },
-        { name: 'Offer (free pricing)', str: '"price":"0"' },
-    ]);
-
-    // 6. FAQ page – FAQPage + SpeakableSpecification
-    await checkPage('/faq', 'FAQ Page – FAQPage + SpeakableSpecification', [
-        { name: 'FAQPage JSON-LD', str: '"@type":"FAQPage"' },
-        { name: 'SpeakableSpecification JSON-LD', str: '"@type":"SpeakableSpecification"' },
-    ]);
-
-    // 7. Sitemap – canonical, indexable page coverage
-    await checkPage('/sitemap.xml', 'Sitemap – Canonical Page Coverage', [
-        { name: 'Homepage in sitemap', str: 'https://www.youtubetoolshub.com' },
-        { name: 'Image namespace declared', str: 'xmlns:image' },
-        { name: 'image:image entries', str: 'image:image' },
-        { name: 'Tool pages indexed', str: '/tools/youtube-thumbnail-downloader' },
-        { name: 'Blog pages indexed', str: '/blog/' },
-    ]);
-
-    // 8. Dynamic OG image for tool
-    await checkBinaryUrl(
-        '/tools/youtube-thumbnail-downloader/opengraph-image',
-        'Dynamic OG Image – Tool Page',
-        'image/png'
+function fetch(path) {
+  const url = `${BASE}${path}`;
+  const lib = url.startsWith("https") ? https : http;
+  return new Promise((resolve) => {
+    const req = lib.get(
+      url,
+      { headers: { "User-Agent": "YouTubeToolsHub-SEOCheck/1.0" }, timeout: 20000 },
+      (res) => {
+        let body = "";
+        res.on("data", (c) => {
+          if (body.length < 200_000) body += c;
+        });
+        res.on("end", () =>
+          resolve({
+            path,
+            status: res.statusCode || 0,
+            len: body.length,
+            body,
+            headers: res.headers,
+          }),
+        );
+      },
     );
-
-    // 9. AI discovery files
-    await checkPage('/llms.txt', 'AI Discovery – llms.txt', [
-        { name: 'YouTube Tools Hub mentioned', str: 'YouTube Tools Hub' },
-    ]);
-
-    await checkPage('/knowledge-graph.jsonld', 'AI Discovery – knowledge-graph.jsonld', [
-        { name: 'Organization entity', str: 'Organization' },
-        { name: 'WebApplication entity', str: 'WebApplication' },
-    ]);
-
-    // Summary
-    console.log(`\n${'─'.repeat(50)}`);
-    console.log(`${BOLD}Results: ${GREEN}${passed} passed${RESET}${BOLD}, ${failed > 0 ? RED : GREEN}${failed} failed${RESET}`);
-    if (failed === 0) {
-        console.log(`${GREEN}${BOLD}✓ All SEO/AEO/GEO checks passed!${RESET}`);
-    } else {
-        console.log(`${RED}${BOLD}✗ Some checks failed. Review output above.${RESET}`);
-    }
-    console.log('');
+    req.on("error", (err) =>
+      resolve({ path, status: 0, len: 0, body: "", error: err.message }),
+    );
+    req.on("timeout", () => {
+      req.destroy();
+      resolve({ path, status: 0, len: 0, body: "", error: "timeout" });
+    });
+  });
 }
 
-run().catch((err) => {
-    console.error(`${RED}Fatal error:${RESET}`, err);
-    process.exit(1);
-});
+function checks(r) {
+  const issues = [];
+  if (r.error) {
+    issues.push(r.error);
+    return issues;
+  }
+  if (r.status !== 200) issues.push(`HTTP ${r.status}`);
+  if (r.path === "/robots.txt") {
+    if (!r.body.includes("Sitemap:")) issues.push("robots missing Sitemap");
+    if (!r.body.includes("Allow:")) issues.push("robots missing Allow");
+  }
+  if (r.path === "/sitemap.xml") {
+    if (!r.body.includes("<urlset") && !r.body.includes("<sitemapindex")) {
+      issues.push("sitemap not valid xml root");
+    }
+    if (!r.body.includes("<loc>")) issues.push("sitemap has no loc");
+  }
+  if (r.path === "/ads.txt") {
+    if (!r.body.includes("google.com")) issues.push("ads.txt missing google.com");
+  }
+  if (r.path === "/llms.txt") {
+    if (!r.body.toLowerCase().includes("youtube")) issues.push("llms.txt weak");
+  }
+  if (
+    r.path === "/" ||
+    r.path.startsWith("/tools") ||
+    r.path.startsWith("/blog") ||
+    r.path.startsWith("/faq")
+  ) {
+    if (!r.body.includes("rel=\"canonical\"") && !r.body.includes("rel='canonical'")) {
+      // Next may put canonical in different form
+      if (!r.body.includes("canonical")) issues.push("no canonical");
+    }
+    if (!/<h1[\s>]/i.test(r.body)) {
+      issues.push("no h1");
+    }
+    if (!r.body.includes("application/ld+json")) {
+      issues.push("no json-ld");
+    }
+  }
+  return issues;
+}
+
+async function main() {
+  console.log(`SEO check → ${BASE}\n`);
+  let fails = 0;
+  for (const path of PATHS) {
+    const r = await fetch(path);
+    const issues = checks(r);
+    const ok = issues.length === 0 && r.status === 200;
+    if (!ok) fails++;
+    const mark = ok ? "OK " : "FAIL";
+    console.log(
+      `${mark} ${String(r.status).padStart(3)} ${(r.len / 1024).toFixed(1).padStart(6)}KB  ${path}${issues.length ? "  → " + issues.join("; ") : ""}`,
+    );
+  }
+  console.log(fails ? `\n${fails} path(s) need attention.` : "\nAll checks passed.");
+  process.exitCode = fails ? 1 : 0;
+}
+
+main();

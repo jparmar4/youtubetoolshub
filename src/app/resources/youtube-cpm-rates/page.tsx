@@ -7,6 +7,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import InArticleAd from "@/components/ads/InArticleAd";
+import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
     title: "YouTube CPM Rates by Country 2026 — Complete Data Table",
@@ -35,7 +36,16 @@ export const metadata: Metadata = {
         description:
             "Complete YouTube CPM and RPM data for 50+ countries. Finance, Tech, Gaming niche breakdowns. Updated for 2026.",
         url: `${siteConfig.url}/resources/youtube-cpm-rates`,
-        images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630 }],
+        // Dynamic image: /resources/youtube-cpm-rates/opengraph-image
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "YouTube CPM Rates by Country 2026",
+        description:
+            "50+ countries. US avg CPM ~$14.50. Free data table + earnings calculator.",
+    },
+    other: {
+        "pinterest:media": `${siteConfig.url}/resources/youtube-cpm-rates/pinterest-image`,
     },
 };
 
@@ -168,8 +178,13 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
                     {countries.map((c, i) => (
                         <tr key={c.code} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                             <td className="px-4 py-3 font-medium text-slate-900">
-                                <span className="mr-2">{c.flag}</span>
-                                {c.name}
+                                <Link
+                                    href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                    className="hover:text-emerald-700 hover:underline"
+                                >
+                                    <span className="mr-2">{c.flag}</span>
+                                    {c.name}
+                                </Link>
                                 <span className="ml-2 text-xs text-slate-400">({c.currency})</span>
                             </td>
                             <td className="px-4 py-3 text-right text-slate-600">${c.cpmRange.min.toFixed(2)}</td>
@@ -249,6 +264,11 @@ export default function YouTubeCPMRatesPage() {
                             ))}
                         </div>
                     </section>
+
+                    <EarningsCalculatorCTA
+                        variant="card"
+                        contextLabel="Turn CPM data into your estimate"
+                    />
 
                     {/* What is CPM section */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">

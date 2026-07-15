@@ -47,52 +47,72 @@ export default function ThumbnailGenerator() {
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
+    const [error, setError] = useState("");
+
     const handleGenerate = async () => {
-        if (!topic.trim()) return;
+        if (!topic.trim()) {
+            setError("Please enter a video topic");
+            return;
+        }
         if (!checkLimit("youtube-thumbnail-generator")) return;
 
         setLoading(true);
+        setError("");
+        setResults([]);
         try {
             const response = await fetch("/api/generate", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    tool: "thumbnail-text", // Updated to match likely API handler
+                    tool: "thumbnail-text",
                     topic,
-                    style,
-                    emotion
+                    style:
+                        styleOptions.find((s) => s.value === style)?.label ||
+                        style,
+                    emotion:
+                        emotionOptions.find((e) => e.value === emotion)?.label ||
+                        emotion,
                 }),
             });
             const data = await response.json();
 
+            if (!response.ok || data.error) {
+                setError(data.error || "Failed to generate thumbnail ideas");
+                return;
+            }
+
             if (data.result) {
-                // Parse result - expecting JSON array
                 let parsed: ThumbnailIdea[] = [];
                 try {
-                    // Clean markdown if present
-                    const cleanJson = data.result.replace(/```json\s*|\s*```/g, '');
+                    let cleanJson = data.result.replace(/```json\s*|\s*```/g, "").trim();
+                    const arrayMatch = cleanJson.match(/\[[\s\S]*\]/);
+                    if (arrayMatch) cleanJson = arrayMatch[0];
                     parsed = JSON.parse(cleanJson);
                 } catch (e) {
                     console.error("Parse error", e);
+                    setError("Could not parse thumbnail ideas. Please try again.");
+                    return;
                 }
 
-                if (Array.isArray(parsed)) {
+                if (Array.isArray(parsed) && parsed.length > 0) {
                     setResults(parsed);
                     increment("youtube-thumbnail-generator");
 
-                    // Auto-save history
                     try {
-                        saveHistory('youtube-thumbnail-generator', {
+                        saveHistory("youtube-thumbnail-generator", {
                             topic,
-                            results: parsed
+                            results: parsed,
                         });
                     } catch (e) {
                         console.error(e);
                     }
+                } else {
+                    setError("No thumbnail ideas returned. Please try again.");
                 }
             }
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
+            setError("Failed to generate thumbnail ideas. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -148,6 +168,11 @@ export default function ThumbnailGenerator() {
                             </Button>
                         </div>
                     </div>
+                    {error && (
+                        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                            {error}
+                        </p>
+                    )}
                 </div>
 
                 <HorizontalAd />

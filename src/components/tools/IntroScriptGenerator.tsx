@@ -88,7 +88,7 @@ export default function IntroScriptGenerator() {
             return;
         }
 
-        if (!checkLimit("youtube-intro-generator")) {
+        if (!checkLimit("youtube-intro-script-generator")) {
             return;
         }
 
