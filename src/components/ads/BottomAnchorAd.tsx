@@ -9,122 +9,121 @@ declare global {
   }
 }
 
+/**
+ * Bottom anchor — only visible after the ad unit actually fills.
+ * Avoids a permanent empty bar when Auto ads / inventory is empty.
+ */
 export default function BottomAnchorAd() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const adInitialized = useRef(false);
-  const [isFilled, setIsFilled] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
-  const [hasFailed, setHasFailed] = useState(false);
+  const pushed = useRef(false);
+  const [filled, setFilled] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (adInitialized.current || isDismissed || hasFailed) return;
+    if (dismissed || failed || pushed.current) return;
 
-    const timer = setTimeout(() => {
+    let cancelled = false;
+    let tries = 0;
+
+    const attempt = () => {
+      if (cancelled || pushed.current) return;
+      tries += 1;
+
+      if (typeof window.adsbygoogle === "undefined") {
+        if (tries < 50) setTimeout(attempt, 200);
+        else setFailed(true);
+        return;
+      }
+
+      const ins = containerRef.current?.querySelector("ins.adsbygoogle");
+      if (!ins) {
+        if (tries < 50) setTimeout(attempt, 200);
+        return;
+      }
+
       try {
-        const container = containerRef.current;
-        const insElement = container?.querySelector("ins.adsbygoogle");
-        if (!insElement) return;
-
-        const status = insElement.getAttribute("data-adsbygoogle-status");
-        if (status === "done" || status === "loaded") {
-          adInitialized.current = true;
-          return;
-        }
-
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        adInitialized.current = true;
+        pushed.current = true;
 
-        const isAdFilled = () => {
-          const iframe = insElement.querySelector("iframe");
-          const height = iframe
-            ? iframe.getBoundingClientRect().height
-            : insElement.getBoundingClientRect().height;
-          return height > 10;
+        const check = () => {
+          const st = ins.getAttribute("data-adsbygoogle-status");
+          const h = ins.getBoundingClientRect().height;
+          const hasIframe = !!ins.querySelector("iframe");
+          if (st === "unfilled") {
+            setFailed(true);
+            return true;
+          }
+          if ((hasIframe || st === "done" || st === "loaded") && h > 10) {
+            setFilled(true);
+            return true;
+          }
+          return false;
         };
 
-        const observer = new MutationObserver(() => {
-          const currentStatus = insElement.getAttribute("data-adsbygoogle-status");
-
-          if (currentStatus === "done" || currentStatus === "loaded") {
-            requestAnimationFrame(() => {
-              if (isAdFilled()) setIsFilled(true);
-            });
-            observer.disconnect();
-          }
-
-          if (currentStatus === "unfilled") {
-            setHasFailed(true);
-            observer.disconnect();
-          }
+        const mo = new MutationObserver(() => {
+          if (check()) mo.disconnect();
         });
-
-        observer.observe(insElement, {
+        mo.observe(ins, {
           attributes: true,
-          attributeFilter: ["data-adsbygoogle-status"],
+          childList: true,
+          subtree: true,
         });
 
-        setTimeout(() => {
-          const finalStatus = insElement.getAttribute("data-adsbygoogle-status");
-          if ((finalStatus === "done" || finalStatus === "loaded") && isAdFilled()) {
-            setIsFilled(true);
-          } else if (!isFilled) {
-            setHasFailed(true);
+        let n = 0;
+        const poll = setInterval(() => {
+          n += 1;
+          if (check() || n >= 16) {
+            clearInterval(poll);
+            mo.disconnect();
+            if (!check()) setFailed(true);
           }
-          observer.disconnect();
-        }, 4000);
-      } catch (err) {
-        console.error("[BottomAnchorAd] Error:", err);
-        setHasFailed(true);
+        }, 500);
+      } catch {
+        setFailed(true);
       }
-    }, 2500);
+    };
 
-    return () => clearTimeout(timer);
-  }, [hasFailed, isDismissed, isFilled]);
+    // Slight delay so Auto ads script can boot first
+    const t = setTimeout(attempt, 1200);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [dismissed, failed]);
 
-  if (isDismissed || hasFailed) return null;
+  if (dismissed || failed) return null;
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 flex flex-col items-center bg-white/95 border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.12)] backdrop-blur transition-all duration-300"
+      className={
+        filled
+          ? "fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center bg-white/95 border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.12)] backdrop-blur"
+          : "fixed left-[-9999px] top-0 w-[320px] h-[50px] overflow-hidden opacity-0 pointer-events-none"
+      }
       role="complementary"
       aria-label="Advertisement"
+      aria-hidden={!filled}
     >
-      <div className="flex w-full max-w-[320px] items-center justify-between px-2 pt-1">
-        <span className="text-[9px] font-medium uppercase tracking-widest text-slate-400 select-none">
-          Advertisement
-        </span>
-        <button
-          onClick={() => setIsDismissed(true)}
-          className="rounded p-1 text-slate-400 transition-colors hover:text-slate-600"
-          aria-label="Close advertisement"
-          title="Close"
-        >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
+      {filled && (
+        <div className="flex w-full max-w-[320px] items-center justify-between px-2 pt-1">
+          <span className="text-[9px] font-medium uppercase tracking-widest text-slate-400 select-none">
+            Advertisement
+          </span>
+          <button
+            type="button"
+            onClick={() => setDismissed(true)}
+            className="rounded p-1 text-slate-400 hover:text-slate-600"
+            aria-label="Close advertisement"
           >
-            <path
-              d="M1 1L11 11M11 1L1 11"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-      </div>
-
+            ×
+          </button>
+        </div>
+      )}
       <div ref={containerRef} className="flex w-full justify-center pb-1">
         <ins
           className="adsbygoogle"
-          style={{
-            display: "inline-block",
-            width: "300px",
-            height: "50px",
-          }}
+          style={{ display: "inline-block", width: "300px", height: "50px" }}
           data-ad-client={AD_CLIENT}
           data-ad-slot={AD_SLOTS.BOTTOM_STICKY}
         />

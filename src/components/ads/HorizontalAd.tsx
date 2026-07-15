@@ -3,227 +3,171 @@
 import { useEffect, useRef, useState, useId } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
-/**
- * HorizontalAd — Full-width responsive display ad for between content sections
- *
- * KEY OPTIMIZATIONS:
- * 1. Lazy loading via IntersectionObserver
- * 2. Proper initialization guard
- * 3. Unique instance ID via useId() to prevent hydration mismatches
- * 4. Minimum height placeholder
- * 5. Graceful error handling
- */
-
 declare global {
   interface Window {
     adsbygoogle: unknown[];
   }
 }
 
+/**
+ * Responsive display unit. Collapses completely if unfilled so Auto ads
+ * can place inventory without empty grey boxes.
+ */
 export default function HorizontalAd() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const adInitialized = useRef(false);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  
+  const pushed = useRef(false);
   const reactId = useId();
-  // Sanitize the ID to be a valid CSS selector and DOM id
-  const [adId] = useState(() => `horizontal-ad-${reactId.replace(/[^a-zA-Z0-9]/g, '')}`);
-  
-  const [adSlotId] = useState(() => {
+  const adId = `horizontal-ad-${reactId.replace(/[^a-zA-Z0-9]/g, "")}`;
+
+  const [slotId] = useState(() => {
     const slots = AD_SLOTS.HORIZONTAL;
-    // Just pick a random slot from the array if it's an array
-    return Array.isArray(slots) ? slots[Math.floor(Math.random() * slots.length)] : slots;
+    return Array.isArray(slots)
+      ? slots[Math.floor(Math.random() * slots.length)]
+      : slots;
   });
-  const [isNearViewport, setIsNearViewport] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [filled, setFilled] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  // ─── Step 1: Observe when the container approaches the viewport ───
+  // Near viewport → mount <ins>
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container || adInitialized.current) return;
+    const el = containerRef.current;
+    if (!el) return;
 
-    if ("IntersectionObserver" in window) {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (entry && entry.isIntersecting) {
-            setIsNearViewport(true);
-            observerRef.current?.disconnect();
-          }
-        },
-        {
-          // Prefetch modestly before view — large rootMargin competes with LCP/TBT
-          rootMargin: "250px 0px",
-          threshold: 0,
-        },
-      );
-
-      observerRef.current.observe(container);
-    } else {
-      // Fallback: if IntersectionObserver isn't available, load immediately
-      const fallbackTimer = setTimeout(() => {
-        setIsNearViewport(true);
-      }, 0);
-
-      return () => {
-        clearTimeout(fallbackTimer);
-      };
+    if (!("IntersectionObserver" in window)) {
+      setReady(true);
+      return;
     }
 
-    return () => {
-      observerRef.current?.disconnect();
-    };
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setReady(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px", threshold: 0 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
-  // ─── Step 2: Initialize the ad once the <ins> element is rendered ───
+  // Push once script + ins exist
   useEffect(() => {
-    if (!isNearViewport || adInitialized.current || hasError) return;
+    if (!ready || pushed.current || failed) return;
 
-    const container = containerRef.current;
-    if (!container) return;
+    let cancelled = false;
+    let tries = 0;
 
-    // Small delay to ensure React has committed the <ins> element to the DOM
-    const timer = setTimeout(() => {
+    const pushWhenReady = () => {
+      if (cancelled || pushed.current) return;
+      tries += 1;
+
+      const ins = containerRef.current?.querySelector("ins.adsbygoogle");
+      if (!ins) {
+        if (tries < 40) setTimeout(pushWhenReady, 150);
+        return;
+      }
+
+      // Wait until AdSense script created the global array
+      if (typeof window.adsbygoogle === "undefined") {
+        if (tries < 40) setTimeout(pushWhenReady, 150);
+        else setFailed(true);
+        return;
+      }
+
+      const status = ins.getAttribute("data-adsbygoogle-status");
+      if (status === "done" || status === "loaded") {
+        pushed.current = true;
+        setFilled(true);
+        return;
+      }
+
       try {
-        const insElement = container.querySelector("ins.adsbygoogle");
-
-        if (!insElement) {
-          console.warn(`[HorizontalAd] No <ins> element found for ${adId}`);
-          return;
-        }
-
-        // Guard: check if AdSense already processed this element
-        const status = insElement.getAttribute("data-adsbygoogle-status");
-        if (status === "done" || status === "loaded") {
-          adInitialized.current = true;
-          return;
-        }
-
-        // Guard: check if the element has layout dimensions
-        const rect = insElement.getBoundingClientRect();
-        if (rect.width === 0) {
-          // Element not laid out yet — retry after the next paint
-          requestAnimationFrame(() => {
-            if (!adInitialized.current) {
-              try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-                adInitialized.current = true;
-              } catch (retryErr) {
-                console.error(
-                  `[HorizontalAd] Retry push failed for ${adId}:`,
-                  retryErr,
-                );
-                setHasError(true);
-              }
-            }
-          });
-          return;
-        }
-
-        // ✅ All checks passed — push the ad
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        adInitialized.current = true;
+        pushed.current = true;
 
-        // Watch for status changes to detect "unfilled" state
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (
-              mutation.type === "attributes" &&
-              mutation.attributeName === "data-adsbygoogle-status"
-            ) {
-              const currentStatus = insElement.getAttribute(
-                "data-adsbygoogle-status",
-              );
-              if (currentStatus === "unfilled") {
-                setHasError(true);
-                observer.disconnect();
-              }
-            }
-          });
-        });
+        const checkFilled = () => {
+          const st = ins.getAttribute("data-adsbygoogle-status");
+          const h = ins.getBoundingClientRect().height;
+          const hasIframe = !!ins.querySelector("iframe");
+          if (st === "unfilled") {
+            setFailed(true);
+            return;
+          }
+          if ((st === "done" || st === "loaded" || hasIframe) && h > 20) {
+            setFilled(true);
+            return;
+          }
+        };
 
-        observer.observe(insElement, {
+        const mo = new MutationObserver(checkFilled);
+        mo.observe(ins, {
           attributes: true,
           attributeFilter: ["data-adsbygoogle-status"],
+          childList: true,
+          subtree: true,
         });
 
-        // Backup timer: if still empty/unfilled after 3s, collapse it
-        // This handles cases where the MutationObserver might miss it or the ad script hangs
-        setTimeout(() => {
-          const status = insElement.getAttribute("data-adsbygoogle-status");
-          const adContent = insElement.innerHTML.trim();
-          if (status === "unfilled" || (status === "done" && adContent === "")) {
-            setHasError(true);
-            observer.disconnect();
+        // Poll a few times — Auto ads + manual units can be slow
+        let n = 0;
+        const poll = setInterval(() => {
+          n += 1;
+          checkFilled();
+          if (n >= 20 || cancelled) {
+            clearInterval(poll);
+            mo.disconnect();
+            if (!filled) {
+              const st = ins.getAttribute("data-adsbygoogle-status");
+              const h = ins.getBoundingClientRect().height;
+              if (st === "unfilled" || h < 20) setFailed(true);
+            }
           }
-        }, 3000);
-
-      } catch (error) {
-        console.error(`[HorizontalAd] AdSense error for ${adId}:`, error);
-        setHasError(true);
+        }, 500);
+      } catch {
+        setFailed(true);
       }
-    }, 150);
+    };
 
-    return () => clearTimeout(timer);
-  }, [isNearViewport, adId, hasError]);
+    const t = setTimeout(pushWhenReady, 100);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [ready, failed, filled]);
 
-  // ─── Render ────────────────────────────────────────────────────────
-
-  // If the ad errored out, collapse gracefully — no ugly blank space
-  if (hasError) {
-    return null;
-  }
+  if (failed) return null;
 
   return (
     <div
       ref={containerRef}
-      className="w-full flex flex-col items-center my-8 overflow-hidden"
       id={adId}
+      className={`w-full flex flex-col items-center overflow-hidden ${
+        filled ? "my-6" : "my-2"
+      }`}
       role="complementary"
       aria-label="Advertisement"
     >
-      {/* Small "Ad" label — required by AdSense policy */}
-      <div className="text-[10px] text-slate-400 mb-1 uppercase tracking-wider select-none">
-        Advertisement
-      </div>
-
-      {/*
-        Ad container with minimum height to prevent CLS (layout shift).
-
-        When isNearViewport is false, we show a smaller placeholder.
-        When isNearViewport is true, we expand to accommodate the ad
-        and render the actual <ins> element.
-
-        The transition makes the expansion smooth rather than jarring.
-      */}
+      {filled && (
+        <div className="text-[10px] text-slate-400 mb-1 uppercase tracking-wider select-none">
+          Advertisement
+        </div>
+      )}
       <div
-        className={`w-full flex items-center justify-center rounded-lg transition-all duration-300 ${isNearViewport
-          ? "min-h-[90px] md:min-h-[100px] bg-slate-50/30"
-          : "min-h-[50px]"
-          }`}
+        className={`w-full flex items-center justify-center overflow-hidden ${
+          ready && !filled ? "min-h-[1px]" : ""
+        } ${filled ? "min-h-[90px]" : ""}`}
       >
-        {/*
-          Only render the <ins> element when the container is near the viewport.
-
-          Why this matters for RPM:
-          - AdSense counts an "impression" when the ad is rendered in the DOM,
-            regardless of whether the user sees it
-          - If you render all ads immediately but the user only scrolls halfway,
-            you get impressions with 0% viewability on bottom ads
-          - Low viewability = AdSense lowers your placement's eCPM
-          - By only rendering when near viewport, every impression has high
-            viewability → AdSense rewards you with better-paying ads
-        */}
-        {isNearViewport && (
+        {ready && (
           <ins
-            className="adsbygoogle block w-full"
+            className="adsbygoogle"
             style={{
               display: "block",
               width: "100%",
-              minHeight: "90px",
+              minHeight: filled ? 90 : 1,
             }}
             data-ad-client={AD_CLIENT}
-            data-ad-slot={adSlotId}
+            data-ad-slot={slotId}
             data-ad-format="auto"
             data-full-width-responsive="true"
           />

@@ -134,6 +134,7 @@ export const metadata = {
     "content-language": siteConfig.language,
     distribution: "global",
     coverage: "Worldwide",
+    "google-adsense-account": "ca-pub-1328083083403070",
   },
 };
 
@@ -279,11 +280,14 @@ export default async function RootLayout({
             gtag('config', 'G-14MEY3M1CN');
           `}
         </Script>
-        {/* AdSense — lazyOnload so it does not compete with LCP/first paint */}
+        {/*
+          AdSense Auto ads + manual units.
+          afterInteractive (not lazyOnload) so Auto ads boot reliably.
+        */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
           crossOrigin="anonymous"
         />
         {/* Microsoft Clarity - analytics only */}
