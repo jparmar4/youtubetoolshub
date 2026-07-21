@@ -212,6 +212,15 @@ export const siteConfig = {
   contact: {
     email: "support@youtubetoolshub.com",
   },
+
+  /** Editorial entity for Person schema / E-E-A-T (invisible + JSON-LD) */
+  editorial: {
+    name: "YouTube Tools Hub Editorial Team",
+    jobTitle: "Creator Growth Research Editors",
+    description:
+      "Editorial team researching YouTube monetization, CPM/RPM benchmarks, SEO, and free creator tooling. Publishes data tables, calculators, and practical workflows for creators worldwide.",
+    url: "https://www.youtubetoolshub.com/about",
+  },
 };
 
 export type SiteConfig = typeof siteConfig;

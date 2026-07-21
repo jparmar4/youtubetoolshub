@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FaBookmark, FaCheckCircle, FaClipboardCheck, FaShareAlt } from "react-icons/fa";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import ShareModal from "@/components/ui/ShareModal";
+import { useToolContext } from "@/components/tools/ToolContext";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { siteConfig } from "@/config/site";
@@ -80,17 +81,21 @@ export default function ChannelAudit() {
         setSaved(true);
     };
 
+    const { hideHeader } = useToolContext();
+
     return (
         <div className="mx-auto w-full max-w-4xl space-y-8">
             <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="mb-6 text-center">
-                    <h1 className="text-3xl font-bold text-slate-900">
-                        Free YouTube Channel Audit Checklist
-                    </h1>
-                    <p className="mx-auto mt-3 max-w-2xl text-slate-600">
-                        Score your creator workflow with an honest self-assessment. This free channel audit does not scan YouTube, access private analytics, or invent algorithm scores.
-                    </p>
-                </div>
+                {!hideHeader && (
+                    <div className="mb-6 text-center">
+                        <h1 className="text-3xl font-bold text-slate-900">
+                            Free YouTube Channel Audit Checklist
+                        </h1>
+                        <p className="mx-auto mt-3 max-w-2xl text-slate-600">
+                            Score your creator workflow with an honest self-assessment. This free channel audit does not scan YouTube, access private analytics, or invent algorithm scores.
+                        </p>
+                    </div>
+                )}
 
                 <label className="block text-sm font-medium text-slate-700">
                     Channel name or handle <span className="text-slate-400">(optional)</span>

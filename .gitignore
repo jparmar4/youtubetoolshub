@@ -45,3 +45,12 @@ next-env.d.ts
 .tmp_content_review/
 .indexnow-last-run
 
+# lint / build artifacts (do not commit)
+lint-results.json
+lint-results-*.json
+tsconfig.tsbuildinfo
+
+# content audit outputs
+outputs/content-audit.csv
+outputs/content-audit.json
+

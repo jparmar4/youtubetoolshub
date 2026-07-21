@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { niches, getNicheContent, programmaticTools } from "@/config/programmatic";
 import { siteConfig } from "@/config/site";
-import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getSpeakableSchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
@@ -57,6 +58,9 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-playlist-length-calculator": PlaylistLengthCalculator,
     "youtube-comment-picker": CommentPicker,
 };
+
+/** Only prebuilt niche×tool URLs are valid — blocks thin soft-404s */
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
     const params: { slug: string; niche: string }[] = [];
@@ -185,6 +189,13 @@ export default async function ProgrammaticToolPage({
         { name: `For ${niche.name}`, url: `${siteConfig.url}/tools/${tool.slug}/${niche.id}` },
     ]);
 
+    const speakableSchema = getSpeakableSchema({
+        url: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
+        headline: nicheContent.title,
+        summary: nicheContent.description,
+        cssSelectors: ["h1", ".summary", "[data-speakable]"],
+    });
+
     return (
         <>
             {/* AI Search & GEO/AEO Optimization Signals */}
@@ -206,6 +217,12 @@ export default async function ProgrammaticToolPage({
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(breadcrumbSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(speakableSchema),
                 }}
             />
             {combinedFaqs.length > 0 && (
@@ -243,15 +260,26 @@ export default async function ProgrammaticToolPage({
                         </div>
 
                         <ToolContextProvider value={{ hideHeader: true }}>
-                            <ToolComponent />
+                            <Suspense fallback={<div className="min-h-[250px] flex items-center justify-center bg-white rounded-2xl border border-purple-100 p-8"><p className="text-gray-400 font-medium">Loading generator...</p></div>}>
+                                <ToolComponent />
+                            </Suspense>
                         </ToolContextProvider>
 
                         <HorizontalAd />
 
-                        {/* Niche-specific unique content (primary for long-tail SEO) */}
-                        <div className="space-y-8">
+                        {/* Niche-specific unique content (primary for long-tail SEO / Helpful Content) */}
+                        <article className="space-y-8">
+                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-purple-100">
+                                <p className="text-sm font-bold uppercase tracking-wide text-purple-600 mb-2">
+                                    {niche.name} guide
+                                </p>
+                                <p className="text-gray-700 leading-relaxed summary" data-speakable>
+                                    {nicheContent.description} Built for creators covering{" "}
+                                    {niche.description}.
+                                </p>
+                            </div>
                             {nicheContent.content.map((section, idx) => (
-                                <div
+                                <section
                                     key={idx}
                                     className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
                                 >
@@ -261,9 +289,24 @@ export default async function ProgrammaticToolPage({
                                     <p className="text-gray-600 leading-relaxed text-lg">
                                         {section.content}
                                     </p>
-                                </div>
+                                </section>
                             ))}
-                        </div>
+                            <p className="text-gray-600 leading-relaxed">
+                                Related free tools:{" "}
+                                <Link href={`/tools/${tool.slug}`} className="text-purple-600 font-semibold hover:underline">
+                                    main {tool.name}
+                                </Link>
+                                {" · "}
+                                <Link href="/tools" className="text-purple-600 font-semibold hover:underline">
+                                    all free YouTube tools
+                                </Link>
+                                {" · "}
+                                <Link href="/resources/youtube-algorithm-guide" className="text-purple-600 font-semibold hover:underline">
+                                    algorithm guide
+                                </Link>
+                                .
+                            </p>
+                        </article>
 
                         {/* FAQ for AEO */}
                         {combinedFaqs.length > 0 && (

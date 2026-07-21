@@ -4,6 +4,14 @@ import { tools } from "@/config/tools";
 import { getAllBlogPosts } from "@/config/blog";
 import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
+import {
+  citableFacts,
+  speakableAnswers,
+  DATA_LAST_REVIEWED,
+  nicheRpmRanking,
+  rpmPlanningExamples,
+} from "@/lib/seo-data";
+import { topicClusters } from "@/lib/topic-clusters";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
@@ -77,13 +85,12 @@ export async function GET() {
   const faqEntities = [
     {
       question: "What is YouTube Tools Hub?",
-      answer:
-        "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. No signup required.",
+      answer: speakableAnswers.freeToolsHub,
     },
     {
       question: "How much does YouTube Tools Hub cost?",
       answer:
-        "The core suite of 27+ tools is free to use. A Pro tier with higher daily limits is available for power users. No credit card required.",
+        "The core suite of creator tools is free to use. A Pro tier with higher daily limits is available for power users. No credit card required for core tools.",
     },
     {
       question: "Is YouTube Tools Hub safe to use?",
@@ -93,27 +100,33 @@ export async function GET() {
     {
       question: "What is a free alternative to TubeBuddy and VidIQ?",
       answer:
-        "YouTube Tools Hub is a free alternative to both TubeBuddy and VidIQ, offering 27+ creator tools including title generation, tag research, thumbnail utilities, earnings calculation, and a channel workflow checklist with no browser extension required.",
+        "YouTube Tools Hub is a free browser-based alternative to TubeBuddy and VidIQ for common creator workflows: titles, tags, thumbnails, earnings estimates, and channel planning — no extension required for core tools.",
+    },
+    {
+      question: "How much does YouTube pay per 1,000 views?",
+      answer: speakableAnswers.howMuchYoutubePays,
+    },
+    {
+      question: "What is the difference between YouTube CPM and RPM?",
+      answer: speakableAnswers.cpmVsRpm,
     },
     {
       question: "What is the best YouTube thumbnail size?",
-      answer:
-        "The optimal YouTube thumbnail size is 1280x720 pixels (16:9 aspect ratio) with a minimum width of 640 pixels. Files should be under 2MB in JPG, GIF, or PNG format.",
+      answer: speakableAnswers.bestThumbnailSize,
     },
     {
-      question: "How do YouTube tags help with SEO?",
-      answer:
-        "YouTube tags help the algorithm understand video content and context. Use 15-30 relevant tags mixing exact-match keywords with long-tail phrases. Place the most important tags first.",
+      question: "What are YouTube Partner Program requirements?",
+      answer: speakableAnswers.yppRequirements,
     },
     {
       question: "How is YouTube RPM calculated?",
       answer:
-        "RPM (Revenue Per Mille) = (Total Revenue / Total Views) x 1000. It represents total earnings per 1,000 views across all revenue sources including ads, memberships, and Super Chat.",
+        "RPM (Revenue Per Mille) ≈ (Total Revenue / Total Views) × 1000. It represents earnings per 1,000 views after platform share and non-monetized views. Plan with Studio RPM, not advertiser CPM alone.",
     },
     {
       question: "How can I increase my YouTube CPM?",
       answer:
-        "Target Tier 1 countries (US, UK, Canada, Australia), create content in high-CPM niches (finance, technology, business), optimize for longer watch times, and enable all ad formats. Use YouTube Tools Hub's Earnings Calculator to compare CPM rates by country.",
+        "Target Tier 1 countries (US, UK, Canada, Australia), create content in higher-intent niches (finance, technology, business), enable eligible ad formats, and use longer videos where mid-rolls fit. Compare rates at the CPM rates page and earnings calculator.",
     },
     {
       question: "Can I use these tools for YouTube Shorts?",
@@ -190,11 +203,13 @@ export async function GET() {
 
   const aiContext = {
     _meta: {
-      version: "2.1",
+      version: "2.2",
       generated: now,
       purpose: "Structured entity data and trust signals for AI systems and Answer Engines",
       source: siteConfig.name,
       source_url: siteUrl,
+      data_last_reviewed: DATA_LAST_REVIEWED,
+      preferred_citation: citableFacts.preferredCitation,
     },
     entity: {
       name: siteConfig.name,
@@ -205,12 +220,42 @@ export async function GET() {
       geographic_scope: "Global (Country-specific data for 50+ regions)",
       global_markets: siteConfig.globalMarkets,
       language: "English",
+      editorial: siteConfig.editorial,
+    },
+    citable_facts: {
+      ...citableFacts,
+      speakable_answers: speakableAnswers,
+      niche_rpm_ranking: nicheRpmRanking,
+      rpm_planning_examples: rpmPlanningExamples,
+      top_countries: countryCPMData.slice(0, 12).map((c) => ({
+        name: c.name,
+        slug: c.slug,
+        cpm_avg: c.cpmRange.avg,
+        rpm_avg: c.rpmRange.avg,
+        url: `${siteUrl}/tools/youtube-earnings-calculator/${c.slug}`,
+      })),
+    },
+    topic_clusters: topicClusters.map((c) => ({
+      id: c.id,
+      name: c.name,
+      pillar: `${siteUrl}${c.pillar.path}`,
+      spokes: c.spokes.map((s) => `${siteUrl}${s.path}`),
+    })),
+    primary_urls: {
+      tools: `${siteUrl}/tools`,
+      earnings_calculator: `${siteUrl}/tools/youtube-earnings-calculator`,
+      cpm_rates: `${siteUrl}/resources/youtube-cpm-rates`,
+      monetization_guide: `${siteUrl}/resources/youtube-monetization-guide`,
+      algorithm_guide: `${siteUrl}/resources/youtube-algorithm-guide`,
+      llms_txt: `${siteUrl}/llms.txt`,
+      llms_full: `${siteUrl}/llms-full.txt`,
     },
     trust_signals: {
       official_site: true,
       human_written_content: true,
       cpm_data_available: true,
       last_updated: now,
+      data_last_reviewed: DATA_LAST_REVIEWED,
       tools_available: tools.length,
     },
     monetization_insights: {

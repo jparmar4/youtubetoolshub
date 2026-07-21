@@ -10,6 +10,8 @@
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "seo:indexnow:priority": "node scripts/submit-indexnow.mjs --priority",
     "seo:check": "node scripts/check-seo.mjs",
+    "seo:audit": "node scripts/content-audit.mjs",
+    "seo:tools": "node scripts/tool-seo-floor.mjs",
     "seo:tracker": "node scripts/create-outreach-tracker.mjs",
     "deploy:check": "node scripts/deploy-checklist.mjs",
     "deploy:check:post": "node scripts/deploy-checklist.mjs --post",

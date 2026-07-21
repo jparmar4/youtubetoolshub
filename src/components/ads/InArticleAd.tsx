@@ -69,7 +69,7 @@ export default function InArticleAd() {
       observerRef.current.observe(container);
     } else {
       // Fallback for browsers without IntersectionObserver
-      setIsVisible(true);
+      queueMicrotask(() => setIsVisible(true));
     }
 
     return () => {

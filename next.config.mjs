@@ -443,6 +443,59 @@ const nextConfig = {
 
   // Powered by header removal for security
   poweredByHeader: false,
+
+  /**
+   * Permanent redirects for pruned/merged blog URLs (SEO + Helpful Content cleanup).
+   * Keep this list in sync when retiring cannibalizing posts.
+   */
+  async redirects() {
+    return [
+      // Faceless ideas: merge thin "50 ideas $10k" → canonical ideas guide
+      {
+        source: "/blog/faceless-youtube-channel-ideas-make-10000-month-2026",
+        destination: "/blog/faceless-youtube-channel-ideas-2026",
+        permanent: true,
+      },
+      // Shorts monetization: merge complete-guide → canonical shorts monetization
+      {
+        source: "/blog/youtube-shorts-monetization-complete-guide-2026",
+        destination: "/blog/youtube-shorts-monetization-2026",
+        permanent: true,
+      },
+      // Legacy money calculator path (broken internal links historically used this)
+      {
+        source: "/tools/youtube-money-calculator",
+        destination: "/tools/youtube-earnings-calculator",
+        permanent: true,
+      },
+      // Common country slug aliases → canonical calculator country pages
+      {
+        source: "/tools/youtube-earnings-calculator/united-states",
+        destination: "/tools/youtube-earnings-calculator/usa",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-earnings-calculator/united-kingdom",
+        destination: "/tools/youtube-earnings-calculator/uk",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-earnings-calculator/great-britain",
+        destination: "/tools/youtube-earnings-calculator/uk",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-earnings-calculator/u-s-a",
+        destination: "/tools/youtube-earnings-calculator/usa",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-earnings-calculator/us",
+        destination: "/tools/youtube-earnings-calculator/usa",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

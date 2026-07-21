@@ -505,10 +505,10 @@ export default function YouTubeEarningsCalculatorPage() {
                     Thumbnail Downloader
                   </Link>
                   <Link
-                    href="/blog/youtube-cpm-rates-by-country-2026"
+                    href="/resources/youtube-cpm-rates"
                     className="px-4 py-2 rounded-lg border border-slate-200 text-sm font-bold text-slate-800 hover:border-purple-400"
                   >
-                    CPM blog guide
+                    CPM rates by country
                   </Link>
                 </div>
               </section>

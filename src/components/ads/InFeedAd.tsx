@@ -43,7 +43,7 @@ export default function InFeedAd() {
 
             observerRef.current.observe(container);
         } else {
-            setIsNearViewport(true);
+            queueMicrotask(() => setIsNearViewport(true));
         }
 
         return () => {

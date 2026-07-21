@@ -35,7 +35,7 @@ export default function HorizontalAd() {
     if (!el) return;
 
     if (!("IntersectionObserver" in window)) {
-      setReady(true);
+      queueMicrotask(() => setReady(true));
       return;
     }
 

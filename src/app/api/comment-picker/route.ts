@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let allComments: any[] = [];
+        const allComments: any[] = [];
         let nextPageToken: string | null = "";
         const maxComments = 2000; // Safety limit
         let fetchedCount = 0;

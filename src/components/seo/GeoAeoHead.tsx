@@ -37,11 +37,7 @@ export default function GeoAeoHead({
 
   const pageUrl = `${siteConfig.url}${pathname || ""}`;
   const schemaType =
-    entityType === "Article" || entityType === "FAQPage" || entityType === "HowTo"
-      ? entityType
-      : isTool
-        ? "WebPage"
-        : "WebPage";
+    entityType || (isTool ? "SoftwareApplication" : "WebPage");
 
   const pageSchema: Record<string, unknown> = {
     "@context": "https://schema.org",

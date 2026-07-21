@@ -10,10 +10,10 @@ import QuickAnswer from "@/components/blog/aeo/QuickAnswer";
 import KeyTakeaways from "@/components/blog/aeo/KeyTakeaways";
 import ProsCons from "@/components/blog/aeo/ProsCons";
 import ExpertQuote from "@/components/blog/aeo/ExpertQuote";
+import { getClusterKeywordMap } from "@/lib/topic-clusters";
 
 
-// Map of keywords to tool URLs
-// We'll generate this from the tools config + manual additions if needed
+// Map of keywords to tool/resource/blog URLs for contextual internal links
 const keywordMap: Record<string, string> = {};
 
 // Populate from tools
@@ -74,7 +74,9 @@ const manualKeywords: Record<string, string> = {
     "youtube monetization": "/resources/youtube-monetization-guide",
 };
 
-Object.assign(keywordMap, manualKeywords);
+// Topic-cluster anchors expand internal linking across pillars & spokes
+// Manual keywords win on conflicts (registered first)
+Object.assign(keywordMap, getClusterKeywordMap(), manualKeywords);
 
 type AlertType = 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION' | 'QUOTE';
 type AeoType = 'QUICK_ANSWER' | 'KEY_TAKEAWAYS' | 'PROS_CONS' | 'EXPERT_QUOTE';

@@ -191,22 +191,39 @@ export function getArticleSchema(article: {
   dateModified?: string;
   section?: string;
   inLanguage?: string;
+  authorRole?: string;
 }) {
+  const imageUrl = article.imageUrl
+    ? article.imageUrl.startsWith("http")
+      ? article.imageUrl
+      : `${siteConfig.url}${article.imageUrl}`
+    : `${siteConfig.url}/og-image.png`;
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${article.url}#article`,
     headline: article.title,
     description: article.description,
     author: {
       "@type": "Person",
       name: article.author,
+      ...(article.authorRole ? { jobTitle: article.authorRole } : {}),
+      worksFor: {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        name: siteConfig.name,
+      },
     },
     publisher: {
       "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/icon.svg`,
+        url: `${siteConfig.url}/og-image.png`,
+        width: 1200,
+        height: 630,
       },
     },
     datePublished: article.datePublished,
@@ -215,10 +232,17 @@ export function getArticleSchema(article: {
       "@type": "WebPage",
       "@id": article.url,
     },
+    isAccessibleForFree: true,
     keywords: article.keywords?.join(", "),
-    image: article.imageUrl ? [article.imageUrl] : undefined,
+    image: [imageUrl],
     articleSection: article.section,
     inLanguage: article.inLanguage || "en",
+    isPartOf: {
+      "@type": "Blog",
+      "@id": `${siteConfig.url}/blog#blog`,
+      name: `${siteConfig.name} Blog`,
+      url: `${siteConfig.url}/blog`,
+    },
   };
 }
 
@@ -252,7 +276,7 @@ export function getSoftwareApplicationSchema(tool: {
     operatingSystem: "Any", // Required field
     datePublished: tool.datePublished || "2025-01-01",
     // Never claim a new modification date just because the page was rendered.
-    dateModified: tool.dateModified || "2026-07-15",
+    dateModified: tool.dateModified || "2026-07-19",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -732,14 +756,20 @@ export function getLiveBlogPostingSchema(blog: {
 }
 
 // Dataset Schema for CPM Data (unique data asset for AI citations)
-export function getDatasetSchema() {
+export function getDatasetSchema(options?: {
+  name?: string;
+  description?: string;
+  url?: string;
+  dateModified?: string;
+}) {
   return {
     "@context": "https://schema.org",
     "@type": "Dataset",
-    name: "YouTube CPM and RPM Rates by Country (2026)",
+    name: options?.name ?? "YouTube CPM and RPM Rates by Country (2026)",
     description:
+      options?.description ??
       "Comprehensive dataset of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for 50+ countries. Data is updated monthly based on real-world creator earnings and advertising rates. Includes Tier 1 country averages, niche-specific rates, and historical trends.",
-    url: `${siteConfig.url}/tools/youtube-earnings-calculator`,
+    url: options?.url ?? `${siteConfig.url}/resources/youtube-cpm-rates`,
     creator: {
       "@type": "Organization",
       name: siteConfig.name,
@@ -751,7 +781,7 @@ export function getDatasetSchema() {
       url: siteConfig.url,
     },
     datePublished: "2025-01-01",
-    dateModified: "2026-07-15",
+    dateModified: options?.dateModified ?? "2026-07-19",
     license: `${siteConfig.url}/terms-of-use`,
     distribution: [
       {

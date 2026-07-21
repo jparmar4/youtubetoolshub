@@ -30,6 +30,8 @@ export default function robots(): MetadataRoute.Robots {
           "/api/faqs",
           "/api-docs",
           "/atom.xml",
+          "/feed.xml",
+          "/feed",
         ],
         disallow: [
           "/api/",

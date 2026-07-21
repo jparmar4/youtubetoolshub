@@ -1159,38 +1159,74 @@ export const tools: Tool[] = [
         category: "analytics-earnings",
         icon: FaChartBar,
         isAI: false,
-        keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis", "youtube analytics"],
+        keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis", "youtube analytics", "youtube likes to views ratio", "good youtube engagement rate"],
+        definitionBlock: {
+            title: "What is a YouTube Engagement Rate Calculator?",
+            text: "A YouTube Engagement Rate Calculator estimates how actively viewers interact with a video by combining public actions such as likes and comments relative to views. It is a planning metric—not a private Studio export or algorithm score.",
+        },
         content: [
             {
                 title: "Why Engagement Rate Matters",
-                content: "Your engagement rate is a key metric that YouTube uses to decide whether to promote your video. High engagement (likes, comments, shares) signals to the algorithm that viewers value your content, leading to more impressions and growth. Use this calculator to track your performance against industry benchmarks."
-            }
+                content: "Engagement rate summarizes how many people who watched also took an action. Likes and comments are visible signals that content sparked a response. Brands use engagement when evaluating sponsorships, and creators use it to compare videos on equal footing—especially when raw view counts differ. High engagement does not automatically guarantee recommendations, but weak engagement often pairs with weak packaging or a soft hook.",
+            },
+            {
+                title: "How this free calculator works",
+                content: "Enter views, likes, and comments (and shares if you track them). The tool applies a standard planning formula: ((likes + comments + shares) ÷ views) × 100. Results are only as accurate as the numbers you paste from YouTube Studio or the public page. Always compare like-for-like windows (for example, first 48 hours vs lifetime totals).",
+            },
+            {
+                title: "What is a good engagement rate on YouTube?",
+                content: "Benchmarks vary by niche and channel size. Many creators treat roughly 3–6% as a solid mid range for public engagement formulas on long-form videos, with smaller channels often scoring higher because their core audience is denser. Shorts and mega-channels can look lower on the same formula. Use your own history as the primary benchmark: if a video underperforms your median engagement, investigate packaging and CTA quality.",
+            },
+            {
+                title: "How to improve engagement without spam",
+                content: "Ask one specific question viewers can answer in one sentence. Pin a comment that continues the conversation. Reply early to real comments. Structure the video so the value arrives quickly, then invite a response. Avoid fake engagement, comment pods, or misleading CTAs—those can harm trust and policy standing.",
+            },
+            {
+                title: "Engagement vs RPM and growth",
+                content: "Engagement is not revenue. A highly engaged gaming video can still earn less AdSense than a lower-engagement finance tutorial with Tier 1 viewers. Use this calculator alongside the earnings calculator and Studio RPM reports. For sponsorships, pair engagement rate with average views, audience countries, and a clear media kit.",
+            },
+            {
+                title: "Common mistakes when measuring engagement",
+                content: "Mixing Shorts metrics with long-form averages, comparing brand-new videos to fully matured ones, ignoring community tab activity, or celebrating high engagement on very low views without context. Always document the date, video type, and view count next to the percentage so your notes stay useful months later.",
+            },
         ],
         howTo: {
             name: "How to Calculate Engagement Rate",
             description: "Check your engagement score in seconds.",
             steps: [
-                { name: "Enter Views", text: "Enter the total number of views on your video." },
+                { name: "Enter Views", text: "Enter the total number of views on your video from Studio or the public page." },
                 { name: "Enter Likes", text: "Input the total number of likes." },
-                { name: "Enter Comments", text: "Input the total number of comments." },
-                { name: "Calculate", text: "Click 'Calculate Engagement' to see your percentage and a rating (e.g., 'Good', 'Excellent')." }
+                { name: "Enter Comments", text: "Input the total number of comments (and shares if available)." },
+                { name: "Calculate", text: "Click Calculate to see your percentage and compare it with your channel average." },
             ],
-            totalTime: "PT1M"
+            totalTime: "PT1M",
         },
         faqs: [
             {
                 question: "What is a good engagement rate on YouTube?",
-                answer: "Generally, 3-5% is considered average, while anything above 10% is excellent. Smaller channels often have higher engagement rates than massive ones."
+                answer: "Many creators treat about 3–6% as a reasonable mid range for simple public formulas, while smaller channels can score higher. Compare against your own median first—benchmarks differ by niche and format.",
             },
             {
                 question: "How is engagement rate calculated?",
-                answer: "We use the standard formula: ((Likes + Comments + Shares) / Total Views) × 100. This gives you a percentage representing active viewer participation."
+                answer: "A common planning formula is ((likes + comments + shares) ÷ views) × 100. Studio may show related metrics differently; use one method consistently.",
             },
             {
                 question: "How can I improve my engagement?",
-                answer: "Ask a specific question in your video (CTAs), reply to every comment in the first 24 hours, and use community posts to keep the conversation going."
-            }
-        ]
+                answer: "Ask a specific question, reply to comments early, pin a useful comment, and deliver the core value quickly so viewers stay long enough to respond.",
+            },
+            {
+                question: "Does high engagement mean more AdSense money?",
+                answer: "Not necessarily. Revenue depends more on RPM, country mix, and niche. Engagement helps growth and brand deals but is not the same as CPM.",
+            },
+            {
+                question: "Should I include Shorts in the same engagement average?",
+                answer: "Usually no. Shorts and long-form behave differently. Track them separately so one format does not hide issues in the other.",
+            },
+            {
+                question: "Is this calculator free?",
+                answer: "Yes. It runs free in your browser on YouTube Tools Hub with no extension or YouTube password required.",
+            },
+        ],
     },
     {
         slug: "youtube-title-ab-tester",
@@ -1728,19 +1764,31 @@ export const tools: Tool[] = [
         icon: FaTrophy,
         isAI: false,
         keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment", "youtube comment raffle", "giveaway picker free"],
+        definitionBlock: {
+            title: "What is a YouTube Comment Picker?",
+            text: "A YouTube Comment Picker loads public top-level comments for a video and randomly selects an entry for giveaways. This free tool uses the YouTube Data API for public comments and your browser’s crypto API for the draw—then you verify rules manually.",
+        },
         content: [
             {
-                title: "Run a Transparent Giveaway Draw",
-                content: "The picker loads up to 2,000 public top-level comments from the YouTube Data API, applies your duplicate and keyword filters, and draws from the currently loaded qualified entries using the browser crypto API."
+                title: "Run a transparent giveaway draw",
+                content: "The picker loads up to 2,000 public top-level comments from the YouTube Data API, applies duplicate and keyword filters, and draws from the currently loaded qualified entries using the browser crypto API. Show viewers the loaded and qualified counts so the process stays credible.",
             },
             {
-                title: "Understand the Loaded Entry Pool",
-                content: "The result is only as broad as the loaded public comments. The interface shows the loaded and qualified counts so you can describe the process accurately when running a giveaway."
+                title: "Understand the loaded entry pool",
+                content: "The result is only as broad as the comments successfully loaded. Very popular videos may have more comments than the tool can fetch in one pass. Always state the window you used (for example, “drawn from the first 2,000 public top-level comments loaded on this date”).",
             },
             {
-                title: "Verify Eligibility Manually",
-                content: "The picker cannot verify private subscription status or decide whether an entry follows every rule in your giveaway. Review the selected comment and channel manually before confirming a winner."
-            }
+                title: "Verify eligibility manually",
+                content: "The picker cannot verify private subscription status, country restrictions, age gates, or multi-account abuse. After a winner is drawn, open the comment and channel, check your written rules, and contact the winner through a channel you control. Document screenshots for disputes.",
+            },
+            {
+                title: "Fair giveaway practices",
+                content: "Publish clear rules before the draw: entry method, deadline, prize, and how the winner is selected. Avoid requiring illegal or policy-violating actions. Prefer public keyword phrases in comments when you need an easy filter. Keep prizes and shipping promises realistic.",
+            },
+            {
+                title: "What this tool does not do",
+                content: "It does not load comment replies by default, does not guarantee every historical comment is included, and does not replace legal advice for promotions in your country. Use it as a random selection helper among the public comments it can load.",
+            },
         ],
         howTo: {
             name: "How to Pick a YouTube Giveaway Winner",
@@ -1749,28 +1797,36 @@ export const tools: Tool[] = [
                 { name: "Paste the video link", text: "Enter the YouTube video URL that contains the giveaway comments." },
                 { name: "Choose filters", text: "Optionally keep one entry per public channel URL and require a keyword in the comment text." },
                 { name: "Load public comments", text: "Fetch up to 2,000 public top-level comments from the YouTube Data API." },
-                { name: "Draw and verify", text: "Pick a winner from the loaded qualified entries, then verify your giveaway rules manually." }
+                { name: "Draw and verify", text: "Pick a winner from the loaded qualified entries, then verify your giveaway rules manually." },
             ],
-            totalTime: "PT1M"
+            totalTime: "PT1M",
         },
         faqs: [
             {
                 question: "How is the winner selected?",
-                answer: "The browser crypto API selects an unbiased random index from the currently loaded qualified entries."
+                answer: "The browser crypto API selects a random index from the currently loaded qualified entries so the draw is not based on a predictable sequence.",
             },
             {
                 question: "What comments are loaded?",
-                answer: "The tool loads up to 2,000 public top-level comments returned by the YouTube Data API. It does not load replies."
+                answer: "Up to 2,000 public top-level comments returned by the YouTube Data API. Replies are not included in the default load.",
             },
             {
                 question: "Does the tool check subscriptions?",
-                answer: "No. Subscription status can be private, so you should verify any required eligibility rules manually after the draw."
+                answer: "No. Subscription status can be private. Verify any subscription rule yourself after the draw.",
             },
             {
                 question: "Can I require a keyword?",
-                answer: "Yes. Use the text filter to keep loaded comments that contain your required word or phrase."
-            }
-        ]
+                answer: "Yes. Use the text filter so only loaded comments containing your phrase remain in the pool.",
+            },
+            {
+                question: "Is the comment picker free?",
+                answer: "Yes. It is free on YouTube Tools Hub. You may need a valid API configuration on the server for comment loading.",
+            },
+            {
+                question: "Can I use this for brand-sponsored giveaways?",
+                answer: "You can use it as a randomizer, but follow the brand’s rules, local promotion laws, and YouTube policies. Keep a written record of the draw.",
+            },
+        ],
     },
     {
         slug: "youtube-channel-audit",
@@ -1783,20 +1839,32 @@ export const tools: Tool[] = [
         icon: FaChartBar,
         isAI: false,
         isFeatured: true,
-        keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel", "youtube seo check", "channel performance report", "free youtube audit"],
+        keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel", "youtube seo check", "channel performance report", "free youtube audit", "youtube channel checklist"],
+        definitionBlock: {
+            title: "What is a YouTube Channel Audit Checklist?",
+            text: "A YouTube Channel Audit Checklist is a self-assessment of creator habits—positioning, packaging, publishing, and feedback loops. This free tool scores what you claim to do consistently; it does not scan private YouTube data or invent algorithm grades.",
+        },
         content: [
             {
-                title: "A Transparent Workflow Self-Assessment",
-                content: "This audit is a checklist, not an automated scan. It helps you review the creator habits that you can verify yourself: a clear channel promise, readable thumbnails, specific titles, sustainable publishing, retention review, and audience feedback."
+                title: "A transparent workflow self-assessment",
+                content: "This audit is a checklist, not an automated scan. It helps you review habits you can verify yourself: a clear channel promise, readable thumbnails, specific titles, sustainable publishing, retention review, and audience feedback. Honesty beats optimistic checkbox spam.",
             },
             {
-                title: "Turn Unchecked Items into Next Actions",
-                content: "The result highlights the first unchecked items to improve. Use those recommendations as a planning prompt, then measure actual performance in your own YouTube Studio analytics."
+                title: "Turn unchecked items into next actions",
+                content: "The result highlights the first unchecked items to improve. Pick one change for the next upload—such as stronger hooks or a clearer title formula—then measure CTR and retention in YouTube Studio. Small, repeated improvements outperform annual “full redesigns.”",
             },
             {
-                title: "Use YouTube Studio for Real Performance Data",
-                content: "A third-party checklist cannot see your private retention and revenue data. Review your score alongside the real analytics in your own YouTube Studio account before making decisions."
-            }
+                title: "Use YouTube Studio for real performance data",
+                content: "A third-party checklist cannot see private retention graphs, revenue, or audience demographics. Treat the score as a planning aid. Confirm packaging quality with impressions and CTR, and confirm content quality with average view duration and returning viewers.",
+            },
+            {
+                title: "What a healthy creator workflow looks like",
+                content: "Healthy channels usually share: a narrow promise, consistent packaging, a realistic upload cadence, post-publish review, and a feedback loop (comments, community posts, or surveys). Use related free tools for titles, tags, thumbnails, and calendars once the checklist shows where you are weak.",
+            },
+            {
+                title: "When to re-run the audit",
+                content: "Re-run after major niche shifts, every 20–30 uploads, or when growth stalls. Compare notes over time so the checklist becomes a journal of process upgrades—not a one-time guilt score.",
+            },
         ],
         howTo: {
             name: "How to Run a YouTube Workflow Self-Audit",
@@ -1804,24 +1872,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Review each checklist item", text: "Select the workflow habits that you consistently follow today." },
                 { name: "Calculate your score", text: "Use the local checklist score as a planning aid, not as an algorithm prediction." },
-                { name: "Pick one improvement", text: "Start with an unchecked recommendation and compare your next upload results in YouTube Studio." }
+                { name: "Pick one improvement", text: "Start with an unchecked recommendation and compare your next upload results in YouTube Studio." },
             ],
-            totalTime: "PT1M"
+            totalTime: "PT5M",
         },
         faqs: [
             {
                 question: "Does this tool scan my YouTube channel?",
-                answer: "No. It is a local self-assessment checklist. It does not fetch YouTube data or access your private analytics."
+                answer: "No. It is a local self-assessment checklist. It does not fetch YouTube data or access private analytics.",
             },
             {
                 question: "Is the score an algorithm prediction?",
-                answer: "No. The score is a simple checklist total that helps you choose a workflow improvement. Use YouTube Studio to evaluate actual performance."
+                answer: "No. The score is a simple checklist total that helps you choose a workflow improvement. Studio metrics measure real performance.",
             },
             {
                 question: "Where should I check retention and revenue?",
-                answer: "Use the analytics inside your own YouTube Studio account. This checklist does not request or infer private metrics."
-            }
-        ]
+                answer: "Use analytics inside your own YouTube Studio account. This checklist does not request or infer private metrics.",
+            },
+            {
+                question: "How often should I audit my channel?",
+                answer: "Every few weeks or after a batch of uploads is enough for most creators. Re-audit after niche or format changes.",
+            },
+            {
+                question: "Is the channel audit free?",
+                answer: "Yes. It runs free in the browser on YouTube Tools Hub with no signup required for the checklist itself.",
+            },
+            {
+                question: "What should I fix first after a low score?",
+                answer: "Usually packaging (title/thumbnail clarity) or hooks, because they affect CTR and early retention. Fix one variable at a time.",
+            },
+        ],
     },
     {
         slug: "youtube-subscriber-count-checker",
@@ -1834,20 +1914,32 @@ export const tools: Tool[] = [
         icon: FaUsers,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube subscriber count", "youtube subscriber count checker", "youtube channel subscribers", "check youtube subscribers", "youtube public channel stats"],
+        keywords: ["youtube subscriber count", "youtube subscriber count checker", "youtube channel subscribers", "check youtube subscribers", "youtube public channel stats", "how many subscribers does a channel have"],
         definitionBlock: {
             title: "What is a YouTube Subscriber Count Checker?",
-            text: "A YouTube Subscriber Count Checker looks up public channel statistics through YouTube's documented Data API. Counts can be rounded or hidden by the channel owner, and this tool only displays data returned publicly by YouTube."
+            text: "A YouTube Subscriber Count Checker looks up public channel statistics through YouTube's documented Data API. Counts can be rounded or hidden by the channel owner, and this tool only displays data returned publicly by YouTube.",
         },
         content: [
             {
-                title: "Public YouTube Statistics with Clear Attribution",
-                content: "This checker requests public channel statistics from the official YouTube Data API. It does not scrape YouTube pages, request account access, or claim to reveal private data. Subscriber counts can be rounded or hidden by the channel owner."
+                title: "Public YouTube statistics with clear attribution",
+                content: "This checker requests public channel statistics from the official YouTube Data API. It does not scrape HTML, ask for passwords, or claim to reveal private metrics. Subscriber counts can be rounded (for example to “1.2M”) or hidden entirely by the channel owner.",
             },
             {
-                title: "Use Counts as Context, Not a Growth Guarantee",
-                content: "Subscriber count is one useful public signal, but it does not measure the quality of a channel by itself. Review views, videos, topic quality, and audience fit before making content decisions."
-            }
+                title: "Use counts as context, not a growth guarantee",
+                content: "Subscriber count is one public signal. It does not measure retention quality, RPM, brand safety, or whether a channel will keep growing. Pair public stats with topic quality, upload consistency, and—when available—your own Studio analytics before making content decisions.",
+            },
+            {
+                title: "When creators use a subscriber checker",
+                content: "Common uses include competitor research, collaboration checks, verifying a handle before outreach, and tracking public milestones. For giveaways or partnerships, always confirm identity and recent activity—not only a single number.",
+            },
+            {
+                title: "Rounded, hidden, and delayed counts",
+                content: "YouTube may round large subscriber figures. Some channels hide the count from the public. API responses can also lag slightly behind the live UI. If a lookup fails, recheck the URL or handle spelling and try again.",
+            },
+            {
+                title: "Responsible research habits",
+                content: "Do not use public stats to harass creators or inflate claims in your own marketing. If you publish comparisons, date-stamp the lookup and note that figures can change. Combine this tool with engagement rate and earnings planning tools for a fuller picture.",
+            },
         ],
         howTo: {
             name: "How to Check a Public YouTube Subscriber Count",
@@ -1855,10 +1947,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Enter a channel", text: "Paste a YouTube channel URL, handle, or a video URL from the channel." },
                 { name: "Run the lookup", text: "Click Check Count to request public statistics from the YouTube Data API." },
-                { name: "Review the result", text: "Read the public subscriber, video, and view counts. A channel owner may choose to hide subscriber count." }
+                { name: "Review the result", text: "Read the public subscriber, video, and view counts. A channel owner may choose to hide subscriber count." },
             ],
-            totalTime: "PT1M"
-        }
+            totalTime: "PT1M",
+        },
+        faqs: [
+            {
+                question: "Is the subscriber count always exact?",
+                answer: "Not always. YouTube may round large counts, and channel owners can hide the public subscriber number. This tool only shows what the public API returns.",
+            },
+            {
+                question: "Do I need to log in to YouTube?",
+                answer: "No. The checker uses public API data and does not request your YouTube password.",
+            },
+            {
+                question: "Can I check any channel?",
+                answer: "You can look up channels that are publicly available. Private or invalid URLs will not return stats.",
+            },
+            {
+                question: "Does a higher subscriber count mean higher earnings?",
+                answer: "Not necessarily. Earnings depend more on views, RPM, niche, and country mix than on subscriber totals alone.",
+            },
+            {
+                question: "Is the subscriber count checker free?",
+                answer: "Yes. It is free on YouTube Tools Hub. Server-side YouTube API configuration is required for live lookups.",
+            },
+            {
+                question: "Why did my lookup fail?",
+                answer: "Common causes include a mistyped handle, removed channel, temporary API limits, or a channel that does not expose the requested public stats.",
+            },
+        ],
     },
     {
         slug: "youtube-video-download-options",
@@ -1870,20 +1988,32 @@ export const tools: Tool[] = [
         category: "utility-fun",
         icon: FaDownload,
         isAI: false,
-        keywords: ["youtube video download", "download my youtube video", "youtube offline viewing", "download youtube video from studio", "share youtube video"],
+        keywords: ["youtube video download", "download my youtube video", "youtube offline viewing", "download youtube video from studio", "share youtube video", "youtube studio download video"],
         definitionBlock: {
             title: "What is the YouTube Video Download Options Guide?",
-            text: "This guide helps you choose an official YouTube workflow for your goal. It does not download, extract, cache, or store YouTube audiovisual files."
+            text: "This guide helps you choose an official YouTube workflow for your goal. It does not download, extract, cache, or store YouTube audiovisual files.",
         },
         content: [
             {
-                title: "Why This Guide Does Not Extract Video Files",
-                content: "YouTube API developer policies prohibit clients from downloading, importing, backing up, caching, or storing copies of YouTube audiovisual content without prior written approval. This guide points creators to official options instead."
+                title: "Why this guide does not extract video files",
+                content: "YouTube API developer policies prohibit clients from downloading, importing, backing up, caching, or storing copies of YouTube audiovisual content without prior written approval. Unofficial rippers also create copyright and malware risk. This page routes you to official options instead of offering extraction.",
             },
             {
-                title: "Use the Right Workflow for the Right Goal",
-                content: "Creators can download their own uploads from YouTube Studio. Viewers can use YouTube's official offline options where available. For reuse, ask the rights holder for permission or use licensed assets. For sharing, link to the original upload or embed the standard YouTube player."
-            }
+                title: "Use the right workflow for the right goal",
+                content: "Creators can download their own uploads from YouTube Studio. Viewers may use YouTube Premium offline features where available. For reuse, ask the rights holder or use licensed assets. For sharing, link to the original upload or embed the standard YouTube player.",
+            },
+            {
+                title: "Download your own video from Studio",
+                content: "If you uploaded the video, open YouTube Studio → Content → select the video → download options provided for the original file. Keep local archives of masters before upload when possible so you are not dependent on a single platform copy.",
+            },
+            {
+                title: "Offline viewing vs reuse rights",
+                content: "Offline viewing is not the same as a redistribution license. Watching a video offline does not grant permission to re-upload, re-edit commercially, or strip audio. When in doubt, request written permission or use Creative Commons / stock licenses that match your use case.",
+            },
+            {
+                title: "Safer alternatives for creators",
+                content: "Need a thumbnail? Use the free thumbnail downloader for public images. Need timestamps or titles? Use the metadata tools. Need offline learning? Use official YouTube offline features. Avoid browser extensions that claim “unlimited MP4 downloads” of other people’s content.",
+            },
         ],
         howTo: {
             name: "How to Choose a Safe YouTube Download Option",
@@ -1891,10 +2021,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Choose your goal", text: "Select whether you want your own upload, offline viewing, reuse permission, or a share/embed option." },
                 { name: "Read the recommended workflow", text: "Follow the steps shown for your specific use case." },
-                { name: "Use the official link", text: "Continue to YouTube Studio or the relevant YouTube help page." }
+                { name: "Use the official link", text: "Continue to YouTube Studio or the relevant YouTube help page." },
             ],
-            totalTime: "PT1M"
-        }
+            totalTime: "PT2M",
+        },
+        faqs: [
+            {
+                question: "Can this site download any YouTube video as MP4?",
+                answer: "No. This guide does not extract or store YouTube audiovisual files. It points you to official workflows for your goal.",
+            },
+            {
+                question: "How do I download a video I uploaded?",
+                answer: "Use YouTube Studio’s download options for your own uploads, or keep masters from your editing project before you upload.",
+            },
+            {
+                question: "Is offline viewing allowed?",
+                answer: "YouTube provides official offline options in supported apps and plans. Those features are for viewing, not unrestricted redistribution.",
+            },
+            {
+                question: "Can I reuse someone else’s video?",
+                answer: "Only with permission, a suitable license, or a valid legal exception in your jurisdiction. Linking or embedding is usually safer than re-uploading.",
+            },
+            {
+                question: "Why do unofficial download sites get blocked?",
+                answer: "They often violate platform terms, copyright, and security best practices. They can also deliver malware or broken files.",
+            },
+            {
+                question: "Is this guide free?",
+                answer: "Yes. It is free information on YouTube Tools Hub and does not require an account.",
+            },
+        ],
     },
     {
         slug: "youtube-timestamp-generator",
@@ -1907,20 +2063,32 @@ export const tools: Tool[] = [
         icon: FaClock,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube timestamp generator", "youtube chapters generator", "youtube video timestamps", "format youtube chapters", "youtube description timestamps"],
+        keywords: ["youtube timestamp generator", "youtube chapters generator", "youtube video timestamps", "format youtube chapters", "youtube description timestamps", "youtube chapters template"],
         definitionBlock: {
             title: "What is a YouTube Timestamp Generator?",
-            text: "A YouTube Timestamp Generator formats your chapter outline into timestamp lines that you can paste into a video description. This browser-local tool preserves timestamps you already drafted and fills in missing times with a chosen interval."
+            text: "A YouTube Timestamp Generator formats your chapter outline into timestamp lines that you can paste into a video description. This browser-local tool preserves timestamps you already drafted and fills in missing times with a chosen interval.",
         },
         content: [
             {
-                title: "Create Clear Video Chapters Faster",
-                content: "Chapters help viewers understand the structure of a longer video and jump to the section they need. Enter one chapter title per line, choose a default interval, and copy the formatted result into your YouTube description."
+                title: "Create clear video chapters faster",
+                content: "Chapters help viewers understand structure and jump to the section they need. They can also improve session experience on longer videos. Enter one chapter title per line, choose a default interval for untimed lines, and copy the formatted block into your description.",
             },
             {
-                title: "Review Timing Before Publishing",
-                content: "Generated times are a practical starting point. Play your final edit and adjust each chapter to the exact moment where the section begins. Keep chapter names concise and descriptive."
-            }
+                title: "Review timing before publishing",
+                content: "Generated times are a practical starting point—not frame-accurate captions of your edit. Play the final cut and adjust each chapter to the exact second a section begins. Keep names short, specific, and free of spammy keyword stuffing.",
+            },
+            {
+                title: "Chapter writing tips that help retention",
+                content: "Name the outcome of each section (“Install OBS settings”, not “Part 2”). Front-load the most useful chapter early when possible. Avoid 20 micro-chapters on a 5-minute video. For tutorials, mirror the steps viewers expect to search for.",
+            },
+            {
+                title: "Where to place timestamps",
+                content: "Paste the chapter block near the top of the description so it is easy to find. You can also pin a comment with the same list. Keep the first timestamp at 0:00 when using YouTube’s chapter system requirements.",
+            },
+            {
+                title: "Chapters and SEO",
+                content: "Chapters do not replace a strong title or thumbnail, but they clarify content structure for viewers and can make long videos easier to browse. Pair chapter labels with a clear description summary and honest packaging.",
+            },
         ],
         howTo: {
             name: "How to Generate YouTube Timestamps",
@@ -1928,10 +2096,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Enter chapter titles", text: "Add one chapter title per line. You can include timestamps you already know." },
                 { name: "Choose an interval", text: "Set the default number of minutes between untimed chapter titles." },
-                { name: "Copy and review", text: "Generate the chapter block, copy it, and adjust exact times against your finished video." }
+                { name: "Copy and review", text: "Generate the chapter block, copy it, and adjust exact times against your finished video." },
             ],
-            totalTime: "PT1M"
-        }
+            totalTime: "PT2M",
+        },
+        faqs: [
+            {
+                question: "Do YouTube chapters have to start at 0:00?",
+                answer: "For YouTube’s automatic chapter UI, the first timestamp should be 0:00 and chapters should be in order with enough spacing. Always confirm current YouTube requirements in Studio help.",
+            },
+            {
+                question: "Are generated times always accurate?",
+                answer: "No. Interval-based times are estimates. Align each stamp to the finished edit before publishing.",
+            },
+            {
+                question: "How many chapters should I use?",
+                answer: "Enough to navigate major sections without clutter. Long tutorials may need more; short videos often need few or none.",
+            },
+            {
+                question: "Can I edit timestamps after upload?",
+                answer: "Yes. Update the description in YouTube Studio and re-check that chapters still parse correctly.",
+            },
+            {
+                question: "Does this tool run offline in my browser?",
+                answer: "Formatting happens locally from the text you enter. You still copy the result into YouTube yourself.",
+            },
+            {
+                question: "Is the timestamp generator free?",
+                answer: "Yes. It is free on YouTube Tools Hub with no signup required for core use.",
+            },
+        ],
     },
     {
         slug: "youtube-shorts-script-planner",
@@ -1944,20 +2138,32 @@ export const tools: Tool[] = [
         icon: FaVideo,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube shorts maker", "youtube shorts script generator", "youtube shorts planner", "shorts editor planning", "youtube shorts ideas"],
+        keywords: ["youtube shorts maker", "youtube shorts script generator", "youtube shorts planner", "shorts editor planning", "youtube shorts ideas", "shorts hook script"],
         definitionBlock: {
             title: "What is a YouTube Shorts Script and Shot Planner?",
-            text: "This local planning tool turns a topic, audience, tone, and target duration into a simple recording outline. It does not upload, edit, or download video files."
+            text: "This local planning tool turns a topic, audience, tone, and target duration into a simple recording outline. It does not upload, edit, or download video files.",
         },
         content: [
             {
-                title: "Plan Before You Record",
-                content: "A short timeline helps you keep the opening clear, show the useful part quickly, and finish with a relevant next step. Use the generated outline as a starting point and adapt it to your natural delivery."
+                title: "Plan before you record",
+                content: "A short timeline keeps the opening clear, shows the useful part quickly, and ends with a relevant next step. Use the outline as a starting point and adapt lines to your natural delivery so the Short does not sound robotic.",
             },
             {
-                title: "Publish Footage You Have Rights to Use",
-                content: "Record your own clips or use assets you are licensed to publish. The checklist keeps that reminder alongside practical vertical-video basics such as readable text and a sound-off preview."
-            }
+                title: "Hook, value, and exit structure",
+                content: "Most strong Shorts open with motion or a concrete promise in the first second, deliver one idea cleanly, and exit with a reason to watch another video or follow. Overloading three topics into 30 seconds usually hurts retention.",
+            },
+            {
+                title: "Publish footage you have rights to use",
+                content: "Record your own clips or use assets you are licensed to publish. Avoid watermarked reuploads from other platforms. The checklist includes practical vertical-video basics: readable text, safe margins, and a sound-off preview.",
+            },
+            {
+                title: "Shorts as discovery, long-form as depth",
+                content: "Use Shorts to test hooks and grow reach, then route interest to longer videos when the topic needs depth. Pair this planner with title, hashtag, and earnings tools so packaging and monetization expectations stay realistic.",
+            },
+            {
+                title: "Iterate from real performance",
+                content: "After publishing, check average view percentage and swipe-away patterns. Rebuild the outline for the next Short with a clearer hook or tighter demo. Planning is a loop—not a one-time script.",
+            },
         ],
         howTo: {
             name: "How to Plan a YouTube Short",
@@ -1965,10 +2171,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Describe your Short", text: "Enter the topic, audience, tone, and target duration." },
                 { name: "Generate the shot plan", text: "Create a local template with hook, context, demo, and closing sections." },
-                { name: "Record and edit", text: "Copy the plan into your workflow and film your own or properly licensed material." }
+                { name: "Record and edit", text: "Copy the plan into your workflow and film your own or properly licensed material." },
             ],
-            totalTime: "PT1M"
-        }
+            totalTime: "PT3M",
+        },
+        faqs: [
+            {
+                question: "Does this tool edit my video files?",
+                answer: "No. It only generates a planning outline and checklist. You record and edit in your own software or apps.",
+            },
+            {
+                question: "How long should a Short be?",
+                answer: "As short as needed to deliver one idea—often under 45 seconds for many educational hooks. Match length to the promise, not a fixed rule.",
+            },
+            {
+                question: "Can I use the script for TikTok or Reels too?",
+                answer: "You can adapt the structure, but always follow each platform’s policies and use assets you have rights to publish.",
+            },
+            {
+                question: "Should every Short end with “subscribe”?",
+                answer: "A specific next step usually works better than a generic subscribe request. Invite a comment or point to a related video when it fits.",
+            },
+            {
+                question: "Is the Shorts planner free?",
+                answer: "Yes. It runs free in the browser on YouTube Tools Hub without uploading your footage.",
+            },
+            {
+                question: "Do Shorts pay the same as long-form?",
+                answer: "Usually not. Shorts often have lower effective RPM. Use Shorts for discovery and plan revenue with Studio data and the earnings calculator.",
+            },
+        ],
     },
     {
         slug: "youtube-banner-logo-maker",
@@ -1981,20 +2213,32 @@ export const tools: Tool[] = [
         icon: FaPaintBrush,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube banner maker", "youtube logo maker", "youtube channel banner", "youtube channel art maker", "youtube banner safe area"],
+        keywords: ["youtube banner maker", "youtube logo maker", "youtube channel banner", "youtube channel art maker", "youtube banner safe area", "youtube channel art size"],
         definitionBlock: {
             title: "What is a YouTube Banner and Logo Maker?",
-            text: "This browser-local design tool creates a 2560 by 1440 pixel YouTube banner and a matching square logo. It includes an optional central safe-area guide that is removed from the downloaded banner."
+            text: "This browser-local design tool creates a 2560 by 1440 pixel YouTube banner and a matching square logo. It includes an optional central safe-area guide that is removed from the downloaded banner.",
         },
         content: [
             {
-                title: "Keep Important Text Inside the Safe Area",
-                content: "Channel banners appear differently across devices. Keep your channel name and tagline inside the central guide so the most important information remains readable on phones, desktops, and larger displays."
+                title: "Keep important text inside the safe area",
+                content: "Channel banners crop differently on TV, desktop, tablet, and mobile. Keep your channel name and tagline inside the central safe area so the most important information stays readable on phones and larger displays.",
             },
             {
-                title: "A Local Starting Point for Your Brand",
-                content: "Choose your own name, tagline, colors, and layout style. The tool creates the preview and PNG exports locally in your browser. Review the result and publish only branding you have the right to use."
-            }
+                title: "Recommended channel art sizes",
+                content: "YouTube’s standard channel banner is commonly 2560×1440 pixels. Profile images are square. This tool exports a banner and a matching logo PNG so you can upload quickly and refine later in a full design app if needed.",
+            },
+            {
+                title: "A local starting point for your brand",
+                content: "Choose your own name, tagline, colors, and layout style. Previews and PNG exports are created in your browser. Publish only branding you have the right to use—avoid trademarked logos you do not own.",
+            },
+            {
+                title: "Brand consistency tips",
+                content: "Match banner colors with your thumbnails and channel trailer. Use a short tagline that states who you help and what you make. Avoid cluttered backgrounds that fight the text. Revisit the banner when your niche or series identity changes.",
+            },
+            {
+                title: "After you download",
+                content: "Upload the banner and logo in YouTube Studio channel customization. Check the live channel page on mobile and desktop. If text feels tight, shorten the tagline and regenerate. Pair with the channel name generator when you are still branding the channel.",
+            },
         ],
         howTo: {
             name: "How to Make YouTube Channel Art",
@@ -2002,10 +2246,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Enter your brand text", text: "Add your channel name and a concise tagline." },
                 { name: "Choose colors and style", text: "Pick a background, accent, text color, and layout." },
-                { name: "Download your files", text: "Review the safe-area preview, then export your banner and logo PNG files." }
+                { name: "Download your files", text: "Review the safe-area preview, then export your banner and logo PNG files." },
             ],
-            totalTime: "PT2M"
-        }
+            totalTime: "PT2M",
+        },
+        faqs: [
+            {
+                question: "What size is a YouTube channel banner?",
+                answer: "The common recommended size is 2560×1440 pixels. Always keep critical text inside the central safe area because devices crop the edges differently.",
+            },
+            {
+                question: "Does this tool upload my images to a server?",
+                answer: "The simple maker is designed to generate previews and PNGs locally in your browser. Review the export before you publish it on YouTube.",
+            },
+            {
+                question: "Can I use trademarked logos?",
+                answer: "Only if you have rights to use them. Prefer original names, colors, and icons for your channel brand.",
+            },
+            {
+                question: "Should my banner match my thumbnails?",
+                answer: "Yes—consistent colors and style help viewers recognize your channel across the site and app.",
+            },
+            {
+                question: "Is the banner maker free?",
+                answer: "Yes. Core use is free on YouTube Tools Hub with no signup required for the basic export workflow.",
+            },
+            {
+                question: "Can I edit the PNG later?",
+                answer: "Yes. Download the files and refine them in any image editor if you need more advanced design control.",
+            },
+        ],
     },
     {
         slug: "youtube-niche-finder-quiz",
@@ -2018,20 +2288,32 @@ export const tools: Tool[] = [
         icon: FaCompass,
         isAI: false,
         isFeatured: true,
-        keywords: ["youtube niche finder quiz", "find youtube niche", "youtube niche ideas", "best youtube niche for me", "youtube channel topic ideas"],
+        keywords: ["youtube niche finder quiz", "find youtube niche", "youtube niche ideas", "best youtube niche for me", "youtube channel topic ideas", "profitable youtube niches"],
         definitionBlock: {
             title: "What is a YouTube Niche Finder Quiz?",
-            text: "A YouTube Niche Finder Quiz suggests channel directions based on the skills and video formats you select. It is a starting point for research, not a promise of traffic, ranking, or earnings."
+            text: "A YouTube Niche Finder Quiz suggests channel directions based on the skills and video formats you select. It is a starting point for research, not a promise of traffic, ranking, or earnings.",
         },
         content: [
             {
-                title: "Start with Audience Value and First-Hand Experience",
-                content: "A useful niche is one where you can create accurate, original videos for a clear audience. Choose a direction where your skills help viewers solve a problem, make a decision, or enjoy a distinct point of view."
+                title: "Start with audience value and first-hand experience",
+                content: "A useful niche is one where you can create accurate, original videos for a clear audience. Choose a direction where your skills help viewers solve a problem, make a decision, or enjoy a distinct point of view—not only where CPM screenshots look high online.",
             },
             {
-                title: "Test Ideas Before Committing",
-                content: "Use the suggested starter ideas to publish a small, focused batch of videos. Compare retention, comments, and search interest, then refine the direction based on real audience response."
-            }
+                title: "Test ideas before committing",
+                content: "Use the suggested starter ideas to publish a small, focused batch of videos. Compare retention, comments, and search interest, then refine the direction based on real audience response. Ten honest tests beat a year of overplanning.",
+            },
+            {
+                title: "Demand, skill, and monetization fit",
+                content: "Strong niches balance three things: people search for the topic, you can produce quality videos sustainably, and there is a path to revenue (ads, affiliates, products, or services). High-CPM niches still fail if you cannot show up weekly with useful content.",
+            },
+            {
+                title: "Format choice: Shorts, long-form, or both",
+                content: "Shorts can accelerate discovery; long-form often supports deeper RPM and trust. Many creators use Shorts to test hooks and long-form to teach. Pick a primary format for the first 20 videos so the algorithm and audience learn what to expect.",
+            },
+            {
+                title: "Validate with research tools",
+                content: "After the quiz, research competitors, check public channel stats, draft titles with the title generator, and model rough earnings with the calculator. The quiz suggests a direction—research confirms whether the opportunity is real for you.",
+            },
         ],
         howTo: {
             name: "How to Find a YouTube Niche Direction",
@@ -2039,10 +2321,36 @@ export const tools: Tool[] = [
             steps: [
                 { name: "Choose your strengths", text: "Select the creator skills you can use consistently, such as teaching, research, reviews, entertainment, or visual creation." },
                 { name: "Choose a format", text: "Select long-form videos, Shorts, or a mixed publishing strategy." },
-                { name: "Test a direction", text: "Review the top suggestions and publish a small set of original videos before committing to a long-term plan." }
+                { name: "Test a direction", text: "Review the top suggestions and publish a small set of original videos before committing to a long-term plan." },
             ],
-            totalTime: "PT1M"
-        }
+            totalTime: "PT3M",
+        },
+        faqs: [
+            {
+                question: "Will this quiz guarantee a profitable niche?",
+                answer: "No. It suggests directions based on your inputs. Profitability depends on execution, audience, competition, and monetization path.",
+            },
+            {
+                question: "Should I pick the highest CPM niche?",
+                answer: "Only if you can create quality content consistently. Mismatched high-CPM niches often produce low-quality videos and weak growth.",
+            },
+            {
+                question: "How many videos should I test before changing niches?",
+                answer: "Many creators give a direction 10–20 focused videos before judging. Track retention and search interest, not vanity views alone.",
+            },
+            {
+                question: "Can I combine two niches?",
+                answer: "Yes, if the overlap is clear (for example, tech for teachers). Avoid random mixtures that confuse new viewers.",
+            },
+            {
+                question: "Is the niche finder quiz free?",
+                answer: "Yes. It runs free in the browser on YouTube Tools Hub without requiring a signup for the basic quiz.",
+            },
+            {
+                question: "What should I do after I get a suggestion?",
+                answer: "Write 20 video ideas, research competition, draft packaging, and publish a small test batch. Use free tools for titles, calendars, and earnings estimates.",
+            },
+        ],
     },
 ];
 

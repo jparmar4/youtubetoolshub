@@ -24,7 +24,10 @@ const PATHS = [
   "/tools/youtube-thumbnail-downloader",
   "/tools/youtube-earnings-calculator",
   "/tools/youtube-title-generator/gaming",
-  "/tools/youtube-earnings-calculator/united-states",
+  "/tools/youtube-earnings-calculator/usa",
+  "/resources/youtube-cpm-rates",
+  "/resources/youtube-monetization-guide",
+  "/blog/youtube-adsense-payment-schedule-2026",
 ];
 
 function fetch(path) {
@@ -37,7 +40,7 @@ function fetch(path) {
       (res) => {
         let body = "";
         res.on("data", (c) => {
-          if (body.length < 200_000) body += c;
+          body += c;
         });
         res.on("end", () =>
           resolve({

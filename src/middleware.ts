@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { i18n } from "@/lib/i18n";
 
 // Common search engine bot user agents
 const BOT_USER_AGENTS = [

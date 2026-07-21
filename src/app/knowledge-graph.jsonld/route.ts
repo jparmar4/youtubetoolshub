@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
+import { citableFacts, DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -29,10 +30,7 @@ export async function GET() {
                 email: siteConfig.contact.email,
                 foundingDate: "2025",
                 slogan: "Free AI-Powered YouTube Tools for Every Creator",
-                sameAs: [
-                    "https://www.facebook.com/profile.php?id=61585430621256",
-                    "https://t.me/youtubetoolshub",
-                ],
+                sameAs: siteConfig.footerLinks.social.map((s) => s.href),
                 knowsAbout: [
                     "YouTube SEO",
                     "YouTube Thumbnails",
@@ -43,7 +41,32 @@ export async function GET() {
                     "Video Marketing",
                     "Content Creator Tools",
                     "YouTube Algorithm Optimization",
+                    "YouTube Earnings Calculator",
+                    "YouTube Partner Program",
                 ],
+            },
+            {
+                "@type": "Person",
+                "@id": `${baseUrl}/#editorial`,
+                name: siteConfig.editorial.name,
+                jobTitle: siteConfig.editorial.jobTitle,
+                description: siteConfig.editorial.description,
+                url: siteConfig.editorial.url,
+                worksFor: { "@id": `${baseUrl}/#organization` },
+            },
+            {
+                "@type": "Dataset",
+                "@id": `${baseUrl}/resources/youtube-cpm-rates#dataset`,
+                name: "YouTube CPM and RPM Rates by Country (2026)",
+                description:
+                    "Industry planning estimates of YouTube CPM and RPM for 50+ countries plus niche context.",
+                url: `${baseUrl}/resources/youtube-cpm-rates`,
+                creator: { "@id": `${baseUrl}/#organization` },
+                dateModified: DATA_LAST_REVIEWED,
+                isAccessibleForFree: true,
+                keywords: "YouTube CPM, YouTube RPM, AdSense, creator earnings",
+                abstract: speakableAnswers.howMuchYoutubePays,
+                citation: citableFacts.preferredCitation,
             },
             {
                 "@type": "WebApplication",

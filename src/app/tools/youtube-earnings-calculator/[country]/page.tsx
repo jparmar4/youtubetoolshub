@@ -1,4 +1,3 @@
-
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -14,6 +13,16 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
+import {
+    getFAQSchema,
+    getBreadcrumbSchema,
+    getSpeakableSchema,
+    getDatasetSchema,
+} from "@/lib/seo";
+import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
+
+/** Unknown country slugs → 404 (prevents soft-404 index bloat) */
+export const dynamicParams = false;
 
 export function generateStaticParams() {
     return countryCPMData.map((country) => ({
@@ -94,6 +103,52 @@ export default async function CountryEarningsPage({
         notFound();
     }
 
+    const countryFaqs = [
+        {
+            question: `How much does YouTube pay in ${countryData.name}?`,
+            answer: `In ${countryData.name}, planning CPM often ranges about $${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)} (avg ~$${countryData.cpmRange.avg.toFixed(2)}), with RPM roughly $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} (avg ~$${countryData.rpmRange.avg.toFixed(2)}). Actual results depend on niche, seasonality, and ad fill. Verify in YouTube Studio.`,
+        },
+        {
+            question: "What is CPM vs RPM?",
+            answer: speakableAnswers.cpmVsRpm,
+        },
+        {
+            question: `How do I estimate earnings for ${countryData.name} viewers?`,
+            answer: `Use estimated earnings ≈ (views ÷ 1,000) × RPM. For ${countryData.name}, start near $${countryData.rpmRange.avg.toFixed(2)} RPM as a mid planning value, then adjust for niche. Use this calculator and compare with Studio analytics.`,
+        },
+        {
+            question: "Is this guaranteed AdSense income?",
+            answer:
+                "No. These are directional industry estimates for planning. Your AdSense revenue depends on your audience mix, content category, ad formats, and policy eligibility.",
+        },
+    ];
+
+    const faqSchema = getFAQSchema(countryFaqs);
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        {
+            name: "Earnings Calculator",
+            url: `${siteConfig.url}/tools/youtube-earnings-calculator`,
+        },
+        {
+            name: countryData.name,
+            url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+        },
+    ]);
+    const speakableSchema = getSpeakableSchema({
+        url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+        headline: `YouTube Earnings Calculator ${countryData.name}`,
+        summary: `Estimate YouTube earnings for ${countryData.name} using CPM/RPM planning ranges. Average RPM ~$${countryData.rpmRange.avg.toFixed(2)}.`,
+        cssSelectors: ["h1", ".summary", "[data-speakable]"],
+    });
+    const datasetSchema = getDatasetSchema({
+        name: `YouTube CPM/RPM — ${countryData.name} (${DATA_LAST_REVIEWED})`,
+        description: `Planning CPM and RPM ranges for YouTube creators with audience in ${countryData.name}.`,
+        url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+        dateModified: DATA_LAST_REVIEWED,
+    });
+
     return (
         <>
             <GeoAeoHead
@@ -104,6 +159,10 @@ export default async function CountryEarningsPage({
                 )}
                 pathname={`/tools/youtube-earnings-calculator/${country}`}
             />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
@@ -205,6 +264,32 @@ export default async function CountryEarningsPage({
                                     Comedy or Vlogging may be closer to the lower end.
                                 </p>
                             </div>
+
+                            {/* AEO FAQ (visible + schema) */}
+                            <section className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+                                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                                    {countryData.name} YouTube earnings FAQ
+                                </h2>
+                                <div className="space-y-5">
+                                    {countryFaqs.map((faq) => (
+                                        <div key={faq.question}>
+                                            <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                                {faq.question}
+                                            </h3>
+                                            <p className="text-slate-600 leading-relaxed">
+                                                {faq.answer}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="mt-6 text-sm text-slate-500">
+                                    Full multi-country table:{" "}
+                                    <Link href="/resources/youtube-cpm-rates" className="text-purple-600 font-semibold hover:underline">
+                                        YouTube CPM rates by country
+                                    </Link>
+                                    . Data last reviewed {DATA_LAST_REVIEWED}.
+                                </p>
+                            </section>
 
                             {/* Internal Links to other countries */}
                             <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">

@@ -15,11 +15,17 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getAllBlogPosts } from "@/config/blog";
+import { ToolContextProvider } from "@/components/tools/ToolContext";
 import {
     getPriorityTools,
     getRelatedBlogHintsForTool,
     getRelatedToolsForPost,
 } from "@/lib/related-tools";
+import {
+    getToolSeoSections,
+    getToolSeoFaqs,
+    getToolClusterLinks,
+} from "@/lib/tool-seo-content";
 
 
 // Import all tool components
@@ -173,6 +179,11 @@ export default async function ToolPage({
         notFound();
     }
 
+    // Server-side unique SEO body (ensures 350+ words + FAQs even if tool config is thin)
+    const seoSections = getToolSeoSections(tool);
+    const seoFaqs = getToolSeoFaqs(tool);
+    const clusterLinks = getToolClusterLinks(tool.slug);
+
     // Get up to 5 related tools in the same category
     let relatedTools = tools.filter((t) => t.category === tool.category && t.slug !== tool.slug);
     if (relatedTools.length < 5) {
@@ -240,11 +251,11 @@ export default async function ToolPage({
                     __html: JSON.stringify(breadcrumbSchema),
                 }}
             />
-            {tool.faqs && (
+            {seoFaqs.length > 0 && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(getFAQSchema(tool.faqs)),
+                        __html: JSON.stringify(getFAQSchema(seoFaqs)),
                     }}
                 />
             )}
@@ -263,8 +274,8 @@ export default async function ToolPage({
                     __html: JSON.stringify(getSpeakableSchema({
                         url: `${siteConfig.url}/tools/${tool.slug}`,
                         headline: tool.name,
-                        summary: tool.description,
-                        cssSelectors: ["h1", "h2", ".key-facts", ".summary"],
+                        summary: tool.seoDescription || tool.description,
+                        cssSelectors: ["h1", "h2", ".key-facts", ".summary", "[data-speakable]"],
                     })),
                 }}
             />
@@ -287,9 +298,41 @@ export default async function ToolPage({
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Column */}
                         <div className="lg:col-span-2 space-y-12">
-                            <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" /></div>}>
-                                <ToolComponent />
-                            </Suspense>
+                            {/*
+                              Server-rendered H1 + summary OUTSIDE Suspense/client tools.
+                              Many tools use useSearchParams() and only stream client HTML —
+                              crawlers often never see an H1 if it lives only in ToolPageLayout.
+                            */}
+                            <header className="text-center md:text-left">
+                                <h1
+                                    className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
+                                    data-speakable
+                                >
+                                    {tool.name}
+                                </h1>
+                                <p
+                                    className="text-lg text-slate-600 max-w-3xl summary"
+                                    data-speakable
+                                >
+                                    {tool.seoDescription || tool.description}
+                                </p>
+                                <p className="mt-4 text-slate-600 leading-relaxed key-facts" data-speakable>
+                                    {tool.definitionBlock?.text ||
+                                        `${tool.name} is a free YouTube creator tool on YouTube Tools Hub. ${tool.shortDescription}. No signup required for core use.`}
+                                </p>
+                            </header>
+
+                            <ToolContextProvider value={{ hideHeader: true }}>
+                                <Suspense
+                                    fallback={
+                                        <div className="min-h-[400px] flex items-center justify-center">
+                                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" />
+                                        </div>
+                                    }
+                                >
+                                    <ToolComponent />
+                                </Suspense>
+                            </ToolContextProvider>
 
                             {/* Share This Tool */}
                             <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -409,20 +452,44 @@ export default async function ToolPage({
                                 </ul>
                             </div>
 
-                            {/* Tool Content & AEO Section */}
-                            <div className="space-y-12 animate-fade-in-up delay-100">
-                                {tool.content?.map((section, idx) => (
-                                    <div key={idx}>
-                                        <div className="glass-premium rounded-2xl p-8 shadow-sm">
-                                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                                                {section.title}
-                                            </h2>
-                                            <p className="text-slate-600 leading-relaxed text-lg">
-                                                {section.content}
-                                            </p>
-                                        </div>
-                                    </div>
+                            {/* Server-rendered long-form SEO body (crawlable, unique per tool) */}
+                            <article className="space-y-8 animate-fade-in-up delay-100" itemScope itemType="https://schema.org/TechArticle">
+                                <meta itemProp="headline" content={tool.name} />
+                                <div className="glass-premium rounded-2xl p-6 border border-purple-100">
+                                    <p className="text-sm font-bold uppercase tracking-wide text-purple-600 mb-2">
+                                        Complete guide
+                                    </p>
+                                    <p className="text-slate-700 leading-relaxed summary" data-speakable>
+                                        {tool.seoDescription || tool.description}{" "}
+                                        Free in your browser—no extension and no YouTube password required.
+                                    </p>
+                                </div>
+
+                                {seoSections.map((section, idx) => (
+                                    <section key={`${section.title}-${idx}`} className="glass-premium rounded-2xl p-8 shadow-sm">
+                                        <h2 className="text-2xl font-bold text-gray-900 mb-4" itemProp="articleSection">
+                                            {section.title}
+                                        </h2>
+                                        <p className="text-slate-600 leading-relaxed text-lg" itemProp="text">
+                                            {section.content}
+                                        </p>
+                                    </section>
                                 ))}
+
+                                {clusterLinks.length > 0 && (
+                                    <p className="text-slate-600 leading-relaxed px-1">
+                                        Related resources:{" "}
+                                        {clusterLinks.map((link, i) => (
+                                            <span key={link.path}>
+                                                <Link href={link.path} className="text-purple-600 font-semibold hover:underline">
+                                                    {link.title}
+                                                </Link>
+                                                {i < clusterLinks.length - 1 ? " · " : ""}
+                                            </span>
+                                        ))}
+                                        .
+                                    </p>
+                                )}
 
                                 {/* How To Section */}
                                 {tool.howTo && (
@@ -452,15 +519,16 @@ export default async function ToolPage({
                                         </div>
                                     </div>
                                 )}
-                            </div>
-                            {/* FAQ Section */}
-                            {tool.faqs && (
+                            </article>
+
+                            {/* FAQ Section (always rendered from expanded set) */}
+                            {seoFaqs.length > 0 && (
                                 <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-200">
                                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                                         Frequently Asked Questions
                                     </h2>
                                     <div className="space-y-4">
-                                        {tool.faqs.map((faq, idx) => (
+                                        {seoFaqs.map((faq, idx) => (
                                             <div key={idx} className="border-b border-pink-100 dark:border-pink-900/30 last:border-0 pb-4 last:pb-0">
                                                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
                                                     {faq.question}

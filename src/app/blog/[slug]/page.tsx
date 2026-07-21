@@ -8,7 +8,8 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema } from "@/lib/seo";
+import { getClusterSiblings } from "@/lib/topic-clusters";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -124,6 +125,7 @@ export default async function BlogPostPage({
         title: post.title,
         description: post.metaDescription,
         author: post.author,
+        authorRole: post.authorRole,
         datePublished: isoDate,
         dateModified: isoDate,
         url: `${siteConfig.url}/blog/${slug}`,
@@ -145,8 +147,18 @@ export default async function BlogPostPage({
         url: `${siteConfig.url}/blog/${slug}`,
         headline: post.title,
         summary: post.metaDescription,
-        cssSelectors: ["h1", ".summary"],
+        cssSelectors: ["h1", ".summary", ".key-facts"],
     });
+
+    const authorSchema = getPersonSchema({
+        name: post.author,
+        url: `${siteConfig.url}/blog/${slug}`,
+        jobTitle: post.authorRole || "Content Strategist",
+        description: `${post.author} writes practical YouTube growth, SEO, and monetization guides for YouTube Tools Hub.`,
+    });
+
+    // Plain-text cluster siblings for topical authority (no new UI chrome)
+    const clusterSiblings = getClusterSiblings(`/blog/${slug}`, 5);
 
     const videoIds = extractYoutubeVideoIds(post.content);
     const videoSchemas = videoIds.map(id => getVideoObjectSchema({
@@ -196,6 +208,12 @@ export default async function BlogPostPage({
                     }}
                 />
             )}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(authorSchema),
+                }}
+            />
             {videoSchemas.map((schema, i) => (
                 <script
                     key={`video-schema-${i}`}
@@ -318,6 +336,25 @@ export default async function BlogPostPage({
                                             : 0,
                                     })}
                                 </div>
+
+                                {/* Topic-cluster internal links (plain text, no new component) */}
+                                {clusterSiblings.length > 0 && (
+                                    <p className="mt-10 text-slate-600 leading-relaxed">
+                                        Related guides on this topic:{" "}
+                                        {clusterSiblings.map((sib, i) => (
+                                            <span key={sib.path}>
+                                                <Link
+                                                    href={sib.path}
+                                                    className="text-purple-600 font-semibold hover:underline"
+                                                >
+                                                    {sib.title}
+                                                </Link>
+                                                {i < clusterSiblings.length - 1 ? " · " : ""}
+                                            </span>
+                                        ))}
+                                        .
+                                    </p>
+                                )}
 
                                 {/* End money CTA — final conversion touch */}
                                 {showEarningsCta && (

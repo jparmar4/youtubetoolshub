@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getSpeakableSchema, getDatasetSchema } from "@/lib/seo";
+import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
@@ -100,6 +101,35 @@ const pageFAQs = [
         answer:
             "This data represents industry estimates compiled from aggregated creator reports, AdSense benchmarks, and publicly available monetization research for 2026. Actual CPM varies based on your specific audience demographics, content type, ad format mix, and seasonality. Use this as a directional guide rather than a guaranteed rate. Your YouTube Studio Analytics will always show your exact RPM.",
     },
+    {
+        question: "How much does YouTube pay per 1,000 views in 2026?",
+        answer: speakableAnswers.howMuchYoutubePays,
+    },
+    {
+        question: "Does YouTube pay the same in every country?",
+        answer:
+            "No. Advertiser demand and consumer purchasing power differ by country, so CPM and RPM vary widely. Tier 1 markets (US, UK, Canada, Australia, and several Northern European countries) typically pay several times more than Tier 3 markets. Always check audience geography in YouTube Analytics, not only total views.",
+    },
+    {
+        question: "What is a good YouTube RPM?",
+        answer:
+            `A “good” RPM depends on audience location and niche. Many US-leaning channels see roughly ${citableFacts.usRpmRange} RPM. Global averages are often lower. Finance and business niches with Tier 1 viewers tend to outperform gaming and pure entertainment on RPM even at similar view counts.`,
+    },
+    {
+        question: "How do I estimate monthly YouTube AdSense income?",
+        answer:
+            "Use estimated monthly earnings ≈ (monthly views ÷ 1,000) × RPM. Example: 100,000 views at $5 RPM ≈ $500/month. Adjust RPM using country and niche ranges, then verify against YouTube Studio. Free calculator: YouTube Tools Hub Earnings Calculator.",
+    },
+    {
+        question: "When are YouTube CPM rates highest during the year?",
+        answer:
+            "CPMs are often highest in Q4 (October–December) when advertisers raise holiday spend — lifts of 20–50% versus quieter months are common in Tier 1 markets. Q1 frequently softens as budgets reset. Plan high-value uploads before and during Q4 when possible.",
+    },
+    {
+        question: "Is Shorts RPM the same as long-form RPM?",
+        answer:
+            "Usually no. Shorts monetization uses different product economics than long-form AdSense mid-rolls. Many creators report lower effective RPM on Shorts than on long-form videos with the same audience. Compare both in YouTube Studio rather than assuming one RPM for all formats.",
+    },
 ];
 
 const howToSchema = getHowToSchema({
@@ -139,18 +169,21 @@ const breadcrumbSchema = getBreadcrumbSchema([
     { name: "YouTube CPM Rates 2026", url: `${siteConfig.url}/resources/youtube-cpm-rates` },
 ]);
 
-const datasetSchema = {
-    "@context": "https://schema.org",
-    "@type": "Dataset",
-    name: "YouTube CPM and RPM Rates by Country 2026",
-    description:
-        "Industry estimates of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for 50+ countries, categorized by Tier 1, Tier 2, and Tier 3 markets. Also includes niche-level CPM benchmarks for Personal Finance, Technology, Gaming, and more.",
+const speakableSchema = getSpeakableSchema({
     url: `${siteConfig.url}/resources/youtube-cpm-rates`,
-    creator: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-    publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-    datePublished: "2026-01-01",
-    dateModified: new Date().toISOString().split("T")[0],
-    license: `${siteConfig.url}/terms-of-use`,
+    headline: "YouTube CPM Rates by Country 2026",
+    summary: speakableAnswers.howMuchYoutubePays,
+    cssSelectors: ["h1", ".summary", "[data-speakable]"],
+});
+
+const datasetSchema = {
+    ...getDatasetSchema({
+        name: "YouTube CPM and RPM Rates by Country 2026",
+        description:
+            "Industry estimates of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for 50+ countries, categorized by Tier 1, Tier 2, and Tier 3 markets. Also includes niche-level CPM benchmarks for Personal Finance, Technology, Gaming, and more.",
+        url: `${siteConfig.url}/resources/youtube-cpm-rates`,
+        dateModified: DATA_LAST_REVIEWED,
+    }),
     temporalCoverage: "2026-01-01/2026-12-31",
     variableMeasured: ["CPM", "RPM", "Country", "Niche"],
     spatialCoverage: { "@type": "Place", name: "Global" },
@@ -207,6 +240,7 @@ export default function YouTubeCPMRatesPage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
                 {/* Hero */}
@@ -235,10 +269,10 @@ export default function YouTubeCPMRatesPage() {
                                 Complete CPM and RPM data for 50+ countries. Understand exactly how much YouTube pays per 1,000 views in your market — and how to maximize your earnings.
                             </p>
                             {/* Quick-answer box for AEO featured snippet */}
-                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left">
+                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left" data-speakable>
                                 <p className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-2">⚡ Quick Answer</p>
-                                <p className="text-white font-medium leading-relaxed">
-                                    Average YouTube CPM in the <strong>United States</strong> is <strong>$8–$25</strong> per 1,000 ad impressions ($14.50 avg). The <strong>UK</strong> averages $6–$18, <strong>Canada</strong> $6.50–$20, and <strong>Australia</strong> $7.50–$22. <strong>India</strong> averages $0.50–$3.00. Finance and Business niches earn 3–5× more than Gaming or Entertainment in every country.
+                                <p className="text-white font-medium leading-relaxed summary">
+                                    Average YouTube CPM in the <strong>United States</strong> is <strong>$8–$25</strong> per 1,000 ad impressions ($14.50 avg). The <strong>UK</strong> averages $6–$18, <strong>Canada</strong> $6.50–$20, and <strong>Australia</strong> $7.50–$22. <strong>India</strong> averages $0.50–$3.00. Finance and Business niches earn 3–5× more than Gaming or Entertainment in every country. Data last reviewed {DATA_LAST_REVIEWED}.
                                 </p>
                             </div>
                         </div>

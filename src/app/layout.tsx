@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import CookieConsent from "@/components/ui/CookieConsent";
 import { siteConfig } from "@/config/site";
-import { getOrganizationSchema, getWebsiteSchema } from "@/lib/seo";
+import { getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
@@ -148,6 +148,13 @@ export default async function RootLayout({
   // Generate JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
+  const editorialSchema = getPersonSchema({
+    name: siteConfig.editorial.name,
+    url: siteConfig.editorial.url,
+    jobTitle: siteConfig.editorial.jobTitle,
+    description: siteConfig.editorial.description,
+    sameAs: siteConfig.footerLinks.social.map((s) => s.href),
+  });
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -261,6 +268,12 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(editorialSchema),
           }}
         />
       </head>
