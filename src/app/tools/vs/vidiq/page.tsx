@@ -83,7 +83,7 @@ export default function VidIQComparisonPage() {
                                     <span className="text-slate-500 dark:text-slate-500">Check current product details</span>
                                 </li>
                             </ul>
-                            <a href="https://vidiq.com/plans/" target="_blank" rel="noreferrer" className="block w-full py-3 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold text-center rounded-xl hover:bg-slate-300 dark:hover:bg-slate-700">
+                            <a href="https://vidiq.com/jitu" target="_blank" rel="nofollow sponsored noopener" className="block w-full py-3 bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold text-center rounded-xl hover:bg-slate-300 dark:hover:bg-slate-700">
                                 Review Current VidIQ Plans
                             </a>
                         </div>

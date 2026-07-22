@@ -8,6 +8,7 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
 import InArticleAd from "@/components/ads/InArticleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
@@ -303,6 +304,8 @@ export default function YouTubeCPMRatesPage() {
                         variant="card"
                         contextLabel="Turn CPM data into your estimate"
                     />
+
+                    <AffiliateBanner toolId="vidiq" variant="compact" />
 
                     {/* What is CPM section */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">

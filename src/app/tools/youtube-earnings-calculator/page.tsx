@@ -19,6 +19,7 @@ import EarningsCalculator from "@/components/tools/EarningsCalculator";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
@@ -317,6 +318,8 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               <HorizontalAd />
+
+              <AffiliateBanner toolId="vidiq" variant="inArticle" />
 
               {/* Example table */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
