@@ -28,6 +28,15 @@ const PATHS = [
   "/resources/youtube-cpm-rates",
   "/resources/youtube-monetization-guide",
   "/blog/youtube-adsense-payment-schedule-2026",
+  // Batch 3 acquisition + money posts
+  "/blog/youtube-thumbnail-size-2026",
+  "/blog/how-to-download-youtube-thumbnail-2026",
+  "/blog/youtube-description-template-2026",
+  "/blog/youtube-channel-name-ideas-2026",
+  "/blog/youtube-chapters-template-2026",
+  "/blog/youtube-cpm-rates-by-country-2026",
+  "/blog/youtube-shorts-monetization-2026",
+  "/blog/youtube-pay-per-view-2026",
 ];
 
 function fetch(path) {

@@ -173,6 +173,25 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube description generator", "video description template"],
       },
       {
+        path: "/blog/youtube-description-template-2026",
+        title: "YouTube Description Template",
+        anchors: [
+          "youtube description template",
+          "youtube description examples",
+          "video description seo",
+        ],
+      },
+      {
+        path: "/blog/youtube-chapters-template-2026",
+        title: "YouTube Chapters Template",
+        anchors: [
+          "youtube chapters template",
+          "youtube timestamps",
+          "youtube chapters format",
+          "key moments youtube",
+        ],
+      },
+      {
         path: "/tools/youtube-tag-extractor",
         title: "Tag Extractor",
         anchors: ["youtube tag extractor", "extract youtube tags"],
@@ -225,7 +244,26 @@ export const topicClusters: TopicCluster[] = [
       {
         path: "/blog/how-to-optimize-youtube-thumbnails",
         title: "How to Optimize Thumbnails",
-        anchors: ["optimize youtube thumbnails", "thumbnail size"],
+        anchors: ["optimize youtube thumbnails", "thumbnail optimization"],
+      },
+      {
+        path: "/blog/youtube-thumbnail-size-2026",
+        title: "YouTube Thumbnail Size 2026",
+        anchors: [
+          "youtube thumbnail size",
+          "thumbnail size",
+          "1280x720 thumbnail",
+          "thumbnail dimensions",
+        ],
+      },
+      {
+        path: "/blog/how-to-download-youtube-thumbnail-2026",
+        title: "How to Download a YouTube Thumbnail",
+        anchors: [
+          "how to download youtube thumbnail",
+          "download youtube thumbnail hd",
+          "get youtube thumbnail",
+        ],
       },
       {
         path: "/blog/youtube-thumbnail-ab-testing-guide-2026",
@@ -292,6 +330,16 @@ export const topicClusters: TopicCluster[] = [
         path: "/blog/how-to-start-youtube-channel-2026",
         title: "How to Start a YouTube Channel",
         anchors: ["start a youtube channel", "how to start youtube"],
+      },
+      {
+        path: "/blog/youtube-channel-name-ideas-2026",
+        title: "YouTube Channel Name Ideas",
+        anchors: [
+          "youtube channel name ideas",
+          "youtube channel names",
+          "how to name a youtube channel",
+          "channel name ideas",
+        ],
       },
       {
         path: "/blog/get-1000-subscribers-youtube-fast-2026",

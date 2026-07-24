@@ -1,8 +1,10 @@
 # YouTube Tools Hub — Growth Action Plan (Now)
 
 **Site:** https://www.youtubetoolshub.com  
-**Updated:** 2026-07-19  
-**Baseline (from design):** ~94 weekly pageviews, ~$0.03 CPC, ~$1.65 RPM, ~$0.15/week
+**Updated:** 2026-07-24  
+**Baseline (from design):** ~94 weekly pageviews, ~$0.03 CPC, ~$1.65 RPM, ~$0.15/week  
+
+**Operating playbook:** [`docs/MONTHLY-REVENUE-PLAYBOOK.md`](./MONTHLY-REVENUE-PLAYBOOK.md)
 
 ## Honest diagnosis
 
@@ -14,6 +16,29 @@ The **tech stack is already strong** (schemas, sitemaps, AdSense units, llms.txt
 4. **Off-page signals** (backlinks, brand searches, social) are still thin  
 
 Code alone cannot create 10k visits/week. Ranking + distribution + Tier-1 intent traffic can.
+
+---
+
+## Batch 3 — High-volume acquisition + money refresh (2026-07-24)
+
+| Change | Detail |
+|--------|--------|
+| **New posts (tool-led)** | Thumbnail size · How to download thumbnail · Description template · Channel name ideas · Chapters template |
+| **Expanded money posts** | CPM by country · Shorts monetization · Pay per view (QUICK-ANSWER, tables, FAQs, internal links) |
+| **Topic clusters** | New spokes under thumbnails, SEO, growth |
+| **Internal links** | `content-processor` keywords for new money/acquisition URLs |
+| **Playbook** | `docs/MONTHLY-REVENUE-PLAYBOOK.md` weekly OS for revenue |
+
+**Deploy + GSC index these first:**
+
+- `/blog/youtube-thumbnail-size-2026`
+- `/blog/how-to-download-youtube-thumbnail-2026`
+- `/blog/youtube-description-template-2026`
+- `/blog/youtube-channel-name-ideas-2026`
+- `/blog/youtube-chapters-template-2026`
+- `/blog/youtube-cpm-rates-by-country-2026`
+- `/blog/youtube-shorts-monetization-2026`
+- `/blog/youtube-pay-per-view-2026`
 
 ---
 

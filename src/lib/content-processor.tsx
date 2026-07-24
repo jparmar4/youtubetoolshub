@@ -26,7 +26,12 @@ tools.forEach((tool) => {
 const manualKeywords: Record<string, string> = {
     "thumbnail downloader": "/tools/youtube-thumbnail-downloader",
     "youtube thumbnail downloader": "/tools/youtube-thumbnail-downloader",
+    "how to download youtube thumbnail": "/blog/how-to-download-youtube-thumbnail-2026",
+    "youtube thumbnail size": "/blog/youtube-thumbnail-size-2026",
     "hd thumbnail": "/tools/youtube-thumbnail-downloader",
+    "youtube description template": "/blog/youtube-description-template-2026",
+    "youtube chapters template": "/blog/youtube-chapters-template-2026",
+    "youtube channel name ideas": "/blog/youtube-channel-name-ideas-2026",
     "thumbnail text generator": "/tools/youtube-thumbnail-generator",
     "ai thumbnail generator": "/tools/youtube-ai-thumbnail-generator",
     "ai thumbnail prompt": "/tools/youtube-ai-thumbnail-prompt",
