@@ -39,7 +39,10 @@ export async function generateMetadata({
     const countryData = getCountryBySlug(country);
 
     if (!countryData) {
-        return { title: "YouTube Earnings Calculator" };
+        return {
+            title: "YouTube Earnings Calculator",
+            robots: { index: false, follow: false },
+        };
     }
 
     const title = `YouTube Earnings Calculator ${countryData.name}: Real 2026 Rates`;

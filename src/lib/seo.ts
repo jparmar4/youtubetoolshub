@@ -1,5 +1,17 @@
 // JSON-LD Structured Data for SEO
+import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+
+/** Shared robots metadata for app UI / thin pages that must stay out of Google index */
+export const noIndexRobots: NonNullable<Metadata["robots"]> = {
+  index: false,
+  follow: true,
+  googleBot: {
+    index: false,
+    follow: true,
+    noimageindex: true,
+  },
+};
 
 // Organization Schema with enhanced E-E-A-T signals
 export function getOrganizationSchema() {

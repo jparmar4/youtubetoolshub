@@ -24,7 +24,13 @@ export async function GET(
                 message: `No tool found with slug '${slug}'. Use GET /api/tools to list all available tools.`,
                 available_tools: `${siteUrl}/api/tools`,
             },
-            { status: 404, headers: { "Access-Control-Allow-Origin": "*" } }
+            {
+                status: 404,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "X-Robots-Tag": "noindex",
+                },
+            },
         );
     }
 

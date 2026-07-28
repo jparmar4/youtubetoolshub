@@ -95,22 +95,28 @@ export default function GeoAeoHead({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
       />
-      {/* Visible-to-crawlers micro-summary (not hidden CSS) for AEO/GEO */}
+      {/*
+        Visible micro-summary for AEO/GEO (not display:none / not pure cloaking).
+        Compact “key takeaways” block users can read; speakable selectors target it.
+      */}
       {(conciseAnswer || (keyFacts && keyFacts.length > 0)) && (
-        <div className="sr-only" aria-hidden="false">
+        <aside
+          className="mx-auto max-w-3xl px-4 pt-4 pb-2 text-sm text-slate-600 dark:text-slate-400"
+          aria-label="Key takeaways"
+        >
           {conciseAnswer && (
-            <p className="summary" data-speakable>
+            <p className="summary leading-relaxed" data-speakable>
               {conciseAnswer}
             </p>
           )}
           {keyFacts && keyFacts.length > 0 && (
-            <ul className="key-facts">
+            <ul className="key-facts mt-2 list-disc space-y-1 pl-5">
               {keyFacts.map((fact) => (
                 <li key={fact}>{fact}</li>
               ))}
             </ul>
           )}
-        </div>
+        </aside>
       )}
     </>
   );

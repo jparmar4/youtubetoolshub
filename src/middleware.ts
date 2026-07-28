@@ -79,6 +79,33 @@ function isSearchBot(userAgent: string | null): boolean {
 }
 
 
+/** Paths that must never appear in Google Search (app UI / thin search results) */
+const NOINDEX_PREFIXES = [
+  "/search",
+  "/sign-in",
+  "/dashboard",
+  "/history",
+  "/upgrade",
+  "/auth",
+];
+
+function isNoIndexPath(pathname: string): boolean {
+  return NOINDEX_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
+
+function withOptionalNoIndex(
+  response: NextResponse,
+  pathname: string,
+): NextResponse {
+  if (isNoIndexPath(pathname)) {
+    // follow allowed so link equity can still pass from app/search UI
+    response.headers.set("X-Robots-Tag", "noindex, follow");
+  }
+  return response;
+}
+
 export default async function middleware(request: NextRequest) {
   const userAgent = request.headers.get("user-agent");
   const pathname = request.nextUrl.pathname;
@@ -116,9 +143,9 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  // 1. Allow search bots unrestricted access (SEO)
+  // 1. Allow search bots unrestricted access (SEO) — still attach noindex on private paths
   if (isSearchBot(userAgent)) {
-    return NextResponse.next();
+    return withOptionalNoIndex(NextResponse.next(), pathname);
   }
 
   // 2. Auth Protection for Tools
@@ -143,7 +170,7 @@ export default async function middleware(request: NextRequest) {
     }
     */
 
-  return NextResponse.next();
+  return withOptionalNoIndex(NextResponse.next(), pathname);
 }
 
 export const config = {

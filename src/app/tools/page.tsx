@@ -2,11 +2,39 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
-import { getToolListSchema, getBreadcrumbSchema } from "@/lib/seo";
+import {
+  getToolListSchema,
+  getBreadcrumbSchema,
+  getFAQSchema,
+  getSpeakableSchema,
+} from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
+
+const toolsPageFaqs = [
+  {
+    question: "Are YouTube Tools Hub tools free?",
+    answer:
+      "Yes. Core tools including the thumbnail downloader, title generator, tag generator, and earnings calculator are free with no signup required.",
+  },
+  {
+    question: "Do I need to install a browser extension?",
+    answer:
+      "No. Every tool runs in the browser at youtubetoolshub.com. You do not need TubeBuddy, VidIQ, or any extension to use the suite.",
+  },
+  {
+    question: "What free YouTube SEO tools are included?",
+    answer:
+      "Title generator, tag generator, tag extractor, description generator, hashtag generator, timestamp generator, and channel audit tools for metadata and growth.",
+  },
+  {
+    question: "Can I estimate YouTube earnings by country?",
+    answer:
+      "Yes. The YouTube Earnings Calculator uses country-level CPM and RPM planning ranges for 50+ markets, including the US, UK, Canada, Australia, and India.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "27+ Free YouTube Tools | Thumbnail, SEO, Tags & Earnings",
@@ -23,6 +51,16 @@ export const metadata: Metadata = {
     "vidiq alternative free",
     "youtube channel audit",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "27+ Free YouTube Tools | YouTube Tools Hub",
     description:
@@ -49,6 +87,15 @@ export default function ToolsPage() {
     { name: "Home", url: siteConfig.url },
     { name: "Tools", url: `${siteConfig.url}/tools` },
   ]);
+
+  const faqSchema = getFAQSchema(toolsPageFaqs);
+  const speakableSchema = getSpeakableSchema({
+    url: `${siteConfig.url}/tools`,
+    headline: "27+ Free YouTube Tools for Creators",
+    summary:
+      "YouTube Tools Hub offers 27+ free creator tools including thumbnail downloader, title generator, tag generator, and earnings calculator. No signup required.",
+    cssSelectors: ["h1", ".summary", "[data-speakable]"],
+  });
 
   return (
     <>
@@ -79,6 +126,14 @@ export default function ToolsPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbSchema),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 
       <div className="min-h-screen py-20 relative overflow-hidden bg-slate-50">
@@ -203,7 +258,33 @@ export default function ToolsPage() {
               </div>
             </div>
 
-            {/* Final In-Feed Ad after lists */}
+            {/* AEO: visible FAQ matching FAQPage schema */}
+            <section className="mt-24 max-w-3xl mx-auto" aria-labelledby="tools-faq-heading">
+              <h2
+                id="tools-faq-heading"
+                className="text-3xl font-bold text-slate-900 mb-8 text-center font-outfit"
+              >
+                Free YouTube Tools FAQ
+              </h2>
+              <div className="space-y-4">
+                {toolsPageFaqs.map((faq) => (
+                  <div
+                    key={faq.question}
+                    className="glass-premium rounded-2xl p-6 border border-white/40"
+                  >
+                    <h3 className="font-bold text-slate-900 mb-2">{faq.question}</h3>
+                    <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-center mt-8 text-slate-500">
+                More answers on the{" "}
+                <Link href="/faq" className="text-purple-600 font-semibold hover:underline">
+                  full FAQ page
+                </Link>
+                .
+              </p>
+            </section>
           </div>
         </div>
       </div>

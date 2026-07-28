@@ -47,9 +47,8 @@ export const metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: siteConfig.url,
-  },
+  // Do not set a global canonical here — child routes must self-canonicalize.
+  // A root canonical to "/" would make missing pages look like homepage duplicates.
 
   openGraph: {
     type: "website",

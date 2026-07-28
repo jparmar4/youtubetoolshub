@@ -2,15 +2,14 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { FaHome, FaTools, FaSearch } from "react-icons/fa";
 import Button from "@/components/ui/Button";
+import { noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404) | YouTube Tools Hub",
   description:
     "The page you're looking for doesn't exist or has been moved. Browse our 27+ free creator tools or return to the homepage.",
-  robots: {
-    index: false,
-    follow: true,
-  },
+  // noindex so 404s never rank; follow so links on the page still pass signals
+  robots: noIndexRobots,
 };
 
 export default function NotFound() {

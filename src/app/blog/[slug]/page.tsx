@@ -25,6 +25,9 @@ import {
 } from "@/lib/related-tools";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
+// Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
+export const dynamicParams = false;
+
 // Generate static params
 export function generateStaticParams() {
     const posts = getAllBlogPosts();
@@ -41,7 +44,10 @@ export async function generateMetadata({
     const post = getBlogPostBySlug(slug);
 
     if (!post) {
-        return { title: "Post Not Found" };
+        return {
+            title: "Post Not Found",
+            robots: { index: false, follow: false },
+        };
     }
 
     const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();

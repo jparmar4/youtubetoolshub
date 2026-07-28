@@ -88,6 +88,9 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-niche-finder-quiz": NicheFinderQuiz,
 };
 
+// Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
+export const dynamicParams = false;
+
 // Generate static params for all tools (dedicated routes own their own pages)
 export function generateStaticParams() {
     return tools
@@ -109,6 +112,7 @@ export async function generateMetadata({
     if (!tool) {
         return {
             title: "Tool Not Found",
+            robots: { index: false, follow: false },
         };
     }
 

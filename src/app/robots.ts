@@ -1,6 +1,38 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 
+/** App / thin / private paths — never crawl or index in search */
+const PRIVATE_DISALLOW = [
+  "/api/",
+  "/search",
+  "/sign-in",
+  "/dashboard",
+  "/history",
+  "/upgrade",
+  "/auth/",
+] as const;
+
+const DEFAULT_DISALLOW = [
+  ...PRIVATE_DISALLOW,
+  "/_next/data/",
+  "/cdn-cgi/",
+] as const;
+
+type RobotsRule = {
+  userAgent: string | string[];
+  allow?: string | string[];
+  disallow?: string | string[];
+};
+
+/** Full site access except private paths (most major crawlers) */
+function allowAllPrivateDisallow(userAgent: string | string[]): RobotsRule {
+  return {
+    userAgent,
+    allow: "/",
+    disallow: [...PRIVATE_DISALLOW],
+  };
+}
+
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = siteConfig.url;
 
@@ -25,92 +57,30 @@ export default function robots(): MetadataRoute.Robots {
           "/llms.txt",
           "/llms-full.txt",
           "/.well-known/",
+          // Structured AI context only (other /api/* JSON is noindex + disallowed)
           "/api/ai-context",
-          "/api/tools",
-          "/api/faqs",
           "/api-docs",
           "/atom.xml",
           "/feed.xml",
           "/feed",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-          "/_next/data/",
-          "/cdn-cgi/",
-        ],
+        disallow: [...DEFAULT_DISALLOW],
       },
 
       // ─── Google (Core Search + AI Overviews / SGE) ───
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
-      },
+      allowAllPrivateDisallow("Googlebot"),
       {
         userAgent: "Googlebot-Image",
         allow: ["/images/", "/og-image.png", "/_next/image"],
         disallow: ["/api/"],
       },
-      {
-        userAgent: "Google-Extended",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
-      },
-      {
-        userAgent: "GoogleOther",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
-      },
+      allowAllPrivateDisallow("Google-Extended"),
+      allowAllPrivateDisallow("GoogleOther"),
 
       // ─── Bing / Microsoft Copilot ───
-      {
-        userAgent: "Bingbot",
-        allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
-      },
-      {
-        userAgent: "BingPreview",
-        allow: "/",
-        disallow: ["/api/", "/sign-in"],
-      },
-      {
-        userAgent: "MicrosoftPreview",
-        allow: "/",
-        disallow: ["/api/", "/sign-in"],
-      },
+      allowAllPrivateDisallow("Bingbot"),
+      allowAllPrivateDisallow("BingPreview"),
+      allowAllPrivateDisallow("MicrosoftPreview"),
 
       // ─── OpenAI / ChatGPT / SearchGPT ───
       {
@@ -128,14 +98,7 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "ChatGPT-User",
@@ -152,26 +115,12 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Anthropic / Claude ───
@@ -190,38 +139,17 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "Claude-Web",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "anthropic-ai",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Perplexity AI ───
@@ -240,120 +168,57 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Meta AI ───
       {
         userAgent: "meta-externalagent",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "FacebookBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "meta-ai",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Apple (Siri / Apple Intelligence / Applebot) ───
       {
         userAgent: "Applebot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "Applebot-Extended",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── You.com AI ───
       {
         userAgent: "YouBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Cohere AI ───
       {
         userAgent: "cohere-ai",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Google Gemini / Vertex AI ───
       {
         userAgent: "Google-CloudVertexBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "GoogleOther-Image",
@@ -377,26 +242,12 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "Grok",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── DeepSeek AI ───
@@ -415,14 +266,7 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Mistral AI ───
@@ -441,42 +285,21 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Brave Search ───
       {
         userAgent: "BraveBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Amazon / Alexa AI ───
       {
         userAgent: "Amazonbot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── AI2 (Allen Institute for AI) ───
@@ -495,14 +318,7 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
       {
         userAgent: "AI2Bot-Dolma",
@@ -516,28 +332,14 @@ export default function robots(): MetadataRoute.Robots {
           "/llms.txt",
           "/llms-full.txt",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Google Gemini / AI Mode ───
       {
         userAgent: "Gemini-Web",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── AI21 Labs (Jamba / J2) ───
@@ -555,56 +357,28 @@ export default function robots(): MetadataRoute.Robots {
           "/.well-known/",
           "/api/ai-context",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── WriteSonic / Chatsonic ───
       {
         userAgent: "WriteSonicBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Semrush AI / AI-powered crawlers ───
       {
         userAgent: "SemrushBot-AI",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Neeva / Snowflake AI ───
       {
         userAgent: "NeevaBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Webz.io (AI data feed) ───
@@ -619,14 +393,7 @@ export default function robots(): MetadataRoute.Robots {
           "/llms.txt",
           "/llms-full.txt",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Common Crawl (feeds many AI training datasets) ───
@@ -645,56 +412,28 @@ export default function robots(): MetadataRoute.Robots {
           "/api/ai-context",
           "/atom.xml",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Yandex (Russia / international search) ───
       {
         userAgent: "YandexBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── DuckDuckGo (popular in US/EU Tier 1 markets) ───
       {
         userAgent: "DuckDuckBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Baidu (China) ───
       {
         userAgent: "Baiduspider",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Social Media Preview Crawlers ───
@@ -710,14 +449,7 @@ export default function robots(): MetadataRoute.Robots {
           "Pinterestbot",
         ],
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── SEO / Site Audit Tools ───
@@ -732,14 +464,7 @@ export default function robots(): MetadataRoute.Robots {
           "SiteAuditBot",
         ],
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Exa AI (neural search) ───
@@ -756,28 +481,14 @@ export default function robots(): MetadataRoute.Robots {
           "/llms-full.txt",
           "/api/ai-context",
         ],
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Nvidia / AI Research crawlers ───
       {
         userAgent: "NvidiaBot",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/sign-in",
-          "/dashboard",
-          "/history",
-          "/upgrade",
-          "/auth/",
-        ],
+        disallow: [...PRIVATE_DISALLOW],
       },
 
       // ─── Block known bad / resource-heavy bots ───

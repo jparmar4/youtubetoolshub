@@ -4,6 +4,8 @@ import { siteConfig } from "@/config/site";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
 import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getSpeakableSchema, getDatasetSchema } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
@@ -236,6 +238,21 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
 export default function YouTubeCPMRatesPage() {
     return (
         <>
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.resourcePage(
+                    "YouTube CPM Rates by Country 2026",
+                    "Complete YouTube CPM and RPM planning table for 50+ countries plus niche context for 2026.",
+                    "YouTube CPM Rates by Country",
+                    speakableAnswers.howMuchYoutubePays,
+                    [
+                        `Data last reviewed: ${DATA_LAST_REVIEWED}`,
+                        `US CPM planning range often ${citableFacts.usCpmRange}`,
+                        "RPM is what creators earn per 1,000 views after platform share",
+                        "Use the free earnings calculator for country scenarios",
+                    ],
+                )}
+                pathname="/resources/youtube-cpm-rates"
+            />
             {/* Structured Data */}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />

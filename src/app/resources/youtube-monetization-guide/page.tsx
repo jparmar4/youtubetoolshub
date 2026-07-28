@@ -1,7 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema } from "@/lib/seo";
+import {
+    getFAQSchema,
+    getHowToSchema,
+    getBreadcrumbSchema,
+    getSpeakableSchema,
+} from "@/lib/seo";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
@@ -164,9 +171,17 @@ const articleSchema = {
     author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     datePublished: "2026-01-01",
-    dateModified: new Date().toISOString().split("T")[0],
+    dateModified: "2026-07-19",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-monetization-guide` },
 };
+
+const speakableSchema = getSpeakableSchema({
+    url: `${siteConfig.url}/resources/youtube-monetization-guide`,
+    headline: "YouTube Monetization Guide 2026",
+    summary:
+        "To monetize on YouTube in 2026 you need 1,000 subscribers plus 4,000 watch hours (or 10M Shorts views) for full AdSense. Average RPM is about $2–$25 per 1,000 views depending on niche and country.",
+    cssSelectors: ["h1", ".summary", "[data-speakable]"],
+});
 
 const revenueStreams = [
     {
@@ -293,11 +308,27 @@ const earningsTiers = [
 export default function YouTubeMonetizationGuidePage() {
     return (
         <>
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.resourcePage(
+                    "YouTube Monetization Guide 2026",
+                    "YPP requirements, revenue streams, CPM vs RPM, and earnings strategies for YouTube creators in 2026.",
+                    "YouTube Monetization 2026",
+                    "To monetize on YouTube in 2026 you need 1,000 subscribers plus 4,000 watch hours (or 10M Shorts views) for full AdSense. Average RPM is about $2–$25 per 1,000 views depending on niche and country.",
+                    [
+                        "YPP: 1,000 subs + 4,000 hours (or 10M Shorts views)",
+                        "RPM commonly $2–$25 per 1,000 views",
+                        "US finance niches often earn higher RPM",
+                        "Sponsorships and affiliates diversify beyond AdSense",
+                    ],
+                )}
+                pathname="/resources/youtube-monetization-guide"
+            />
             {/* Structured Data */}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
@@ -317,7 +348,7 @@ export default function YouTubeMonetizationGuidePage() {
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Revenue Guide
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
                                 YouTube Monetization<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                                     Guide 2026
@@ -327,7 +358,7 @@ export default function YouTubeMonetizationGuidePage() {
                                 Everything you need to monetize your YouTube channel in 2026 — YPP requirements, 8 revenue streams, CPM vs RPM, and earnings benchmarks by subscriber tier.
                             </p>
                             {/* Quick-answer box for AEO featured snippet */}
-                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left">
+                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left summary" data-speakable>
                                 <p className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-2">⚡ Quick Answer</p>
                                 <p className="text-white font-medium leading-relaxed">
                                     To monetize on YouTube in 2026 you need <strong>1,000 subscribers + 4,000 watch hours</strong> (or 10M Shorts views) for full AdSense. Average RPM is <strong>$2–$25 per 1,000 views</strong> depending on niche and country. Finance channels in the US earn <strong>$8–$25 RPM</strong>; Gaming or Entertainment earns <strong>$1–$4 RPM</strong>.

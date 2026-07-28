@@ -1,7 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema } from "@/lib/seo";
+import {
+    getFAQSchema,
+    getHowToSchema,
+    getBreadcrumbSchema,
+    getSpeakableSchema,
+} from "@/lib/seo";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import MultiplexAd from "@/components/ads/MultiplexAd";
@@ -162,9 +169,17 @@ const articleSchema = {
     author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     datePublished: "2026-01-01",
-    dateModified: new Date().toISOString().split("T")[0],
+    dateModified: "2026-07-19",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-algorithm-guide` },
 };
+
+const speakableSchema = getSpeakableSchema({
+    url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
+    headline: "YouTube Algorithm Guide 2026",
+    summary:
+        "The YouTube algorithm ranks videos using CTR, average view duration, engagement, upload consistency, and session time. Optimize thumbnails, titles, retention, and metadata to earn more Home and Suggested traffic in 2026.",
+    cssSelectors: ["h1", ".summary", "[data-speakable]"],
+});
 
 const rankingFactors = [
     {
@@ -235,11 +250,27 @@ const rankingFactors = [
 export default function YouTubeAlgorithmGuidePage() {
     return (
         <>
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.resourcePage(
+                    "YouTube Algorithm Guide 2026",
+                    "How the YouTube algorithm ranks and recommends videos in 2026, with the 7 ranking factors creators must optimize.",
+                    "YouTube Algorithm 2026",
+                    "The YouTube algorithm prioritizes CTR, average view duration, engagement, and session satisfaction. Optimize thumbnails, titles, retention hooks, and metadata to earn more Home and Suggested views.",
+                    [
+                        "CTR and watch time are critical ranking signals",
+                        "70%+ of views often come from Home + Suggested",
+                        "First 24–48 hours of engagement heavily influence distribution",
+                        "Consistent uploads keep channels in active recommendation pools",
+                    ],
+                )}
+                pathname="/resources/youtube-algorithm-guide"
+            />
             {/* Structured Data */}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
@@ -259,13 +290,13 @@ export default function YouTubeAlgorithmGuidePage() {
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Ranking Guide
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
                                 YouTube Algorithm<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                                     Guide 2026
                                 </span>
                             </h1>
-                            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
+                            <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8 summary" data-speakable>
                                 Exactly how the YouTube algorithm ranks, recommends, and distributes videos in 2026 — plus the 7 ranking factors you must optimize to grow your channel.
                             </p>
                             {/* Quick-answer box for AEO featured snippet */}

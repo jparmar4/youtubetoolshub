@@ -3,17 +3,15 @@ import Link from "next/link";
 import { tools } from "@/config/tools";
 import { getAllBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { getBreadcrumbSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, noIndexRobots } from "@/lib/seo";
 import { FaSearch, FaTools, FaBookOpen, FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "Search YouTube Tools & Guides – YouTube Tools Hub",
     description:
         "Search across 27+ free YouTube tools and expert blog guides. Find the right tool or strategy for your channel growth in 2026.",
-    robots: {
-        index: false,
-        follow: true,
-    },
+    // Thin/dynamic result pages — must not appear in Google index
+    robots: noIndexRobots,
     alternates: {
         canonical: "/search",
     },

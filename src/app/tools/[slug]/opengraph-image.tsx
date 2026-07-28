@@ -5,6 +5,9 @@ export const alt = "YouTube Tools Hub";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+/** Match tool page: unknown slugs must not soft-404 as generic OG images */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
     return tools.map((tool) => ({ slug: tool.slug }));
 }

@@ -160,6 +160,23 @@ export const GEO_AEO_PRESETS = {
             "Advanced AI thumbnail and title generation",
         ],
     }),
+    resourcePage: (
+        title: string,
+        description: string,
+        primaryTopic: string,
+        conciseAnswer: string,
+        keyFacts: string[],
+    ) => ({
+        title,
+        description,
+        entityType: "Article" as const,
+        primaryTopic,
+        conciseAnswer,
+        keyFacts,
+        dateModified: "2026-07-19",
+        author: "YouTube Tools Hub Editorial Team",
+        authorRole: "Creator Tools & YouTube Growth Research",
+    }),
     nichePage: (toolName: string, nicheName: string, description: string) => ({
         title: `${toolName} for ${nicheName} Channels`,
         description: description,

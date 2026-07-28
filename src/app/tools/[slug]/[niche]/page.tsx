@@ -90,7 +90,10 @@ export async function generateMetadata({
     const niche = niches.find(n => n.id === nicheId);
 
     if (!tool || !niche || !programmaticTools.includes(slug)) {
-        return { title: "Page Not Found" };
+        return {
+            title: "Page Not Found",
+            robots: { index: false, follow: false },
+        };
     }
 
     const nicheContent = getNicheContent(tool.name, niche);
