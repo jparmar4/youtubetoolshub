@@ -214,9 +214,3 @@ export default function InArticleAd() {
   );
 }
 
-// TypeScript global augmentation for adsbygoogle
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}

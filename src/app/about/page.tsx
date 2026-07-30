@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
+import { getGlobalAlternates } from "@/lib/seo";
 import {
   FaRocket,
   FaCheck,
@@ -53,10 +54,7 @@ export const metadata: Metadata = {
       "Learn about YouTube Tools Hub—27+ free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.",
     images: [`${siteConfig.url}/og-image.png`],
   },
-  alternates: {
-    canonical: "/about",
-    
-  },
+  alternates: getGlobalAlternates("/about"),
 };
 
 const features = [

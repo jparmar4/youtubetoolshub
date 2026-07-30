@@ -18,7 +18,6 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
@@ -596,7 +595,7 @@ export default function YouTubeEarningsCalculatorPage() {
             </div>
           </section>
 
-          <MultiplexAd />
+
         </div>
       </div>
     </>

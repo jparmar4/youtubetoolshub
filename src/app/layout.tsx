@@ -11,6 +11,7 @@ import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import AdRecovery from "@/components/ads/AdRecovery";
 import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
+import HeaderAd from "@/components/ads/HeaderAd";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
@@ -314,6 +315,7 @@ export default async function RootLayout({
         </Script>
         <AuthProvider>
           <UsageProvider>
+            <HeaderAd />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

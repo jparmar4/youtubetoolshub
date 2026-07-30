@@ -11,7 +11,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
+
 import InArticleAd from "@/components/ads/InArticleAd";
 import {
     FaSearch,
@@ -767,7 +767,7 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
-                    <MultiplexAd />
+
 
                     {/* Section 8: Tools CTA */}
                     <section>

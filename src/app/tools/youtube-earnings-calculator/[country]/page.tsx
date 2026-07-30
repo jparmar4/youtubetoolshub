@@ -7,7 +7,7 @@ import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 import HorizontalAd from "@/components/ads/HorizontalAd";
 import SidebarAd from "@/components/ads/SidebarAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
+
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -352,9 +352,7 @@ export default async function CountryEarningsPage({
                         </div>
                     </div>
 
-                    <div className="mt-12">
-                        <MultiplexAd />
-                    </div>
+
                 </div>
             </div>
         </>

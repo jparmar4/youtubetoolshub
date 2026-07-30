@@ -20,7 +20,6 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Creator Tools",
@@ -225,10 +224,7 @@ export default function FAQPage() {
             ))}
           </div>
 
-          {/* Ad: Multiplex at bottom of FAQ */}
-          <div className="mb-12">
-            <MultiplexAd />
-          </div>
+
 
           {/* Contact Support */}
           <div className="relative group overflow-hidden rounded-[3rem] p-1 shadow-2xl">

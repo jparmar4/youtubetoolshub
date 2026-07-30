@@ -3,6 +3,7 @@ import PricingClient from "@/components/pricing/PricingClient";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { siteConfig } from "@/config/site";
+import { getGlobalAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Pricing - Free vs Premium Plans (Save 50% Today)",
@@ -40,10 +41,7 @@ export const metadata: Metadata = {
       "Core tools are free to use. Pro offers higher daily limits and priority access. No credit card required to start.",
     images: [`${siteConfig.url}/og-image.png`],
   },
-  alternates: {
-    canonical: "/pricing",
-    
-  },
+  alternates: getGlobalAlternates("/pricing"),
 };
 
 export default function PricingPage() {

@@ -15,7 +15,7 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
+import InArticleAd from "@/components/ads/InArticleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import {
@@ -482,9 +482,9 @@ export default async function BlogPostPage({
                     </div>
                 </div>
 
-                {/* Multiplex only once, below fold — reduced ad weight for CWV */}
+                {/* Ad placements below fold — InArticleAd for native content blend */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-                    <MultiplexAd />
+                    <InArticleAd />
                 </div>
 
                 {/* CTA with specific high-intent tools */}

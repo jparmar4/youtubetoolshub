@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AD_CLIENT } from "@/lib/adsense";
+import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
 /**
  * InFeedAd - Native text/display ad designed to fit naturally in a list of items
@@ -149,7 +149,7 @@ export default function InFeedAd() {
                         data-ad-format="fluid"
                         data-ad-layout-key="-gw-3+1f-3d+2z"
                         data-ad-client={AD_CLIENT}
-                        data-ad-slot="4701075871"
+                        data-ad-slot={AD_SLOTS.IN_FEED}
                     />
                 )}
             </div>
@@ -157,9 +157,3 @@ export default function InFeedAd() {
     );
 }
 
-// Add the TypeScript type for adsbygoogle
-declare global {
-    interface Window {
-        adsbygoogle: unknown[];
-    }
-}

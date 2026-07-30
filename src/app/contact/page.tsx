@@ -3,6 +3,7 @@ import ContactForm from "@/components/contact/ContactForm";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { siteConfig } from "@/config/site";
+import { getGlobalAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact Support - 24/7 Creator Assistance | YouTube Tools Hub",
@@ -38,10 +39,7 @@ export const metadata: Metadata = {
       "Contact YouTube Tools Hub for support, partnerships, or feedback. We typically respond within 24 hours.",
     images: [`${siteConfig.url}/og-image.png`],
   },
-  alternates: {
-    canonical: "/contact",
-    
-  },
+  alternates: getGlobalAlternates("/contact"),
 };
 
 export default function ContactPage() {

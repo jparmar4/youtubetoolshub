@@ -8,7 +8,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
+
 import InArticleAd from "@/components/ads/InArticleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
@@ -503,7 +503,7 @@ export default function YouTubeCPMRatesPage() {
                         CPM and RPM figures on this page are industry estimates compiled from aggregated creator reports, advertising rate benchmarks, and monetization research for 2026. Actual rates vary based on your specific audience demographics, ad format mix, content category, and seasonal factors. YouTube does not publish official CPM data. Your most accurate data source is always YouTube Studio Analytics → Revenue → RPM.
                     </section>
 
-                    <MultiplexAd />
+
                 </div>
             </div>
         </>

@@ -3,12 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}
-
 /**
  * Bottom anchor — only visible after the ad unit actually fills.
  * Avoids a permanent empty bar when Auto ads / inventory is empty.
@@ -106,7 +100,7 @@ export default function BottomAnchorAd() {
       aria-hidden={!filled}
     >
       {filled && (
-        <div className="flex w-full max-w-[320px] items-center justify-between px-2 pt-1">
+        <div className="flex w-full max-w-[728px] mx-auto items-center justify-between px-2 pt-1">
           <span className="text-[9px] font-medium uppercase tracking-widest text-slate-400 select-none">
             Advertisement
           </span>
@@ -120,12 +114,14 @@ export default function BottomAnchorAd() {
           </button>
         </div>
       )}
-      <div ref={containerRef} className="flex w-full justify-center pb-1">
+      <div ref={containerRef} className="flex w-full max-w-[728px] mx-auto justify-center pb-1">
         <ins
           className="adsbygoogle"
-          style={{ display: "inline-block", width: "300px", height: "50px" }}
+          style={{ display: "block", width: "100%", maxWidth: "728px", height: "auto", minHeight: "50px" }}
           data-ad-client={AD_CLIENT}
           data-ad-slot={AD_SLOTS.BOTTOM_STICKY}
+          data-ad-format="horizontal"
+          data-full-width-responsive="true"
         />
       </div>
     </div>

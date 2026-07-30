@@ -71,7 +71,8 @@ export const AD_SLOTS = {
 
   /**
    * Sticky sidebar ad (stays visible on scroll - vertical).
-   * Prefer a unique slot ID here when one is available in AdSense.
+   * NOTE: Create a unique slot ID in AdSense dashboard for better per-placement reporting.
+   * Currently shares the same slot ID as SIDEBAR which limits AdSense optimization.
    */
   STICKY_SIDEBAR: "9342904756",
 

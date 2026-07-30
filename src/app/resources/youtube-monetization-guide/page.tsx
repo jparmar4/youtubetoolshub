@@ -11,7 +11,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import HorizontalAd from "@/components/ads/HorizontalAd";
-import MultiplexAd from "@/components/ads/MultiplexAd";
+
 import InArticleAd from "@/components/ads/InArticleAd";
 import {
     FaCheckCircle,
@@ -787,7 +787,7 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                     </section>
 
-                    <MultiplexAd />
+
 
                     {/* Section 8: Pro Features CTA */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-purple-100">

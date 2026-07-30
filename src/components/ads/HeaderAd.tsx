@@ -3,12 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}
-
 /**
  * HeaderAd — Top-of-page leaderboard ad (highest RPM placement)
  *

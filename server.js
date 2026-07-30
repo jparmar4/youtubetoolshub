@@ -65,6 +65,8 @@ function serveFile(filePath, res, isImmutable) {
       'Cache-Control': isImmutable
         ? 'public, max-age=31536000, immutable'
         : 'public, max-age=86400',
+      'Vary': 'Accept-Encoding',
+      'ETag': '"' + stat.size + '-' + stat.mtimeMs + '"',
     });
 
     fs.createReadStream(filePath).pipe(res);

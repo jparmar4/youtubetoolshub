@@ -3,12 +3,6 @@
 import { useEffect, useRef, useState, useId } from "react";
 import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
 
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}
-
 /**
  * Responsive display unit. Collapses completely if unfilled so Auto ads
  * can place inventory without empty grey boxes.
