@@ -214,13 +214,22 @@ export function processContent(
                         </QuickAnswer>
                     );
                     break;
-                case 'KEY_TAKEAWAYS':
-                    // Expect lines starting with -
+                case 'KEY_TAKEAWAYS': {
+                    // Expect lines starting with - ; parse markdown so **bold** and links render
                     const points = aeoLines
-                        .filter(l => l.trim().startsWith('-'))
-                        .map(l => l.trim().replace(/^-\s*/, ''));
-                    elements.push(<KeyTakeaways key={key} points={points} />);
+                        .filter((l) => l.trim().startsWith("-") || l.trim().startsWith("*"))
+                        .map((l, i) =>
+                            parseInlineMarkdown(
+                                l.trim().replace(/^[-*]\s*/, ""),
+                                `kt-${key}-${i}`,
+                                true
+                            )
+                        );
+                    if (points.length > 0) {
+                        elements.push(<KeyTakeaways key={key} points={points} />);
+                    }
                     break;
+                }
                 case 'PROS_CONS':
                     // Parse PROS: ... CONS: ...
                     // This is a bit manual
@@ -283,7 +292,12 @@ export function processContent(
                 const match = part.match(/^!\[([^\]]*)\]\(([^\)]+)\)$/);
                 if (match) {
                     const alt = match[1];
-                    const src = match[2];
+                    // Normalize accidental spaces in markdown paths: "/images/blog / foo - bar.png"
+                    const src = match[2]
+                        .trim()
+                        .replace(/\s*\/\s*/g, "/")
+                        .replace(/\s*-\s*/g, "-")
+                        .replace(/\s+/g, "");
                     nodes.push(
                         <div key={key} className="my-10 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
                             <NextImage

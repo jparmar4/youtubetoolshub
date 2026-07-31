@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 
 export async function GET() {
   const posts = getAllBlogPosts();
@@ -8,7 +8,7 @@ export async function GET() {
   const rssItems = posts
     .map((post) => {
       const postUrl = `${siteUrl}/blog/${post.slug}`;
-      const pubDate = new Date(post.date).toUTCString();
+      const pubDate = new Date(toBlogIsoDate(post.date)).toUTCString();
 
       return `
     <item>

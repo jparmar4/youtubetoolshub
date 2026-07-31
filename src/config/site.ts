@@ -102,11 +102,12 @@ export const siteConfig = {
 
   // SEO Defaults
   seo: {
-    titleTemplate: "%s | YouTube Tools Hub - Free AI Tools 2026",
+    // Keep brand suffix short so SERP titles stay ~50–60 chars with page titles
+    titleTemplate: "%s | YouTube Tools Hub",
     defaultTitle:
-      "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
+      "Free YouTube Tools 2026 — Thumbnails, Tags & Earnings Calculator",
     defaultDescription:
-      "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
+      "Free YouTube tools: HD thumbnail downloader, AI titles & tags, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",

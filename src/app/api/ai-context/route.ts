@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
 import {
@@ -67,7 +67,7 @@ export async function GET() {
     headline: post.title,
     url: `${siteUrl}/blog/${post.slug}`,
     description: post.metaDescription,
-    datePublished: new Date(post.date).toISOString(),
+    datePublished: toBlogIsoDate(post.date),
     author: {
       "@type": "Person",
       name: post.author,

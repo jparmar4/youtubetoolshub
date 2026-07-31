@@ -377,7 +377,15 @@ export function getSpeakableSchema(page: {
     name: page.headline,
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: page.cssSelectors || ["h1", "h2", ".summary", ".key-facts"],
+      cssSelector: page.cssSelectors || [
+        "h1",
+        "h2",
+        ".summary",
+        ".key-facts",
+        ".key-takeaways",
+        ".quick-answer",
+        "[data-speakable]",
+      ],
     },
     url: page.url,
     description: page.summary,

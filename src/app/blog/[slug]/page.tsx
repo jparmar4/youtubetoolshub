@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
-import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts } from "@/config/blog";
+import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema } from "@/lib/seo";
 import { getClusterSiblings } from "@/lib/topic-clusters";
@@ -50,10 +50,19 @@ export async function generateMetadata({
         };
     }
 
-    const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();
+    const isoDate = toBlogIsoDate(post.date);
+
+    // Prefer absolute titles so long post names are not double-padded by a long template
+    const fullTitle = `${post.title} | YouTube Tools Hub`;
+    const serTitle =
+        fullTitle.length <= 62
+            ? fullTitle
+            : post.title.length <= 60
+                ? post.title
+                : `${post.title.slice(0, 57).trim()}…`;
 
     return {
-        title: post.title,
+        title: { absolute: serTitle },
         description: post.metaDescription,
         keywords: post.keywords,
         authors: [{ name: post.author }],
@@ -124,7 +133,7 @@ export default async function BlogPostPage({
     const priorityTools = getPriorityTools(6);
     const showEarningsCta = isMonetizationPost(post);
 
-    const isoDate = Number.isNaN(Date.parse(post.date)) ? post.date : new Date(post.date).toISOString();
+    const isoDate = toBlogIsoDate(post.date);
 
     // Generate structured data for SEO
     const articleSchema = getArticleSchema({
@@ -153,7 +162,14 @@ export default async function BlogPostPage({
         url: `${siteConfig.url}/blog/${slug}`,
         headline: post.title,
         summary: post.metaDescription,
-        cssSelectors: ["h1", ".summary", ".key-facts"],
+        cssSelectors: [
+            "h1",
+            ".summary",
+            ".quick-answer",
+            ".key-takeaways",
+            ".key-facts",
+            "[data-speakable]",
+        ],
     });
 
     const authorSchema = getPersonSchema({

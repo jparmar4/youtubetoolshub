@@ -34,9 +34,9 @@ import {
 } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "YouTube Monetization Guide 2026 — Requirements, Earnings & Strategies",
+    title: "YouTube Monetization Guide 2026: YPP & Earnings",
     description:
-        "Complete YouTube monetization guide for 2026. YPP requirements (1,000 subs + 4,000 hours), 8 revenue streams, CPM vs RPM explained, earnings by subscriber tier, and proven strategies to maximize AdSense income.",
+        "YouTube monetization 2026: YPP requirements (1k subs + 4k hours or 10M Shorts), revenue streams, CPM vs RPM, and practical ways to grow AdSense income.",
     keywords: [
         "youtube monetization requirements 2026",
         "how to monetize youtube channel",

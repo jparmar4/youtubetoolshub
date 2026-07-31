@@ -51,7 +51,14 @@ export default function GeoAeoHead({
     isAccessibleForFree: true,
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "[data-speakable]", ".summary", ".key-facts"],
+      cssSelector: [
+        "h1",
+        "[data-speakable]",
+        ".summary",
+        ".quick-answer",
+        ".key-takeaways",
+        ".key-facts",
+      ],
     },
   };
 

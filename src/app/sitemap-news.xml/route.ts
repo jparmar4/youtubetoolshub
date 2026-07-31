@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ export async function GET() {
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const recentPosts = blogPosts.filter((post) => {
-        const postDate = new Date(post.date);
+        const postDate = new Date(toBlogIsoDate(post.date));
         return !isNaN(postDate.getTime()) && postDate >= thirtyDaysAgo;
     });
 
@@ -21,8 +21,7 @@ export async function GET() {
     const postsToShow = recentPosts.length > 0 ? recentPosts : blogPosts.slice(0, 3);
 
     const xmlItems = postsToShow.map((post) => {
-        const postDate = new Date(post.date);
-        const safeDate = isNaN(postDate.getTime()) ? new Date().toISOString() : postDate.toISOString();
+        const safeDate = toBlogIsoDate(post.date);
         return `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
     <news:news>

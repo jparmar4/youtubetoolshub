@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
 /**
@@ -23,7 +23,7 @@ export default function imageSitemap(): MetadataRoute.Sitemap {
     if (post.coverImage) {
       imageEntries.push({
         url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
+        lastModified: new Date(toBlogIsoDate(post.date)),
         // Image metadata is embedded in the page
       });
     }

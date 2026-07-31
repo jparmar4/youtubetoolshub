@@ -55,8 +55,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-downloader",
         name: "YouTube Thumbnail Downloader (HD & 4K)",
-        seoTitle: "Free YouTube Thumbnail Downloader (HD & Max Res)",
-        seoDescription: "Download public YouTube video thumbnails in available resolutions. Paste a video URL, preview thumbnail sizes, and save the image. Free and no signup required.",
+        seoTitle: "YouTube Thumbnail Downloader (HD / Max Res)",
+        seoDescription: "Download public YouTube video thumbnails in HD or max resolution. Paste a video URL, preview sizes, and save. Free, no signup.",
         description: "Download high-quality thumbnails from any YouTube video. Get all resolutions including HD and SD versions instantly. No signup required.",
         shortDescription: "Download thumbnails from any YouTube video",
         category: "thumbnail-media",
@@ -1054,7 +1054,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-earnings-calculator",
         name: "YouTube Earnings Calculator",
-        seoTitle: "YouTube Earnings Calculator 2026 — Free RPM, CPM & AdSense Estimator",
+        seoTitle: "YouTube Earnings Calculator 2026 (Free RPM/CPM)",
         seoDescription: "Free YouTube earnings calculator: estimate AdSense revenue from views and RPM, compare CPM by country, and plan channel income for 2026. Instant results, no signup.",
         description: "Estimate YouTube AdSense revenue from monthly views and RPM. Compare country CPM ranges, model high-intent niches, and plan monthly/yearly creator income.",
         shortDescription: "Estimate AdSense revenue by views & RPM",

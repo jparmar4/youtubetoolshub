@@ -39,10 +39,9 @@ const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
 
 export const metadata: Metadata = {
-  title:
-    "YouTube Earnings Calculator 2026 — Free RPM, CPM & AdSense Estimator",
+  title: "YouTube Earnings Calculator 2026 (Free RPM/CPM)",
   description:
-    "Free YouTube earnings calculator: estimate AdSense revenue from views and RPM, compare CPM by country, and plan channel income for 2026. Instant results, no signup.",
+    "Free YouTube earnings calculator: estimate AdSense from views & RPM, compare CPM by country, plan channel income. Instant results, no signup.",
   keywords: [
     "youtube earnings calculator",
     "youtube money calculator",

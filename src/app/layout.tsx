@@ -38,8 +38,7 @@ export const viewport = {
 
 export const metadata = {
   title: {
-    default:
-      "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
+    default: siteConfig.seo.defaultTitle,
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,

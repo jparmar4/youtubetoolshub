@@ -1,5 +1,5 @@
 import { siteConfig } from "@/config/site";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { tools } from "@/config/tools";
 
 export async function GET() {
@@ -10,7 +10,7 @@ export async function GET() {
   const blogEntries = posts
     .map((post) => {
       const postUrl = `${siteUrl}/blog/${post.slug}`;
-      const updated = new Date(post.date).toISOString();
+      const updated = toBlogIsoDate(post.date);
 
       return `
     <entry>

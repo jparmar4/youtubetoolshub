@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
 import { niches, programmaticTools } from "@/config/programmatic";
@@ -110,7 +110,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Blog posts — use publication/update date from post data
   for (const post of blogPosts) {
-    const postDate = parseSafeDate(post.date, FALLBACK_LAST_MODIFIED);
+    const postDate = parseSafeDate(toBlogIsoDate(post.date), FALLBACK_LAST_MODIFIED);
     const url = `${baseUrl}/blog/${post.slug}`;
     allEntries.push({
       url,

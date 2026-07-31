@@ -2,12 +2,18 @@ import React from "react";
 import { FaCheckCircle, FaListUl } from "react-icons/fa";
 
 interface KeyTakeawaysProps {
-    points: string[];
+    /** Plain strings or pre-parsed markdown nodes from content-processor */
+    points: React.ReactNode[];
 }
 
 export default function KeyTakeaways({ points }: KeyTakeawaysProps) {
+    if (!points.length) return null;
+
     return (
-        <div className="key-takeaways my-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+        <div
+            className="key-takeaways key-facts my-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm"
+            data-speakable
+        >
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
                 <FaListUl className="w-6 h-6 text-purple-600" />
                 <h3 className="font-bold text-xl text-slate-900">Key Takeaways</h3>

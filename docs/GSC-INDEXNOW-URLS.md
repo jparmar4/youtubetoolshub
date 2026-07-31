@@ -1,7 +1,7 @@
 # Google Search Console + IndexNow URL list
 
 **Site:** https://www.youtubetoolshub.com  
-**Updated:** 2026-07-24 (Batch 3 content deploy)
+**Updated:** 2026-07-31 (money-page expansions: pay-per-view, CPM by country, thumbnail download, Shorts monetization)
 
 Use this after every production deploy that changes content or routes.
 

@@ -14,9 +14,9 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
-    title: "YouTube CPM Rates by Country 2026 — Complete Data Table",
+    title: "YouTube CPM Rates by Country 2026 (50+ Markets)",
     description:
-        "Full YouTube CPM and RPM rates for 50+ countries in 2026. See average CPM by country tier, niche CPM breakdown (Finance, Tech, Gaming), and proven tips to increase your YouTube earnings.",
+        "YouTube CPM & RPM by country for 50+ markets in 2026. US, UK, India, finance vs gaming niches, plus tips to raise earnings. Free data table.",
     keywords: [
         "youtube cpm rates by country 2026",
         "youtube cpm rates",

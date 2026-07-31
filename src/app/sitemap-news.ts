@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllBlogPosts } from "@/config/blog";
+import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
 /**
@@ -25,14 +25,14 @@ export default function newsSitemap(): MetadataRoute.Sitemap {
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
   const recentPosts = blogPosts.filter(post => {
-    const postDate = new Date(post.date);
+    const postDate = new Date(toBlogIsoDate(post.date));
     return !isNaN(postDate.getTime()) && postDate >= thirtyDaysAgo;
   });
 
   return recentPosts.map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
     title: post.title,
-    lastModified: new Date(post.date),
+    lastModified: new Date(toBlogIsoDate(post.date)),
     // News-specific metadata for Google Discover
     alternates: {
       languages: {
