@@ -13,6 +13,8 @@
 | Link to us | `/resources/link-to-us` | Badges + **calculator HTML embed** |
 | Calculator badge SVG | `/images/badge-calculator.svg` | Image badge for sidebars |
 | Algorithm guide | `/resources/youtube-algorithm-guide` | Evergreen resource |
+| **Thumbnail size guide (2026 specs)** | `/blog/youtube-thumbnail-size-2026` | Exact dimensions + citation block |
+| Thumbnail downloader | `/tools/youtube-thumbnail-downloader` | Practical free tool next to size guide |
 
 **Outreach tracker (spreadsheet):**  
 `outputs/youtubetoolshub_backlink_outreach_tracker.xlsx`  
@@ -26,7 +28,7 @@ Regenerate: `node scripts/create-outreach-tracker.mjs`
 `npm run deploy:post` — waits for health, IndexNow, smoke checks.
 
 **Suggested anchor text (vary these):**  
-`free YouTube earnings calculator` · `YouTube CPM rates by country` · `free YouTube tools` · `YouTube RPM calculator` · `TubeBuddy alternative free`
+`free YouTube earnings calculator` · `YouTube CPM rates by country` · `free YouTube tools` · `YouTube RPM calculator` · `TubeBuddy alternative free` · `YouTube thumbnail size 2026` · `YouTube thumbnail dimensions` · `3840x2160 YouTube thumbnail`
 
 ---
 
@@ -43,6 +45,35 @@ Regenerate: `node scripts/create-outreach-tracker.mjs`
 | Sun | Track replies, ship promised assets | — |
 
 **Goal:** 8–20 quality referring domains / month for 3 months beats 200 spammy links.
+
+---
+
+## Template T — Thumbnail size / creator specs page (new Aug 2026)
+
+**Subject:** Exact YouTube thumbnail size for your [creator tools / specs] page
+
+```
+Hi [Name],
+
+I noticed your page “[Article Title]” covers [thumbnails / YouTube specs / creator checklist].
+
+We published an updated 2026 guide with exact dimensions from current YouTube Help (3840×2160 recommended, min width 640, 16:9, desktop vs mobile file limits, Shorts frame rules, safe zones):
+
+https://www.youtubetoolshub.com/blog/youtube-thumbnail-size-2026
+
+There’s a short citation block editors can paste, plus a free thumbnail downloader for max-res research:
+https://www.youtubetoolshub.com/tools/youtube-thumbnail-downloader
+
+If it fits a resources or “specs” section, a link would help readers avoid blurry uploads. Happy to reciprocal-link from our Link to Us page if useful.
+
+Thanks,
+[Your Name]
+YouTube Tools Hub
+```
+
+**Pin / social asset:**  
+`https://www.youtubetoolshub.com/images/blog/youtube-thumbnail-size-guide-2026-pinterest.jpg`  
+(1000×1500 style pin — link pin to the blog URL above)
 
 ---
 
