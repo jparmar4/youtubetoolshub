@@ -20,17 +20,21 @@ export default function CookieConsent() {
     const acceptCookies = () => {
         localStorage.setItem("cookieConsent", "accepted");
         setShowBanner(false);
+        window.dispatchEvent(new Event("cookie-consent-changed"));
     };
 
     const declineCookies = () => {
         localStorage.setItem("cookieConsent", "declined");
         setShowBanner(false);
+        window.dispatchEvent(new Event("cookie-consent-changed"));
     };
 
     if (!showBanner) return null;
 
+    // z-[45] sits above bottom anchor ad (z-40) but stays below modals.
+    // mb reserves space so the sticky bottom ad remains clickable when both show.
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 glass-premium border-t border-slate-200 shadow-2xl bg-white/90 backdrop-blur-md">
+        <div className="fixed bottom-0 left-0 right-0 z-[45] p-4 md:p-6 mb-0 glass-premium border-t border-slate-200 shadow-2xl bg-white/90 backdrop-blur-md">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
                     <div className="hidden sm:flex w-10 h-10 rounded-lg bg-orange-100 items-center justify-center text-orange-500 flex-shrink-0">

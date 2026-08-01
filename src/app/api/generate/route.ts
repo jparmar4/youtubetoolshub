@@ -1,10 +1,16 @@
 import { NextResponse } from "next/server";
 import { AIConfigurationError, generateAIText, prompts } from "@/lib/ai";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { auth } from "@/auth";
+import { hasActiveSubscription } from "@/lib/subscription";
 
 const MAX_REQUEST_BYTES = 16_000;
-const ANONYMOUS_REQUEST_LIMIT = 12;
-const REQUEST_WINDOW_MS = 60 * 60 * 1000;
+/** Free/anonymous: keep abuse cost low while UI free tier is ~2/tool/day */
+const FREE_HOURLY_LIMIT = 8;
+const FREE_DAILY_LIMIT = 24;
+const PRO_HOURLY_LIMIT = 60;
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
 
 export async function POST(request: Request) {
     try {
@@ -13,20 +19,48 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Request is too large" }, { status: 413 });
         }
 
-        const rateLimit = enforceRateLimit(
-            `ai-text:${getRequestIp(request.headers)}`,
-            ANONYMOUS_REQUEST_LIMIT,
-            REQUEST_WINDOW_MS,
-        );
-        if (!rateLimit.allowed) {
+        const ip = getRequestIp(request.headers);
+        const session = await auth();
+        const email = session?.user?.email || null;
+        const isPro = email ? await hasActiveSubscription(email) : false;
+
+        const hourlyKey = email ? `ai-text-h:user:${email}` : `ai-text-h:ip:${ip}`;
+        const dailyKey = email ? `ai-text-d:user:${email}` : `ai-text-d:ip:${ip}`;
+        const hourlyLimit = isPro ? PRO_HOURLY_LIMIT : FREE_HOURLY_LIMIT;
+        const dailyLimit = isPro ? PRO_HOURLY_LIMIT * 12 : FREE_DAILY_LIMIT;
+
+        const hourly = enforceRateLimit(hourlyKey, hourlyLimit, HOUR_MS);
+        if (!hourly.allowed) {
             return NextResponse.json(
                 { error: "Too many requests. Please try again later." },
-                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+                { status: 429, headers: { "Retry-After": String(hourly.retryAfterSeconds) } },
             );
         }
 
-        const body = JSON.parse(rawBody);
-        const { tool: rawTool, ...params } = body;
+        if (!isPro) {
+            const daily = enforceRateLimit(dailyKey, dailyLimit, DAY_MS);
+            if (!daily.allowed) {
+                return NextResponse.json(
+                    {
+                        error: "Daily free AI limit reached. Upgrade to Pro or try again tomorrow.",
+                        code: "DAILY_LIMIT",
+                    },
+                    { status: 429, headers: { "Retry-After": String(daily.retryAfterSeconds) } },
+                );
+            }
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let body: any;
+        try {
+            body = JSON.parse(rawBody);
+        } catch {
+            return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+        }
+        const { tool: rawTool, ...params } = body as {
+            tool?: string;
+            [key: string]: unknown;
+        };
 
         // Normalize legacy / alternate client tool names
         const toolAliases: Record<string, string> = {
@@ -48,12 +82,22 @@ export async function POST(request: Request) {
                 ? toolAliases[rawTool] || rawTool
                 : "";
 
+        const str = (v: unknown, fallback = ""): string =>
+            typeof v === "string" ? v : fallback;
+        const num = (v: unknown, fallback = 0): number => {
+            const n = Number(v);
+            return Number.isFinite(n) ? n : fallback;
+        };
+
         // Flexible field aliases used by different client components
         const topic =
-            params.topic || params.niche || params.videoTopic || params.query || "";
-        const niche = params.niche || params.topic || "";
-        const days =
-            Number(params.days || params.duration || params.dayCount) || 30;
+            str(params.topic) ||
+            str(params.niche) ||
+            str(params.videoTopic) ||
+            str(params.query) ||
+            "";
+        const niche = str(params.niche) || str(params.topic) || "";
+        const days = num(params.days || params.duration || params.dayCount, 30);
 
         if (!tool) {
             return NextResponse.json(
@@ -75,10 +119,10 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.titleGenerator(
                     topic,
-                    params.tone || "Normal",
-                    params.language || "English",
-                    params.targetAudience,
-                    params.videoType
+                    str(params.tone, "Normal"),
+                    str(params.language, "English"),
+                    str(params.targetAudience),
+                    str(params.videoType),
                 );
                 break;
 
@@ -91,9 +135,9 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.descriptionGenerator(
                     topic,
-                    params.videoType || "Tutorial",
-                    params.tone || "Casual & Friendly",
-                    params.keywords || ""
+                    str(params.videoType, "Tutorial"),
+                    str(params.tone, "Casual & Friendly"),
+                    str(params.keywords),
                 );
                 break;
 
@@ -106,8 +150,8 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.tagGenerator(
                     topic,
-                    niche || params.niche,
-                    params.targetAudience
+                    niche || str(params.niche),
+                    str(params.targetAudience),
                 );
                 break;
 
@@ -120,9 +164,9 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.videoIdeasGenerator(
                     niche,
-                    params.level || "Beginner",
-                    params.channelSize,
-                    params.contentGoal
+                    str(params.level, "Beginner"),
+                    str(params.channelSize),
+                    str(params.contentGoal),
                 );
                 break;
 
@@ -135,7 +179,7 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.trendHelper(
                     topic,
-                    params.region || "Global"
+                    str(params.region, "Global"),
                 );
                 break;
 
@@ -148,8 +192,8 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.calendarGenerator(
                     niche || topic,
-                    params.frequency || "Weekly",
-                    days
+                    str(params.frequency, "Weekly"),
+                    days,
                 );
                 break;
 
@@ -162,8 +206,8 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.thumbnailTextGenerator(
                     topic,
-                    params.style || "Bold & Colorful",
-                    params.emotion || "Excited"
+                    str(params.style, "Bold & Colorful"),
+                    str(params.emotion, "Excited"),
                 );
                 break;
 
@@ -176,7 +220,7 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.channelNameGenerator(
                     niche || topic,
-                    params.tone || "Fun"
+                    str(params.tone, "Fun"),
                 );
                 break;
 
@@ -187,7 +231,7 @@ export async function POST(request: Request) {
                         { status: 400 },
                     );
                 }
-                prompt = prompts.hashtagGenerator(topic, niche || params.niche);
+                prompt = prompts.hashtagGenerator(topic, niche || str(params.niche));
                 break;
 
             case "intro-script":
@@ -199,36 +243,36 @@ export async function POST(request: Request) {
                 }
                 prompt = prompts.introScriptGenerator(
                     topic,
-                    params.personality || "Fun",
-                    params.length || "10-15 sec",
-                    params.structure || "Standard Hook"
+                    str(params.personality, "Fun"),
+                    str(params.length, "10-15 sec"),
+                    str(params.structure, "Standard Hook"),
                 );
                 break;
 
             case "title-ab-tester":
                 prompt = prompts.titleABTester(
-                    params.titleA,
-                    params.titleB,
-                    params.context
+                    str(params.titleA),
+                    str(params.titleB),
+                    str(params.context),
                 );
                 break;
 
             case "thumbnail-prompt":
                 prompt = prompts.thumbnailPromptGenerator(
-                    params.videoTopic || topic,
-                    niche || params.niche,
-                    params.subject,
-                    params.mood,
-                    params.colorScheme,
-                    params.composition
+                    str(params.videoTopic) || topic,
+                    niche || str(params.niche),
+                    str(params.subject),
+                    str(params.mood),
+                    str(params.colorScheme),
+                    str(params.composition),
                 );
                 break;
 
             case "sponsorship-estimator":
                 prompt = prompts.sponsorshipEstimator(
-                    niche || params.niche || topic,
-                    params.subscribers,
-                    params.dealViews
+                    niche || str(params.niche) || topic,
+                    str(params.subscribers),
+                    str(params.dealViews),
                 );
                 break;
 

@@ -12,15 +12,15 @@ export async function GET() {
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
+    // Google News only accepts articles from the last 2 days for many feeds,
+    // and generally rejects sitemaps padded with older content. Prefer an empty
+    // valid sitemap over listing stale posts as "news".
     const recentPosts = blogPosts.filter((post) => {
         const postDate = new Date(toBlogIsoDate(post.date));
         return !isNaN(postDate.getTime()) && postDate >= thirtyDaysAgo;
     });
 
-    // Fallback: If no posts in last 30 days, just include the most recent 3 posts so sitemap is not empty
-    const postsToShow = recentPosts.length > 0 ? recentPosts : blogPosts.slice(0, 3);
-
-    const xmlItems = postsToShow.map((post) => {
+    const xmlItems = recentPosts.map((post) => {
         const safeDate = toBlogIsoDate(post.date);
         return `  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>

@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 /**
  * YouTube Trending Videos API
- * 
+ *
  * Fetches real trending videos from YouTube using YouTube Data API v3
  * Configure YOUTUBE_API_KEY in your .env.local file
  */
-
-// Use Edge runtime for faster cold starts and lower CPU usage
-export const runtime = "edge";
 
 // Region codes for YouTube API (ISO 3166-1 alpha-2)
 const REGION_CODES: Record<string, string> = {
@@ -30,6 +28,15 @@ const REGION_CODES: Record<string, string> = {
 };
 
 export async function GET(req: NextRequest) {
+    const ip = getRequestIp(req.headers);
+    const rl = enforceRateLimit(`trending:${ip}`, 40, 60 * 60 * 1000);
+    if (!rl.allowed) {
+        return NextResponse.json(
+            { success: false, error: "Too many requests. Please try again later." },
+            { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } },
+        );
+    }
+
     const { searchParams } = new URL(req.url);
     const region = searchParams.get("region") || "us";
     const category = searchParams.get("category"); // Optional category filter

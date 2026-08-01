@@ -1,105 +1,69 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+import {
+  initializeAd,
+  watchAdFill,
+  AD_CLIENT,
+  AD_SLOTS,
+} from "@/lib/adsense";
 
 /**
- * Bottom anchor — only visible after the ad unit actually fills.
- * Avoids a permanent empty bar when Auto ads / inventory is empty.
+ * Bottom anchor — only fully visible after the ad unit fills.
+ * Uses near-invisible in-flow sizing while loading (never display:none).
  */
 export default function BottomAnchorAd() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const pushed = useRef(false);
-  const [filled, setFilled] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [phase, setPhase] = useState<"loading" | "filled" | "empty">("loading");
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    if (dismissed || failed || pushed.current) return;
+    if (dismissed) return;
 
-    let cancelled = false;
-    let tries = 0;
+    const cleanupInit = initializeAd(
+      containerRef.current,
+      "bottom-anchor-ad",
+      { delay: 600, maxWait: 12000 },
+    );
 
-    const attempt = () => {
-      if (cancelled || pushed.current) return;
-      tries += 1;
-
-      if (typeof window.adsbygoogle === "undefined") {
-        if (tries < 50) setTimeout(attempt, 200);
-        else setFailed(true);
-        return;
-      }
-
+    let fillCleanup: (() => void) | null = null;
+    const watchTimer = setTimeout(() => {
       const ins = containerRef.current?.querySelector("ins.adsbygoogle");
       if (!ins) {
-        if (tries < 50) setTimeout(attempt, 200);
+        setPhase("empty");
         return;
       }
 
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        pushed.current = true;
+      fillCleanup = watchAdFill(
+        ins,
+        (result) => {
+          setPhase(result === "filled" ? "filled" : "empty");
+        },
+        { minHeight: 30, timeoutMs: 10000 },
+      );
+    }, 700);
 
-        const check = () => {
-          const st = ins.getAttribute("data-adsbygoogle-status");
-          const h = ins.getBoundingClientRect().height;
-          const hasIframe = !!ins.querySelector("iframe");
-          if (st === "unfilled") {
-            setFailed(true);
-            return true;
-          }
-          if ((hasIframe || st === "done" || st === "loaded") && h > 10) {
-            setFilled(true);
-            return true;
-          }
-          return false;
-        };
-
-        const mo = new MutationObserver(() => {
-          if (check()) mo.disconnect();
-        });
-        mo.observe(ins, {
-          attributes: true,
-          childList: true,
-          subtree: true,
-        });
-
-        let n = 0;
-        const poll = setInterval(() => {
-          n += 1;
-          if (check() || n >= 16) {
-            clearInterval(poll);
-            mo.disconnect();
-            if (!check()) setFailed(true);
-          }
-        }, 500);
-      } catch {
-        setFailed(true);
-      }
-    };
-
-    // Slight delay so Auto ads script can boot first
-    const t = setTimeout(attempt, 1200);
     return () => {
-      cancelled = true;
-      clearTimeout(t);
+      cleanupInit();
+      clearTimeout(watchTimer);
+      fillCleanup?.();
     };
-  }, [dismissed, failed]);
+  }, [dismissed]);
 
-  if (dismissed || failed) return null;
+  if (dismissed || phase === "empty") return null;
 
   return (
     <div
       className={
-        filled
+        phase === "filled"
           ? "fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center bg-white/95 border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.12)] backdrop-blur"
-          : "fixed left-[-9999px] top-0 w-[320px] h-[50px] overflow-hidden opacity-0 pointer-events-none"
+          : "fixed bottom-0 left-0 right-0 z-30 flex flex-col items-center pointer-events-none opacity-[0.01]"
       }
       role="complementary"
       aria-label="Advertisement"
-      aria-hidden={!filled}
+      aria-hidden={phase !== "filled"}
     >
-      {filled && (
+      {phase === "filled" && (
         <div className="flex w-full max-w-[728px] mx-auto items-center justify-between px-2 pt-1">
           <span className="text-[9px] font-medium uppercase tracking-widest text-slate-400 select-none">
             Advertisement
@@ -114,10 +78,18 @@ export default function BottomAnchorAd() {
           </button>
         </div>
       )}
-      <div ref={containerRef} className="flex w-full max-w-[728px] mx-auto justify-center pb-1">
+      <div
+        ref={containerRef}
+        className="flex w-full max-w-[728px] mx-auto justify-center pb-1"
+      >
         <ins
           className="adsbygoogle"
-          style={{ display: "block", width: "100%", maxWidth: "728px", height: "auto", minHeight: "50px" }}
+          style={{
+            display: "block",
+            width: "100%",
+            maxWidth: "728px",
+            minHeight: "50px",
+          }}
           data-ad-client={AD_CLIENT}
           data-ad-slot={AD_SLOTS.BOTTOM_STICKY}
           data-ad-format="horizontal"

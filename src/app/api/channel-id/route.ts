@@ -1,12 +1,18 @@
-
 import { NextResponse } from "next/server";
 import { extractVideoId } from "@/lib/utils";
-
-// Use Edge runtime for faster cold starts and lower CPU usage
-export const runtime = "edge";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
     try {
+        const ip = getRequestIp(req.headers);
+        const rl = enforceRateLimit(`channel-id:${ip}`, 30, 60 * 60 * 1000);
+        if (!rl.allowed) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } },
+            );
+        }
+
         const { query } = await req.json();
 
         if (!query) {

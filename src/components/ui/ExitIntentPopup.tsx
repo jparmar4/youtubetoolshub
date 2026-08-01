@@ -16,9 +16,11 @@ export default function ExitIntentPopup() {
         }
     });
     const [email, setEmail] = useState("");
-    const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
     const handleMouseLeave = useCallback((e: MouseEvent) => {
+        // Desktop exit intent only (clientY near top). Skip on touch devices.
+        if (window.matchMedia("(pointer: coarse)").matches) return;
         if (e.clientY <= 5 && !hasShown) {
             setIsVisible(true);
             setHasShown(true);
@@ -33,7 +35,7 @@ export default function ExitIntentPopup() {
 
         const timer = setTimeout(() => {
             document.addEventListener("mouseleave", handleMouseLeave);
-        }, 5000);
+        }, 8000);
 
         return () => {
             clearTimeout(timer);
@@ -50,17 +52,18 @@ export default function ExitIntentPopup() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    name: "Newsletter Subscriber",
+                    name: "Newsletter Lead",
                     email,
-                    subject: "Newsletter Signup",
-                    message: "Subscribed via exit-intent popup.",
+                    subject: "[Newsletter] Exit-intent signup",
+                    message:
+                        "Newsletter signup from exit-intent popup (not a support ticket). Please add to the creator tips list.",
                 }),
             });
             if (!res.ok) throw new Error("Failed");
             setStatus("success");
             setTimeout(() => setIsVisible(false), 2000);
         } catch {
-            setStatus("idle");
+            setStatus("error");
         }
     };
 
@@ -106,7 +109,7 @@ export default function ExitIntentPopup() {
                             Wait! Don&apos;t Leave Empty-Handed
                         </h2>
                         <p className="text-purple-100 text-sm">
-                            Get our free YouTube growth cheatsheet + weekly tips
+                            Get free growth tips for creators — no spam
                         </p>
                     </div>
 
@@ -118,7 +121,9 @@ export default function ExitIntentPopup() {
                                     <FaCheck className="w-6 h-6 text-emerald-600" />
                                 </div>
                                 <p className="text-lg font-semibold text-slate-900 dark:text-white">You&apos;re in!</p>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Check your inbox for the cheatsheet.</p>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                                    Thanks — we&apos;ll send creator tips to your inbox.
+                                </p>
                             </div>
                         ) : (
                             <>
@@ -143,13 +148,21 @@ export default function ExitIntentPopup() {
                                         <input
                                             type="email"
                                             value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            onChange={(e) => {
+                                                setEmail(e.target.value);
+                                                if (status === "error") setStatus("idle");
+                                            }}
                                             placeholder="Enter your email"
                                             className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                             required
                                             disabled={status === "loading"}
                                         />
                                     </div>
+                                    {status === "error" && (
+                                        <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+                                            Couldn&apos;t save your email. Please try again or use the contact page.
+                                        </p>
+                                    )}
                                     <button
                                         type="submit"
                                         disabled={status === "loading"}
@@ -158,7 +171,7 @@ export default function ExitIntentPopup() {
                                         {status === "loading" ? (
                                             <><FaSpinner className="w-4 h-4 animate-spin" /> Subscribing...</>
                                         ) : (
-                                            "Get Free Cheatsheet"
+                                            "Get Free Tips"
                                         )}
                                     </button>
                                 </form>

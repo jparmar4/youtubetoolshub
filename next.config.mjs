@@ -48,7 +48,7 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["react-icons", "lucide-react", "framer-motion"],
+    optimizePackageImports: ["react-icons", "framer-motion"],
   },
 
   // Headers for caching, security, SEO, and AI crawler optimization
@@ -126,16 +126,16 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://adservice.google.co.* https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://adservice.google.co.* https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://checkout.razorpay.com https://*.razorpay.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://*.googlesyndication.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://adservice.google.co.* https://*.googleapis.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.clarity.ms https://*.clarity.ms https://*.google.com",
-              "frame-src 'self' https://*.googlesyndication.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.google.com https://*.google.com https://*.googleadservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.googletagmanager.com",
+              "connect-src 'self' https://*.googlesyndication.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://adservice.google.co.* https://*.googleapis.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.clarity.ms https://*.clarity.ms https://*.google.com https://api.razorpay.com https://*.razorpay.com https://lumberjack.razorpay.com",
+              "frame-src 'self' https://*.googlesyndication.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.google.com https://*.google.com https://*.googleadservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.googletagmanager.com https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
               "frame-ancestors 'self'",
               "object-src 'none'",
               "base-uri 'self'",
-              "form-action 'self'",
+              "form-action 'self' https://api.razorpay.com https://checkout.razorpay.com",
               "upgrade-insecure-requests",
             ].join("; "),
           },
@@ -492,6 +492,59 @@ const nextConfig = {
       {
         source: "/tools/youtube-earnings-calculator/us",
         destination: "/tools/youtube-earnings-calculator/usa",
+        permanent: true,
+      },
+      // Thin static marketing page removed — serve full guide instead
+      {
+        source: "/blog/youtube-seo-strategies-2026",
+        destination: "/blog/youtube-seo-complete-guide",
+        permanent: true,
+      },
+      // Broken internal link slug (never published under this name)
+      {
+        source: "/blog/youtube-analytics-complete-guide",
+        destination: "/blog/youtube-analytics-guide-beginners-2026",
+        permanent: true,
+      },
+      // Retired / wrong slug → canonical posts
+      {
+        source: "/blog/canva-ai-tools-youtube-tutorial",
+        destination: "/blog/canva-ai-tools-youtube-complete-tutorial",
+        permanent: true,
+      },
+      {
+        source: "/blog/capcut-ai-youtube-editing-guide",
+        destination: "/blog/capcut-ai-features-complete-youtube-editing-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/davinci-resolve-youtube-tutorial",
+        destination: "/blog/davinci-resolve-tutorial-youtube-beginners",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-affiliate-marketing-guide",
+        destination: "/blog/youtube-monetization-guide-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-automation-faceless-channel-guide",
+        destination: "/blog/faceless-youtube-channel-2026",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-channel-health-auditor",
+        destination: "/tools/youtube-channel-audit",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-niche-finder",
+        destination: "/tools/youtube-niche-finder-quiz",
+        permanent: true,
+      },
+      {
+        source: "/tools/youtube-script-generator",
+        destination: "/tools/youtube-intro-script-generator",
         permanent: true,
       },
     ];

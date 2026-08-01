@@ -47,13 +47,39 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const body = await request.json();
+        const rawBody = await request.text();
+        // Cap payload size so history can't be used as free unbounded storage
+        if (rawBody.length > 100_000) {
+            return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+        }
+
+        let body: { toolSlug?: unknown; type?: unknown; content?: unknown };
+        try {
+            body = JSON.parse(rawBody);
+        } catch {
+            return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+        }
+
         const { toolSlug, type, content } = body;
         const email = session.user.email;
 
         // Validate toolSlug
         if (!toolSlug || typeof toolSlug !== "string" || toolSlug.length > 100) {
             return NextResponse.json({ error: "Invalid toolSlug" }, { status: 400 });
+        }
+
+        if (content == null) {
+            return NextResponse.json({ error: "Content is required" }, { status: 400 });
+        }
+
+        const contentStr =
+            typeof content === "string" ? content : JSON.stringify(content);
+        if (contentStr.length > 80_000) {
+            return NextResponse.json({ error: "Content too large" }, { status: 413 });
+        }
+
+        if (type != null && (typeof type !== "string" || type.length > 50)) {
+            return NextResponse.json({ error: "Invalid type" }, { status: 400 });
         }
 
         // Determine retention server-side from DB — never trust client-supplied isPro
@@ -74,7 +100,7 @@ export async function POST(request: Request) {
 
         await db.sql`
             INSERT INTO history_items (id, user_email, tool_slug, content, type, expires_at)
-            VALUES (${id}, ${email}, ${toolSlug}, ${content}, ${type || 'other'}, ${expiresAt.toISOString()})
+            VALUES (${id}, ${email}, ${toolSlug}, ${contentStr}, ${type || 'other'}, ${expiresAt.toISOString()})
         `;
 
         return NextResponse.json({ id: id, success: true });

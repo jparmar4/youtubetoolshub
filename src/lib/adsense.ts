@@ -8,9 +8,10 @@
  * 2. Race conditions where adsbygoogle.push() is called before the script loads
  * 3. Ads failing silently without any error tracking
  * 4. Multiple <ins> elements on the same page conflicting with each other
+ * 5. Zero-size / display:none containers that AdSense refuses to fill
  *
  * Usage in ad components:
- *   import { initializeAd, AD_CLIENT } from "@/lib/adsense";
+ *   import { initializeAd, AD_CLIENT, watchAdFill } from "@/lib/adsense";
  *
  *   useEffect(() => {
  *     const cleanup = initializeAd(containerRef.current, "my-ad-id");
@@ -35,9 +36,6 @@ export const AD_CLIENT = "ca-pub-1328083083403070";
  * 1. Go to AdSense → Ads → By ad unit → Create new ad unit
  * 2. Choose the format (display, in-article, multiplex, etc.)
  * 3. Copy the slot ID and add it here
- *
- * Use separate slot IDs per placement where possible so reporting and experiments
- * stay clear in AdSense.
  */
 export const AD_SLOTS = {
   /** Top-of-page leaderboard / horizontal banner */
@@ -48,14 +46,9 @@ export const AD_SLOTS = {
 
   /**
    * Horizontal display ad between content sections.
-   *
-   * Create additional horizontal ad units in AdSense if you want more granular
-   * reporting for every repeated placement.
+   * Rotate across slots so inventory diversity improves fill rate.
    */
-  HORIZONTAL: [
-    "8649718301",
-    "7688425196",
-  ],
+  HORIZONTAL: ["8649718301", "7688425196"],
 
   /** Native in-article ad (blends with content) */
   IN_ARTICLE: ["7336636636", "6023554962", "3397391628", "2084309959"],
@@ -71,8 +64,8 @@ export const AD_SLOTS = {
 
   /**
    * Sticky sidebar ad (stays visible on scroll - vertical).
-   * NOTE: Create a unique slot ID in AdSense dashboard for better per-placement reporting.
-   * Currently shares the same slot ID as SIDEBAR which limits AdSense optimization.
+   * NOTE: Create a unique slot ID in AdSense for better per-placement reporting.
+   * Currently shares SIDEBAR — update when you create a dedicated unit.
    */
   STICKY_SIDEBAR: "9342904756",
 
@@ -99,13 +92,15 @@ const pendingAds: Array<() => void> = [];
 /**
  * Check if the AdSense script is loaded and ready.
  * The script is loaded in layout.tsx via next/script.
+ *
+ * Note: `window.adsbygoogle = window.adsbygoogle || []` may exist before the
+ * script finishes downloading; pushes still queue correctly in that case.
  */
 function isAdSenseReady(): boolean {
   if (typeof window === "undefined") return false;
   if (adsenseScriptError) return false;
 
-  // Check if the adsbygoogle array exists (created by the AdSense script)
-  if (typeof (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle !== "undefined") {
+  if (typeof window.adsbygoogle !== "undefined") {
     adsenseScriptLoaded = true;
     return true;
   }
@@ -120,18 +115,15 @@ function isAdSenseReady(): boolean {
 function whenAdSenseReady(callback: () => void, maxWaitMs = 10000): () => void {
   if (isAdSenseReady()) {
     callback();
-    return () => { };
+    return () => {};
   }
 
-  // Add to pending queue
   pendingAds.push(callback);
 
-  // Poll for script readiness
   const startTime = Date.now();
   const intervalId = setInterval(() => {
     if (isAdSenseReady()) {
       clearInterval(intervalId);
-      // Process all pending ads
       const pending = pendingAds.splice(0, pendingAds.length);
       pending.forEach((fn) => {
         try {
@@ -142,9 +134,11 @@ function whenAdSenseReady(callback: () => void, maxWaitMs = 10000): () => void {
       });
     } else if (Date.now() - startTime > maxWaitMs) {
       clearInterval(intervalId);
-      console.warn("[AdSense] Script did not load within timeout. Ads will not be shown.");
+      console.warn(
+        "[AdSense] Script did not load within timeout. Ads will not be shown.",
+      );
       adsenseScriptError = true;
-      pendingAds.splice(0, pendingAds.length); // Clear queue
+      pendingAds.splice(0, pendingAds.length);
     }
   }, 200);
 
@@ -153,31 +147,130 @@ function whenAdSenseReady(callback: () => void, maxWaitMs = 10000): () => void {
   };
 }
 
+// ─── Fill detection ──────────────────────────────────────────────────────────
+
+export type AdFillResult = "filled" | "unfilled" | "timeout";
+
+export interface WatchAdFillOptions {
+  /** Min height (px) to treat as filled. Default 20 */
+  minHeight?: number;
+  /** Max wait ms before timeout. Default 8000 */
+  timeoutMs?: number;
+  /** Poll interval ms. Default 400 */
+  pollIntervalMs?: number;
+}
+
+/**
+ * Watch an <ins.adsbygoogle> element until AdSense fills it, marks unfilled,
+ * or we time out. Always returns a cleanup function.
+ */
+export function watchAdFill(
+  insElement: Element,
+  onResult: (result: AdFillResult) => void,
+  options: WatchAdFillOptions = {},
+): () => void {
+  const { minHeight = 20, timeoutMs = 8000, pollIntervalMs = 400 } = options;
+  let settled = false;
+  let observer: MutationObserver | null = null;
+  let pollId: ReturnType<typeof setInterval> | null = null;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  const settle = (result: AdFillResult) => {
+    if (settled) return;
+    settled = true;
+    cleanup();
+    onResult(result);
+  };
+
+  const check = (): boolean => {
+    const status = insElement.getAttribute("data-adsbygoogle-status");
+    const rect = insElement.getBoundingClientRect();
+    const hasIframe = !!insElement.querySelector("iframe");
+    const content = (insElement as HTMLElement).innerHTML?.trim() ?? "";
+
+    if (status === "unfilled") {
+      settle("unfilled");
+      return true;
+    }
+
+    const tallEnough = rect.height >= minHeight || hasIframe;
+    if (
+      tallEnough &&
+      (status === "done" || status === "loaded" || hasIframe || content.length > 0)
+    ) {
+      settle("filled");
+      return true;
+    }
+
+    return false;
+  };
+
+  const cleanup = () => {
+    observer?.disconnect();
+    observer = null;
+    if (pollId != null) {
+      clearInterval(pollId);
+      pollId = null;
+    }
+    if (timeoutId != null) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+
+  if (check()) return cleanup;
+
+  observer = new MutationObserver(() => {
+    check();
+  });
+  observer.observe(insElement, {
+    attributes: true,
+    attributeFilter: ["data-adsbygoogle-status", "style", "data-ad-status"],
+    childList: true,
+    subtree: true,
+  });
+
+  pollId = setInterval(() => {
+    check();
+  }, pollIntervalMs);
+
+  timeoutId = setTimeout(() => {
+    if (check()) return;
+    // Final height check — slow inventory can still be "done" with content
+    const status = insElement.getAttribute("data-adsbygoogle-status");
+    const h = insElement.getBoundingClientRect().height;
+    if (h >= minHeight && status !== "unfilled") {
+      settle("filled");
+    } else {
+      settle("timeout");
+    }
+  }, timeoutMs);
+
+  return cleanup;
+}
+
+/**
+ * Measure whether an element has a usable width for AdSense.
+ * AdSense will not serve to zero-width nodes.
+ */
+function hasUsableWidth(el: Element): boolean {
+  const rect = el.getBoundingClientRect();
+  if (rect.width > 0) return true;
+  // Fallback for off-screen measurement containers (fixed left:-9999px etc.)
+  const style = window.getComputedStyle(el);
+  const w = parseFloat(style.width);
+  return Number.isFinite(w) && w > 0;
+}
+
 // ─── Public API ──────────────────────────────────────────────────────────────
 
 /**
  * Initialize an ad unit within a container element.
  *
  * @param container - The DOM element containing the <ins class="adsbygoogle"> tag
- * @param adId - A unique identifier for this ad instance (e.g., "header-ad", "tool-page-horizontal")
+ * @param adId - A unique identifier for this ad instance
  * @param options - Optional configuration
  * @returns Cleanup function to call on unmount
- *
- * @example
- * ```tsx
- * const containerRef = useRef<HTMLDivElement>(null);
- *
- * useEffect(() => {
- *   const cleanup = initializeAd(containerRef.current, "header-leaderboard");
- *   return cleanup;
- * }, []);
- *
- * return (
- *   <div ref={containerRef}>
- *     <ins className="adsbygoogle" ... />
- *   </div>
- * );
- * ```
  */
 export function initializeAd(
   container: HTMLElement | null,
@@ -187,29 +280,35 @@ export function initializeAd(
     delay?: number;
     /** Maximum time to wait for AdSense script (ms). Default: 10000 */
     maxWait?: number;
+    /** How many layout retries when width is 0. Default: 8 */
+    sizeRetries?: number;
     /** Callback when ad fails to load */
     onError?: (error: unknown) => void;
     /** Callback when ad is successfully pushed */
     onLoad?: () => void;
-  } = {}
+  } = {},
 ): () => void {
-  const { delay = 50, maxWait = 10000, onError, onLoad } = options;
+  const {
+    delay = 50,
+    maxWait = 10000,
+    sizeRetries = 8,
+    onError,
+    onLoad,
+  } = options;
 
-  // Server-side guard
-  if (typeof window === "undefined") return () => { };
+  if (typeof window === "undefined") return () => {};
 
-  // No container provided
   if (!container) {
     console.warn(`[AdSense] No container found for ad "${adId}"`);
-    return () => { };
+    return () => {};
   }
 
-  // Already initialized — prevent double-push
   if (initializedAds.has(adId)) {
-    return () => { };
+    return () => {};
   }
 
   let cancelled = false;
+  const cleanupFns: Array<() => void> = [];
 
   const doInit = () => {
     if (cancelled) return;
@@ -221,41 +320,34 @@ export function initializeAd(
       return;
     }
 
-    // Check if AdSense already processed this element
     const status = insElement.getAttribute("data-adsbygoogle-status");
     if (status === "done" || status === "loaded") {
       initializedAds.add(adId);
+      onLoad?.();
       return;
     }
 
-    // Check if the element is visible (has dimensions)
-    // AdSense won't serve ads to zero-size elements
-    const rect = insElement.getBoundingClientRect();
-    if (rect.width === 0) {
-      // Element might not be laid out yet, retry after a frame
-      requestAnimationFrame(() => {
-        if (!cancelled) {
-          pushAd(insElement, adId, onLoad, onError);
-        }
-      });
-      return;
-    }
+    let attempts = 0;
+    const tryPush = () => {
+      if (cancelled) return;
 
-    pushAd(insElement, adId, onLoad, onError);
+      if (hasUsableWidth(insElement) || attempts >= sizeRetries) {
+        pushAd(insElement, adId, onLoad, onError);
+        return;
+      }
+
+      attempts += 1;
+      requestAnimationFrame(tryPush);
+    };
+
+    tryPush();
   };
 
-  // Delay to let the DOM settle after React render
   const timerId = setTimeout(() => {
     if (cancelled) return;
-
-    // Wait for AdSense script, then initialize
     const cleanupWait = whenAdSenseReady(doInit, maxWait);
-
-    // Store cleanup for the wait
     cleanupFns.push(cleanupWait);
   }, delay);
-
-  const cleanupFns: Array<() => void> = [];
 
   return () => {
     cancelled = true;
@@ -266,27 +358,21 @@ export function initializeAd(
 
 /**
  * Push an ad to AdSense.
- * This is the actual call to window.adsbygoogle.push({}).
  */
 function pushAd(
   insElement: Element,
   adId: string,
   onLoad?: () => void,
-  onError?: (error: unknown) => void
+  onError?: (error: unknown) => void,
 ): void {
   try {
-    // Mark as initialized BEFORE pushing to prevent race conditions
     initializedAds.add(adId);
 
-    // The actual AdSense call
-    ((window as Window & { adsbygoogle: unknown[] }).adsbygoogle =
-      (window as Window & { adsbygoogle?: unknown[] }).adsbygoogle || []).push({});
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
 
     onLoad?.();
   } catch (error) {
-    // Remove from initialized set so it can be retried
     initializedAds.delete(adId);
-
     console.error(`[AdSense] Failed to initialize ad "${adId}":`, error);
     onError?.(error);
   }
@@ -316,32 +402,9 @@ export function isAdInitialized(adId: string): boolean {
   return initializedAds.has(adId);
 }
 
-// ─── Ad Viewability Helpers ──────────────────────────────────────────────────
-
 /**
  * Create an IntersectionObserver that initializes the ad only when
  * the container is about to enter the viewport.
- *
- * This is ideal for below-the-fold ads (in-article, multiplex, sidebar).
- * Benefits:
- * - Reduces initial page load (fewer ads competing for resources)
- * - Improves Core Web Vitals (less layout shift, faster LCP)
- * - Higher viewability score = higher paying ads from AdSense
- *
- * @param container - The ad container element
- * @param adId - Unique ad identifier
- * @param options - IntersectionObserver options + ad init options
- * @returns Cleanup function
- *
- * @example
- * ```tsx
- * useEffect(() => {
- *   const cleanup = initializeAdOnView(containerRef.current, "in-article-1", {
- *     rootMargin: "200px", // Start loading 200px before it enters viewport
- *   });
- *   return cleanup;
- * }, []);
- * ```
  */
 export function initializeAdOnView(
   container: HTMLElement | null,
@@ -353,13 +416,12 @@ export function initializeAdOnView(
     threshold?: number;
     /** Ad initialization options */
     adOptions?: Parameters<typeof initializeAd>[2];
-  } = {}
+  } = {},
 ): () => void {
-  if (typeof window === "undefined" || !container) return () => { };
+  if (typeof window === "undefined" || !container) return () => {};
 
   const { rootMargin = "200px", threshold = 0, adOptions } = options;
 
-  // If IntersectionObserver is not supported, initialize immediately
   if (!("IntersectionObserver" in window)) {
     return initializeAd(container, adId, adOptions);
   }
@@ -370,16 +432,14 @@ export function initializeAdOnView(
     (entries) => {
       const entry = entries[0];
       if (entry && entry.isIntersecting) {
-        // Element is near/in viewport — initialize the ad
         adCleanup = initializeAd(container, adId, adOptions);
-        // Stop observing — ad only needs to be initialized once
         observer.disconnect();
       }
     },
     {
       rootMargin,
       threshold,
-    }
+    },
   );
 
   observer.observe(container);
@@ -390,42 +450,18 @@ export function initializeAdOnView(
   };
 }
 
-// ─── Revenue Optimization Tips ───────────────────────────────────────────────
-//
-// These are NOT code — they're AdSense dashboard actions you should take:
-//
-// 1. ENABLE AUTO ADS:
-//    AdSense → Ads → By site → Edit (pencil icon) → Toggle "Auto ads" ON
-//    This lets Google place additional ads in optimal positions automatically.
-//    It works alongside your manual placements.
-//
-// 2. ENABLE VIGNETTE ADS:
-//    Inside Auto ads settings → Ad formats → Enable "Vignette ads"
-//    These full-page ads between page navigations have very high CPMs.
-//    Especially effective on mobile from Tier 1 countries.
-//
-// 3. ENABLE ANCHOR ADS:
-//    Inside Auto ads settings → Ad formats → Enable "Anchor ads"
-//    Google will show its own optimized anchor (may be better than manual sticky).
-//
-// 4. CREATE UNIQUE AD SLOTS PER PLACEMENT:
-//    AdSense → Ads → By ad unit → Create new ad unit
-//    Create separate units for: Header, In-article, Sidebar, Sticky, Multiplex
-//    Then update the AD_SLOTS object above with the real slot IDs.
-//    This gives you per-placement reporting and lets AdSense optimize each position.
-//
-// 5. BLOCK LOW-VALUE AD CATEGORIES:
-//    AdSense → Blocking controls → Manage
-//    Block categories that pay very little: dating, gambling, politics
-//    This forces higher-paying advertisers to fill your slots.
-//
-// 6. EXPERIMENT WITH AD BALANCE:
-//    AdSense → Optimization → Experiments
-//    Run Google's built-in experiments to find optimal ad density.
-//
-// 7. TARGET HIGH-CPC CONTENT:
-//    Create blog posts about: YouTube monetization, earnings, business tools
-//    These topics trigger ads from finance/SaaS advertisers with $5-$15 CPCs
-//    vs general content that might only attract $0.10-$0.50 CPCs.
-//
-// ─────────────────────────────────────────────────────────────────────────────
+/**
+ * Pick a horizontal slot by stable index (avoids Math.random SSR/hydration skew).
+ */
+export function pickHorizontalSlot(index = 0): string {
+  const slots = AD_SLOTS.HORIZONTAL as readonly string[];
+  return slots[Math.abs(index) % slots.length] ?? slots[0]!;
+}
+
+/**
+ * Pick an in-article slot by stable index.
+ */
+export function pickInArticleSlot(index = 0): string {
+  const slots = AD_SLOTS.IN_ARTICLE as readonly string[];
+  return slots[Math.abs(index) % slots.length] ?? slots[0]!;
+}

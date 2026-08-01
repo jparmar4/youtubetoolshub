@@ -51,9 +51,15 @@ export async function generateAIText(
     const model = process.env.AI_MODEL || "gpt-4o-mini";
 
     if (!apiKey) {
-        console.warn("AI_API_KEY not configured. Returning mock response.");
-        // Don't cache mock responses
-        return getMockResponse(prompt);
+        // Dev-only mocks so local UI can be exercised without a key.
+        // Production must fail closed — never return fake "success" content.
+        if (process.env.NODE_ENV === "development") {
+            console.warn("AI_API_KEY not configured. Returning mock response (development only).");
+            return getMockResponse(prompt);
+        }
+        throw new AIConfigurationError(
+            "AI_API_KEY is not configured. Set it in the server environment.",
+        );
     }
 
     try {

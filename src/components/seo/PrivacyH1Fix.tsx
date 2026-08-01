@@ -2,57 +2,75 @@
 
 import { useEffect } from "react";
 
+/**
+ * AdSense Funding Choices / privacy UI sometimes injects an H1 that competes
+ * with the page H1 for SEO. Demote those injected headings to non-H1 nodes.
+ *
+ * Throttled + scoped (not a full-tree scan on every mutation) for performance.
+ */
 export default function PrivacyH1Fix() {
-    useEffect(() => {
-        // Function to replace H1 with Div
-        const fixH1 = (h1: HTMLElement) => {
-            if (
-                h1.innerText.includes("Opt out of the sale") ||
-                h1.innerText.includes("sharing of personal information")
-            ) {
-                // Create replacement div
-                const div = document.createElement("div");
-                div.innerHTML = h1.innerHTML;
-                div.className = h1.className;
-                div.style.cssText = h1.style.cssText;
-                div.setAttribute("role", "heading");
-                div.setAttribute("aria-level", "2");
+  useEffect(() => {
+    const isPrivacyHeading = (el: HTMLElement) => {
+      const text = (el.textContent || "").toLowerCase();
+      return (
+        text.includes("opt out of the sale") ||
+        text.includes("sharing of personal information") ||
+        text.includes("do not sell") ||
+        text.includes("privacy options")
+      );
+    };
 
-                // Keep any other attributes if needed, but styling/class usually sufficient
-                // Replace
-                h1.parentNode?.replaceChild(div, h1);
-                console.log("PrivacyH1Fix: Replaced injected H1 with div");
-            }
-        };
+    const demote = (h1: HTMLElement) => {
+      if (!isPrivacyHeading(h1)) return;
+      const div = document.createElement("div");
+      div.innerHTML = h1.innerHTML;
+      div.className = h1.className;
+      div.style.cssText = h1.style.cssText;
+      div.setAttribute("role", "heading");
+      div.setAttribute("aria-level", "2");
+      h1.parentNode?.replaceChild(div, h1);
+    };
 
-        // Observer to watch for injected H1 tags from AdSense/Privacy/Cookie scripts
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                mutation.addedNodes.forEach((node) => {
-                    if (node instanceof HTMLElement) {
-                        // Check if the node itself is an H1 or contains an H1
-                        if (node.tagName === "H1") {
-                            fixH1(node);
-                        } else {
-                            const h1s = node.querySelectorAll("h1");
-                            h1s.forEach(fixH1);
-                        }
-                    }
-                });
-            });
-        });
+    let scheduled = false;
+    const scan = () => {
+      scheduled = false;
+      document.querySelectorAll("h1").forEach((node) => {
+        demote(node as HTMLElement);
+      });
+    };
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
+    const scheduleScan = () => {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(scan);
+    };
 
-        // Initial check in case it's already there (fast load)
-        const existingH1s = document.querySelectorAll("h1");
-        existingH1s.forEach(fixH1);
+    // Initial pass
+    scan();
 
-        return () => observer.disconnect();
-    }, []);
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type !== "childList" || mutation.addedNodes.length === 0) {
+          continue;
+        }
+        for (const node of mutation.addedNodes) {
+          if (!(node instanceof HTMLElement)) continue;
+          if (node.tagName === "H1") {
+            demote(node);
+            continue;
+          }
+          // Only schedule a full pass if a subtree with headings was added
+          if (node.querySelector?.("h1")) {
+            scheduleScan();
+            break;
+          }
+        }
+      }
+    });
 
-    return null;
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  return null;
 }

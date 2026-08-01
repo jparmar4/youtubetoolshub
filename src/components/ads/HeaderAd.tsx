@@ -1,138 +1,91 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+import {
+  initializeAd,
+  watchAdFill,
+  AD_CLIENT,
+  AD_SLOTS,
+} from "@/lib/adsense";
 
 /**
- * HeaderAd — Top-of-page leaderboard ad (highest RPM placement)
+ * HeaderAd — Top-of-page leaderboard (highest RPM placement).
  *
- * FIXES from previous version:
- * 1. FIXED: Was using data-ad-slot="auto" which is NOT a valid AdSense slot ID.
- *    AdSense requires a real numeric slot ID to serve ads. Changed to real slot.
- * 2. FIXED: Was rendering TWO <ins> tags (desktop + mobile) but only calling
- *    adsbygoogle.push({}) ONCE — meaning only one ad unit ever loaded.
- *    Now uses a single responsive <ins> that adapts to screen size.
- * 3. FIXED: Was hiding the ad on scroll (after 100px) which destroyed
- *    above-the-fold viewability — the #1 factor in ad RPM. Removed scroll hiding.
- * 4. FIXED: Dismiss button stored in sessionStorage, killing all header ad
- *    revenue for the entire session. Removed dismiss functionality.
- * 5. Above-the-fold ads are the HIGHEST paying placements. Never hide them.
- *
- * Revenue impact: Fixing these issues alone can increase RPM by 200-500%.
+ * Fixes vs previous version:
+ * - Removed 1.5–2.5s idle delay that lost impressions on short sessions
+ * - Uses shared initializeAd + fill watcher with proper cleanup
+ * - Keeps real in-flow size while loading (AdSense needs non-zero box)
+ * - Collapses only when unfilled (no permanent empty grey bar)
  */
 export default function HeaderAd() {
-  const adRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [adError, setAdError] = useState(false);
+  const [phase, setPhase] = useState<"loading" | "filled" | "empty">("loading");
 
   useEffect(() => {
-    // Prevent double initialization (React Strict Mode / re-renders)
-    if (adRef.current) return;
+    const cleanupInit = initializeAd(containerRef.current, "header-leaderboard", {
+      delay: 400,
+      maxWait: 12000,
+    });
 
-    let timer: ReturnType<typeof setTimeout>;
-    const loadAd = () => {
-      try {
-        if (typeof window !== "undefined" && containerRef.current) {
-          const insElement =
-            containerRef.current.querySelector("ins.adsbygoogle");
-
-          // Only push if the ins element exists and hasn't been filled yet
-          if (
-            insElement &&
-            !insElement.getAttribute("data-adsbygoogle-status")
-          ) {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            adRef.current = true;
-
-            // Watch for status changes to detect "unfilled" state
-            const observer = new MutationObserver((mutations) => {
-              mutations.forEach((mutation) => {
-                if (
-                  mutation.type === "attributes" &&
-                  mutation.attributeName === "data-adsbygoogle-status"
-                ) {
-                  const currentStatus = insElement.getAttribute(
-                    "data-adsbygoogle-status",
-                  );
-                  if (currentStatus === "unfilled") {
-                    setAdError(true);
-                    observer.disconnect();
-                  }
-                }
-              });
-            });
-
-            observer.observe(insElement, {
-              attributes: true,
-              attributeFilter: ["data-adsbygoogle-status"],
-            });
-
-            // Backup timer
-            setTimeout(() => {
-              const status = insElement.getAttribute("data-adsbygoogle-status");
-              const adContent = insElement.innerHTML.trim();
-              if (
-                status === "unfilled" ||
-                (status === "done" && adContent === "")
-              ) {
-                setAdError(true);
-                observer.disconnect();
-              }
-            }, 3000);
-          }
-        }
-      } catch (err) {
-        console.error("HeaderAd: AdSense initialization error:", err);
-        setAdError(true);
+    let fillCleanup: (() => void) | null = null;
+    const watchTimer = setTimeout(() => {
+      const ins = containerRef.current?.querySelector("ins.adsbygoogle");
+      if (!ins) {
+        setPhase("empty");
+        return;
       }
-    };
 
-    // Let the main content paint first. AdSense can queue requests even if its
-    // script finishes later, but it should not compete with LCP.
-    if ("requestIdleCallback" in window) {
-      const idleCallbackId = window.requestIdleCallback(
-        () => {
-          timer = setTimeout(loadAd, 1500);
+      fillCleanup = watchAdFill(
+        ins,
+        (result) => {
+          setPhase(result === "filled" ? "filled" : "empty");
         },
-        { timeout: 3000 },
+        { minHeight: 40, timeoutMs: 10000 },
       );
+    }, 500);
 
-      return () => {
-        window.cancelIdleCallback(idleCallbackId);
-        clearTimeout(timer);
-      };
-    }
-
-    timer = setTimeout(loadAd, 2500);
-
-    return () => clearTimeout(timer);
+    return () => {
+      cleanupInit();
+      clearTimeout(watchTimer);
+      fillCleanup?.();
+    };
   }, []);
 
-  // Don't render anything if ad failed to load
-  if (adError) return null;
+  if (phase === "empty") return null;
 
   return (
     <div
       ref={containerRef}
-      className="w-full bg-slate-50/80 border-b border-slate-200/60"
+      className={`w-full ${
+        phase === "filled"
+          ? "bg-slate-50/80 border-b border-slate-200/60"
+          : "bg-transparent"
+      }`}
       role="complementary"
       aria-label="Advertisement"
+      aria-hidden={phase !== "filled"}
     >
       <div className="max-w-7xl mx-auto px-4">
-        {/* Tiny "Ad" label for policy compliance */}
-        <div className="text-[9px] text-slate-400 text-center pt-1 uppercase tracking-widest select-none">
-          Advertisement
-        </div>
+        {phase === "filled" && (
+          <div className="text-[9px] text-slate-400 text-center pt-1 uppercase tracking-widest select-none">
+            Advertisement
+          </div>
+        )}
 
-        {/* Single responsive ad unit — adapts to all screen sizes automatically */}
-        <div className="flex justify-center py-1 pb-2">
+        <div
+          className={`flex justify-center ${
+            phase === "filled" ? "py-1 pb-2" : "py-0"
+          }`}
+        >
           <ins
             className="adsbygoogle"
             style={{
               display: "block",
               width: "100%",
-              minHeight: "50px" /* Mobile minimum */,
-              maxHeight: "120px" /* Cap height to prevent layout shift */,
+              minHeight: "90px",
+              maxHeight: "120px",
+              // Soften loading state without zeroing dimensions
+              opacity: phase === "filled" ? 1 : 0.01,
             }}
             data-ad-client={AD_CLIENT}
             data-ad-slot={AD_SLOTS.HEADER}

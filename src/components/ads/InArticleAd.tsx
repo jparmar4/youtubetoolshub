@@ -1,174 +1,95 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+import {
+  initializeAd,
+  resetAd,
+  watchAdFill,
+  AD_CLIENT,
+  pickInArticleSlot,
+} from "@/lib/adsense";
 
 /**
- * InArticleAd — Native in-article ad that blends with content
+ * InArticleAd — Native in-article ad that blends with content.
  *
- * KEY OPTIMIZATIONS:
- * 1. Lazy loading via IntersectionObserver — ad only initializes when
- *    it's about to enter the viewport (200px before). This:
- *    - Improves Core Web Vitals (less CLS, faster LCP)
- *    - Increases viewability score → AdSense serves higher-paying ads
- *    - Reduces wasted impressions on ads users never see
- *
- * 2. Proper initialization check — prevents the common double-push error
- *    that causes "adsbygoogle.push() error: All ins elements ... already have ads"
- *
- * 3. Unique ad instance ID per mount — prevents conflicts when multiple
- *    InArticleAd components are on the same page (e.g., between content sections)
- *
- * 4. Minimum height container — prevents layout shift (CLS) when ad loads,
- *    which is a Core Web Vitals ranking factor
- *
- * Revenue impact: In-article native ads typically have 20-40% higher CTR than
- * standard display ads because they blend with content. Lazy loading increases
- * viewability from ~40% to ~80%, which directly increases CPM rates.
+ * Lazy-loads near viewport, reserves real min-height for fill, collapses if unfilled.
  */
 
-// Global counter to ensure unique IDs across multiple instances
 let instanceCounter = 0;
 
 export default function InArticleAd() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const adInitialized = useRef(false);
-  const observerRef = useRef<IntersectionObserver | null>(null);
   const [adIndex] = useState(() => ++instanceCounter);
   const [adId] = useState(() => `in-article-ad-${adIndex}`);
-  const [adSlotId] = useState(() => {
-    const slots = AD_SLOTS.IN_ARTICLE;
-    return Array.isArray(slots) ? slots[(adIndex - 1) % slots.length] : slots;
-  });
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [adSlotId] = useState(() => pickInArticleSlot(adIndex - 1));
+  const [nearView, setNearView] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "loading" | "filled" | "empty">(
+    "idle",
+  );
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container || adInitialized.current) return;
-
-    // Use IntersectionObserver to lazy-load the ad
-    // rootMargin: "800px" means we start loading 800px BEFORE it enters the viewport
-    // This gives the ad plenty of time to load before the user scrolls to it
-    if ("IntersectionObserver" in window) {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          if (entry && entry.isIntersecting) {
-            setIsVisible(true);
-            // Stop observing once triggered — ad only needs to load once
-            observerRef.current?.disconnect();
-          }
-        },
-        {
-          rootMargin: "800px 0px",
-          threshold: 0,
-        },
-      );
-
-      observerRef.current.observe(container);
-    } else {
-      // Fallback for browsers without IntersectionObserver
-      queueMicrotask(() => setIsVisible(true));
-    }
-
-    return () => {
-      observerRef.current?.disconnect();
-    };
-  }, []);
-
-  // Initialize ad when it becomes visible
-  useEffect(() => {
-    if (!isVisible || adInitialized.current || hasError) return;
-
     const container = containerRef.current;
     if (!container) return;
 
-    // Delay slightly to ensure the <ins> element is in the DOM after React render
-    const timer = setTimeout(() => {
-      try {
-        const insElement = container.querySelector("ins.adsbygoogle");
+    if (!("IntersectionObserver" in window)) {
+      queueMicrotask(() => setNearView(true));
+      return;
+    }
 
-        if (!insElement) {
-          console.warn(`[InArticleAd] No <ins> element found for ${adId}`);
-          return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setNearView(true);
+          observer.disconnect();
         }
+      },
+      {
+        rootMargin: "400px 0px",
+        threshold: 0,
+      },
+    );
 
-        // Check if AdSense already processed this element
-        const status = insElement.getAttribute("data-adsbygoogle-status");
-        if (status === "done" || status === "loaded") {
-          adInitialized.current = true;
-          return;
-        }
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
-        // Check if the element has dimensions (AdSense won't serve to 0-width elements)
-        const rect = insElement.getBoundingClientRect();
-        if (rect.width === 0) {
-          // Retry after a frame when element might be laid out
-          requestAnimationFrame(() => {
-            if (!adInitialized.current) {
-              try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-                adInitialized.current = true;
-              } catch (err) {
-                console.error(`[InArticleAd] Retry failed for ${adId}:`, err);
-                setHasError(true);
-              }
-            }
-          });
-          return;
-        }
+  useEffect(() => {
+    if (!nearView) return;
 
-        // Push the ad
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        adInitialized.current = true;
+    resetAd(adId);
+    setPhase("loading");
 
-        // Watch for status changes to detect "unfilled" state
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (
-              mutation.type === "attributes" &&
-              mutation.attributeName === "data-adsbygoogle-status"
-            ) {
-              const currentStatus = insElement.getAttribute(
-                "data-adsbygoogle-status",
-              );
-              if (currentStatus === "unfilled") {
-                setHasError(true);
-                observer.disconnect();
-              }
-            }
-          });
-        });
+    const cleanupInit = initializeAd(containerRef.current, adId, {
+      delay: 80,
+    });
 
-        observer.observe(insElement, {
-          attributes: true,
-          attributeFilter: ["data-adsbygoogle-status"],
-        });
-
-        // Backup timer
-        setTimeout(() => {
-          const status = insElement.getAttribute("data-adsbygoogle-status");
-          const adContent = insElement.innerHTML.trim();
-          if (
-            status === "unfilled" ||
-            (status === "done" && adContent === "")
-          ) {
-            setHasError(true);
-            observer.disconnect();
-          }
-        }, 3000);
-      } catch (error) {
-        console.error(`[InArticleAd] AdSense error for ${adId}:`, error);
-        setHasError(true);
+    let fillCleanup: (() => void) | null = null;
+    const watchTimer = setTimeout(() => {
+      const ins = containerRef.current?.querySelector("ins.adsbygoogle");
+      if (!ins) {
+        setPhase("empty");
+        return;
       }
-    }, 100);
 
-    return () => clearTimeout(timer);
-  }, [isVisible, adId, hasError]);
+      fillCleanup = watchAdFill(
+        ins,
+        (result) => {
+          setPhase(result === "filled" ? "filled" : "empty");
+        },
+        { minHeight: 50, timeoutMs: 10000 },
+      );
+    }, 150);
 
-  // If there was an error, collapse the ad space gracefully but keep it mounted
-  if (hasError) {
+    return () => {
+      cleanupInit();
+      resetAd(adId);
+      clearTimeout(watchTimer);
+      fillCleanup?.();
+    };
+  }, [nearView, adId]);
+
+  if (phase === "empty") {
     return <div className="w-full my-2" aria-hidden="true" />;
   }
 
@@ -180,28 +101,25 @@ export default function InArticleAd() {
       role="complementary"
       aria-label="Advertisement"
     >
-      {/* Small "Ad" label for AdSense policy compliance */}
-      <div className="text-[10px] text-slate-300 mb-1 uppercase tracking-wider select-none">
-        Advertisement
-      </div>
+      {phase === "filled" && (
+        <div className="text-[10px] text-slate-300 mb-1 uppercase tracking-wider select-none">
+          Advertisement
+        </div>
+      )}
 
-      {/* Ad container with minimum height to prevent CLS (layout shift) */}
       <div
-        className={`w-full text-center bg-slate-50/50 rounded-lg overflow-hidden transition-all duration-300 ${isVisible ? "min-h-[100px]" : "min-h-[50px]"
-          }`}
+        className={`w-full text-center rounded-lg overflow-hidden transition-all duration-300 ${
+          nearView ? "min-h-[100px] bg-slate-50/50" : "min-h-[50px]"
+        }`}
       >
-        {/*
-          Only render the <ins> element when the container is near the viewport.
-          This prevents AdSense from counting an impression on an ad the user
-          never sees, which would lower your viewability score and RPM.
-        */}
-        {isVisible && (
+        {nearView && (
           <ins
             className="adsbygoogle"
             style={{
               display: "block",
               textAlign: "center",
               width: "100%",
+              minHeight: 100,
             }}
             data-ad-layout="in-article"
             data-ad-format="fluid"
@@ -213,4 +131,3 @@ export default function InArticleAd() {
     </div>
   );
 }
-

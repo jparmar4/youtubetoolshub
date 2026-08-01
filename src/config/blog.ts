@@ -760,7 +760,7 @@ If you never show your face:
 - Be honest in the About section  
 - Pair the name with consistent thumbnail system  
 
-Topic selection still beats the name—use the [Niche Finder Quiz](/tools/youtube-niche-finder) and [best niches guide](/blog/best-youtube-niches-2026).
+Topic selection still beats the name—use the [Niche Finder Quiz](/tools/youtube-niche-finder-quiz) and [best niches guide](/blog/best-youtube-niches-2026).
 
 ## After you pick the name
 
@@ -1330,7 +1330,7 @@ Downloading top-ranking thumbnails is only the first step in optimizing your You
 
 - Generate click-worthy title options using our [YouTube Title Generator](/tools/youtube-title-generator).
 - Extract competitor video tags using our [YouTube Tag Extractor](/tools/youtube-tag-extractor).
-- Master organic ranking strategies with our [YouTube SEO Strategies Guide 2026](/blog/youtube-seo-strategies-2026).
+- Master organic ranking strategies with our [YouTube SEO Complete Guide](/blog/youtube-seo-complete-guide).
 - Explore channel earning potential with our [YouTube Monetization Guide](/resources/youtube-monetization-guide).
 
 ## Backlinks & Citation Guidelines for Media & Journalists
@@ -3256,7 +3256,7 @@ Descript handles the editing phase of your workflow. Here's how it connects to t
 
 - **Content scripting:** Before you walk into a Descript recording session, you need a strong script. The [AI Scriptwriting Tools for YouTube](/blog/ai-scriptwriting-tools-youtube) guide covers how to build your first draft in minutes using AI tools, then refine it in your own voice before recording.
 - **SEO optimization:** After you edit in Descript, your video needs proper metadata. The [YouTube SEO Checklist 2026](/blog/youtube-seo-checklist-2026) is the copy-paste system for titles, descriptions, tags, and chapters.
-- **Thumbnail creation:** Canva's AI tools are the fastest path to professional thumbnails after your Descript edit is exported. The [Canva AI Tools for YouTube Tutorial](/blog/canva-ai-tools-youtube-tutorial) covers the entire thumbnail workflow.
+- **Thumbnail creation:** Canva's AI tools are the fastest path to professional thumbnails after your Descript edit is exported. The [Canva AI Tools for YouTube Tutorial](/blog/canva-ai-tools-youtube-complete-tutorial) covers the entire thumbnail workflow.
 - **Earnings tracking:** As your efficiency increases with Descript, your output volume grows. Track how more videos affect your earnings with the [YouTube Earnings Calculator](/tools/youtube-earnings-calculator).
 
 ---
@@ -5863,7 +5863,7 @@ Building on a copyright-safe foundation makes everything else you do as a creato
 
 For more on growing your channel systematically, read our guide on [how to get more views on YouTube in 2026](/blog/how-to-get-more-views-youtube-2026) — which covers the full content strategy picture from thumbnails to SEO.
 
-If you're optimizing your editing workflow alongside your music licensing, check out our [DaVinci Resolve tutorial for YouTube beginners](/blog/davinci-resolve-youtube-tutorial) for a complete production walkthrough.
+If you're optimizing your editing workflow alongside your music licensing, check out our [DaVinci Resolve tutorial for YouTube beginners](/blog/davinci-resolve-tutorial-youtube-beginners) for a complete production walkthrough.
 
 And once your channel is running smoothly with the right content and music in place, use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to project your future revenue as your channel grows.
 
@@ -19902,7 +19902,7 @@ Because in 2026, attention is the most valuable currency on earth. You have it. 
 
 ## Related Resources
 *   **[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-requirements-2026)** - Get approved faster
-*   **[Affiliate Marketing Guide](/blog/youtube-affiliate-marketing-guide)** - Another income stream
+*   **[Affiliate Marketing Guide](/blog/youtube-monetization-guide-2026)** - Another income stream
 *   **[Video Ideas Generator](/tools/youtube-video-ideas-generator)** - Keep the content flowing
 `,
     faq: [
@@ -24169,7 +24169,7 @@ Use the **[Content Calendar Generator](/tools/youtube-content-calendar-generator
 
 **Free Tools:**
 - **[YouTube Engagement Rate Calculator](/tools/youtube-engagement-rate-calculator)** – Quick health check on engagement
-- **[Channel Health Auditor](/tools/youtube-channel-health-auditor)** – Comprehensive channel analysis
+- **[Channel Health Auditor](/tools/youtube-channel-audit)** – Comprehensive channel analysis
 - **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** – Estimate monetization potential
 
 **For Better Content:**
@@ -24416,7 +24416,7 @@ Use our **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** to
 
 - **[YouTube Monetization Complete Guide](/blog/youtube-monetization-complete-guide-2026)** – Requirements & setup
 - **[YouTube Sponsorship Guidelines](/blog/youtube-sponsorship-guidelines-2026)** – Land brand deals
-- **[YouTube Analytics Mastery](/blog/youtube-analytics-complete-guide)** – Track your growth
+- **[YouTube Analytics Mastery](/blog/youtube-analytics-guide-beginners-2026)** – Track your growth
 `,
     faq: [
       {
@@ -24864,7 +24864,7 @@ Once approved, you can enable:
 - **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** – Estimate revenue by views and RPM
 - **[YouTube RPM vs CPM](/blog/youtube-rpm-vs-cpm-explained)** – Understand the metrics that control earnings
 - **[How Much YouTube Pays](/blog/how-much-youtube-pays-per-1000-views-2026)** – Earnings breakdown
-- **[YouTube Analytics Guide](/blog/youtube-analytics-complete-guide)** – Track your progress
+- **[YouTube Analytics Guide](/blog/youtube-analytics-guide-beginners-2026)** – Track your progress
 - **[Title Generator](/tools/youtube-title-generator)** – Optimize every video
 `,
     faq: [
@@ -26029,7 +26029,7 @@ Start with **one tool**. Master it. Then add another.
 
 **Ready to grow faster?**
 -   **[YouTube Title Generator](/tools/youtube-title-generator)** – Free AI tool to write viral titles
--   **[YouTube Script Generator](/tools/youtube-script-generator)** – Get a tailored script in seconds
+-   **[YouTube Script Generator](/tools/youtube-intro-script-generator)** – Get a tailored script in seconds
 `,
     faq: [
       {
@@ -28357,7 +28357,7 @@ Ready to start editing? Download your chosen app, film your first clip, and use 
       "best design tool for youtube",
       "ai design tools for youtube 2026",
     ],
-    coverImage: "/images/blog/canva-ai-tools-youtube-tutorial-2026-hero.png",
+    coverImage: "/images/blog/canva-ai-tools-youtube-complete-tutorial-2026-hero.png",
     imageAlt:
       "Canva AI Tools for YouTube Complete Tutorial 2026 – Dashboard Showing AI Thumbnail Generation and Magic Design Features",
     rating: {
@@ -30378,7 +30378,7 @@ CapCut solves this by packaging professional-grade AI tools into a free, intuiti
 5. Preview and apply
 
 > [!NOTE]
-> For faceless YouTube channels, combine the AI Voice Changer with Text to Speech (below) for a fully automated voiceover workflow. This is particularly effective for [YouTube automation channels](/blog/youtube-automation-faceless-channel-guide) targeting high-CPC niches.
+> For faceless YouTube channels, combine the AI Voice Changer with Text to Speech (below) for a fully automated voiceover workflow. This is particularly effective for [YouTube automation channels](/blog/faceless-youtube-channel-2026) targeting high-CPC niches.
 
 ---
 
@@ -31606,7 +31606,7 @@ The algorithm rewards quality. Start with your microphone—the rest will follow
       "blackmagic davinci resolve beginners",
       "video editing software free 2026",
     ],
-    coverImage: "/images/blog/davinci-resolve-youtube-tutorial-hero.png",
+    coverImage: "/images/blog/davinci-resolve-tutorial-youtube-beginners-hero.png",
     imageAlt:
       "DaVinci Resolve Tutorial for YouTube Beginners - Professional video editing setup with DaVinci Resolve interface on a monitor with purple RGB lighting",
     content: `
@@ -32741,11 +32741,11 @@ Even a $25 Joby GorillaPod nano gives you a stable platform for static talking-h
 
 Getting the right camera is step one. Step two is understanding how the entire production workflow connects — from recording to editing to uploading and getting discovered.
 
-For editing, I consistently recommend new creators start with [Descript's text-based editing workflow](/blog/descript-youtube-editing), which is the fastest way to cut talking-head footage when you're getting started. For Shorts editing and social clips from your longer videos, the [CapCut AI editing guide](/blog/capcut-ai-youtube-editing-guide) covers the mobile-first workflow top to bottom.
+For editing, I consistently recommend new creators start with [Descript's text-based editing workflow](/blog/descript-youtube-editing), which is the fastest way to cut talking-head footage when you're getting started. For Shorts editing and social clips from your longer videos, the [CapCut AI editing guide](/blog/capcut-ai-features-complete-youtube-editing-guide) covers the mobile-first workflow top to bottom.
 
 Once you're recording and editing, your metadata is what gets your videos found. Make sure you're using a [YouTube Title Generator](/tools/youtube-title-generator) to test optimal titles before publishing, and run your tags through our [YouTube Tag Generator](/tools/youtube-tag-generator) to capture long-tail search traffic.
 
-For thumbnail creation — which directly affects your click-through rate and how the algorithm spreads your video — the [Canva AI Tools for YouTube guide](/blog/canva-ai-tools-youtube-tutorial) shows you how to build scroll-stopping thumbnails without hiring a designer.
+For thumbnail creation — which directly affects your click-through rate and how the algorithm spreads your video — the [Canva AI Tools for YouTube guide](/blog/canva-ai-tools-youtube-complete-tutorial) shows you how to build scroll-stopping thumbnails without hiring a designer.
 
 ---
 

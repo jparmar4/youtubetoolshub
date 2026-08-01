@@ -1,27 +1,41 @@
 "use client";
 
 import { useEffect, useRef, useState, useId } from "react";
-import { AD_CLIENT, AD_SLOTS } from "@/lib/adsense";
+import {
+  initializeAd,
+  resetAd,
+  watchAdFill,
+  AD_CLIENT,
+  pickHorizontalSlot,
+} from "@/lib/adsense";
 
 /**
- * Responsive display unit. Collapses completely if unfilled so Auto ads
- * can place inventory without empty grey boxes.
+ * Responsive display unit.
+ *
+ * Fixes vs previous version:
+ * - Reserved real min-height while loading (was 1px — AdSense often won't fill)
+ * - Proper cleanup of observers/polls
+ * - Stable slot selection (no Math.random hydration issues)
+ * - Collapses only after unfilled/timeout, not while measuring
  */
 export default function HorizontalAd() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const pushed = useRef(false);
   const reactId = useId();
   const adId = `horizontal-ad-${reactId.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   const [slotId] = useState(() => {
-    const slots = AD_SLOTS.HORIZONTAL;
-    return Array.isArray(slots)
-      ? slots[Math.floor(Math.random() * slots.length)]
-      : slots;
+    // Derive a stable index from reactId char codes
+    let hash = 0;
+    for (let i = 0; i < reactId.length; i++) {
+      hash = (hash + reactId.charCodeAt(i) * (i + 1)) % 97;
+    }
+    return pickHorizontalSlot(hash);
   });
+
   const [ready, setReady] = useState(false);
-  const [filled, setFilled] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [phase, setPhase] = useState<"idle" | "loading" | "filled" | "empty">(
+    "idle",
+  );
 
   // Near viewport → mount <ins>
   useEffect(() => {
@@ -40,117 +54,69 @@ export default function HorizontalAd() {
           io.disconnect();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0 },
+      { rootMargin: "300px 0px", threshold: 0 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  // Push once script + ins exist
+  // Push once near viewport
   useEffect(() => {
-    if (!ready || pushed.current || failed) return;
+    if (!ready) return;
 
-    let cancelled = false;
-    let tries = 0;
+    resetAd(adId);
+    setPhase("loading");
 
-    const pushWhenReady = () => {
-      if (cancelled || pushed.current) return;
-      tries += 1;
+    const cleanupInit = initializeAd(containerRef.current, adId, {
+      delay: 80,
+    });
 
+    let fillCleanup: (() => void) | null = null;
+    const watchTimer = setTimeout(() => {
       const ins = containerRef.current?.querySelector("ins.adsbygoogle");
       if (!ins) {
-        if (tries < 40) setTimeout(pushWhenReady, 150);
+        setPhase("empty");
         return;
       }
 
-      // Wait until AdSense script created the global array
-      if (typeof window.adsbygoogle === "undefined") {
-        if (tries < 40) setTimeout(pushWhenReady, 150);
-        else setFailed(true);
-        return;
-      }
+      fillCleanup = watchAdFill(
+        ins,
+        (result) => {
+          setPhase(result === "filled" ? "filled" : "empty");
+        },
+        { minHeight: 50, timeoutMs: 10000 },
+      );
+    }, 150);
 
-      const status = ins.getAttribute("data-adsbygoogle-status");
-      if (status === "done" || status === "loaded") {
-        pushed.current = true;
-        setFilled(true);
-        return;
-      }
-
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        pushed.current = true;
-
-        const checkFilled = () => {
-          const st = ins.getAttribute("data-adsbygoogle-status");
-          const h = ins.getBoundingClientRect().height;
-          const hasIframe = !!ins.querySelector("iframe");
-          if (st === "unfilled") {
-            setFailed(true);
-            return;
-          }
-          if ((st === "done" || st === "loaded" || hasIframe) && h > 20) {
-            setFilled(true);
-            return;
-          }
-        };
-
-        const mo = new MutationObserver(checkFilled);
-        mo.observe(ins, {
-          attributes: true,
-          attributeFilter: ["data-adsbygoogle-status"],
-          childList: true,
-          subtree: true,
-        });
-
-        // Poll a few times — Auto ads + manual units can be slow
-        let n = 0;
-        const poll = setInterval(() => {
-          n += 1;
-          checkFilled();
-          if (n >= 20 || cancelled) {
-            clearInterval(poll);
-            mo.disconnect();
-            if (!filled) {
-              const st = ins.getAttribute("data-adsbygoogle-status");
-              const h = ins.getBoundingClientRect().height;
-              if (st === "unfilled" || h < 20) setFailed(true);
-            }
-          }
-        }, 500);
-      } catch {
-        setFailed(true);
-      }
-    };
-
-    const t = setTimeout(pushWhenReady, 100);
     return () => {
-      cancelled = true;
-      clearTimeout(t);
+      cleanupInit();
+      resetAd(adId);
+      clearTimeout(watchTimer);
+      fillCleanup?.();
     };
-  }, [ready, failed, filled]);
+  }, [ready, adId]);
 
-  if (failed) return null;
+  if (phase === "empty") return null;
 
   return (
     <div
       ref={containerRef}
       id={adId}
       className={`w-full flex flex-col items-center overflow-hidden ${
-        filled ? "my-6" : "my-2"
+        phase === "filled" ? "my-6" : "my-3"
       }`}
       role="complementary"
       aria-label="Advertisement"
     >
-      {filled && (
+      {phase === "filled" && (
         <div className="text-[10px] text-slate-400 mb-1 uppercase tracking-wider select-none">
           Advertisement
         </div>
       )}
       <div
         className={`w-full flex items-center justify-center overflow-hidden ${
-          ready && !filled ? "min-h-[1px]" : ""
-        } ${filled ? "min-h-[90px]" : ""}`}
+          ready ? "min-h-[90px]" : "min-h-[1px]"
+        }`}
       >
         {ready && (
           <ins
@@ -158,7 +124,8 @@ export default function HorizontalAd() {
             style={{
               display: "block",
               width: "100%",
-              minHeight: filled ? 90 : 1,
+              // Real height while measuring — 1px boxes rarely fill
+              minHeight: 90,
             }}
             data-ad-client={AD_CLIENT}
             data-ad-slot={slotId}
