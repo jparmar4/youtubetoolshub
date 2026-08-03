@@ -65,7 +65,7 @@ export default function HorizontalAd() {
     if (!ready) return;
 
     resetAd(adId);
-    setPhase("loading");
+    queueMicrotask(() => setPhase("loading"));
 
     const cleanupInit = initializeAd(containerRef.current, adId, {
       delay: 80,

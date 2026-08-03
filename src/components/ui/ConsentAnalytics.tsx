@@ -24,7 +24,7 @@ export default function ConsentAnalytics() {
   const [consent, setConsent] = useState<Consent>(null);
 
   useEffect(() => {
-    setConsent(readConsent());
+    queueMicrotask(() => setConsent(readConsent()));
 
     const onStorage = (e: StorageEvent) => {
       if (e.key === "cookieConsent") setConsent(readConsent());

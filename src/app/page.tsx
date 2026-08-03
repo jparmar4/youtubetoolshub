@@ -18,9 +18,8 @@ import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import { Metadata } from "next";
-import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getHowToSchema, getGlobalAlternates } from "@/lib/seo";
+import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getHowToSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import AnswerBoxes from "@/components/seo/AnswerBoxes";
 import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
@@ -202,25 +201,7 @@ export default function Home() {
       description:
         "Free AI-powered tools for YouTube content creators to optimize thumbnails, SEO metadata, earnings, and channel growth.",
     },
-    mainEntity: {
-      "@type": "WebApplication",
-      "@id": `${siteConfig.url}/#webapp`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-      applicationCategory: "UtilityApplication",
-      applicationSubCategory: "YouTube Creator Tools",
-      operatingSystem: "Any",
-      browserRequirements: "Requires JavaScript. Requires HTML5.",
-      isAccessibleForFree: true,
-      featureList: tools.map((t) => t.name),
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-      },
-
-    },
+    mainEntity: getMainEntitySchema(),
     significantLink: [
       `${siteConfig.url}/tools`,
       `${siteConfig.url}/tools/youtube-thumbnail-downloader`,
@@ -241,8 +222,6 @@ export default function Home() {
     <div className="min-h-screen">
       {/* ── GEO/AEO: Knowledge Graph, WebApplication, ProfilePage, Service ── */}
       <GeoAeoHead {...GEO_AEO_PRESETS.homepage} pathname="/" />
-      {/* ── AEO/GEO: Featured Snippet Answer Boxes for Search Crawlers and AI Engines ── */}
-      <AnswerBoxes />
       {/* ── AEO/GEO: JSON-LD Structured Data for AI Answer Engines ── */}
       <script
         type="application/ld+json"
