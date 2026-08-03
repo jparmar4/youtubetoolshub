@@ -10,9 +10,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
-import InArticleAd from "@/components/ads/InArticleAd";
 import {
     FaSearch,
     FaEye,
@@ -358,7 +356,6 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
-                    <HorizontalAd />
 
                     {/* Section 2: 7 Key Ranking Factors */}
                     <section>
@@ -402,7 +399,6 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
-                    <InArticleAd />
 
                     {/* Section 3: How YouTube Recommends Videos */}
                     <section>
@@ -587,7 +583,6 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
-                    <HorizontalAd />
 
                     {/* Section 5: Shorts vs Long-Form */}
                     <section>

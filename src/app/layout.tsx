@@ -9,9 +9,6 @@ import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
-import AdRecovery from "@/components/ads/AdRecovery";
-import BottomAnchorAd from "@/components/ads/BottomAnchorAd";
-import HeaderAd from "@/components/ads/HeaderAd";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
 
@@ -50,6 +47,12 @@ export const metadata = {
   metadataBase: new URL(siteConfig.url),
   // Do not set a global canonical here — child routes must self-canonicalize.
   // A root canonical to "/" would make missing pages look like homepage duplicates.
+  alternates: {
+    languages: {
+      "en": siteConfig.url,
+      "x-default": siteConfig.url,
+    },
+  },
 
   openGraph: {
     type: "website",
@@ -159,6 +162,12 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        {/* Edge DNS Preconnects for Global Performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -276,6 +285,29 @@ export default async function RootLayout({
             __html: JSON.stringify(editorialSchema),
           }}
         />
+        
+        {/* Consent Mode v2 Default Initialization */}
+        <script
+          id="google-consent-mode"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              // Default to denied for GDPR compliance
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied',
+                'wait_for_update': 500
+              });
+              gtag('js', new Date());
+              gtag('config', 'G-14MEY3M1CN', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -293,7 +325,6 @@ export default async function RootLayout({
         />
         <AuthProvider>
           <UsageProvider>
-            <HeaderAd />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
@@ -301,10 +332,6 @@ export default async function RootLayout({
             <CookieConsent />
             <ConsentAnalytics />
             <PrivacyH1Fix />
-            {/* Sticky bottom anchor ad — highest mobile CPM placement */}
-            <BottomAnchorAd />
-            {/* Ad Blocking Recovery Tags - MUST be in body, not head */}
-            <AdRecovery />
             {/* Exit-intent popup for email capture */}
             <ExitIntentPopup />
           </UsageProvider>

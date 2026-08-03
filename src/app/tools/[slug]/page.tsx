@@ -7,7 +7,6 @@ import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHow
 import { siteConfig } from "@/config/site";
 import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -618,7 +617,6 @@ export default async function ToolPage({
                     </div>
                     {/* Display ad below tool content for additional revenue */}
                     <div className="animate-fade-in-up delay-300 mt-12">
-                        <HorizontalAd />
                     </div>
                 </div>
             </div>

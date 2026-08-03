@@ -7,7 +7,6 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 export default function ThumbnailDownloader() {
@@ -134,7 +133,6 @@ export default function ThumbnailDownloader() {
                 )}
 
                 {/* Ad placed BELOW results — safe distance from download buttons (AdSense policy) */}
-                <HorizontalAd />
             </div>
         </ToolPageLayout>
     );

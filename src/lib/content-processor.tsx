@@ -2,7 +2,6 @@ import Link from "next/link";
 import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
-import InArticleAd from "@/components/ads/InArticleAd";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 // AEO Components
@@ -112,11 +111,7 @@ export function processContent(
     let aeoType: AeoType | null = null;
     let aeoLines: string[] = [];
 
-    let paragraphCount = 0;
-    let adCount = 0;
     let h2Count = 0;
-    // Cap in-article ads for Core Web Vitals / main-thread budget
-    const MAX_ADS = 2;
 
     const flushList = (key: string) => {
         if (listItems.length > 0) {
@@ -606,9 +601,6 @@ export function processContent(
                     />,
                 );
                 earningsCtaInserted = true;
-            } else if (h2Count % 2 === 0 && adCount < MAX_ADS) {
-                elements.push(<InArticleAd key={`ad-h2-${index}`} />);
-                adCount++;
             }
             return;
         }
@@ -650,7 +642,6 @@ export function processContent(
                 </p>
             );
 
-            paragraphCount++;
             return;
         }
 
@@ -662,12 +653,6 @@ export function processContent(
             </p>
         );
 
-        paragraphCount++;
-        // Insert ads after paragraph 3 and then every 5 paragraphs, with global cap
-        if (adCount < MAX_ADS && (paragraphCount === 3 || (paragraphCount > 3 && (paragraphCount - 3) % 5 === 0))) {
-            elements.push(<InArticleAd key={`ad-${index}`} />);
-            adCount++;
-        }
 
 
     });

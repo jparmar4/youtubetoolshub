@@ -13,7 +13,6 @@ import { FaMagic, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag, FaImage } fro
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const videoTypeOptions = [
     { value: "tutorial", label: "Tutorial / How-To" },
@@ -175,7 +174,6 @@ function DescriptionGeneratorContent() {
                     {loading ? "Writing Description..." : "Generate Description"}
                 </Button>
 
-                <HorizontalAd />
             </div>
 
             {error && (

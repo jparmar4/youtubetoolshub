@@ -10,7 +10,6 @@ import {
 } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import InFeedAd from "@/components/ads/InFeedAd";
 import { Fragment } from "react";
 
 const toolsPageFaqs = [
@@ -218,7 +217,7 @@ export default function ToolsPage() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {categoryTools.map((tool, idx) => (
+                      {categoryTools.map((tool) => (
                         <Fragment key={tool.slug}>
                           <ToolCard
                             icon={<tool.icon />}
@@ -228,7 +227,6 @@ export default function ToolsPage() {
                             isAI={tool.isAI}
                             className="hover:-translate-y-2 transition-all duration-500 shadow-sm hover:shadow-xl border-white/40 glass-premium"
                           />
-                          {idx === 2 && <InFeedAd />}
                         </Fragment>
                       ))}
                     </div>

@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -529,7 +528,6 @@ export default function Home() {
       </section>
 
       {/* Ad: Between Authority and SmartWorkflow */}
-      <HorizontalAd />
 
       <SmartWorkflow />
 

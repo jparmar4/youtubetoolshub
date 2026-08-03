@@ -6,8 +6,6 @@ import { siteConfig } from "@/config/site";
 import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import InFeedAd from "@/components/ads/InFeedAd";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
@@ -237,7 +235,6 @@ export default function BlogPage() {
 
         {/* Ad: Between Featured and Other Posts */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-          <HorizontalAd />
         </div>
 
         {/* Other Posts */}
@@ -259,7 +256,7 @@ export default function BlogPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {otherPosts.map((post, index) => (
+              {otherPosts.map((post) => (
                 <Fragment key={post.slug}>
                   <BlogCard
                     title={post.title}
@@ -272,7 +269,6 @@ export default function BlogPage() {
                     className="bg-white/5 border-white/10 hover:bg-white/10"
                     dark={true}
                   />
-                  {index === 1 && <InFeedAd />}
                 </Fragment>
               ))}
             </div>

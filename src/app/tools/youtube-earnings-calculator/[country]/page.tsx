@@ -5,8 +5,6 @@ import { siteConfig } from "@/config/site";
 import { countryCPMData, getCountryBySlug } from "@/lib/cpm-data";
 import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import SidebarAd from "@/components/ads/SidebarAd";
 
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -224,7 +222,6 @@ export default async function CountryEarningsPage({
                                 </ToolContextProvider>
                             </div>
 
-                            <HorizontalAd />
 
                             {/* Country Stats Grid */}
                             <div className="grid sm:grid-cols-2 gap-4">
@@ -324,7 +321,6 @@ export default async function CountryEarningsPage({
                         {/* Sidebar */}
                         <div className="max-lg:hidden lg:col-span-1 space-y-8">
                             <div className="sticky top-24 space-y-8">
-                                <SidebarAd />
 
                                 {/* Related Tools */}
                                 <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">

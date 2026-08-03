@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaChartBar, FaExternalLinkAlt, FaSearch, FaSpinner, FaUsers, FaVideo } from "react-icons/fa";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -133,7 +132,6 @@ export default function SubscriberCountChecker() {
                     </Link>
                 </div>
 
-                <HorizontalAd />
 
                 {channel && (
                     <div className="space-y-6">

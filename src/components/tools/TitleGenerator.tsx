@@ -8,7 +8,6 @@ import CopyButton from "@/components/ui/CopyButton";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import { useUsage } from "@/hooks/useUsage";
 import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, FaUsers } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
@@ -302,7 +301,6 @@ export default function TitleGenerator() {
                         {loading ? "Analyzing Viral Patterns..." : "Generate Professional Titles"}
                     </Button>
 
-                    <HorizontalAd />
                 </div>
 
                 {/* Error Display */}

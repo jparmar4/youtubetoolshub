@@ -17,7 +17,7 @@ import { join, basename, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 // ── Configuration ──────────────────────────────────────────────────────────
-const SIZE_THRESHOLD = 500 * 1024; // 500 KB
+const SIZE_THRESHOLD = 10 * 1024; // 10 KB
 const WEBP_QUALITY = 80;
 const BLOG_IMAGES_DIR = join(
   fileURLToPath(new URL("..", import.meta.url)),
@@ -66,7 +66,7 @@ async function main() {
   }
 
   const pngFiles = entries.filter(
-    (f) => extname(f).toLowerCase() === ".png"
+    (f) => extname(f).toLowerCase() === ".png" || extname(f).toLowerCase() === ".jpg" || extname(f).toLowerCase() === ".jpeg"
   );
 
   const candidates = [];
@@ -83,7 +83,7 @@ async function main() {
     return;
   }
 
-  console.log(`\n🔍 Found ${candidates.length} PNG file(s) over ${formatBytes(SIZE_THRESHOLD)}:\n`);
+  console.log(`\n🔍 Found ${candidates.length} file(s) over ${formatBytes(SIZE_THRESHOLD)}:\n`);
 
   // Sort largest first
   candidates.sort((a, b) => b.size - a.size);
@@ -120,7 +120,7 @@ async function main() {
   const results = [];
 
   for (const { file, path: filePath, size: originalSize } of candidates) {
-    const webpName = file.replace(/\.png$/i, ".webp");
+    const webpName = file.replace(/\.(png|jpe?g)$/i, ".webp");
     const webpPath = join(BLOG_IMAGES_DIR, webpName);
 
     try {

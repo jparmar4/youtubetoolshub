@@ -7,7 +7,6 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaChartBar } from "react-icons/fa";
 import { calculateEngagementRate, formatNumber } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 export default function EngagementCalculator() {
@@ -114,7 +113,6 @@ export default function EngagementCalculator() {
                     </p>
                 )}
 
-                <HorizontalAd />
 
                 {/* Results Section */}
                 {result && (

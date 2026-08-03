@@ -13,18 +13,19 @@ const imageDirPath = path.join(__dirname, '..', 'public', 'images', 'blog');
 let content = fs.readFileSync(blogTsPath, 'utf8');
 let updates = 0;
 
-// Find all .png references in blog.ts and check if .webp exists
-const pngRegex = /\/images\/blog\/([^"]+)\.png/g;
+// Find all .png, .jpg, .jpeg references in blog.ts and check if .webp exists
+const imgRegex = /\/images\/blog\/([^"]+)\.(png|jpe?g)/gi;
 let match;
 const replacements = [];
 
-while ((match = pngRegex.exec(content)) !== null) {
+while ((match = imgRegex.exec(content)) !== null) {
   const basename = match[1];
+  const ext = match[2];
   const webpPath = path.join(imageDirPath, `${basename}.webp`);
   
   if (fs.existsSync(webpPath)) {
     replacements.push({
-      from: `/images/blog/${basename}.png`,
+      from: `/images/blog/${basename}.${ext}`,
       to: `/images/blog/${basename}.webp`,
     });
   }

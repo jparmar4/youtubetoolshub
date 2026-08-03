@@ -11,7 +11,6 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaUser, FaSpinner, FaStar, FaBolt, FaGem, FaRocket, FaTag, FaExternalLinkAlt } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const toneOptions = [
     { value: "fun", label: "Fun & Playful" },
@@ -191,7 +190,6 @@ export default function ChannelNameGenerator() {
                     )}
                 </Button>
 
-                <HorizontalAd />
 
                 {error && (
                     <div className="bg-red-50 rounded-lg p-4">

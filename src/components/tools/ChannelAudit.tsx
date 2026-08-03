@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FaBookmark, FaCheckCircle, FaClipboardCheck, FaShareAlt } from "react-icons/fa";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import ShareModal from "@/components/ui/ShareModal";
 import { useToolContext } from "@/components/tools/ToolContext";
 import { saveItem } from "@/lib/dashboard";
@@ -141,7 +140,6 @@ export default function ChannelAudit() {
                 </button>
             </div>
 
-            <HorizontalAd />
 
             {score !== null && (
                 <div className="space-y-5 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">

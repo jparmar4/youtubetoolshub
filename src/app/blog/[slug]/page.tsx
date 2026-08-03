@@ -14,8 +14,6 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
-import HorizontalAd from "@/components/ads/HorizontalAd";
-import InArticleAd from "@/components/ads/InArticleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import {
@@ -325,7 +323,6 @@ export default async function BlogPostPage({
                             )}
 
                             {/* Ad: Before article content */}
-                            <HorizontalAd />
 
                             {/* Money posts: calculator CTA above the fold for SEO + conversion */}
                             {showEarningsCta && (
@@ -500,7 +497,6 @@ export default async function BlogPostPage({
 
                 {/* Ad placements below fold — InArticleAd for native content blend */}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-                    <InArticleAd />
                 </div>
 
                 {/* CTA with specific high-intent tools */}

@@ -19,7 +19,6 @@ import {
   FaUsers,
   FaArrowRight,
 } from "react-icons/fa";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Creator Tools",
@@ -216,10 +215,6 @@ export default function FAQPage() {
                     </div>
                   </div>
                 </div>
-                {/* Ad: Midway through FAQ list */}
-                {index === Math.floor(faqData.length / 2) - 1 && (
-                  <HorizontalAd />
-                )}
               </React.Fragment>
             ))}
           </div>

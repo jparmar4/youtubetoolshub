@@ -11,7 +11,6 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 interface CalendarEntry {
     day: number;
@@ -190,7 +189,6 @@ export default function ContentCalendarGenerator() {
                     </p>
                 )}
 
-                <HorizontalAd />
 
                 {/* Results Section */}
                 {calendar.length > 0 && (

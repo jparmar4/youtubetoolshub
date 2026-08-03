@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 import { formatCurrency, calculateEarnings } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 const faq = [
   {
@@ -156,7 +155,6 @@ export default function EarningsCalculator({
           </p>
         )}
 
-        <HorizontalAd />
 
         {adResult && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

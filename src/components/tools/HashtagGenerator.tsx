@@ -13,7 +13,6 @@ import { safeJSONParse } from "@/lib/utils";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { motion } from "framer-motion";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 
@@ -211,7 +210,6 @@ export default function HashtagGenerator() {
                         </p>
                     )}
 
-                    <HorizontalAd />
                 </div>
 
                 {/* Results Section */}

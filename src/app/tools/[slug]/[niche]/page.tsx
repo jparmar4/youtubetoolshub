@@ -33,7 +33,6 @@ import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
 import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
 import CommentPicker from "@/components/tools/CommentPicker";
 import BlogSidebar from "@/components/blog/BlogSidebar";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 import { getPriorityTools, getRelatedToolsForPost } from "@/lib/related-tools";
 
 const toolComponents: Record<string, React.ComponentType> = {
@@ -268,7 +267,6 @@ export default async function ProgrammaticToolPage({
                             </Suspense>
                         </ToolContextProvider>
 
-                        <HorizontalAd />
 
                         {/* Niche-specific unique content (primary for long-tail SEO / Helpful Content) */}
                         <article className="space-y-8">

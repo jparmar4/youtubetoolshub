@@ -10,9 +10,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
-import InArticleAd from "@/components/ads/InArticleAd";
 import {
     FaCheckCircle,
     FaDollarSign,
@@ -478,7 +476,6 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                     </section>
 
-                    <HorizontalAd />
 
                     {/* Section 2: 8 Revenue Streams */}
                     <section>
@@ -525,7 +522,6 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                     </section>
 
-                    <InArticleAd />
 
                     {/* Section 3: CPM vs RPM */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
@@ -612,7 +608,6 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                     </section>
 
-                    <HorizontalAd />
 
                     {/* Section 5: Maximize AdSense Revenue */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">

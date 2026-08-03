@@ -8,7 +8,6 @@ import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
 
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 const faq = [
@@ -171,7 +170,6 @@ export default function PlaylistLengthCalculator() {
                     </div>
                 </div>
 
-                <HorizontalAd />
 
                 {/* Results Section */}
                 {result && !loading && (

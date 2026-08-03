@@ -11,7 +11,6 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaChartLine, FaSpinner, FaFire, FaEye, FaLightbulb } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 
 // Interfaces
@@ -188,7 +187,6 @@ export default function TrendHelper() {
                     </Button>
                 </div>
 
-                <HorizontalAd />
 
                 {/* API Key Required Notice */}
                 {isDemo && (

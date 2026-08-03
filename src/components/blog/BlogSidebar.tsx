@@ -1,5 +1,4 @@
 import Link from "next/link";
-import StickySidebarAd from "@/components/ads/StickySidebarAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import type { Tool } from "@/config/tools";
 import { FaTools, FaArrowRight, FaFire } from "react-icons/fa";
@@ -115,7 +114,6 @@ export default function BlogSidebar({
       <AffiliateBanner toolId="vidiq" variant="card" />
 
       {/* Sticky sidebar ad — below fold of sticky stack content */}
-      <StickySidebarAd />
     </aside>
   );
 }

@@ -11,7 +11,6 @@ import { useUsage } from "@/hooks/useUsage";
 import { FaBalanceScale } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
-import HorizontalAd from "@/components/ads/HorizontalAd";
 
 // Interfaces
 interface TitleMetrics {
@@ -161,7 +160,6 @@ export default function TitleABTester() {
                     </Button>
                 </div>
 
-                <HorizontalAd />
 
                 {/* Results Section */}
                 {result && (
