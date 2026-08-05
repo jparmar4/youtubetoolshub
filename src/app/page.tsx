@@ -16,6 +16,7 @@ import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
+import GoogleAd from "@/components/ads/GoogleAd";
 import { Metadata } from "next";
 import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getHowToSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -528,6 +529,9 @@ export default function Home() {
       </section>
 
       {/* Ad: Between Authority and SmartWorkflow */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <GoogleAd slot="2275881649" />
+      </div>
 
       <SmartWorkflow />
 
@@ -605,6 +609,11 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Ad: Before Latest Blog Insights */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-slate-50">
+        <GoogleAd slot="9962799978" />
+      </div>
 
       {/* Latest Blog Insights */}
       <section className="py-32 bg-slate-50 relative overflow-hidden">

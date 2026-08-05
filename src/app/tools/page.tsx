@@ -11,6 +11,7 @@ import {
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { Fragment } from "react";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 const toolsPageFaqs = [
   {
@@ -165,6 +166,9 @@ export default function ToolsPage() {
           </div>
 
           {/* Above-the-fold Ad Placement */}
+          <div className="mb-12">
+            <GoogleAd slot="8649718301" />
+          </div>
 
           {/* Tools by Category */}
           <div className="space-y-32">

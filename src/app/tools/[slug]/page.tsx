@@ -25,6 +25,7 @@ import {
     getToolSeoFaqs,
     getToolClusterLinks,
 } from "@/lib/tool-seo-content";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 
 // Import all tool components
@@ -617,6 +618,7 @@ export default async function ToolPage({
                     </div>
                     {/* Display ad below tool content for additional revenue */}
                     <div className="animate-fade-in-up delay-300 mt-12">
+                        <GoogleAd slot="7688425196" />
                     </div>
                 </div>
             </div>

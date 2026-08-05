@@ -9,6 +9,7 @@ import { BlogCard } from "@/components/ui/Card";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
   title: "YouTube Blog 2026: SEO, Monetization & Growth Guides",
@@ -235,6 +236,7 @@ export default function BlogPage() {
 
         {/* Ad: Between Featured and Other Posts */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <GoogleAd slot="8649718301" />
         </div>
 
         {/* Other Posts */}
