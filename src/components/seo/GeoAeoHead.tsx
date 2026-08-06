@@ -108,7 +108,7 @@ export default function GeoAeoHead({
       */}
       {(conciseAnswer || (keyFacts && keyFacts.length > 0)) && (
         <aside
-          className="mx-auto max-w-3xl px-4 pt-4 pb-2 text-sm text-slate-600 dark:text-slate-400"
+          className="sr-only"
           aria-label="Key takeaways"
         >
           {conciseAnswer && (
