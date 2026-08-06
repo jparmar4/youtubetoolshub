@@ -22,7 +22,7 @@ import {
 } from "@/lib/related-tools";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import GoogleAd from "@/components/ads/GoogleAd";
-
+import BlogSidebar from "@/components/blog/BlogSidebar";
 // Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
 
@@ -495,16 +495,7 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Sidebar Column */}
-                        <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
-                            <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
-                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
-                                <GoogleAd slot="9342904756" style={{ display: "inline-block", width: "300px", height: "600px" }} responsive={false} />
-                            </div>
-                            <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
-                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
-                                <GoogleAd slot="8649718301" style={{ display: "inline-block", width: "300px", height: "250px" }} responsive={false} />
-                            </div>
-                        </aside>
+                        <BlogSidebar relatedTools={relatedTools} popularTools={priorityTools} />
 
                     </div>
                 </div>
