@@ -20,14 +20,10 @@ export default function BlogSidebar({
 
   return (
     <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
-      {/* Sticky sidebar ads */}
-      <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
+      {/* Sticky sidebar ad */}
+      <div className="mb-6 w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
         <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
         <GoogleAd slot="9342904756" style={{ display: "inline-block", width: "300px", height: "600px" }} responsive={false} />
-      </div>
-      <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
-        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
-        <GoogleAd slot="8649718301" style={{ display: "inline-block", width: "300px", height: "250px" }} responsive={false} />
       </div>
 
       {/* Contextual free tools — SEO internal links */}
