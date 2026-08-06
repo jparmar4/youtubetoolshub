@@ -28,6 +28,7 @@ import {
     FaFireAlt,
     FaStar,
 } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
@@ -399,6 +400,10 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
+                    </div>
 
                     {/* Section 3: How YouTube Recommends Videos */}
                     <section>
@@ -660,6 +665,11 @@ export default function YouTubeAlgorithmGuidePage() {
                         </div>
                     </section>
 
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="8649718301" />
+                    </div>
+
                     {/* Section 6: Watch Time and Session Time */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
                         <div className="mb-6">
@@ -856,6 +866,11 @@ export default function YouTubeAlgorithmGuidePage() {
                             ))}
                         </div>
                     </section>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd format="autorelaxed" slot="3104734850" />
+                    </div>
 
                     {/* Final CTA */}
                     <section className="text-center glass-premium rounded-3xl p-10 border border-purple-100 shadow-sm">

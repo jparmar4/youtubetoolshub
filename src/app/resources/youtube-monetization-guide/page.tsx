@@ -30,6 +30,7 @@ import {
     FaGlobe,
     FaLock,
 } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Monetization Guide 2026: YPP & Earnings",
@@ -522,6 +523,10 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                     </section>
 
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd layout="in-article" format="fluid" slot="7336636636" style={{ display: "block", textAlign: "center" }} />
+                    </div>
 
                     {/* Section 3: CPM vs RPM */}
                     <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
@@ -669,6 +674,11 @@ export default function YouTubeMonetizationGuidePage() {
                             })}
                         </div>
                     </section>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="7688425196" />
+                    </div>
 
                     {/* Section 6: Best Niches */}
                     <section>
@@ -824,6 +834,11 @@ export default function YouTubeMonetizationGuidePage() {
                             </div>
                         </div>
                     </section>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd format="autorelaxed" slot="3104734850" />
+                    </div>
 
                     {/* Section 9: FAQ */}
                     <section>

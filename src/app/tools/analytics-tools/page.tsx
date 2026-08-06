@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Analytics & Earnings Tools - ROI & Revenue Calculators 2026",
@@ -121,6 +122,11 @@ export default function AnalyticsToolsHub() {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="8649718301" />
                     </div>
 
                     {/* Deep Dive Content */}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GoogleAd from "@/components/ads/GoogleAd";
 import { FaCheck, FaBolt, FaBrain, FaChartLine } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -87,6 +88,11 @@ export default function VidIQComparisonPage() {
                                 Review Current VidIQ Plans
                             </a>
                         </div>
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="7688425196" />
                     </div>
 
                     {/* Feature Breakdown */}

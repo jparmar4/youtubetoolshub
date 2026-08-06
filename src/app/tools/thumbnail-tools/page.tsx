@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Thumbnail Tools - HD Downloader & AI Generator 2026",
@@ -123,6 +124,11 @@ export default function ThumbnailToolsHub() {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="7688425196" />
                     </div>
 
                     {/* Deep Dive Content - E-E-A-T Optimized */}

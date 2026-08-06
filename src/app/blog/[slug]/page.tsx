@@ -325,7 +325,7 @@ export default async function BlogPostPage({
 
                             {/* Ad: Before article content */}
                             <div className="my-8">
-                                <GoogleAd layout="in-article" format="fluid" slot="7336636636" style={{ display: "block", textAlign: "center" }} />
+                                <GoogleAd layout="in-article" format="fluid" slot="7336636636" style={{ display: "block", textAlign: "center" }} lazy={false} />
                             </div>
 
                             {/* Money posts: calculator CTA above the fold for SEO + conversion */}
@@ -418,6 +418,11 @@ export default async function BlogPostPage({
                                         </div>
                                     </div>
                                 )}
+
+                                {/* Ad: After FAQ section */}
+                                <div className="my-8" aria-hidden="true">
+                                    <GoogleAd slot="8649718301" />
+                                </div>
 
                                 {/* Related free tools CTA — strong internal links for SEO */}
                                 {relatedTools.length > 0 && (

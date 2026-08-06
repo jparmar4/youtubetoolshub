@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import GoogleAd from "@/components/ads/GoogleAd";
 import type { Tool } from "@/config/tools";
 import { FaTools, FaArrowRight, FaFire } from "react-icons/fa";
 
@@ -114,6 +115,9 @@ export default function BlogSidebar({
       <AffiliateBanner toolId="vidiq" variant="card" />
 
       {/* Sticky sidebar ad — below fold of sticky stack content */}
+      <div className="mt-4" aria-hidden="true">
+        <GoogleAd slot="9342904756" style={{ display: "block", width: "300px", height: "250px" }} responsive={false} />
+      </div>
     </aside>
   );
 }

@@ -54,3 +54,6 @@ tsconfig.tsbuildinfo
 outputs/content-audit.csv
 outputs/content-audit.json
 
+# runtime data (subscriber emails — do not commit PII)
+data/subscribers.json
+

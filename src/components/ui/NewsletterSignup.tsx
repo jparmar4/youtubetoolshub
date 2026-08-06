@@ -6,21 +6,39 @@ import { FaEnvelope, FaCheck, FaSpinner } from "react-icons/fa";
 export default function NewsletterSignup() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email) return;
 
         setStatus("loading");
+        setMessage("");
 
-        // Simulate API call - replace with actual newsletter service
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
 
-        setStatus("success");
-        setEmail("");
+            const data = await res.json();
 
-        // Reset after 3 seconds
-        setTimeout(() => setStatus("idle"), 3000);
+            if (res.ok) {
+                setStatus("success");
+                setMessage(data.message || "Thanks for subscribing!");
+                setEmail("");
+            } else {
+                setStatus("error");
+                setMessage(data.error || "Something went wrong.");
+            }
+        } catch {
+            setStatus("error");
+            setMessage("Network error. Please try again.");
+        }
+
+        // Reset after 5 seconds
+        setTimeout(() => setStatus("idle"), 5000);
     };
 
     return (
@@ -38,7 +56,12 @@ export default function NewsletterSignup() {
             {status === "success" ? (
                 <div className="flex items-center justify-center gap-2 text-emerald-600">
                     <FaCheck className="w-5 h-5" />
-                    <span>Thanks for subscribing!</span>
+                    <span>{message || "Thanks for subscribing!"}</span>
+                </div>
+            ) : status === "error" ? (
+                <div className="space-y-3">
+                    <p className="text-red-500 text-sm">{message || "Something went wrong."}</p>
+                    <button onClick={() => setStatus("idle")} className="text-purple-600 hover:underline text-sm font-medium">Try again</button>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">

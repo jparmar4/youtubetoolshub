@@ -4,6 +4,7 @@ import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
 import { FaMagic, FaArrowRight } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Utility & Productivity Tools - Scale Your Workflow 2026",
@@ -124,6 +125,11 @@ export default function UtilityToolsHub() {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="8649718301" />
                     </div>
 
                     {/* Deep Dive Section */}

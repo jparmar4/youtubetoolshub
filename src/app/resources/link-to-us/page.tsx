@@ -4,6 +4,7 @@ import { getBreadcrumbSchema } from "@/lib/seo";
 import Link from "next/link";
 import { FaLink, FaCode, FaHeart, FaStar, FaRocket, FaHandshake, FaChartLine } from "react-icons/fa";
 import CopyButton from "@/components/ui/CopyButton";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
   title: "Link to Us – Embed Badges, Calculator Widget & Backlinks",
@@ -297,6 +298,11 @@ export default function LinkToUsPage() {
             ))}
           </div>
         </section>
+
+        {/* Ad placement */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 my-8" aria-hidden="true">
+          <GoogleAd layout="in-article" format="fluid" slot="2084309959" style={{ display: "block", textAlign: "center" }} />
+        </div>
 
         {/* Embed Snippets */}
         <section id="embed-snippets" className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">

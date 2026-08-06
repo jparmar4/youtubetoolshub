@@ -4,6 +4,7 @@ import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
 import { FaRocket, FaArrowRight, FaBrain } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
     title: "YouTube Channel Research & Growth Tools - AI Strategist 2026",
@@ -132,6 +133,11 @@ export default function ChannelToolsHub() {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="7688425196" />
                     </div>
 
                     {/* Authority Guide Section */}

@@ -539,6 +539,137 @@ export const topicClusters: TopicCluster[] = [
       },
     ],
   },
+  /* ── High-CPC clusters (target $10-50 CPC keywords) ─────────────── */
+  {
+    id: "creator-business",
+    name: "Creator Business & Legal",
+    pillar: {
+      path: "/blog/youtube-channel-as-business-2026",
+      title: "Running Your YouTube Channel as a Business",
+      anchors: [
+        "youtube as a business",
+        "youtube channel business",
+        "creator business",
+      ],
+    },
+    spokes: [
+      {
+        path: "/blog/youtube-llc-setup-guide",
+        title: "YouTube LLC Setup Guide",
+        anchors: ["youtube llc", "llc for youtubers", "creator llc"],
+      },
+      {
+        path: "/blog/youtube-content-licensing-guide",
+        title: "Content Licensing Guide",
+        anchors: ["content licensing", "youtube licensing", "license youtube content"],
+      },
+      {
+        path: "/blog/youtube-creator-contracts-guide",
+        title: "Creator Contracts & Sponsorship Agreements",
+        anchors: ["creator contracts", "sponsorship contract", "youtube brand deal contract"],
+      },
+      {
+        path: "/blog/youtube-copyright-guide-2026",
+        title: "YouTube Copyright Guide",
+        anchors: ["youtube copyright", "copyright claim", "fair use youtube"],
+      },
+      {
+        path: "/blog/insurance-youtube-marketing",
+        title: "Insurance YouTube Marketing",
+        anchors: ["insurance youtube", "creator insurance"],
+      },
+    ],
+  },
+  {
+    id: "software-reviews",
+    name: "Software & SaaS Reviews",
+    pillar: {
+      path: "/blog/best-ai-tools-youtube-creators-2026",
+      title: "Best AI Tools for YouTube Creators 2026",
+      anchors: [
+        "best software for youtube",
+        "youtube creator software",
+        "saas for creators",
+      ],
+    },
+    spokes: [
+      {
+        path: "/blog/best-video-editing-software-youtube-2026",
+        title: "Best Video Editing Software for YouTube",
+        anchors: ["video editing software", "best editor for youtube", "youtube editing software"],
+      },
+      {
+        path: "/blog/best-youtube-hosting-solutions",
+        title: "Best Hosting for Creator Websites",
+        anchors: ["hosting for creators", "youtube portfolio hosting", "creator website hosting"],
+      },
+      {
+        path: "/blog/best-vpn-for-youtube-creators",
+        title: "Best VPN for YouTube Creators",
+        anchors: ["vpn for youtube", "creator vpn", "best vpn creators"],
+      },
+      {
+        path: "/blog/25-best-ai-tools-for-youtube-creators",
+        title: "25 Best AI Tools for YouTube",
+        anchors: ["ai tools youtube", "best free ai tools"],
+      },
+      {
+        path: "/tools/vs/tubebuddy",
+        title: "YouTube Tools Hub vs TubeBuddy",
+        anchors: ["tubebuddy alternative", "free tubebuddy"],
+      },
+      {
+        path: "/tools/vs/vidiq",
+        title: "YouTube Tools Hub vs VidIQ",
+        anchors: ["vidiq alternative", "free vidiq"],
+      },
+    ],
+  },
+  {
+    id: "creator-finance",
+    name: "Creator Finance & Taxes",
+    pillar: {
+      path: "/resources/youtube-monetization-guide",
+      title: "YouTube Monetization Guide",
+      anchors: [
+        "creator finance",
+        "youtube taxes",
+        "youtuber income",
+      ],
+    },
+    spokes: [
+      {
+        path: "/blog/youtube-taxes-guide-2026",
+        title: "YouTube Taxes Guide",
+        anchors: ["youtube taxes", "youtuber tax guide", "how youtubers file taxes"],
+      },
+      {
+        path: "/blog/youtube-sponsorship-rates-2026",
+        title: "YouTube Sponsorship Rates",
+        anchors: ["sponsorship rates", "youtube sponsorship pricing", "how much sponsors pay"],
+      },
+      {
+        path: "/blog/youtube-adsense-payment-schedule-2026",
+        title: "AdSense Payment Schedule",
+        anchors: ["adsense payment", "youtube payment schedule"],
+      },
+      {
+        path: "/blog/how-much-youtube-pays-per-1000-views-2026",
+        title: "How Much YouTube Pays Per 1,000 Views",
+        anchors: ["youtube pay per view", "how much per 1000 views"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator",
+        title: "Earnings Calculator",
+        anchors: ["calculate youtube earnings", "youtube income calculator"],
+      },
+      {
+        path: "/blog/youtube-media-kit-template-2026",
+        title: "Media Kit Template",
+        anchors: ["media kit", "creator media kit"],
+      },
+    ],
+  },
 ];
 
 /** Flat map of anchor phrase (lowercase) → path for auto-linking */

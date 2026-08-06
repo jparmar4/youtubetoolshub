@@ -19,6 +19,7 @@ import {
   FaUsers,
   FaArrowRight,
 } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Creator Tools",
@@ -219,7 +220,10 @@ export default function FAQPage() {
             ))}
           </div>
 
-
+          {/* Ad placement */}
+          <div className="my-8" aria-hidden="true">
+            <GoogleAd slot="7688425196" />
+          </div>
 
           {/* Contact Support */}
           <div className="relative group overflow-hidden rounded-[3rem] p-1 shadow-2xl">

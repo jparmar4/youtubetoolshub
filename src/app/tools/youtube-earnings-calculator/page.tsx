@@ -33,6 +33,7 @@ import {
   FaArrowRight,
   FaCheckCircle,
 } from "react-icons/fa";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
@@ -399,6 +400,11 @@ export default function YouTubeEarningsCalculatorPage() {
                 </p>
               </section>
 
+              {/* Ad placement */}
+              <div className="my-8" aria-hidden="true">
+                <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
+              </div>
+
               {/* Countries */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
@@ -530,6 +536,11 @@ export default function YouTubeEarningsCalculatorPage() {
                   ))}
                 </div>
               </section>
+
+              {/* Ad placement */}
+              <div className="my-8" aria-hidden="true">
+                <GoogleAd slot="8649718301" />
+              </div>
 
               <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-sm text-amber-900">
                 <strong>Disclaimer:</strong> Estimates are for educational

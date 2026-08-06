@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GoogleAd from "@/components/ads/GoogleAd";
 import { FaCheck, FaDollarSign, FaRobot } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -59,6 +60,11 @@ export default function TubeBuddyComparisonPage() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="8649718301" />
                     </div>
 
                     {/* Deep Dive Sections */}

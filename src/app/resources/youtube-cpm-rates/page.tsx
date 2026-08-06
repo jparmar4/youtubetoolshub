@@ -9,6 +9,7 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import GoogleAd from "@/components/ads/GoogleAd";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
@@ -359,6 +360,10 @@ export default function YouTubeCPMRatesPage() {
                         <CPMTable countries={tier2} tierLabel="Tier 2" tierColor="bg-blue-700" />
                     </section>
 
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
+                    </div>
 
                     {/* Tier 3 Table */}
                     <section>
@@ -459,6 +464,11 @@ export default function YouTubeCPMRatesPage() {
                             ))}
                         </div>
                     </section>
+
+                    {/* Ad placement */}
+                    <div className="my-8" aria-hidden="true">
+                        <GoogleAd slot="7688425196" />
+                    </div>
 
                     {/* CTA to calculator */}
                     <section className="rounded-3xl bg-gradient-to-br from-slate-900 to-purple-950 p-8 md:p-12 text-center shadow-2xl">

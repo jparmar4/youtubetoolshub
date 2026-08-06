@@ -3,6 +3,7 @@ import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 // AEO Components
 import QuickAnswer from "@/components/blog/aeo/QuickAnswer";
@@ -98,6 +99,7 @@ export function processContent(
     const elements: React.ReactNode[] = [];
     const earningsAfterH2 = options.injectEarningsCtaAfterH2 ?? 0;
     let earningsCtaInserted = false;
+    let midArticleAdInserted = false;
 
     // State for standard lists
     let listItems: string[] = [];
@@ -601,6 +603,16 @@ export function processContent(
                     />,
                 );
                 earningsCtaInserted = true;
+            }
+
+            // Inject a mid-article ad after the 3rd H2 for all posts
+            if (!midArticleAdInserted && h2Count === 3) {
+                elements.push(
+                    <div key={`mid-ad-${index}`} className="my-8 not-prose" aria-hidden="true">
+                        <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
+                    </div>,
+                );
+                midArticleAdInserted = true;
             }
             return;
         }

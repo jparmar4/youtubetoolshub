@@ -4,6 +4,7 @@ import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
 import { niches, programmaticTools } from "@/config/programmatic";
+import { getComparisonPairs } from "@/config/comparisons";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
@@ -129,6 +130,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DATA_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.65,
+    });
+  }
+
+  // Tool comparison pages (A vs B)
+  for (const pair of getComparisonPairs()) {
+    allEntries.push({
+      url: `${baseUrl}/tools/compare/${pair.toolA}/${pair.toolB}`,
+      lastModified: TOOL_LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.6,
     });
   }
 

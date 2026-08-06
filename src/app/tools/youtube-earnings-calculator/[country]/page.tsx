@@ -18,6 +18,7 @@ import {
     getDatasetSchema,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 /** Unknown country slugs → 404 (prevents soft-404 index bloat) */
 export const dynamicParams = false;
@@ -247,6 +248,11 @@ export default async function CountryEarningsPage({
                                 </div>
                             </div>
 
+                            {/* Ad placement */}
+                            <div className="my-8" aria-hidden="true">
+                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
+                            </div>
+
                             {/* Content Section */}
                             <div className="glass-premium rounded-2xl p-8 space-y-6">
                                 <h2 className="text-2xl font-bold text-slate-900">
@@ -290,6 +296,11 @@ export default async function CountryEarningsPage({
                                     . Data last reviewed {DATA_LAST_REVIEWED}.
                                 </p>
                             </section>
+
+                            {/* Ad placement */}
+                            <div className="my-8" aria-hidden="true">
+                                <GoogleAd slot="7688425196" />
+                            </div>
 
                             {/* Internal Links to other countries */}
                             <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">

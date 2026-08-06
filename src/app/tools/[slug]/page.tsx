@@ -546,6 +546,11 @@ export default async function ToolPage({
                                 </div>
                             )}
 
+                            {/* Ad: Between FAQ and related guides */}
+                            <div className="my-8" aria-hidden="true">
+                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
+                            </div>
+
                             {/* Related guides — tool → blog internal links */}
                             {relatedGuides.length > 0 && (
                                 <div className="glass-premium rounded-2xl p-8 shadow-sm border border-slate-100">

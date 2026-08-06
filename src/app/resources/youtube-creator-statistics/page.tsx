@@ -15,6 +15,7 @@ import {
   nicheRpmRanking,
   subscriberBenchmarks,
 } from "@/lib/seo-data";
+import GoogleAd from "@/components/ads/GoogleAd";
 
 const pagePath = "/resources/youtube-creator-statistics";
 const pageUrl = `${siteConfig.url}${pagePath}`;
@@ -190,6 +191,11 @@ export default function YouTubeStatistics() {
             </div>
           </div>
 
+          {/* Ad placement */}
+          <div className="my-8" aria-hidden="true">
+            <GoogleAd layout="in-article" format="fluid" slot="2084309959" style={{ display: "block", textAlign: "center" }} />
+          </div>
+
           <div className="glass-premium rounded-2xl p-8 mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">
               Niche RPM ranking context
@@ -292,6 +298,11 @@ export default function YouTubeStatistics() {
                 </span>
               </li>
             </ul>
+          </div>
+
+          {/* Ad placement */}
+          <div className="my-8" aria-hidden="true">
+            <GoogleAd slot="8649718301" />
           </div>
 
           <section className="glass-premium rounded-2xl p-8 mb-12" aria-labelledby="stats-faq">
