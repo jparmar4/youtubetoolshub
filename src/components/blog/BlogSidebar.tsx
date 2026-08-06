@@ -114,9 +114,14 @@ export default function BlogSidebar({
       {/* Recommended Creator Tool Affiliate Banner */}
       <AffiliateBanner toolId="vidiq" variant="card" />
 
-      {/* Sticky sidebar ad — below fold of sticky stack content */}
-      <div className="mt-4" aria-hidden="true">
-        <GoogleAd slot="9342904756" style={{ display: "block", width: "300px", height: "250px" }} responsive={false} />
+      {/* Sticky sidebar ads */}
+      <div className="mt-6 rounded-2xl bg-white p-4 shadow-sm border border-slate-100" aria-hidden="true">
+        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+        <GoogleAd slot="9342904756" format="vertical" />
+      </div>
+      <div className="mt-6 rounded-2xl bg-white p-4 shadow-sm border border-slate-100" aria-hidden="true">
+        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+        <GoogleAd slot="8649718301" format="rectangle" />
       </div>
     </aside>
   );
