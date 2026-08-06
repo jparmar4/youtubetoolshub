@@ -20,6 +20,16 @@ export default function BlogSidebar({
 
   return (
     <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
+      {/* Sticky sidebar ads */}
+      <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
+        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
+        <GoogleAd slot="9342904756" style={{ display: "inline-block", width: "300px", height: "600px" }} responsive={false} />
+      </div>
+      <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
+        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
+        <GoogleAd slot="8649718301" style={{ display: "inline-block", width: "300px", height: "250px" }} responsive={false} />
+      </div>
+
       {/* Contextual free tools — SEO internal links */}
       {toolsToShow.length > 0 && (
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -114,15 +124,6 @@ export default function BlogSidebar({
       {/* Recommended Creator Tool Affiliate Banner */}
       <AffiliateBanner toolId="vidiq" variant="card" />
 
-      {/* Sticky sidebar ads */}
-      <div className="mt-6 rounded-2xl bg-white p-4 shadow-sm border border-slate-100" aria-hidden="true">
-        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
-        <GoogleAd slot="9342904756" format="vertical" />
-      </div>
-      <div className="mt-6 rounded-2xl bg-white p-4 shadow-sm border border-slate-100" aria-hidden="true">
-        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
-        <GoogleAd slot="8649718301" format="rectangle" />
-      </div>
     </aside>
   );
 }

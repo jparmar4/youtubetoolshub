@@ -496,13 +496,13 @@ export default async function BlogPostPage({
 
                         {/* Sidebar Column */}
                         <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
-                            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
-                                <GoogleAd slot="9342904756" format="vertical" />
+                            <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
+                                <GoogleAd slot="9342904756" style={{ display: "inline-block", width: "300px", height: "600px" }} responsive={false} />
                             </div>
-                            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100 mt-6">
-                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
-                                <GoogleAd slot="8649718301" format="rectangle" />
+                            <div className="w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
+                                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
+                                <GoogleAd slot="8649718301" style={{ display: "inline-block", width: "300px", height: "250px" }} responsive={false} />
                             </div>
                         </aside>
 
