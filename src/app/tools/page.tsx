@@ -234,6 +234,11 @@ export default function ToolsPage() {
                         </Fragment>
                       ))}
                     </div>
+
+                    <div className="mt-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
+                        <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                        <GoogleAd slot="3104734850" format="fluid" layout="in-article" />
+                    </div>
                   </section>
                 </div>
               );

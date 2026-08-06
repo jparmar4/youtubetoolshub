@@ -258,7 +258,7 @@ export default function BlogPage() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {otherPosts.map((post) => (
+              {otherPosts.map((post, i) => (
                 <Fragment key={post.slug}>
                   <BlogCard
                     title={post.title}
@@ -271,6 +271,12 @@ export default function BlogPage() {
                     className="bg-white/5 border-white/10 hover:bg-white/10"
                     dark={true}
                   />
+                  {(i + 1) % 6 === 0 && (
+                    <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
+                       <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                       <GoogleAd slot="3104734850" layout="in-article" format="fluid" />
+                    </div>
+                  )}
                 </Fragment>
               ))}
             </div>

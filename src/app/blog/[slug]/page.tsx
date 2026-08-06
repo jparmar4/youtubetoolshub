@@ -14,7 +14,6 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import {
     getRelatedToolsForPost,
@@ -496,10 +495,16 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Sidebar Column */}
-                        <BlogSidebar
-                            relatedTools={relatedTools}
-                            popularTools={priorityTools}
-                        />
+                        <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
+                            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
+                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                                <GoogleAd slot="9342904756" style={{ display: "block", width: "100%", height: "600px" }} responsive={false} />
+                            </div>
+                            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100 mt-6">
+                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                                <GoogleAd slot="8649718301" style={{ display: "block", width: "100%", height: "250px" }} responsive={false} />
+                            </div>
+                        </aside>
 
                     </div>
                 </div>

@@ -350,6 +350,10 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <GoogleAd slot="9342904756" />
+      </div>
+
       {/* Money formula + calculator CTA (high-CPC intent) */}
       <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

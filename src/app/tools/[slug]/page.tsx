@@ -338,6 +338,12 @@ export default async function ToolPage({
                                 </Suspense>
                             </ToolContextProvider>
 
+                            {/* Ad: Below Tool Component */}
+                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2">
+                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                                <GoogleAd slot="3397391628" />
+                            </div>
+
                             {/* Share This Tool */}
                             <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <p className="text-slate-700 font-medium">Found this tool helpful? Share it with fellow creators!</p>
