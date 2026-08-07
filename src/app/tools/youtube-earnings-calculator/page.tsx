@@ -21,10 +21,7 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
-import {
-  getPriorityTools,
-  getRelatedToolsForPost,
-} from "@/lib/related-tools";
+import { getRelatedToolsForPost } from "@/lib/related-tools";
 import {
   FaCalculator,
   FaGlobeAmericas,
@@ -558,11 +555,8 @@ export default function YouTubeEarningsCalculatorPage() {
               <NewsletterSignup />
             </div>
 
-            <div className="max-lg:hidden">
-              <BlogSidebar
-                relatedTools={relatedTools}
-                popularTools={getPriorityTools(6)}
-              />
+            <div className="max-lg:hidden min-w-0">
+              <BlogSidebar />
             </div>
           </div>
 

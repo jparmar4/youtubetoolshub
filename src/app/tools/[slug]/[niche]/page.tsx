@@ -33,7 +33,6 @@ import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
 import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
 import CommentPicker from "@/components/tools/CommentPicker";
 import BlogSidebar from "@/components/blog/BlogSidebar";
-import { getPriorityTools, getRelatedToolsForPost } from "@/lib/related-tools";
 
 const toolComponents: Record<string, React.ComponentType> = {
     "youtube-thumbnail-downloader": ThumbnailDownloader,
@@ -358,20 +357,9 @@ export default async function ProgrammaticToolPage({
                         </div>
                     </div>
 
-                    {/* Sidebar Column */}
-                    <div className="max-lg:hidden lg:col-span-1 pt-10">
-                        <BlogSidebar
-                            relatedTools={getRelatedToolsForPost(
-                                {
-                                    title: `${tool.name} ${niche.name}`,
-                                    keywords: niche.keywords,
-                                    category: niche.name,
-                                    slug: tool.slug,
-                                },
-                                5,
-                            )}
-                            popularTools={getPriorityTools(6)}
-                        />
+                    {/* Sidebar Column — ad-only rail for vertical AdSense */}
+                    <div className="max-lg:hidden lg:col-span-1 min-w-0">
+                        <BlogSidebar />
                     </div>
                 </div>
             </div>

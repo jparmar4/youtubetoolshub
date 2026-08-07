@@ -15,11 +15,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getAllBlogPosts } from "@/config/blog";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
-import {
-    getPriorityTools,
-    getRelatedBlogHintsForTool,
-    getRelatedToolsForPost,
-} from "@/lib/related-tools";
+import { getRelatedBlogHintsForTool } from "@/lib/related-tools";
 import {
     getToolSeoSections,
     getToolSeoFaqs,
@@ -206,16 +202,6 @@ export default async function ToolPage({
         })),
         4,
     );
-    const sidebarTools = getRelatedToolsForPost(
-        {
-            title: tool.name,
-            keywords: tool.keywords,
-            category: tool.category,
-            slug: tool.slug,
-        },
-        5,
-    ).filter((t) => t.slug !== tool.slug);
-
     // Generate JSON-LD Structured Data
     const toolSchema = getSoftwareApplicationSchema({
         name: tool.name,
@@ -619,12 +605,9 @@ export default async function ToolPage({
                             </div>
                         </div>
 
-                        {/* Sidebar Column */}
-                        <div className="max-lg:hidden lg:col-span-1 space-y-8 pt-20">
-                            <BlogSidebar
-                                relatedTools={sidebarTools}
-                                popularTools={getPriorityTools(6)}
-                            />
+                        {/* Sidebar Column — ad-only rail for vertical AdSense */}
+                        <div className="max-lg:hidden lg:col-span-1 min-w-0">
+                            <BlogSidebar />
                         </div>
                     </div>
                     {/* Display ad below tool content for additional revenue */}

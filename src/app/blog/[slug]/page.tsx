@@ -495,7 +495,7 @@ export default async function BlogPostPage({
                         </div>
 
                         {/* Sidebar Column */}
-                        <BlogSidebar relatedTools={relatedTools} popularTools={priorityTools} />
+                        <BlogSidebar />
 
                     </div>
                 </div>

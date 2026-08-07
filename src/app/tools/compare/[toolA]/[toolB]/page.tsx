@@ -9,7 +9,6 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import GoogleAd from "@/components/ads/GoogleAd";
 import BlogSidebar from "@/components/blog/BlogSidebar";
-import { getPriorityTools } from "@/lib/related-tools";
 
 export const dynamicParams = false;
 
@@ -243,12 +242,9 @@ export default async function ComparisonPage({
             </p>
           </div>
 
-          {/* Sidebar */}
-          <div className="max-lg:hidden lg:col-span-1 pt-10">
-            <BlogSidebar
-              relatedTools={[toolA, toolB, ...tools.filter((t) => t.slug !== slugA && t.slug !== slugB).slice(0, 3)]}
-              popularTools={getPriorityTools(6)}
-            />
+          {/* Sidebar — ad-only rail for vertical AdSense */}
+          <div className="max-lg:hidden lg:col-span-1 min-w-0">
+            <BlogSidebar />
           </div>
         </div>
       </div>
