@@ -31,24 +31,21 @@ export default function GoogleAd({
   const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Stable ad ID based on slot + pathname to avoid collisions
+  // Unique per route so SPA navigations re-init cleanly
   const adId = `${slot}-${pathname}`;
 
   useEffect(() => {
-    // Reset the ad state for this placement so it can re-initialize on route change
     resetAd(adId);
 
     const adOptions = {
       delay: 100,
       maxWait: 12000,
-      sizeRetries: 10,
+      sizeRetries: 15,
       onError: (err: unknown) => {
         console.error(`[GoogleAd] Failed to load ad "${adId}":`, err);
       },
     };
 
-    // Lazy ads use IntersectionObserver — only load when 200px from viewport.
-    // This dramatically improves viewability metrics which increases CPM/RPM.
     const cleanup = lazy
       ? initializeAdOnView(containerRef.current, adId, {
           rootMargin: "200px",
@@ -62,10 +59,14 @@ export default function GoogleAd({
   return (
     <div
       ref={containerRef}
-      // Avoid overflow:hidden — it can clip vertical/responsive units and leave a blank box.
-      className={`google-ad-container w-full min-w-0 min-h-[90px] ${className}`}
+      className={`google-ad-container w-full min-w-0 ${className}`}
     >
+      {/*
+        key remounts <ins> on route change. Reusing a filled ins leaves
+        data-adsbygoogle-status="done" and the next page shows a blank box.
+      */}
       <ins
+        key={adId}
         className="adsbygoogle"
         style={style}
         data-ad-client={client}
@@ -78,4 +79,3 @@ export default function GoogleAd({
     </div>
   );
 }
-

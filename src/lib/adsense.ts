@@ -57,14 +57,13 @@ export const AD_SLOTS = {
   MULTIPLEX: "3104734850",
 
   /**
-   * Right sidebar vertical responsive display ad (dispsidebarverticle).
-   * Uses auto format + full-width-responsive so it fits the column width.
+   * Right sidebar only (blog + tool pages) — AdSense unit "dispsidebarverticle".
+   * Use format=auto + data-full-width-responsive=true. Do not force 300x600 height.
    */
   SIDEBAR: "9242656079",
 
   /**
-   * Sticky sidebar ad (stays visible on scroll - vertical responsive).
-   * Same unit as SIDEBAR (dispsidebarverticle).
+   * Alias of SIDEBAR for sticky right-rail placements on blog/tool pages.
    */
   STICKY_SIDEBAR: "9242656079",
 
