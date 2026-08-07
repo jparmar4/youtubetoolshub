@@ -57,17 +57,16 @@ export const AD_SLOTS = {
   MULTIPLEX: "3104734850",
 
   /**
-   * Sidebar display ad (vertical, static).
-   * Static 300x250 sidebar display ad.
+   * Right sidebar vertical responsive display ad (dispsidebarverticle).
+   * Uses auto format + full-width-responsive so it fits the column width.
    */
-  SIDEBAR: "9342904756",
+  SIDEBAR: "9242656079",
 
   /**
-   * Sticky sidebar ad (stays visible on scroll - vertical).
-   * NOTE: Create a unique slot ID in AdSense for better per-placement reporting.
-   * Currently shares SIDEBAR — update when you create a dedicated unit.
+   * Sticky sidebar ad (stays visible on scroll - vertical responsive).
+   * Same unit as SIDEBAR (dispsidebarverticle).
    */
-  STICKY_SIDEBAR: "9342904756",
+  STICKY_SIDEBAR: "9242656079",
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",

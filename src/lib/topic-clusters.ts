@@ -163,6 +163,15 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube title generator", "seo title generator"],
       },
       {
+        path: "/blog/youtube-title-generator-clickable-titles-free",
+        title: "YouTube Title Generator Guide",
+        anchors: [
+          "free youtube title generator",
+          "clickable youtube titles",
+          "youtube title maker",
+        ],
+      },
+      {
         path: "/tools/youtube-tag-generator",
         title: "Tag Generator",
         anchors: ["youtube tag generator", "video tags generator"],
@@ -536,6 +545,16 @@ export const topicClusters: TopicCluster[] = [
         path: "/blog/how-to-write-catchy-youtube-titles",
         title: "Catchy YouTube Titles",
         anchors: ["catchy youtube titles", "write youtube titles"],
+      },
+      {
+        path: "/blog/youtube-title-generator-clickable-titles-free",
+        title: "Free YouTube Title Generator Guide",
+        anchors: ["youtube title generator free", "clickable title ideas"],
+      },
+      {
+        path: "/tools/youtube-title-generator",
+        title: "Title Generator Tool",
+        anchors: ["title generator tool", "generate youtube titles"],
       },
     ],
   },

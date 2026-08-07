@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 import type { Tool } from "@/config/tools";
 import { FaTools, FaArrowRight, FaFire } from "react-icons/fa";
 
@@ -20,10 +21,22 @@ export default function BlogSidebar({
 
   return (
     <aside className="hidden lg:block lg:col-span-1 self-start space-y-8 lg:sticky lg:top-24">
-      {/* Sticky sidebar ad */}
-      <div className="mb-6 w-full flex flex-col items-center justify-center overflow-hidden" aria-hidden="true">
-        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</div>
-        <GoogleAd slot="9342904756" style={{ display: "inline-block", width: "300px", height: "600px" }} responsive={false} />
+      {/* Vertical responsive sidebar ad (dispsidebarverticle) */}
+      <div
+        className="mb-6 w-full min-w-0 flex flex-col items-stretch justify-center"
+        style={{ minHeight: 280 }}
+        aria-hidden="true"
+      >
+        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
+          Advertisement
+        </div>
+        <GoogleAd
+          slot={AD_SLOTS.SIDEBAR}
+          format="auto"
+          responsive
+          lazy={false}
+          style={{ display: "block", width: "100%" }}
+        />
       </div>
 
       {/* Contextual free tools — SEO internal links */}

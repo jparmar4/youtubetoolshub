@@ -62,8 +62,8 @@ export default function GoogleAd({
   return (
     <div
       ref={containerRef}
-      className={`google-ad-container ${className}`}
-      style={{ minHeight: "90px", overflow: "hidden" }}
+      // Avoid overflow:hidden — it can clip vertical/responsive units and leave a blank box.
+      className={`google-ad-container w-full min-w-0 min-h-[90px] ${className}`}
     >
       <ins
         className="adsbygoogle"

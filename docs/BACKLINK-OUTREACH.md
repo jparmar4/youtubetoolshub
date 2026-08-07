@@ -15,6 +15,8 @@
 | Algorithm guide | `/resources/youtube-algorithm-guide` | Evergreen resource |
 | **Thumbnail size guide (2026 specs)** | `/blog/youtube-thumbnail-size-2026` | Exact dimensions + citation block |
 | Thumbnail downloader | `/tools/youtube-thumbnail-downloader` | Practical free tool next to size guide |
+| **YouTube title generator guide** | `/blog/youtube-title-generator-clickable-titles-free` | Free tool workflow + citation block |
+| Free title generator tool | `/tools/youtube-title-generator` | No-signup title ideas tool |
 
 **Outreach tracker (spreadsheet):**  
 `outputs/youtubetoolshub_backlink_outreach_tracker.xlsx`  
@@ -28,7 +30,7 @@ Regenerate: `node scripts/create-outreach-tracker.mjs`
 `npm run deploy:post` — waits for health, IndexNow, smoke checks.
 
 **Suggested anchor text (vary these):**  
-`free YouTube earnings calculator` · `YouTube CPM rates by country` · `free YouTube tools` · `YouTube RPM calculator` · `TubeBuddy alternative free` · `YouTube thumbnail size 2026` · `YouTube thumbnail dimensions` · `3840x2160 YouTube thumbnail`
+`free YouTube earnings calculator` · `YouTube CPM rates by country` · `free YouTube tools` · `YouTube RPM calculator` · `TubeBuddy alternative free` · `YouTube thumbnail size 2026` · `YouTube thumbnail dimensions` · `3840x2160 YouTube thumbnail` · `free YouTube title generator` · `YouTube title generator` · `clickable YouTube titles`
 
 ---
 
@@ -45,6 +47,36 @@ Regenerate: `node scripts/create-outreach-tracker.mjs`
 | Sun | Track replies, ship promised assets | — |
 
 **Goal:** 8–20 quality referring domains / month for 3 months beats 200 spammy links.
+
+---
+
+## Template TG — YouTube title generator / CTR packaging page (new Aug 2026)
+
+**Subject:** Free YouTube title generator for your [SEO / creator tools] page
+
+```
+Hi [Name],
+
+I noticed your page “[Article Title]” covers [YouTube SEO / titles / CTR / packaging].
+
+We published a practical 2026 guide on using a free YouTube title generator for clickable, search-friendly titles (workflow, formulas, mobile length, pre-publish checklist) plus a no-signup tool:
+
+Guide: https://www.youtubetoolshub.com/blog/youtube-title-generator-clickable-titles-free
+Tool: https://www.youtubetoolshub.com/tools/youtube-title-generator
+
+There’s a short citation block editors can paste. If it fits a “free tools” or packaging section, a link would help readers ship better titles without a paid suite. Happy to reciprocal-link from our Link to Us page if useful.
+
+Thanks,
+[Your Name]
+YouTube Tools Hub
+```
+
+**Pin / social asset:**  
+`https://www.youtubetoolshub.com/images/blog/youtube-title-generator-pinterest-2026.webp`  
+(1000×1500 pin — link pin to the blog URL above)
+
+**Suggested anchors (rotate):**  
+`free YouTube title generator` · `YouTube title generator` · `clickable YouTube titles` · `YouTube title ideas free`
 
 ---
 
