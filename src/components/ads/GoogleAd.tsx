@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { initializeAd, initializeAdOnView, resetAd, AD_CLIENT } from "@/lib/adsense";
 
@@ -30,16 +30,20 @@ export default function GoogleAd({
 }: GoogleAdProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const instanceId = useId();
 
-  // Unique per route so SPA navigations re-init cleanly
-  const adId = `${slot}-${pathname}`;
+  // Unique per rendered position so two placements that reuse an AdSense slot
+  // on the same route do not suppress one another during SPA navigation.
+  const adId = `${slot}-${pathname}-${instanceId}`;
 
   useEffect(() => {
     resetAd(adId);
 
     const adOptions = {
       delay: 100,
-      maxWait: 12000,
+      // Ad networks can arrive more slowly than the app bundle on cold mobile
+      // connections. Keep waiting without globally disabling later ad units.
+      maxWait: 30000,
       sizeRetries: 15,
       onError: (err: unknown) => {
         console.error(`[GoogleAd] Failed to load ad "${adId}":`, err);

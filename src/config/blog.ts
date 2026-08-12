@@ -683,17 +683,19 @@ Pair that habit with an optimized title, a keyword-rich description, and consist
   {
     slug: "how-to-download-youtube-thumbnail-2026",
     title: "How to Download a YouTube Thumbnail in the Highest Resolution (2026)",
-    excerpt: "Download any public YouTube thumbnail in HD or max resolution: free tool method, manual i.ytimg.com URL tricks, Shorts support, mobile tips, and legal use rules.",
+    excerpt: "Download any public YouTube thumbnail in HD or max resolution with a free downloader (also called a thumbnail grabber): manual i.ytimg.com URL tricks, Shorts support, mobile tips, and legal use rules.",
     date: "July 31, 2026",
     category: "Thumbnail & Design",
     author: "Alex Rivera",
     authorRole: "YouTube Creator Strategist",
     readTime: "14 min read",
-    metaDescription: "How to download a YouTube thumbnail in highest resolution (2026): free HD downloader, maxresdefault URL, Shorts, mobile, and copyright-safe usage.",
+    metaDescription: "How to download a YouTube thumbnail in highest resolution (2026): free HD downloader or grabber, maxresdefault URL, Shorts, mobile, and copyright-safe usage.",
     keywords: [
       "how to download youtube thumbnail",
       "download youtube thumbnail hd",
       "youtube thumbnail downloader",
+      "youtube thumbnail grabber",
+      "youtube thumbnail extractor",
       "get youtube thumbnail",
       "maxresdefault youtube",
       "download youtube shorts thumbnail",
@@ -1568,7 +1570,7 @@ Export once, open the file on your phone, and squint. If you can’t tell the em
 3. Download the highest resolution available (often around **1280 × 720** for \`maxresdefault\`)  
 4. Rebuild a sharper master if you still have source photos  
 
-Full walkthrough: [How to download a YouTube thumbnail in highest resolution](/blog/how-to-download-youtube-thumbnail-2026). For grabber-style workflows and legal notes, see the [YouTube Thumbnail Grabber guide](/blog/youtube-thumbnail-grabber).
+Full walkthrough, including thumbnail-grabber workflows and legal notes: [How to download a YouTube thumbnail in highest resolution](/blog/how-to-download-youtube-thumbnail-2026).
 
 Use competitor downloads for **pattern research** (contrast, subject scale, word count) — not for re-uploading someone else’s art.
 
@@ -34259,6 +34261,14 @@ If you can answer yes to all of those, you are ready. Hit publish and start on t
   },
 ];
 
+// Posts retained only as permanent redirects. Keeping them out of every public
+// collection prevents redirecting URLs from leaking into the sitemap, feeds,
+// search results, and related-post modules.
+const RETIRED_BLOG_SLUGS = new Set(["youtube-thumbnail-grabber"]);
+
+const isPublishedBlogPost = (post: BlogPost): boolean =>
+  !RETIRED_BLOG_SLUGS.has(post.slug);
+
 // Helper functions
 
 /**
@@ -34282,13 +34292,16 @@ export function toBlogIsoDate(date: string): string {
 }
 
 export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
-  return blogPosts.find((post) => post.slug === slug);
+  return blogPosts.find(
+    (post) => post.slug === slug && isPublishedBlogPost(post),
+  );
 };
 
 export const getAllBlogPosts = (): BlogPost[] => {
   // Dedupe by slug (safety if array ever re-acquires duplicates)
   const bySlug = new Map<string, BlogPost>();
   for (const post of blogPosts) {
+    if (!isPublishedBlogPost(post)) continue;
     if (!bySlug.has(post.slug)) bySlug.set(post.slug, post);
   }
   return [...bySlug.values()].sort(
@@ -34299,7 +34312,9 @@ export const getAllBlogPosts = (): BlogPost[] => {
 };
 
 export const getBlogPostsByCategory = (category: string): BlogPost[] => {
-  return blogPosts.filter((post) => post.category === category);
+  return blogPosts.filter(
+    (post) => post.category === category && isPublishedBlogPost(post),
+  );
 };
 
 export const getRelatedPosts = (
@@ -34310,7 +34325,9 @@ export const getRelatedPosts = (
   if (!currentPost) return [];
 
   return blogPosts
-    .filter((post) => post.slug !== currentSlug)
+    .filter(
+      (post) => post.slug !== currentSlug && isPublishedBlogPost(post),
+    )
     .filter(
       (post) =>
         post.category === currentPost.category ||

@@ -17,6 +17,10 @@ const outDir = path.join(root, "outputs");
 
 const raw = fs.readFileSync(blogPath, "utf8");
 
+// Keep this aligned with RETIRED_BLOG_SLUGS in src/config/blog.ts. Redirected
+// posts are intentionally excluded from editorial recommendations.
+const RETIRED_SLUGS = new Set(["youtube-thumbnail-grabber"]);
+
 // Split on slug entries (rough parser for audit only)
 const slugRegex = /slug:\s*"([^"]+)"/g;
 const slugs = [];
@@ -36,13 +40,27 @@ function field(block, name) {
 }
 
 function contentField(block) {
-  const re = /content:\s*`([\s\S]*?)`\s*,\s*\n\s*(?:metaDescription|keywords|coverImage|imageAlt|faq|rating|video)/;
-  const match = block.match(re);
-  if (match) return match[1];
-  // fallback: first large template literal after content:
-  const re2 = /content:\s*`([\s\S]*?)`/;
-  const m2 = block.match(re2);
-  return m2 ? m2[1] : "";
+  const start = block.search(/content:\s*`/);
+  if (start < 0) return "";
+
+  // Content uses Markdown code spans, which are escaped as \` inside the
+  // TypeScript template literal. A non-greedy regex stops at the first of
+  // those spans and falsely labels substantial articles as thin content.
+  const prefix = block.slice(start).match(/content:\s*`/);
+  if (!prefix) return "";
+  const contentStart = start + prefix[0].length;
+  let escaped = false;
+  let content = "";
+
+  for (let i = contentStart; i < block.length; i += 1) {
+    const char = block[i];
+    if (char === "`" && !escaped) return content;
+
+    content += char;
+    escaped = char === "\\" ? !escaped : false;
+  }
+
+  return "";
 }
 
 function countFaq(block) {
@@ -54,6 +72,7 @@ function countFaq(block) {
 
 const posts = [];
 for (let i = 0; i < slugs.length; i++) {
+  if (RETIRED_SLUGS.has(slugs[i].slug)) continue;
   const start = slugs[i].index;
   const end = i + 1 < slugs.length ? slugs[i + 1].index : raw.length;
   const block = extractBetween(start, end);

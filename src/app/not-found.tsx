@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import { FaHome, FaTools, FaSearch } from "react-icons/fa";
 import Button from "@/components/ui/Button";
 import { noIndexRobots } from "@/lib/seo";
-import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404) | YouTube Tools Hub",
@@ -84,10 +83,6 @@ export default function NotFound() {
           </div>
         </div>
 
-        {/* Ad on 404 — still monetize broken-link traffic */}
-        <div className="mt-8 max-w-lg mx-auto" aria-hidden="true">
-          <GoogleAd slot="8649718301" />
-        </div>
       </div>
     </div>
   );

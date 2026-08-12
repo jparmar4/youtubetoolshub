@@ -7,7 +7,6 @@ import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
-import Script from "next/script";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
@@ -167,6 +166,16 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        {/*
+          AdSense Auto ads + manual units. This must remain a native async tag:
+          AdSense does not support Next.js's data-nscript attribute, which can
+          leave manual units uninitialized. Analytics is consent-gated below.
+        */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
+          crossOrigin="anonymous"
+        />
         
         <link
           rel="alternate"
@@ -312,17 +321,6 @@ export default async function RootLayout({
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
       >
-        {/*
-          AdSense Auto ads + manual units.
-          afterInteractive (not lazyOnload) so Auto ads boot reliably.
-          Analytics (GA/Clarity) are consent-gated via ConsentAnalytics.
-        */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
-        />
         <AuthProvider>
           <UsageProvider>
             <Header />

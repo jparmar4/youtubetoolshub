@@ -78,32 +78,18 @@ export type AdSlotKey = keyof typeof AD_SLOTS;
 /** Track which ad containers have been initialized to prevent double-push */
 const initializedAds = new Set<string>();
 
-/** Track if the AdSense script has loaded */
-let adsenseScriptLoaded = false;
-let adsenseScriptError = false;
-
-/** Queue of ads waiting for script to load */
-const pendingAds: Array<() => void> = [];
-
 // ─── Script Detection ────────────────────────────────────────────────────────
 
 /**
  * Check if the AdSense script is loaded and ready.
- * The script is loaded in layout.tsx via next/script.
+ * The script is loaded in layout.tsx with Google's native async tag.
  *
  * Note: `window.adsbygoogle = window.adsbygoogle || []` may exist before the
  * script finishes downloading; pushes still queue correctly in that case.
  */
 function isAdSenseReady(): boolean {
   if (typeof window === "undefined") return false;
-  if (adsenseScriptError) return false;
-
-  if (typeof window.adsbygoogle !== "undefined") {
-    adsenseScriptLoaded = true;
-    return true;
-  }
-
-  return adsenseScriptLoaded;
+  return typeof window.adsbygoogle !== "undefined";
 }
 
 /**
@@ -111,37 +97,40 @@ function isAdSenseReady(): boolean {
  * Times out after `maxWaitMs` to prevent indefinite waiting.
  */
 function whenAdSenseReady(callback: () => void, maxWaitMs = 10000): () => void {
-  if (isAdSenseReady()) {
+  let cancelled = false;
+  let settled = false;
+  let intervalId: ReturnType<typeof setInterval> | null = null;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  const cleanup = () => {
+    if (intervalId != null) clearInterval(intervalId);
+    if (timeoutId != null) clearTimeout(timeoutId);
+    intervalId = null;
+    timeoutId = null;
+  };
+
+  const tryInitialize = () => {
+    if (cancelled || settled || !isAdSenseReady()) return;
+    settled = true;
+    cleanup();
     callback();
-    return () => {};
+  };
+
+  tryInitialize();
+  if (!settled) {
+    intervalId = setInterval(tryInitialize, 200);
+    timeoutId = setTimeout(() => {
+      if (settled || cancelled) return;
+      cleanup();
+      // A timeout is local to this placement. Do not permanently mark the
+      // shared AdSense loader as failed: it may still arrive for later units.
+      console.warn("[AdSense] Script did not load before this ad timed out.");
+    }, maxWaitMs);
   }
 
-  pendingAds.push(callback);
-
-  const startTime = Date.now();
-  const intervalId = setInterval(() => {
-    if (isAdSenseReady()) {
-      clearInterval(intervalId);
-      const pending = pendingAds.splice(0, pendingAds.length);
-      pending.forEach((fn) => {
-        try {
-          fn();
-        } catch (err) {
-          console.error("[AdSense] Error initializing pending ad:", err);
-        }
-      });
-    } else if (Date.now() - startTime > maxWaitMs) {
-      clearInterval(intervalId);
-      console.warn(
-        "[AdSense] Script did not load within timeout. Ads will not be shown.",
-      );
-      adsenseScriptError = true;
-      pendingAds.splice(0, pendingAds.length);
-    }
-  }, 200);
-
   return () => {
-    clearInterval(intervalId);
+    cancelled = true;
+    cleanup();
   };
 }
 

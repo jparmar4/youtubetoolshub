@@ -462,6 +462,12 @@ const nextConfig = {
         destination: "/blog/youtube-shorts-monetization-2026",
         permanent: true,
       },
+      // Consolidate duplicate thumbnail-grabber intent into the complete guide.
+      {
+        source: "/blog/youtube-thumbnail-grabber",
+        destination: "/blog/how-to-download-youtube-thumbnail-2026",
+        permanent: true,
+      },
       // Legacy money calculator path (broken internal links historically used this)
       {
         source: "/tools/youtube-money-calculator",
