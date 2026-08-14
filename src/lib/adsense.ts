@@ -407,7 +407,7 @@ export function initializeAdOnView(
 ): () => void {
   if (typeof window === "undefined" || !container) return () => {};
 
-  const { rootMargin = "200px", threshold = 0, adOptions } = options;
+  const { rootMargin = "400px", threshold = 0, adOptions } = options;
 
   if (!("IntersectionObserver" in window)) {
     return initializeAd(container, adId, adOptions);
@@ -452,3 +452,29 @@ export function pickInArticleSlot(index = 0): string {
   const slots = AD_SLOTS.IN_ARTICLE as readonly string[];
   return slots[Math.abs(index) % slots.length] ?? slots[0]!;
 }
+
+/**
+ * Map tool categories or tool slugs to recommended affiliate tools.
+ */
+export function getAffiliateToolForCategory(category?: string, toolSlug?: string): "vidiq" | "tubebuddy" | "descript" | "epidemic" {
+  if (toolSlug) {
+    if (toolSlug.includes("thumbnail") || toolSlug.includes("banner")) return "tubebuddy";
+    if (toolSlug.includes("script") || toolSlug.includes("shorts") || toolSlug.includes("intro")) return "descript";
+    if (toolSlug.includes("music") || toolSlug.includes("audio") || toolSlug.includes("sound")) return "epidemic";
+    if (toolSlug.includes("tag") || toolSlug.includes("title") || toolSlug.includes("trend") || toolSlug.includes("ideas") || toolSlug.includes("audit") || toolSlug.includes("earnings")) return "vidiq";
+  }
+
+  switch (category) {
+    case "thumbnail-media":
+      return "tubebuddy";
+    case "seo-metadata":
+    case "channel-growth":
+    case "analytics-earnings":
+      return "vidiq";
+    case "utility-fun":
+      return "descript";
+    default:
+      return "vidiq";
+  }
+}
+

@@ -19,6 +19,8 @@ import {
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import { AD_SLOTS } from "@/lib/adsense";
 
 /** Unknown country slugs → 404 (prevents soft-404 index bloat) */
 export const dynamicParams = false;
@@ -208,11 +210,13 @@ export default async function CountryEarningsPage({
                                 </p>
                             </div>
 
-                            {/* Calculator Component - Passing specific props */}
-                            {/* Note: I will need to ensure EarningsCalculator accepts initialRPM/Currency props. 
-                         If not, I'll update it in the next step. For now assuming it might or I'll fix it.
-                         I'll pass them as props even if it ignores them for now, then fix the component.
-                     */}
+                            {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
+                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                            </div>
+
+                            {/* Calculator Component */}
                             <div className="bg-white rounded-3xl p-1 shadow-xl shadow-green-900/5 border border-slate-100">
                                 <ToolContextProvider value={{ hideHeader: true }}>
                                     <EarningsCalculator
@@ -222,6 +226,9 @@ export default async function CountryEarningsPage({
                                     />
                                 </ToolContextProvider>
                             </div>
+
+                            {/* Top Affiliate Recommendation */}
+                            <AffiliateBanner toolId="vidiq" variant="compact" />
 
 
                             {/* Country Stats Grid */}

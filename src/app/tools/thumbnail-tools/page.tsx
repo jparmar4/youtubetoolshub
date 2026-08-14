@@ -4,6 +4,7 @@ import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema } from "@/lib/seo";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
 
 export const metadata: Metadata = {
     title: "YouTube Thumbnail Tools - HD Downloader & AI Generator 2026",
@@ -124,6 +125,11 @@ export default function ThumbnailToolsHub() {
                                 </div>
                             </Link>
                         ))}
+                    </div>
+
+                    {/* Pro Creator Growth Recommendation */}
+                    <div className="my-8">
+                        <AffiliateBanner toolId="tubebuddy" variant="inArticle" />
                     </div>
 
                     {/* Ad placement */}

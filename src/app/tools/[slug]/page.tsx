@@ -22,6 +22,8 @@ import {
     getToolClusterLinks,
 } from "@/lib/tool-seo-content";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
 
 // Import all tool components
@@ -312,6 +314,12 @@ export default async function ToolPage({
                                 </p>
                             </header>
 
+                            {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
+                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                            </div>
+
                             <ToolContextProvider value={{ hideHeader: true }}>
                                 <Suspense
                                     fallback={
@@ -324,8 +332,11 @@ export default async function ToolPage({
                                 </Suspense>
                             </ToolContextProvider>
 
+                            {/* Category-Tailored Creator Affiliate Recommendation */}
+                            <AffiliateBanner toolId={getAffiliateToolForCategory(tool.category, tool.slug)} variant="compact" />
+
                             {/* Ad: Below Tool Component */}
-                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2">
+                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[100px]">
                                 <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
                                 <GoogleAd slot="3397391628" />
                             </div>
