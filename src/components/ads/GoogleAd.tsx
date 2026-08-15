@@ -63,7 +63,7 @@ export default function GoogleAd({
   return (
     <div
       ref={containerRef}
-      className={`google-ad-container w-full min-w-0 ${className}`}
+      className={`google-ad-container w-full min-w-0 min-h-[90px] ${className}`}
     >
       {/*
         key remounts <ins> on route change. Reusing a filled ins leaves

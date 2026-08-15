@@ -114,3 +114,24 @@ export const TIERS = {
 export const getCountryBySlug = (slug: string) => {
     return countryCPMData.find(c => c.slug === slug);
 };
+
+export type CountryTierId = "TIER1" | "TIER2" | "TIER3";
+
+export function getCountryTier(code: string): {
+    id: CountryTierId;
+    label: string;
+    description: string;
+} {
+    if (TIERS.TIER1.countries.includes(code)) {
+        return { id: "TIER1", label: TIERS.TIER1.label, description: TIERS.TIER1.description };
+    }
+    if (TIERS.TIER2.countries.includes(code)) {
+        return { id: "TIER2", label: TIERS.TIER2.label, description: TIERS.TIER2.description };
+    }
+    return { id: "TIER3", label: TIERS.TIER3.label, description: TIERS.TIER3.description };
+}
+
+/** Planning AdSense ≈ (views / 1000) * RPM */
+export function estimateEarnings(views: number, rpm: number): number {
+    return (views / 1000) * rpm;
+}

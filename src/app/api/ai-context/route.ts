@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
-import { niches, programmaticTools } from "@/config/programmatic";
+import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { countryCPMData } from "@/lib/cpm-data";
 import {
   citableFacts,
@@ -18,21 +17,10 @@ export const revalidate = 3600; // Revalidate every hour
 
 export async function GET() {
   const siteUrl = siteConfig.url;
-  const blogPosts = getAllBlogPosts();
+  const blogPosts = getIndexableBlogPosts();
   const now = new Date().toISOString();
 
-  // Enhanced Tool Entities with Niche Variants
   const toolEntities = tools.map((tool, index) => {
-    const isProgrammatic = programmaticTools.includes(tool.slug);
-    const nicheVariants = isProgrammatic
-      ? niches.map(niche => ({
-        "@type": "SoftwareApplication",
-        "name": `${tool.name} for ${niche.name}`,
-        "url": `${siteUrl}/tools/${tool.slug}/${niche.id}`,
-        "description": `Specialized ${tool.name} for ${niche.name} YouTube channels.`
-      }))
-      : [];
-
     return {
       "@type": "SoftwareApplication",
       "@id": `${siteUrl}/tools/${tool.slug}#software`,
@@ -52,7 +40,6 @@ export async function GET() {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
       },
-      ...(nicheVariants.length > 0 ? { "variations": nicheVariants } : {}),
       author: {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
@@ -279,9 +266,6 @@ export async function GET() {
       description: tool.shortDescription,
       category: tool.category,
       is_ai_powered: tool.isAI,
-      programmatic_variants: programmaticTools.includes(tool.slug)
-        ? niches.map(n => ({ niche: n.name, url: `${siteUrl}/tools/${tool.slug}/${n.id}` }))
-        : null
     })),
     related_tools_mapping: {
       "thumbnail_suite": ["youtube-thumbnail-downloader", "youtube-thumbnail-generator", "youtube-ai-thumbnail-generator"],

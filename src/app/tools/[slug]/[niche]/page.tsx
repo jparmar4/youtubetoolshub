@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { niches, getNicheContent, programmaticTools } from "@/config/programmatic";
+import { INDEX_PROGRAMMATIC_NICHE_PAGES } from "@/config/index-policy";
 import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getSpeakableSchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -120,15 +121,16 @@ export async function generateMetadata({
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
-        // Self-canonical long-tail niche landing pages (unique niche copy + tool)
+        // Canonical + noindex: keep the page for users, stop thin templates
+        // from competing with the real tool URL in Google.
         alternates: {
-            canonical: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
+            canonical: `${siteConfig.url}/tools/${tool.slug}`,
         },
         robots: {
-            index: true,
+            index: INDEX_PROGRAMMATIC_NICHE_PAGES,
             follow: true,
             googleBot: {
-                index: true,
+                index: INDEX_PROGRAMMATIC_NICHE_PAGES,
                 follow: true,
                 "max-image-preview": "large",
                 "max-snippet": -1,

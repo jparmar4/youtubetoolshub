@@ -68,8 +68,12 @@ const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
     ],
   },
   {
-    pattern: /cpm|rpm|earn|monetiz|adsense|revenue|pay per/i,
+    pattern: /cpm|rpm|earn|monetiz|adsense|revenue|pay per|1 million views|media kit|sponsorship/i,
     slugs: ["youtube-earnings-calculator", "youtube-engagement-rate-calculator"],
+  },
+  {
+    pattern: /1000 subscribers|1,000 subscribers|first 1000|watch hours|partner program/i,
+    slugs: ["youtube-channel-audit", "youtube-video-ideas-generator", "youtube-content-calendar-generator"],
   },
   {
     pattern: /\btags?\b|keyword/i,

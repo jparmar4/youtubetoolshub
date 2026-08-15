@@ -3,8 +3,8 @@ import { submitToIndexNow } from "@/lib/indexnow";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import { tools } from "@/config/tools";
-import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
+import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -70,20 +70,13 @@ export async function GET(request: Request) {
       urls.push(`${baseUrl}/tools/${tool.slug}`);
     });
 
-    // ─── 5. Programmatic Niche Tool Pages ───
-    programmaticTools.forEach((toolSlug) => {
-      niches.forEach((niche) => {
-        urls.push(`${baseUrl}/tools/${toolSlug}/${niche.id}`);
-      });
-    });
-
-    // ─── 6. Country-Specific Earnings Calculator Pages ───
+    // ─── 5. Country-Specific Earnings Calculator Pages ───
     countryCPMData.forEach((country) => {
       urls.push(`${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`);
     });
 
     // ─── 7. Blog Posts (all, sorted by most recent first) ───
-    const posts = getAllBlogPosts();
+    const posts = getAllBlogPosts().filter((post) => !NOINDEX_BLOG_SLUGS.has(post.slug));
     posts.forEach((post) => {
       urls.push(`${baseUrl}/blog/${post.slug}`);
     });
@@ -145,7 +138,6 @@ export async function GET(request: Request) {
           categoryPages: categoryPages.length,
           vsPages: vsPages.length,
           toolPages: tools.length,
-          programmaticPages: programmaticTools.length * niches.length,
           countryPages: countryCPMData.length,
           blogPosts: posts.length,
           discoveryFiles: discoveryFiles.length,

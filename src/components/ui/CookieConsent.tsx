@@ -3,18 +3,25 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaCookie } from "react-icons/fa";
+import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 export default function CookieConsent() {
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
-        // Check if user has already consented
         const consent = localStorage.getItem("cookieConsent");
-        if (!consent) {
-            // Show banner after a short delay for better UX
-            const timer = setTimeout(() => setShowBanner(true), 1000);
-            return () => clearTimeout(timer);
+        if (consent) return;
+
+        // Only show a blocking banner in likely GDPR/UK regions.
+        // Elsewhere Consent Mode already grants ads (see layout.tsx).
+        if (!isLikelyGdprTimezone()) {
+            localStorage.setItem("cookieConsent", "accepted");
+            window.dispatchEvent(new Event("cookie-consent-changed"));
+            return;
         }
+
+        const timer = setTimeout(() => setShowBanner(true), 800);
+        return () => clearTimeout(timer);
     }, []);
 
     const acceptCookies = () => {
@@ -31,9 +38,8 @@ export default function CookieConsent() {
 
     if (!showBanner) return null;
 
-    // z-[50] sits cleanly on top of other fixed elements
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-[50] p-4 md:p-6 glass-premium border-t border-slate-200 dark:border-slate-800 shadow-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
+        <div className="fixed bottom-0 left-0 right-0 z-[60] p-4 md:p-6 glass-premium border-t border-slate-200 dark:border-slate-800 shadow-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-start gap-4">
                     <div className="hidden sm:flex w-10 h-10 rounded-lg bg-orange-100 items-center justify-center text-orange-500 flex-shrink-0">
@@ -41,9 +47,9 @@ export default function CookieConsent() {
                     </div>
                     <div>
                         <p className="text-slate-600 text-sm md:text-base">
-                            We use cookies to enhance your browsing experience and analyze site traffic.{" "}
+                            We use cookies for ads and analytics so we can keep these YouTube tools free.{" "}
                             <Link href="/privacy-policy" className="text-emerald-600 hover:underline">
-                                Learn more
+                                Privacy policy
                             </Link>
                         </p>
                     </div>

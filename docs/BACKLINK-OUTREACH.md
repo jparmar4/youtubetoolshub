@@ -23,6 +23,10 @@
 (also CSV: `outputs/youtubetoolshub_backlink_outreach_tracker.csv`)  
 Regenerate: `node scripts/create-outreach-tracker.mjs`
 
+**Ready-to-send batch (10 personalized emails, 15 Aug 2026):**  
+`docs/OUTREACH-BATCH-2026-08-15.md`  
+Tracker: `outputs/outreach-batch-2026-08-15.csv`
+
 **Email sequences (Day 0 / 7 / 21):**  
 `docs/EMAIL-OUTREACH-SEQUENCES.md` — full copy-paste sequences for every template.
 
@@ -77,6 +81,35 @@ YouTube Tools Hub
 
 **Suggested anchors (rotate):**  
 `free YouTube title generator` · `YouTube title generator` · `clickable YouTube titles` · `YouTube title ideas free`
+
+---
+
+## Template HG — YouTube hashtag generator page (15 Aug 2026)
+
+**Subject:** Free YouTube hashtag generator for your [SEO / Shorts / tags] page
+
+```
+Hi [Name],
+
+I noticed your page “[Article Title]” covers [YouTube tags / hashtags / Shorts SEO].
+
+We published a 2026 guide that separates Studio tags from public hashtags, with a 3-hashtag setup and a free no-signup generator:
+
+Guide: https://www.youtubetoolshub.com/blog/youtube-hashtag-generator-best-tags-videos-2026
+Tool: https://www.youtubetoolshub.com/tools/youtube-hashtag-generator
+
+Pinterest-friendly image (1000×1410, no watermark):
+https://www.youtubetoolshub.com/images/blog/youtube-hashtag-generator-pinterest-2026.webp
+
+If it fits a “free tools” or hashtag section, a link would help readers stop mixing tags and hashtags. Happy to reciprocal-link from our Link to Us page if useful.
+
+Thanks,
+[Your Name]
+YouTube Tools Hub
+```
+
+**Suggested anchors (rotate):**  
+`YouTube hashtag generator` · `free YouTube hashtag generator` · `how to use YouTube hashtags` · `best YouTube hashtags 2026`
 
 ---
 

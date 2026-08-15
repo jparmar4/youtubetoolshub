@@ -5,7 +5,6 @@ import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema, getGlobalAlternates } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
-import { niches, programmaticTools } from "@/config/programmatic";
 import { countryCPMData } from "@/lib/cpm-data";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
@@ -13,7 +12,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
-import { getAllBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts } from "@/config/blog";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import { getRelatedBlogHintsForTool } from "@/lib/related-tools";
 import {
@@ -196,7 +195,7 @@ export default async function ToolPage({
 
     const relatedGuides = getRelatedBlogHintsForTool(
         tool,
-        getAllBlogPosts().map((p) => ({
+        getIndexableBlogPosts().map((p) => ({
             slug: p.slug,
             title: p.title,
             category: p.category,
@@ -314,10 +313,10 @@ export default async function ToolPage({
                                 </p>
                             </header>
 
-                            {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
+                            {/* Leaderboard after the tool H1 — lazy so LCP stays on the tool */}
                             <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy responsive className="w-full text-center" />
                             </div>
 
                             <ToolContextProvider value={{ hideHeader: true }}>
@@ -350,30 +349,6 @@ export default async function ToolPage({
                                     description={tool.shortDescription}
                                 />
                             </div>
-
-                            {/* Internal Linking for Programmatic Tools */}
-                            {programmaticTools.includes(tool.slug) && (
-                                <div className="glass-premium rounded-2xl p-8 border border-purple-100 dark:border-purple-900/30">
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                        <span className="text-purple-500">✨</span>
-                                        Specialized Versions
-                                    </h3>
-                                    <p className="text-slate-600 dark:text-gray-400 mb-6">
-                                        Using a specific niche? Try our optimized versions of this tool:
-                                    </p>
-                                    <div className="flex flex-wrap gap-3">
-                                        {niches.map((niche) => (
-                                            <Link
-                                                key={niche.id}
-                                                href={`/tools/${tool.slug}/${niche.id}`}
-                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
-                                            >
-                                                {niche.name}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
 
                             {/* Internal Linking for Earnings Calculator (Countries) */}
                             {tool.slug === "youtube-earnings-calculator" && (
@@ -549,11 +524,6 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* Ad: Between FAQ and related guides */}
-                            <div className="my-8" aria-hidden="true">
-                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
-                            </div>
-
                             {/* Related guides — tool → blog internal links */}
                             {relatedGuides.length > 0 && (
                                 <div className="glass-premium rounded-2xl p-8 shadow-sm border border-slate-100">
@@ -621,7 +591,7 @@ export default async function ToolPage({
                             <BlogSidebar />
                         </div>
                     </div>
-                    {/* Display ad below tool content for additional revenue */}
+                    {/* One below-fold display unit — extra units were competing and going unfilled */}
                     <div className="animate-fade-in-up delay-300 mt-12">
                         <GoogleAd slot="7688425196" />
                     </div>

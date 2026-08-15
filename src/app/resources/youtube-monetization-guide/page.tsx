@@ -837,7 +837,7 @@ export default function YouTubeMonetizationGuidePage() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd format="autorelaxed" slot="3104734850" />
+                        {/* Multiplex removed — it competed with in-article units and looked like fake recommendations */}
                     </div>
 
                     {/* Section 9: FAQ */}

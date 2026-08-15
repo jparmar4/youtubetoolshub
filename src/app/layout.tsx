@@ -40,7 +40,16 @@ export const metadata = {
     template: siteConfig.seo.titleTemplate,
   },
   description: siteConfig.seo.defaultDescription,
-  keywords: siteConfig.seo.keywords,
+  keywords: [
+    "free youtube tools",
+    "youtube thumbnail downloader",
+    "youtube tag generator",
+    "youtube title generator",
+    "youtube earnings calculator",
+    "youtube cpm calculator",
+    "free tubebuddy alternative",
+    "free vidiq alternative",
+  ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
@@ -296,20 +305,30 @@ export default async function RootLayout({
           }}
         />
         
-        {/* Consent Mode v2 Default Initialization */}
+        {/*
+          Consent Mode v2: personalized ads ON by default (US/IN/most markets),
+          denied only in GDPR/UK/CH via Google's IP region. A global "denied"
+          default was serving non-personalized ads worldwide and crushing CPC.
+        */}
         <script
           id="google-consent-mode"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              // Default to denied for GDPR compliance
+              gtag('consent', 'default', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+              });
               gtag('consent', 'default', {
                 'ad_storage': 'denied',
                 'ad_user_data': 'denied',
                 'ad_personalization': 'denied',
                 'analytics_storage': 'denied',
-                'wait_for_update': 500
+                'wait_for_update': 500,
+                'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']
               });
               gtag('js', new Date());
               gtag('config', 'G-14MEY3M1CN', {

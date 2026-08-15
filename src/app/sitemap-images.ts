@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
 /**
@@ -14,7 +14,7 @@ import { siteConfig } from "@/config/site";
  */
 export default function imageSitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
-  const blogPosts = getAllBlogPosts();
+  const blogPosts = getIndexableBlogPosts();
   
   const imageEntries: MetadataRoute.Sitemap = [];
 

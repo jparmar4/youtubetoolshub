@@ -42,11 +42,11 @@ export const siteConfig = {
 
   // Navigation
   nav: [
-    { name: "Home", href: "/" },
     { name: "Tools", href: "/tools" },
+    { name: "Thumbnail", href: "/tools/youtube-thumbnail-downloader" },
+    { name: "Earnings", href: "/tools/youtube-earnings-calculator" },
     { name: "Blog", href: "/blog" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "About", href: "/about" },
+    { name: "CPM Rates", href: "/resources/youtube-cpm-rates" },
   ],
 
   // Footer Links
@@ -105,9 +105,9 @@ export const siteConfig = {
     // Keep brand suffix short so SERP titles stay ~50–60 chars with page titles
     titleTemplate: "%s | YouTube Tools Hub",
     defaultTitle:
-      "Free YouTube Tools 2026 — Thumbnails, Tags & Earnings Calculator",
+      "Free YouTube Thumbnail Downloader, Tag Generator & Earnings Calculator",
     defaultDescription:
-      "Free YouTube tools: HD thumbnail downloader, AI titles & tags, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
+      "Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. No signup. Free TubeBuddy & VidIQ alternative.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",

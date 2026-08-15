@@ -1,8 +1,8 @@
 import { siteConfig } from "@/config/site";
-import { getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 
 export async function GET() {
-  const posts = getAllBlogPosts();
+  const posts = getIndexableBlogPosts();
   const siteUrl = siteConfig.url;
 
   const rssItems = posts

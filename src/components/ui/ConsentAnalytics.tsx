@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 declare global {
   interface Window {
@@ -22,57 +23,55 @@ function readConsent(): Consent {
   return null;
 }
 
+function gtag(...args: unknown[]) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(args);
+}
+
+function grantConsent() {
+  gtag("consent", "update", {
+    ad_storage: "granted",
+    ad_user_data: "granted",
+    ad_personalization: "granted",
+    analytics_storage: "granted",
+  });
+}
+
+function denyConsent() {
+  gtag("consent", "update", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+  });
+}
+
 /**
  * Loads GA + Clarity and implements Google Consent Mode v2.
- * Scripts are loaded globally, but default to 'denied' (cookieless pings)
- * until the user explicitly accepts cookies.
+ * Non-GDPR visitors get personalized ads by default (layout.tsx region defaults).
+ * GDPR visitors stay denied until they accept.
  */
 export default function ConsentAnalytics() {
   const [consent, setConsent] = useState<Consent>(null);
 
   useEffect(() => {
-    // Read initial consent on mount
-    const initialConsent = readConsent();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setConsent(initialConsent);
-    
-    // Helper function for gtag
-    const updateConsent = () => {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(...args: unknown[]) {
-        window.dataLayer.push(args);
-      }
-      gtag('consent', 'update', {
-        'ad_storage': 'granted',
-        'ad_user_data': 'granted',
-        'ad_personalization': 'granted',
-        'analytics_storage': 'granted'
-      });
+    const apply = (value: Consent) => {
+      setConsent(value);
+      if (value === "accepted") grantConsent();
+      if (value === "declined") denyConsent();
     };
 
-    // Update dataLayer if already accepted
-    if (initialConsent === "accepted") {
-      updateConsent();
+    const initialConsent = readConsent();
+    if (initialConsent) {
+      apply(initialConsent);
+    } else if (!isLikelyGdprTimezone()) {
+      apply("accepted");
     }
 
     const onStorage = (e: StorageEvent) => {
-      if (e.key === "cookieConsent") {
-        const newConsent = readConsent();
-        setConsent(newConsent);
-        if (newConsent === "accepted") {
-          updateConsent();
-        }
-      }
+      if (e.key === "cookieConsent") apply(readConsent());
     };
-    
-    // Same-tab updates from CookieConsent
-    const onCustom = () => {
-      const newConsent = readConsent();
-      setConsent(newConsent);
-      if (newConsent === "accepted") {
-        updateConsent();
-      }
-    };
+    const onCustom = () => apply(readConsent());
 
     window.addEventListener("storage", onStorage);
     window.addEventListener("cookie-consent-changed", onCustom);
@@ -89,7 +88,6 @@ export default function ConsentAnalytics() {
         strategy="afterInteractive"
       />
 
-      {/* Clarity is only loaded if consent is explicitly granted because it records sessions */}
       {consent === "accepted" && (
         <Script id="clarity-script" strategy="lazyOnload">
           {`

@@ -14,7 +14,7 @@ import Button from "@/components/ui/Button";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getAllBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { Metadata } from "next";
@@ -25,21 +25,22 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 
 export const metadata: Metadata = {
-  title:
-    "Free YouTube Tools 2026 — Thumbnail Downloader, Tag Generator & Earnings Calculator",
+  title: {
+    absolute:
+      "Free YouTube Thumbnail Downloader, Tag Generator & Earnings Calculator",
+  },
   description:
-    "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, CPM earnings calculator, channel audit, and 20+ more. No signup. Free TubeBuddy & VidIQ alternative.",
+    "Download HD YouTube thumbnails, generate titles and tags, and estimate AdSense earnings by country. 27 free creator tools. No signup.",
   keywords: [
-    "free youtube tools",
     "youtube thumbnail downloader",
     "youtube tag generator",
     "youtube title generator",
     "youtube earnings calculator",
     "youtube cpm calculator",
+    "free youtube tools",
     "free youtube seo tools",
     "tubebuddy alternative free",
     "vidiq alternative free",
-    "youtube channel audit free",
   ],
   alternates: getGlobalAlternates("/"),
   openGraph: {
@@ -55,46 +56,38 @@ const homeFAQs = [
   {
     question: "Is YouTube Tools Hub free to use?",
     answer:
-      "Yes. The core creator tools on YouTube Tools Hub are free to use, including title, tag, thumbnail, planning, and revenue-estimation utilities.",
+      "Yes. Core tools including the thumbnail downloader, title generator, tag generator, and earnings calculator are free in your browser. No account or credit card is required.",
   },
   {
-    question: "How does the 'AI Team' concept work?",
+    question: "How do I download a YouTube thumbnail in HD?",
     answer:
-      "The tools combine structured creator workflows with AI prompts for titles, descriptions, thumbnail ideas, and planning. They are designed to speed up research and drafting while leaving final creative decisions in your hands.",
+      "Copy the video URL, paste it into the free YouTube Thumbnail Downloader, and choose the largest available size (usually 1280×720 or higher). Works for regular videos and Shorts.",
   },
   {
-    question: "Are these tools compliant with YouTube Policies?",
+    question: "How much does YouTube pay per 1,000 views?",
     answer:
-      "The tools are designed for public creator workflows and do not require private channel access. They help you write clearer metadata without encouraging spam, misleading tags, or keyword stuffing.",
+      "YouTube pay is usually estimated as RPM × (views ÷ 1,000). Typical RPM ranges from under $1 in some countries to $4–$15+ in the US, UK, Canada, and Australia, depending on niche and season. Use the free earnings calculator for country-level ranges.",
   },
   {
-    question: "Can I use these for YouTube Shorts and Long-form?",
+    question: "Do I need TubeBuddy or VidIQ?",
     answer:
-      "Yes. Several tools include prompts or workflows for Shorts and long-form videos, so you can adapt titles, descriptions, ideas, and planning notes to the format you publish.",
+      "No. These tools run in the browser without an extension. You can download thumbnails, draft titles and tags, and estimate earnings without installing TubeBuddy or VidIQ.",
   },
   {
-    question: "What is the 'ROI-Focused' Analytics tool?",
+    question: "Can I use these tools for YouTube Shorts?",
     answer:
-      "The earnings tools use country and niche assumptions to estimate possible revenue ranges. Treat the results as planning estimates and compare them with your own YouTube Studio analytics.",
+      "Yes. The thumbnail downloader works with Shorts URLs, and several generators include Shorts-specific title, tag, and script workflows.",
   },
   {
-    question: "Do I need technical skills to use the AI tools?",
+    question: "Are the earnings numbers official YouTube payouts?",
     answer:
-      "No. The tools are designed for frictionless use. Paste a link or describe an idea, and the AI helps draft practical outputs you can review and refine.",
+      "No. They are planning estimates based on public CPM/RPM ranges by country and niche. Always compare the result with your own YouTube Studio analytics.",
   },
 ];
 
-const pausedGrowthSlugs = new Set([
-  "insurance-youtube-marketing",
-  "lawyer-youtube-marketing",
-  "youtube-tax-guide-creators-usa-2026",
-]);
-
 // Get the 3 most recent creator-tool posts. Keep off-topic YMYL posts out of
 // prominent internal links until they have stronger author/reviewer support.
-const blogPosts = getAllBlogPosts()
-  .filter((post) => !pausedGrowthSlugs.has(post.slug))
-  .slice(0, 3);
+const blogPosts = getIndexableBlogPosts().slice(0, 3);
 
 const benefits = [
   {
@@ -249,63 +242,71 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-      {/* Hero Section - Midnight Nebula */}
-      <section className="relative overflow-hidden min-h-[95vh] flex items-center justify-center">
+      {/* Hero */}
+      <section className="relative overflow-hidden py-16 md:py-24 flex items-center justify-center">
         <div className="nebula-bg" />
 
-        {/* Animated Background Orbs */}
         <div className="absolute top-1/4 -right-24 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/10 rounded-full blur-[120px] animate-pulse delay-700" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 pt-20">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div className="animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/40 backdrop-blur-md border border-white/60 text-purple-700 text-xs font-black uppercase tracking-[0.2em] mb-10 shadow-sm">
+            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/40 backdrop-blur-md border border-white/60 text-purple-700 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
               <FaBrain className="text-pink-500 animate-glow-pulse" />
-              Practical tools for YouTube creators
+              27 free tools · no signup
             </span>
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit leading-[1.05]"
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
               data-speakable
             >
-              Free{" "}
+              Free YouTube{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-600 to-pink-600">
-                YouTube Tools
-              </span>{" "}
-              for Creators — Thumbnails, SEO &amp; Earnings
+                Thumbnail Downloader
+              </span>
+              , Tags &amp; Earnings Calculator
             </h1>
             <p
-              className="text-lg md:text-xl text-slate-600 mb-6 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
+              className="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
               data-speakable
             >
-              YouTube Tools Hub is a free suite of{" "}
-              <strong>27+ creator tools</strong>: HD thumbnail downloader, AI
-              title &amp; tag generators, earnings calculator with country CPM
-              data, channel audit, and more. No signup required.
-            </p>
-            <p className="text-base md:text-lg text-slate-500 mb-12 max-w-2xl mx-auto">
-              Plan videos faster, optimize metadata for search, and estimate
-              revenue by country — a practical free alternative to TubeBuddy and
-              VidIQ.
+              Download HD thumbnails, generate titles and tags, and estimate
+              AdSense earnings by country. A free browser alternative to
+              TubeBuddy and VidIQ — no extension, no account.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link href="/tools">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Link href="/tools/youtube-thumbnail-downloader">
                 <Button
                   size="lg"
-                  className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white shadow-2xl border-none font-black px-12 py-8 text-xl rounded-full transition-all hover:scale-105 active:scale-95"
+                  className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white shadow-2xl border-none font-black px-10 py-6 text-lg rounded-full transition-all hover:scale-105 active:scale-95"
                 >
                   <FaRocket className="mr-2" />
-                  Explore Free Suite
+                  Download a thumbnail
                 </Button>
               </Link>
               <Link href="/tools/youtube-earnings-calculator">
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto glass-premium hover:!bg-white/90 border-white/60 text-slate-900 font-bold px-12 py-8 text-xl rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105"
+                  className="w-full sm:w-auto glass-premium hover:!bg-white/90 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105"
                 >
-                  Calculate Channel ROI
+                  Calculate YouTube pay
                 </Button>
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+              <Link href="/tools/youtube-title-generator" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+                Title generator
+              </Link>
+              <Link href="/tools/youtube-tag-generator" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+                Tag generator
+              </Link>
+              <Link href="/resources/youtube-cpm-rates" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+                CPM rates by country
+              </Link>
+              <Link href="/tools" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+                All 27 tools
               </Link>
             </div>
           </div>
@@ -349,10 +350,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <GoogleAd slot="8649718301" />
-      </div>
 
       {/* Money formula + calculator CTA (high-CPC intent) */}
       <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
@@ -415,12 +412,11 @@ export default function Home() {
       <section className="py-32 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-              Featured Intelligence
+            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+              Popular free YouTube tools
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
-              Focused utilities for thumbnails, metadata, ideas, planning, and
-              revenue estimates.
+              Thumbnails, titles, tags, and earnings — the searches creators actually make.
             </p>
           </div>
 
@@ -532,8 +528,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ad: Between Authority and SmartWorkflow */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <GoogleAd slot="2275881649" />
       </div>
 
@@ -579,10 +574,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-20 text-balance">
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-              Mastering the <span className="text-purple-600">Algorithm</span>
+              Common YouTube <span className="text-purple-600">questions</span>
             </h2>
             <p className="text-xl text-slate-500 font-outfit font-medium">
-              Practical guidance for YouTube planning, metadata, and monetization.
+              Straight answers on thumbnails, pay per view, and free tools.
             </p>
           </div>
           <div className="space-y-12">
@@ -608,27 +603,21 @@ export default function Home() {
               href="/faq"
               className="text-purple-600 font-black text-xl hover:underline underline-offset-8"
             >
-              Read Growth Documentation →
+              More YouTube FAQs →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Ad: Before Latest Blog Insights */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-slate-50">
-        <GoogleAd slot="9962799978" />
-      </div>
-
-      {/* Latest Blog Insights */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
+      {/* Latest guides */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-7xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-              Latest Growth Insights
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+              Latest YouTube guides
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
-              Daily strategies and tool application guides for the modern media
-              business.
+              Thumbnail sizes, CPM by country, Shorts pay, and SEO checklists.
             </p>
           </div>
 
@@ -654,7 +643,7 @@ export default function Home() {
                 variant="ghost"
                 className="text-purple-600 font-black text-xl hover:bg-white/50 px-10 py-5 rounded-full"
               >
-                View All Intelligence
+                View all YouTube guides
                 <FaArrowRight className="ml-3" />
               </Button>
             </Link>
@@ -670,16 +659,15 @@ export default function Home() {
         <div className="nebula-bg opacity-50 absolute inset-0" />
 
         <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-16">
-          <h2 className="text-6xl md:text-9xl font-black text-white mb-12 tracking-tighter font-outfit leading-[0.85]">
-            Ready to{" "}
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter font-outfit leading-[0.95]">
+            Start with a{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">
-              Improve
-            </span>{" "}
-            the Algorithm?
+              free tool
+            </span>
           </h2>
-          <p className="text-2xl text-slate-400 mb-14 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-            Open the free tool suite, choose one creator task, and turn your
-            next video idea into usable titles, tags, descriptions, or estimates.
+          <p className="text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
+            Download a thumbnail, generate tags, or estimate what YouTube pays
+            in your country — no signup.
           </p>
           <Link href="/tools">
             <Button

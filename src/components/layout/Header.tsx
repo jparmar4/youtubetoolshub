@@ -80,9 +80,8 @@ function Header() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8">
-                        {/* Home Link (First) */}
-                        {siteConfig.nav.filter(item => item.href === '/').map((item) => (
+                    <div className="hidden md:flex items-center gap-6">
+                        {siteConfig.nav.map((item) => (
                             <NavLink
                                 key={item.name}
                                 href={item.href}
@@ -91,20 +90,7 @@ function Header() {
                                 {item.name}
                             </NavLink>
                         ))}
-
-                        {/* Dashboard Link (After Home) */}
                         <DashboardLink />
-
-                        {/* Other Links */}
-                        {siteConfig.nav.filter(item => item.href !== '/').map((item) => (
-                            <NavLink
-                                key={item.name}
-                                href={item.href}
-                                className="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors"
-                            >
-                                {item.name}
-                            </NavLink>
-                        ))}
                     </div>
 
                     {/* Right Section */}
@@ -131,8 +117,7 @@ function Header() {
                 {isMenuOpen && (
                     <div className="md:hidden py-4 border-t border-slate-200/60 animate-fade-in-up">
                         <div className="flex flex-col gap-1">
-                            {/* Home Link (First) */}
-                            {siteConfig.nav.filter(item => item.href === '/').map((item) => (
+                            {siteConfig.nav.map((item) => (
                                 <NavLink
                                     key={item.name}
                                     href={item.href}
@@ -142,21 +127,7 @@ function Header() {
                                     {item.name}
                                 </NavLink>
                             ))}
-
-                            {/* Dashboard Link (After Home) */}
                             <DashboardLink onClick={closeMenu} />
-
-                            {/* Other Links */}
-                            {siteConfig.nav.filter(item => item.href !== '/').map((item) => (
-                                <NavLink
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={closeMenu}
-                                    className="px-4 py-3 rounded-xl text-slate-700 hover:bg-purple-50 hover:text-purple-600 font-medium transition-colors"
-                                >
-                                    {item.name}
-                                </NavLink>
-                            ))}
                         </div>
                     </div>
                 )}

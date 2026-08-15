@@ -1,14 +1,7 @@
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-
 export default function Loading() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
-            <div className="flex flex-col items-center gap-6">
-                <LoadingSpinner size="xl" />
-                <p className="text-gray-500 dark:text-gray-400 font-medium animate-pulse">
-                    Loading YouTube creator tools...
-                </p>
-            </div>
+        <div className="min-h-[40vh] flex items-center justify-center bg-transparent">
+            <div className="h-8 w-8 rounded-full border-2 border-purple-200 border-t-purple-600 animate-spin" aria-label="Loading" />
         </div>
     );
 }

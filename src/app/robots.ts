@@ -512,7 +512,6 @@ export default function robots(): MetadataRoute.Robots {
       `${baseUrl}/sitemap.xml`,
       `${baseUrl}/sitemap-index.xml`,
       `${baseUrl}/sitemap-images.xml`,
-      `${baseUrl}/sitemap-news.xml`,
     ],
 
     // ─── Host directive (canonical domain) ───

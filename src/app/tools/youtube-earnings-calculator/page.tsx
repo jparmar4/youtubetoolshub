@@ -36,9 +36,9 @@ const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
 
 export const metadata: Metadata = {
-  title: "YouTube Earnings Calculator 2026 (Free RPM/CPM)",
+  title: "YouTube Earnings Calculator — Pay per 1,000 Views (Free)",
   description:
-    "Free YouTube earnings calculator: estimate AdSense from views & RPM, compare CPM by country, plan channel income. Instant results, no signup.",
+    "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 50+). See 100k and 1M view scenarios. Free, no signup.",
   keywords: [
     "youtube earnings calculator",
     "youtube money calculator",
@@ -96,7 +96,7 @@ const pillarFAQs = [
   {
     question: "How much can you make from 1 million YouTube views?",
     answer:
-      "At $2 RPM, 1 million views is about $2,000. At $5 RPM, about $5,000. At $10 RPM (strong Tier 1 + high-intent niche), about $10,000. These are AdSense estimates only and exclude sponsorships, memberships, and affiliates.",
+      "At $2 RPM, 1 million views is about $2,000. At $5 RPM, about $5,000. At $8.50 RPM (mid US planning value), about $8,500. At $10 RPM (strong Tier 1 + high-intent niche), about $10,000. These are AdSense estimates only and exclude sponsorships, memberships, and affiliates.",
   },
   {
     question: "Is this YouTube earnings calculator free?",
@@ -130,6 +130,7 @@ const exampleRows = [
   { views: 10_000, rpm: 3, label: "10K views @ $3 RPM" },
   { views: 100_000, rpm: 5, label: "100K views @ $5 RPM" },
   { views: 1_000_000, rpm: 4, label: "1M views @ $4 RPM" },
+  { views: 1_000_000, rpm: 8.5, label: "1M views @ $8.50 RPM (mid US)" },
   { views: 1_000_000, rpm: 10, label: "1M views @ $10 RPM (strong Tier 1)" },
 ];
 

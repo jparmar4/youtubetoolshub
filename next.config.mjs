@@ -107,8 +107,7 @@ const nextConfig = {
           // Permissions Policy: Disable unused browser APIs for security score
           {
             key: "Permissions-Policy",
-            value:
-              "camera=(), microphone=(), geolocation=(), interest-cohort=(), browsing-topics=()",
+            value: "camera=(), microphone=(), geolocation=()"
           },
           // Cross-Origin policies for embedding security
           {
@@ -503,7 +502,32 @@ const nextConfig = {
       // Thin static marketing page removed — serve full guide instead
       {
         source: "/blog/youtube-seo-strategies-2026",
-        destination: "/blog/youtube-seo-complete-guide",
+        destination: "/blog/youtube-seo-checklist-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-seo-complete-guide",
+        destination: "/blog/youtube-seo-checklist-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-algorithm-secrets-2026",
+        destination: "/blog/youtube-algorithm-guide-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/best-ai-tools-youtube-creators-2026",
+        destination: "/blog/ai-tools-youtube-creators-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/25-best-ai-tools-for-youtube-creators",
+        destination: "/blog/ai-tools-youtube-creators-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-automation-complete-guide-2026",
+        destination: "/blog/faceless-youtube-channel-2026",
         permanent: true,
       },
       // Broken internal link slug (never published under this name)
@@ -551,6 +575,16 @@ const nextConfig = {
       {
         source: "/tools/youtube-script-generator",
         destination: "/tools/youtube-intro-script-generator",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-get-1000-subscribers-and-10000-views",
+        destination: "/blog/get-1000-subscribers-youtube-fast-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-partner-program-requirements-2026",
+        destination: "/blog/youtube-partner-program-2026",
         permanent: true,
       },
     ];

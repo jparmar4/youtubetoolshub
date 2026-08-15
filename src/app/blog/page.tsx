@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
@@ -64,16 +64,9 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const pausedGrowthSlugs = new Set([
-    "insurance-youtube-marketing",
-    "lawyer-youtube-marketing",
-    "youtube-tax-guide-creators-usa-2026",
-  ]);
   // Cap initial HTML payload for Core Web Vitals — full archive still linked in sitemap/RSS
   const POSTS_ON_INDEX = 24;
-  const blogPosts = getAllBlogPosts().filter(
-    (post) => !pausedGrowthSlugs.has(post.slug),
-  );
+  const blogPosts = getIndexableBlogPosts();
   const featuredPost = blogPosts[0];
   const otherPosts = blogPosts.slice(1, POSTS_ON_INDEX);
   const remainingCount = Math.max(0, blogPosts.length - POSTS_ON_INDEX);

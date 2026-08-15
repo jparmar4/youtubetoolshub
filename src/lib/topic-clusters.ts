@@ -63,6 +63,11 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["how much youtube pays", "pay per 1000 views", "youtube pay per view"],
       },
       {
+        path: "/blog/youtube-monetization-truths-cpm-rpm",
+        title: "How Much YouTube Pays for 1 Million Views",
+        anchors: ["1 million views", "youtube pay for 1 million views", "earnings on 1 million views"],
+      },
+      {
         path: "/blog/youtube-rpm-vs-cpm-explained",
         title: "YouTube RPM vs CPM Explained",
         anchors: ["rpm vs cpm", "cpm vs rpm"],
@@ -177,6 +182,16 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube tag generator", "video tags generator"],
       },
       {
+        path: "/blog/youtube-hashtag-generator-best-tags-videos-2026",
+        title: "YouTube Hashtag Generator Guide",
+        anchors: [
+          "youtube hashtag generator guide",
+          "how to use youtube hashtags",
+          "best youtube hashtags",
+          "youtube hashtags 2026",
+        ],
+      },
+      {
         path: "/tools/youtube-description-generator",
         title: "Description Generator",
         anchors: ["youtube description generator", "video description template"],
@@ -188,6 +203,15 @@ export const topicClusters: TopicCluster[] = [
           "youtube description template",
           "youtube description examples",
           "video description seo",
+        ],
+      },
+      {
+        path: "/blog/youtube-script-formula-retention",
+        title: "YouTube Script Formula",
+        anchors: [
+          "youtube script formula",
+          "youtube script template",
+          "youtube hook examples",
         ],
       },
       {
@@ -320,6 +344,11 @@ export const topicClusters: TopicCluster[] = [
         title: "Hashtag Generator",
         anchors: ["youtube hashtag generator", "shorts hashtags"],
       },
+      {
+        path: "/blog/youtube-hashtag-generator-best-tags-videos-2026",
+        title: "Best YouTube Hashtags 2026",
+        anchors: ["best youtube hashtags for shorts"],
+      },
     ],
   },
   {
@@ -416,13 +445,18 @@ export const topicClusters: TopicCluster[] = [
         title: "Faceless Channel Ideas",
         anchors: ["faceless youtube ideas", "faceless channel ideas"],
       },
+      {
+        path: "/blog/faceless-youtube-channel-blueprint",
+        title: "Faceless Channel Blueprint",
+        anchors: ["faceless youtube blueprint", "faceless production stack"],
+      },
     ],
   },
   {
     id: "ai-tools",
     name: "AI Creator Tools",
     pillar: {
-      path: "/blog/best-ai-tools-youtube-creators-2026",
+      path: "/blog/ai-tools-youtube-creators-2026",
       title: "Best AI Tools for YouTube Creators",
       anchors: [
         "best ai tools for youtube",
@@ -451,14 +485,9 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["vidiq alternative", "vid iq alternative"],
       },
       {
-        path: "/blog/ai-tools-youtube-creators-2026",
-        title: "AI Tools Guide",
-        anchors: ["ai for youtube creators"],
-      },
-      {
-        path: "/blog/25-best-ai-tools-for-youtube-creators",
-        title: "25 Best AI Tools",
-        anchors: ["best free ai tools youtube"],
+        path: "/blog/best-youtube-seo-tools-2026",
+        title: "YouTube SEO Tools",
+        anchors: ["best youtube seo tools", "free youtube seo software"],
       },
       {
         path: "/tools/youtube-title-generator",
@@ -593,9 +622,9 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube copyright", "copyright claim", "fair use youtube"],
       },
       {
-        path: "/blog/insurance-youtube-marketing",
-        title: "Insurance YouTube Marketing",
-        anchors: ["insurance youtube", "creator insurance"],
+        path: "/resources/youtube-monetization-guide",
+        title: "YouTube Monetization Guide",
+        anchors: ["youtube monetization", "monetize youtube"],
       },
     ],
   },
@@ -603,7 +632,7 @@ export const topicClusters: TopicCluster[] = [
     id: "software-reviews",
     name: "Software & SaaS Reviews",
     pillar: {
-      path: "/blog/best-ai-tools-youtube-creators-2026",
+      path: "/blog/ai-tools-youtube-creators-2026",
       title: "Best AI Tools for YouTube Creators 2026",
       anchors: [
         "best software for youtube",
@@ -628,8 +657,8 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["vpn for youtube", "creator vpn", "best vpn creators"],
       },
       {
-        path: "/blog/25-best-ai-tools-for-youtube-creators",
-        title: "25 Best AI Tools for YouTube",
+        path: "/blog/ai-tools-youtube-creators-2026",
+        title: "AI Tools for YouTube Creators",
         anchors: ["ai tools youtube", "best free ai tools"],
       },
       {

@@ -8,6 +8,7 @@ import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
+import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema } from "@/lib/seo";
 import { getClusterSiblings } from "@/lib/topic-clusters";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
@@ -64,17 +65,19 @@ export async function generateMetadata({
         description: post.metaDescription,
         keywords: post.keywords,
         authors: [{ name: post.author }],
-        robots: {
-            index: true,
-            follow: true,
-            googleBot: {
+        robots: NOINDEX_BLOG_SLUGS.has(slug)
+            ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+            : {
                 index: true,
                 follow: true,
-                'max-image-preview': 'large',
-                'max-snippet': -1,
-                'max-video-preview': -1,
+                googleBot: {
+                    index: true,
+                    follow: true,
+                    'max-image-preview': 'large',
+                    'max-snippet': -1,
+                    'max-video-preview': -1,
+                },
             },
-        },
         openGraph: {
             title: post.title,
             description: post.metaDescription,
@@ -322,11 +325,6 @@ export default async function BlogPostPage({
                                 </div>
                             )}
 
-                            {/* Ad: Before article content */}
-                            <div className="my-8">
-                                <GoogleAd layout="in-article" format="fluid" slot="7336636636" style={{ display: "block", textAlign: "center" }} lazy={false} />
-                            </div>
-
                             {/* Money posts: calculator CTA above the fold for SEO + conversion */}
                             {showEarningsCta && (
                                 <EarningsCalculatorCTA
@@ -497,14 +495,6 @@ export default async function BlogPostPage({
                         {/* Sidebar Column */}
                         <BlogSidebar />
 
-                    </div>
-                </div>
-
-                {/* Ad placements below fold — InArticleAd for native content blend */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-                    <div className="my-10">
-                        <h3 className="text-xl font-bold text-slate-900 mb-6 text-center">Recommended for You</h3>
-                        <GoogleAd format="autorelaxed" slot="3104734850" />
                     </div>
                 </div>
 

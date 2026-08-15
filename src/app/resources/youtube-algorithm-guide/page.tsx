@@ -869,7 +869,7 @@ export default function YouTubeAlgorithmGuidePage() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd format="autorelaxed" slot="3104734850" />
+                        {/* Multiplex removed — fewer, better-viewed units raise RPM */}
                     </div>
 
                     {/* Final CTA */}

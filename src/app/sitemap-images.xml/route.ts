@@ -1,5 +1,5 @@
 import { tools } from "@/config/tools";
-import { getAllBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
 export const dynamic = "force-static";
@@ -7,7 +7,7 @@ export const revalidate = 86400; // Revalidate every 24 hours
 
 export async function GET() {
     const baseUrl = siteConfig.url;
-    const blogPosts = getAllBlogPosts();
+    const blogPosts = getIndexableBlogPosts();
 
     const entries: string[] = [];
 

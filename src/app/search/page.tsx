@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/config/tools";
-import { getAllBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, noIndexRobots } from "@/lib/seo";
 import { FaSearch, FaTools, FaBookOpen, FaArrowRight } from "react-icons/fa";
@@ -38,7 +38,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         : [];
 
     // Filter blog posts
-    const allPosts = getAllBlogPosts();
+    const allPosts = getIndexableBlogPosts();
     const matchedPosts = searchQuery
         ? allPosts.filter(
             (post) =>

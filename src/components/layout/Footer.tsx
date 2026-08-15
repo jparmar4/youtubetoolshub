@@ -20,6 +20,8 @@ const popularTools = [
   },
   { name: "Hashtag Generator", href: "/tools/youtube-hashtag-generator" },
   { name: "vs TubeBuddy (Free)", href: "/tools/vs/tubebuddy" },
+  { name: "Channel Name Ideas", href: "/blog/youtube-channel-name-ideas-2026" },
+  { name: "Description Template", href: "/blog/youtube-description-template-2026" },
 ];
 
 export default function Footer() {

@@ -11,11 +11,33 @@ export default function StickyBottomAd() {
 
   useEffect(() => {
     setMounted(true);
-    const isDismissed = sessionStorage.getItem("bottomAdDismissed");
-    if (!isDismissed) {
-      setClosed(false);
-    }
+
+    const syncVisibility = () => {
+      const isDismissed = sessionStorage.getItem("bottomAdDismissed");
+      const consent = localStorage.getItem("cookieConsent");
+      // Don't stack on top of the GDPR cookie banner.
+      if (consent !== "declined" && consent !== "accepted") {
+        setClosed(true);
+        return;
+      }
+      setClosed(!!isDismissed);
+    };
+
+    syncVisibility();
+    window.addEventListener("cookie-consent-changed", syncVisibility);
+    return () => window.removeEventListener("cookie-consent-changed", syncVisibility);
   }, []);
+
+  useEffect(() => {
+    if (!mounted || closed) {
+      document.body.style.removeProperty("padding-bottom");
+      return;
+    }
+    document.body.style.paddingBottom = "110px";
+    return () => {
+      document.body.style.removeProperty("padding-bottom");
+    };
+  }, [mounted, closed]);
 
   const handleDismiss = () => {
     setClosed(true);
@@ -53,11 +75,11 @@ export default function StickyBottomAd() {
         <div className="w-full flex justify-center overflow-hidden">
           <GoogleAd
             slot={AD_SLOTS.BOTTOM_STICKY}
-            format="auto"
+            format="horizontal"
             responsive
             lazy={false}
             className="w-full text-center"
-            style={{ display: "block", maxHeight: "100px" }}
+            style={{ display: "block" }}
           />
         </div>
       </div>

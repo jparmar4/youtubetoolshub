@@ -3,7 +3,7 @@
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
  */
 
-export const DATA_LAST_REVIEWED = "2026-07-19";
+export const DATA_LAST_REVIEWED = "2026-08-15";
 
 export type BenchmarkRow = {
   label: string;

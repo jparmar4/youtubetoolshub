@@ -9,10 +9,6 @@ export async function GET() {
     <lastmod>${now}</lastmod>
   </sitemap>
   <sitemap>
-    <loc>${siteConfig.url}/sitemap-news.xml</loc>
-    <lastmod>${now}</lastmod>
-  </sitemap>
-  <sitemap>
     <loc>${siteConfig.url}/sitemap-images.xml</loc>
     <lastmod>${now}</lastmod>
   </sitemap>

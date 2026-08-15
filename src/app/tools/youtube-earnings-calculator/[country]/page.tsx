@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, getCountryBySlug } from "@/lib/cpm-data";
+import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings } from "@/lib/cpm-data";
 import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 
@@ -46,8 +46,9 @@ export async function generateMetadata({
         };
     }
 
-    const title = `YouTube Earnings Calculator ${countryData.name}: Real 2026 Rates`;
-    const description = `Calculate your YouTube earnings in ${countryData.name} with updated 2026 CPM rates. See how much money you can make in ${countryData.currency}.`;
+    const rpm = countryData.rpmRange;
+    const title = `YouTube Earnings in ${countryData.name} 2026 — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
+    const description = `Free YouTube earnings calculator for ${countryData.name}. Planning RPM is about $${rpm.min.toFixed(2)}–$${rpm.max.toFixed(2)} (avg $${rpm.avg.toFixed(2)}). Estimate 100k and 1M view pay.`;
 
     return {
         title,
@@ -107,10 +108,19 @@ export default async function CountryEarningsPage({
         notFound();
     }
 
+    const tier = getCountryTier(countryData.code);
+    const avgRpm = countryData.rpmRange.avg;
+    const earn100k = estimateEarnings(100_000, avgRpm);
+    const earn1m = estimateEarnings(1_000_000, avgRpm);
+
     const countryFaqs = [
         {
             question: `How much does YouTube pay in ${countryData.name}?`,
-            answer: `In ${countryData.name}, planning CPM often ranges about $${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)} (avg ~$${countryData.cpmRange.avg.toFixed(2)}), with RPM roughly $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} (avg ~$${countryData.rpmRange.avg.toFixed(2)}). Actual results depend on niche, seasonality, and ad fill. Verify in YouTube Studio.`,
+            answer: `In ${countryData.name} (${tier.label}), planning CPM often ranges about $${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)} (avg ~$${countryData.cpmRange.avg.toFixed(2)}), with RPM roughly $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} (avg ~$${countryData.rpmRange.avg.toFixed(2)}). Actual results depend on niche, seasonality, and ad fill. Verify in YouTube Studio.`,
+        },
+        {
+            question: `How much is 1 million YouTube views worth in ${countryData.name}?`,
+            answer: `At a mid planning RPM of about $${avgRpm.toFixed(2)}, 1 million views from ${countryData.name} is roughly $${earn1m.toLocaleString("en-US", { maximumFractionDigits: 0 })} in AdSense. Low-end RPM ($${countryData.rpmRange.min.toFixed(2)}) is about $${estimateEarnings(1_000_000, countryData.rpmRange.min).toLocaleString("en-US", { maximumFractionDigits: 0 })}; high-end ($${countryData.rpmRange.max.toFixed(2)}) is about $${estimateEarnings(1_000_000, countryData.rpmRange.max).toLocaleString("en-US", { maximumFractionDigits: 0 })}. These are planning ranges, not payouts.`,
         },
         {
             question: "What is CPM vs RPM?",
@@ -118,7 +128,7 @@ export default async function CountryEarningsPage({
         },
         {
             question: `How do I estimate earnings for ${countryData.name} viewers?`,
-            answer: `Use estimated earnings ≈ (views ÷ 1,000) × RPM. For ${countryData.name}, start near $${countryData.rpmRange.avg.toFixed(2)} RPM as a mid planning value, then adjust for niche. Use this calculator and compare with Studio analytics.`,
+            answer: `Use estimated earnings ≈ (views ÷ 1,000) × RPM. For ${countryData.name}, start near $${avgRpm.toFixed(2)} RPM as a mid planning value, then adjust for niche. Example: 100,000 views ≈ $${earn100k.toLocaleString("en-US", { maximumFractionDigits: 0 })}. Use this calculator and compare with Studio analytics.`,
         },
         {
             question: "Is this guaranteed AdSense income?",
@@ -213,7 +223,7 @@ export default async function CountryEarningsPage({
                             {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
                             <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy responsive className="w-full text-center" />
                             </div>
 
                             {/* Calculator Component */}
@@ -266,15 +276,49 @@ export default async function CountryEarningsPage({
                                     How Much Does YouTube Pay in {countryData.name}? (2026)
                                 </h2>
                                 <p className="text-slate-600 leading-relaxed text-lg">
-                                    If you are targeting an audience in <strong>{countryData.name}</strong>, your earning potential is significant.
-                                    {countryData.name} is considered a {countryData.cpmRange.avg > 10 ? "Tier 1" : "Tier 2"} country for advertisers,
-                                    meaning companies pay a premium to show ads to viewers here.
+                                    {countryData.name} is a <strong>{tier.label}</strong> advertiser market
+                                    ({tier.description.toLowerCase()}). Plan with RPM — what you keep per 1,000
+                                    views after YouTube’s share and unmonetized traffic — not a flat “pay per view.”
                                 </p>
                                 <p className="text-slate-600 leading-relaxed text-lg">
-                                    In 2026, the average CPM (Cost Per Mille) for {countryData.name} traffic ranges from
-                                    <strong>${countryData.cpmRange.min} to ${countryData.cpmRange.max}</strong> depending on your niche.
-                                    Niches like Finance, Tech, and Business typically command the higher end of this range, while
-                                    Comedy or Vlogging may be closer to the lower end.
+                                    Planning CPM for {countryData.name} is about{" "}
+                                    <strong>${countryData.cpmRange.min.toFixed(2)}–${countryData.cpmRange.max.toFixed(2)}</strong>
+                                    {countryData.currency !== "USD" ? ` (shown in USD-equivalent ranges; local currency ${countryData.currency})` : ""}.
+                                    Mid RPM is about <strong>${avgRpm.toFixed(2)}</strong>. Finance, software, and
+                                    business topics usually sit higher; gaming and broad entertainment sit lower.
+                                </p>
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left text-sm">
+                                        <thead>
+                                            <tr className="border-b border-slate-200 text-slate-500">
+                                                <th className="py-2 pr-4 font-semibold">Views</th>
+                                                <th className="py-2 pr-4 font-semibold">Low RPM (${countryData.rpmRange.min.toFixed(2)})</th>
+                                                <th className="py-2 pr-4 font-semibold">Mid RPM (${avgRpm.toFixed(2)})</th>
+                                                <th className="py-2 font-semibold">High RPM (${countryData.rpmRange.max.toFixed(2)})</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-slate-800 font-medium">
+                                            {[10_000, 100_000, 1_000_000].map((views) => (
+                                                <tr key={views} className="border-b border-slate-100">
+                                                    <td className="py-2 pr-4">{views.toLocaleString("en-US")}</td>
+                                                    <td className="py-2 pr-4">${estimateEarnings(views, countryData.rpmRange.min).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                                    <td className="py-2 pr-4">${estimateEarnings(views, avgRpm).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                                    <td className="py-2">${estimateEarnings(views, countryData.rpmRange.max).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p className="text-slate-600 text-sm">
+                                    These are AdSense planning estimates for a {countryData.name}-heavy audience, not
+                                    official payouts. Compare with{" "}
+                                    <Link href="/blog/youtube-monetization-truths-cpm-rpm" className="text-purple-600 font-semibold hover:underline">
+                                        1 million view earnings
+                                    </Link>{" "}
+                                    and the{" "}
+                                    <Link href="/resources/youtube-cpm-rates" className="text-purple-600 font-semibold hover:underline">
+                                        full country CPM table
+                                    </Link>.
                                 </p>
                             </div>
 
@@ -303,11 +347,6 @@ export default async function CountryEarningsPage({
                                     . Data last reviewed {DATA_LAST_REVIEWED}.
                                 </p>
                             </section>
-
-                            {/* Ad placement */}
-                            <div className="my-8" aria-hidden="true">
-                                <GoogleAd slot="7688425196" />
-                            </div>
 
                             {/* Internal Links to other countries */}
                             <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">

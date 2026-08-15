@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getComparisonPairs, getComparisonContent } from "@/config/comparisons";
 import { siteConfig } from "@/config/site";
+import { INDEX_TOOL_COMPARISON_PAGES } from "@/config/index-policy";
 import { getBreadcrumbSchema, getFAQSchema, getSpeakableSchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -55,12 +56,12 @@ export async function generateMetadata({
       images: [`${siteConfig.url}/og-image.png`],
     },
     alternates: {
-      canonical: `${siteConfig.url}/tools/compare/${slugA}/${slugB}`,
+      canonical: `${siteConfig.url}/tools/${slugA}`,
     },
     robots: {
-      index: true,
+      index: INDEX_TOOL_COMPARISON_PAGES,
       follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+      googleBot: { index: INDEX_TOOL_COMPARISON_PAGES, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
     },
   };
 }

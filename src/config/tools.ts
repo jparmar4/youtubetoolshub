@@ -514,8 +514,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-description-generator",
         name: "YouTube SEO Description Generator",
-        seoTitle: "Free YouTube Description Generator - SEO Description Drafts",
-        seoDescription: "Create a draft YouTube description with a hook, summary, chapters, links, and hashtags. Review and edit the text before publishing.",
+        seoTitle: "Free YouTube Description Generator — Templates & Drafts",
+        seoDescription: "Draft a YouTube description with hook, chapters, links, and hashtags. Free template-style generator. Edit before you publish. No signup.",
         description: "Create engaging, high-ranking video descriptions with AI. Includes hooks, structured bullet points, CTAs, and optimized hashtags.",
         shortDescription: "AI-powered video descriptions",
         category: "seo-metadata",
@@ -1054,8 +1054,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-earnings-calculator",
         name: "YouTube Earnings Calculator",
-        seoTitle: "YouTube Earnings Calculator 2026 (Free RPM/CPM)",
-        seoDescription: "Free YouTube earnings calculator: estimate AdSense revenue from views and RPM, compare CPM by country, and plan channel income for 2026. Instant results, no signup.",
+        seoTitle: "YouTube Earnings Calculator — Pay per 1,000 Views",
+        seoDescription: "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 50+). See 100k and 1M view scenarios. Free, no signup.",
         description: "Estimate YouTube AdSense revenue from monthly views and RPM. Compare country CPM ranges, model high-intent niches, and plan monthly/yearly creator income.",
         shortDescription: "Estimate AdSense revenue by views & RPM",
         category: "analytics-earnings",
@@ -1320,8 +1320,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-name-generator",
         name: "YouTube Channel Name Generator",
-        seoTitle: "YouTube Channel Name Generator - AI-Powered Brand Name Ideas 2026",
-        seoDescription: "Generate unique, memorable YouTube channel names with AI. Get 15 brand name ideas organized by style. Check availability on YouTube. Free AI tool!",
+        seoTitle: "YouTube Channel Name Generator — Free Ideas by Niche",
+        seoDescription: "Generate YouTube channel name ideas by niche: short, speakable brand names. Free, no signup. Then check handles and trademarks yourself.",
         description: "Generate unique, memorable YouTube channel name ideas. Find the perfect name for your brand with our AI-powered naming engine.",
         shortDescription: "Find your perfect channel name",
         category: "utility-fun",
@@ -1492,7 +1492,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-intro-script-generator",
         name: "Intro Script Generator",
-        seoTitle: "YouTube Intro Script Generator - AI Video Hook Writer (Free 2026)",
+        seoTitle: "YouTube Intro Script Generator — Free Hook Writer",
         seoDescription: "Generate killer YouTube intro scripts with AI. Hook viewers in the first 30 seconds with proven frameworks. Stop viewers from clicking away. Free tool!",
         description: "Create engaging video intro scripts with AI. Hook your viewers in the first 15-30 seconds with results-driven psychology.",
         shortDescription: "Write compelling intros",
