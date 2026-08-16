@@ -121,10 +121,11 @@ export async function generateMetadata({
             description: nicheContent.description,
             images: [`${siteConfig.url}/og-image.png`],
         },
-        // Canonical + noindex: keep the page for users, stop thin templates
-        // from competing with the real tool URL in Google.
+        // Self-canonical + noindex: keep the page for users, stop thin templates
+        // from competing for index slots. Cross-page canonicals are ignored on
+        // noindexed URLs, so consolidate nothing by pointing at the tool page.
         alternates: {
-            canonical: `${siteConfig.url}/tools/${tool.slug}`,
+            canonical: `${siteConfig.url}/tools/${tool.slug}/${niche.id}`,
         },
         robots: {
             index: INDEX_PROGRAMMATIC_NICHE_PAGES,

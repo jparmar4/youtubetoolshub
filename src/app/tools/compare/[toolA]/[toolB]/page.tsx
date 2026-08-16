@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getToolBySlug, tools } from "@/config/tools";
+import { getToolBySlug } from "@/config/tools";
 import { getComparisonPairs, getComparisonContent } from "@/config/comparisons";
 import { siteConfig } from "@/config/site";
 import { INDEX_TOOL_COMPARISON_PAGES } from "@/config/index-policy";
@@ -56,7 +56,7 @@ export async function generateMetadata({
       images: [`${siteConfig.url}/og-image.png`],
     },
     alternates: {
-      canonical: `${siteConfig.url}/tools/${slugA}`,
+      canonical: `${siteConfig.url}/tools/compare/${slugA}/${slugB}`,
     },
     robots: {
       index: INDEX_TOOL_COMPARISON_PAGES,

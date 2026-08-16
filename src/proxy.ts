@@ -182,11 +182,11 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - robots.txt (robots file)
-     * - sitemap.xml (sitemap file)
+     * - sitemap*.xml (sitemap files)
      * - AI discovery files (llms.txt, atom.xml, etc.)
      * - .well-known directory (ai.txt, security.txt, ai-plugin.json, etc.)
      * - public folder files (images, etc.)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap_index.xml|feed.xml|atom.xml|ads.txt|llms.txt|llms-full.txt|knowledge-graph.jsonld|authors.txt|\\.well-known|01d46652569c40eaa19149073834de57.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$|.*\\.txt$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap-index.xml|sitemap-images.xml|sitemap-news.xml|feed.xml|atom.xml|ads.txt|llms.txt|llms-full.txt|knowledge-graph.jsonld|authors.txt|\\.well-known|01d46652569c40eaa19149073834de57.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$|.*\\.txt$).*)",
   ],
 };

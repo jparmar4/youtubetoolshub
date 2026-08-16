@@ -23,7 +23,6 @@ const PATHS = [
   "/ads.txt",
   "/tools/youtube-thumbnail-downloader",
   "/tools/youtube-earnings-calculator",
-  "/tools/youtube-title-generator/gaming",
   "/tools/youtube-earnings-calculator/usa",
   "/resources/youtube-cpm-rates",
   "/resources/youtube-monetization-guide",
@@ -46,7 +45,11 @@ const MISSING_PATHS = [
 ];
 
 /** Expect noindex (meta and/or X-Robots-Tag) */
-const NOINDEX_PATHS = ["/search"];
+const NOINDEX_PATHS = [
+  "/search",
+  // Tool × niche landings are template-generated (see src/config/index-policy.ts)
+  "/tools/youtube-title-generator/gaming",
+];
 
 function fetch(path) {
   const url = `${BASE}${path}`;

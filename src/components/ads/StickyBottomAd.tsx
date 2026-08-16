@@ -1,35 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import GoogleAd from "./GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
 import { FaTimes } from "react-icons/fa";
 
+/** Ad stays hidden until consent is settled, mirroring the cookie banner logic. */
+function getSnapshot(): boolean {
+  try {
+    const dismissed = sessionStorage.getItem("bottomAdDismissed") === "true";
+    const consent = localStorage.getItem("cookieConsent");
+    const consented = consent === "declined" || consent === "accepted";
+    return consented && !dismissed;
+  } catch {
+    return false;
+  }
+}
+
+function getServerSnapshot(): boolean {
+  return false;
+}
+
+function subscribe(callback: () => void) {
+  window.addEventListener("cookie-consent-changed", callback);
+  window.addEventListener("bottom-ad-dismissed", callback);
+  window.addEventListener("storage", callback);
+  return () => {
+    window.removeEventListener("cookie-consent-changed", callback);
+    window.removeEventListener("bottom-ad-dismissed", callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
 export default function StickyBottomAd() {
-  const [closed, setClosed] = useState(true);
-  const [mounted, setMounted] = useState(false);
+  const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    setMounted(true);
-
-    const syncVisibility = () => {
-      const isDismissed = sessionStorage.getItem("bottomAdDismissed");
-      const consent = localStorage.getItem("cookieConsent");
-      // Don't stack on top of the GDPR cookie banner.
-      if (consent !== "declined" && consent !== "accepted") {
-        setClosed(true);
-        return;
-      }
-      setClosed(!!isDismissed);
-    };
-
-    syncVisibility();
-    window.addEventListener("cookie-consent-changed", syncVisibility);
-    return () => window.removeEventListener("cookie-consent-changed", syncVisibility);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted || closed) {
+    if (!visible) {
       document.body.style.removeProperty("padding-bottom");
       return;
     }
@@ -37,18 +44,18 @@ export default function StickyBottomAd() {
     return () => {
       document.body.style.removeProperty("padding-bottom");
     };
-  }, [mounted, closed]);
+  }, [visible]);
 
   const handleDismiss = () => {
-    setClosed(true);
     try {
       sessionStorage.setItem("bottomAdDismissed", "true");
+      window.dispatchEvent(new Event("bottom-ad-dismissed"));
     } catch {
       /* ignore */
     }
   };
 
-  if (!mounted || closed) return null;
+  if (!visible) return null;
 
   return (
     <div

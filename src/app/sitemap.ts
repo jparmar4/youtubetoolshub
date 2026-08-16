@@ -17,6 +17,7 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/about": "2026-07-10",
   "/contact": "2026-07-01",
   "/blog": "2026-08-15",
+  "/blog/why-youtube-tools-hub": "2026-07-10",
   "/faq": "2026-08-15",
   "/resources/youtube-creator-statistics": "2026-08-15",
   "/resources/youtube-cpm-rates": "2026-08-15",
