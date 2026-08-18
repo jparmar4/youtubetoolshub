@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+
+const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
 
 /**
  * Proxy route to download images with proper filename
@@ -6,6 +9,15 @@ import { NextRequest, NextResponse } from "next/server";
  */
 export async function GET(req: NextRequest) {
     try {
+        const ip = getRequestIp(req.headers);
+        const rateLimit = enforceRateLimit(`download-image:${ip}`, 30, 60 * 60 * 1000);
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { error: "Too many downloads. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+            );
+        }
+
         const { searchParams } = new URL(req.url);
         const imageUrl = searchParams.get("url");
 
@@ -40,18 +52,45 @@ export async function GET(req: NextRequest) {
             );
         }
 
-        // Fetch the image from the validated external URL
-        const response = await fetch(imageUrl);
+        // Do not follow redirects: an allowed host could otherwise redirect this
+        // server-side request to an internal or untrusted address.
+        const response = await fetch(imageUrl, {
+            redirect: "error",
+            signal: AbortSignal.timeout(15_000),
+        });
 
         if (!response.ok) {
             throw new Error(`Failed to fetch image: ${response.status}`);
         }
 
-        // Get the image data as buffer
+        const responseContentType = response.headers.get("content-type") || "";
+        if (!responseContentType.toLowerCase().startsWith("image/")) {
+            return NextResponse.json(
+                { error: "The remote resource is not an image" },
+                { status: 415 },
+            );
+        }
+
+        const declaredSize = Number(response.headers.get("content-length"));
+        if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES) {
+            return NextResponse.json(
+                { error: "Image is too large to download" },
+                { status: 413 },
+            );
+        }
+
+        // Get the image data as buffer and enforce a second size check when the
+        // upstream does not send a Content-Length header.
         const imageBuffer = await response.arrayBuffer();
+        if (imageBuffer.byteLength > MAX_IMAGE_BYTES) {
+            return NextResponse.json(
+                { error: "Image is too large to download" },
+                { status: 413 },
+            );
+        }
 
         // Detect content type from response or URL
-        let contentType = response.headers.get("content-type") || "";
+        let contentType = responseContentType;
 
         // Determine extension based on content type or URL
         let extension = "png";

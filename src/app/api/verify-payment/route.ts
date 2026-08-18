@@ -3,6 +3,7 @@ import crypto from "crypto";
 import Razorpay from "razorpay";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { enforceRateLimit } from "@/lib/rate-limit";
 
 const PLAN_IDS = {
   monthly: "plan_RoHllplN8oKLO6",
@@ -21,6 +22,18 @@ export async function POST(request: Request) {
     const session = await auth();
     if (!session?.user?.email) {
       return NextResponse.json({ success: false, error: "Authentication required" }, { status: 401 });
+    }
+
+    const rateLimit = enforceRateLimit(
+      `verify-payment:${session.user.email.toLowerCase()}`,
+      10,
+      60 * 60 * 1000,
+    );
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { success: false, error: "Too many verification attempts. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+      );
     }
     if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
       return NextResponse.json({ success: false, error: "Payment gateway not configured" }, { status: 503 });

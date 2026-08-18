@@ -3,6 +3,7 @@ import "server-only";
 type RateLimitEntry = { count: number; resetAt: number };
 
 const entries = new Map<string, RateLimitEntry>();
+const MAX_ENTRIES = 10_000;
 
 /** Prune expired entries to prevent unbounded memory growth. */
 function pruneExpiredEntries(now: number): void {
@@ -35,6 +36,12 @@ export function enforceRateLimit(
   const current = entries.get(key);
 
   if (!current || current.resetAt <= now) {
+    // A public endpoint can receive unbounded unique keys (for example from a
+    // botnet). Keep this process-local safeguard from becoming the memory leak.
+    if (!current && entries.size >= MAX_ENTRIES) {
+      const oldestKey = entries.keys().next().value;
+      if (oldestKey) entries.delete(oldestKey);
+    }
     entries.set(key, { count: 1, resetAt: now + windowMs });
     return { allowed: true, retryAfterSeconds: 0 };
   }

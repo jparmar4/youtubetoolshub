@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 const SUBSCRIBERS_FILE = path.join(process.cwd(), "data", "subscribers.json");
 
@@ -27,6 +28,15 @@ async function saveSubscribers(subscribers: Subscriber[]): Promise<void> {
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getRequestIp(request.headers);
+    const rateLimit = enforceRateLimit(`newsletter:${ip}`, 5, 60 * 60 * 1000);
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: "Too many subscription attempts. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
+      );
+    }
+
     const body = await request.json();
     const { email } = body;
 
@@ -47,6 +57,12 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    if (normalizedEmail.length > 254) {
+      return NextResponse.json(
+        { error: "Email address is too long" },
+        { status: 400 },
+      );
+    }
 
     // Check for duplicates
     const subscribers = await getSubscribers();
@@ -63,7 +79,8 @@ export async function POST(request: NextRequest) {
     subscribers.push({
       email: normalizedEmail,
       subscribedAt: new Date().toISOString(),
-      source: request.headers.get("referer") || "direct",
+      // Keep untrusted referrers bounded so they cannot bloat the local file.
+      source: (request.headers.get("referer") || "direct").slice(0, 500),
     });
 
     await saveSubscribers(subscribers);

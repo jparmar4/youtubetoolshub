@@ -166,6 +166,7 @@ export const GEO_AEO_PRESETS = {
         primaryTopic: string,
         conciseAnswer: string,
         keyFacts: string[],
+        dateModified: string = "2026-07-19",
     ) => ({
         title,
         description,
@@ -173,7 +174,7 @@ export const GEO_AEO_PRESETS = {
         primaryTopic,
         conciseAnswer,
         keyFacts,
-        dateModified: "2026-07-19",
+        dateModified,
         author: "YouTube Tools Hub Editorial Team",
         authorRole: "Creator Tools & YouTube Growth Research",
     }),

@@ -3,6 +3,12 @@ import { tools } from "@/config/tools";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 
+// Sitemap lastmod must reflect a real change to the page or image. Using
+// `new Date()` here made every fetch look like a site-wide update, which can
+// waste crawler attention and makes change signals unreliable.
+const TOOL_IMAGE_LAST_MODIFIED = new Date("2026-08-15T00:00:00.000Z");
+const STATIC_IMAGE_LAST_MODIFIED = new Date("2026-06-01T00:00:00.000Z");
+
 /**
  * Image Sitemap for enhanced image SEO
  * 
@@ -33,7 +39,7 @@ export default function imageSitemap(): MetadataRoute.Sitemap {
   for (const tool of tools) {
     imageEntries.push({
       url: `${baseUrl}/tools/${tool.slug}`,
-      lastModified: new Date(),
+      lastModified: TOOL_IMAGE_LAST_MODIFIED,
     });
   }
 
@@ -47,12 +53,11 @@ export default function imageSitemap(): MetadataRoute.Sitemap {
   for (const img of staticImages) {
     imageEntries.push({
       url: `${baseUrl}${img.path}`,
-      lastModified: new Date(),
+      lastModified: STATIC_IMAGE_LAST_MODIFIED,
     });
   }
 
   return imageEntries;
 }
 
-export const dynamic = 'force-dynamic';
 export const revalidate = 86400; // Revalidate daily

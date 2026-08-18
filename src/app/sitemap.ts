@@ -20,7 +20,7 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/blog/why-youtube-tools-hub": "2026-07-10",
   "/faq": "2026-08-15",
   "/resources/youtube-creator-statistics": "2026-08-15",
-  "/resources/youtube-cpm-rates": "2026-08-15",
+  "/resources/youtube-cpm-rates": "2026-08-18",
   "/resources/link-to-us": "2026-07-15",
   "/pricing": "2026-07-10",
   "/privacy-policy": "2026-06-01",
@@ -29,8 +29,8 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/refund-policy": "2026-06-01",
   "/tools/vs/tubebuddy": "2026-08-15",
   "/tools/vs/vidiq": "2026-08-15",
-  "/resources/youtube-algorithm-guide": "2026-08-15",
-  "/resources/youtube-monetization-guide": "2026-08-15",
+  "/resources/youtube-algorithm-guide": "2026-08-18",
+  "/resources/youtube-monetization-guide": "2026-08-18",
   "/api-docs": "2026-07-01",
 };
 

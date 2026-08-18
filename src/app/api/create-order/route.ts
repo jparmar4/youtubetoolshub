@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { auth } from "@/auth";
+import { enforceRateLimit } from "@/lib/rate-limit";
 
 // Initialize Razorpay lazily to avoid build-time errors
 function getRazorpay() {
@@ -17,6 +18,18 @@ export async function POST(request: Request) {
             return NextResponse.json(
                 { success: false, error: "Authentication required" },
                 { status: 401 },
+            );
+        }
+
+        const rateLimit = enforceRateLimit(
+            `create-order:${session.user.email.toLowerCase()}`,
+            10,
+            60 * 60 * 1000,
+        );
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { success: false, error: "Too many order attempts. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
             );
         }
 

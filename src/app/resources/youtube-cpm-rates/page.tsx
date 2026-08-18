@@ -66,7 +66,7 @@ const pageFAQs = [
     {
         question: "What is the difference between YouTube CPM and RPM?",
         answer:
-            "CPM (Cost Per Mille) is what advertisers pay per 1,000 ad impressions — this is the advertiser-side rate. RPM (Revenue Per Mille) is what you actually receive per 1,000 video views after YouTube takes its 45% revenue share. If your CPM is $10, your RPM will be approximately $4.50–$6.00, because not every view generates an ad impression.",
+            "CPM (Cost Per Mille) is the advertiser-side cost per 1,000 ad impressions. RPM (Revenue Per Mille) is the creator metric for revenue earned per 1,000 views. RPM is usually lower because it is calculated after revenue sharing and includes views that did not show an ad. Check the Revenue tab in YouTube Studio for your own RPM.",
     },
     {
         question: "What is YouTube CPM in India in 2026?",
@@ -81,7 +81,7 @@ const pageFAQs = [
     {
         question: "How can I increase my YouTube CPM?",
         answer:
-            "To increase your YouTube CPM: (1) Create content targeting Tier 1 audiences in the US, UK, Canada, or Australia. (2) Shift to higher-CPM niches like finance, business, or technology. (3) Enable all ad formats including skippable, non-skippable, bumper, and display ads. (4) Produce longer videos (8+ minutes) to include mid-roll ads. (5) Post consistently during Q4 (October–December) when advertiser spend peaks, boosting CPMs by 20–50%.",
+            "Your audience, topic, advertiser demand, and season all affect earnings. Start by reviewing your own Revenue and audience-geography reports in YouTube Studio. For eligible monetized videos that are at least 8 minutes long, use mid-roll ad breaks at natural pauses; YouTube decides whether an eligible slot actually serves an ad.",
     },
     {
         question: "Why does my YouTube RPM fluctuate month to month?",
@@ -91,12 +91,12 @@ const pageFAQs = [
     {
         question: "Does YouTube CPM vary by video length?",
         answer:
-            "Yes. Videos over 8 minutes qualify for mid-roll ads, which significantly increases total ad impressions and therefore your effective RPM. A 10-minute video can earn 2–3x more than an equivalent 5-minute video because advertisers can place ads at the beginning, middle, and end. Always aim for 10–15 minute videos in high-CPM niches for maximum earnings.",
+            "Length can affect monetization opportunities: monetized videos that are 8 minutes or longer can use mid-roll ad breaks. It does not guarantee more revenue, because YouTube decides whether an eligible ad slot serves and viewer experience still matters. Make videos as long as the topic needs, rather than padding them for ads.",
     },
     {
         question: "What is YouTube CPM in the United States in 2026?",
         answer:
-            "YouTube CPM in the United States in 2026 ranges from $8 to $25 per 1,000 ad impressions, with an average of $14.50. In high-CPM niches like Personal Finance or B2B software, US CPMs regularly reach $20–$50. This makes the US the most valuable audience for YouTube monetization. Use the YouTube Tools Hub Earnings Calculator to estimate your exact US earnings.",
+            "This page uses a directional US planning range of $8–$25 CPM per 1,000 ad impressions. Your actual result can fall outside that range depending on the audience, content, ad demand, and season. Use the calculator for scenarios, then use YouTube Studio as the source of truth for your channel.",
     },
     {
         question: "How accurate is this CPM data?",
@@ -137,24 +137,24 @@ const pageFAQs = [
 const howToSchema = getHowToSchema({
     name: "How to Increase Your YouTube CPM in 2026",
     description:
-        "Follow these proven steps to attract higher-CPM advertisers and grow your YouTube AdSense revenue.",
+        "Use YouTube Studio revenue data and eligible mid-roll settings to make better monetization decisions.",
     totalTime: "PT30D",
     steps: [
         {
             name: "Target Tier 1 country audiences",
-            text: "Create content in English targeting US, UK, Canadian, and Australian viewers. Use topics, examples, and references relevant to those markets. Tier 1 audiences generate 5–10x higher CPM than Tier 3 markets.",
+            text: "Review the geography of viewers who already watch your channel, then make content that genuinely serves the audiences you want to reach. Geography can affect advertiser demand, but it does not guarantee a rate.",
         },
         {
             name: "Switch to high-CPM niches",
             text: "Finance, investing, business, technology, and digital marketing consistently deliver $10–$45 CPM in the US versus $1–$3 for gaming or entertainment. Even a partial pivot — adding a 'YouTube monetization tips' series — can lift your average RPM significantly.",
         },
         {
-            name: "Enable all ad formats",
-            text: "In YouTube Studio, go to Monetization → Ad formats and enable skippable ads, non-skippable ads, bumper ads, overlay ads, and display ads. Each additional format increases total ad impressions per video view.",
+            name: "Review monetization settings",
+            text: "Turn on monetization for eligible videos and review the current settings in YouTube Studio. YouTube automatically chooses suitable pre-roll and post-roll formats; overlay ads are retired.",
         },
         {
             name: "Make videos longer than 8 minutes",
-            text: "Videos over 8 minutes qualify for mid-roll ads. A 12-minute video can carry 2–3 ad breaks, multiplying total impressions. Use the YouTube Content Calendar Generator to plan longer-form content consistently.",
+            text: "Monetized videos that are 8 minutes or longer can use mid-roll ad breaks. Place them at natural pauses, and remember that an eligible slot is not guaranteed to serve an ad.",
         },
         {
             name: "Post during Q4 (October–December)",
@@ -249,6 +249,7 @@ export default function YouTubeCPMRatesPage() {
                         "RPM is what creators earn per 1,000 views after platform share",
                         "Use the free earnings calculator for country scenarios",
                     ],
+                    "2026-08-18",
                 )}
                 pathname="/resources/youtube-cpm-rates"
             />
@@ -435,14 +436,14 @@ export default function YouTubeCPMRatesPage() {
                                 },
                                 {
                                     step: "3",
-                                    title: "Enable all ad formats",
-                                    text: "In YouTube Studio → Monetization → Ad formats, enable skippable ads, non-skippable ads (15s), bumper ads (6s), overlay ads, and display ads. Each format adds more potential ad impressions per view.",
+                                    title: "Review monetization settings",
+                                    text: "Turn on monetization for eligible videos and review the current settings in YouTube Studio. YouTube automatically selects suitable pre-roll and post-roll formats; overlay ads are retired.",
                                     color: "bg-indigo-600",
                                 },
                                 {
                                     step: "4",
                                     title: "Make videos 10–15 minutes long",
-                                    text: "Videos over 8 minutes qualify for mid-roll ads. A 12-minute video can carry 2–3 ad breaks, multiplying total impressions by 2–3×. Combined with a high CPM, this is the most direct path to higher AdSense revenue.",
+                                    text: "Monetized videos that are 8 minutes or longer can use mid-roll ads. Put ad slots at natural pauses, and remember that an eligible slot is not guaranteed to serve an ad.",
                                     color: "bg-emerald-600",
                                 },
                                 {
@@ -484,7 +485,7 @@ export default function YouTubeCPMRatesPage() {
                         >
                             Open Earnings Calculator →
                         </Link>
-                        <p className="text-slate-500 text-sm mt-4">Free · No signup · Real CPM data for 50+ countries</p>
+                        <p className="text-slate-500 text-sm mt-4">Free · No signup · Directional CPM planning ranges for 50+ countries</p>
                     </section>
 
                     {/* FAQ Section */}
@@ -502,10 +503,18 @@ export default function YouTubeCPMRatesPage() {
                         </div>
                     </section>
 
-                    {/* Data disclaimer */}
-                    <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-slate-500">
-                        <strong className="text-slate-700 block mb-1">Data Disclaimer</strong>
-                        CPM and RPM figures on this page are industry estimates compiled from aggregated creator reports, advertising rate benchmarks, and monetization research for 2026. Actual rates vary based on your specific audience demographics, ad format mix, content category, and seasonal factors. YouTube does not publish official CPM data. Your most accurate data source is always YouTube Studio Analytics → Revenue → RPM.
+                    {/* Methodology and references make the estimates usable and citable. */}
+                    <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-slate-600">
+                        <h2 className="text-lg font-bold text-slate-900 mb-2">Methodology and official references</h2>
+                        <p className="leading-relaxed">
+                            CPM and RPM figures on this page are directional planning estimates compiled from aggregated creator reports, advertising-rate benchmarks, and monetization research. They are not official YouTube payout data and can vary by audience, content, ad demand, season, and individual video performance. The page was last reviewed on {DATA_LAST_REVIEWED}.
+                        </p>
+                        <p className="mt-3 leading-relaxed">
+                            For your actual earnings, use YouTube Studio&apos;s Revenue reports. For definitions and ad settings, consult YouTube&apos;s official documentation:
+                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener noreferrer">understanding RPM and CPM</a>,
+                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/6175006" target="_blank" rel="noopener noreferrer">managing mid-roll ad breaks</a>, and
+                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9002587" target="_blank" rel="noopener noreferrer">YouTube Analytics</a>.
+                        </p>
                     </section>
 
 

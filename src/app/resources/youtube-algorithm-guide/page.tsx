@@ -82,17 +82,17 @@ const pageFAQs = [
     {
         question: "What is the most important YouTube ranking factor in 2026?",
         answer:
-            "Click-Through Rate (CTR) and Average View Duration (AVD) together are the most important ranking factors. CTR determines whether viewers choose to click your video when shown in search or recommendations. AVD (what percentage of your video people watch) tells YouTube whether viewers are satisfied. A video with a 7%+ CTR and 50%+ AVD will typically outrank competitors with better thumbnail designs but lower retention.",
+            "There is no universal single ranking factor or threshold. YouTube evaluates how viewers respond when a video is offered to them: whether they choose it, how long they watch, and whether they appear satisfied. Compare CTR and retention against your own traffic sources and videos in YouTube Studio instead of chasing a fixed benchmark.",
     },
     {
         question: "How long does it take for the YouTube algorithm to pick up a new video?",
         answer:
-            "YouTube typically evaluates a new video within the first 24–48 hours using your existing subscriber base as a test audience. If early performance signals (CTR, watch time, engagement) are strong, the algorithm begins distributing the video to broader audiences within 2–7 days. Channels with larger, more engaged subscriber bases see faster initial distribution. Posting at peak audience hours (typically 2–4 PM EST or when your analytics show peak activity) improves early signal quality.",
+            "There is no fixed testing window. Distribution changes as YouTube finds viewers who may be interested, and depends on audience interest, competition, seasonality, and viewer response. Use YouTube Studio to compare reach, CTR, and retention over time rather than assuming a particular publish-hour outcome.",
     },
     {
         question: "Does posting frequency affect the YouTube algorithm?",
         answer:
-            "Yes, but consistency matters more than volume. The YouTube algorithm rewards channels that upload on a predictable schedule because it can reliably serve fresh content to your subscribers. Most successful channels post 1–3 times per week for long-form content, or daily for YouTube Shorts. Sudden drops in upload frequency can reduce recommendation distribution. Use the YouTube Trend Helper tool to plan content batches and maintain consistent publishing.",
+            "Publishing more often does not guarantee recommendations. A sustainable schedule can help you serve your audience consistently, but YouTube evaluates how viewers respond to each video. Choose a cadence that lets you maintain quality and review the audience data in Studio.",
     },
     {
         question: "What is the difference between YouTube Search algorithm and Suggested Videos algorithm?",
@@ -112,7 +112,7 @@ const pageFAQs = [
     {
         question: "How does watch time affect YouTube recommendations?",
         answer:
-            "Watch time is a core ranking signal — YouTube wants to maximize total time viewers spend on its platform. Videos that retain a high percentage of viewers (50%+ average view duration) and lead to additional video watches in the same session rank highest. Long-form videos (10–20 minutes) with strong retention naturally accumulate more total watch-time minutes than shorter videos, giving them a compounding algorithm advantage over time.",
+            "Watch duration and percentage viewed help YouTube understand engagement, alongside appeal, satisfaction, personalization, topic interest, and competition. Longer videos do not automatically perform better; make the video long enough to satisfy the viewer without padding it.",
     },
 ];
 
@@ -254,13 +254,14 @@ export default function YouTubeAlgorithmGuidePage() {
                     "YouTube Algorithm Guide 2026",
                     "How the YouTube algorithm ranks and recommends videos in 2026, with the 7 ranking factors creators must optimize.",
                     "YouTube Algorithm 2026",
-                    "The YouTube algorithm prioritizes CTR, average view duration, engagement, and session satisfaction. Optimize thumbnails, titles, retention hooks, and metadata to earn more Home and Suggested views.",
+                    "YouTube recommendations use viewer personalization and how people respond to a video: whether they choose it, keep watching, and report satisfaction. Improve the viewer experience, then use Studio to assess results.",
                     [
-                        "CTR and watch time are critical ranking signals",
-                        "70%+ of views often come from Home + Suggested",
-                        "First 24–48 hours of engagement heavily influence distribution",
-                        "Consistent uploads keep channels in active recommendation pools",
+                        "Recommendation signals vary by viewer and surface",
+                        "Viewer choice, engagement, and satisfaction all matter",
+                        "Topic interest, competition, and seasonality affect reach",
+                        "Use YouTube Studio to evaluate each video",
                     ],
+                    "2026-08-18",
                 )}
                 pathname="/resources/youtube-algorithm-guide"
             />
@@ -398,6 +399,19 @@ export default function YouTubeAlgorithmGuidePage() {
                                 );
                             })}
                         </div>
+                    </section>
+
+                    <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+                        <h2 className="text-lg font-bold text-slate-900 mb-2">How this guide is sourced</h2>
+                        <p className="leading-relaxed">
+                            YouTube does not publish a fixed list of ranking weights or universal CTR and retention targets. This guide translates the platform&apos;s public guidance into practical actions; results vary by viewer, topic, competition, and season.
+                        </p>
+                        <p className="mt-3 leading-relaxed">
+                            Read YouTube&apos;s official guidance on {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/16089387" target="_blank" rel="noopener noreferrer">recommendations</a>, {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/16090438" target="_blank" rel="noopener noreferrer">search ranking</a>, and {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/16559650" target="_blank" rel="noopener noreferrer">content performance</a>. Use YouTube Studio as the source of truth for your channel.
+                        </p>
                     </section>
 
                     {/* Ad placement */}

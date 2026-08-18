@@ -84,7 +84,7 @@ const pageFAQs = [
     {
         question: "How much does YouTube pay per 1,000 views in 2026?",
         answer:
-            "YouTube pays creators through RPM (Revenue Per Mille) — what you earn per 1,000 video views after YouTube takes its 45% cut. RPM varies significantly by country and niche: US creators in Finance earn $8–$25 RPM, while Entertainment channels earn $1–$4 RPM. Global average RPM across all countries and niches is roughly $2–$5 per 1,000 views. Use our YouTube Earnings Calculator to estimate your specific monthly income.",
+            "RPM (Revenue Per Mille) is the revenue you earn per 1,000 views. It varies by audience, topic, advertiser demand, season, and revenue sources, and is normally lower than CPM because it includes views without ads. Use the calculator for planning scenarios, then use YouTube Studio Revenue reports as the source of truth for your channel.",
     },
     {
         question: "How long does it take to get monetized on YouTube?",
@@ -94,7 +94,7 @@ const pageFAQs = [
     {
         question: "What is the difference between YouTube CPM and RPM?",
         answer:
-            "CPM (Cost Per Mille) is what advertisers pay YouTube per 1,000 ad impressions — the advertiser-side rate. RPM (Revenue Per Mille) is what you actually receive per 1,000 video views after YouTube takes its 45% revenue share and accounts for videos where no ads are shown. A $14 CPM typically translates to a $4–$7 RPM because not every view generates an ad impression (fill rate ~60–85%), and YouTube keeps 45% of ad revenue.",
+            "CPM is the advertiser-side cost per 1,000 ad impressions. RPM is the creator metric for revenue earned per 1,000 views. RPM is typically lower because it is calculated after revenue sharing and includes views that were not monetized. YouTube Studio Revenue reports show the metrics for your own channel.",
     },
     {
         question: "Can you make a living from YouTube monetization alone?",
@@ -134,7 +134,7 @@ const howToSchema = getHowToSchema({
         },
         {
             name: "Apply for the YouTube Partner Program",
-            text: "In YouTube Studio, go to Earn → Apply. Ensure you have no active Community Guidelines strikes, AdSense account is set up, and 2-factor authentication is enabled on your Google account. YouTube's review takes 2–4 weeks. After approval, enable all ad formats: skippable, non-skippable, bumper, overlay, and display ads.",
+            text: "In YouTube Studio, go to Earn → Apply. Confirm your eligibility and complete the requirements shown in Studio. After approval, review monetization and mid-roll settings for eligible videos. YouTube automatically selects suitable pre-roll and post-roll ad formats; overlay ads are retired.",
         },
         {
             name: "Enable all revenue streams at once",
@@ -191,7 +191,7 @@ const revenueStreams = [
         requirement: "1,000 subs + 4,000 hours",
         description:
             "The primary revenue stream for most creators. YouTube runs ads before, during, and after your videos. Your RPM depends on your audience country, niche, and video length. Longer videos (10+ min) allow mid-roll ads that significantly boost total ad impressions.",
-        tips: ["Enable all ad formats in YouTube Studio", "Produce 10–15 minute videos for mid-roll eligibility", "Target Q4 uploads for peak advertiser spend"],
+        tips: ["Review monetization settings in YouTube Studio", "Use natural mid-roll breaks on eligible 8+ minute videos", "Review Revenue reports for seasonal patterns"],
     },
     {
         icon: FaUsers,
@@ -319,6 +319,7 @@ export default function YouTubeMonetizationGuidePage() {
                         "US finance niches often earn higher RPM",
                         "Sponsorships and affiliates diversify beyond AdSense",
                     ],
+                    "2026-08-18",
                 )}
                 pathname="/resources/youtube-monetization-guide"
             />
@@ -624,7 +625,7 @@ export default function YouTubeMonetizationGuidePage() {
                             {[
                                 {
                                     title: "Enable All Ad Formats",
-                                    desc: "In YouTube Studio → Videos → Monetization, enable skippable ads, non-skippable ads, bumper ads, overlay ads, and display ads. Each additional format increases total impressions per view.",
+                                    desc: "Turn on monetization for eligible videos and review the current settings in YouTube Studio. YouTube automatically selects suitable pre-roll and post-roll formats; overlay ads are retired.",
                                     icon: FaDollarSign,
                                     color: "text-purple-600",
                                 },
@@ -839,6 +840,19 @@ export default function YouTubeMonetizationGuidePage() {
                     <div className="my-8" aria-hidden="true">
                         {/* Multiplex removed — it competed with in-article units and looked like fake recommendations */}
                     </div>
+
+                    <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
+                        <h2 className="text-lg font-bold text-slate-900 mb-2">Methodology and official references</h2>
+                        <p className="leading-relaxed">
+                            Earnings examples and CPM ranges are directional planning estimates, not official YouTube payout data or a promise of income. Actual results vary by audience, content, ad demand, season, and eligibility. Check YouTube Studio&apos;s Revenue reports for your own results.
+                        </p>
+                        <p className="mt-3 leading-relaxed">
+                            Official references: {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener noreferrer">understanding RPM and CPM</a>, {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/6175006" target="_blank" rel="noopener noreferrer">mid-roll ad breaks</a>, and {" "}
+                            <a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9002587" target="_blank" rel="noopener noreferrer">YouTube Analytics</a>.
+                        </p>
+                    </section>
 
                     {/* Section 9: FAQ */}
                     <section>

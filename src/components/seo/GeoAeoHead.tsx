@@ -97,34 +97,9 @@ export default function GeoAeoHead({
   }
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
-      />
-      {/*
-        Visible micro-summary for AEO/GEO (not display:none / not pure cloaking).
-        Compact “key takeaways” block users can read; speakable selectors target it.
-      */}
-      {(conciseAnswer || (keyFacts && keyFacts.length > 0)) && (
-        <aside
-          className="sr-only"
-          aria-label="Key takeaways"
-        >
-          {conciseAnswer && (
-            <p className="summary leading-relaxed" data-speakable>
-              {conciseAnswer}
-            </p>
-          )}
-          {keyFacts && keyFacts.length > 0 && (
-            <ul className="key-facts mt-2 list-disc space-y-1 pl-5">
-              {keyFacts.map((fact) => (
-                <li key={fact}>{fact}</li>
-              ))}
-            </ul>
-          )}
-        </aside>
-      )}
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+    />
   );
 }

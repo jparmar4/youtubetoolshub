@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { auth } from "@/auth";
+import { enforceRateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
     try {
@@ -9,6 +10,18 @@ export async function POST(request: Request) {
             return NextResponse.json(
                 { success: false, error: "Authentication required" },
                 { status: 401 }
+            );
+        }
+
+        const rateLimit = enforceRateLimit(
+            `create-subscription:${session.user.email.toLowerCase()}`,
+            5,
+            60 * 60 * 1000,
+        );
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { success: false, error: "Too many subscription attempts. Please try again later." },
+                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
             );
         }
 
@@ -62,11 +75,10 @@ export async function POST(request: Request) {
 
     } catch (error: unknown) {
         console.error("Error creating subscription:", JSON.stringify(error, null, 2));
-        const errorMessage = error instanceof Error ? error.message : "Failed to create subscription";
         return NextResponse.json(
             {
                 success: false,
-                error: errorMessage,
+                error: "Failed to create subscription",
             },
             { status: 500 }
         );
