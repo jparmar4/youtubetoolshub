@@ -8,7 +8,6 @@ import {
   getFAQSchema,
   getHowToSchema,
   getBreadcrumbSchema,
-  getSpeakableSchema,
   getDatasetSchema,
   getGlobalAlternates,
 } from "@/lib/seo";
@@ -190,14 +189,6 @@ export default function YouTubeEarningsCalculatorPage() {
     { name: "Tools", url: `${siteConfig.url}/tools` },
     { name: "YouTube Earnings Calculator", url: pageUrl },
   ]);
-  const speakableSchema = getSpeakableSchema({
-    url: pageUrl,
-    headline:
-      "YouTube Earnings Calculator 2026 — Free RPM, CPM & AdSense Estimator",
-    summary:
-      "Free YouTube earnings calculator that estimates AdSense revenue from views and RPM, with country CPM context for 50+ markets.",
-    cssSelectors: ["h1", "[data-speakable]", ".summary", ".key-facts"],
-  });
   const datasetSchema = {
     ...getDatasetSchema(),
     dateModified: "2026-07-15",
@@ -237,10 +228,6 @@ export default function YouTubeEarningsCalculatorPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <script
         type="application/ld+json"

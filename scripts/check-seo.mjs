@@ -35,7 +35,7 @@ const PATHS = [
   "/blog/youtube-chapters-template-2026",
   "/blog/youtube-cpm-rates-by-country-2026",
   "/blog/youtube-shorts-monetization-2026",
-  "/blog/youtube-pay-per-view-2026",
+  "/blog/how-much-youtube-pays-per-1000-views-2026",
 ];
 
 /** Expect 404 (or 410) — soft-404 / indexable missing URLs are failures */
@@ -47,8 +47,14 @@ const MISSING_PATHS = [
 /** Expect noindex (meta and/or X-Robots-Tag) */
 const NOINDEX_PATHS = [
   "/search",
-  // Tool × niche landings are template-generated (see src/config/index-policy.ts)
-  "/tools/youtube-title-generator/gaming",
+];
+
+/** Expect a permanent redirect (301/308) to the listed destination path */
+const REDIRECT_PATHS = [
+  ["/tools/youtube-title-generator/gaming", "/tools/youtube-title-generator"],
+  ["/tools/compare/youtube-tag-generator/youtube-title-generator", "/tools"],
+  ["/blog/youtube-algorithm-2026", "/resources/youtube-algorithm-guide"],
+  ["/blog/youtube-pay-per-view-2026", "/blog/how-much-youtube-pays-per-1000-views-2026"],
 ];
 
 function fetch(path) {
@@ -233,6 +239,27 @@ async function main() {
     const mark = ok ? "OK " : "FAIL";
     console.log(
       `${mark} ${String(r.status).padStart(3)}  ${path}${issues.length ? "  → " + issues.join("; ") : ""}`,
+    );
+  }
+
+  console.log("\n— Permanent redirects —");
+  for (const [from, to] of REDIRECT_PATHS) {
+    const r = await fetch(from);
+    const issues = [];
+    if (r.error) issues.push(r.error);
+    else if (r.status !== 301 && r.status !== 308) {
+      issues.push(`expected 301/308, got HTTP ${r.status}`);
+    } else {
+      const loc = r.headers.location || r.headers.Location || "";
+      if (!String(loc).includes(to)) {
+        issues.push(`expected Location containing ${to}, got ${loc || "(empty)"}`);
+      }
+    }
+    const ok = issues.length === 0;
+    if (!ok) fails++;
+    const mark = ok ? "OK " : "FAIL";
+    console.log(
+      `${mark} ${String(r.status).padStart(3)}  ${from} → ${to}${issues.length ? "  → " + issues.join("; ") : ""}`,
     );
   }
 

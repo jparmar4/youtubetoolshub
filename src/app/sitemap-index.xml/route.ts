@@ -3,7 +3,7 @@ import { siteConfig } from '@/config/site';
 // Keep the index's dates aligned with real changes in its child sitemaps.
 // Do not generate the current timestamp: it falsely tells crawlers that every
 // sitemap changed on each fetch.
-const MAIN_SITEMAP_LAST_MODIFIED = "2026-08-18T00:00:00.000Z";
+const MAIN_SITEMAP_LAST_MODIFIED = "2026-08-21T00:00:00.000Z";
 const IMAGE_SITEMAP_LAST_MODIFIED = "2026-08-15T00:00:00.000Z";
 
 export async function GET() {

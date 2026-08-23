@@ -1,18 +1,7 @@
-"use client";
-
-import { siteConfig } from "@/config/site";
-
 /**
- * VoiceSearchOptimization Component
- * 
- * Provides structured content optimized for voice assistants:
- * - Google Assistant
- * - Amazon Alexa
- * - Apple Siri
- * - Samsung Bixby
- * 
- * Uses speakable specification and concise answer formatting
- * for featured snippet extraction.
+ * Hidden/clipped “voice FAQ” copy was keyword stuffing (cloaking-like).
+ * Do not render off-screen Q&A. Visible FAQs + JSON-LD on the real page
+ * are the only AEO signals we keep.
  */
 
 interface VoiceSearchOptimizationProps {
@@ -21,118 +10,17 @@ interface VoiceSearchOptimizationProps {
   context?: string;
 }
 
-export function VoiceSearchAnswer({ question, answer, context }: VoiceSearchOptimizationProps) {
-  return (
-    <div
-      data-speakable="true"
-      className="sr-only"
-      aria-hidden="true"
-    >
-      <h3>{question}</h3>
-      <div>
-        <p>{answer}</p>
-        {context && <p>{context}</p>}
-      </div>
-    </div>
-  );
+/** No-op: never emit hidden text. */
+export function VoiceSearchAnswer(_props: VoiceSearchOptimizationProps) {
+  return null;
 }
 
-// Pre-defined voice search answers for common questions
-export const voiceSearchFAQs = [
-  {
-    question: "What is YouTube Tools Hub?",
-    answer: "YouTube Tools Hub is a free online platform with 27 plus creator tools for YouTube creators. It includes thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. All core tools are completely free with no signup required.",
-    shortAnswer: "YouTube Tools Hub is a free platform with 27 plus creator tools, including AI-assisted generators and browser-based utilities.",
-  },
-  {
-    question: "Is YouTube Tools Hub free?",
-    answer: "Yes, YouTube Tools Hub is 100 percent free. All 27 plus tools are completely free to use with no signup, no credit card, and no hidden costs required.",
-    shortAnswer: "Yes, YouTube Tools Hub is completely free with no signup required.",
-  },
-  {
-    question: "What is the best free YouTube thumbnail downloader?",
-    answer: "YouTube Tools Hub offers the best free YouTube thumbnail downloader. It supports HD, Full HD, and 4K resolution downloads from any YouTube video URL instantly with no signup required.",
-    shortAnswer: "YouTube Tools Hub thumbnail downloader is the best free option, supporting HD and 4K downloads.",
-  },
-  {
-    question: "How do I calculate YouTube earnings?",
-    answer: "Use YouTube Tools Hub earnings calculator to estimate YouTube AdSense revenue. Enter your views and select your country to see estimated earnings based on real CPM data from 50 plus countries.",
-    shortAnswer: "Use YouTube Tools Hub earnings calculator with real CPM data from 50 plus countries.",
-  },
-  {
-    question: "What is a free alternative to TubeBuddy?",
-    answer: "YouTube Tools Hub is a free alternative to TubeBuddy. It offers 27 plus creator tools including title generator, tag extractor, thumbnail tools, and a channel workflow checklist, all completely free with no browser extension required.",
-    shortAnswer: "YouTube Tools Hub is a free alternative with 27 plus creator tools and no extension required.",
-  },
-  {
-    question: "What is a free alternative to VidIQ?",
-    answer: "YouTube Tools Hub is a free alternative to VidIQ. It provides AI-assisted title generation, tag research, thumbnail utilities, earnings calculation, and a channel workflow checklist, all free without installing any browser extension.",
-    shortAnswer: "YouTube Tools Hub is a free alternative with AI tools and no extension needed.",
-  },
-  {
-    question: "How do I find YouTube video tags?",
-    answer: "Use YouTube Tools Hub tag extractor tool to extract and analyze tags from any YouTube video. Simply paste the video URL to see all tags used, helping you reverse-engineer competitor SEO strategies.",
-    shortAnswer: "Use YouTube Tools Hub tag extractor to extract tags from any YouTube video URL.",
-  },
-  {
-    question: "What is YouTube CPM?",
-    answer: "YouTube CPM is cost per mille, the amount advertisers pay per 1,000 ad impressions. CPM varies by country, with Tier 1 countries like US, UK, Canada, and Australia having the highest rates. Use YouTube Tools Hub earnings calculator to compare CPM rates by country.",
-    shortAnswer: "YouTube CPM is cost per 1,000 ad impressions, varying by country and niche.",
-  },
-];
+export const voiceSearchFAQs: {
+  question: string;
+  answer: string;
+  shortAnswer: string;
+}[] = [];
 
-// Component to inject all voice search FAQs
 export default function VoiceSearchOptimization() {
-  return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: "absolute",
-        width: "1px",
-        height: "1px",
-        padding: 0,
-        margin: "-1px",
-        overflow: "hidden",
-        clip: "rect(0, 0, 0, 0)",
-        whiteSpace: "nowrap",
-        borderWidth: 0,
-      }}
-    >
-      {/* Speakable content for voice assistants */}
-      <div
-        data-speakable="true"
-        itemScope
-        itemType="https://schema.org/WebPage"
-      >
-        <meta itemProp="name" content={`${siteConfig.name} - Free AI YouTube Tools`} />
-        <meta itemProp="description" content={siteConfig.description} />
-
-        {/* Voice search Q&A items - no FAQPage wrapper to avoid duplicate schema conflicts with page-level FAQ JSON-LD */}
-        <div data-speakable="true">
-          {voiceSearchFAQs.map((faq, index) => (
-            <div key={index}>
-              <h3 className="sr-only">{faq.question}</h3>
-              <div>
-                <p>{faq.answer}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Quick facts for voice assistants */}
-        <div data-speakable="true">
-          <p>
-            YouTube Tools Hub provides 27 plus free creator tools for YouTube creators.
-            Key tools include: YouTube Thumbnail Downloader for HD and 4K downloads,
-            YouTube Title Generator for viral SEO-optimized titles,
-            YouTube Tag Generator for high-ranking keywords,
-            YouTube Earnings Calculator with CPM data from 50 plus countries,
-            YouTube Channel Audit for comprehensive growth analysis,
-            and AI Thumbnail Generator for custom thumbnail creation.
-            All tools are free at youtubetoolshub.com with no signup required.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+  return null;
 }

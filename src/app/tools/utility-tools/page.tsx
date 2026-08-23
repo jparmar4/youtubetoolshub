@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema } from "@/lib/seo";
+import { getToolListSchema, getGlobalAlternates } from "@/lib/seo";
 import { FaMagic, FaArrowRight } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
 
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
         type: "website",
         url: `${siteConfig.url}/tools/utility-tools`,
     },
-    alternates: {
-        canonical: "/tools/utility-tools",
-    },
+    alternates: getGlobalAlternates("/tools/utility-tools"),
 };
 
 export default function UtilityToolsHub() {

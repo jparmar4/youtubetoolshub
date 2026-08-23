@@ -4,6 +4,7 @@ import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 
 // AEO Components
 import QuickAnswer from "@/components/blog/aeo/QuickAnswer";
@@ -122,7 +123,71 @@ export function processContent(
     const elements: React.ReactNode[] = [];
     const earningsAfterH2 = options.injectEarningsCtaAfterH2 ?? 0;
     let earningsCtaInserted = false;
-    let midArticleAdInserted = false;
+
+    /**
+     * In-article ad placement, scaled to article length.
+     *
+     * Previously a single unit was injected after H2 #3, so a 3,000-word post
+     * with a dozen sections carried one in-content impression — the dominant
+     * cap on RPM here, since AdSense revenue tracks *viewable impressions per
+     * pageview*, not pageviews. The rest of the inventory sat after the FAQ,
+     * below where most readers leave.
+     *
+     * Placement walks whichever heading level actually structures the post.
+     * Several long posts (e.g. the CPM-niche roundups) use only 3–4 H2s with
+     * every real section as an H3, so an H2-only rule gave them zero in-article
+     * inventory. When H2s are too sparse to host the target count, H3s become
+     * eligible boundaries too.
+     *
+     * Rules that keep this on the right side of Google's "ads must not exceed
+     * content" policy: never more than `MAX_IN_ARTICLE_ADS`, first unit only
+     * after the reader has cleared two sections, `STRIDE` sections of
+     * separation between units, and nothing injected within the last two
+     * sections so this never stacks against the post-FAQ unit.
+     */
+    const MAX_IN_ARTICLE_ADS = 3;
+    const FIRST_AD_AFTER = 3;
+    const STRIDE = 3;
+    // Leading whitespace is significant here: post bodies in blog.ts are indented
+    // template literals, so headings arrive as "    ## Title". These counts must
+    // agree with the trimmed matching in the line walker below, or no ad
+    // positions are produced at all.
+    const totalH2 = (content.match(/^[ \t]*##[ \t]/gm) ?? []).length;
+    const totalH3 = (content.match(/^[ \t]*###[ \t]/gm) ?? []).length;
+    const minHeadingsForFullRun =
+        FIRST_AD_AFTER + STRIDE * (MAX_IN_ARTICLE_ADS - 1) + 2;
+    // `## ` and `### ` are counted separately above, so H2+H3 is the real total.
+    const countH3AsBoundary = totalH2 < minHeadingsForFullRun;
+    const totalBoundaries = countH3AsBoundary ? totalH2 + totalH3 : totalH2;
+    const inArticleSlots = AD_SLOTS.IN_ARTICLE;
+    const adPositions = new Set<number>();
+    for (
+        let position = FIRST_AD_AFTER;
+        position <= totalBoundaries - 2 && adPositions.size < MAX_IN_ARTICLE_ADS;
+        position += STRIDE
+    ) {
+        adPositions.add(position);
+    }
+    let inArticleAdCount = 0;
+    let boundaryCount = 0;
+
+    /**
+     * Advances the section counter and emits an in-article unit when this
+     * boundary is one of the pre-computed slots. Called from the H2 branch
+     * always, and from H3 only when H3s were counted as boundaries.
+     */
+    const injectAdIfDue = (index: number) => {
+        if (!adPositions.has(++boundaryCount)) return;
+        // Rotate slots so AdSense reports per-position performance and
+        // inventory diversity keeps the fill rate up.
+        const slot = inArticleSlots[inArticleAdCount % inArticleSlots.length];
+        inArticleAdCount++;
+        elements.push(
+            <div key={`mid-ad-${index}`} className="my-8 not-prose" aria-hidden="true">
+                <GoogleAd layout="in-article" format="fluid" slot={slot} style={{ display: "block", textAlign: "center" }} />
+            </div>,
+        );
+    };
 
     // State for standard lists
     let listItems: string[] = [];
@@ -612,7 +677,7 @@ export function processContent(
                     {trimmedLine.replace('## ', '')}
                 </h2>
             );
-            // Insert ad after every 2nd H2, with global cap
+            // Insert an in-article ad at the pre-computed section boundaries.
             h2Count++;
             if (
                 earningsAfterH2 > 0 &&
@@ -628,15 +693,7 @@ export function processContent(
                 earningsCtaInserted = true;
             }
 
-            // Inject a mid-article ad after the 3rd H2 for all posts
-            if (!midArticleAdInserted && h2Count === 3) {
-                elements.push(
-                    <div key={`mid-ad-${index}`} className="my-8 not-prose" aria-hidden="true">
-                        <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
-                    </div>,
-                );
-                midArticleAdInserted = true;
-            }
+            injectAdIfDue(index);
             return;
         }
 
@@ -648,6 +705,7 @@ export function processContent(
                     {trimmedLine.replace('### ', '')}
                 </h3>
             );
+            if (countH3AsBoundary) injectAdIfDue(index);
             return;
         }
 

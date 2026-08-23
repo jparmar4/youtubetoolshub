@@ -54,22 +54,15 @@ export const metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
-  // Do not set a global canonical here — child routes must self-canonicalize.
-  // A root canonical to "/" would make missing pages look like homepage duplicates.
-  alternates: {
-    languages: {
-      "en": siteConfig.url,
-      "x-default": siteConfig.url,
-    },
-  },
-
+  // Do not set a global canonical or hreflang here. Child routes must
+  // self-canonicalize. A root hreflang to "/" made every page look like a
+  // homepage duplicate and collapsed rankings into one URL.
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
     siteName: siteConfig.seo.openGraph.siteName,
     title: siteConfig.seo.defaultTitle,
     description: siteConfig.seo.defaultDescription,
-    url: siteConfig.url,
     images: [
       {
         url: `${siteConfig.url}/og-image.png`,

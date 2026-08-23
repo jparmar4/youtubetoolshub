@@ -18,7 +18,7 @@ import { getIndexableBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { Metadata } from "next";
-import { getFAQSchema, getSpeakableSchema, getToolListSchema, getBreadcrumbSchema, getHowToSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
+import { getFAQSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -27,10 +27,10 @@ import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Free YouTube Thumbnail Downloader, Tag Generator & Earnings Calculator",
+      "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
   },
   description:
-    "Download HD YouTube thumbnails, generate titles and tags, and estimate AdSense earnings by country. 27 free creator tools. No signup.",
+    "Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. 27 creator tools, no signup.",
   keywords: [
     "youtube thumbnail downloader",
     "youtube tag generator",
@@ -127,14 +127,6 @@ export default function Home() {
     })),
   );
 
-  const speakableSchema = getSpeakableSchema({
-    url: siteConfig.url,
-    headline: "YouTube Tools Hub - 27+ Free YouTube Tools for YouTube Creators",
-    summary:
-      "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
-    cssSelectors: ["h1", "h2", ".summary", ".key-facts", "[data-speakable]"],
-  });
-
   const toolListSchema = getToolListSchema(
     tools.map((tool) => ({
       name: tool.name,
@@ -145,71 +137,8 @@ export default function Home() {
 
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: siteConfig.url },
-    { name: "Tools", url: `${siteConfig.url}/tools` },
   ]);
-
-  // ── AEO: HowTo schema for Google rich results ──
-  const howToSchema = getHowToSchema({
-    name: "How to Use YouTube Tools Hub to Grow Your Channel",
-    description:
-      "YouTube Tools Hub provides 27+ free creator tools to help YouTube creators grow faster, optimize their SEO, and maximize earnings — no signup required.",
-    totalTime: "PT5M",
-    steps: [
-      {
-        name: "Choose a tool for your goal",
-        text:
-          "Browse the free tool suite at youtubetoolshub.com/tools. Select from Thumbnail Downloader, Title Generator, Earnings Calculator, Tag Generator, Channel Audit, and 16+ more tools — all free with no account required.",
-      },
-      {
-        name: "Enter your YouTube video or channel details",
-        text:
-          "Paste your YouTube video URL or enter your channel details. The AI analyzes your content and generates optimized outputs including titles, tags, descriptions, thumbnail ideas, and earnings estimates with country-specific CPM data.",
-      },
-      {
-        name: "Apply the results to your YouTube channel",
-        text:
-          "Copy the generated titles, tags, descriptions, or download thumbnails directly. Use the earnings calculator results to understand your CPM by country and target higher-paying audiences in the US, UK, Canada, and Australia.",
-      },
-    ],
-  });
-
-  // AEO: Concise answer block for AI featured snippets
-  const aeoAnswerSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${siteConfig.url}/#webpage`,
-    name: "YouTube Tools Hub - 27+ Free YouTube Tools for YouTube Creators",
-    url: siteConfig.url,
-    description:
-      "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and channel audit. No signup required.",
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    about: {
-      "@type": "Thing",
-      name: "YouTube Creator Tools",
-      description:
-        "Free AI-powered tools for YouTube content creators to optimize thumbnails, SEO metadata, earnings, and channel growth.",
-    },
-    mainEntity: getMainEntitySchema(),
-    significantLink: [
-      `${siteConfig.url}/tools`,
-      `${siteConfig.url}/tools/youtube-thumbnail-downloader`,
-      `${siteConfig.url}/tools/youtube-title-generator`,
-      `${siteConfig.url}/tools/youtube-tag-generator`,
-      `${siteConfig.url}/tools/youtube-earnings-calculator`,
-      `${siteConfig.url}/tools/youtube-channel-audit`,
-      `${siteConfig.url}/blog`,
-      `${siteConfig.url}/faq`,
-    ],
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "[data-speakable]"],
-    },
-  };
+  const mainEntitySchema = getMainEntitySchema();
 
   return (
     <div className="min-h-screen">
@@ -222,24 +151,15 @@ export default function Home() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(toolListSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(aeoAnswerSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mainEntitySchema) }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      {/* HowTo Schema for Google Rich Results */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
       {/* Hero */}
@@ -259,7 +179,7 @@ export default function Home() {
               className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
               data-speakable
             >
-              Free YouTube{" "}
+              Free YouTube Tools:{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-700 via-fuchsia-600 to-pink-600">
                 Thumbnail Downloader
               </span>

@@ -73,7 +73,7 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["rpm vs cpm", "cpm vs rpm"],
       },
       {
-        path: "/blog/youtube-monetization-guide-2026",
+        path: "/resources/youtube-monetization-guide",
         title: "YouTube Monetization Guide 2026",
         anchors: ["monetization requirements 2026"],
       },
@@ -158,7 +158,7 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube seo checklist", "youtube seo tips"],
       },
       {
-        path: "/blog/youtube-algorithm-guide-2026",
+        path: "/resources/youtube-algorithm-guide",
         title: "Algorithm Ranking Factors 2026",
         anchors: ["youtube ranking factors", "rank on youtube"],
       },
@@ -431,7 +431,7 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["high cpm youtube niches"],
       },
       {
-        path: "/blog/most-profitable-youtube-niches-2026",
+        path: "/blog/high-cpm-youtube-niches-2026",
         title: "Most Profitable Niches",
         anchors: ["profitable youtube niches"],
       },
@@ -446,7 +446,7 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["faceless youtube ideas", "faceless channel ideas"],
       },
       {
-        path: "/blog/faceless-youtube-channel-blueprint",
+        path: "/blog/faceless-youtube-channel-2026",
         title: "Faceless Channel Blueprint",
         anchors: ["faceless youtube blueprint", "faceless production stack"],
       },

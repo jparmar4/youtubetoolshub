@@ -7,26 +7,22 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-08-15",
-  "/tools": "2026-08-15",
+  "": "2026-08-21",
+  "/tools": "2026-08-21",
   "/tools/thumbnail-tools": "2026-08-15",
   "/tools/seo-tools": "2026-08-15",
   "/tools/analytics-tools": "2026-08-15",
   "/tools/channel-tools": "2026-08-15",
   "/tools/utility-tools": "2026-08-15",
-  "/about": "2026-07-10",
+  "/about": "2026-08-21",
   "/contact": "2026-07-01",
-  "/blog": "2026-08-15",
+  "/blog": "2026-08-21",
   "/blog/why-youtube-tools-hub": "2026-07-10",
   "/faq": "2026-08-15",
   "/resources/youtube-creator-statistics": "2026-08-15",
   "/resources/youtube-cpm-rates": "2026-08-18",
   "/resources/link-to-us": "2026-07-15",
   "/pricing": "2026-07-10",
-  "/privacy-policy": "2026-06-01",
-  "/terms-of-use": "2026-06-01",
-  "/disclaimer": "2026-06-01",
-  "/refund-policy": "2026-06-01",
   "/tools/vs/tubebuddy": "2026-08-15",
   "/tools/vs/vidiq": "2026-08-15",
   "/resources/youtube-algorithm-guide": "2026-08-18",
@@ -77,7 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: parseSafeDate(ROUTE_LAST_MODIFIED[route], FALLBACK_LAST_MODIFIED),
       changeFrequency: route === "" ? "daily" : "weekly",
       priority:
-        route === "" ? 1 : highPriorityRoutes.includes(route) ? 0.8 : 0.7,
+        route === "" ? 1 : highPriorityRoutes.includes(route) ? 0.8 : 0.5,
     });
   }
 

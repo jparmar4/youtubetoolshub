@@ -249,6 +249,20 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: "/sitemap-index.xml",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400",
+          },
+          {
+            key: "Content-Type",
+            value: "application/xml; charset=utf-8",
+          },
+        ],
+      },
 
       // ─── Robots.txt: moderate caching ───
       {
@@ -448,7 +462,103 @@ const nextConfig = {
    * Keep this list in sync when retiring cannibalizing posts.
    */
   async redirects() {
+    const programmaticTools = [
+      "youtube-tag-generator",
+      "youtube-title-generator",
+      "youtube-description-generator",
+      "youtube-hashtag-generator",
+      "youtube-video-ideas-generator",
+      "youtube-intro-script-generator",
+      "youtube-content-calendar-generator",
+      "youtube-channel-name-generator",
+      "youtube-ai-thumbnail-prompt",
+      "youtube-thumbnail-generator",
+    ];
+    const niches = [
+      "gaming",
+      "vlog",
+      "tech",
+      "education",
+      "fitness",
+      "beauty",
+      "cooking",
+      "finance",
+      "asmr",
+      "diy",
+      "music",
+      "pets",
+      "travel",
+      "motivation",
+      "parenting",
+      "sports",
+      "comedy",
+      "real-estate",
+      "cars",
+      "photography",
+    ];
+    const nicheRedirects = programmaticTools.flatMap((slug) =>
+      niches.map((niche) => ({
+        source: `/tools/${slug}/${niche}`,
+        destination: `/tools/${slug}`,
+        permanent: true,
+      })),
+    );
+
     return [
+      // Thin tool×niche landings were indexed as duplicates of the parent tool
+      ...nicheRedirects,
+      // C(n,2) comparison factory — 351 near-identical URLs
+      {
+        source: "/tools/compare/:toolA/:toolB",
+        destination: "/tools",
+        permanent: true,
+      },
+      // Keyword cannibalization: overlapping blog URLs → one canonical
+      {
+        source: "/blog/youtube-algorithm-2026",
+        destination: "/resources/youtube-algorithm-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-algorithm-guide-2026",
+        destination: "/resources/youtube-algorithm-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-monetization-complete-guide-2026",
+        destination: "/resources/youtube-monetization-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-monetization-guide-2026",
+        destination: "/resources/youtube-monetization-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/most-profitable-youtube-niches-2026",
+        destination: "/blog/high-cpm-youtube-niches-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/faceless-youtube-channel-blueprint",
+        destination: "/blog/faceless-youtube-channel-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-shorts-domination-2026",
+        destination: "/blog/youtube-shorts-viral-strategy-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-pay-per-view-2026",
+        destination: "/blog/how-much-youtube-pays-per-1000-views-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-automation-ai-tools-2026",
+        destination: "/blog/youtube-automation-tools-guide",
+        permanent: true,
+      },
       // Faceless ideas: merge thin "50 ideas $10k" → canonical ideas guide
       {
         source: "/blog/faceless-youtube-channel-ideas-make-10000-month-2026",
@@ -512,7 +622,7 @@ const nextConfig = {
       },
       {
         source: "/blog/youtube-algorithm-secrets-2026",
-        destination: "/blog/youtube-algorithm-guide-2026",
+        destination: "/resources/youtube-algorithm-guide",
         permanent: true,
       },
       {
@@ -554,7 +664,9 @@ const nextConfig = {
       },
       {
         source: "/blog/youtube-affiliate-marketing-guide",
-        destination: "/blog/youtube-monetization-guide-2026",
+        // Point at the final canonical, not at /blog/youtube-monetization-guide-2026,
+        // which itself redirects. Chains leak equity and slow re-crawling.
+        destination: "/resources/youtube-monetization-guide",
         permanent: true,
       },
       {

@@ -14,7 +14,6 @@ import { ToolContextProvider } from "@/components/tools/ToolContext";
 import {
     getFAQSchema,
     getBreadcrumbSchema,
-    getSpeakableSchema,
     getDatasetSchema,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
@@ -70,6 +69,10 @@ export async function generateMetadata({
         },
         alternates: {
             canonical: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+            languages: {
+                en: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+                "x-default": `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
+            },
         },
         robots: {
             index: true,
@@ -150,12 +153,6 @@ export default async function CountryEarningsPage({
             url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
         },
     ]);
-    const speakableSchema = getSpeakableSchema({
-        url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
-        headline: `YouTube Earnings Calculator ${countryData.name}`,
-        summary: `Estimate YouTube earnings for ${countryData.name} using CPM/RPM planning ranges. Average RPM ~$${countryData.rpmRange.avg.toFixed(2)}.`,
-        cssSelectors: ["h1", ".summary", "[data-speakable]"],
-    });
     const datasetSchema = getDatasetSchema({
         name: `YouTube CPM/RPM — ${countryData.name} (${DATA_LAST_REVIEWED})`,
         description: `Planning CPM and RPM ranges for YouTube creators with audience in ${countryData.name}.`,
@@ -175,7 +172,6 @@ export default async function CountryEarningsPage({
             />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />

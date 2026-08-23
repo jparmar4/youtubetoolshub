@@ -43,7 +43,7 @@ export interface GeoAeoHeadProps {
  */
 export const GEO_AEO_PRESETS = {
     homepage: {
-        title: "YouTube Tools Hub - 27+ Free YouTube Tools for YouTube Creators",
+        title: "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
         description:
             "A free suite of creator tools, including AI-assisted generators. Download thumbnails, generate title ideas, calculate earnings, and improve creator workflows.",
         entityType: "WebApplication" as const,
@@ -65,7 +65,7 @@ export const GEO_AEO_PRESETS = {
     ) => ({
         title: `${toolName} - Free Online Tool | YouTube Tools Hub`,
         description: toolDescription,
-        entityType: "SoftwareApplication" as const,
+        entityType: "WebPage" as const,
         primaryTopic: toolName,
         isTool: true,
         toolName,

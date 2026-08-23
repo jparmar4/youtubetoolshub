@@ -5,7 +5,7 @@ import {
     getFAQSchema,
     getHowToSchema,
     getBreadcrumbSchema,
-    getSpeakableSchema,
+    getGlobalAlternates,
 } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -54,9 +54,7 @@ export const metadata: Metadata = {
         "youtube algorithm update 2026",
         "grow youtube channel algorithm",
     ],
-    alternates: {
-        canonical: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-    },
+    alternates: getGlobalAlternates("/resources/youtube-algorithm-guide"),
     openGraph: {
         title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
         description:
@@ -172,14 +170,6 @@ const articleSchema = {
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-algorithm-guide` },
 };
 
-const speakableSchema = getSpeakableSchema({
-    url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-    headline: "YouTube Algorithm Guide 2026",
-    summary:
-        "The YouTube algorithm ranks videos using CTR, average view duration, engagement, upload consistency, and session time. Optimize thumbnails, titles, retention, and metadata to earn more Home and Suggested traffic in 2026.",
-    cssSelectors: ["h1", ".summary", "[data-speakable]"],
-});
-
 const rankingFactors = [
     {
         icon: FaEye,
@@ -270,7 +260,6 @@ export default function YouTubeAlgorithmGuidePage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 

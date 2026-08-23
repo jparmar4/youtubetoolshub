@@ -5,7 +5,7 @@ import {
     getFAQSchema,
     getHowToSchema,
     getBreadcrumbSchema,
-    getSpeakableSchema,
+    getGlobalAlternates,
 } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -56,9 +56,7 @@ export const metadata: Metadata = {
         "youtube earnings by subscribers",
         "youtube partner program requirements",
     ],
-    alternates: {
-        canonical: `${siteConfig.url}/resources/youtube-monetization-guide`,
-    },
+    alternates: getGlobalAlternates("/resources/youtube-monetization-guide"),
     openGraph: {
         title: "YouTube Monetization Guide 2026 — Requirements, Earnings & Strategies",
         description:
@@ -173,14 +171,6 @@ const articleSchema = {
     dateModified: "2026-07-19",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-monetization-guide` },
 };
-
-const speakableSchema = getSpeakableSchema({
-    url: `${siteConfig.url}/resources/youtube-monetization-guide`,
-    headline: "YouTube Monetization Guide 2026",
-    summary:
-        "To monetize on YouTube in 2026 you need 1,000 subscribers plus 4,000 watch hours (or 10M Shorts views) for full AdSense. Average RPM is about $2–$25 per 1,000 views depending on niche and country.",
-    cssSelectors: ["h1", ".summary", "[data-speakable]"],
-});
 
 const revenueStreams = [
     {
@@ -328,7 +318,7 @@ export default function YouTubeMonetizationGuidePage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
+
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 

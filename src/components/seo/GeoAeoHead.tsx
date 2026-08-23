@@ -4,9 +4,14 @@ import { siteConfig } from "@/config/site";
 /**
  * Page-level GEO/AEO signals for search + AI answer engines.
  *
- * Emits a single stable WebPage JSON-LD entity (linked to the site graph)
- * plus optional speakable / about fields. Avoids stacking conflicting
- * WebApplication + Service + ProfilePage claims on every URL.
+ * Always emits exactly one WebPage entity for the URL, linked to the site graph.
+ *
+ * It deliberately does NOT adopt `entityType` as its own `@type`. Tool and blog
+ * pages already emit their primary entity (SoftwareApplication / BlogPosting)
+ * with its own @id; if this component also claimed that type for the same URL,
+ * the page would ship two competing primary entities and Google tends to ignore
+ * both. The specific type is expressed as `mainEntity` instead, which is what
+ * "this page is about a SoftwareApplication" actually means in schema.org.
  */
 export default function GeoAeoHead({
   title,
@@ -36,12 +41,10 @@ export default function GeoAeoHead({
   if (suppressedPaths.some((path) => pathname.startsWith(path))) return null;
 
   const pageUrl = `${siteConfig.url}${pathname || ""}`;
-  const schemaType =
-    entityType || (isTool ? "SoftwareApplication" : "WebPage");
 
   const pageSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": schemaType,
+    "@type": "WebPage",
     "@id": `${pageUrl}#webpage`,
     name: title || siteConfig.name,
     url: pageUrl,
@@ -82,13 +85,23 @@ export default function GeoAeoHead({
     };
   }
 
-  // AEO: concise answer engines can lift this as a citation snippet
+  // What the page is primarily about. `conciseAnswer` is the AEO citation
+  // snippet answer engines can lift; the type comes from entityType/isTool.
+  const mainEntityType =
+    entityType && entityType !== "WebPage"
+      ? entityType
+      : isTool
+        ? "SoftwareApplication"
+        : null;
+
   if (conciseAnswer) {
     pageSchema.abstract = conciseAnswer;
+  }
+  if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
-      "@type": "Thing",
-      name: primaryTopic || title || siteConfig.name,
-      description: conciseAnswer,
+      "@type": mainEntityType ?? "Thing",
+      name: toolName || primaryTopic || title || siteConfig.name,
+      ...(conciseAnswer ? { description: conciseAnswer } : {}),
     };
   }
 

@@ -59,7 +59,7 @@ const PRIORITY_PATHS = [
   "/blog/youtube-chapters-template-2026",
   "/blog/youtube-cpm-rates-by-country-2026",
   "/blog/youtube-shorts-monetization-2026",
-  "/blog/youtube-pay-per-view-2026",
+  "/blog/how-much-youtube-pays-per-1000-views-2026",
   "/blog/youtube-adsense-payment-schedule-2026",
   "/blog/youtube-media-kit-template-2026",
   "/blog/youtube-channel-name-ideas-2026",

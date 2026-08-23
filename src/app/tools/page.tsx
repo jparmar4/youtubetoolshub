@@ -6,7 +6,6 @@ import {
   getToolListSchema,
   getBreadcrumbSchema,
   getFAQSchema,
-  getSpeakableSchema,
 } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -37,9 +36,9 @@ const toolsPageFaqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "27+ Free YouTube Tools | Thumbnail, SEO, Tags & Earnings",
+  title: "All Free YouTube Tools — 27 Creator Tools, No Signup",
   description:
-    "Free YouTube tools for creators: HD thumbnail downloader, AI title & tag generators, earnings calculator, channel audit, hashtag generator, and more. No signup.",
+    "Browse all 27 free YouTube tools by category: thumbnails, titles and tags, channel growth, earnings calculators, and utilities. No signup or extension.",
   keywords: [
     "free youtube tools",
     "youtube thumbnail downloader",
@@ -62,14 +61,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "27+ Free YouTube Tools | YouTube Tools Hub",
+    title: "All Free YouTube Tools | YouTube Tools Hub",
     description:
-      "Free tools for thumbnails, SEO metadata, earnings estimates, and channel growth. No signup required.",
+      "Browse 27 free tools by category: thumbnails, titles, tags, earnings, and channel growth. No signup required.",
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
   alternates: {
     canonical: `${siteConfig.url}/tools`,
+    languages: {
+      en: `${siteConfig.url}/tools`,
+      "x-default": `${siteConfig.url}/tools`,
+    },
   },
 };
 
@@ -89,13 +92,6 @@ export default function ToolsPage() {
   ]);
 
   const faqSchema = getFAQSchema(toolsPageFaqs);
-  const speakableSchema = getSpeakableSchema({
-    url: `${siteConfig.url}/tools`,
-    headline: "27+ Free YouTube Tools for Creators",
-    summary:
-      "YouTube Tools Hub offers 27+ free creator tools including thumbnail downloader, title generator, tag generator, and earnings calculator. No signup required.",
-    cssSelectors: ["h1", ".summary", "[data-speakable]"],
-  });
 
   return (
     <>
@@ -103,7 +99,7 @@ export default function ToolsPage() {
       <GeoAeoHead
         title="27+ Free YouTube Tools – Creator Suite for Creators"
         description="A free suite of creator tools, including AI-assisted generators. Download thumbnails, generate title ideas, calculate earnings, and optimize your channel SEO."
-        entityType="WebApplication"
+        entityType="WebPage"
         primaryTopic="YouTube Creator Tools Suite"
         conciseAnswer="YouTube Tools Hub offers 27+ free creator tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required."
         keyFacts={[
@@ -131,10 +127,6 @@ export default function ToolsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
-      />
 
       <div className="min-h-screen py-20 relative overflow-hidden bg-slate-50">
         {/* Background Decorations */}
@@ -152,7 +144,7 @@ export default function ToolsPage() {
               className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
               data-speakable
             >
-              Free YouTube Tools — SEO, Thumbnails &amp; Earnings Calculators
+              All 27 Free YouTube Tools, Organized by Job
             </h1>
             <p
               className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit summary"

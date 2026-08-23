@@ -6,7 +6,9 @@ import { siteConfig } from "@/config/site";
 import { getGlobalAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Contact Support - 24/7 Creator Assistance | YouTube Tools Hub",
+  // The root layout's titleTemplate already appends "| YouTube Tools Hub".
+  // Repeating it here rendered "… | YouTube Tools Hub | YouTube Tools Hub".
+  title: "Contact Support - 24/7 Creator Assistance",
   description:
     "Need help? Contact the YouTube Tools Hub support team. We're here 24/7 to assist with tool usage, billing, partnerships, or feature requests. Email us at support@youtubetoolshub.com.",
   keywords: [

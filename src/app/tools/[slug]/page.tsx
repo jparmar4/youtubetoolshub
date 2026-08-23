@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
-import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getSpeakableSchema, getGlobalAlternates } from "@/lib/seo";
+import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getGlobalAlternates } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
 import BlogSidebar from "@/components/blog/BlogSidebar";
@@ -124,7 +124,7 @@ export async function generateMetadata({
             url: `${siteConfig.url}/tools/${tool.slug}`,
             images: [
                 {
-                    url: `${siteConfig.url}/og-image.png`,
+                    url: `${siteConfig.url}/tools/${tool.slug}/opengraph-image`,
                     width: 1200,
                     height: 630,
                     alt: tool.name,
@@ -135,7 +135,7 @@ export async function generateMetadata({
             card: "summary_large_image",
             title: tool.seoTitle || tool.name,
             description: tool.seoDescription || tool.description,
-            images: [`${siteConfig.url}/og-image.png`],
+            images: [`${siteConfig.url}/tools/${tool.slug}/opengraph-image`],
         },
         alternates: getGlobalAlternates(`/tools/${tool.slug}`),
         other: {
@@ -258,18 +258,6 @@ export default async function ToolPage({
                     }}
                 />
             )}
-            {/* Speakable Schema for Voice Search (Google Assistant, Alexa, Siri) */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(getSpeakableSchema({
-                        url: `${siteConfig.url}/tools/${tool.slug}`,
-                        headline: tool.name,
-                        summary: tool.seoDescription || tool.description,
-                        cssSelectors: ["h1", "h2", ".key-facts", ".summary", "[data-speakable]"],
-                    })),
-                }}
-            />
 
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />

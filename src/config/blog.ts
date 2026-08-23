@@ -5,6 +5,13 @@ import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
 export interface BlogPost {
   slug: string;
   title: string;
+  /**
+   * Optional hand-written `<title>` for search results, used verbatim.
+   * Set this when `title` is longer than ~60 characters: automatic shortening
+   * can only cut on a word boundary, which often leaves a dangling phrase
+   * ("… Create Professional"). Aim for 50–60 chars, keyword front-loaded.
+   */
+  seoTitle?: string;
   excerpt: string;
   date: string;
   category: string;
@@ -64,12 +71,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/images/blog/youtube-hashtag-generator-hero-2026.webp",
     imageAlt:
       "Creator at a sunlit desk writing hashtag notes in a notebook while reviewing a video draft on a phone and laptop",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1864",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "What is a YouTube hashtag generator?",
@@ -258,12 +260,7 @@ Open the free [YouTube Hashtag Generator](/tools/youtube-hashtag-generator), gen
     coverImage: "/images/blog/youtube-title-generator-hero-2026.webp",
     imageAlt:
       "Creator laptop open to YouTube Studio upload with a bold clickable video title draft, notebook of title ideas, coffee, and analytics monitor in a bright workspace",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "2941",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "What is a YouTube title generator?",
@@ -341,7 +338,7 @@ Keywords help with the first job. Titles (with thumbnails) dominate the second. 
 
 In Studio, watch**Impressions click-through rate**. Channel averages vary, but if a new upload sits far under your usual CTR after a fair sample of impressions, the packaging—not only the algorithm “hating you”—is often the fix.
 
-For a fuller packaging system (title + tags + description + chapters), use the [YouTube SEO Checklist 2026](/blog/youtube-seo-checklist-2026). For how ranking signals stack, the [YouTube Algorithm Guide 2026](/blog/youtube-algorithm-guide-2026) is the long version without the hype.
+For a fuller packaging system (title + tags + description + chapters), use the [YouTube SEO Checklist 2026](/blog/youtube-seo-checklist-2026). For how ranking signals stack, the [YouTube Algorithm Guide 2026](/resources/youtube-algorithm-guide) is the long version without the hype.
 
 ---
 
@@ -564,12 +561,7 @@ When you want the full craft deep-dive on phrasing and CTR patterns, keep [How t
     ],
     coverImage: "/images/blog/youtube-tag-generator-hero-2026.webp",
     imageAlt: "YouTube tag generator tool dashboard showing AI-generated video tags on a dark futuristic interface for SEO optimization in 2026",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "3187",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "What is a YouTube tag generator?",
@@ -834,7 +826,7 @@ Tags work best when they're part of a coherent SEO system — not just an aftert
 
 For the complete system, bookmark the [YouTube SEO Checklist 2026](/blog/youtube-seo-checklist-2026). Every item on that checklist works together — tags are just one piece of a well-tuned machine.
 
-If you want to understand how YouTube's algorithm decides what to rank, the [YouTube Algorithm Guide 2026](/blog/youtube-algorithm-guide-2026) explains the full ranking factors in plain language.
+If you want to understand how YouTube's algorithm decides what to rank, the [YouTube Algorithm Guide 2026](/resources/youtube-algorithm-guide) explains the full ranking factors in plain language.
 
 ---
 
@@ -875,6 +867,7 @@ Pair that habit with an optimized title, a keyword-rich description, and consist
   {
     slug: "how-to-download-youtube-thumbnail-2026",
     title: "How to Download a YouTube Thumbnail in the Highest Resolution (2026)",
+    seoTitle: "How to Download a YouTube Thumbnail in HD (2026)",
     excerpt: "Download any public YouTube thumbnail in HD or max resolution with a free downloader (also called a thumbnail grabber): manual i.ytimg.com URL tricks, Shorts support, mobile tips, and legal use rules.",
     date: "July 31, 2026",
     category: "Thumbnail & Design",
@@ -898,12 +891,7 @@ Pair that habit with an optimized title, a keyword-rich description, and consist
     ],
     coverImage: "/images/blog/youtube-thumbnail-grabber-hero.webp",
     imageAlt: "Step-by-step workflow to download HD YouTube thumbnails on a laptop",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "4210",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "What is the fastest way to download a YouTube thumbnail?",
@@ -1167,12 +1155,7 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
     ],
     coverImage: "/images/blog/youtube-channel-branding-guide-hero.webp",
     imageAlt: "Brainstorm board of YouTube channel name ideas with niche categories",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1925",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "How do I pick a good YouTube channel name?",
@@ -1311,7 +1294,7 @@ If you never show your face:
 - Be honest in the About section
 - Pair the name with a consistent thumbnail system
 
-Topic selection still beats the name — use the [Niche Finder Quiz](/tools/youtube-niche-finder-quiz), [best niches 2026](/blog/best-youtube-niches-2026), and the [faceless blueprint](/blog/faceless-youtube-channel-blueprint).
+Topic selection still beats the name — use the [Niche Finder Quiz](/tools/youtube-niche-finder-quiz), [best niches 2026](/blog/best-youtube-niches-2026), and the [faceless blueprint](/blog/faceless-youtube-channel-2026).
 
 ## After you pick the name
 
@@ -1332,6 +1315,7 @@ Do not wait six months for a perfect name. Use a clear formula, pick from the li
   {
     slug: "youtube-chapters-template-2026",
     title: "YouTube Chapters Template 2026: Timestamp Format & Practical Examples",
+    seoTitle: "YouTube Chapters Template 2026: Format + Examples",
     excerpt: "Copy-ready YouTube chapters: 0:00 rules, templates for tutorials, reviews, podcasts, finance, and vlogs, plus a free timestamp generator.",
     date: "August 15, 2026",
     category: "SEO & Growth",
@@ -1351,12 +1335,7 @@ Do not wait six months for a perfect name. Use a clear formula, pick from the li
     ],
     coverImage: "/images/blog/youtube-seo-checklist-2026-hero.webp",
     imageAlt: "YouTube player showing chapter markers with a description timestamp template",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "990",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "How do I format YouTube chapters correctly?",
@@ -1503,6 +1482,7 @@ Treat chapters as a**table of contents for impatient humans**. Start at 0:00, ke
   {
     slug: "youtube-description-template-2026",
     title: "YouTube Description Template 2026: Copy, Customize & Avoid Keyword Stuffing",
+    seoTitle: "YouTube Description Template 2026 (Copy & Paste)",
     excerpt: "Copy-paste YouTube description templates for tutorials, reviews, finance, vlogs, and Shorts — plus first-line formulas, chapter rules, and a free generator.",
     date: "August 15, 2026",
     category: "SEO & Growth",
@@ -1522,12 +1502,7 @@ Treat chapters as a**table of contents for impatient humans**. Start at 0:00, ke
     ],
     coverImage: "/images/blog/youtube-seo-checklist-2026-hero.webp",
     imageAlt: "YouTube Studio description editor with a clean template structure highlighted",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1680",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "How long should a YouTube description be?",
@@ -1746,12 +1721,7 @@ Templates save time. **Customization** earns trust. Lead with a human first line
     coverImage: "/images/blog/youtube-thumbnail-size-guide-2026-hero.webp",
     imageAlt:
       "Creator desk with laptop open to a bold YouTube thumbnail design in Studio, coffee and notes nearby, illustrating ideal YouTube thumbnail size for 2026",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "2684",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "What is the official YouTube thumbnail size in 2026?",
@@ -1993,12 +1963,7 @@ Policies change — when in doubt, open YouTube Help and your Studio upload dial
     ],
     coverImage: "/images/blog/youtube-thumbnail-grabber-hero.webp",
     imageAlt: "YouTube Thumbnail Grabber tool displaying HD video thumbnails on a creator workspace desk",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "3820",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     faq: [
       {
         question: "How do I grab an HD thumbnail from a YouTube video?",
@@ -2266,7 +2231,7 @@ Country CPM context helps when your story is Tier-1 — share [CPM by country](/
 - [Sponsorship guidelines](/blog/youtube-sponsorship-guidelines-2026)
 - [Monetization guide](/resources/youtube-monetization-guide)
 - [AdSense payment schedule](/blog/youtube-adsense-payment-schedule-2026)
-- [How much YouTube pays per view](/blog/youtube-pay-per-view-2026)
+- [How much YouTube pays per view](/blog/how-much-youtube-pays-per-1000-views-2026)
 
 `,
     faq: [
@@ -2312,6 +2277,7 @@ Country CPM context helps when your story is Tier-1 — share [CPM by country](/
     slug: "youtube-adsense-payment-schedule-2026",
     title:
       "YouTube AdSense Payment Schedule 2026: Dates, Thresholds, and Common Delays",
+    seoTitle: "YouTube AdSense Payment Schedule 2026: Dates & Limits",
     excerpt:
       "When does YouTube AdSense pay? Learn the typical payment schedule, $100 threshold, payment methods, hold reasons, and how to estimate next month’s deposit with Studio data.",
     date: "July 19, 2026",
@@ -2426,7 +2392,7 @@ Creators often panic when Studio and AdSense differ by small amounts. Estimates,
 - If you rely on AdSense alone, plan content for**consistent monthly views**, not one viral spike.  
 - Diversify later with affiliates, memberships, or sponsorships once you have proof of audience value.  
 
-More context: [YouTube monetization guide](/resources/youtube-monetization-guide) and [how much YouTube pays per view](/blog/youtube-pay-per-view-2026).
+More context: [YouTube monetization guide](/resources/youtube-monetization-guide) and [how much YouTube pays per view](/blog/how-much-youtube-pays-per-1000-views-2026).
 
 ## Checklist: first successful payout
 
@@ -2510,12 +2476,7 @@ More context: [YouTube monetization guide](/resources/youtube-monetization-guide
     coverImage: "/images/blog/youtube-algorithm-2026.webp",
     imageAlt:
       "Illustrated diagram of the YouTube algorithm funnel for 2026 showing ranking signals including CTR, watch time, engagement, and personalization flowing into the YouTube recommendation engine.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "487",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Most creators treat the YouTube algorithm like a black box — something that rewards some channels and punishes others for no apparent reason. That feeling is frustrating, but it is also wrong. The algorithm is not mysterious. It is a recommendation engine with a single, transparent goal: keep viewers on YouTube as long as possible.
 
@@ -2818,12 +2779,7 @@ Compound those seven habits over 6–12 months, and you will have built an algor
     coverImage: "/images/blog/youtube-equipment-checklist-hero.webp",
     imageAlt:
       "A sleek, modern YouTube studio setup featuring a mirrorless camera on a tripod, a professional condenser microphone on a boom arm, softbox lighting, and comfortable desk design with warm accent lights.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "312",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 If you are scrolling through YouTube, it is easy to look at creators with $5,000 cinema cameras and dream of the day you can match their setup. But here is the hard truth: buying expensive gear will not get you views. The camera on your phone can capture stunning video, and a cheap microphone can sound professional with the right settings.
 
@@ -2991,12 +2947,7 @@ If you are ready to plan your next video concept and see if the topic has high C
     coverImage: "/images/blog/obs-studio-youtube-setup-hero.webp",
     imageAlt:
       "Realistic YouTube creator studio desk with OBS-style recording software on a monitor, camera, microphone, stream deck, and soft studio lighting for an OBS Studio YouTube setup.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "647",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 If you are opening OBS Studio for the first time, the whole thing can feel like walking into a cockpit. Scenes, sources, encoders, bitrates, audio tracks, hotkeys, docks - it is a lot. The good news is that a solid**obs studio youtube setup**does not need to be complicated.
 
@@ -3301,12 +3252,7 @@ That is it. A great**obs studio youtube setup**is not about having the most comp
     coverImage: "/images/blog/best-webcam-youtube-streaming-hero.webp",
     imageAlt:
       "A high-quality, realistic photo of a professional YouTube streaming setup featuring a high-end 4K webcam mounted on top of a computer monitor in a modern studio.",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1245",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Let's get one thing out of the way immediately: nobody wants to watch a pixelated, grainy mess in 2026. You can have the most fascinating commentary on the internet, but if your video looks like it was shot on a potato from 2012, viewers will click off within the first five seconds.
 
@@ -3451,12 +3397,7 @@ Remember, upgrading your camera is only one piece of the puzzle. Once your video
     coverImage: "/images/blog/wireless-mic-youtube-hero.webp",
     imageAlt:
       "A YouTube creator's desk setup featuring a glowing wireless lavalier microphone receiver attached to a high-end camera, soft cinematic lighting, professional studio look.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "812",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 We need to get real about how humans actually consume video content on the internet. You can get away with recording slightly blurry footage. You can get away with mediocre lighting. But the second your audio sounds hollow, echoey, or distorted, your audience is gone. It's a subconscious reaction; people simply cannot tolerate bad audio.
 
@@ -3613,12 +3554,7 @@ If you are on a tight budget or want the smallest possible footprint for your vi
     coverImage: "/images/blog/ai-subtitle-generator-youtube-hero.webp",
     imageAlt:
       "A YouTube creator sitting at a modern desk editing a video on a large monitor, with vibrant, glowing AI-generated text and subtitles floating off the screen in the background",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "642",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 We need to talk about why you clicked on this. You didn't just wake up wanting to add more friction to your editing pipeline. You're here because you noticed the same trend everyone else in the creator economy has noticed over the past two years:**videos without engaging, animated captions are losing the retention battle.**
 
@@ -3807,12 +3743,7 @@ Pick the tool that fits your format, turn on the fast-paced templates, and watch
     coverImage: "/images/blog/descript-ai-video-editor-youtube-hero.webp",
     imageAlt:
       "A YouTube creator editing a video in Descript AI video editor on an ultrawide monitor in a modern home studio, showing the text-based transcript editing interface",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "918",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 I want to tell you about the first time I deleted a word from a transcript and watched an entire 4-second section of video disappear.
 
@@ -4130,12 +4061,7 @@ Pick up the free plan, import your worst raw footage — the messy, fumbling kin
     coverImage: "/images/blog/youtube-super-thanks-earnings-hero.webp",
     imageAlt:
       "A YouTube creator at a professional home studio desk looking at a laptop screen showing Super Thanks earnings notifications with dollar amounts",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "743",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Let me start with the number nobody puts in their thumbnail: YouTube takes 30% of every Super Thanks transaction before a single cent reaches your account.
 
@@ -4396,12 +4322,7 @@ Do that, and $35 at a time, you'll be pleasantly surprised by how the numbers ad
     coverImage: "/images/blog/youtube-content-batching-hero.webp",
     imageAlt:
       "A YouTube content creator sitting at a professional home studio desk with a camera, ring light, and a monthly content calendar, ready to film a month of videos in one day",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "876",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Burnout is the number one reason YouTube channels die. Not a bad algorithm update. Not a low view count. Not even bad content. It's the sheer exhaustion of showing up to film, edit, and publish week after week, indefinitely, with no finish line in sight.
 
@@ -4683,12 +4604,7 @@ The batch system doesn't just save time. It makes every video you produce measur
     coverImage: "/images/blog/youtube-subscriber-milestones-rewards.webp",
     imageAlt:
       "A stunning realistic image showing YouTube Silver, Gold, and Diamond Play Buttons arranged on a modern wooden desk with a laptop, glowing with success.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "1054",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Every YouTube creator remembers the feeling of hitting their first 10, 50, or 100 subscribers. But the real magic happens when those numbers trigger actual features and tangible rewards from YouTube itself.
 
@@ -4855,12 +4771,7 @@ Keep uploading, trust the data, and that Silver Play Button will arrive faster t
     coverImage: "/images/blog/youtube-shorts-editing-apps-hero.webp",
     imageAlt:
       "A content creator using a smartphone and a tablet on a colorful desk to edit a short vertical video in a professional studio setting",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "842",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 You've likely noticed a pattern when scrolling through YouTube Shorts: the videos that grab your attention and hold it until the end have a distinct rhythm. They don't just rely on good content; they rely on invisible editing techniques designed to maximize viewer retention.
 
@@ -5048,12 +4959,7 @@ Focus on the scripting, understanding your audience, and mastering the pacing te
     coverImage: "/images/blog/youtube-seo-checklist-2026-hero.webp",
     imageAlt:
       "YouTube creator at a dual-monitor desk reviewing a YouTube SEO checklist dashboard with analytics, keyword metrics, and video optimization scores displayed on screen",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "912",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Let me be honest with you upfront: most YouTube SEO advice on the internet is a decade old, repackaged into a listicle, and posted by someone whose last channel hit 1,000 subscribers in 2019.
 
@@ -5307,7 +5213,7 @@ One thing creators rarely quantify: what is better video SEO actually worth in d
 
 If your current videos average 5,000 views and better SEO doubles that to 10,000 views per video — and you post 2 videos per week — that's roughly 520,000 additional annual views. In a mid-range niche with an RPM of $3–$5, that's $1,560–$2,600 in additional annual revenue from the same upload frequency.
 
-Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to model your specific niche RPM and see what better search rankings could mean for revenue at your current upload cadence. And if you're still working toward monetization eligibility, our [YouTube Monetization Guide 2026](/blog/youtube-monetization-guide-2026) walks through every requirement and what the YPP review process actually looks like.
+Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to model your specific niche RPM and see what better search rankings could mean for revenue at your current upload cadence. And if you're still working toward monetization eligibility, our [YouTube Monetization Guide 2026](/resources/youtube-monetization-guide) walks through every requirement and what the YPP review process actually looks like.
 
 For a data-driven comparison of how YouTube Shorts vs long-form SEO performance differs, see our deep-dive on [YouTube Shorts vs TikTok vs Reels](/blog/shorts-vs-reels-vs-tiktok-pay) — the traffic source analysis there is directly relevant to multi-format SEO strategy.
 
@@ -5461,12 +5367,7 @@ That consistency, compounded over 50 or 100 uploads, is what separates the chann
       "/images/blog/youtube-studio-dashboard-walkthrough-2026-hero.webp",
     imageAlt:
       "YouTube Studio dashboard open on a monitor in a professional home creator studio setup, showing analytics charts, subscriber growth graph, and revenue metrics",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "834",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 When you first log into YouTube Studio, it can feel like walking into a control room you've never been trained for. Dials everywhere, numbers on every panel, some sections you've clicked once and forgotten, and a nagging sense that you're probably missing something important — but you're not exactly sure what.
 
@@ -5638,7 +5539,7 @@ If your channel is part of the YouTube Partner Program, the Monetization section
 **Shopping tab:**If you've connected a Shopify store or YouTube's native shopping, this shows product impressions, clicks, and purchases attributed to your content.
 
 > [!NOTE]
->**About monetization eligibility:** To access the full Monetization section with ad revenue sharing, your channel needs to meet the YouTube Partner Program requirements — 1,000 subscribers and 4,000 watch hours in the past 12 months, or 3 million Shorts views in the past 90 days for the Shorts-only path. Our [YouTube monetization guide 2026](/blog/youtube-monetization-guide-2026) covers the complete application process and what to expect during the review period.
+>**About monetization eligibility:** To access the full Monetization section with ad revenue sharing, your channel needs to meet the YouTube Partner Program requirements — 1,000 subscribers and 4,000 watch hours in the past 12 months, or 3 million Shorts views in the past 90 days for the Shorts-only path. Our [YouTube monetization guide 2026](/resources/youtube-monetization-guide) covers the complete application process and what to expect during the review period.
 
 For a deep dive on how RPM, CPM, and actual payout calculations work, our [YouTube RPM vs CPM explained guide](/blog/youtube-rpm-vs-cpm-explained) breaks down exactly how each number is calculated and what actually lands in your account.
 
@@ -5797,12 +5698,7 @@ YouTube Studio gives you the data. The decision of what to do with it is entirel
     coverImage: "/images/blog/ai-scriptwriting-tools-youtube-hero.webp",
     imageAlt:
       "Content creator using AI scriptwriting tools on a dual-monitor setup with a YouTube analytics dashboard and script outline visible",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "721",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 If you've ever spent three hours staring at a blank Google Doc before a video shoot, you already understand the problem. Scripting is one of those tasks that every creator knows they should do — and yet it consistently eats up more time than filming, editing, or thumbnailing combined. The blank-page problem is real, and it kills momentum faster than anything else in the content workflow.
 
@@ -6149,12 +6045,7 @@ Your audience is waiting for the content. The script is what gets it started.
     coverImage: "/images/blog/shorts-vs-reels-vs-tiktok-pay-hero.webp",
     imageAlt:
       "Content creator comparing YouTube Shorts, TikTok, and Instagram Reels monetization earnings on smartphone in a modern studio with colorful bokeh lighting",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "643",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 If you've spent any real time posting short videos, you've probably wondered — why does the same clip perform completely differently depending on where you post it? And more importantly, why does your bank account look so different depending on which platform you're actually monetized on?
 
@@ -6461,12 +6352,7 @@ These statistics represent a snapshot of platform policies as of early 2026, whi
     coverImage: "/images/blog/youtube-music-copyright-guide-hero.webp",
     imageAlt:
       "YouTube music copyright guide - creator at studio desk with headphones reviewing music copyright symbols and YouTube policy on laptop screen",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "487",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Here's the situation: you spend three days filming and editing what might be your best YouTube video ever. You upload it, go to sleep, and wake up to an email saying your video has been "claimed" by a music rights holder. Your ad revenue from that video? It's now going to someone else. Or worse — your video gets muted entirely, or taken down with a copyright strike on your account.
 
@@ -6728,12 +6614,7 @@ And once your channel is running smoothly with the right content and music in pl
     coverImage: "/images/blog/gaming-youtube-growth-strategies-2026-hero.webp",
     imageAlt:
       "Gaming YouTuber at RGB setup pointing at subscriber growth charts on monitors showing 500K subscribers",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "312",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Gaming on YouTube is cutthroat. There are over 40 million gaming channels on the platform right now, and the vast majority of them will never hit 1,000 subscribers. Not because the creators aren't talented. Not because they don't play well. But because they're making the same avoidable strategic mistakes that keep 95% of gaming channels invisible.
 
@@ -7323,7 +7204,7 @@ Instead of guessing, automate this step by utilizing our [YouTube Title Generato
 
 While YouTube has stated that tags play a minor role in discovery, they are crucial when your target keyword is sometimes misspelled (e.g., "opusclip", "oppus clip"). Ensure you include the primary keyword and LSI (Latent Semantic Indexing) keywords in your tags section. Use our [YouTube Tag Generator](/tools/youtube-tag-generator) to pull the exact tags your competitors are using for viral videos in your niche.
 
-Furthermore, within the description of your Short, always link internally to your other relevant content. "If you enjoyed this trick, watch my full guide on [YouTube Algorithm 2026](/blog/youtube-algorithm-2026)." This builds session watch time—the holy grail metric that YouTube uses to evaluate channel authority.
+Furthermore, within the description of your Short, always link internally to your other relevant content. "If you enjoyed this trick, watch my full guide on [YouTube Algorithm 2026](/resources/youtube-algorithm-guide)." This builds session watch time—the holy grail metric that YouTube uses to evaluate channel authority.
 
 ## Chapter 6: Cross-Platform Syndication and Growth
 
@@ -7400,6 +7281,7 @@ The algorithm favors those who adapt. Use this Opus Clip tutorial to automate yo
     slug: "how-to-get-more-views-youtube-2026",
     title:
       "How to Get More Views on YouTube in 2026: 15 Proven Strategies That Actually Work",
+    seoTitle: "How to Get More Views on YouTube: 15 Proven Tactics",
     excerpt:
       "Master the art of getting more YouTube views with data-backed strategies for 2026. Learn how to optimize thumbnails, boost CTR, increase watch time, and leverage the algorithm for explosive channel growth.",
     date: "Feb 7, 2026",
@@ -7443,7 +7325,7 @@ The difference between creators who struggle at 100 views and those who consiste
 
 ## Understanding the YouTube Algorithm in 2026
 
-Before diving into tactics, you need to understand how YouTube decides which videos to show to viewers. The [YouTube algorithm in 2026](/blog/youtube-algorithm-2026) is essentially a sophisticated recommendation engine designed to keep viewers on the platform as long as possible.
+Before diving into tactics, you need to understand how YouTube decides which videos to show to viewers. The [YouTube algorithm in 2026](/resources/youtube-algorithm-guide) is essentially a sophisticated recommendation engine designed to keep viewers on the platform as long as possible.
 
 ### The Four Pillars of YouTube's Recommendation System
 
@@ -8008,6 +7890,7 @@ Ready to put these strategies into action? Check out our [free YouTube tools](/t
 {
     slug: "best-time-upload-youtube-2026",
     title: "Best Time to Upload to YouTube 2026 (Global Data) - Maximize Views",
+    seoTitle: "Best Time to Upload to YouTube in 2026 (Global Data)",
     excerpt:
       "Discover the best time to upload YouTube videos in 2026 with global data analysis. Learn optimal posting times for USA, UK, India, and worldwide audiences to maximize views, engagement, and revenue.",
     date: "Feb 6, 2026",
@@ -10173,17 +10056,13 @@ The difference between earning $500 / month and $5,000 / month often comes down 
           "The optimal video length for revenue is 8-15 minutes. Videos over 8 minutes allow mid-roll ads (significantly increasing revenue), while 15+ minute videos may lose viewer retention. Test your audience—educational content (finance, tech) can sustain 15-20 minutes, while entertainment typically performs best at 8-12 minutes.",
       },
     ],
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "387",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
   },
 {
     slug: "ai-video-generators-youtube-shorts-2026",
     title:
       "10 Best AI Video Generators for YouTube Shorts in 2026 | Boost Your Revenue",
+    seoTitle: "10 Best AI Video Generators for YouTube Shorts (2026)",
     excerpt:
       "Discover the top 10 AI video generators for YouTube Shorts in 2026. Create viral short-form content in minutes with these cutting-edge AI tools. Boost your channel growth, CPM rates up to $40, and revenue from tier 1 countries (US, UK, Canada, Australia).",
     date: "Feb 3, 2026",
@@ -10475,6 +10354,7 @@ AI generators enable rapid production.Channels posting 3 - 5 shorts daily see **
     slug: "get-1000-subscribers-youtube-fast-2026",
     title:
       "How to Get 1000 Subscribers on YouTube Fast in 2026 | Proven Strategies",
+    seoTitle: "How to Get 1000 Subscribers on YouTube Fast (2026)",
     excerpt:
       "A practical plan to reach 1,000 YouTube subscribers: searchable niche, SEO long-form, Shorts that point back, CTR packaging, and a realistic 90-day scoreboard — no fake sub hacks.",
     date: "August 15, 2026",
@@ -10802,7 +10682,7 @@ If you want a personal brand, a hybrid model (occasional face + systemized resea
 
 ## Related resources
 
-- [Faceless channel blueprint](/blog/faceless-youtube-channel-blueprint)  
+- [Faceless channel blueprint](/blog/faceless-youtube-channel-2026)  
 - [YouTube monetization guide](/resources/youtube-monetization-guide)  
 - [AI tools for YouTube creators](/blog/ai-tools-youtube-creators-2026)  
 - Free [YouTube tools suite](/tools)
@@ -10844,6 +10724,7 @@ If you want a personal brand, a hybrid model (occasional face + systemized resea
     slug: "high-cpm-youtube-niches-2026",
     title:
       "15 Best High CPM YouTube Niches in 2026 | Earn $20-$50 Per 1000 Views",
+    seoTitle: "15 Best High CPM YouTube Niches in 2026 ($20-$50)",
     excerpt:
       "Discover the most profitable YouTube niches with the highest CPM rates in 2026. Finance, tech, legal, and business niches paying $20-$55 CPM. Complete guide to targeting tier 1 countries for maximum ad revenue.",
     date: "Feb 4, 2026",
@@ -11036,7 +10917,7 @@ It's better to choose a niche where you have genuine interest or expertise. Crea
 **Ready to maximize your YouTube earnings ?**Use these free tools:
 -[YouTube Earnings Calculator](/tools/youtube-earnings-calculator) – Estimate revenue by niche
     - [YouTube Channel Analyzer](/tools/youtube-channel-audit) – Check your CPM potential
-        - [YouTube Niche Finder](/tools/youtube-niche-finder) – Find profitable topics
+        - [YouTube Niche Finder](/tools/youtube-niche-finder-quiz) – Find profitable topics
 
 Remember: Choose a niche you can create content for consistently.High CPM means nothing if you can't maintain quality and upload frequency.
     `,
@@ -11346,6 +11227,7 @@ The free [earnings calculator](/tools/youtube-earnings-calculator) is built for 
     slug: "tubebuddy-vs-vidiq-2026",
     title:
       "TubeBuddy vs VidIQ 2026: Which YouTube Tool is Better? [Honest Comparison]",
+    seoTitle: "TubeBuddy vs VidIQ 2026: Which Is Actually Better?",
     excerpt:
       "TubeBuddy vs VidIQ detailed comparison 2026. We tested both YouTube SEO tools for 6 months. Features, pricing, pros & cons analysis to help you pick the best tool for channel growth.",
     date: "Feb 4, 2026",
@@ -11678,6 +11560,7 @@ The tools don't conflict with each other. They can run simultaneously in your br
     slug: "youtube-keyword-research-tools-2026",
     title:
       "10 Best Free YouTube Keyword Research Tools in 2026 | Complete Guide",
+    seoTitle: "10 Best Free YouTube Keyword Research Tools (2026)",
     excerpt:
       "Discover the best free YouTube keyword research tools in 2026. Find high-volume, low-competition keywords to rank #1 in search and grow your channel faster with proven keyword strategies.",
     date: "Feb 4, 2026",
@@ -12022,6 +11905,7 @@ VidIQ Free is the best free YouTube keyword tool for beginners, offering 3 daily
 {
     slug: "ai-thumbnail-generators-youtube-2026",
     title: "10 Best AI Thumbnail Generators for YouTube in 2026 | Free & Paid",
+    seoTitle: "10 Best AI Thumbnail Generators for YouTube (2026)",
     excerpt:
       "Create click-worthy YouTube thumbnails in seconds with AI. Canva AI, Adobe Firefly, Midjourney, DALL-E & 6 more tools reviewed. Boost your CTR by 30%+ with these AI thumbnail generators.",
     date: "Feb 4, 2026",
@@ -12429,6 +12313,7 @@ Canva AI is the best overall AI thumbnail generator for YouTube creators because
 {
     slug: "youtube-shorts-monetization-2026",
     title: "YouTube Shorts Monetization 2026: Complete Guide to Earning Money",
+    seoTitle: "YouTube Shorts Monetization 2026: Complete Guide",
     excerpt:
       "YouTube Shorts monetization 2026: YPP paths (10M Shorts views or watch hours), realistic RPM tables, music splits, Shorts vs long-form strategy, and how to turn vertical views into real income.",
     date: "July 31, 2026",
@@ -12484,7 +12369,7 @@ This guide covers **how Shorts pay**,**eligibility**,**realistic planning tables
 4. Cash still moves through **Google AdSense**on the monthly cycle after threshold and verification.
 
 Full YPP overview: [YouTube monetization guide](/resources/youtube-monetization-guide).  
-Per-view math for the whole channel: [How much YouTube pays per view](/blog/youtube-pay-per-view-2026).
+Per-view math for the whole channel: [How much YouTube pays per view](/blog/how-much-youtube-pays-per-1000-views-2026).
 
 ## Eligibility paths (typical YPP)
 
@@ -12645,7 +12530,7 @@ Same creator energy, better architecture.
 
 ## Related resources
 
-- [Pay per view guide](/blog/youtube-pay-per-view-2026)  
+- [Pay per view guide](/blog/how-much-youtube-pays-per-1000-views-2026)  
 - [How much per 1,000 views](/blog/how-much-youtube-pays-per-1000-views-2026)  
 - [RPM vs CPM](/blog/youtube-rpm-vs-cpm-explained)  
 - [High CPM niches](/blog/high-cpm-youtube-niches-2026)  
@@ -13209,6 +13094,7 @@ Now go create something amazing.
     slug: "youtube-partner-program-2026",
     title:
       "YouTube Partner Program Requirements 2026: Complete Eligibility Guide",
+    seoTitle: "YouTube Partner Program Requirements 2026",
     excerpt:
       "YouTube Partner Program requirements 2026. Need 1,000 subscribers + 4,000 watch hours OR 10M Shorts views. Complete guide to YPP eligibility, application process, and approval timeline.",
     date: "Feb 4, 2026",
@@ -13610,6 +13496,7 @@ Remember: The key to YPP approval is original, high - quality content and patien
 {
     slug: "faceless-youtube-channel-2026",
     title: "How to Start a Faceless YouTube Channel in 2026 | Complete Guide",
+    seoTitle: "How to Start a Faceless YouTube Channel in 2026",
     excerpt:
       "Learn how to start a profitable faceless YouTube channel in 2026. No camera needed! Use AI voiceovers, stock footage, and automation to build a channel earning $5,000-$50,000/month anonymously.",
     date: "Feb 4, 2026",
@@ -14408,6 +14295,7 @@ The YouTube algorithm rewards creators who understand viewer psychology and crea
     slug: "best-ai-video-editing-software-2026",
     title:
       "15 Best AI Video Editing Software in 2026: Complete Review & Comparison",
+    seoTitle: "15 Best AI Video Editing Software in 2026",
     excerpt:
       "Discover the top AI video editing tools transforming content creation in 2026. From Adobe Premiere Pro's AI features to free options like CapCut, we compare pricing, features, and real-world performance to help you choose the best AI video editor for your needs.",
     date: "Jan 31, 2026",
@@ -15016,6 +14904,7 @@ The creators who master these AI tools now will have a massive advantage as the 
     slug: "chatgpt-youtube-content-creation",
     title:
       "ChatGPT for YouTube: The Ultimate Guide to AI Content Creation (2026)",
+    seoTitle: "ChatGPT for YouTube: Complete AI Content Guide 2026",
     excerpt:
       "Master ChatGPT for YouTube in 2026. Learn how to use AI to generate viral video ideas, high-retention scripts, and SEO-optimized descriptions. Ranking strategies for Tier 1 countries included.",
     date: "Jan 30, 2026",
@@ -15706,7 +15595,7 @@ The faceless model isn't for everyone—but for the right creator, it's a path t
 **Ready to start your faceless YouTube journey ?**Use these free tools:
 -**[YouTube Title Generator](/tools/youtube-title-generator)**– Create viral titles instantly
     -**[YouTube Description Generator](/tools/youtube-description-generator)**– SEO - optimized descriptions
-        -**[YouTube Script Generator](/tools/youtube-script-generator)**– AI - powered scripts for any topic
+        - **[YouTube Script Generator](/tools/youtube-intro-script-generator)** – AI-powered scripts for any topic
             -**[YouTube Tag Generator](/tools/youtube-tag-generator)**– Rank higher in search
                 -**[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)**– Estimate your revenue potential
                     `,
@@ -16614,6 +16503,7 @@ Which platform is right for you ? Start with where your data lives, assess your 
     slug: "youtube-vs-tiktok-money-2026",
     title:
       "YouTube vs TikTok for Making Money: Which Pays Creators More in 2026?",
+    seoTitle: "YouTube vs TikTok: Which Pays Creators More in 2026?",
     excerpt:
       "The ultimate creator earnings showdown: YouTube vs TikTok monetization in 2026. Compare real earnings data, requirements, revenue streams, and discover which platform pays more per 1,000 views. Plus: the hybrid strategy top creators use to maximize income on both platforms.",
     date: "Jan 26, 2026",
@@ -18666,6 +18556,7 @@ Want to learn how to increase your RPM and maximize revenue ? Read our guide: **
     slug: "how-to-start-youtube-business-2026",
     title:
       "How to Start a YouTube Business in 2026: 17 Profitable Ideas + Complete Blueprint",
+    seoTitle: "How to Start a YouTube Business: 17 Profitable Ideas",
     excerpt:
       "Starting a YouTube business in 2026 is one of the most lucrative digital opportunities available. This comprehensive guide reveals 17 proven YouTube business ideas, complete setup strategies, monetization tactics for high RPM niches, and the exact roadmap to build a six-figure YouTube empire from scratch.",
     date: "Jan 21, 2026",
@@ -18857,7 +18748,7 @@ These channels don't require you on camera—perfect for introverts or people wa
                             - AI tool affiliates: $30 - $300 per sale
                                 - Sponsorships: $3,000 - $15,000
 
-Use **[YouTube Automation tools](/blog/youtube-automation-ai-tools-2026)** to streamline production.
+Use **[YouTube Automation tools](/blog/youtube-automation-tools-guide)** to streamline production.
 
 ---
 
@@ -19221,7 +19112,7 @@ Use our **[YouTube Intro Script Generator](/tools/youtube-intro-script-generator
 3.**Thumbnails:**10 / 10 click - worthy designs every time
 4.**Watch time optimization:**Aim for 8 - 12 minute videos with 50 % + retention
 
-Read our**[YouTube Monetization(2026)](/blog/youtube-monetization-complete-guide-2026)**for the complete playbook.
+Read our**[YouTube Monetization(2026)](/resources/youtube-monetization-guide)**for the complete playbook.
 
 #### Step 11: AdSense Optimization
 Once monetized:
@@ -19364,7 +19255,7 @@ Essential toolkit for 2026:
 - **Channel Audit:**YouTube Studio Analytics
 
    **Automation \u0026 Scaling:**
-        - For faceless channels, see our **[YouTube Automation Guide](/blog/youtube-automation-ai-tools-2026)**
+        - For faceless channels, see our **[YouTube Automation Guide](/blog/youtube-automation-tools-guide)**
 
 ## Legal \u0026 Tax Considerations
 
@@ -19494,8 +19385,8 @@ The best time to start a YouTube business was 2016. The second best time is toda
     - **[YouTube RPM vs CPM Explained](/blog/youtube-rpm-vs-cpm-explained)** – Understand earnings metrics
         - **[How YouTubers Get Paid](/blog/how-youtubers-get-paid-complete-guide)** – Payment methods \u0026 tax guide
             - **[How YouTubers Get Paid](/blog/how-youtubers-get-paid-complete-guide)** – Payment methods & tax guide
-                - **[YouTube Automation Guide](/blog/youtube-automation-ai-tools-2026)** – Faceless channel strategies
-                    - **[YouTube Monetization(2026)](/blog/youtube-monetization-complete-guide-2026)** – Requirements + CPM / RPM by country
+                - **[YouTube Automation Guide](/blog/youtube-automation-tools-guide)** – Faceless channel strategies
+                    - **[YouTube Monetization(2026)](/resources/youtube-monetization-guide)** – Requirements + CPM / RPM by country
                         - **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** – Project your income
                             - **[YouTube Title Generator](/tools/youtube-title-generator)** – Create click - worthy titles
                                 - **[YouTube Tag Generator](/tools/youtube-tag-generator)** – Optimize for search
@@ -19549,18 +19440,14 @@ The best time to start a YouTube business was 2016. The second best time is toda
     slug: "youtube-rpm-vs-cpm-explained",
     title:
       "YouTube RPM vs CPM (2026): Difference, Formula, and Real Benchmarks",
+    seoTitle: "YouTube RPM vs CPM (2026): Formula and Benchmarks",
     excerpt:
       "Understanding RPM vs CPM is the difference between earning $500 and $5,000 from the same 100,000 views. This complete guide reveals what RPM and CPM actually mean, why they differ, and the exact strategies to maximize both metrics for exponential revenue growth.",
     date: "Jan 20, 2026",
     category: "Monetization",
     author: "Alex Rodriguez",
     authorRole: "YouTube Revenue Strategist",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "342",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     video: {
       title: "YouTube RPM vs CPM Explained (2026)",
       description:
@@ -19970,8 +19857,8 @@ Now stop guessing. Start calculating. And start earning what your content is act
 ## Related Resources
 
 -**[How YouTubers Get Paid (Complete Guide)](/blog/how-youtubers-get-paid-complete-guide)**– Payment methods and schedules
--**[YouTube Automation Guide](/blog/youtube-automation-ai-tools-2026)**– Scale your channel with AI
--**[YouTube Monetization (2026)](/blog/youtube-monetization-complete-guide-2026)**– Requirements + CPM/RPM by country
+-**[YouTube Automation Guide](/blog/youtube-automation-tools-guide)**– Scale your channel with AI
+-**[YouTube Monetization (2026)](/resources/youtube-monetization-guide)**– Requirements + CPM/RPM by country
 -**[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-2026)**– Eligibility checklist and approval timeline
 -**[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)**– Calculate your potential income
 `,
@@ -20291,7 +20178,7 @@ Live stream donations processed through YouTube. You keep 70%.
 When Premium subscribers watch your content, you get a share of their subscription fee.
 
 > [!TIP]
-> For a deeper dive into building multiple income streams, check out our **[YouTube Monetization (2026)](/blog/youtube-monetization-complete-guide-2026)**,**[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-2026)**, and**[Sponsorship Guidelines](/blog/youtube-sponsorship-guidelines-2026)**.
+> For a deeper dive into building multiple income streams, check out our **[YouTube Monetization (2026)](/resources/youtube-monetization-guide)**,**[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-2026)**, and**[Sponsorship Guidelines](/blog/youtube-sponsorship-guidelines-2026)**.
 
 ## Common Payment Problems & Solutions
 
@@ -20353,11 +20240,11 @@ Now go make some content.
 
 ## Related Resources
 
-*   **[YouTube Monetization (2026)](/blog/youtube-monetization-complete-guide-2026)** – Requirements + CPM/RPM by country
+*   **[YouTube Monetization (2026)](/resources/youtube-monetization-guide)** – Requirements + CPM/RPM by country
 *   **[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-2026)** – Eligibility checklist and approval timeline
 *   **[YouTube Sponsorship Guidelines](/blog/youtube-sponsorship-guidelines-2026)** – Get brand deals
 *   **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** – Estimate your income
-*   **[YouTube Automation Guide](/blog/youtube-automation-ai-tools-2026)**– Scale your channel with AI
+*   **[YouTube Automation Guide](/blog/youtube-automation-tools-guide)**– Scale your channel with AI
 `,
     faq: [
       {
@@ -20515,7 +20402,7 @@ YouTube's rules target originality and production quality — not automation its
 3.**Machine-sounding reads on generic scripts**— the classic filter trigger.
 4.**Invented facts**in finance or health topics — accuracy is a monetization feature.
 
-The safe formula: original script + natural voice + relevant visuals + real information. The full system is in our [faceless channel blueprint](/blog/faceless-youtube-channel-blueprint).
+The safe formula: original script + natural voice + relevant visuals + real information. The full system is in our [faceless channel blueprint](/blog/faceless-youtube-channel-2026).
 
 ## How to Monetize (Beyond AdSense)
 
@@ -20560,7 +20447,7 @@ The best time to start was 2015. The second best time is today.
 *   **[YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator)** — find high RPM topics
 *   **[YouTube Title Generator](/tools/youtube-title-generator)** — write clickable titles
 *   **[YouTube Tag Generator](/tools/youtube-tag-generator)** — SEO optimize your videos
-*   **[Faceless Channel Blueprint](/blog/faceless-youtube-channel-blueprint)**— the full production system
+*   **[Faceless Channel Blueprint](/blog/faceless-youtube-channel-2026)**— the full production system
                 `,
     faq: [
       {
@@ -20589,6 +20476,7 @@ The best time to start was 2015. The second best time is today.
     slug: "youtube-sponsorship-guidelines-2026",
     title:
       "YouTube Sponsorship Guidelines 2026: Rates, Contracts & How to Get Paid",
+    seoTitle: "YouTube Sponsorship Rates & Guidelines (2026)",
     excerpt:
       "Sponsorship rates, contract red flags, FTC disclosure rules, and negotiation scripts for 2026 — the RVL rate formula, benchmarks by channel size, and payment terms that protect you.",
     date: "August 15, 2026",
@@ -20774,7 +20662,7 @@ Because in 2026, attention is the most valuable currency on earth. You have it. 
 
 ## Related Resources
 *   **[YouTube Partner Program Requirements (2026)](/blog/youtube-partner-program-2026)** - Get approved faster
-*   **[Affiliate Marketing Guide](/blog/youtube-monetization-guide-2026)** - Another income stream
+*   **[Affiliate Marketing Guide](/resources/youtube-monetization-guide)** - Another income stream
 *   **[Video Ideas Generator](/tools/youtube-video-ideas-generator)** - Keep the content flowing
 `,
     faq: [
@@ -20947,7 +20835,7 @@ The choice is yours. Start filming.
 
 ## Related Resources
 
-*   **[YouTube Algorithm Secrets 2026](/blog/youtube-algorithm-guide-2026)** - How the AI decides what to promote
+*   **[YouTube Algorithm Secrets 2026](/resources/youtube-algorithm-guide)** - How the AI decides what to promote
 *   **[15 AI Tools for Creators](/blog/ai-tools-youtube-creators-2026)** - Speed up your workflow
 *   **[YouTube Title Generator](/tools/youtube-title-generator)**- Create viral titles
 `,
@@ -20982,6 +20870,7 @@ The choice is yours. Start filming.
 {
     slug: "ai-tools-youtube-creators-2026",
     title: "15 AI Tools Every YouTube Creator Needs in 2026 (Most Are FREE)",
+    seoTitle: "15 AI Tools Every YouTube Creator Needs in 2026",
     excerpt:
       "I used to spend 8 hours editing a single video. Now it takes 2. These 15 AI tools transformed my entire workflow—from research to thumbnails to SEO. Here's my complete toolkit (and most of them won't cost you a dime).",
     date: "Jan 10, 2026",
@@ -21169,7 +21058,7 @@ Their voices sound genuinely human—emotional, natural, not robotic. For facele
 I know creators making $10k/month on faceless channels using ElevenLabs voices. The quality is that good.
 
 > [!TIP]
-> If you're interested in faceless content, our**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-blueprint)**covers the complete strategy—from niche selection to monetization.
+> If you're interested in faceless content, our**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-2026)**covers the complete strategy—from niche selection to monetization.
 
 ### Tool #14: Descript
 
@@ -21272,7 +21161,7 @@ Now go build something great.
 
 - **[YouTube Automation Guide 2026](/blog/youtube-automation-tools-guide)**- Complete automation strategies
 -**[Best YouTube Tools for Beginners](/blog/best-youtube-tools-for-beginners)**- Essential starter toolkit
--**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-blueprint)**- Build a channel without showing your face
+-**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-2026)**- Build a channel without showing your face
 -**[YouTube Thumbnail Design Psychology](/blog/youtube-thumbnail-design-psychology)** - The science behind clicking
 `,
     faq: [
@@ -21319,6 +21208,7 @@ Now go build something great.
     slug: "youtube-thumbnail-design-psychology",
     title:
       "YouTube Thumbnail Design in 2026: The Psychology Behind 10 Million Clicks",
+    seoTitle: "YouTube Thumbnail Psychology: Why Clicks Happen",
     excerpt:
       "I spent 6 months analyzing 2,000+ viral thumbnails. Here's the uncomfortable truth: great content with a bad thumbnail dies. Mediocre content with a killer thumbnail explodes. This guide reveals the psychological triggers that force clicks.",
     date: "Jan 08, 2026",
@@ -21673,8 +21563,8 @@ Which one do you want to be ?
 
 ## Related Resources
 
-    -**[YouTube Algorithm Secrets 2026](/blog/youtube-algorithm-secrets-2026)**– Understanding how YouTube decides what to show
-        -**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-blueprint)**– Creating content without showing your face
+    -**[YouTube Algorithm Secrets 2026](/resources/youtube-algorithm-guide)**– Understanding how YouTube decides what to show
+        -**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-2026)**– Creating content without showing your face
             -**[YouTube Video Ideas That Actually Work](/blog/youtube-video-ideas-that-actually-work)**– Finding content topics that perform
                 -**[YouTube Title Generator](/tools/youtube-title-generator)** – Pair your thumbnail with a winning title
                     `,
@@ -22372,7 +22262,7 @@ This isn't theoretical—it's based on real data from channels I run and consult
 ## Related Reading
 
             - [YouTube SEO in 2026: What Still Works(And What's Changed)](/blog/youtube-seo-checklist-2026)
-                - [How to Get 1000 Subscribers Fast(Without Buying Them)](/blog/how-to-get-1000-subscribers-and-10000-views)
+                - [How to Get 1000 Subscribers Fast (Without Buying Them)](/blog/get-1000-subscribers-youtube-fast-2026)
                 - [Best YouTube Tools for Beginners in 2026](/blog/best-youtube-tools-for-beginners)
     -[YouTube Video Ideas That Actually Work](/blog/youtube-video-ideas-that-actually-work)
 
@@ -22440,6 +22330,7 @@ The answers are in the data.You just have to be willing to look.
     slug: "youtube-video-ideas-that-actually-work",
     title:
       "YouTube Video Ideas That Actually Work in 2026: Never Run Out of Content",
+    seoTitle: "YouTube Video Ideas That Actually Work in 2026",
     excerpt:
       "Stuck staring at a blank upload screen? I've been there. Here's my 4-source system that went from 'what should I make?' to a content calendar booked 3 months out—no creative burnout.",
     date: "Dec 25, 2025",
@@ -22747,6 +22638,7 @@ Now stop reading and go add three ideas to your spreadsheet.I'll wait.
 {
     slug: "best-youtube-tools-for-beginners",
     title: "Best Free YouTube Tools for Beginners in 2026 (Essential Stack)",
+    seoTitle: "Best Free YouTube Tools for Beginners (2026)",
     excerpt:
       "Starting a YouTube channel? Skip the expensive software. Here are 8 must-have free tools that'll save you hours and create professional content from day one—thumbnails, titles, SEO, analytics.",
     date: "Dec 4, 2025",
@@ -22842,7 +22734,7 @@ If you want official references to back up the strategy(and something credible t
         * [YouTube SEO in 2026: What Still Works(And What's Changed)](/blog/youtube-seo-checklist-2026)
             * [How to Write YouTube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
             * [YouTube Thumbnails: What Actually Makes People Click](/blog/how-to-optimize-youtube-thumbnails)
-            * [How to Get 1000 Subscribers & 10,000 Views on YouTube(Free Guide)](/blog/how-to-get-1000-subscribers-and-10000-views)
+            * [How to Get 1000 Subscribers & 10,000 Views on YouTube (Free Guide)](/blog/get-1000-subscribers-youtube-fast-2026)
 
 ## What I'd Tell Myself as a Beginner
 
@@ -22890,6 +22782,7 @@ The tools I've listed are genuinely useful, but they're not magic.What matters m
     slug: "how-to-write-catchy-youtube-titles",
     title:
       "How to Write YouTube Titles That Get Clicked in 2026 (Real CTR Data)",
+    seoTitle: "How to Write YouTube Titles That Get Clicked (2026)",
     excerpt:
       "Your title can make or break your video's success. Here's what I learned after analyzing thousands of high-performing titles—formulas that increased CTR from 4.2% to 7.8% by changing one word.",
     date: "Dec 1, 2025",
@@ -23071,6 +22964,7 @@ When you need a batch of options before you rewrite the final line, use the free
     slug: "how-to-optimize-youtube-thumbnails",
     title:
       "YouTube Thumbnails: 7 Design Patterns That Actually Get Clicks in 2026",
+    seoTitle: "7 YouTube Thumbnail Patterns That Get Clicks (2026)",
     excerpt:
       "After studying 500+ high-performing thumbnails, I found 7 patterns that consistently drive clicks. Here's exactly what they are—including the color science and psychology behind them.",
     date: "Nov 28, 2025",
@@ -23517,6 +23411,7 @@ The creators winning at YouTube SEO in 2026 are the ones who understand that gre
     slug: "grow-youtube-channel-fast",
     title:
       "How to Grow on YouTube in 2026: Real Strategies from 0 to 10k Subscribers",
+    seoTitle: "How to Grow on YouTube: 0 to 10k Subscribers (2026)",
     excerpt:
       "I've grown 3 channels past 10k subscribers. Here's the real talk on what works (consistency + CTR), what doesn't (sub4sub, buying subscribers), and what nobody tells you about sustainable YouTube growth.",
     date: "Nov 20, 2025",
@@ -23677,7 +23572,7 @@ YouTube growth is slow, frustrating, and uncertain.The creators who make it are 
     - [YouTube SEO in 2026: What Still Works(And What's Changed)](/blog/youtube-seo-checklist-2026)
         - [How to Write YouTube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
         - [YouTube Thumbnails: What Actually Makes People Click](/blog/how-to-optimize-youtube-thumbnails)
-        - [How to Get 1000 Subscribers & 10,000 Views on YouTube(Free Guide)](/blog/how-to-get-1000-subscribers-and-10000-views)
+        - [How to Get 1000 Subscribers & 10,000 Views on YouTube (Free Guide)](/blog/get-1000-subscribers-youtube-fast-2026)
 
 If that's you, keep going. The numbers will eventually follow the work.
         `,
@@ -24164,7 +24059,7 @@ For many channels, sponsorships, affiliates, and products exceed AdSense on the 
 
 ## Related reading
 
-- [How much YouTube pays per view](/blog/youtube-pay-per-view-2026)
+- [How much YouTube pays per view](/blog/how-much-youtube-pays-per-1000-views-2026)
 - [How much YouTube pays per 1,000 views](/blog/how-much-youtube-pays-per-1000-views-2026)
 - [Monetization guide](/resources/youtube-monetization-guide)
 - [Partner Program requirements](/blog/youtube-partner-program-2026)
@@ -24217,18 +24112,14 @@ For many channels, sponsorships, affiliates, and products exceed AdSense on the 
     slug: "youtube-automation-tools-guide",
     title:
       "YouTube Automation in 2026: Complete Guide (Ethical Strategies + Free Tools)",
+    seoTitle: "YouTube Automation in 2026: Ethical Complete Guide",
     excerpt:
       "Want to run a successful faceless YouTube channel? Here's the complete guide to ethical YouTube Automation—including best free AI tools for scripts, voiceovers, editing, thumbnails, and SEO. Build sustainable business, not spam.",
     date: "Dec 24, 2025",
     category: "Automation",
     author: "Alex Chen",
     authorRole: "Automation Expert",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "128",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     video: {
       title: "Best YouTube Automation Tools 2026",
       description:
@@ -24524,7 +24415,7 @@ Do this, and you won't just rank. You'll dominate.
 > **One final warning:** Never buy views to "boost" your SEO. YouTube's fraud detection is elite. You will destroy your channel's trust score forever. Grow slow, grow real.
 
 ## Recommended Reading
-*   [YouTube Algorithm Secrets 2026](/blog/youtube-algorithm-guide-2026)
+*   [YouTube Algorithm Secrets 2026](/resources/youtube-algorithm-guide)
 *   [How to Write Titles That Get Clicked](/blog/how-to-write-catchy-youtube-titles)
 *   [How to Get 1000 Subscribers Fast](/blog/get-1000-subscribers-youtube-fast-2026)
         `,
@@ -24550,6 +24441,7 @@ Do this, and you won't just rank. You'll dominate.
     slug: "youtube-shorts-viral-strategy-2026",
     title:
       "YouTube Shorts: How I Got 10 Million Views in 30 Days (FREE Strategy 2026)",
+    seoTitle: "YouTube Shorts Strategy: 10M Views in 30 Days (2026)",
     excerpt:
       "Forget what you know about YouTube Shorts. In 2026, the algorithm changed EVERYTHING. I tested 47 different strategies and found the exact formula that works. No face, no editing skills, no budget required.",
     date: "Jan 09, 2026",
@@ -24938,6 +24830,7 @@ Go create yours.
     slug: "youtube-analytics-guide-beginners-2026",
     title:
       "YouTube Analytics Masterclass 2026: Read Your Data Like a Pro (Complete Beginner's Guide)",
+    seoTitle: "YouTube Analytics Guide 2026 for Beginners",
     excerpt:
       "I ignored my analytics for 18 months. My channel stayed stuck at 2,000 subscribers. Then I spent one weekend learning to read the numbers—and hit 50k in 8 months. Here's everything I wish I knew from day one.",
     date: "Jan 12, 2026",
@@ -25166,7 +25059,7 @@ Use the **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** to
 - Create content in high-CPM niches (finance, tech, B2B)
 - Make longer videos (8+ minutes) to enable mid-roll ads
 
-Check our complete **[YouTube Monetization Guide](/blog/youtube-monetization-complete-guide-2026)** for the full breakdown.
+Check our complete **[YouTube Monetization Guide](/resources/youtube-monetization-guide)** for the full breakdown.
 
 ## The 5 Biggest Analytics Mistakes Beginners Make
 
@@ -25247,8 +25140,8 @@ Now go open YouTube Studio and start reading what your audience is trying to tel
 
 ## Related Resources
 
--**[YouTube Algorithm Secrets 2026](/blog/youtube-algorithm-guide-2026)**– How the recommendation system really works
--**[YouTube Monetization Complete Guide](/blog/youtube-monetization-complete-guide-2026)**– Everything about CPM, RPM, and earnings
+-**[YouTube Algorithm Secrets 2026](/resources/youtube-algorithm-guide)**– How the recommendation system really works
+-**[YouTube Monetization Complete Guide](/resources/youtube-monetization-guide)**– Everything about CPM, RPM, and earnings
 -**[How to Get 1000 Subscribers Fast](/blog/get-1000-subscribers-youtube-fast-2026)**– Growth strategies for new channels
 -**[Best YouTube Tools for Beginners](/blog/best-youtube-tools-for-beginners)**– Essential free tools to start
 
@@ -25300,6 +25193,7 @@ Now go open YouTube Studio and start reading what your audience is trying to tel
     slug: "how-much-youtube-pays-per-1000-views-2026",
     title:
       "How Much Does YouTube Pay Per 1000 Views in 2026? (Real Numbers by Country)",
+    seoTitle: "How Much YouTube Pays Per 1000 Views in 2026",
     excerpt:
       "How much YouTube pays per 1,000 views in 2026: RPM vs CPM, US/UK/India planning ranges, niche tables, and a free calculator. No guaranteed payouts.",
     date: "August 15, 2026",
@@ -25551,6 +25445,7 @@ Run this once a month in YouTube Studio → Revenue:
     slug: "youtube-cpm-rates-by-country-2026",
     title:
       "YouTube CPM Rates by Country (2026): USA vs UK vs Canada vs Australia",
+    seoTitle: "YouTube CPM Rates by Country 2026: US, UK, CA, AU",
     excerpt:
       "YouTube CPM by country in 2026: Tier 1 (US/UK/CA/AU) CPM and RPM ranges, India vs USA math, what moves rates, and how to attract higher-paying viewers—with free calculators.",
     date: "July 31, 2026",
@@ -25607,7 +25502,7 @@ It is**higher-paying views**—usually a larger share of audience in**Tier 1**ma
 |**Playback-based CPM**| Revenue estimate per 1,000**monetized playbacks**| Compare sessions that showed ads |
 |**RPM**| What**you**earn per 1,000**video views**after share + unmonetized views | Forecast income from views |
 
-Read next: [YouTube RPM vs CPM explained](/blog/youtube-rpm-vs-cpm-explained) · per-view math: [How much YouTube pays per view](/blog/youtube-pay-per-view-2026).
+Read next: [YouTube RPM vs CPM explained](/blog/youtube-rpm-vs-cpm-explained) · per-view math: [How much YouTube pays per view](/blog/how-much-youtube-pays-per-1000-views-2026).
 
 ## Which countries have the highest YouTube CPM?
 
@@ -25678,7 +25573,7 @@ Country calculators: [USA](/tools/youtube-earnings-calculator/usa) · [UK](/tool
 
 Same upload schedule. Very different outcomes. That is audience geography math—not a moral ranking of countries.
 
-More per-view tables: [YouTube pay per view 2026](/blog/youtube-pay-per-view-2026).
+More per-view tables: [YouTube pay per view 2026](/blog/how-much-youtube-pays-per-1000-views-2026).
 
 ## What affects CPM (and RPM) the most?
 
@@ -25750,7 +25645,7 @@ You do not have to become a stock channel overnight.
 
 - **[Full CPM table (50+ countries)](/resources/youtube-cpm-rates)** 
 -**[RPM vs CPM](/blog/youtube-rpm-vs-cpm-explained)** 
--**[Pay per view math](/blog/youtube-pay-per-view-2026)** 
+-**[Pay per view math](/blog/how-much-youtube-pays-per-1000-views-2026)** 
 -**[Per 1,000 views benchmarks](/blog/how-much-youtube-pays-per-1000-views-2026)** 
 -**[Monetization guide](/resources/youtube-monetization-guide)** 
 -**[Partner Program requirements](/blog/youtube-partner-program-2026)** 
@@ -27168,6 +27063,7 @@ Start with **one tool**. Master it. Then add another.
 {
     slug: "best-youtube-seo-tools-2026",
     title: "12 Best YouTube SEO Tools in 2026 (Free & Paid) - Complete Guide",
+    seoTitle: "12 Best YouTube SEO Tools in 2026 (Free & Paid)",
     excerpt:
       "Discover the best YouTube SEO tools to grow your channel in 2026. We compare VidIQ, TubeBuddy, Ahrefs, and 9 more tools with pricing, features, and real results. Includes free options!",
     date: "Feb 2, 2026",
@@ -27194,12 +27090,7 @@ Start with **one tool**. Master it. Then add another.
     coverImage: "/images/blog/best-youtube-seo-tools-2026.webp",
     imageAlt:
       "YouTube SEO Tools comparison dashboard showing VidIQ, TubeBuddy, and analytics metrics with growth charts",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "312",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Want more views on YouTube? It starts with**YouTube SEO tools**.
 
@@ -27440,6 +27331,7 @@ Investing in the right**seo tools for youtube** is one of the fastest ways to gr
     slug: "best-free-youtube-intro-makers-2026",
     title:
       "10 Best Free YouTube Intro Makers 2026: Create Professional Intros in Minutes",
+    seoTitle: "10 Best Free YouTube Intro Makers in 2026",
     excerpt:
       "Discover the best free YouTube intro makers in 2026. Create stunning, professional channel intros without design skills or expensive software. Complete guide with templates, tips, and step-by-step tutorials.",
     date: "Feb 9, 2026",
@@ -27468,12 +27360,7 @@ Investing in the right**seo tools for youtube** is one of the fastest ways to gr
     coverImage: "/images/blog/best-free-youtube-intro-makers-2026-hero.webp",
     imageAlt:
       "Best Free YouTube Intro Makers 2026 - Professional Channel Intro Creation Tools Guide",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "847",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 A captivating YouTube intro is your channel's digital handshake—it sets the tone, establishes your brand, and tells viewers exactly what to expect. In 2026, with over 114 million active YouTube channels competing for attention, a professional intro can be the difference between a viewer hitting subscribe or clicking away.
 
@@ -27800,7 +27687,7 @@ YouTube's algorithm heavily weights**Average View Duration (AVD)**. A too-long i
 - Signal poor content quality
 - Decrease recommendation likelihood
 
-For more on optimizing for the algorithm, read our [YouTube Algorithm 2026 Guide](/blog/youtube-algorithm-2026).
+For more on optimizing for the algorithm, read our [YouTube Algorithm 2026 Guide](/resources/youtube-algorithm-guide).
 
 ### Mobile Optimization
 
@@ -27986,6 +27873,7 @@ Your intro sets the stage. Now it's time to deliver content that keeps viewers w
     slug: "free-midjourney-alternatives-2026",
     title:
       "7 Free Midjourney Alternatives for 2026: Best AI Image Generators That Cost Nothing",
+    seoTitle: "7 Free Midjourney Alternatives in 2026",
     excerpt:
       "Discover the best free Midjourney alternatives in 2026. From Leonardo AI to DALL-E 3, explore powerful AI image generators that create stunning visuals without a subscription. Complete comparison with features, limits, and use cases.",
     date: "Feb 10, 2026",
@@ -28014,12 +27902,7 @@ Your intro sets the stage. Now it's time to deliver content that keeps viewers w
     coverImage: "/images/blog/free-midjourney-alternatives-2026-hero.webp",
     imageAlt:
       "7 Free Midjourney Alternatives for 2026 - Best AI Image Generators Comparison Guide",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "920",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Midjourney revolutionized AI image generation with its jaw-dropping photorealistic outputs and artistic versatility. But there's one major catch in 2026:**it still requires a paid subscription starting at $10/month**, and there's no free tier or trial available. For creators, designers, small business owners, and hobbyists who want professional-quality AI art without opening their wallets, this is a significant barrier.
 
@@ -28404,6 +28287,7 @@ Ready to create stunning AI art without spending a dime? Pick your favorite alte
     slug: "best-free-video-editors-youtube-2026",
     title:
       "Best Free Video Editors for YouTube 2026: 10 Professional Tools That Cost Nothing",
+    seoTitle: "10 Best Free Video Editors for YouTube in 2026",
     excerpt:
       "Discover the 10 best free video editors for YouTube in 2026. From DaVinci Resolve to CapCut, compare features, export quality, system requirements, and find the perfect editor to create professional YouTube videos without spending a dime.",
     date: "Feb 11, 2026",
@@ -28433,12 +28317,7 @@ Ready to create stunning AI art without spending a dime? Pick your favorite alte
     coverImage: "/images/blog/best-free-video-editors-youtube-2026-hero.webp",
     imageAlt:
       "Best Free Video Editors for YouTube 2026 - Professional Editing Software Comparison Guide",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "1840",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Creating professional-quality YouTube videos in 2026 doesn't require an expensive editing suite. The**best free video editors**available today deliver features that rival software costing hundreds of dollars per year—including 4K export, multi-track editing, color grading, motion graphics, and AI-powered tools that would have been unimaginable just a few years ago.
 
@@ -28750,7 +28629,7 @@ Set up project templates with your standard settings:
 
 ### 3. Edit for Retention
 
-YouTube's algorithm heavily rewards [watch time and audience retention](/blog/youtube-algorithm-2026). Structure your edits to maintain viewer attention:
+YouTube's algorithm heavily rewards [watch time and audience retention](/resources/youtube-algorithm-guide). Structure your edits to maintain viewer attention:
 
 - **Jump cuts**every 3-5 seconds to maintain pacing
 -**B-roll insertions**to visualize what you're saying
@@ -28818,7 +28697,7 @@ Your video editor is just one piece of the YouTube content creation puzzle. Here
 -**[YouTube Thumbnail Downloader](/tools/youtube-thumbnail-downloader)**— Analyze competitor thumbnails for inspiration
 
 ### Analytics & Growth
--**[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)**— Estimate your [revenue potential](/blog/youtube-monetization-guide-2026)
+-**[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)**— Estimate your [revenue potential](/resources/youtube-monetization-guide)
 -**[YouTube Engagement Rate Calculator](/tools/youtube-engagement-rate-calculator)**— Track your performance metrics
 -**[YouTube Channel Audit](/tools/youtube-channel-audit)**— Get a comprehensive channel health check
 
@@ -28950,16 +28829,11 @@ Ready to elevate your YouTube editing game? Download your chosen editor, create 
       "/images/blog/mobile-video-editing-apps-no-watermark-2026-hero.webp",
     imageAlt:
       "Best Mobile Video Editing Apps with No Watermark 2026 – Comparison Guide for iPhone and Android Creators",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1840",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Mobile video editing has evolved from a novelty into a genuine production powerhouse. In 2026, creators are filming, editing, and publishing directly from their smartphones—sometimes generating millions of views without ever opening a laptop. However, the single biggest frustration for mobile editors is the dreaded **watermark**that many apps stamp onto your exported videos.
 
-A watermark screams "amateur." It distracts viewers, signals that you haven't invested in your craft, and can even hurt your [YouTube monetization potential](/blog/youtube-monetization-guide-2026). Whether you're creating YouTube Shorts, Instagram Reels, TikToks, or full-length vlogs entirely on your phone, you deserve clean, professional exports.
+A watermark screams "amateur." It distracts viewers, signals that you haven't invested in your craft, and can even hurt your [YouTube monetization potential](/resources/youtube-monetization-guide). Whether you're creating YouTube Shorts, Instagram Reels, TikToks, or full-length vlogs entirely on your phone, you deserve clean, professional exports.
 
 In this comprehensive guide, we've tested and ranked**12 of the best mobile video editing apps**that let you export without watermarks—completely free or with affordable premium options. Every app has been evaluated on its features, ease of use, export quality, and value for creators in Tier 1 markets like the USA, UK, Canada, and Australia.
 
@@ -29349,7 +29223,7 @@ Professional mobile creators have perfected the rapid content pipeline:
 3.**Enhancements**(15 min) – Add captions, transitions, color correction, and music
 4.**Export & Optimize**(10 min) – Export at maximum quality, then use [YouTube Tools Hub](/tools) to optimize your title, description, tags, and thumbnail
 
-This workflow allows creators to publish daily content—a critical strategy for growing channels quickly, as detailed in our [YouTube algorithm guide](/blog/youtube-algorithm-2026).
+This workflow allows creators to publish daily content—a critical strategy for growing channels quickly, as detailed in our [YouTube algorithm guide](/resources/youtube-algorithm-guide).
 
 ### AI-Accelerated Mobile Editing
 
@@ -29466,12 +29340,7 @@ Ready to start editing? Download your chosen app, film your first clip, and use 
     coverImage: "/images/blog/canva-ai-tools-youtube-tutorial-2026-hero.webp",
     imageAlt:
       "Canva AI Tools for YouTube Complete Tutorial 2026 – Dashboard Showing AI Thumbnail Generation and Magic Design Features",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "2145",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Canva has evolved from a simple graphic design platform into a full-blown AI-powered creative suite—and in 2026, it's become one of the most powerful tools available to YouTube creators. Whether you're designing scroll-stopping thumbnails, editing YouTube videos, writing SEO-optimized descriptions, or building a cohesive brand identity across your channel, Canva's AI features can automate hours of work and deliver professional results that rival expensive software.
 
@@ -29835,7 +29704,7 @@ The most effective YouTube creators don't rely on a single tool—they build int
 
 4. **Growth Phase:**
    - Analyze what's working using [YouTube analytics insights](/blog/youtube-analytics-guide-beginners-2026)
-   - Scale your [channel monetization](/blog/youtube-monetization-guide-2026) with data-driven decisions
+   - Scale your [channel monetization](/resources/youtube-monetization-guide) with data-driven decisions
    - Build and refine your Canva template library based on highest-CTR designs
 
 This integrated approach is exactly what separates hobbyist creators from professionals earning sustainable income on YouTube. Explore our [full suite of free AI tools](/tools) to enhance every step of your workflow.
@@ -29967,7 +29836,7 @@ Think of it as a built-in Patreon—except your audience never has to leave YouT
 
 ### How Memberships Fit Into Your Revenue Strategy
 
-Smart creators don't rely on a single income source. Here's how memberships compare to other [YouTube monetization methods](/blog/youtube-monetization-guide-2026):
+Smart creators don't rely on a single income source. Here's how memberships compare to other [YouTube monetization methods](/resources/youtube-monetization-guide):
 
 | Revenue Stream | Type | Predictability | Revenue Share |
 |----------------|------|---------------|---------------|
@@ -30334,6 +30203,7 @@ Understanding the nuances of YouTube memberships helps you make informed decisio
 {
     slug: "best-microphones-under-100-youtube",
     title: "Best Microphones Under $100 for YouTube in 2026 (Tested & Ranked)",
+    seoTitle: "Best Microphones Under $100 for YouTube (2026)",
     excerpt:
       "We tested 15+ budget microphones to find the 7 best options under $100 for YouTube creators. From USB condensers to wireless lavs, here are the top picks for crystal-clear audio without breaking the bank.",
     date: "Feb 16, 2026",
@@ -31267,12 +31137,7 @@ Once your banner is polished, optimize the rest of your channel with our [comple
           "No, using copyrighted images without permission can lead to copyright strikes and channel penalties. Instead, use royalty-free images from built-in stock libraries in tools like Canva (which includes free stock photos), or source images from free stock sites like Unsplash, Pexels, or Pixabay. AI-generated backgrounds are also a safe, original option available in tools like Fotor and Adobe Express.",
       },
     ],
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "1850",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
   },
 {
     slug: "capcut-ai-features-complete-youtube-editing-guide",
@@ -31863,16 +31728,12 @@ For a complete YouTube growth strategy beyond editing, explore our full suite of
           "CapCut's Text to Speech offers 100+ AI voices across 40+ languages, including multiple English accents (American, British, Australian, Indian), emotional styles (calm, energetic, serious), and character voices (news anchor, narrator, storyteller). It's free and integrated directly into the editing workflow. Compared to standalone TTS tools like ElevenLabs ($5+/month) or Murf ($19+/month), CapCut's TTS is less customizable but completely free and sufficient for most YouTube use cases. For faceless channels and explainer videos, CapCut TTS provides excellent quality at zero cost.",
       },
     ],
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "2340",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
   },
 {
     slug: "best-4k-cameras-under-1000-vlogging-2026",
     title: "Best 4K Cameras Under $1000 for Vlogging (2026) — Tested & Ranked",
+    seoTitle: "Best 4K Cameras Under $1000 for Vlogging (2026)",
     excerpt:
       "Looking for the best vlogging camera under $1000 in 2026? We tested the top 4K cameras — Sony ZV-E10 II, Canon EOS R50, DJI Osmo Pocket 3, GoPro HERO13, and Panasonic G100D — so you can find the perfect camera for your YouTube channel.",
     date: "Feb 19, 2026",
@@ -31904,12 +31765,7 @@ For a complete YouTube growth strategy beyond editing, explore our full suite of
       "/images/blog/best-4k-cameras-under-1000-vlogging-2026-hero.webp",
     imageAlt:
       "Best 4K Cameras Under $1000 for Vlogging 2026 — Comparison of Top YouTube Creator Cameras Including Sony, Canon, DJI, and GoPro",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "1840",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Choosing the **best vlogging camera**in 2026 is one of the most important investments you'll make as a YouTube creator — and it doesn't have to drain your bank account. The sub-$1,000 camera market has never been more competitive, with Sony, Canon, DJI, GoPro, and Panasonic all releasing seriously capable 4K machines aimed directly at content creators like you.
 
@@ -32321,6 +32177,7 @@ Start shooting. The algorithm rewards creators who are consistent — and now yo
     slug: "best-usb-microphones-youtube-podcasting-2026",
     title:
       "Best USB Microphones for YouTube & Podcasting in 2026: Expert Picks for Every Budget",
+    seoTitle: "Best USB Microphones for YouTube & Podcasting 2026",
     excerpt:
       "Discover the top USB microphones for YouTube and podcasting in 2026. From budget-friendly options under $50 to professional studio-grade mics, we compare audio quality, features, and value to help you choose the perfect microphone for your content creation setup.",
     date: "Feb 21, 2026",
@@ -32372,7 +32229,7 @@ Before diving into microphone reviews, let's understand why audio is your highes
 
 ### The Algorithm Rewards Watch Time — Audio Drives Watch Time
 
-YouTube's [recommendation algorithm in 2026](/blog/youtube-algorithm-2026) is fundamentally powered by**Average View Duration (AVD)**. Videos with higher AVD get pushed to more viewers through Browse, Suggested, and the Shorts shelf.
+YouTube's [recommendation algorithm in 2026](/resources/youtube-algorithm-guide) is fundamentally powered by**Average View Duration (AVD)**. Videos with higher AVD get pushed to more viewers through Browse, Suggested, and the Shorts shelf.
 
 Here's the critical insight: **audio quality directly impacts AVD.**A viewer watching a tutorial with crystal-clear narration will stay 2-3x longer than one struggling to hear through background noise. This means better audio → higher AVD → more algorithmic promotion → exponentially more views.
 
@@ -32676,17 +32533,13 @@ The algorithm rewards quality. Start with your microphone—the rest will follow
           "Absolutely. Clear audio directly increases Average View Duration (AVD), which is YouTube's primary ranking signal. Higher AVD means YouTube promotes your video to more viewers, leading to more Tier 1 traffic (US, UK, Canada, Australia) and higher CPM rates. A $100-$200 microphone investment can pay for itself within your first 10,000 views in a high-CPM niche.",
       },
     ],
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "1847",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
   },
 {
     slug: "davinci-resolve-tutorial-youtube-beginners",
     title:
       "DaVinci Resolve Tutorial for YouTube Beginners (Complete 2026 Guide)",
+    seoTitle: "DaVinci Resolve Tutorial for YouTube Beginners 2026",
     excerpt:
       "Learn DaVinci Resolve from scratch with this in-depth YouTube beginner's guide. Master the Cut page, Color page, and audio tools — then export perfect videos every time, completely free.",
     date: "Feb 26, 2026",
@@ -33108,12 +32961,7 @@ Want to make sure that your beautifully edited video actually gets discovered? U
           "For YouTube creators specifically, DaVinci Resolve's free version is arguably more valuable than Adobe Premiere Pro at $60/month. Resolve's color grading tools are objectively superior at both price points. Premiere Pro has advantages in ecosystem integration (After Effects, Photoshop) and industry familiarity. However, for a YouTuber focused on producing great-looking videos efficiently at zero software cost, DaVinci Resolve wins on both quality and value every time.",
       },
     ],
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "2341",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
   },
 {
     slug: "youtube-channel-branding-guide",
@@ -33142,12 +32990,7 @@ Want to make sure that your beautifully edited video actually gets discovered? U
     coverImage: "/images/blog/youtube-channel-branding-guide-hero.webp",
     imageAlt:
       "YouTube channel creator designing professional channel branding with logo, banner, and color palette on desktop computer in modern studio workspace",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "521",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Walk into any grocery store and you can identify a Coca-Cola can from fifteen feet away without reading a single word. You recognize it from the curve of the bottle shape, the specific shade of red, the font. That's what great branding does — it makes recognition instantaneous.
 
@@ -33481,12 +33324,7 @@ For more channel growth fundamentals, read our guide on [how to get more views o
     coverImage: "/images/blog/youtube-thumbnail-ab-test-hero.webp",
     imageAlt:
       "A professional YouTube creator sitting at a modern minimalist desk, comparing two different YouTube thumbnail designs side-by-side on a large ultrawide monitor with analytics.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "542",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Ask any creator what the most frustrating part of YouTube is, and they'll probably tell you it's the unpredictability. You spend 40 hours conceptualizing, scripting, filming, and editing a video that you just *know* is a banger. You hit publish, watch the real-time analytics for an hour, and... crickets. Your click-through rate (CTR) is sitting at a painful 2.1%.
 
@@ -33508,7 +33346,7 @@ Let's do some quick math. If your video gets 100,000 impressions on the YouTube 
 
 But it doesn't stop there. YouTube's algorithm is entirely driven by viewer satisfaction. When a video demonstrates a high CTR combined with solid average view duration (AVD), the algorithm starts pushing it to *wider* audiences. That 6% CTR doesn't just double your views; it often acts as a multiplier, turning 3,000 views into 30,000 as the video gets picked up by Browse Features and Suggested Videos.
 
-As I outlined in our [YouTube Algorithm 2026 guide](/blog/youtube-algorithm-2026), your thumbnail is the single highest-leverage asset you have. Spending 10 hours on an edit and 10 minutes on a thumbnail is the most common mistake small creators make.
+As I outlined in our [YouTube Algorithm 2026 guide](/resources/youtube-algorithm-guide), your thumbnail is the single highest-leverage asset you have. Spending 10 hours on an edit and 10 minutes on a thumbnail is the most common mistake small creators make.
 
 ---
 
@@ -33649,12 +33487,7 @@ However, if your content is genuinely good, an optimized thumbnail is the key th
     coverImage: "/images/blog/budget-youtube-camera-hero.webp",
     imageAlt:
       "A collection of the best budget YouTube cameras under $500 — Sony ZV-E10, Canon M50 Mark II, and DJI Osmo Pocket 3 — displayed on a studio desk with a blurred YouTube dashboard in the background",
-    rating: {
-      ratingValue: "4.8",
-      ratingCount: "891",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Here's the truth nobody says in YouTube camera reviews: your camera is responsible for maybe 20% of how your videos look. The lighting, the audio, and the story you're telling do the other 80%.
 
@@ -33941,12 +33774,7 @@ Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to pro
     coverImage: "/images/blog/lawyer-youtube-marketing-hero.webp",
     imageAlt:
       "A professional attorney filming a YouTube video in a polished law office with bookshelves, camera on tripod, and ring light — representing lawyer YouTube marketing strategy.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "284",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Let me tell you something that most law firm marketing consultants will not say out loud:**the attorneys making the most money from YouTube are not the ones with the biggest budgets.**They are the ones who show up consistently, speak like a real human being, and answer the exact questions their future clients are already searching for.
 
@@ -34237,6 +34065,7 @@ Start this week. Film one video. Post it. Film another next week. Stay consisten
 {
     slug: "how-to-start-youtube-channel-2026",
     title: "How to Start a YouTube Channel in 2026: Complete Beginner's Guide",
+    seoTitle: "How to Start a YouTube Channel in 2026 (Beginners)",
     excerpt:
       "Everything you need to start a YouTube channel from scratch in 2026. From choosing your niche and setting up your channel to filming your first video, optimizing SEO, and getting your first 1,000 subscribers.",
     date: "May 29, 2026",
@@ -34443,6 +34272,7 @@ For detailed projections, use our [YouTube Earnings Calculator](/tools/youtube-e
     slug: "how-to-rank-on-ai-search-chatgpt-perplexity-gemini-2026",
     title:
       "AI SEO Guide 2026: How to Rank on ChatGPT, Claude, DeepSeek, Perplexity & Gemini",
+    seoTitle: "AI SEO 2026: Rank on ChatGPT, Perplexity & Gemini",
     excerpt:
       "Master Generative Engine Optimization (GEO) to rank #1 in AI search results. Learn the exact strategies to get cited by ChatGPT, Claude, Gemini, DeepSeek, and Perplexity.",
     date: "May 29, 2026",
@@ -34466,12 +34296,7 @@ For detailed projections, use our [YouTube Earnings Calculator](/tools/youtube-e
       "/images/blog/ai-youtube-tools-workflow.webp",
     imageAlt:
       "A sleek, futuristic dashboard displaying live citations and ranking metrics across ChatGPT, Claude, DeepSeek, Perplexity, and Gemini AI search engines.",
-    rating: {
-      ratingValue: "4.95",
-      ratingCount: "148",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 If you are still optimizing your website solely for Google's ten blue links, you are playing yesterday's game. In 2026, search is conversational, generative, and dominated by Large Language Models (LLMs). Millions of users no longer search via Google; instead, they ask ChatGPT, Claude, DeepSeek, Perplexity, or Gemini directly.
 
@@ -34642,12 +34467,7 @@ By implementing JSON-LD schema, optimizing your site structure with \`llms.txt\`
     coverImage: "/images/blog/insurance-youtube-marketing-hero.webp",
     imageAlt:
       "A professional insurance agent recording a YouTube video in a modern studio setup with a ring light, microphone, laptop showing rising subscriber analytics, and a whiteboard with 'Get More Clients' written on it.",
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "284",
-      bestRating: "5",
-      worstRating: "1",
-    },
+
     content: `
 Let me be direct with you: most insurance agents who try YouTube quit after three videos because they have no idea what they're doing wrong.
 
@@ -34672,7 +34492,7 @@ That is a very achievable number with a consistent YouTube strategy.
 
 The mistake most agents make is treating YouTube like a brochure — recording a video about their agency, listing their products, and wondering why no one calls. Viewers do not want a brochure. They want answers to questions that are bothering them right now.
 
-If you want to understand how YouTube's algorithm rewards content that genuinely helps people, the [YouTube Algorithm 2026 Guide](/blog/youtube-algorithm-2026) breaks down exactly what signals matter for growth.
+If you want to understand how YouTube's algorithm rewards content that genuinely helps people, the [YouTube Algorithm 2026 Guide](/resources/youtube-algorithm-guide) breaks down exactly what signals matter for growth.
 
 ---
 
@@ -34827,7 +34647,7 @@ The best Shorts for insurance are answers to binary questions where the answer s
 
 These work because the question itself creates a knowledge gap that the viewer wants to close. They watch the Short, get a satisfying answer, and often click through to your full video on the same topic.
 
-For a deeper look at how to structure short-form content, the [YouTube Shorts Domination Guide 2026](/blog/youtube-shorts-domination-2026) covers the production and optimization side in full detail.
+For a deeper look at how to structure short-form content, the [YouTube Shorts Domination Guide 2026](/blog/youtube-shorts-viral-strategy-2026) covers the production and optimization side in full detail.
 
 Use the [YouTube Shorts Script Planner](/tools/youtube-shorts-script-planner) to structure your insurance Short scripts so they are tight, engaging, and end with a clear hook back to your main channel.
 
@@ -34881,7 +34701,7 @@ Backlinks to your YouTube channel and blog content come from other websites link
 
 **Guest articles:** Write a short article for an insurance industry publication or a financial education blog and link back to your YouTube channel or this content. Trade publications like InsuranceJournal.net and PropertyCasualty360 accept contributed expert content.
 
-The internal link equity from this article already points to [YouTube Tag Generator](/tools/youtube-tag-generator), [YouTube Title Generator](/tools/youtube-title-generator), [YouTube Description Generator](/tools/youtube-description-generator), [YouTube Earnings Calculator](/tools/youtube-earnings-calculator), [AI Thumbnail Prompt Generator](/tools/youtube-ai-thumbnail-prompt), [YouTube Banner & Logo Maker](/tools/youtube-banner-logo-maker), [YouTube Shorts Script Planner](/tools/youtube-shorts-script-planner), [YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator), [YouTube Hashtag Generator](/tools/youtube-hashtag-generator), and [YouTube Content Calendar Generator](/tools/youtube-content-calendar-generator) — as well as related blog content covering the [YouTube Algorithm](/blog/youtube-algorithm-2026), [YouTube SEO Checklist](/blog/youtube-seo-checklist-2026), [High CPM Niches](/blog/high-cpm-youtube-niches-2026), and [YouTube Shorts Domination](/blog/youtube-shorts-domination-2026).
+The internal link equity from this article already points to [YouTube Tag Generator](/tools/youtube-tag-generator), [YouTube Title Generator](/tools/youtube-title-generator), [YouTube Description Generator](/tools/youtube-description-generator), [YouTube Earnings Calculator](/tools/youtube-earnings-calculator), [AI Thumbnail Prompt Generator](/tools/youtube-ai-thumbnail-prompt), [YouTube Banner & Logo Maker](/tools/youtube-banner-logo-maker), [YouTube Shorts Script Planner](/tools/youtube-shorts-script-planner), [YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator), [YouTube Hashtag Generator](/tools/youtube-hashtag-generator), and [YouTube Content Calendar Generator](/tools/youtube-content-calendar-generator) — as well as related blog content covering the [YouTube Algorithm](/resources/youtube-algorithm-guide), [YouTube SEO Checklist](/blog/youtube-seo-checklist-2026), [High CPM Niches](/blog/high-cpm-youtube-niches-2026), and [YouTube Shorts Domination](/blog/youtube-shorts-viral-strategy-2026).
 
 ---
 
@@ -34957,7 +34777,25 @@ If you can answer yes to all of those, you are ready. Hit publish and start on t
 // Posts retained only as permanent redirects. Keeping them out of every public
 // collection prevents redirecting URLs from leaking into the sitemap, feeds,
 // search results, and related-post modules.
-const RETIRED_BLOG_SLUGS = new Set(["youtube-thumbnail-grabber"]);
+const RETIRED_BLOG_SLUGS = new Set([
+  "youtube-thumbnail-grabber",
+  "youtube-algorithm-2026",
+  "youtube-algorithm-guide-2026",
+  "youtube-algorithm-secrets-2026",
+  "youtube-monetization-complete-guide-2026",
+  "youtube-monetization-guide-2026",
+  "most-profitable-youtube-niches-2026",
+  "faceless-youtube-channel-blueprint",
+  "youtube-shorts-domination-2026",
+  "youtube-pay-per-view-2026",
+  "youtube-automation-ai-tools-2026",
+  "youtube-seo-complete-guide",
+  "how-to-get-1000-subscribers-and-10000-views",
+  "youtube-partner-program-requirements-2026",
+  "best-ai-tools-youtube-creators-2026",
+  "25-best-ai-tools-for-youtube-creators",
+  "youtube-automation-complete-guide-2026",
+]);
 
 const isPublishedBlogPost = (post: BlogPost): boolean =>
   !RETIRED_BLOG_SLUGS.has(post.slug);

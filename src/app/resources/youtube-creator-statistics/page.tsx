@@ -4,8 +4,8 @@ import { siteConfig } from "@/config/site";
 import {
   getFAQSchema,
   getBreadcrumbSchema,
-  getSpeakableSchema,
   getDatasetSchema,
+  getGlobalAlternates,
 } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -72,9 +72,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630 }],
   },
-  alternates: {
-    canonical: pageUrl,
-  },
+  alternates: getGlobalAlternates("/resources/youtube-creator-statistics"),
 };
 
 export default function YouTubeStatistics() {
@@ -84,13 +82,6 @@ export default function YouTubeStatistics() {
     { name: "Resources", url: `${siteConfig.url}/resources` },
     { name: "YouTube Creator Statistics 2026", url: pageUrl },
   ]);
-  const speakableSchema = getSpeakableSchema({
-    url: pageUrl,
-    headline: "YouTube Creator Statistics 2026",
-    summary:
-      "YouTube creator earnings depend on views, niche RPM, and audience country more than subscriber count alone. Finance and tech niches with Tier-1 audiences typically plan higher RPM than entertainment or gaming.",
-    cssSelectors: ["h1", ".summary", "[data-speakable]"],
-  });
   const datasetSchema = getDatasetSchema({
     name: "YouTube Creator Statistics and RPM Benchmarks 2026",
     description:
@@ -123,10 +114,6 @@ export default function YouTubeStatistics() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <script
         type="application/ld+json"

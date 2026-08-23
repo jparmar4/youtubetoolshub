@@ -149,15 +149,8 @@ export function getWebsiteSchema() {
         },
       ],
     },
-    // Search action for sitelinks searchbox
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+    // Do not expose SearchAction: /search is noindex + robots-disallowed.
+    // A sitelinks searchbox pointing at a blocked URL hurts indexing.
     // Content information
     genre: ["YouTube Tools", "Video Marketing", "SEO Tools", "Creator Economy"],
     // Audience
@@ -295,17 +288,8 @@ export function getSoftwareApplicationSchema(tool: {
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
     },
-    ...(tool.rating
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: tool.rating.ratingValue,
-            ratingCount: tool.rating.ratingCount,
-            bestRating: tool.rating.bestRating || "5",
-            worstRating: tool.rating.worstRating || "1",
-          },
-        }
-      : {}),
+    // Never emit AggregateRating unless ratings are collected from real users.
+    // Invented ratingCount values are a spam-policy violation and can demote the site.
   };
 }
 
@@ -433,7 +417,7 @@ export function getDefinedTermSchema(term: {
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
       name: "YouTube Creator Terms",
-      url: `${siteConfig.url}/glossary`,
+      url: `${siteConfig.url}/faq`,
     },
   };
 }
@@ -887,7 +871,7 @@ export function getAnswerSchema(answer: {
         "@type": "Organization",
         name: answer.author || siteConfig.name,
       },
-      dateCreated: new Date().toISOString(),
+      inLanguage: "en",
     },
     url: answer.url,
   };
@@ -937,11 +921,19 @@ export function getMainEntitySchema() {
   };
 }
 
-// Generate self-referencing global alternates (x-default & en)
+/** Absolute URL for a site path ("" or "/" → homepage). */
+export function absoluteUrl(path: string): string {
+  if (path.startsWith("http")) return path;
+  if (!path || path === "/") return siteConfig.url;
+  return `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`;
+}
+
+/**
+ * Per-page canonical + self-referencing hreflang.
+ * Never point language alternates at the homepage from inner URLs.
+ */
 export function getGlobalAlternates(path: string) {
-  const url = path.startsWith("http")
-    ? path
-    : `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`;
+  const url = absoluteUrl(path);
   return {
     canonical: url,
     languages: {

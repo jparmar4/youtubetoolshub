@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema } from "@/lib/seo";
+import { getToolListSchema, getGlobalAlternates } from "@/lib/seo";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
         type: "website",
         url: `${siteConfig.url}/tools/thumbnail-tools`,
     },
-    alternates: {
-        canonical: "/tools/thumbnail-tools",
-    },
+    alternates: getGlobalAlternates("/tools/thumbnail-tools"),
 };
 
 export default function ThumbnailToolsHub() {

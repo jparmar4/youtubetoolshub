@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getSpeakableSchema, getDatasetSchema } from "@/lib/seo";
+import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema, getGlobalAlternates } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -31,9 +31,7 @@ export const metadata: Metadata = {
         "youtube cpm calculator",
         "youtube rpm vs cpm",
     ],
-    alternates: {
-        canonical: `${siteConfig.url}/resources/youtube-cpm-rates`,
-    },
+    alternates: getGlobalAlternates("/resources/youtube-cpm-rates"),
     openGraph: {
         title: "YouTube CPM Rates by Country 2026 — Full Data Table",
         description:
@@ -171,13 +169,6 @@ const breadcrumbSchema = getBreadcrumbSchema([
     { name: "YouTube CPM Rates 2026", url: `${siteConfig.url}/resources/youtube-cpm-rates` },
 ]);
 
-const speakableSchema = getSpeakableSchema({
-    url: `${siteConfig.url}/resources/youtube-cpm-rates`,
-    headline: "YouTube CPM Rates by Country 2026",
-    summary: speakableAnswers.howMuchYoutubePays,
-    cssSelectors: ["h1", ".summary", "[data-speakable]"],
-});
-
 const datasetSchema = {
     ...getDatasetSchema({
         name: "YouTube CPM and RPM Rates by Country 2026",
@@ -258,7 +249,6 @@ export default function YouTubeCPMRatesPage() {
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
                 {/* Hero */}

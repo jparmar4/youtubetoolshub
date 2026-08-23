@@ -68,12 +68,7 @@ export const tools: Tool[] = [
             title: "What is YouTube Thumbnail Downloader?",
             text: "YouTube Thumbnail Downloader is a free online tool that lets you preview and save public YouTube video or Shorts thumbnails in the resolutions YouTube provides. Paste a video link to fetch available thumbnail image URLs without signing in."
         },
-        rating: {
-            ratingValue: "4.8",
-            ratingCount: "2450",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "What is a YouTube Thumbnail Downloader?",
@@ -335,12 +330,7 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai prompt generator", "thumbnail prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt", "ai thumbnail prompt generator free", "how to write ai prompts for youtube"],
-        rating: {
-            ratingValue: "4.9",
-            ratingCount: "850",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "Master the Art of AI Thumbnail Prompts",
@@ -430,12 +420,7 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube title generator", "video title maker", "clickbait title generator", "catchy youtube titles", "seo title generator", "viral title ideas", "how to write youtube titles", "title optimizer ai", "best youtube titles 2026"],
-        rating: {
-            ratingValue: "4.9",
-            ratingCount: "4150",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "Write Clear YouTube Titles Faster",
@@ -522,12 +507,7 @@ export const tools: Tool[] = [
         icon: FaAlignLeft,
         isAI: true,
         keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator", "youtube description tips", "optimized youtube description"],
-        rating: {
-            ratingValue: "4.8",
-            ratingCount: "1200",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "Deep Meta-Data: Why Descriptions are the 'Secret Sauce' of SEO",
@@ -620,12 +600,7 @@ export const tools: Tool[] = [
             title: "What is YouTube Tag Generator?",
             text: "YouTube Tag Generator is a free AI-powered search optimization tool that automatically creates relevant, high-performing tags and keywords for your YouTube videos. Using advanced search intent mapping, it builds tag lists that improve video rankings, search discoverability, and YouTube recommendation placements."
         },
-        rating: {
-            ratingValue: "4.8",
-            ratingCount: "2890",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "The Strategic Importance of Tags in 2026",
@@ -1672,12 +1647,7 @@ export const tools: Tool[] = [
         icon: FaListUl,
         isAI: false,
         keywords: ["youtube playlist length", "playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time", "total hours of playlist"],
-        rating: {
-            ratingValue: "4.9",
-            ratingCount: "620",
-            bestRating: "5",
-            worstRating: "1"
-        },
+
         content: [
             {
                 title: "Master Your Learning Time in 2026",

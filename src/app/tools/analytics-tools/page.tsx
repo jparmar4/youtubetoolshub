@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema } from "@/lib/seo";
+import { getToolListSchema, getGlobalAlternates } from "@/lib/seo";
 import GoogleAd from "@/components/ads/GoogleAd";
 
 export const metadata: Metadata = {
@@ -15,9 +15,7 @@ export const metadata: Metadata = {
         type: "website",
         url: `${siteConfig.url}/tools/analytics-tools`,
     },
-    alternates: {
-        canonical: "/tools/analytics-tools",
-    },
+    alternates: getGlobalAlternates("/tools/analytics-tools"),
 };
 
 export default function AnalyticsToolsHub() {

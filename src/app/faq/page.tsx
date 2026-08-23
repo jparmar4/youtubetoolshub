@@ -5,7 +5,6 @@ import { tools } from "@/config/tools";
 import {
   getFAQSchema,
   getBreadcrumbSchema,
-  getSpeakableSchema,
 } from "@/lib/seo";
 import Link from "next/link";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -37,6 +36,10 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: `${siteConfig.url}/faq`,
+    languages: {
+      en: `${siteConfig.url}/faq`,
+      "x-default": `${siteConfig.url}/faq`,
+    },
   },
   openGraph: {
     title: "FAQ - YouTube Tools Hub",
@@ -148,14 +151,6 @@ export default function FAQPage() {
     { name: "FAQ", url: "/faq" },
   ]);
 
-  const speakableSchema = getSpeakableSchema({
-    url: `${siteConfig.url}/faq`,
-    headline: "Frequently Asked Questions",
-    summary:
-      "Get answers to common questions about YouTube Tools Hub, free creator tools, AI-assisted features, and monetization calculators.",
-    cssSelectors: ["h1", ".faq-summary"],
-  });
-
   return (
     <>
       <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} pathname="/faq" />
@@ -166,10 +161,6 @@ export default function FAQPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 
       <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">

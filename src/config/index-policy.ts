@@ -19,6 +19,15 @@ export const NOINDEX_BLOG_SLUGS = new Set([
   "best-ai-tools-youtube-creators-2026",
   "25-best-ai-tools-for-youtube-creators",
   "youtube-automation-complete-guide-2026",
+  "youtube-algorithm-2026",
+  "youtube-algorithm-guide-2026",
+  "youtube-monetization-complete-guide-2026",
+  "youtube-monetization-guide-2026",
+  "most-profitable-youtube-niches-2026",
+  "faceless-youtube-channel-blueprint",
+  "youtube-shorts-domination-2026",
+  "youtube-pay-per-view-2026",
+  "youtube-automation-ai-tools-2026",
 ]);
 
 /** Tool × niche landings are template-generated. Do not index. */

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { getBreadcrumbSchema } from "@/lib/seo";
+import { getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import Link from "next/link";
 import { FaLink, FaCode, FaHeart, FaStar, FaRocket, FaHandshake, FaChartLine } from "react-icons/fa";
 import CopyButton from "@/components/ui/CopyButton";
@@ -20,9 +20,7 @@ export const metadata: Metadata = {
     "youtube cpm calculator embed",
     "youtube tools hub partner",
   ],
-  alternates: {
-    canonical: `${siteConfig.url}/resources/link-to-us`,
-  },
+  alternates: getGlobalAlternates("/resources/link-to-us"),
   openGraph: {
     title: "Link to Us – Embed Badges & Calculator Widget | YouTube Tools Hub",
     description:

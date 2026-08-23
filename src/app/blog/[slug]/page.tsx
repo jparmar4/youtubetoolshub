@@ -9,7 +9,7 @@ import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-i
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getSpeakableSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema, noIndexRobots } from "@/lib/seo";
 import { getClusterSiblings } from "@/lib/topic-clusters";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
@@ -51,22 +51,36 @@ export async function generateMetadata({
 
     const isoDate = toBlogIsoDate(post.date);
 
-    // Prefer absolute titles so long post names are not double-padded by a long template
+    // Prefer absolute titles so long post names are not double-padded by a long template.
+    // Priority: hand-written post.seoTitle > full title + brand > bare title >
+    // word-boundary shortening. Never a mid-word slice with an ellipsis — that
+    // renders as "… Requirements, Payouts &…" and depresses CTR.
     const fullTitle = `${post.title} | YouTube Tools Hub`;
+    const shortenToWord = (value: string, max: number) => {
+        if (value.length <= max) return value;
+        const cut = value.slice(0, max);
+        const lastSpace = cut.lastIndexOf(" ");
+        return (lastSpace > max * 0.6 ? cut.slice(0, lastSpace) : cut)
+            // Drop dangling punctuation so we never end on "&", ":" or ",".
+            .replace(/[\s\-–—:,;&|(]+$/, "");
+    };
     const serTitle =
-        fullTitle.length <= 62
+        post.seoTitle?.trim() ||
+        (fullTitle.length <= 62
             ? fullTitle
-            : post.title.length <= 60
+            : post.title.length <= 62
                 ? post.title
-                : `${post.title.slice(0, 57).trim()}…`;
+                : shortenToWord(post.title, 60));
 
     return {
         title: { absolute: serTitle },
         description: post.metaDescription,
         keywords: post.keywords,
         authors: [{ name: post.author }],
+        // noindex, but keep follow: these archived/off-topic posts still link to
+        // canonical money pages, and nofollow would throw that internal equity away.
         robots: NOINDEX_BLOG_SLUGS.has(slug)
-            ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+            ? noIndexRobots
             : {
                 index: true,
                 follow: true,
@@ -82,6 +96,7 @@ export async function generateMetadata({
             title: post.title,
             description: post.metaDescription,
             type: "article",
+            url: `${siteConfig.url}/blog/${slug}`,
             publishedTime: isoDate,
             modifiedTime: isoDate,
             authors: [post.author],
@@ -159,20 +174,6 @@ export default async function BlogPostPage({
 
     const faqSchema = post.faq ? getFAQSchema(post.faq) : null;
 
-    const speakableSchema = getSpeakableSchema({
-        url: `${siteConfig.url}/blog/${slug}`,
-        headline: post.title,
-        summary: post.metaDescription,
-        cssSelectors: [
-            "h1",
-            ".summary",
-            ".quick-answer",
-            ".key-takeaways",
-            ".key-facts",
-            "[data-speakable]",
-        ],
-    });
-
     const authorSchema = getPersonSchema({
         name: post.author,
         url: `${siteConfig.url}/blog/${slug}`,
@@ -209,12 +210,6 @@ export default async function BlogPostPage({
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(articleSchema),
-                }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(speakableSchema),
                 }}
             />
             <script

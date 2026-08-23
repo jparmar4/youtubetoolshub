@@ -7,6 +7,7 @@ import { isLikelyGdprTimezone } from "@/config/index-policy";
 declare global {
   interface Window {
     dataLayer: unknown[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -23,9 +24,25 @@ function readConsent(): Consent {
   return null;
 }
 
+/**
+ * Consent Mode commands must reach gtag.js as an `arguments` object, not a plain
+ * array — gtag.js identifies its own commands by that shape and ignores arrays.
+ * Prefer the global `gtag` that layout.tsx already defines (it pushes
+ * `arguments`); only fall back to a local shim if that script has not run yet.
+ * Getting this wrong silently pins EEA/UK visitors at `denied` even after they
+ * click Accept, which caps AdSense to non-personalized ads in the highest-RPM
+ * markets on the site.
+ */
 function gtag(...args: unknown[]) {
+  if (typeof window.gtag === "function") {
+    window.gtag(...args);
+    return;
+  }
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(args);
+  (function () {
+    // eslint-disable-next-line prefer-rest-params
+    window.dataLayer.push(arguments);
+  })(...(args as []));
 }
 
 function grantConsent() {

@@ -24,32 +24,13 @@ export async function GET() {
         }
     }
 
-    // Tool pages with OG images
+    // Tool pages with unique OG images (do not repeat the same og-image.png)
     for (const tool of tools) {
         entries.push(`  <url>
     <loc>${baseUrl}/tools/${tool.slug}</loc>
     <image:image>
-      <image:loc>${baseUrl}/og-image.png</image:loc>
+      <image:loc>${baseUrl}/tools/${tool.slug}/opengraph-image</image:loc>
       <image:title>${tool.name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
-    </image:image>
-  </url>`);
-    }
-
-    // Static pages with logo
-    const staticPages = [
-        { path: "", title: "YouTube Tools Hub Homepage" },
-        { path: "/about", title: "About YouTube Tools Hub" },
-        { path: "/contact", title: "Contact YouTube Tools Hub" },
-        { path: "/faq", title: "Frequently Asked Questions" },
-        { path: "/pricing", title: "YouTube Tools Hub Pricing" }
-    ];
-
-    for (const page of staticPages) {
-        entries.push(`  <url>
-    <loc>${baseUrl}${page.path}</loc>
-    <image:image>
-      <image:loc>${baseUrl}/og-image.png</image:loc>
-      <image:title>${page.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
     </image:image>
   </url>`);
     }

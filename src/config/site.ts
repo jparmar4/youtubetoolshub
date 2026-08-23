@@ -5,7 +5,7 @@ export const siteConfig = {
   name: "YouTube Tools Hub",
   tagline: "Free YouTube Growth & AI Tools Suite 2026",
   description:
-    "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube channel growth, SEO, and planning. Calculate earnings, generate title ideas, download HD thumbnails, and improve your creator workflow with no signup required.",
+    "Free YouTube creator tools: download thumbnails, draft titles and tags, and estimate AdSense earnings by country. No signup required.",
 
   // URLs
   url: "https://www.youtubetoolshub.com",
@@ -105,9 +105,9 @@ export const siteConfig = {
     // Keep brand suffix short so SERP titles stay ~50–60 chars with page titles
     titleTemplate: "%s | YouTube Tools Hub",
     defaultTitle:
-      "Free YouTube Thumbnail Downloader, Tag Generator & Earnings Calculator",
+      "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
     defaultDescription:
-      "Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. No signup. Free TubeBuddy & VidIQ alternative.",
+      "Free YouTube tools to download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. No signup required.",
     keywords: [
       // High-CPC Core Keywords (Finance/Business Intent)
       "youtube monetization calculator 2026",
