@@ -33,7 +33,7 @@ export default function TubeBuddyComparisonPage() {
                     </div>
 
                     {/* Comparison Table */}
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl mb-20">
+                    <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl mb-12">
                         <div className="grid grid-cols-3 bg-slate-100 dark:bg-slate-800/50 p-6 border-b border-slate-200 dark:border-slate-800">
                             <div className="col-span-1 font-bold text-slate-500">Feature</div>
                             <div className="col-span-1 text-center font-bold text-xl text-purple-600 dark:text-purple-400">YouTube Tools Hub</div>
@@ -68,7 +68,7 @@ export default function TubeBuddyComparisonPage() {
                     </div>
 
                     {/* Deep Dive Sections */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
                         <div>
                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-100 text-purple-600 mb-6">
                                 <FaRobot className="text-2xl" />

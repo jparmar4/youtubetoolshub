@@ -71,9 +71,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full -z-10" />
 
                 {/* Hero */}
-                <section className="relative py-24">
+                <section className="relative py-16">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
                                 Search
                             </span>{" "}

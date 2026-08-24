@@ -121,7 +121,7 @@ export default function EngagementCalculator() {
                             <h3 className="text-lg font-medium text-slate-600 mb-2">
                                 Engagement Rate
                             </h3>
-                            <p className="text-6xl font-bold text-slate-900 mb-4">
+                            <p className="text-4xl font-bold text-slate-900 mb-4">
                                 {result.rate.toFixed(2)}%
                             </p>
                             <span className={`inline-block px-6 py-2 rounded-full text-lg font-semibold ${getRatingColor(result.rating)}`}>

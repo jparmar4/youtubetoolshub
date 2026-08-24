@@ -136,7 +136,7 @@ export default function AboutPage() {
               <FaHeart className="w-3 h-3 text-pink-500 animate-pulse" />
               Empowering the 1% and the 99%
             </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
               About YouTube Tools Hub — Free Tools for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600">
                 Creators
@@ -156,7 +156,7 @@ export default function AboutPage() {
                 key={i}
                 className="glass-premium rounded-3xl p-10 text-center border-white/40 group hover:border-purple-500/30 transition-all duration-500"
               >
-                <div className="text-5xl font-black text-slate-900 mb-2 tracking-tighter font-outfit group-hover:scale-110 transition-transform">
+                <div className="text-4xl font-black text-slate-900 mb-2 tracking-tighter font-outfit group-hover:scale-110 transition-transform">
                   {stat.value}
                 </div>
                 <div className="text-slate-500 text-xs font-bold uppercase tracking-widest">
@@ -169,7 +169,7 @@ export default function AboutPage() {
       </section>
 
       {/* Vision Section */}
-      <section className="py-32 bg-white relative z-10">
+      <section className="py-20 bg-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>
@@ -223,9 +223,9 @@ export default function AboutPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-32 relative">
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-outfit tracking-tight">
               Tools for Every Stage
             </h2>
@@ -260,13 +260,13 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[4rem]">
+      <section className="py-20 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[4rem]">
         <div className="absolute inset-0 bg-slate-900" />
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-purple-900/40 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-900/40 blur-[150px] rounded-full" />
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10 py-12">
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-10 font-outfit tracking-tighter">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-10 font-outfit tracking-tighter">
             Join the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
               Future

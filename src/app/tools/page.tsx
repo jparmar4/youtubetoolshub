@@ -136,12 +136,12 @@ export default function ToolsPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="text-center mb-20 animate-fade-in-up">
+          <div className="text-center mb-12 animate-fade-in-up">
             <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-lg shadow-purple-500/20">
               Creator Tool Suite
             </span>
             <h1
-              className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
               data-speakable
             >
               All 27 Free YouTube Tools, Organized by Job

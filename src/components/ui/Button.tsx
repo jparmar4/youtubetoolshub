@@ -15,8 +15,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         const variants = {
             primary: "bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white shadow-lg hover:shadow-purple-500/25 focus:ring-purple-500",
             secondary: "bg-gradient-to-r from-violet-900 to-violet-800 hover:from-violet-950 hover:to-violet-900 text-white shadow-lg focus:ring-violet-500",
-            outline: "border-2 border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white focus:ring-purple-500",
-            ghost: "text-slate-400 hover:text-purple-400 hover:bg-purple-500/10",
+            // Resting colours target the light theme. `text-purple-400` and
+            // `text-slate-400` were left over from the removed dark theme and
+            // fail WCAG AA on the white background these now sit on.
+            outline: "border-2 border-purple-500 text-purple-700 hover:bg-purple-600 hover:text-white focus:ring-purple-500",
+            ghost: "text-slate-600 hover:text-purple-700 hover:bg-purple-500/10",
         };
 
         const sizes = {

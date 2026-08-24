@@ -267,7 +267,7 @@ export default function YouTubeCPMRatesPage() {
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · 50+ Countries
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
+                            <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight">
                                 YouTube CPM Rates<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                                     by Country 2026

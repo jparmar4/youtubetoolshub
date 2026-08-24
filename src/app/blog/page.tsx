@@ -133,7 +133,7 @@ export default function BlogPage() {
         <div className="absolute bottom-1/2 left-0 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full -z-10" />
 
         {/* Hero Section */}
-        <section className="relative py-24">
+        <section className="relative py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
               <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl shadow-purple-500/10">
@@ -141,7 +141,7 @@ export default function BlogPage() {
                 Creator Intelligence 2026
               </span>
               <h1
-                className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter font-outfit"
+                className="text-3xl md:text-4xl font-black text-slate-900 mb-8 tracking-tighter font-outfit"
                 data-speakable
               >
                 YouTube{" "}
@@ -229,7 +229,7 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <div className="max-w-4xl mx-auto px-4 mb-24" />
+        <div className="max-w-4xl mx-auto px-4 mb-14" />
 
         {/* Ad: Between Featured and Other Posts */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
@@ -237,7 +237,7 @@ export default function BlogPage() {
         </div>
 
         {/* Other Posts */}
-        <section className="py-24 bg-slate-900 text-white">
+        <section className="py-16 bg-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
               <div>
@@ -297,12 +297,12 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 py-12 bg-white" />
 
         {/* CTA Section */}
-        <section className="py-32 relative overflow-hidden">
+        <section className="py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-slate-50 -z-20" />
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-purple-500/10 blur-[150px] rounded-full -z-10" />
 
-            <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
               Built for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
                 Action

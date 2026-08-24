@@ -200,7 +200,7 @@ export default async function CountryEarningsPage({
                                     {countryData.name} Edition (2026 Updated)
                                 </div>
                                 <h1
-                                    className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 tracking-tight"
+                                    className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
                                     data-speakable
                                 >
                                     YouTube Earnings Calculator{" "}

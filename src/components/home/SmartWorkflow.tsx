@@ -85,17 +85,17 @@ export default function SmartWorkflow() {
     };
 
     return (
-        <section className="py-24 relative overflow-hidden bg-slate-50">
+        <section className="py-16 relative overflow-hidden bg-slate-50">
             {/* Decorative Background Elements */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-200/20 blur-[120px] rounded-full -z-10" />
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-100/30 blur-[100px] rounded-full -z-10" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-20 relative">
+                <div className="text-center mb-12 relative">
                     <span className="inline-block py-1 px-3 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-widest mb-4">
                         Seamless & Fast
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                         From Idea to Upload in <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">5 Minutes</span> ⚡
                     </h2>
                     <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">

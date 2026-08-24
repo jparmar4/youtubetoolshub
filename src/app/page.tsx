@@ -176,7 +176,7 @@ export default function Home() {
               27 free tools · no signup
             </span>
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
+              className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
               data-speakable
             >
               Free YouTube Tools:{" "}
@@ -208,7 +208,7 @@ export default function Home() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto glass-premium hover:!bg-white/90 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105"
+                  className="w-full sm:w-auto glass-premium hover:!bg-white/90 hover:!text-slate-900 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105"
                 >
                   Calculate YouTube pay
                 </Button>
@@ -329,10 +329,10 @@ export default function Home() {
       </section>
 
       {/* Tools Showcase */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
               Popular free YouTube tools
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
@@ -369,11 +369,11 @@ export default function Home() {
       </section>
 
       {/* Authority & Vision */}
-      <section className="py-32 bg-white relative">
+      <section className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-24 items-center">
             <div className="lg:w-1/2">
-              <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-10 leading-[0.9] font-outfit tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10 leading-[0.9] font-outfit tracking-tight">
                 Data Patterns <br />
                 <span className="text-purple-600">Reducing Guesswork.</span>
               </h2>
@@ -455,10 +455,10 @@ export default function Home() {
       <SmartWorkflow />
 
       {/* Benefits Bridge */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
               Why Creators Use{" "}
               <span className="text-gradient">YouTube Tools Hub</span>
             </h2>
@@ -490,10 +490,10 @@ export default function Home() {
       </section>
 
       {/* Semantic FAQ Section for GEO/AEO */}
-      <section className="py-32 bg-white relative z-10">
+      <section className="py-20 bg-white relative z-10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-20 text-balance">
-            <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
+          <div className="text-center mb-12 text-balance">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
               Common YouTube <span className="text-purple-600">questions</span>
             </h2>
             <p className="text-xl text-slate-500 font-outfit font-medium">
@@ -530,10 +530,10 @@ export default function Home() {
       </section>
 
       {/* Latest guides */}
-      <section className="py-24 bg-slate-50 relative overflow-hidden">
+      <section className="py-16 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
               Latest YouTube guides
             </h2>
             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
@@ -574,12 +574,12 @@ export default function Home() {
 
 
       {/* Heroic CTA Section */}
-      <section className="py-32 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[5rem]">
+      <section className="py-20 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[5rem]">
         <div className="absolute inset-0 bg-slate-950" />
         <div className="nebula-bg opacity-50 absolute inset-0" />
 
         <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-16">
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter font-outfit leading-[0.95]">
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tighter font-outfit leading-[0.95]">
             Start with a{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">
               free tool

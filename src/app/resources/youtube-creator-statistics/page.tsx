@@ -143,7 +143,7 @@ export default function YouTubeStatistics() {
 
           <div className="text-center mb-16">
             <h1
-              className="text-4xl md:text-6xl font-bold text-slate-900 mb-6"
+              className="text-3xl md:text-4xl font-bold text-slate-900 mb-6"
               data-speakable
             >
               YouTube Creator Statistics 2026

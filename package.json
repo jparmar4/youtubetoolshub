@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node -e \"require('node:fs').rmSync('.next/standalone',{recursive:true,force:true})\"",
+    "prebuild": "node -e \"require('node:fs').rmSync('.next',{recursive:true,force:true})\"",
     "build": "next build && node scripts/copy-standalone.js",
     "start": "node server.js",
     "lint": "eslint",

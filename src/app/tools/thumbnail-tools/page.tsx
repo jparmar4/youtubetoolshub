@@ -58,7 +58,7 @@ export default function ThumbnailToolsHub() {
 
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-tight font-outfit">
+                        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight font-outfit">
                             YouTube Thumbnail Tools 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">

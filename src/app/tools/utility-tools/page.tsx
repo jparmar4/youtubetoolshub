@@ -62,7 +62,7 @@ export default function UtilityToolsHub() {
                             <FaBolt className="w-3 h-3" />
                             Efficiency Engine
                         </span>
-                        <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
                             Creator <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Utility</span> Suite
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
@@ -71,7 +71,7 @@ export default function UtilityToolsHub() {
                     </div>
 
                     {/* Productivity Strategy */}
-                    <div className="glass-premium rounded-3xl p-10 border-l-8 border-emerald-500 mb-20 shadow-xl">
+                    <div className="glass-premium rounded-3xl p-10 border-l-8 border-emerald-500 mb-12 shadow-xl">
                         <h2 className="text-3xl font-black text-slate-900 mb-6 font-outfit flex items-center gap-3">
                             <FaMagic className="text-emerald-500" />
                             The 2026 Productivity Audit
@@ -93,7 +93,7 @@ export default function UtilityToolsHub() {
                     </div>
 
                     {/* Tools Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
                         {utilityTools.map((tool) => (
                             <Link
                                 key={tool.slug}
@@ -131,7 +131,7 @@ export default function UtilityToolsHub() {
                     </div>
 
                     {/* Deep Dive Section */}
-                    <div className="max-w-4xl mx-auto mb-20">
+                    <div className="max-w-4xl mx-auto mb-12">
                         <div className="glass-premium rounded-[3rem] p-12 shadow-sm relative overflow-hidden">
                             <h2 className="text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
                                 Building a Media Business in 2026

@@ -255,7 +255,7 @@ export default function YouTubeEarningsCalculatorPage() {
                   <FaCalculator /> Free · No signup · 2026 data
                 </span>
                 <h1
-                  className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight"
+                  className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight"
                   data-speakable
                 >
                   YouTube Earnings Calculator — Estimate AdSense Revenue by

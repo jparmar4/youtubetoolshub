@@ -279,7 +279,7 @@ export default function YouTubeAlgorithmGuidePage() {
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Ranking Guide
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
+                            <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
                                 YouTube Algorithm<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                                     Guide 2026
@@ -877,7 +877,7 @@ export default function YouTubeAlgorithmGuidePage() {
 
                     {/* Final CTA */}
                     <section className="text-center glass-premium rounded-3xl p-10 border border-purple-100 shadow-sm">
-                        <FaYoutube className="text-5xl text-red-500 mx-auto mb-4" />
+                        <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
                         <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Ready to Beat the YouTube Algorithm?</h2>
                         <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
                             Use our free suite of YouTube SEO tools to implement every strategy on this page. Optimize your titles, tags, descriptions, and track your earnings — all in one place.

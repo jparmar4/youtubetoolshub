@@ -83,7 +83,7 @@ export default function ContactForm() {
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-8 shadow-2xl shadow-fuchsia-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300">
                             <FaEnvelope className="w-9 h-9" />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight">
                             Get in Touch
                         </h1>
                         <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">

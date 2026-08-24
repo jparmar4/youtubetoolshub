@@ -33,7 +33,7 @@ export default function VidIQComparisonPage() {
                     </div>
 
                     {/* Comparison Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                         {/* YT Tools Hub Card */}
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-purple-500 shadow-xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
@@ -96,7 +96,7 @@ export default function VidIQComparisonPage() {
                     </div>
 
                     {/* Feature Breakdown */}
-                    <div className="mb-20">
+                    <div className="mb-12">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Choose the Workflow That Fits</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">

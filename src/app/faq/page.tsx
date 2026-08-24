@@ -170,7 +170,7 @@ export default function FAQPage() {
           {/* Header */}
           <div className="text-center mb-16">
             <h1
-              className="text-4xl md:text-6xl font-black text-slate-900 mb-6 font-outfit tracking-tighter"
+              className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter"
               data-speakable
             >
               YouTube Tools FAQ — Free Creator Tools, SEO &amp; Earnings
@@ -182,7 +182,7 @@ export default function FAQPage() {
           </div>
 
           {/* FAQ Categories */}
-          <div className="grid gap-6 mb-20">
+          <div className="grid gap-6 mb-12">
             {faqData.map((faq, index) => (
               <React.Fragment key={index}>
                 <div

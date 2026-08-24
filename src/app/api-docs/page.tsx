@@ -168,7 +168,7 @@ export default function APIDocsPage() {
                             <FaCode className="w-4 h-4" />
                             Developer Resources
                         </div>
-                        <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
                             API{" "}
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
                                 Documentation
@@ -181,7 +181,7 @@ export default function APIDocsPage() {
                     </div>
 
                     {/* AI Resources */}
-                    <section className="mb-20">
+                    <section className="mb-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
                             AI &amp; Machine-Readable Resources
                         </h2>
@@ -217,7 +217,7 @@ export default function APIDocsPage() {
                     </section>
 
                     {/* API Endpoints */}
-                    <section className="mb-20">
+                    <section className="mb-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
                             Public API Endpoints
                         </h2>
@@ -253,7 +253,7 @@ export default function APIDocsPage() {
                     </section>
 
                     {/* Usage Notes */}
-                    <section className="mb-20">
+                    <section className="mb-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
                             Usage Notes
                         </h2>

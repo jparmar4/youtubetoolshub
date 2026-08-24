@@ -26,7 +26,7 @@ export default function TermsOfUsePage() {
                         <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-8 shadow-2xl shadow-indigo-900/10 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
                             <FaFileContract className="w-10 h-10" />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight">
                             Terms of Use
                         </h1>
                         <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">

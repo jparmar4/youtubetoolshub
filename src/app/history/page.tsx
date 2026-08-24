@@ -155,7 +155,7 @@ export default function HistoryPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="py-24 text-center"
+                        className="py-16 text-center"
                     >
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500 dark:text-blue-400">
                             {searchTerm || toolFilter !== "all" ? <FaSearch size={32} /> : <FaHistory size={32} />}
