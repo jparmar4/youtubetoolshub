@@ -25,7 +25,7 @@ export default function BlogSidebar() {
   }, []);
 
   return (
-    <aside className="hidden lg:block lg:col-span-1 self-start w-full min-w-0 lg:sticky lg:top-24">
+    <aside className="hidden lg:block lg:col-span-1 self-start w-full min-w-[250px] lg:sticky lg:top-24">
       <div className="w-full">
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
           Advertisement

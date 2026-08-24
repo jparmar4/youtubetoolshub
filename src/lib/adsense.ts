@@ -319,7 +319,7 @@ export function initializeAd(
       if (cancelled) return;
 
       if (hasUsableWidth(insElement) || attempts >= sizeRetries) {
-        pushAd(insElement, adId, onLoad, onError);
+        pushAd(adId, onLoad, onError);
         return;
       }
 
@@ -345,9 +345,12 @@ export function initializeAd(
 
 /**
  * Push an ad to AdSense.
+ *
+ * Use the documented empty payload. Lazy units do not mount their <ins> until
+ * they are near the viewport, so this unit is the next available ad tag when
+ * its request runs.
  */
 function pushAd(
-  insElement: Element,
   adId: string,
   onLoad?: () => void,
   onError?: (error: unknown) => void,
@@ -477,4 +480,3 @@ export function getAffiliateToolForCategory(category?: string, toolSlug?: string
       return "vidiq";
   }
 }
-
