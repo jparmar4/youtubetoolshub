@@ -11,7 +11,8 @@ interface VoiceSearchOptimizationProps {
 }
 
 /** No-op: never emit hidden text. */
-export function VoiceSearchAnswer(_props: VoiceSearchOptimizationProps) {
+export function VoiceSearchAnswer(_props?: VoiceSearchOptimizationProps) {
+  void _props;
   return null;
 }
 

@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { MoneyShareImage, PIN_SIZE } from "@/lib/og-money";
 
-export const runtime = "edge";
 
 export async function GET() {
   return new ImageResponse(

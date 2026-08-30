@@ -9,7 +9,7 @@ import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { saveHistory } from "@/lib/history";
-import { FaMagic, FaSpinner, FaStar, FaSearch, FaHashtag, FaFire, FaLightbulb } from "react-icons/fa";
+import { FaMagic, FaSpinner, FaStar, FaSearch, FaHashtag, FaFire, FaLightbulb, FaDownload, FaFileAlt } from "react-icons/fa";
 
 interface TagResult {
     primaryTags?: string[];
@@ -120,6 +120,28 @@ export default function TagGenerator() {
     const allTags = getAllTags();
     const csvFormat = allTags.join(", ");
     const totalCount = allTags.length;
+    const charCount = csvFormat.length;
+    const charLimit = 500;
+
+    const handleDownloadCSV = () => {
+        const blob = new Blob([csvFormat], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
+
+    const handleDownloadTXT = () => {
+        const blob = new Blob([csvFormat], { type: "text/plain;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
     const TagSection = ({
         title,
@@ -137,11 +159,11 @@ export default function TagGenerator() {
         if (!sectionTags || sectionTags.length === 0) return null;
 
         const colorClasses: Record<string, string> = {
-            red: "bg-red-100 text-red-700",
-            blue: "bg-blue-100 text-blue-700",
-            green: "bg-green-100 text-green-700",
-            orange: "bg-orange-100 text-orange-700",
-            purple: "bg-purple-100 text-purple-700",
+            red: "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300",
+            blue: "bg-blue-100 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300",
+            green: "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300",
+            orange: "bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-300",
+            purple: "bg-purple-100 text-purple-700 dark:bg-purple-950/40 dark:text-purple-300",
         };
 
         return (
@@ -149,15 +171,15 @@ export default function TagGenerator() {
                 <div className="flex items-center gap-2">
                     <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
                     <div>
-                        <h3 className="font-semibold text-slate-900">{title}</h3>
-                        <p className="text-xs text-slate-500">{description}</p>
+                        <h3 className="font-semibold text-slate-900 dark:text-white">{title}</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{description}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
                     {sectionTags.map((tag, i) => (
                         <span
                             key={i}
-                            className={`inline-flex items-center gap-2 px-3 py-1.5 ${colorClasses[color]} rounded-full text-sm`}
+                            className={`inline-flex items-center gap-2 px-3 py-1.5 ${colorClasses[color]} rounded-full text-sm font-medium`}
                         >
                             {tag}
                             <CopyButton text={tag} className="!p-0.5 opacity-60 hover:opacity-100" />
@@ -215,18 +237,18 @@ export default function TagGenerator() {
 
                 {/* Error Display */}
                 {error && (
-                    <div className="bg-red-50 rounded-xl p-4">
-                        <p className="text-emerald-600">{error}</p>
+                    <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/40 rounded-xl p-4">
+                        <p className="text-red-600 dark:text-red-400 font-medium">{error}</p>
                     </div>
                 )}
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8 text-center">
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center animate-pulse">
+                    <div className="bg-gradient-to-br from-green-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-800">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center animate-pulse shadow-md">
                             <FaHashtag className="w-8 h-8 text-white" />
                         </div>
-                        <p className="text-slate-600">
+                        <p className="text-slate-600 dark:text-slate-300 font-medium">
                             Analyzing topic & generating SEO-optimized tags...
                         </p>
                     </div>
@@ -236,14 +258,38 @@ export default function TagGenerator() {
                 {hasTags && !loading && (
                     <div className="space-y-6">
                         {/* Summary & Copy Buttons */}
-                        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-xl">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl">
                             <div>
-                                <p className="text-sm text-slate-600">
-                                    Generated <strong className="text-slate-900">{totalCount} tags</strong> optimized for SEO
+                                <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                    Generated <strong className="text-purple-600 dark:text-purple-400">{totalCount} tags</strong>
                                 </p>
+                                <div className="flex items-center gap-2 mt-1">
+                                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${charCount <= charLimit ? 'bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300'}`}>
+                                        {charCount} / {charLimit} characters
+                                    </span>
+                                    <span className="text-[11px] text-slate-400">
+                                        (YouTube Studio Limit: 500)
+                                    </span>
+                                </div>
                             </div>
-                            <div className="flex gap-2">
-                                <CopyButton text={csvFormat} variant="button" label="Copy All Tags" />
+                            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                                <CopyButton text={csvFormat} variant="button" label="Copy All (CSV)" />
+                                <button
+                                    onClick={handleDownloadCSV}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download tags as CSV"
+                                >
+                                    <FaDownload className="text-[10px]" />
+                                    <span>CSV</span>
+                                </button>
+                                <button
+                                    onClick={handleDownloadTXT}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download tags as Plain Text"
+                                >
+                                    <FaFileAlt className="text-[10px]" />
+                                    <span>TXT</span>
+                                </button>
                             </div>
                         </div>
 

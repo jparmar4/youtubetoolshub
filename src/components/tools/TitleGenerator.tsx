@@ -9,7 +9,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, FaUsers } from "react-icons/fa";
+import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, FaUsers, FaDownload, FaFileAlt } from "react-icons/fa";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
@@ -231,6 +231,28 @@ export default function TitleGenerator() {
     };
 
     const allTitlesText = titles.map(t => t.title).join("\n");
+    const allTitlesCSV = titles.map(t => `"${t.title.replace(/"/g, '""')}",${t.score},"${t.method}","${t.why.replace(/"/g, '""')}"`).join("\n");
+
+    const handleDownloadCSV = () => {
+        const csvContent = `Title,Viral Score,Strategy,Why It Works\n${allTitlesCSV}`;
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
+
+    const handleDownloadTXT = () => {
+        const blob = new Blob([allTitlesText], { type: "text/plain;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
     return (
         <ToolPageLayout
@@ -328,29 +350,48 @@ export default function TitleGenerator() {
                 {/* Results Section - List Layout */}
                 <div className="space-y-4">
                     {titles.length > 0 && !loading && (
-                        <div className="flex items-center justify-between px-2">
-                            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                                <FaFire className="text-orange-500" /> Top Recommendations
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+                            <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <FaFire className="text-orange-500" /> Generated Titles ({titles.length})
                             </h3>
-                            <CopyButton text={allTitlesText} variant="button" label="Copy All Titles" />
+                            <div className="flex flex-wrap items-center gap-2">
+                                <CopyButton text={allTitlesText} variant="button" label="Copy All" />
+                                <button
+                                    onClick={handleDownloadCSV}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download titles as CSV"
+                                >
+                                    <FaDownload className="text-[10px]" />
+                                    <span>CSV</span>
+                                </button>
+                                <button
+                                    onClick={handleDownloadTXT}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download titles as Plain Text"
+                                >
+                                    <FaFileAlt className="text-[10px]" />
+                                    <span>TXT</span>
+                                </button>
+                            </div>
                         </div>
                     )}
 
                     <AnimatePresence>
                         {titles.map((item, i) => {
                             const isSaved = savedSet.has(item.title);
+                            const titleLen = item.title.length;
                             return (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.05 }}
-                                    className="bg-white rounded-2xl p-5 border border-slate-200 hover:shadow-lg hover:border-red-200 transition-all group relative overflow-hidden"
+                                    className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 hover:shadow-lg hover:border-purple-200 dark:hover:border-purple-800 transition-all group relative overflow-hidden"
                                 >
                                     <div className="flex flex-col md:flex-row gap-5 items-start">
 
                                         {/* Score Badge */}
-                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
+                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-850 border border-slate-200 dark:border-slate-700">
                                             <span className={`text-xl font-black ${item.score >= 90 ? "text-green-500" :
                                                 item.score >= 80 ? "text-blue-500" : "text-yellow-500"
                                                 }`}>
@@ -360,15 +401,20 @@ export default function TitleGenerator() {
                                         </div>
 
                                         <div className="flex-1 space-y-2">
-                                            <h4 className="text-lg font-bold text-slate-900 pr-8 leading-snug">
-                                                {item.title}
-                                            </h4>
+                                            <div className="flex items-start justify-between gap-3">
+                                                <h4 className="text-lg font-bold text-slate-900 dark:text-white pr-8 leading-snug">
+                                                    {item.title}
+                                                </h4>
+                                            </div>
 
-                                            <div className="flex flex-wrap items-center gap-2 text-sm">
-                                                <span className="px-2 py-1 rounded-md bg-purple-50 text-purple-600 font-medium flex items-center gap-1.5">
+                                            <div className="flex flex-wrap items-center gap-2 text-xs">
+                                                <span className="px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 font-medium flex items-center gap-1.5 border border-purple-200 dark:border-purple-900/30">
                                                     <FaBullseye className="text-xs" /> {item.method}
                                                 </span>
-                                                <span className="text-slate-500 border-l border-slate-200 pl-2">
+                                                <span className={`px-2.5 py-1 rounded-md font-semibold ${titleLen <= 60 ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300 border border-green-200 dark:border-green-900/30' : 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-900/30'}`}>
+                                                    {titleLen} chars {titleLen <= 60 ? '✓ Mobile Safe' : '⚠ Truncates on Mobile'}
+                                                </span>
+                                                <span className="text-slate-500 dark:text-slate-400 border-l border-slate-200 dark:border-slate-700 pl-2">
                                                     {item.why}
                                                 </span>
                                             </div>

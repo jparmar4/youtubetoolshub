@@ -8,7 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaHashtag, FaBookmark, FaCheckCircle, FaFire, FaLayerGroup, FaBullseye } from "react-icons/fa";
+import { FaHashtag, FaBookmark, FaCheckCircle, FaFire, FaLayerGroup, FaBullseye, FaDownload, FaFileAlt } from "react-icons/fa";
 import { safeJSONParse } from "@/lib/utils";
 import { saveItem } from "@/lib/dashboard";
 import { saveHistory } from "@/lib/history";
@@ -108,23 +108,39 @@ export default function HashtagGenerator() {
         setSaved(true);
     };
 
-    // Helper to get raw strings for copy
-    const getStrings = (items: HashtagItem[] = []) => items.map(i => i.tag);
+    const allHashtags = hashtags
+        ? [...hashtags.broad, ...hashtags.niche, ...hashtags.trending]
+        : [];
+    const spaceFormat = allHashtags.map((h) => h.tag).join(" ");
+    const commaFormat = allHashtags.map((h) => h.tag).join(", ");
+    const lineFormat = allHashtags.map((h) => h.tag).join("\n");
 
-    const allHashtags = hashtags ? [
-        ...getStrings(hashtags.broad),
-        ...getStrings(hashtags.niche),
-        ...getStrings(hashtags.trending)
-    ] : [];
+    const handleDownloadCSV = () => {
+        const blob = new Blob([commaFormat], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
-    const spaceFormat = allHashtags.join(" ");
+    const handleDownloadTXT = () => {
+        const blob = new Blob([lineFormat], { type: "text/plain;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
+        link.click();
+        URL.revokeObjectURL(url);
+    };
 
     const CategorySection = ({
         title,
         icon,
         items,
         color,
-        desc
+        desc,
     }: {
         title: string;
         icon: React.ReactNode;
@@ -135,31 +151,36 @@ export default function HashtagGenerator() {
         if (!items || items.length === 0) return null;
 
         const colorClasses: Record<string, string> = {
-            purple: "bg-purple-50 text-purple-700",
-            blue: "bg-blue-50 text-blue-700",
-            orange: "bg-orange-50 text-orange-700",
+            purple: "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-900/40",
+            blue: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900/40",
+            orange: "bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/40",
+        };
+
+        const iconBg: Record<string, string> = {
+            purple: "bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300",
+            blue: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300",
+            orange: "bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300",
         };
 
         return (
             <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                    <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
+                    <span className={`p-2 rounded-lg ${iconBg[color]}`}>{icon}</span>
                     <div>
-                        <h3 className="text-lg font-bold text-slate-900">{title}</h3>
-                        <p className="text-xs text-slate-500">{desc}</p>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{desc}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
                     {items.map((item, i) => (
                         <div
                             key={i}
-                            className={`group relative flex items-center gap-2 px-4 py-2 ${colorClasses[color]} rounded-xl text-sm font-medium hover:brightness-95 transition-all`}
+                            className={`group relative flex items-center gap-2 px-4 py-2 ${colorClasses[color]} rounded-xl text-sm font-semibold hover:brightness-95 transition-all`}
                         >
                             {item.tag}
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity pl-2 border-l border-gray-400/20">
+                            <div className="opacity-0 group-hover:opacity-100 transition-opacity pl-2 border-l border-current/20">
                                 <CopyButton text={item.tag} variant="icon" className="!p-0 !h-auto" />
                             </div>
-                            {/* Metrics Popover (Optional/Subtle) */}
                             {(item.volume || item.relevance) && (
                                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                                     Vol: {item.volume} • Rel: {item.relevance}
@@ -183,7 +204,7 @@ export default function HashtagGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
+                <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-md border border-slate-200 dark:border-slate-800">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <Input
                             label="Video Topic"
@@ -202,10 +223,10 @@ export default function HashtagGenerator() {
                     </div>
                     <Button onClick={handleGenerate} isLoading={loading} className="w-full py-4 text-lg">
                         <FaHashtag className="mr-2" />
-                        Generate Strategy
+                        Generate Hashtag Strategy
                     </Button>
                     {error && (
-                        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
+                        <p className="mt-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/40 rounded-xl px-4 py-3 font-medium">
                             {error}
                         </p>
                     )}
@@ -219,22 +240,44 @@ export default function HashtagGenerator() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                            <h3 className="font-semibold text-slate-700">
-                                Found {allHashtags.length} hashtags
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                <CopyButton text={spaceFormat} variant="button" label="Copy All (Space)" />
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                                    Generated <span className="text-purple-600 dark:text-purple-400">{allHashtags.length} Hashtags</span>
+                                </h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                    Grouped by high volume, niche specific, and trending signals
+                                </p>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <CopyButton text={spaceFormat} variant="button" label="Copy (Space)" />
+                                <CopyButton text={commaFormat} variant="button" label="Copy (CSV)" />
+                                <button
+                                    onClick={handleDownloadCSV}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download hashtags as CSV"
+                                >
+                                    <FaDownload className="text-[10px]" />
+                                    <span>CSV</span>
+                                </button>
+                                <button
+                                    onClick={handleDownloadTXT}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download hashtags as Plain Text"
+                                >
+                                    <FaFileAlt className="text-[10px]" />
+                                    <span>TXT</span>
+                                </button>
                                 <button
                                     onClick={handleSave}
                                     disabled={saved}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${saved
-                                        ? "bg-green-100 text-green-700 cursor-default"
-                                        : "bg-white border border-slate-200 hover:bg-slate-50 text-slate-700"
+                                    className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-lg font-semibold transition-colors ${saved
+                                        ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300 cursor-default"
+                                        : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 shadow-sm"
                                         }`}
                                 >
-                                    {saved ? <FaCheckCircle /> : <FaBookmark />}
-                                    {saved ? "Saved" : "Save Set"}
+                                    {saved ? <FaCheckCircle className="text-xs" /> : <FaBookmark className="text-xs" />}
+                                    {saved ? "Saved" : "Save"}
                                 </button>
                             </div>
                         </div>

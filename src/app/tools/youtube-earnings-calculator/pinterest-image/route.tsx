@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import { MoneyShareImage, PIN_SIZE } from "@/lib/og-money";
 
-export const runtime = "edge";
 
 /** Tall 2:3 pin for Pinterest (1000×1500) */
 export async function GET() {

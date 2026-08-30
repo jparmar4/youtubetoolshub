@@ -102,43 +102,46 @@ export default function ExitIntentPopup() {
 
                     {/* Gradient header */}
                     <div className="bg-gradient-to-br from-purple-600 via-fuchsia-600 to-pink-500 px-8 py-10 text-center">
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-lg">
                             <FaRocket className="w-8 h-8 text-white" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">
-                            Wait! Don&apos;t Leave Empty-Handed
+                        <span className="inline-block bg-white/20 text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full mb-2 backdrop-blur-sm">
+                            Free Creator Blueprint
+                        </span>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">
+                            2026 YouTube SEO & High-CPM Niche Matrix
                         </h2>
-                        <p className="text-purple-100 text-sm">
-                            Get free growth tips for creators — no spam
+                        <p className="text-purple-100 text-sm max-w-sm mx-auto">
+                            The exact breakdown of $20–$50 CPM niches and viral packaging frameworks.
                         </p>
                     </div>
 
                     {/* Content */}
                     <div className="px-8 py-8">
                         {status === "success" ? (
-                            <div className="text-center py-4">
-                                <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                                    <FaCheck className="w-6 h-6 text-emerald-600" />
+                            <div className="text-center py-6">
+                                <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                                    <FaCheck className="w-7 h-7 text-emerald-600" />
                                 </div>
-                                <p className="text-lg font-semibold text-slate-900 dark:text-white">You&apos;re in!</p>
+                                <p className="text-xl font-bold text-slate-900 dark:text-white">You&apos;re all set!</p>
                                 <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
-                                    Thanks — we&apos;ll send creator tips to your inbox.
+                                    Check your inbox for your 2026 Creator Growth Matrix & weekly SEO insights.
                                 </p>
                             </div>
                         ) : (
                             <>
                                 <div className="space-y-3 mb-6">
-                                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
                                         <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
-                                        <span>27 free creator YouTube tools</span>
+                                        <span><strong>Top 15 High-CPM Niches</strong> ($20–$50 per 1,000 views)</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
                                         <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
-                                        <span>Weekly growth tips and algorithm updates</span>
+                                        <span><strong>7 Psychological Title Formulas</strong> to double your CTR</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
                                         <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
-                                        <span>No spam, unsubscribe anytime</span>
+                                        <span><strong>0:00 Chapter & Tag Matrix</strong> for Google Key Moments</span>
                                     </div>
                                 </div>
 
@@ -149,10 +152,10 @@ export default function ExitIntentPopup() {
                                             type="email"
                                             value={email}
                                             onChange={(e) => {
-                                                setEmail(e.target.value);
+                                                 setEmail(e.target.value);
                                                 if (status === "error") setStatus("idle");
                                             }}
-                                            placeholder="Enter your email"
+                                            placeholder="Enter your creator email"
                                             className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                             required
                                             disabled={status === "loading"}
@@ -160,18 +163,18 @@ export default function ExitIntentPopup() {
                                     </div>
                                     {status === "error" && (
                                         <p className="text-sm text-red-600 dark:text-red-400" role="alert">
-                                            Couldn&apos;t save your email. Please try again or use the contact page.
+                                            Couldn&apos;t save your email. Please try again or contact us.
                                         </p>
                                     )}
                                     <button
                                         type="submit"
                                         disabled={status === "loading"}
-                                        className="w-full py-3.5 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 disabled:opacity-50 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25"
+                                        className="w-full py-4 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 disabled:opacity-50 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 text-base hover:scale-[1.01]"
                                     >
                                         {status === "loading" ? (
-                                            <><FaSpinner className="w-4 h-4 animate-spin" /> Subscribing...</>
+                                            <><FaSpinner className="w-4 h-4 animate-spin" /> Preparing Download...</>
                                         ) : (
-                                            "Get Free Tips"
+                                            "Get Free Growth Matrix (Instant Access) →"
                                         )}
                                     </button>
                                 </form>

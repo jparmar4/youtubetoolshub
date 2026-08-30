@@ -8,7 +8,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { extractVideoId } from "@/lib/utils";
-import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar } from "react-icons/fa";
+import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar, FaDownload, FaFileAlt } from "react-icons/fa";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
 
@@ -132,6 +132,28 @@ export default function TagExtractor() {
     const csvFormat = tags.join(", ");
     const lineFormat = tags.join("\n");
 
+    const handleDownloadCSV = () => {
+        const id = extractVideoId(url) || "youtube";
+        const blob = new Blob([csvFormat], { type: "text/csv;charset=utf-8;" });
+        const urlObj = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = urlObj;
+        link.download = `extracted-tags-${id}.csv`;
+        link.click();
+        URL.revokeObjectURL(urlObj);
+    };
+
+    const handleDownloadTXT = () => {
+        const id = extractVideoId(url) || "youtube";
+        const blob = new Blob([lineFormat], { type: "text/plain;charset=utf-8;" });
+        const urlObj = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = urlObj;
+        link.download = `extracted-tags-${id}.txt`;
+        link.click();
+        URL.revokeObjectURL(urlObj);
+    };
+
     const formatDate = (dateStr: string) => {
         if (!dateStr) return "";
         const date = new Date(dateStr);
@@ -217,23 +239,23 @@ export default function TagExtractor() {
 
                 {/* Video Info */}
                 {videoInfo && !loading && (
-                    <div className="bg-slate-50 rounded-xl p-4">
+                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
                         <div className="flex items-start gap-4">
-                            <div className="p-3 bg-red-100 rounded-lg">
-                                <FaVideo className="w-6 h-6 text-emerald-600" />
+                            <div className="p-3 bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400 rounded-xl">
+                                <FaVideo className="w-6 h-6" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <h3 className="font-semibold text-slate-900 truncate">
+                                <h3 className="font-bold text-slate-900 dark:text-white truncate text-base">
                                     {videoInfo.videoTitle}
                                 </h3>
-                                <div className="flex flex-wrap gap-4 mt-2 text-sm text-slate-600">
-                                    <span className="flex items-center gap-1">
-                                        <FaUser className="w-3 h-3" />
+                                <div className="flex flex-wrap gap-4 mt-2 text-sm text-slate-600 dark:text-slate-400">
+                                    <span className="flex items-center gap-1.5 font-medium">
+                                        <FaUser className="w-3.5 h-3.5 text-slate-400" />
                                         {videoInfo.channelTitle}
                                     </span>
                                     {videoInfo.publishedAt && (
-                                        <span className="flex items-center gap-1">
-                                            <FaCalendar className="w-3 h-3" />
+                                        <span className="flex items-center gap-1.5">
+                                            <FaCalendar className="w-3.5 h-3.5 text-slate-400" />
                                             {formatDate(videoInfo.publishedAt)}
                                         </span>
                                     )}
@@ -245,17 +267,17 @@ export default function TagExtractor() {
 
                 {/* No Tags Found Message */}
                 {noTagsFound && !loading && (
-                    <div className="bg-yellow-50 rounded-xl p-6 text-center">
-                        <FaExclamationTriangle className="w-12 h-12 mx-auto text-yellow-500 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                    <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/40 rounded-2xl p-6 text-center">
+                        <FaExclamationTriangle className="w-12 h-12 mx-auto text-amber-500 mb-4" />
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
                             No Tags Found
                         </h3>
-                        <p className="text-slate-600 mb-4">
-                            This video doesn&apos;t have any tags. Many creators don&apos;t add tags to their videos.
+                        <p className="text-slate-600 dark:text-slate-300 mb-4 max-w-md mx-auto text-sm">
+                            This video doesn&apos;t have any tags attached. Many creators rely purely on title and description metadata.
                         </p>
                         <Link href="/tools/youtube-tag-generator">
                             <Button variant="outline">
-                                Generate Your Own Tags Instead
+                                Generate SEO Tags Instead →
                             </Button>
                         </Link>
                     </div>
@@ -263,38 +285,58 @@ export default function TagExtractor() {
 
                 {/* Results Section */}
                 {tags.length > 0 && !loading && (
-                    <div className="space-y-4">
-                        <div className="flex flex-wrap items-center justify-between gap-4">
-                            <h3 className="text-lg font-semibold text-slate-900">
-                                Extracted Tags ({tags.length})
-                            </h3>
-                            <div className="flex gap-2">
-                                <CopyButton text={csvFormat} variant="button" label="Copy All (Comma)" />
-                                <CopyButton text={lineFormat} variant="button" label="Copy All (Lines)" />
+                    <div className="space-y-5">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                                    Extracted Tags <span className="text-purple-600 dark:text-purple-400 font-semibold">({tags.length})</span>
+                                </h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                    Official tags fetched directly from the YouTube Data API
+                                </p>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <CopyButton text={csvFormat} variant="button" label="Copy CSV" />
+                                <button
+                                    onClick={handleDownloadCSV}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download tags as CSV"
+                                >
+                                    <FaDownload className="text-[10px]" />
+                                    <span>CSV</span>
+                                </button>
+                                <button
+                                    onClick={handleDownloadTXT}
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    title="Download tags as Plain Text"
+                                >
+                                    <FaFileAlt className="text-[10px]" />
+                                    <span>TXT</span>
+                                </button>
                             </div>
                         </div>
+
                         <div className="flex flex-wrap gap-2">
                             {tags.map((tag, i) => (
                                 <span
                                     key={i}
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm"
+                                    className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-900/40 rounded-full text-sm font-medium"
                                 >
                                     {tag}
-                                    <CopyButton text={tag} className="!p-1 opacity-60 hover:opacity-100" />
+                                    <CopyButton text={tag} className="!p-0.5 opacity-60 hover:opacity-100" />
                                 </span>
                             ))}
                         </div>
 
                         {/* Tips */}
-                        <div className="bg-green-50 rounded-xl p-4">
-                            <h4 className="font-medium text-green-900 mb-2">
-                                💡 How to Use These Tags
+                        <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 border border-purple-100 dark:border-slate-800 rounded-2xl p-5">
+                            <h4 className="font-bold text-slate-900 dark:text-white mb-2 text-sm">
+                                💡 How to Use Competitor Tags
                             </h4>
-                            <ul className="text-sm text-green-700 space-y-1">
-                                <li>• <strong>Don&apos;t copy directly</strong> - analyze patterns and create your own variations</li>
-                                <li>• <strong>Look for trends</strong> - what keywords appear across successful videos?</li>
-                                <li>• <strong>Find gaps</strong> - what relevant tags might this video be missing?</li>
-                                <li>• <strong>Generate more</strong> - use our <Link href="/tools/youtube-tag-generator" className="underline">Tag Generator</Link> for AI-powered suggestions</li>
+                            <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5">
+                                <li>• <strong>Analyze Keyword Grouping</strong>: Note which broad and niche phrases this video prioritizes.</li>
+                                <li>• <strong>Never Direct Copy Blindly</strong>: Ensure all tags you adapt are 100% relevant to your actual video.</li>
+                                <li>• <strong>Scale With AI</strong>: Use our <Link href="/tools/youtube-tag-generator" className="underline font-semibold text-purple-600 dark:text-purple-400">Tag Generator</Link> to generate fresh 500-character sets.</li>
                             </ul>
                         </div>
                     </div>
