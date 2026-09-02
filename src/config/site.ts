@@ -43,6 +43,7 @@ export const siteConfig = {
   // Navigation
   nav: [
     { name: "Tools", href: "/tools" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Thumbnail", href: "/tools/youtube-thumbnail-downloader" },
     { name: "Earnings", href: "/tools/youtube-earnings-calculator" },
     { name: "Blog", href: "/blog" },
