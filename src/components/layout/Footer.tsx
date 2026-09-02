@@ -133,22 +133,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/faq"
-                  className="text-sm hover:text-purple-600 transition-colors"
-                >
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources/youtube-creator-statistics"
-                  className="text-sm hover:text-purple-600 transition-colors"
-                >
-                  Creator Statistics
-                </Link>
-              </li>
             </ul>
           </div>
 

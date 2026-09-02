@@ -82,7 +82,7 @@ function SuccessContent() {
                 </Link>
 
                 <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-                    A confirmation email has been sent to your inbox.
+                    Your Pro subscription is now active on your account.
                 </p>
             </div>
         </div>

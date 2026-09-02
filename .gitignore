@@ -46,6 +46,7 @@ next-env.d.ts
 .indexnow-last-run
 
 # lint / build artifacts (do not commit)
+eslint_output.txt
 lint-results.json
 lint-results-*.json
 tsconfig.tsbuildinfo

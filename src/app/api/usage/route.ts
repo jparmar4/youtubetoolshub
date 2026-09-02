@@ -25,11 +25,23 @@ export async function GET() {
         const record = rows[0];
 
         // If no record or old date, return empty usage
-        if (!record || record.date.toISOString().split('T')[0] !== today) {
+        if (!record) {
             return NextResponse.json({ usage: {} });
         }
 
-        return NextResponse.json({ usage: record.usage_data });
+        const recordDate = record.date instanceof Date
+            ? record.date.toISOString().split('T')[0]
+            : String(record.date).split('T')[0];
+
+        if (recordDate !== today) {
+            return NextResponse.json({ usage: {} });
+        }
+
+        const usageData = typeof record.usage_data === "string"
+            ? JSON.parse(record.usage_data)
+            : record.usage_data;
+
+        return NextResponse.json({ usage: usageData || {} });
 
     } catch (error) {
         console.error("Usage fetch error:", error);
@@ -80,11 +92,14 @@ export async function POST(request: Request) {
 
         if (rows.length > 0) {
             const record = rows[0];
-            // Check if date matches (handling Date object from postgres)
-            const recordDate = new Date(record.date).toISOString().split('T')[0];
+            const recordDate = record.date instanceof Date
+                ? record.date.toISOString().split('T')[0]
+                : String(record.date).split('T')[0];
 
             if (recordDate === today) {
-                currentUsage = record.usage_data;
+                currentUsage = typeof record.usage_data === "string"
+                    ? JSON.parse(record.usage_data)
+                    : (record.usage_data || {});
             }
         }
 
@@ -96,12 +111,11 @@ export async function POST(request: Request) {
         const newUsage = { ...stats, [toolSlug]: newCount };
         const usageJson = JSON.stringify(newUsage);
 
-        // Save
+        // Save (MySQL ON DUPLICATE KEY UPDATE)
         await db.sql`
             INSERT INTO user_usage (user_email, date, usage_data)
-            VALUES (${email}, ${today}, ${usageJson}::jsonb)
-            ON CONFLICT (user_email)
-            DO UPDATE SET date = ${today}, usage_data = ${usageJson}::jsonb
+            VALUES (${email}, ${today}, ${usageJson})
+            ON DUPLICATE KEY UPDATE date = VALUES(date), usage_data = VALUES(usage_data)
         `;
 
         return NextResponse.json({ usage: newCount });

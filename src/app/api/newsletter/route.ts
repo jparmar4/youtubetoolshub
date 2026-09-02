@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { db } from "@/lib/db";
 
 const SUBSCRIBERS_FILE = path.join(process.cwd(), "data", "subscribers.json");
 
@@ -75,12 +76,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add new subscriber
+    const source = (request.headers.get("referer") || "direct").slice(0, 500);
+
+    // 1. Persist to MySQL database
+    try {
+      await db.sql`
+        INSERT IGNORE INTO newsletter_subscribers (email, source)
+        VALUES (${normalizedEmail}, ${source})
+      `;
+    } catch (dbErr) {
+      console.error("[Newsletter] Database save error:", dbErr);
+    }
+
+    // 2. Add to local file backup
     subscribers.push({
       email: normalizedEmail,
       subscribedAt: new Date().toISOString(),
-      // Keep untrusted referrers bounded so they cannot bloat the local file.
-      source: (request.headers.get("referer") || "direct").slice(0, 500),
+      source,
     });
 
     await saveSubscribers(subscribers);

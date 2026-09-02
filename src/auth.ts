@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 function getCanonicalAuthUrl() {
     const configuredUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL;
 
-    if (process.env.NODE_ENV === "development" && configuredUrl) {
+    if (configuredUrl) {
         return configuredUrl.replace(/\/$/, "");
     }
 

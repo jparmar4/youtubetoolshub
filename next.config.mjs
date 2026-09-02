@@ -699,6 +699,32 @@ const nextConfig = {
         destination: "/blog/youtube-partner-program-2026",
         permanent: true,
       },
+      // Archived / Off-topic / YMYL blog slugs redirected to canonical guides
+      {
+        source: "/blog/youtube-seo-basics-archived",
+        destination: "/blog/youtube-seo-checklist-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/insurance-youtube-marketing",
+        destination: "/resources/youtube-monetization-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/lawyer-youtube-marketing",
+        destination: "/resources/youtube-monetization-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-tax-guide-creators-usa-2026",
+        destination: "/resources/youtube-monetization-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/best-enterprise-ai-platforms-2026",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
 };

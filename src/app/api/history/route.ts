@@ -16,7 +16,7 @@ export async function GET() {
         const { rows } = await db.sql`
             SELECT * FROM history_items 
             WHERE user_email = ${email} 
-            AND expires_at > NOW() 
+            AND (expires_at IS NULL OR expires_at > NOW()) 
             ORDER BY created_at DESC 
             LIMIT 50
         `;
@@ -28,7 +28,7 @@ export async function GET() {
             type: item.type || (item.tool_slug.includes('audit') ? 'audit' :
                 item.tool_slug.includes('title') ? 'title' :
                     item.tool_slug.includes('idea') ? 'idea' : 'other'),
-            content: item.content,
+            content: typeof item.content === 'string' ? JSON.parse(item.content) : item.content,
             created_at: item.created_at,
         }));
 
@@ -72,8 +72,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Content is required" }, { status: 400 });
         }
 
-        const contentStr =
-            typeof content === "string" ? content : JSON.stringify(content);
+        const contentStr = JSON.stringify(content);
         if (contentStr.length > 80_000) {
             return NextResponse.json({ error: "Content too large" }, { status: 413 });
         }
@@ -100,7 +99,7 @@ export async function POST(request: Request) {
 
         await db.sql`
             INSERT INTO history_items (id, user_email, tool_slug, content, type, expires_at)
-            VALUES (${id}, ${email}, ${toolSlug}, ${contentStr}, ${type || 'other'}, ${expiresAt.toISOString()})
+            VALUES (${id}, ${email}, ${toolSlug}, ${contentStr}, ${type || 'other'}, ${expiresAt})
         `;
 
         return NextResponse.json({ id: id, success: true });

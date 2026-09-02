@@ -48,16 +48,10 @@ export default function ExitIntentPopup() {
         if (!email) return;
         setStatus("loading");
         try {
-            const res = await fetch("/api/contact", {
+            const res = await fetch("/api/newsletter", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: "Newsletter Lead",
-                    email,
-                    subject: "[Newsletter] Exit-intent signup",
-                    message:
-                        "Newsletter signup from exit-intent popup (not a support ticket). Please add to the creator tips list.",
-                }),
+                body: JSON.stringify({ email }),
             });
             if (!res.ok) throw new Error("Failed");
             setStatus("success");

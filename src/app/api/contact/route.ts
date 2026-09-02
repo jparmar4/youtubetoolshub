@@ -42,8 +42,12 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Validate and sanitize against CRLF header injection attacks
+        const cleanName = String(name).replace(/[\r\n]/g, " ").trim();
+        const cleanSubject = String(subject).replace(/[\r\n]/g, " ").trim();
+
         // Validate input lengths
-        if (name.length > 100 || subject.length > 200 || message.length > 5000) {
+        if (cleanName.length > 100 || cleanSubject.length > 200 || message.length > 5000) {
             return NextResponse.json(
                 { error: "Input too long" },
                 { status: 400 }
@@ -85,10 +89,10 @@ export async function POST(req: NextRequest) {
 
         // Send email
         await transporter.sendMail({
-            from: `"${name}" <${process.env.EMAIL_USER}>`,
+            from: `"${cleanName}" <${process.env.EMAIL_USER}>`,
             to: "support@youtubetoolshub.com",
             replyTo: email,
-            subject: `[Contact Form] ${subject} - from ${name}`,
+            subject: `[Contact Form] ${cleanSubject} - from ${cleanName}`,
             html: `
                 <!DOCTYPE html>
                 <html>

@@ -80,14 +80,13 @@ export async function POST(request: Request) {
 
     await db.sql`
       INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)
-      VALUES (${session.user.email}, ${planName}, 'active', ${startDate.toISOString()}, ${endDate.toISOString()}, ${razorpay_payment_id})
-      ON CONFLICT (user_email)
-      DO UPDATE SET
-        plan = ${planName},
+      VALUES (${session.user.email}, ${planName}, 'active', ${startDate}, ${endDate}, ${razorpay_payment_id})
+      ON DUPLICATE KEY UPDATE
+        plan = VALUES(plan),
         status = 'active',
-        start_date = ${startDate.toISOString()},
-        end_date = ${endDate.toISOString()},
-        payment_id = ${razorpay_payment_id}
+        start_date = VALUES(start_date),
+        end_date = VALUES(end_date),
+        payment_id = VALUES(payment_id)
     `;
 
     return NextResponse.json({

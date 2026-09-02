@@ -45,8 +45,8 @@ export async function POST(request: Request) {
 
         // Define pricing
         const pricing: Record<string, { amount: number; currency: string; name: string }> = {
-            monthly: { amount: 79900, currency: "INR", name: "Pro Monthly" }, // ₹799
-            yearly: { amount: 699900, currency: "INR", name: "Pro Yearly" },  // ₹6999 (save ~27%)
+            monthly: { amount: 49900, currency: "INR", name: "Pro Monthly" }, // ₹499
+            yearly: { amount: 499900, currency: "INR", name: "Pro Yearly" },  // ₹4999 (save ~17%)
         };
 
         const selectedPlan = pricing[plan];
