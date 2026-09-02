@@ -672,9 +672,15 @@ export function processContent(
         // H2 heading
         if (trimmedLine.startsWith('## ')) {
             flushList(`list-${index}`);
+            const headingText = trimmedLine.replace('## ', '');
+            const headingId = headingText
+                .toLowerCase()
+                .replace(/[*_`]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
             elements.push(
-                <h2 key={index} className="text-3xl font-bold text-slate-900 mt-16 mb-6 tracking-tight leading-tight">
-                    {trimmedLine.replace('## ', '')}
+                <h2 key={index} id={headingId} className="text-3xl font-bold text-slate-900 mt-16 mb-6 tracking-tight leading-tight scroll-mt-24">
+                    {headingText}
                 </h2>
             );
             // Insert an in-article ad at the pre-computed section boundaries.
@@ -700,9 +706,15 @@ export function processContent(
         // H3 heading
         if (trimmedLine.startsWith('### ')) {
             flushList(`list-${index}`);
+            const headingText = trimmedLine.replace('### ', '');
+            const headingId = headingText
+                .toLowerCase()
+                .replace(/[*_`]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '');
             elements.push(
-                <h3 key={index} className="text-2xl font-bold text-slate-900 mt-10 mb-5 tracking-tight">
-                    {trimmedLine.replace('### ', '')}
+                <h3 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-10 mb-5 tracking-tight scroll-mt-24">
+                    {headingText}
                 </h3>
             );
             if (countH3AsBoundary) injectAdIfDue(index);

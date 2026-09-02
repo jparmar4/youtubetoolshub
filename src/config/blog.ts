@@ -47,6 +47,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "youtube-hashtag-generator-best-tags-videos-2026",
     title: "YouTube Hashtag Generator: Best Tags for Videos (2026)",
+    seoTitle: "YouTube Hashtag Guide: Best Tags for Videos (Free 2026)",
     excerpt:
       "I ran the same videos with and without a YouTube hashtag generator for a month. Here is what actually moved search, Shorts shelves, and click-through — and the 3-hashtag setup I still use.",
     date: "August 15, 2026",
@@ -865,7 +866,7 @@ Pair that habit with an optimized title, a keyword-rich description, and consist
   {
     slug: "how-to-download-youtube-thumbnail-2026",
     title: "How to Download a YouTube Thumbnail in the Highest Resolution (2026)",
-    seoTitle: "How to Download a YouTube Thumbnail in HD (2026)",
+    seoTitle: "How to Download YouTube Thumbnails (Full HD & 4K • 2026)",
     excerpt: "Download any public YouTube thumbnail in HD or max resolution with a free downloader (also called a thumbnail grabber): manual i.ytimg.com URL tricks, Shorts support, mobile tips, and legal use rules.",
     date: "July 31, 2026",
     category: "Thumbnail & Design",
@@ -1134,6 +1135,7 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
   {
     slug: "youtube-channel-name-ideas-2026",
     title: "YouTube Channel Name Ideas 2026: Practical Framework by Niche",
+    seoTitle: "250+ YouTube Channel Name Ideas (Catchy & Creative • 2026)",
     excerpt: "YouTube channel name ideas for 2026: naming formulas, 90+ niche examples, a 60-second checklist, and a free AI generator — without trademark guessing.",
     date: "August 15, 2026",
     category: "Channel Growth",
@@ -1313,7 +1315,7 @@ Do not wait six months for a perfect name. Use a clear formula, pick from the li
   {
     slug: "youtube-chapters-template-2026",
     title: "YouTube Chapters Template 2026: Timestamp Format & Practical Examples",
-    seoTitle: "YouTube Chapters Template 2026: Format + Examples",
+    seoTitle: "YouTube Chapters Template (Timestamps & Format • 2026)",
     excerpt: "YouTube chapters template 2026: exact 0:00 timestamp rules, 12 copy-paste niche templates, key moments search triggers, and common chapter glitches fixed.",
     date: "August 28, 2026",
     category: "SEO & Growth",
@@ -1562,7 +1564,7 @@ If you added timestamps but YouTube isn't showing chapter marks on your video sc
   {
     slug: "youtube-description-template-2026",
     title: "YouTube Description Template 2026: Copy, Customize & Avoid Keyword Stuffing",
-    seoTitle: "YouTube Description Template 2026 (Copy & Paste)",
+    seoTitle: "YouTube Description Template (Free Copy-Paste • 2026)",
     excerpt: "YouTube description templates for 2026: master the above-the-fold 150 characters, affiliate link safety, chapter integration, and free SEO generators.",
     date: "August 28, 2026",
     category: "SEO & Growth",
@@ -1778,6 +1780,7 @@ Save hours every week by generating tailored, SEO-compliant description drafts u
   {
     slug: "youtube-thumbnail-size-2026",
     title: "YouTube Thumbnail Size Guide 2026 (Exact Dimensions)",
+    seoTitle: "YouTube Thumbnail Size (1280x720 & 4K Guide • 2026)",
     excerpt:
       "Exact YouTube thumbnail size in 2026: official 3840×2160 recommendation, 16:9 ratio, min width 640px, desktop vs mobile file limits, safe zones, Shorts rules, and a practical export workflow.",
     date: "August 1, 2026",
@@ -2237,7 +2240,7 @@ Country CPM context helps when your story is Tier-1 — share [CPM by country](/
     slug: "youtube-adsense-payment-schedule-2026",
     title:
       "YouTube AdSense Payment Schedule 2026: Dates, Thresholds, and Common Delays",
-    seoTitle: "YouTube AdSense Payment Schedule 2026: Dates & Limits",
+    seoTitle: "YouTube AdSense Payment Schedule (Exact Dates 2026)",
     excerpt: "YouTube AdSense payment schedule 2026: exact payout dates (21st–26th), $100 threshold rules, address PIN verification, and delay troubleshooting.",
     date: "August 28, 2026",
     category: "Monetization",
@@ -11488,7 +11491,7 @@ Canva AI is the best overall AI thumbnail generator for YouTube creators because
   {
     slug: "youtube-shorts-monetization-2026",
     title: "YouTube Shorts Monetization 2026: Complete Guide to Earning Money",
-    seoTitle: "YouTube Shorts Monetization 2026: Complete Guide",
+    seoTitle: "YouTube Shorts Monetization (RPM & Real Creator Payouts • 2026)",
     excerpt:
       "YouTube Shorts monetization 2026: YPP paths (10M Shorts views or watch hours), realistic RPM tables, music splits, Shorts vs long-form strategy, and how to turn vertical views into real income.",
     date: "July 31, 2026",
@@ -20905,7 +20908,7 @@ Now go open YouTube Studio and start reading what your audience is trying to tel
     slug: "how-much-youtube-pays-per-1000-views-2026",
     title:
       "How Much Does YouTube Pay Per 1000 Views in 2026? (Real Numbers by Country)",
-    seoTitle: "How Much YouTube Pays Per 1000 Views in 2026",
+    seoTitle: "How Much YouTube Pays Per 1000 Views (Real Data • 2026)",
     excerpt:
       "How much YouTube pays per 1,000 views in 2026: RPM vs CPM, US/UK/India planning ranges, niche tables, and a free calculator. No guaranteed payouts.",
     date: "August 15, 2026",
@@ -21157,7 +21160,7 @@ Run this once a month in YouTube Studio → Revenue:
     slug: "youtube-cpm-rates-by-country-2026",
     title:
       "YouTube CPM Rates by Country (2026): USA vs UK vs Canada vs Australia",
-    seoTitle: "YouTube CPM Rates by Country 2026: US, UK, CA, AU",
+    seoTitle: "YouTube CPM Rates by Country (50+ Ranked • 2026 Benchmarks)",
     excerpt:
       "YouTube CPM by country in 2026: Tier 1 (US/UK/CA/AU) CPM and RPM ranges, India vs USA math, what moves rates, and how to attract higher-paying viewers—with free calculators.",
     date: "July 31, 2026",

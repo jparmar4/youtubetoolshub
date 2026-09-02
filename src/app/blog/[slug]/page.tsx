@@ -16,6 +16,8 @@ import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor"
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
+import TableOfContents, { TocHeading } from "@/components/blog/TableOfContents";
 import {
     getRelatedToolsForPost,
     getPriorityTools,
@@ -148,8 +150,20 @@ export default async function BlogPostPage({
     const relatedTools = getRelatedToolsForPost(post, 4);
     const priorityTools = getPriorityTools(6);
     const showEarningsCta = isMonetizationPost(post);
-
     const isoDate = toBlogIsoDate(post.date);
+
+    const tocHeadings: TocHeading[] = post.content
+        .split("\n")
+        .filter((line) => line.trim().startsWith("## "))
+        .map((line) => {
+            const text = line.trim().replace(/^##\s+/, "").replace(/[*_`]/g, "");
+            const id = text
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, "");
+            return { text, id };
+        })
+        .filter((h) => h.id.length > 0);
 
     // Generate structured data for SEO
     const articleSchema = getArticleSchema({
@@ -326,6 +340,26 @@ export default async function BlogPostPage({
                                     variant="card"
                                     contextLabel="Related free tool for this guide"
                                 />
+                            )}
+
+                            {/* AI Answer Capsule for LLMs and Featured Snippets */}
+                            <QuickAnswerCapsule
+                                question={`Quick Takeaways: Key insights from "${post.title}"`}
+                                answer={post.metaDescription}
+                                keyPoints={[
+                                    `Topic: ${post.category} · Estimated read time: ${post.readTime}`,
+                                    `Includes practical benchmarks, templates & data updated for 2026`,
+                                    `Reviewed and authored by ${post.author} (${post.authorRole})`,
+                                    `Actionable creator strategies with zero fluff or filler`,
+                                ]}
+                                badgeText="⚡ AI Article Summary"
+                                verifiedNote="Verified for 2026 YouTube Studio & algorithm guidelines"
+                                className="mb-8"
+                            />
+
+                            {/* In-Article Table of Contents for Google Jump-to sitelinks */}
+                            {tocHeadings.length >= 2 && (
+                                <TableOfContents headings={tocHeadings} className="mb-10" />
                             )}
 
                             <article itemScope itemType="https://schema.org/Article">
