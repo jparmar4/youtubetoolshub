@@ -3,10 +3,18 @@ import Google from "next-auth/providers/google";
 import { siteConfig } from "@/config/site";
 
 function getCanonicalAuthUrl() {
+    if (process.env.NODE_ENV === "development") {
+        return (process.env.AUTH_URL || process.env.NEXTAUTH_URL || "http://localhost:3000").replace(/\/$/, "");
+    }
+
     const configuredUrl = process.env.AUTH_URL || process.env.NEXTAUTH_URL;
 
     if (configuredUrl) {
-        return configuredUrl.replace(/\/$/, "");
+        const cleaned = configuredUrl.replace(/\/$/, "");
+        if (cleaned.includes("youtubetoolshub.com")) {
+            return "https://www.youtubetoolshub.com";
+        }
+        return cleaned;
     }
 
     return siteConfig.url.replace(/\/$/, "");
