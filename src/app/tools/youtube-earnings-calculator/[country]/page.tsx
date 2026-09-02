@@ -7,6 +7,7 @@ import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
@@ -209,11 +210,22 @@ export default async function CountryEarningsPage({
                                     </span>{" "}
                                     — CPM &amp; RPM 2026
                                 </h1>
-                                <p className="text-xl text-slate-600 summary" data-speakable>
+                                <p className="text-xl text-slate-600 mb-6 leading-relaxed" data-speakable>
                                     Estimate YouTube income for creators in {countryData.name} using
                                     updated CPM/RPM ranges ({countryData.currency}). Free planning tool —
                                     verify results in YouTube Studio.
                                 </p>
+                                <QuickAnswerCapsule
+                                    question={`Quick Answer: How much does YouTube pay in ${countryData.name}?`}
+                                    answer={`In ${countryData.name}, YouTube creators earn between $${countryData.rpmRange.min.toFixed(2)} and $${countryData.rpmRange.max.toFixed(2)} per 1,000 views (average $${countryData.rpmRange.avg.toFixed(2)} RPM). For 100,000 views, estimated AdSense earnings range from $${(100 * countryData.rpmRange.min).toFixed(0)} to $${(100 * countryData.rpmRange.max).toFixed(0)} (${countryData.currency}).`}
+                                    keyPoints={[
+                                        `Average RPM: $${countryData.rpmRange.avg.toFixed(2)} per 1,000 views ($${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)})`,
+                                        `Advertiser CPM: $${countryData.cpmRange.avg.toFixed(2)} average ($${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)})`,
+                                        `100,000 Views Payout: ~$${(100 * countryData.rpmRange.avg).toFixed(0)} ${countryData.currency}`,
+                                        `1 Million Views Payout: ~$${(1000 * countryData.rpmRange.avg).toLocaleString()} ${countryData.currency}`,
+                                    ]}
+                                    badgeText={`⚡ ${countryData.name} 2026 Summary`}
+                                />
                             </div>
 
                             {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}

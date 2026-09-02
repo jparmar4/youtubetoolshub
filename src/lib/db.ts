@@ -24,7 +24,18 @@ export function getPool(): mysql.Pool {
                 connectionLimit: 10,
                 queueLimit: 0,
                 enableKeepAlive: true,
-                keepAliveInitialDelay: 10000,
+                connectTimeout: 10000,
+            });
+        }
+
+        // Auto-recover if Hostinger drops idle connection
+        const underlyingPool = (pool as unknown as { pool?: { on?: (event: string, fn: (err: { code?: string }) => void) => void } })?.pool;
+        if (underlyingPool?.on) {
+            underlyingPool.on("error", (err) => {
+                console.error("MySQL connection pool error:", err);
+                if (err?.code === "PROTOCOL_CONNECTION_LOST" || err?.code === "ECONNRESET") {
+                    pool = null;
+                }
             });
         }
     }

@@ -81,20 +81,7 @@ export async function GET(request: Request) {
       urls.push(`${baseUrl}/blog/${post.slug}`);
     });
 
-    // ─── 8. AI Discovery & SEO Files ───
-    const discoveryFiles = [
-      "/llms.txt",
-      "/llms-full.txt",
-      "/sitemap.xml",
-      "/sitemap_index.xml",
-      "/feed.xml",
-    ];
-
-    discoveryFiles.forEach((file) => {
-      urls.push(`${baseUrl}${file}`);
-    });
-
-    // ─── 9. Deduplicate URLs (safety measure) ───
+    // ─── 8. Deduplicate URLs (safety measure) ───
     const uniqueUrls = [...new Set(urls)];
 
     // ─── 10. Submit in batches of 10,000 (IndexNow limit) ───
@@ -140,7 +127,6 @@ export async function GET(request: Request) {
           toolPages: tools.length,
           countryPages: countryCPMData.length,
           blogPosts: posts.length,
-          discoveryFiles: discoveryFiles.length,
         },
         batches: results,
         submittedAt: new Date().toISOString(),

@@ -149,8 +149,18 @@ function checkLocal() {
   } else {
     const envText = fs.readFileSync(envPath, "utf8");
     for (const key of ENV_KEYS_RECOMMENDED) {
-      if (new RegExp(`^${key}=`, "m").test(envText)) ok(key);
-      else info(`${key} not in .env.local (set on server if needed)`);
+      if (key === "DATABASE_URL") {
+        const hasDb =
+          /^DATABASE_URL=/m.test(envText) ||
+          /^MYSQL_HOST=/m.test(envText) ||
+          /^MYSQL_DATABASE=/m.test(envText);
+        if (hasDb) ok("DATABASE (Hostinger MySQL / URL)");
+        else info("DATABASE credentials not in .env.local (set on server if needed)");
+      } else if (new RegExp(`^${key}=`, "m").test(envText)) {
+        ok(key);
+      } else {
+        info(`${key} not in .env.local (set on server if needed)`);
+      }
     }
   }
 
