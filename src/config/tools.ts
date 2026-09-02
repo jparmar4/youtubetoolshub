@@ -55,8 +55,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-downloader",
         name: "YouTube Thumbnail Downloader (HD & 4K)",
-        seoTitle: "YouTube Thumbnail Downloader (HD / Max Res)",
-        seoDescription: "Download public YouTube video thumbnails in HD or max resolution. Paste a video URL, preview sizes, and save. Free, no signup.",
+        seoTitle: "Free YouTube Thumbnail Downloader (HD & 4K • No App)",
+        seoDescription: "Download full HD & 4K YouTube thumbnails instantly. Paste any video or Shorts link, preview all sizes, and save. 100% Free, no app or signup required.",
         description: "Download high-quality thumbnails from any YouTube video. Get all resolutions including HD and SD versions instantly. No signup required.",
         shortDescription: "Download thumbnails from any YouTube video",
         category: "thumbnail-media",
@@ -411,8 +411,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-title-generator",
         name: "YouTube Title Generator",
-        seoTitle: "Free YouTube Title Generator - SEO Title Ideas",
-        seoDescription: "Generate YouTube title ideas from a topic or keyword. Compare concise, searchable, and curiosity-based options before choosing a title for your video.",
+        seoTitle: "Free YouTube Title Generator (High CTR & Viral Ideas • 2026)",
+        seoDescription: "Generate catchy, high-CTR YouTube titles in seconds using AI. Discover searchable, viral, and curiosity-driven title formulas. 100% Free, no signup.",
         description: "Generate SEO-optimized, clickable YouTube titles using AI. Choose from different tones, emotional hooks, and languages to boost your CTR.",
         shortDescription: "AI-generated SEO titles",
         category: "seo-metadata",
@@ -587,8 +587,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tag-generator",
         name: "YouTube Tag Generator",
-        seoTitle: "YouTube Tag Generator - Relevant Video Tag Ideas",
-        seoDescription: "Generate relevant YouTube tag ideas from your topic, title, or keyword. Use the suggestions as metadata drafts, not as ranking guarantees.",
+        seoTitle: "YouTube Tag Generator (SEO & Viral Video Tags • Free 2026)",
+        seoDescription: "Generate relevant, SEO-optimized YouTube tags to boost search discovery and suggested video reach. Free AI tag finder, no signup required.",
         description: "Generate SEO-optimized, trending tags that help your videos rank. Get a mix of primary, search, and long-tail keywords in seconds.",
         shortDescription: "Generate SEO tags for videos",
         category: "seo-metadata",
@@ -679,8 +679,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tag-extractor",
         name: "YouTube Tag Extractor",
-        seoTitle: "YouTube Tag Extractor - View Public Video Tags",
-        seoDescription: "Extract publicly available YouTube video tags for research. Compare competitor metadata and choose only relevant tags for your own video.",
+        seoTitle: "YouTube Tag Extractor (View & Copy Hidden Video Tags • Free)",
+        seoDescription: "Extract hidden meta tags from any public YouTube video or Shorts. View competitor SEO keywords and copy tags instantly with 1-click. Free tool.",
         description: "Extract hidden meta tags from any YouTube video URL. See exactly what keywords successful channels are using to rank and get suggested.",
         shortDescription: "Extract tags from any video",
         category: "seo-metadata",

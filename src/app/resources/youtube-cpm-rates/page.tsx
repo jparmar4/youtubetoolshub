@@ -7,6 +7,7 @@ import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-da
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GoogleAd from "@/components/ads/GoogleAd";
@@ -276,12 +277,18 @@ export default function YouTubeCPMRatesPage() {
                             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
                                 Complete CPM and RPM data for 50+ countries. Understand exactly how much YouTube pays per 1,000 views in your market — and how to maximize your earnings.
                             </p>
-                            {/* Quick-answer box for AEO featured snippet */}
-                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left" data-speakable>
-                                <p className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-2">⚡ Quick Answer</p>
-                                <p className="text-white font-medium leading-relaxed summary">
-                                    Average YouTube CPM in the <strong>United States</strong> is <strong>$8–$25</strong> per 1,000 ad impressions ($14.50 avg). The <strong>UK</strong> averages $6–$18, <strong>Canada</strong> $6.50–$20, and <strong>Australia</strong> $7.50–$22. <strong>India</strong> averages $0.50–$3.00. Finance and Business niches earn 3–5× more than Gaming or Entertainment in every country. Data last reviewed {DATA_LAST_REVIEWED}.
-                                </p>
+                            <div className="max-w-2xl mx-auto text-left">
+                                <QuickAnswerCapsule
+                                    question="Quick Answer: What is the average YouTube CPM by country in 2026?"
+                                    answer={`Average YouTube CPM in the United States is $8–$25 per 1,000 ad impressions ($14.50 avg). The UK averages $6–$18, Canada $6.50–$20, Australia $7.50–$22, and India $0.50–$3.00. Finance and Business niches earn 3–5x more than Gaming in every market. (Reviewed ${DATA_LAST_REVIEWED}).`}
+                                    keyPoints={[
+                                        "United States: $8.00–$25.00 CPM ($14.50 average)",
+                                        "United Kingdom: $6.00–$18.00 CPM ($12.20 average)",
+                                        "Australia & Canada: $6.50–$22.00 CPM ($13.00 average)",
+                                        "India & Tier 3: $0.50–$3.00 CPM ($1.50 average)",
+                                    ]}
+                                    badgeText="⚡ AI Quick Summary"
+                                />
                             </div>
                         </div>
                     </div>

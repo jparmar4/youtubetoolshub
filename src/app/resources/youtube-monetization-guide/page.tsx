@@ -10,6 +10,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import {
     FaCheckCircle,
@@ -347,12 +348,18 @@ export default function YouTubeMonetizationGuidePage() {
                             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
                                 Everything you need to monetize your YouTube channel in 2026 — YPP requirements, 8 revenue streams, CPM vs RPM, and earnings benchmarks by subscriber tier.
                             </p>
-                            {/* Quick-answer box for AEO featured snippet */}
-                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left summary" data-speakable>
-                                <p className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-2">⚡ Quick Answer</p>
-                                <p className="text-white font-medium leading-relaxed">
-                                    To monetize on YouTube in 2026 you need <strong>1,000 subscribers + 4,000 watch hours</strong> (or 10M Shorts views) for full AdSense. Average RPM is <strong>$2–$25 per 1,000 views</strong> depending on niche and country. Finance channels in the US earn <strong>$8–$25 RPM</strong>; Gaming or Entertainment earns <strong>$1–$4 RPM</strong>.
-                                </p>
+                            <div className="max-w-2xl mx-auto text-left">
+                                <QuickAnswerCapsule
+                                    question="Quick Answer: What are the YouTube monetization requirements in 2026?"
+                                    answer="To monetize on YouTube in 2026 for full AdSense revenue, creators need 1,000 subscribers and either 4,000 valid public watch hours in 12 months OR 10 million Shorts views in 90 days. Basic monetization (memberships & shopping) unlocks earlier at 500 subscribers and 3,000 hours."
+                                    keyPoints={[
+                                        "Full YPP AdSense: 1,000 subscribers + 4,000 watch hours (or 10M Shorts views)",
+                                        "Basic Fan Funding Tier: 500 subscribers + 3,000 hours (or 3M Shorts views)",
+                                        "Revenue Split: Creators receive 55% of long-form AdSense and 45% of Shorts pool",
+                                        "Average Creator RPM: $2.00–$25.00 per 1,000 views depending on niche and country",
+                                    ]}
+                                    badgeText="⚡ AI Quick Summary"
+                                />
                             </div>
                         </div>
                     </div>

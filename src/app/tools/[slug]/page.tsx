@@ -12,6 +12,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import { getRelatedBlogHintsForTool } from "@/lib/related-tools";
@@ -282,23 +283,36 @@ export default async function ToolPage({
                               Many tools use useSearchParams() and only stream client HTML —
                               crawlers often never see an H1 if it lives only in ToolPageLayout.
                             */}
-                            <header className="text-center md:text-left">
-                                <h1
-                                    className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
-                                    data-speakable
-                                >
-                                    {tool.name}
-                                </h1>
-                                <p
-                                    className="text-lg text-slate-600 max-w-3xl summary"
-                                    data-speakable
-                                >
-                                    {tool.seoDescription || tool.description}
-                                </p>
-                                <p className="mt-4 text-slate-600 leading-relaxed key-facts" data-speakable>
-                                    {tool.definitionBlock?.text ||
-                                        `${tool.name} is a free YouTube creator tool on YouTube Tools Hub. ${tool.shortDescription}. No signup required for core use.`}
-                                </p>
+                            <header className="space-y-5">
+                                <div>
+                                    <h1
+                                        className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight"
+                                        data-speakable
+                                    >
+                                        {tool.name}
+                                    </h1>
+                                    <p
+                                        className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed"
+                                        data-speakable
+                                    >
+                                        {tool.seoDescription || tool.description}
+                                    </p>
+                                </div>
+
+                                <QuickAnswerCapsule
+                                    question={tool.definitionBlock?.title || `What is ${tool.name}?`}
+                                    answer={
+                                        tool.definitionBlock?.text ||
+                                        `${tool.name} is a free, browser-based YouTube creator tool designed to streamline your content workflow. ${tool.shortDescription}. Works directly online with no signups, installations, or credit card required.`
+                                    }
+                                    keyPoints={[
+                                        "100% Free to use online (no browser extensions needed)",
+                                        "Optimized for 2026 YouTube Studio & algorithm standards",
+                                        "Instant generation and real-time preview outputs",
+                                        "Mobile-friendly & privacy focused (no personal data stored)",
+                                    ]}
+                                    badgeText="⚡ AI Quick Summary"
+                                />
                             </header>
 
                             {/* Leaderboard after the tool H1 — lazy so LCP stays on the tool */}

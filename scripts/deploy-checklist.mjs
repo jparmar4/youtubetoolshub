@@ -51,7 +51,7 @@ const POST_PATHS = [
   "/resources/youtube-cpm-rates",
   "/blog/youtube-thumbnail-size-2026",
   "/blog/how-to-download-youtube-thumbnail-2026",
-  "/blog/youtube-pay-per-view-2026",
+  "/blog/how-much-youtube-pays-per-1000-views-2026",
   "/images/badge-calculator.svg",
   "/images/badge-small.svg",
   "/placeholder-thumbnail.svg",

@@ -56,6 +56,21 @@ export function getOrganizationSchema() {
     sameAs: siteConfig.footerLinks.social.map((link) => link.href),
     // Knowledge domain for E-E-A-T
     knowsAbout: [
+      {
+        "@type": "Thing",
+        name: "YouTube",
+        sameAs: "https://en.wikipedia.org/wiki/YouTube",
+      },
+      {
+        "@type": "Thing",
+        name: "YouTube Monetization",
+        sameAs: "https://en.wikipedia.org/wiki/YouTube_monetization",
+      },
+      {
+        "@type": "Thing",
+        name: "Search Engine Optimization",
+        sameAs: "https://en.wikipedia.org/wiki/Search_engine_optimization",
+      },
       "YouTube SEO",
       "YouTube Thumbnails",
       "YouTube Analytics",

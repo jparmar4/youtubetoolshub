@@ -10,6 +10,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import {
     FaSearch,
@@ -288,12 +289,18 @@ export default function YouTubeAlgorithmGuidePage() {
                             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8 summary" data-speakable>
                                 Exactly how the YouTube algorithm ranks, recommends, and distributes videos in 2026 — plus the 7 ranking factors you must optimize to grow your channel.
                             </p>
-                            {/* Quick-answer box for AEO featured snippet */}
-                            <div className="max-w-2xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-left">
-                                <p className="text-xs font-bold uppercase tracking-widest text-purple-300 mb-2">⚡ Quick Answer</p>
-                                <p className="text-white font-medium leading-relaxed">
-                                    The YouTube algorithm in 2026 ranks videos using <strong>CTR</strong>, <strong>Average View Duration</strong>, <strong>engagement rate</strong>, and <strong>session time</strong>. It serves videos via three systems: <strong>Search</strong> (keyword-driven), <strong>Suggested Videos</strong> (personalization-driven), and <strong>Homepage</strong> (interest-model-driven). The single biggest lever is a high CTR thumbnail combined with strong first-30-second retention.
-                                </p>
+                            <div className="max-w-2xl mx-auto text-left">
+                                <QuickAnswerCapsule
+                                    question="Quick Answer: How does the YouTube algorithm rank videos in 2026?"
+                                    answer="The 2026 YouTube algorithm recommends videos using viewer satisfaction and personalized engagement models. Key signals are Click-Through Rate (CTR), Average View Duration (AVD), and Viewer Return Rate across Home, Suggested, and Search feeds."
+                                    keyPoints={[
+                                        "Top Signal #1: Click-Through Rate (5%–10% is healthy benchmark)",
+                                        "Top Signal #2: 30-Second Retention & Average View Duration (50%+ target)",
+                                        "3 Delivery Feeds: Home (interests), Suggested (related videos), Search (intent)",
+                                        "Shorts Algorithm: Loop rate & 'Viewed vs Swiped Away' ratio determine reach",
+                                    ]}
+                                    badgeText="⚡ AI Quick Summary"
+                                />
                             </div>
                         </div>
                     </div>

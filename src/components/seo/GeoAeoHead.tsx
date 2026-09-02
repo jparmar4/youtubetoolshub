@@ -69,9 +69,33 @@ export default function GeoAeoHead({
     pageSchema.about = {
       "@type": "Thing",
       name: primaryTopic || toolName,
+      sameAs: [
+        "https://en.wikipedia.org/wiki/YouTube",
+        "https://www.wikidata.org/wiki/Q866",
+      ],
       ...(toolCategory ? { description: `Category: ${toolCategory}` } : {}),
     };
   }
+
+  pageSchema.mentions = [
+    {
+      "@type": "Organization",
+      name: "YouTube",
+      sameAs: [
+        "https://en.wikipedia.org/wiki/YouTube",
+        "https://www.wikidata.org/wiki/Q866",
+        "https://www.youtube.com",
+      ],
+    },
+    {
+      "@type": "Thing",
+      name: "YouTube Monetization",
+      sameAs: [
+        "https://en.wikipedia.org/wiki/YouTube_monetization",
+        "https://support.google.com/youtube/answer/72851",
+      ],
+    },
+  ];
 
   if (dateModified) {
     pageSchema.dateModified = dateModified;

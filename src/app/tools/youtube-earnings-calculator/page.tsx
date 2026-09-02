@@ -14,6 +14,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
@@ -271,23 +272,17 @@ export default function YouTubeEarningsCalculatorPage() {
                   revenue before you publish.
                 </p>
 
-                <div
-                  className="rounded-2xl border-l-4 border-emerald-500 bg-emerald-50/80 p-5 key-facts"
-                  data-speakable
-                >
-                  <h2 className="text-base font-bold text-emerald-900 mb-2">
-                    Quick answer: How much does YouTube pay?
-                  </h2>
-                  <p className="text-slate-700 leading-relaxed">
-                    <strong>
-                      Estimated earnings ≈ (monthly views ÷ 1,000) × RPM.
-                    </strong>{" "}
-                    Example: 100,000 views × $5 RPM ≈{" "}
-                    <strong>$500/month</strong> in ad revenue. Real payouts vary
-                    by country, niche, seasonality, and ad fill rate — confirm in
-                    YouTube Studio.
-                  </p>
-                </div>
+                <QuickAnswerCapsule
+                  question="Quick Answer: How much does YouTube pay for views?"
+                  answer="YouTube pays creators based on Revenue Per Mille (RPM). On average, 100,000 views earn between $200 and $1,200 depending on audience location and niche (estimated earnings ≈ [monthly views ÷ 1,000] × RPM). YouTube Shorts pay $30–$120 per 1 million views."
+                  keyPoints={[
+                    "Formula: Estimated earnings = (Views ÷ 1,000) × RPM",
+                    "Tier 1 (US, UK, CA, AU) averages $4.00–$16.00 RPM",
+                    "Tier 3 (India, Brazil, PH) averages $0.40–$2.50 RPM",
+                    "Finance, Tech & Business niches pay 3x–5x higher than Gaming",
+                  ]}
+                  badgeText="⚡ AI Quick Summary"
+                />
               </header>
 
               {/* Calculator */}
