@@ -9,22 +9,27 @@ export async function GET() {
     .map((post) => {
       const postUrl = `${siteUrl}/blog/${post.slug}`;
       const pubDate = new Date(toBlogIsoDate(post.date)).toUTCString();
+      const imageUrl = post.coverImage
+        ? (post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`)
+        : `${siteUrl}/og-image.png`;
 
       return `
     <item>
       <title><![CDATA[${post.title}]]></title>
       <link>${postUrl}</link>
-      <guid>${postUrl}</guid>
+      <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${pubDate}</pubDate>
       <description><![CDATA[${post.metaDescription}]]></description>
       <author>${siteConfig.contact.email} (${post.author})</author>
       <category><![CDATA[${post.category}]]></category>
+      <enclosure url="${imageUrl}" type="image/webp" length="150000" />
+      <media:content url="${imageUrl}" medium="image" type="image/webp" width="1200" height="675" />
     </item>`;
     })
     .join("");
 
   const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title><![CDATA[${siteConfig.name} Blog]]></title>
     <description><![CDATA[${siteConfig.description}]]></description>

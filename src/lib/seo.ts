@@ -254,7 +254,27 @@ export function getArticleSchema(article: {
     },
     isAccessibleForFree: true,
     keywords: article.keywords?.join(", "),
-    image: [imageUrl],
+    image: [
+      imageUrl,
+      {
+        "@type": "ImageObject",
+        url: imageUrl,
+        width: 1200,
+        height: 675,
+      },
+    ],
+    about: {
+      "@type": "Thing",
+      name: "YouTube",
+      sameAs: [
+        "https://en.wikipedia.org/wiki/YouTube",
+        "https://www.wikidata.org/wiki/Q866",
+      ],
+    },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", ".summary", "[data-speakable]"],
+    },
     articleSection: article.section,
     inLanguage: article.inLanguage || "en",
     isPartOf: {
