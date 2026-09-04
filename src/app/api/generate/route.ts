@@ -22,7 +22,15 @@ export async function POST(request: Request) {
         const ip = getRequestIp(request.headers);
         const session = await auth();
         const email = session?.user?.email || null;
-        const isPro = email ? await hasActiveSubscription(email) : false;
+        let isPro = false;
+        if (email) {
+            try {
+                isPro = await hasActiveSubscription(email);
+            } catch (err) {
+                console.error("[Generate] Failed to check subscription, falling back to free:", err);
+                isPro = false;
+            }
+        }
 
         const hourlyKey = email ? `ai-text-h:user:${email}` : `ai-text-h:ip:${ip}`;
         const dailyKey = email ? `ai-text-d:user:${email}` : `ai-text-d:ip:${ip}`;
@@ -301,8 +309,9 @@ export async function POST(request: Request) {
                 { status: 503 },
             );
         }
+        const message = error instanceof Error ? error.message : "Failed to generate content";
         return NextResponse.json(
-            { error: "Failed to generate content" },
+            { error: message.includes("AI API error") ? "AI generation error. Please try again." : message || "Failed to generate content" },
             { status: 500 }
         );
     }

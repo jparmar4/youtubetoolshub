@@ -51,6 +51,10 @@ export async function sql<T = DbRow>(
     strings: TemplateStringsArray,
     ...values: unknown[]
 ): Promise<{ rows: T[] }> {
+    if (!tablesEnsured) {
+        await ensureTablesExist().catch(() => {});
+    }
+
     let queryText = "";
     const params: unknown[] = [];
 
@@ -73,6 +77,9 @@ export const db = {
         queryText: string,
         params: unknown[] = []
     ): Promise<{ rows: T[] }> => {
+        if (!tablesEnsured) {
+            await ensureTablesExist().catch(() => {});
+        }
         const currentPool = getPool();
         const [result] = await currentPool.query<RowDataPacket[]>(queryText, params);
         return { rows: Array.isArray(result) ? (result as unknown as T[]) : [] };
@@ -80,55 +87,68 @@ export const db = {
     getPool,
 };
 
+let tablesEnsured = false;
+let tablesPromise: Promise<void> | null = null;
+
 // Helper to ensure MySQL tables exist
 export async function ensureTablesExist() {
-    try {
-        const currentPool = getPool();
+    if (tablesEnsured) return;
+    if (tablesPromise) return tablesPromise;
 
-        await currentPool.query(`
-            CREATE TABLE IF NOT EXISTS history_items (
-                id VARCHAR(36) PRIMARY KEY,
-                user_email VARCHAR(255) NOT NULL,
-                tool_slug VARCHAR(100) NOT NULL,
-                content JSON NOT NULL,
-                type VARCHAR(50) DEFAULT 'other',
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                expires_at TIMESTAMP NULL,
-                INDEX idx_history_user_email (user_email),
-                INDEX idx_history_expires_at (expires_at)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-        `);
+    tablesPromise = (async () => {
+        try {
+            const currentPool = getPool();
 
-        await currentPool.query(`
-            CREATE TABLE IF NOT EXISTS user_usage (
-                user_email VARCHAR(255) PRIMARY KEY,
-                date DATE NOT NULL,
-                usage_data JSON NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-        `);
+            await currentPool.query(`
+                CREATE TABLE IF NOT EXISTS history_items (
+                    id VARCHAR(36) PRIMARY KEY,
+                    user_email VARCHAR(255) NOT NULL,
+                    tool_slug VARCHAR(100) NOT NULL,
+                    content JSON NOT NULL,
+                    type VARCHAR(50) DEFAULT 'other',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    expires_at TIMESTAMP NULL,
+                    INDEX idx_history_user_email (user_email),
+                    INDEX idx_history_expires_at (expires_at)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            `);
 
-        await currentPool.query(`
-            CREATE TABLE IF NOT EXISTS subscriptions (
-                user_email VARCHAR(255) PRIMARY KEY,
-                plan VARCHAR(50) NOT NULL,
-                status VARCHAR(50) NOT NULL,
-                start_date TIMESTAMP NULL,
-                end_date TIMESTAMP NULL,
-                payment_id VARCHAR(100) NULL,
-                INDEX idx_sub_status (status)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-        `);
+            await currentPool.query(`
+                CREATE TABLE IF NOT EXISTS user_usage (
+                    user_email VARCHAR(255) PRIMARY KEY,
+                    date DATE NOT NULL,
+                    usage_data JSON NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            `);
 
-        await currentPool.query(`
-            CREATE TABLE IF NOT EXISTS newsletter_subscribers (
-                email VARCHAR(255) PRIMARY KEY,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                source VARCHAR(255) DEFAULT 'website'
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-        `);
+            await currentPool.query(`
+                CREATE TABLE IF NOT EXISTS subscriptions (
+                    user_email VARCHAR(255) PRIMARY KEY,
+                    plan VARCHAR(50) NOT NULL,
+                    status VARCHAR(50) NOT NULL,
+                    start_date TIMESTAMP NULL,
+                    end_date TIMESTAMP NULL,
+                    payment_id VARCHAR(100) NULL,
+                    INDEX idx_sub_status (status)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            `);
 
-        console.log("[Database] MySQL tables verified and initialized.");
-    } catch (error) {
-        console.error("[Database] Error initializing MySQL tables:", error);
-    }
+            await currentPool.query(`
+                CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+                    email VARCHAR(255) PRIMARY KEY,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    source VARCHAR(255) DEFAULT 'website'
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            `);
+
+            tablesEnsured = true;
+            console.log("[Database] MySQL tables verified and initialized.");
+        } catch (error) {
+            console.error("[Database] Error initializing MySQL tables:", error);
+        } finally {
+            tablesPromise = null;
+        }
+    })();
+
+    return tablesPromise;
 }
