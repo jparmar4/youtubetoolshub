@@ -5,13 +5,23 @@ import GoogleAd from "./GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
 import { FaTimes } from "react-icons/fa";
 
-/** Ad stays hidden until consent is settled, mirroring the cookie banner logic. */
+import { isLikelyGdprTimezone } from "@/config/index-policy";
+
+/** Ad stays hidden until consent is settled in GDPR zones, or shows immediately in non-GDPR zones. */
 function getSnapshot(): boolean {
   try {
     const dismissed = sessionStorage.getItem("bottomAdDismissed") === "true";
+    if (dismissed) return false;
+
     const consent = localStorage.getItem("cookieConsent");
-    const consented = consent === "declined" || consent === "accepted";
-    return consented && !dismissed;
+    if (consent === "declined" || consent === "accepted") return true;
+
+    // Non-GDPR traffic (USA, Canada, Australia, India, etc.) has Consent Mode v2 granted by default
+    if (!isLikelyGdprTimezone()) {
+      return true;
+    }
+
+    return false;
   } catch {
     return false;
   }

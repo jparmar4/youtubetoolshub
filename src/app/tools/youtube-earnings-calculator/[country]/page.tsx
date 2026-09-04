@@ -409,6 +409,21 @@ export default async function CountryEarningsPage({
                                         </li>
                                     </ul>
                                 </div>
+
+                                {/* AdSense Sticky Sidebar Unit */}
+                                <div className="w-full">
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
+                                        Advertisement
+                                    </p>
+                                    <GoogleAd
+                                        slot={AD_SLOTS.SIDEBAR}
+                                        format="auto"
+                                        responsive
+                                        lazy={false}
+                                        style={{ display: "block" }}
+                                        className="w-full"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

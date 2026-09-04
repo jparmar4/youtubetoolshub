@@ -7,31 +7,31 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-08-21",
-  "/tools": "2026-08-21",
-  "/tools/thumbnail-tools": "2026-08-15",
-  "/tools/seo-tools": "2026-08-15",
-  "/tools/analytics-tools": "2026-08-15",
-  "/tools/channel-tools": "2026-08-15",
-  "/tools/utility-tools": "2026-08-15",
-  "/about": "2026-08-21",
-  "/contact": "2026-07-01",
-  "/blog": "2026-08-21",
-  "/blog/why-youtube-tools-hub": "2026-07-10",
-  "/faq": "2026-08-15",
-  "/resources/youtube-creator-statistics": "2026-08-15",
-  "/resources/youtube-cpm-rates": "2026-08-18",
-  "/resources/link-to-us": "2026-07-15",
-  "/pricing": "2026-07-10",
-  "/tools/vs/tubebuddy": "2026-08-15",
-  "/tools/vs/vidiq": "2026-08-15",
-  "/resources/youtube-algorithm-guide": "2026-08-18",
-  "/resources/youtube-monetization-guide": "2026-08-18",
-  "/api-docs": "2026-07-01",
+  "": "2026-09-04",
+  "/tools": "2026-09-04",
+  "/tools/thumbnail-tools": "2026-09-04",
+  "/tools/seo-tools": "2026-09-04",
+  "/tools/analytics-tools": "2026-09-04",
+  "/tools/channel-tools": "2026-09-04",
+  "/tools/utility-tools": "2026-09-04",
+  "/about": "2026-09-04",
+  "/contact": "2026-08-01",
+  "/blog": "2026-09-04",
+  "/blog/why-youtube-tools-hub": "2026-08-10",
+  "/faq": "2026-09-04",
+  "/resources/youtube-creator-statistics": "2026-09-04",
+  "/resources/youtube-cpm-rates": "2026-09-04",
+  "/resources/link-to-us": "2026-08-15",
+  "/pricing": "2026-09-04",
+  "/tools/vs/tubebuddy": "2026-09-04",
+  "/tools/vs/vidiq": "2026-09-04",
+  "/resources/youtube-algorithm-guide": "2026-09-04",
+  "/resources/youtube-monetization-guide": "2026-09-04",
+  "/api-docs": "2026-08-01",
 };
 
-const FALLBACK_LAST_MODIFIED = new Date("2026-08-15T00:00:00.000Z");
-const TOOL_LAST_MODIFIED = new Date("2026-08-15T00:00:00.000Z");
+const FALLBACK_LAST_MODIFIED = new Date("2026-09-04T00:00:00.000Z");
+const TOOL_LAST_MODIFIED = new Date("2026-09-04T00:00:00.000Z");
 const DATA_LAST_MODIFIED = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`);
 
 function parseSafeDate(value: string | undefined, fallback: Date): Date {
