@@ -210,7 +210,7 @@ export default function YouTubeEarningsCalculatorPage() {
           "50+ country CPM/RPM reference pages",
           "Free AdSense estimator — no signup",
         ]}
-        dateModified="2026-07-15"
+        dateModified="2026-09-05"
         pathname="/tools/youtube-earnings-calculator"
       />
 
