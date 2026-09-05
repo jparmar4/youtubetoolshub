@@ -92,7 +92,7 @@ export default function StickyBottomAd() {
         <div className="w-full flex justify-center overflow-hidden">
           <GoogleAd
             slot={AD_SLOTS.BOTTOM_STICKY}
-            format="horizontal"
+            format="auto"
             responsive
             lazy={false}
             className="w-full text-center"

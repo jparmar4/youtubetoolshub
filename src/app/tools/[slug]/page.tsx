@@ -338,7 +338,7 @@ export default async function ToolPage({
 
                             {/* Ad: Below Tool Component */}
                             <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[100px]">
-                                <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
                                 <GoogleAd slot="3397391628" />
                             </div>
 

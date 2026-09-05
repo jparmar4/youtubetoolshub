@@ -270,7 +270,7 @@ export default function BlogPage() {
                   />
                   {(i + 1) % 6 === 0 && (
                     <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
-                       <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Advertisement</h3>
+                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Advertisement</p>
                        <GoogleAd slot="3104734850" layout="in-article" format="fluid" />
                     </div>
                   )}

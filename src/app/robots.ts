@@ -36,6 +36,21 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: [
+          "OAI-SearchBot",
+          "ChatGPT-User",
+          "GPTBot",
+          "PerplexityBot",
+          "ClaudeBot",
+          "anthropic-ai",
+          "Google-Extended",
+          "Applebot-Extended",
+          "cohere-ai",
+        ],
+        allow: "/",
+        disallow: [...DISALLOW],
+      },
+      {
+        userAgent: [
           "SemrushBot-SA",
           "MegaIndex",
           "BLEXBot",
@@ -47,7 +62,12 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    sitemap: `${baseUrl}/sitemap-index.xml`,
+    sitemap: [
+      `${baseUrl}/sitemap.xml`,
+      `${baseUrl}/sitemap-images.xml`,
+      `${baseUrl}/sitemap-news.xml`,
+      `${baseUrl}/sitemap-index.xml`,
+    ],
     host: baseUrl,
   };
 }

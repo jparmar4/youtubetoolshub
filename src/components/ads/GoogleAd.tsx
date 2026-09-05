@@ -58,7 +58,7 @@ export default function GoogleAd({
         setIsActive(true);
         observer.disconnect();
       },
-      { rootMargin: "200px" },
+      { rootMargin: "800px" },
     );
 
     observer.observe(container);

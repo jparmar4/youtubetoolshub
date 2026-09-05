@@ -51,7 +51,8 @@ const PRIORITY_PATHS = [
   "/tools/seo-tools",
   "/tools/thumbnail-tools",
   "/tools/analytics-tools",
-  // New / refreshed blog (Batch 3 — 2026-07-24)
+  // New / refreshed blog (Batch 3 — 2026-07-24 / 2026-09-05)
+  "/blog/youtube-tags-how-to-find-the-best-tags-2026",
   "/blog/youtube-thumbnail-size-2026",
   "/blog/how-to-download-youtube-thumbnail-2026",
   "/blog/youtube-description-template-2026",
