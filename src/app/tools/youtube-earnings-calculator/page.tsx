@@ -295,6 +295,11 @@ export default function YouTubeEarningsCalculatorPage() {
                 </ToolContextProvider>
               </section>
 
+              {/* Ad immediately below the Calculator */}
+              <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+                <GoogleAd slot="8649718301" responsive className="w-full text-center" />
+              </div>
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
 

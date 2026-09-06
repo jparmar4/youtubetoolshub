@@ -25,6 +25,7 @@ import {
 } from "@/lib/related-tools";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 // Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
@@ -362,6 +363,12 @@ export default async function BlogPostPage({
                                 <TableOfContents headings={tocHeadings} className="mb-10" />
                             )}
 
+                            {/* Above-Article Content Ad — high initial viewability */}
+                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <GoogleAd slot={AD_SLOTS.HEADER} responsive className="w-full text-center" />
+                            </div>
+
                             <article itemScope itemType="https://schema.org/Article">
                                 {/* Article Content */}
                                 <div
@@ -486,6 +493,12 @@ export default async function BlogPostPage({
                                     />
                                 </div>
                             </article>
+
+                            {/* Recommended Content / Multiplex Ad Unit */}
+                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm" aria-hidden="true">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
+                            </div>
 
                             {/* Newsletter CTA */}
                             <div className="my-12">

@@ -229,6 +229,14 @@ export default function Home() {
                 All 27 tools
               </Link>
             </div>
+
+            {/* Above-the-fold Ad immediately below download thumbnail buttons */}
+            <div className="mt-8 max-w-4xl mx-auto w-full">
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-3 text-center">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+                <GoogleAd slot="2275881649" lazy={false} responsive className="w-full text-center" />
+              </div>
+            </div>
           </div>
 
           {/* Social Proof Bar */}
@@ -285,6 +293,13 @@ export default function Home() {
             </p>
           </div>
           <EarningsCalculatorCTA variant="card" contextLabel="Free · Instant · 50+ countries" />
+          {/* Ad below homepage calculator */}
+          <div className="mt-8 max-w-4xl mx-auto w-full">
+            <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+              <GoogleAd slot="3397391628" responsive className="w-full text-center" />
+            </div>
+          </div>
         </div>
       </section>
 

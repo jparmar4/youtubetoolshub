@@ -145,9 +145,9 @@ export function processContent(
      * separation between units, and nothing injected within the last two
      * sections so this never stacks against the post-FAQ unit.
      */
-    const MAX_IN_ARTICLE_ADS = 3;
-    const FIRST_AD_AFTER = 3;
-    const STRIDE = 3;
+    const MAX_IN_ARTICLE_ADS = 5;
+    const FIRST_AD_AFTER = 2;
+    const STRIDE = 2;
     // Leading whitespace is significant here: post bodies in blog.ts are indented
     // template literals, so headings arrive as "    ## Title". These counts must
     // agree with the trimmed matching in the line walker below, or no ad
@@ -155,7 +155,7 @@ export function processContent(
     const totalH2 = (content.match(/^[ \t]*##[ \t]/gm) ?? []).length;
     const totalH3 = (content.match(/^[ \t]*###[ \t]/gm) ?? []).length;
     const minHeadingsForFullRun =
-        FIRST_AD_AFTER + STRIDE * (MAX_IN_ARTICLE_ADS - 1) + 2;
+        FIRST_AD_AFTER + STRIDE * (MAX_IN_ARTICLE_ADS - 1) + 1;
     // `## ` and `### ` are counted separately above, so H2+H3 is the real total.
     const countH3AsBoundary = totalH2 < minHeadingsForFullRun;
     const totalBoundaries = countH3AsBoundary ? totalH2 + totalH3 : totalH2;
@@ -163,7 +163,7 @@ export function processContent(
     const adPositions = new Set<number>();
     for (
         let position = FIRST_AD_AFTER;
-        position <= totalBoundaries - 2 && adPositions.size < MAX_IN_ARTICLE_ADS;
+        position <= totalBoundaries - 1 && adPositions.size < MAX_IN_ARTICLE_ADS;
         position += STRIDE
     ) {
         adPositions.add(position);
