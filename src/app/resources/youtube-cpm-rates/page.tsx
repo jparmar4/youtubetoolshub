@@ -319,6 +319,12 @@ export default function YouTubeCPMRatesPage() {
                         contextLabel="Turn CPM data into your estimate"
                     />
 
+                    {/* High-viewability ad below calculator CTA */}
+                    <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 bg-white p-3 text-center">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+                        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
+                    </div>
+
                     <AffiliateBanner toolId="vidiq" variant="compact" />
 
                     {/* What is CPM section */}

@@ -366,7 +366,7 @@ export default async function BlogPostPage({
                             {/* Above-Article Content Ad — high initial viewability */}
                             <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-center">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} responsive className="w-full text-center" />
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
                             <article itemScope itemType="https://schema.org/Article">

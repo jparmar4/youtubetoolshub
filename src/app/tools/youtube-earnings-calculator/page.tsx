@@ -31,6 +31,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 
 const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
@@ -284,6 +285,12 @@ export default function YouTubeEarningsCalculatorPage() {
                   badgeText="⚡ AI Quick Summary"
                 />
               </header>
+
+              {/* Leaderboard Ad immediately above the Calculator */}
+              <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+              </div>
 
               {/* Calculator */}
               <section

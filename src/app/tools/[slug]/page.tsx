@@ -315,10 +315,10 @@ export default async function ToolPage({
                                 />
                             </header>
 
-                            {/* Leaderboard after the tool H1 — lazy so LCP stays on the tool */}
+                            {/* Leaderboard after the tool H1 — lazy={false} for immediate viewability */}
                             <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy responsive className="w-full text-center" />
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
                             <ToolContextProvider value={{ hideHeader: true }}>
