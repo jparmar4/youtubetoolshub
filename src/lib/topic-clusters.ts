@@ -43,6 +43,35 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
+        path: "/tools/youtube-sponsorship-calculator",
+        title: "YouTube Sponsorship Rate Calculator",
+        anchors: [
+          "youtube sponsorship calculator",
+          "sponsorship rate calculator",
+          "brand deal calculator",
+          "youtube brand deals",
+        ],
+      },
+      {
+        path: "/tools/youtube-channel-valuation-calculator",
+        title: "YouTube Channel Valuation Calculator",
+        anchors: [
+          "channel valuation calculator",
+          "youtube channel net worth",
+          "how much is my youtube channel worth",
+          "youtube channel worth",
+        ],
+      },
+      {
+        path: "/tools/youtube-tax-deduction-calculator",
+        title: "YouTube Creator Tax & Write-Off Calculator",
+        anchors: [
+          "creator tax calculator",
+          "youtube tax deductions",
+          "creator write off calculator",
+        ],
+      },
+      {
         path: "/resources/youtube-cpm-rates",
         title: "YouTube CPM Rates by Country",
         anchors: ["youtube cpm rates", "cpm by country", "youtube rpm by country"],

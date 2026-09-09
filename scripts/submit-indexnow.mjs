@@ -25,6 +25,9 @@ const PRIORITY_PATHS = [
   "/about",
   // Money / commercial intent
   "/tools/youtube-earnings-calculator",
+  "/tools/youtube-sponsorship-calculator",
+  "/tools/youtube-channel-valuation-calculator",
+  "/tools/youtube-tax-deduction-calculator",
   "/tools/youtube-earnings-calculator/usa",
   "/tools/youtube-earnings-calculator/uk",
   "/tools/youtube-earnings-calculator/india",
