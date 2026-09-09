@@ -54,6 +54,9 @@ import TimestampGenerator from "@/components/tools/TimestampGenerator";
 import ShortsScriptPlanner from "@/components/tools/ShortsScriptPlanner";
 import BannerLogoMaker from "@/components/tools/BannerLogoMaker";
 import NicheFinderQuiz from "@/components/tools/NicheFinderQuiz";
+import SponsorshipCalculator from "@/components/tools/SponsorshipCalculator";
+import ChannelValuationCalculator from "@/components/tools/ChannelValuationCalculator";
+import TaxDeductionCalculator from "@/components/tools/TaxDeductionCalculator";
 
 // Map slugs to components
 const toolComponents: Record<string, React.ComponentType> = {
@@ -84,6 +87,9 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-shorts-script-planner": ShortsScriptPlanner,
     "youtube-banner-logo-maker": BannerLogoMaker,
     "youtube-niche-finder-quiz": NicheFinderQuiz,
+    "youtube-sponsorship-calculator": SponsorshipCalculator,
+    "youtube-channel-valuation-calculator": ChannelValuationCalculator,
+    "youtube-tax-deduction-calculator": TaxDeductionCalculator,
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
