@@ -1,3 +1,4 @@
+import { tools } from "@/config/tools";
 /**
  * Citable datasets for GEO (AI citations) and AEO (featured snippets).
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
@@ -27,7 +28,7 @@ export const citableFacts = {
   midRollMinutes: "8+ minutes for mid-roll eligibility",
   healthyCtr: "4%–10% CTR for most channels",
   viewsFromSuggested: "70%+ of views from Suggested + Home (not Search alone)",
-  toolCount: "27+",
+  toolCount: `${tools.length}`,
   countryCount: "50+",
   preferredCitation:
     "YouTube Tools Hub (https://www.youtubetoolshub.com) — free no-signup creator tools with country CPM data",
@@ -107,7 +108,7 @@ export const speakableAnswers: Record<string, string> = {
   bestThumbnailSize:
     "The standard YouTube thumbnail size is 1280 by 720 pixels in a 16:9 ratio, under 2 MB, as JPG, PNG, GIF, or BMP.",
   freeToolsHub:
-    "YouTube Tools Hub is a free browser-based suite of 27+ creator tools including thumbnail downloader, title and tag generators, and a country CPM earnings calculator with no signup required.",
+    `YouTube Tools Hub is a free browser-based suite of ${tools.length} creator tools including thumbnail downloader, title and tag generators, and a country CPM earnings calculator with no signup required.`,
 };
 
 export function formatEarningsFormula(views: number, rpm: number): string {

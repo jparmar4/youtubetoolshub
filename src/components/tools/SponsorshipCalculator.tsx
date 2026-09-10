@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -49,6 +50,7 @@ export default function SponsorshipCalculator() {
     const [pinnedComment, setPinnedComment] = useState<boolean>(true);
     const [communityPost, setCommunityPost] = useState<boolean>(false);
 
+    const [copyError, setCopyError] = useState("");
     const [copied, setCopied] = useState<boolean>(false);
 
     const activeCurrency = CURRENCY_MAP[currency];
@@ -57,8 +59,8 @@ export default function SponsorshipCalculator() {
 
     // Calculation
     const calculations = useMemo(() => {
-        const rawViews = parseFloat(views.replace(/,/g, "")) || 0;
-        if (rawViews <= 0) return null;
+        const rawViews = parseCalculatorInput(views);
+        if (!Number.isFinite(rawViews) || rawViews <= 0) return null;
 
         // Base Sponsor CPM for a 60s integration in Tier-1 US market: ~$28.00 per 1,000 views
         const baseCpmUsd = 28.0;
@@ -94,31 +96,39 @@ export default function SponsorshipCalculator() {
         };
     }, [views, activeNiche, activePlacement, usageRights, exclusivity, pinnedComment, communityPost, activeCurrency]);
 
-    const handleCopyPitch = () => {
-        if (!calculations) return;
-        const pitch = `Hi [Brand / Agency Contact],
+    const pitch = calculations ? `Hi [Brand / Agency Contact],
 
 Thanks for reaching out! I would love to collaborate with [Brand Name] on an upcoming YouTube video.
 
-Here is an overview of my standard sponsorship packages:
+Here is an overview of my standard sponsorship package:
 
 • Deliverable: ${activePlacement.name}
 • Estimated Views: ${calculations.views.toLocaleString()} median views
 • Audience Niche: ${activeNiche.name}
 • Package Rate: ${activeCurrency.symbol}${calculations.recommendedPrice.toLocaleString()} ${currency}
-• Includes: Dedicated call-to-action${pinnedComment ? ", pinned top comment link" : ""}${usageRights ? ", 30-day paid ad usage rights" : ""}${exclusivity ? ", 30-day category exclusivity" : ""}.
+• Includes: Dedicated call-to-action${pinnedComment ? ", pinned comment and top description link" : ""}${usageRights ? ", 30-day paid ad usage rights" : ""}${exclusivity ? ", 30-day category exclusivity" : ""}${communityPost ? ", community tab post" : ""}.
 
 I've attached our media kit and recent demographic analytics. Let me know if you would like me to reserve a date in our upcoming production calendar.
 
 Best regards,
-[Your Channel Name / Media Kit Link]`;
+[Your Channel Name / Media Kit Link]` : "";
 
-        navigator.clipboard.writeText(pitch);
+    const handleCopyPitch = async () => {
+        if (!calculations) return;
+
+        setCopyError("");
+        try {
+            await navigator.clipboard.writeText(pitch);
+        } catch {
+            setCopied(false);
+            setCopyError("Could not copy. Select and copy the pitch below manually.");
+            return;
+        }
         setCopied(true);
         setTimeout(() => setCopied(false), 3000);
 
         try {
-            saveHistory("youtube-sponsorship-calculator", {
+            await saveHistory("youtube-sponsorship-calculator", {
                 views: calculations.views,
                 niche: activeNiche.name,
                 placement: activePlacement.name,
@@ -134,9 +144,11 @@ Best regards,
         <ToolPageLayout
             title="YouTube Sponsorship Rate Calculator"
             slug="youtube-sponsorship-calculator"
-            description="Calculate fair market rates for sponsored video integrations, shoutouts, and dedicated YouTube reviews."
+            description="Explore illustrative quotes for sponsored integrations, shoutouts, and dedicated reviews."
         >
             <div className="space-y-8">
+                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                <p className="text-sm text-slate-500">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
                 {/* Header Controls: Currency & View Presets */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
                     <div className="flex items-center gap-2">
@@ -181,6 +193,7 @@ Best regards,
                         <Input
                             label="Average Views per Video (Median of last 10)"
                             type="text"
+                            inputMode="decimal"
                             placeholder="e.g. 25000"
                             value={views}
                             onChange={(e) => setViews(e.target.value)}
@@ -216,7 +229,9 @@ Best regards,
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         {PLACEMENTS.map((p) => (
-                            <div
+                            <button
+                                type="button"
+                                aria-pressed={selectedPlacement === p.id}
                                 key={p.id}
                                 onClick={() => setSelectedPlacement(p.id)}
                                 className={`cursor-pointer p-4 rounded-xl border transition-all text-left ${
@@ -231,7 +246,7 @@ Best regards,
                                 <div className="text-xs text-slate-500 dark:text-slate-400">
                                     {p.desc}
                                 </div>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>
@@ -289,7 +304,7 @@ Best regards,
                                     Pinned Comment & Top Link (+10%)
                                 </span>
                                 <p className="text-xs text-slate-500">
-                                    Guarantees maximum click-through conversion from your viewers.
+                                    Adds a visible sponsor link for viewers to find.
                                 </p>
                             </div>
                         </label>
@@ -390,7 +405,7 @@ Best regards,
                                 </span>
                             </div>
                             <div>
-                                <span className="text-slate-500 block">View Guarantee</span>
+                                <span className="text-slate-500 block">View Assumption</span>
                                 <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
                                     30-Day Median
                                 </span>
@@ -415,22 +430,9 @@ Best regards,
                                     {copied ? "Copied to Clipboard!" : "Copy Pitch Template"}
                                 </Button>
                             </div>
+                            {copyError && <p role="alert" className="mb-3 text-sm text-amber-300">{copyError}</p>}
                             <pre className="text-xs text-slate-300 font-mono whitespace-pre-wrap leading-relaxed bg-slate-950/70 p-4 rounded-xl border border-slate-800 overflow-x-auto">
-{`Hi [Brand / Agency Contact],
-
-Thanks for reaching out! I would love to collaborate with [Brand Name] on an upcoming YouTube video.
-
-Here is an overview of my standard sponsorship package:
-• Deliverable: ${activePlacement.name}
-• Estimated Views: ${calculations.views.toLocaleString()} median views
-• Audience Niche: ${activeNiche.name}
-• Package Rate: ${activeCurrency.symbol}${calculations.recommendedPrice.toLocaleString()} ${currency}
-• Includes: Dedicated call-to-action${pinnedComment ? ", pinned top comment link" : ""}${usageRights ? ", 30-day paid ad usage rights" : ""}${exclusivity ? ", 30-day category exclusivity" : ""}.
-
-I've attached our media kit and recent demographic analytics. Let me know if you would like me to reserve a date in our upcoming production calendar.
-
-Best regards,
-[Your Channel Name / Media Kit Link]`}
+{pitch}
                             </pre>
                         </div>
 

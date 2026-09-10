@@ -30,7 +30,7 @@ export const metadata: Metadata = {
       "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
   },
   description:
-    "Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. 27 creator tools, no signup.",
+    `Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. ${tools.length} creator tools, no signup.`,
   keywords: [
     "youtube thumbnail downloader",
     "youtube tag generator",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Free YouTube Tools for Creators | YouTube Tools Hub",
     description:
-      "27+ free tools: thumbnail downloader, tag generator, earnings calculator, and more. No signup required.",
+      `${tools.length} free tools: thumbnail downloader, tag generator, earnings calculator, and more. No signup required.`,
     url: siteConfig.url,
     type: "website",
   },
@@ -173,7 +173,7 @@ export default function Home() {
           <div className="animate-fade-in-up">
             <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/40 backdrop-blur-md border border-white/60 text-purple-700 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
               <FaBrain className="text-pink-500 animate-glow-pulse" />
-              27 free tools · no signup
+              {tools.length} free tools · no signup
             </span>
             <h1
               className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
@@ -226,7 +226,7 @@ export default function Home() {
                 CPM rates by country
               </Link>
               <Link href="/tools" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
-                All 27 tools
+                All {tools.length} tools
               </Link>
             </div>
 
@@ -244,7 +244,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-70">
               <div className="text-center">
                 <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  27+
+                  {tools.length}
                 </div>
                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
                   Free Tools
@@ -316,9 +316,9 @@ export default function Home() {
               <div className="mb-4 flex justify-center text-purple-600">
                 <FaBolt className="h-10 w-10" aria-hidden="true" />
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">27+ Free YouTube Tools</h3>
+              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">{tools.length} Free YouTube Tools</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                YouTube Tools Hub is a free online platform providing 27+ creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
+                YouTube Tools Hub is a free online platform providing {tools.length} creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
               </p>
             </div>
             <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">

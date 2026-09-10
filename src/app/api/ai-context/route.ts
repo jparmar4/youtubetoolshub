@@ -141,7 +141,7 @@ export async function GET() {
         },
         image: `${siteUrl}/og-image.png`,
         description:
-          "YouTube Tools Hub is a free suite of 27+ creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.",
+          `YouTube Tools Hub is a free suite of ${tools.length} creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.`,
         email: siteConfig.contact.email,
         foundingDate: "2025",
         slogan: "Free YouTube Creator Tools",

@@ -7,7 +7,7 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-09-04",
+  "": "2026-09-10",
   "/tools": "2026-09-04",
   "/tools/thumbnail-tools": "2026-09-04",
   "/tools/seo-tools": "2026-09-04",
@@ -82,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const url = `${baseUrl}/tools/${tool.slug}`;
     allEntries.push({
       url,
-      lastModified: TOOL_LAST_MODIFIED,
+      lastModified: tool.slug === "youtube-earnings-calculator" ? TOOL_LAST_MODIFIED : new Date("2026-09-10T00:00:00.000Z"),
       changeFrequency: "weekly",
       priority: 0.9,
       images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],

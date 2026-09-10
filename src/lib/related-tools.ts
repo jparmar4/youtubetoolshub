@@ -65,6 +65,9 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
 };
 
 const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
+  { pattern: /sponsor|brand.?deal|media.?kit/i, slugs: ["youtube-sponsorship-calculator"] },
+  { pattern: /valuation|channel.?worth|sell.*channel|buy.*channel/i, slugs: ["youtube-channel-valuation-calculator"] },
+  { pattern: /tax|write.?off|deduct/i, slugs: ["youtube-tax-deduction-calculator"] },
   {
     pattern: /thumbnail|ctr|click.?through/i,
     slugs: [
@@ -163,16 +166,6 @@ export function getRelatedToolsForPost(
 ): Tool[] {
   const slugs: string[] = [];
 
-  if (post.category) {
-    // Fuzzy category match
-    const catKey = Object.keys(CATEGORY_TOOL_MAP).find(
-      (k) =>
-        post.category!.toLowerCase().includes(k.toLowerCase()) ||
-        k.toLowerCase().includes(post.category!.toLowerCase()),
-    );
-    if (catKey) slugs.push(...CATEGORY_TOOL_MAP[catKey]);
-  }
-
   const haystack = [
     post.title || "",
     post.slug || "",
@@ -183,6 +176,16 @@ export function getRelatedToolsForPost(
     if (hint.pattern.test(haystack)) {
       slugs.push(...hint.slugs);
     }
+  }
+
+  if (post.category) {
+    // Fuzzy category match
+    const catKey = Object.keys(CATEGORY_TOOL_MAP).find(
+      (k) =>
+        post.category!.toLowerCase().includes(k.toLowerCase()) ||
+        k.toLowerCase().includes(post.category!.toLowerCase()),
+    );
+    if (catKey) slugs.push(...CATEGORY_TOOL_MAP[catKey]);
   }
 
   // Always ensure a few priority tools as fallback

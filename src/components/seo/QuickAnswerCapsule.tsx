@@ -21,7 +21,7 @@ export default function QuickAnswerCapsule({
   answer,
   keyPoints = [],
   badgeText = "Quick Answer (2026 Summary)",
-  verifiedNote = "Verified with official YouTube Creator Studio & AdSense benchmarks • Updated 2026",
+  verifiedNote = "",
   className = "",
 }: QuickAnswerCapsuleProps) {
   return (

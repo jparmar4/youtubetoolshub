@@ -309,14 +309,15 @@ export function getSoftwareApplicationSchema(tool: {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${tool.url}#software`,
     name: tool.name,
     description: tool.description,
     url: tool.url,
     applicationCategory: applicationCategory, // Ensure this maps to a valid schema.org category
     operatingSystem: "Any", // Required field
-    datePublished: tool.datePublished || "2025-01-01",
+    ...(tool.datePublished ? { datePublished: tool.datePublished } : {}),
     // Never claim a new modification date just because the page was rendered.
-    dateModified: tool.dateModified || "2026-07-19",
+    ...(tool.dateModified ? { dateModified: tool.dateModified } : {}),
     offers: {
       "@type": "Offer",
       price: "0",

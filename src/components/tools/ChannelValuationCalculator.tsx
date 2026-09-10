@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
@@ -44,12 +45,12 @@ export default function ChannelValuationCalculator() {
     const activeModel = CHANNEL_MODELS.find(m => m.id === model) || CHANNEL_MODELS[0];
 
     const calculations = useMemo(() => {
-        const adsVal = parseFloat(adsense.replace(/,/g, "")) || 0;
-        const sponsorsVal = parseFloat(sponsorships.replace(/,/g, "")) || 0;
-        const affiliateVal = parseFloat(affiliates.replace(/,/g, "")) || 0;
+        const adsVal = parseCalculatorInput(adsense);
+        const sponsorsVal = parseCalculatorInput(sponsorships);
+        const affiliateVal = parseCalculatorInput(affiliates);
 
         const totalMonthlyNet = adsVal + sponsorsVal + affiliateVal;
-        if (totalMonthlyNet <= 0) return null;
+        if (!Number.isFinite(totalMonthlyNet) || totalMonthlyNet <= 0) return null;
 
         const annualRunRate = totalMonthlyNet * 12;
 
@@ -74,7 +75,8 @@ export default function ChannelValuationCalculator() {
         const conservativeValue = fairMarketValue * 0.78; // Quick cash offer / auction floor
         const strategicValue = fairMarketValue * 1.32; // Strategic buyer / media portfolio syndicate
 
-        const rate = activeCurrency.rate;
+        // Inputs and outputs are in the selected currency; no conversion is needed.
+        const rate = 1;
 
         return {
             totalMonthlyNet: Math.round(totalMonthlyNet * rate),
@@ -88,7 +90,7 @@ export default function ChannelValuationCalculator() {
             sponsorPct: Math.round((sponsorsVal / totalMonthlyNet) * 100),
             affiliatePct: Math.round((affiliateVal / totalMonthlyNet) * 100),
         };
-    }, [adsense, sponsorships, affiliates, activeGrowth, activeModel, activeCurrency]);
+    }, [adsense, sponsorships, affiliates, activeGrowth, activeModel]);
 
     return (
         <ToolPageLayout
@@ -97,6 +99,7 @@ export default function ChannelValuationCalculator() {
             description="Estimate the market value, acquisition price, and net worth of any YouTube channel based on monthly net profit and creator multiples."
         >
             <div className="space-y-8">
+                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Currency Selector Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
                     <div className="flex items-center gap-2">
@@ -120,10 +123,11 @@ export default function ChannelValuationCalculator() {
                         </div>
                     </div>
                     <div className="text-xs text-slate-500">
-                        Based on 2026 digital media M&A benchmarks (Empire Flippers & Flippa multiples).
+                        Illustrative model: 28× monthly profit, adjusted by growth, model and income mix. Not a broker appraisal.
                     </div>
                 </div>
 
+                <p className="text-sm text-slate-500">Enter monthly profit after allocating operating costs across each income stream. All amounts use the selected currency; changing currency relabels amounts without converting them. This model supports profitable channels only.</p>
                 {/* Financial Inputs */}
                 <div>
                     <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
@@ -134,20 +138,23 @@ export default function ChannelValuationCalculator() {
                         <Input
                             label={`Monthly AdSense Net (${activeCurrency.symbol})`}
                             type="text"
+                            inputMode="decimal"
                             placeholder="2500"
                             value={adsense}
                             onChange={(e) => setAdsense(e.target.value)}
                         />
                         <Input
-                            label={`Monthly Sponsorships (${activeCurrency.symbol})`}
+                            label={`Monthly Sponsorship Net (${activeCurrency.symbol})`}
                             type="text"
+                            inputMode="decimal"
                             placeholder="1800"
                             value={sponsorships}
                             onChange={(e) => setSponsorships(e.target.value)}
                         />
                         <Input
-                            label={`Monthly Affiliates/Merch (${activeCurrency.symbol})`}
+                            label={`Monthly Affiliates/Merch Net (${activeCurrency.symbol})`}
                             type="text"
+                            inputMode="decimal"
                             placeholder="700"
                             value={affiliates}
                             onChange={(e) => setAffiliates(e.target.value)}
@@ -289,7 +296,7 @@ export default function ChannelValuationCalculator() {
                                 </div>
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <span><strong>Build an Email List:</strong> Direct audience access outside YouTube adds 15–25% to broker evaluations.</span>
+                                    <span><strong>Build an Email List:</strong> Direct audience access outside YouTube can reduce platform dependence.</span>
                                 </div>
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />

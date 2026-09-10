@@ -1,3 +1,4 @@
+import { toolExamples } from "@/lib/tool-examples";
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -121,7 +122,7 @@ export async function generateMetadata({
     }
 
     return {
-        title: tool.seoTitle || tool.name,
+        title: { absolute: tool.seoTitle || tool.name },
         description: tool.seoDescription || tool.description,
         keywords: tool.keywords,
         openGraph: {
@@ -313,11 +314,11 @@ export default async function ToolPage({
                                     }
                                     keyPoints={[
                                         "100% Free to use online (no browser extensions needed)",
-                                        "Optimized for 2026 YouTube Studio & algorithm standards",
-                                        "Instant generation and real-time preview outputs",
-                                        "Mobile-friendly & privacy focused (no personal data stored)",
+                                        tool.isAI ? "AI output is a draft to review before publishing" : "Results depend on the inputs you provide",
+                                        "Read the instructions and limitations before using results",
+                                        "No browser extension or YouTube password required",
                                     ]}
-                                    badgeText="⚡ AI Quick Summary"
+                                    badgeText="Tool summary"
                                 />
                             </header>
 
@@ -338,6 +339,17 @@ export default async function ToolPage({
                                     <ToolComponent />
                                 </Suspense>
                             </ToolContextProvider>
+
+                            {toolExamples[tool.slug] && (
+                                <section className="rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4" aria-labelledby="worked-example-title">
+                                    <h2 id="worked-example-title" className="text-xl font-bold">{toolExamples[tool.slug].title}</h2>
+                                    <dl className="space-y-3">
+                                        <div><dt className="font-semibold">Example input</dt><dd>{toolExamples[tool.slug].input}</dd></div>
+                                        <div><dt className="font-semibold">Example result</dt><dd>{toolExamples[tool.slug].output}</dd></div>
+                                    </dl>
+                                    <p className="text-sm text-slate-600 dark:text-slate-300">{toolExamples[tool.slug].explanation}</p>
+                                </section>
+                            )}
 
                             {/* Category-Tailored Creator Affiliate Recommendation */}
                             <AffiliateBanner toolId={getAffiliateToolForCategory(tool.category, tool.slug)} variant="compact" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
@@ -16,7 +17,6 @@ interface RegionConfig {
     currency: string;
     symbol: string;
     taxAgency: string;
-    avgMarginalRate: number; // Combined self-employment + federal/state/provincial effective rate
     formName: string;
 }
 
@@ -26,7 +26,6 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
         currency: "USD",
         symbol: "$",
         taxAgency: "IRS Schedule C & 1099-NEC",
-        avgMarginalRate: 0.30, // 15.3% SE tax + ~15% income tax
         formName: "Schedule C (Form 1040)",
     },
     UK: {
@@ -34,7 +33,6 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
         currency: "GBP",
         symbol: "£",
         taxAgency: "HMRC Self-Assessment",
-        avgMarginalRate: 0.29, // Class 4 NICs + Basic Rate
         formName: "Self-Assessment SA100",
     },
     CA: {
@@ -42,7 +40,6 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
         currency: "CAD",
         symbol: "CA$",
         taxAgency: "CRA Form T2125",
-        avgMarginalRate: 0.31, // CPP + Federal/Provincial
         formName: "T2125 Statement of Business Activities",
     },
     AU: {
@@ -50,13 +47,13 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
         currency: "AUD",
         symbol: "AU$",
         taxAgency: "ATO Individual Tax Return",
-        avgMarginalRate: 0.32, // Medicare levy + marginal bracket
         formName: "Business & Professional Items Schedule",
     },
 };
 
 export default function TaxDeductionCalculator() {
     const [region, setRegion] = useState<TaxRegion>("US");
+    const [assumedRate, setAssumedRate] = useState("30");
     const [grossIncome, setGrossIncome] = useState<string>("45000");
 
     // Expense Categories
@@ -72,21 +69,23 @@ export default function TaxDeductionCalculator() {
     const currentRegion = REGION_CONFIGS[region];
 
     const calculations = useMemo(() => {
-        const gross = parseFloat(grossIncome.replace(/,/g, "")) || 0;
-        if (gross <= 0) return null;
+        const gross = parseCalculatorInput(grossIncome);
+        if (!Number.isFinite(gross) || gross <= 0) return null;
 
-        const gearVal = parseFloat(camerasGear.replace(/,/g, "")) || 0;
-        const techVal = parseFloat(computersTech.replace(/,/g, "")) || 0;
-        const softVal = parseFloat(softwareSubs.replace(/,/g, "")) || 0;
-        const contrVal = parseFloat(contractors.replace(/,/g, "")) || 0;
-        const studioVal = parseFloat(homeStudio.replace(/,/g, "")) || 0;
-        const netMobVal = parseFloat(internetMobile.replace(/,/g, "")) || 0;
-        const propsVal = parseFloat(propsWardrobe.replace(/,/g, "")) || 0;
-        const travelVal = parseFloat(travelTraining.replace(/,/g, "")) || 0;
+        const gearVal = parseCalculatorInput(camerasGear);
+        const techVal = parseCalculatorInput(computersTech);
+        const softVal = parseCalculatorInput(softwareSubs);
+        const contrVal = parseCalculatorInput(contractors);
+        const studioVal = parseCalculatorInput(homeStudio);
+        const netMobVal = parseCalculatorInput(internetMobile);
+        const propsVal = parseCalculatorInput(propsWardrobe);
+        const travelVal = parseCalculatorInput(travelTraining);
 
         const totalDeductions = gearVal + techVal + softVal + contrVal + studioVal + netMobVal + propsVal + travelVal;
+        const rate = parseCalculatorInput(assumedRate);
+        if (!Number.isFinite(totalDeductions) || !Number.isFinite(rate) || rate > 100) return null;
         const taxableNetIncome = Math.max(0, gross - totalDeductions);
-        const estimatedTaxSavings = Math.round(totalDeductions * currentRegion.avgMarginalRate);
+        const estimatedTaxSavings = Math.round(Math.min(gross, totalDeductions) * rate / 100);
         const deductionRatio = Math.min(100, Math.round((totalDeductions / gross) * 100));
 
         return {
@@ -95,17 +94,18 @@ export default function TaxDeductionCalculator() {
             taxableNetIncome,
             estimatedTaxSavings,
             deductionRatio,
-            marginalRatePercent: Math.round(currentRegion.avgMarginalRate * 100),
+            marginalRatePercent: rate,
         };
-    }, [grossIncome, camerasGear, computersTech, softwareSubs, contractors, homeStudio, internetMobile, propsWardrobe, travelTraining, currentRegion]);
+    }, [grossIncome, camerasGear, computersTech, softwareSubs, contractors, homeStudio, internetMobile, propsWardrobe, travelTraining, assumedRate]);
 
     return (
         <ToolPageLayout
             title="YouTube Creator Tax & Write-Off Calculator"
             slug="youtube-tax-deduction-calculator"
-            description="Estimate legitimate business tax deductions, lower your taxable net profit, and calculate tax savings on your creator revenue."
+            description="Explore an expense planning scenario using your own assumed tax rate. This tool does not determine deduction eligibility or tax owed."
         >
             <div className="space-y-8">
+                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Region Selector */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
                     <div className="flex items-center gap-2">
@@ -133,12 +133,17 @@ export default function TaxDeductionCalculator() {
                     </div>
                 </div>
 
+                <div className="space-y-2">
+                    <Input label="Assumed marginal tax rate (%)" type="text" inputMode="decimal" value={assumedRate} onChange={(e) => setAssumedRate(e.target.value)} />
+                    <p className="text-sm text-slate-500">30% is an illustrative starting assumption, not a country tax rate. Enter a rate from 0 to 100 for your scenario. Region changes currency labels only; amounts are not converted. Enter only the business portion you expect to deduct this year, including any applicable depreciation rather than the full asset price.</p>
+                </div>
                 {/* Gross Creator Income Input */}
                 <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">
                     <div className="max-w-md">
                         <Input
                             label={`Gross Annual Creator Revenue (${currentRegion.symbol})`}
                             type="text"
+                            inputMode="decimal"
                             placeholder="e.g. 45000"
                             value={grossIncome}
                             onChange={(e) => setGrossIncome(e.target.value)}
@@ -153,7 +158,7 @@ export default function TaxDeductionCalculator() {
                 <div className="space-y-4">
                     <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                         <FaFileInvoiceDollar className="text-emerald-600" />
-                        Eligible Creator Business Expenses (Annual Totals in {currentRegion.symbol})
+                        Potential Creator Business Expenses (Annual Totals in {currentRegion.symbol})
                     </h3>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -161,6 +166,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Cameras & Audio Gear"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={camerasGear}
                                 onChange={(e) => setCamerasGear(e.target.value)}
@@ -172,6 +178,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Computers & Storage"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={computersTech}
                                 onChange={(e) => setComputersTech(e.target.value)}
@@ -183,6 +190,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Software & Subscriptions"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={softwareSubs}
                                 onChange={(e) => setSoftwareSubs(e.target.value)}
@@ -194,6 +202,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Contractors & Editors"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={contractors}
                                 onChange={(e) => setContractors(e.target.value)}
@@ -205,6 +214,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Home Studio / Rent"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={homeStudio}
                                 onChange={(e) => setHomeStudio(e.target.value)}
@@ -214,8 +224,9 @@ export default function TaxDeductionCalculator() {
 
                         <div>
                             <Input
-                                label="Internet & Mobile (%)"
+                                label="Internet & Mobile (Amount)"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={internetMobile}
                                 onChange={(e) => setInternetMobile(e.target.value)}
@@ -227,6 +238,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Props, Wardrobe & Sets"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={propsWardrobe}
                                 onChange={(e) => setPropsWardrobe(e.target.value)}
@@ -238,6 +250,7 @@ export default function TaxDeductionCalculator() {
                             <Input
                                 label="Conferences & Education"
                                 type="text"
+                            inputMode="decimal"
                                 placeholder="0"
                                 value={travelTraining}
                                 onChange={(e) => setTravelTraining(e.target.value)}
@@ -264,13 +277,13 @@ export default function TaxDeductionCalculator() {
                             {/* Total Write-Offs */}
                             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
-                                    Total Write-Offs Claimed
+                                    Expenses Entered
                                 </div>
                                 <div className="text-3xl font-black text-slate-800 dark:text-slate-100 font-outfit">
                                     {currentRegion.symbol}{calculations.totalDeductions.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
-                                    {calculations.deductionRatio}% of gross revenue shielded from taxes.
+                                    {calculations.deductionRatio}% of gross revenue represented by expenses (capped at 100%).
                                 </p>
                             </div>
 
@@ -280,26 +293,26 @@ export default function TaxDeductionCalculator() {
                                     Estimated Savings
                                 </div>
                                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
-                                    Cash Kept in Your Pocket
+                                    Illustrative Tax Reduction
                                 </div>
                                 <div className="text-4xl font-black text-emerald-700 dark:text-emerald-300 font-outfit">
                                     {currentRegion.symbol}{calculations.estimatedTaxSavings.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
-                                    Based on estimated ~{calculations.marginalRatePercent}% combined self-employment bracket.
+                                    Using your {calculations.marginalRatePercent}% rate assumption. Capped at revenue × rate; losses and carryovers are not modeled.
                                 </p>
                             </div>
 
                             {/* Taxable Net Income */}
                             <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">
-                                    Adjusted Taxable Net
+                                    Revenue Less Expenses (Floor 0)
                                 </div>
                                 <div className="text-3xl font-black text-purple-600 dark:text-purple-400 font-outfit">
                                     {currentRegion.symbol}{calculations.taxableNetIncome.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
-                                    Reportable net earnings on your {currentRegion.formName}.
+                                    Planning subtotal only; not a tax return figure.
                                 </p>
                             </div>
                         </div>
@@ -308,24 +321,24 @@ export default function TaxDeductionCalculator() {
                         <div className="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
                             <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
                                 <FaRegLightbulb className="text-emerald-600" />
-                                4 Golden Rules for Creator Tax Compliance
+                                Expense Planning Checks
                             </h4>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-300">
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <span><strong>Ordinary & Necessary Test:</strong> Every expense must directly contribute to producing, editing, distributing, or managing your channel.</span>
+                                    <span><strong>Ordinary & Necessary Test:</strong> Business use alone does not establish deductibility. Check the rules for your jurisdiction and expense type.</span>
                                 </div>
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <span><strong>Home Studio Exclusivity:</strong> Your filming space must be used regularly and exclusively for video production (not shared as a guest bedroom).</span>
+                                    <span><strong>Home Studio:</strong> Home office eligibility and allocation rules depend on your jurisdiction and use of the space.</span>
                                 </div>
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <span><strong>Digital Receipt Retention:</strong> Keep electronic copies of credit card receipts and software invoices for at least 3 to 5 years.</span>
+                                    <span><strong>Digital Receipt Retention:</strong> Keep receipts and records of business use for the period required by your tax authority.</span>
                                 </div>
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
-                                    <span><strong>Contractor Form 1099s:</strong> In the US, issue Form 1099-NEC to any US-based freelance editor or designer you pay $600 or more in a calendar year.</span>
+                                    <span><strong>Contractor Reporting:</strong> Check current reporting thresholds, payment-method exceptions and filing requirements with your tax authority.</span>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +347,7 @@ export default function TaxDeductionCalculator() {
                         <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl flex items-start gap-3 text-xs text-amber-800 dark:text-amber-200">
                             <FaExclamationTriangle className="shrink-0 text-amber-500 mt-0.5 text-base" />
                             <div>
-                                <strong>Important Disclaimer:</strong> This calculator is an educational planning estimator based on standard self-employment deduction rules in {currentRegion.name}. It does not constitute certified legal or tax advice. Tax regulations change frequently; always verify your specific business situation with a licensed CPA, Enrolled Agent, or chartered tax accountant.
+                                <strong>Important Disclaimer:</strong> This calculator is an educational planning estimator using your entered expenses and rate assumption for {currentRegion.name}. It does not constitute certified legal or tax advice. Tax regulations change frequently; always verify your specific business situation with a licensed CPA, Enrolled Agent, or chartered tax accountant.
                             </div>
                         </div>
 

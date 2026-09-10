@@ -412,8 +412,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-title-generator",
         name: "YouTube Title Generator",
-        seoTitle: "Free YouTube Title Generator (High CTR & Viral Ideas • 2026)",
-        seoDescription: "Generate catchy, high-CTR YouTube titles in seconds using AI. Discover searchable, viral, and curiosity-driven title formulas. 100% Free, no signup.",
+        seoTitle: "Free YouTube Title Generator — Video Title Ideas",
+        seoDescription: "Generate YouTube title ideas from your video topic. Compare searchable and curiosity-led drafts, then edit them to match your video. Free, no signup.",
         description: "Generate SEO-optimized, clickable YouTube titles using AI. Choose from different tones, emotional hooks, and languages to boost your CTR.",
         shortDescription: "AI-generated SEO titles",
         category: "seo-metadata",
@@ -588,8 +588,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tag-generator",
         name: "YouTube Tag Generator",
-        seoTitle: "YouTube Tag Generator (SEO & Viral Video Tags • Free 2026)",
-        seoDescription: "Generate relevant, SEO-optimized YouTube tags to boost search discovery and suggested video reach. Free AI tag finder, no signup required.",
+        seoTitle: "Free YouTube Tag Generator — Relevant Video Tags",
+        seoDescription: "Generate relevant YouTube tag ideas from your topic. Review and copy tags that describe your video. Free browser tool, no signup required.",
         description: "Generate SEO-optimized, trending tags that help your videos rank. Get a mix of primary, search, and long-tail keywords in seconds.",
         shortDescription: "Generate SEO tags for videos",
         category: "seo-metadata",
@@ -2352,27 +2352,27 @@ export const tools: Tool[] = [
         content: [
             {
                 title: "How YouTube Sponsorship Rates Are Calculated",
-                content: "Unlike YouTube AdSense which pays per ad view (RPM), brand sponsorships are typically negotiated as a flat fee based on anticipated views using a Sponsor CPM model ($20 to $45+ per 1,000 views). Niche authority, audience geography (Tier 1 vs emerging markets), and deliverable exclusivity adjust this base fee."
+                content: "This calculator starts with a $28 USD CPM assumption for a standard integration, then applies the selected niche and format factors. Views are divided by 1,000 before multiplying by CPM. The result is a starting scenario for negotiation, not a measured market rate. Use a representative view count and discuss deliverables with the brand."
             },
             {
                 title: "Standard Sponsorship Formats: 30s vs 60s vs Dedicated",
-                content: "A 30-second mention at the beginning or end of a video commands roughly 50-60% of a standard integration. A 60-90 second mid-roll integration is the industry standard (baseline 100%). A fully dedicated video (where the entire 8-15 minute video is built around the sponsor) commands 2.5x to 3.5x standard integration rates."
+                content: "The model applies 0.55x for a short mention, 1x for a standard integration, 2.8x for a dedicated video and 0.35x for Shorts. Minimum base fees are $120, or $450 for a dedicated video. These are fixed planning assumptions; the tool does not estimate your production costs."
             },
             {
                 title: "Niche Multipliers in Influencer Marketing",
-                content: "Finance, B2B SaaS, and business channels often command $40–$80+ Sponsor CPMs because viewers have high purchasing power and lifetime customer value (LTV). Gaming, entertainment, and comedy typically trade at $15–$25 CPMs due to higher view volume but lower advertiser conversion values."
+                content: "Niche factors range from 0.85x for Gaming to 2.2x for Finance, with Tech set to 1.8x. These factors illustrate how audience fit might affect a quote. They are not live sponsor budgets or evidence that a particular niche guarantees higher earnings."
             },
             {
                 title: "Charging for Usage Rights & Exclusivity",
-                content: "Never give away paid advertising usage rights or category exclusivity for free. If a brand wants to run your video clip as a paid TikTok or Meta ad (whitelisting/Spark Ads), add 30-50% to your base quote. If they demand you do not work with competitors for 30 days, add an exclusivity fee of 25-35%."
+                content: "Selected add-ons are added to the base fee: 35% for 30-day paid usage, 25% for 30-day exclusivity, 10% for a pinned comment and top link, and 15% for a community post. Confirm duration, platforms, revisions and deliverables in the actual agreement; calculator output does not grant rights."
             }
         ],
         howTo: {
             name: "How to Price Your YouTube Sponsorships",
-            description: "Follow these steps to calculate and quote accurate sponsorship rates to brands and agencies.",
+            description: "Follow these steps to build an illustrative sponsorship quote to brands and agencies.",
             steps: [
                 { name: "Enter Average Views", text: "Input your median views across the last 5 to 10 published videos (exclude outlier viral hits)." },
-                { name: "Select Your Niche", text: "Pick your content category to apply the correct industry CPM multiplier (Finance, Tech, Lifestyle, Gaming)." },
+                { name: "Select Your Niche", text: "Pick your content category to apply the calculator’s illustrative CPM multiplier (Finance, Tech, Lifestyle, Gaming)." },
                 { name: "Choose Format & Add-Ons", text: "Select 30s shoutout, 60s integration, or dedicated video, plus any usage rights or exclusivity." },
                 { name: "Copy Pitch Template", text: "Review your floor, recommended, and premium rates, then copy the pre-filled pitch email to send to the brand." }
             ],
@@ -2381,7 +2381,7 @@ export const tools: Tool[] = [
         faqs: [
             {
                 question: "What is a good CPM for a YouTube sponsorship?",
-                answer: "In 2026, standard YouTube sponsorship CPMs range from $20 to $45 per 1,000 median views for 60-second integrated mid-rolls. High-value niches like Finance and B2B SaaS frequently command $50 to $80+ CPMs."
+                answer: "There is no universal CPM that fits every campaign. This tool starts from an illustrative $28 USD base CPM, then applies niche, format and add-on assumptions. Use the result as a discussion point, not a guaranteed market offer."
             },
             {
                 question: "How many subscribers do I need to get sponsorships?",
@@ -2389,7 +2389,7 @@ export const tools: Tool[] = [
             },
             {
                 question: "What is the difference between Floor Price and Recommended Price?",
-                answer: "Your Floor Price is the absolute minimum you should accept (covering production time and audience goodwill). Your Recommended Price is your standard quote for standard brand agreements. Your Premium Price is for rush turnarounds or multi-round revisions."
+                answer: "The lower tier is 78% of the model target and the upper tier is 135%. These are scenario ranges, not a calculation of your costs or a minimum you must accept. Set your own minimum using scope, costs and rights."
             },
             {
                 question: "Should I charge extra for paid usage rights?",
@@ -2397,7 +2397,7 @@ export const tools: Tool[] = [
             },
             {
                 question: "How do I quote brands in different currencies?",
-                answer: "Our calculator supports USD ($), GBP (£), CAD (C$), AUD (A$), and EUR (€) using real-time commercial creator conversion rates."
+                answer: "Our calculator supports USD ($), GBP (£), CAD (C$), AUD (A$), and EUR (€) using fixed illustrative exchange rates, not live rates. Confirm a current rate before agreeing a cross-currency quote."
             }
         ]
     },
@@ -2405,7 +2405,7 @@ export const tools: Tool[] = [
         slug: "youtube-channel-valuation-calculator",
         name: "YouTube Channel Valuation Calculator",
         seoTitle: "YouTube Channel Valuation Calculator — How Much is Your Channel Worth? (2026)",
-        seoDescription: "Estimate the market selling price and net worth of any YouTube channel. Uses industry EBITDA multiples (24x–36x monthly earnings) for AdSense, brand deals, and merch.",
+        seoDescription: "Estimate the market selling price and net worth of any YouTube channel. Models monthly net profit with an adjustable profile and a 16x–45x monthly multiple. This is a planning estimate, not a broker appraisal.",
         description: "Calculate the estimated market value and acquisition price of a YouTube channel based on monthly net profit, revenue diversification, and creator industry multiples.",
         shortDescription: "Estimate the market value and net worth of any YouTube channel",
         category: "analytics-earnings",
@@ -2424,24 +2424,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Channel Valuation Calculator?",
-            text: "The YouTube Channel Valuation Calculator estimates the fair market valuation and resale price of a YouTube channel or creator media business. It evaluates monthly net earnings across AdSense, sponsorships, and affiliate revenue, applying industry-standard 24x to 40x monthly EBITDA multiples."
+            text: "The YouTube Channel Valuation Calculator estimates the fair market valuation and resale price of a YouTube channel or creator media business. It evaluates monthly net earnings across AdSense, sponsorships, and affiliate revenue, applying a 28x baseline monthly profit multiple, adjusted for growth, operating model and income mix, and bounded to 16x–45x. These factors are illustrative model assumptions."
         },
         content: [
             {
                 title: "How Digital Media Businesses & Channels Are Valued",
-                content: "In digital asset M&A (mergers and acquisitions), content channels are priced on a multiple of monthly net profit (SDE - Seller's Discretionary Earnings or EBITDA). Most monetized YouTube channels trade between 24x and 36x monthly net profit, representing roughly 2 to 3 years of net income."
+                content: "The model multiplies monthly net profit by 28, then adjusts for selected growth, operating model and income mix. The monthly multiple is bounded to 16x–45x. The lower and upper scenarios are 78% and 132% of the target value. This method does not establish an actual selling price."
             },
             {
                 title: "Key Value Drivers That Increase Channel Worth",
-                content: "Channels with diversified revenue (AdSense + Brand Deals + Affiliate Sales) receive higher multiples (32x-40x) than channels 100% dependent on AdSense (20x-26x). Other critical drivers include evergreen search traffic, high audience retention, and clean copyright standing."
+                content: "AdSense contributing more than 85% of entered profit applies a 0.92x factor. Otherwise, positive sponsorship and affiliate inputs apply a 1.12x factor. Use consistent profit figures after allocating costs; gross revenue inputs can overstate the estimate. These adjustments are model assumptions rather than transaction data."
             },
             {
                 title: "Faceless Media vs Personal Personality Channels",
-                content: "Faceless channels (documentaries, tech tutorials, animated explainers, compilation brands) trade at higher multiples because a new owner can continue operations seamlessly without the audience noticing a host change. Personal vlogger channels carry a key-man risk discount unless systems and co-hosts are in place."
+                content: "The tool uses a 1.2x factor for a faceless operating model, 1x for a hybrid model and 0.8x for a personal creator. This represents an assumption about dependence on the existing host. It does not verify whether an operation can be transferred or continue successfully under new ownership."
             },
             {
                 title: "Asset Sale vs Channel Transfer",
-                content: "A channel valuation includes the Brand Account ownership, indexed video backlog producing recurring monthly AdSense, subscriber base, associated domains, social handles, and email newsletters. Backlog revenue often accounts for 40-70% of buyer interest."
+                content: "An actual transaction requires review of records, rights, contracts, operating costs and which assets are included. The calculator does not verify ownership, transfer eligibility, subscriber quality or liabilities. Currency selection labels both inputs and outputs in that currency; it does not convert entered amounts."
             }
         ],
         howTo: {
@@ -2451,14 +2451,14 @@ export const tools: Tool[] = [
                 { name: "Enter Monthly Net Income", text: "Enter average monthly profit from AdSense, sponsorships, affiliate commissions, and merch." },
                 { name: "Select Growth Trajectory", text: "Indicate whether channel views and revenues are declining, steady, or growing year-over-year." },
                 { name: "Select Channel Format", text: "Choose whether the channel is faceless/brand-operated or personally creator-hosted." },
-                { name: "Review Valuation Tiers", text: "Examine your conservative quick-sale value, fair market broker price, and strategic buyer premium." }
+                { name: "Review Valuation Tiers", text: "Examine your conservative quick-sale value, model target value, and strategic buyer premium." }
             ],
             totalTime: "PT3M"
         },
         faqs: [
             {
                 question: "What is the standard multiple for selling a YouTube channel?",
-                answer: "Most established YouTube channels sell for 24x to 36x monthly net profit (2.0x to 3.0x annual net profit). High-growth channels with diversified products and email lists can command 40x+ multiples on platforms like Empire Flippers and Flippa."
+                answer: "This calculator uses a 28x baseline monthly profit multiple and bounds the adjusted multiple to 16x–45x. These are model assumptions, not a report of completed sales. An actual valuation needs financial records and transaction-specific review."
             },
             {
                 question: "Is it legal to sell or transfer a YouTube channel?",
@@ -2478,9 +2478,9 @@ export const tools: Tool[] = [
         slug: "youtube-tax-deduction-calculator",
         name: "YouTube Creator Tax & Write-Off Calculator",
         seoTitle: "YouTube Creator Tax & Write-Off Calculator (1099 Deductions 2026)",
-        seoDescription: "Estimate legitimate tax write-offs and tax savings for YouTube creators. Calculate deductions for cameras, software, home studio, editors, and gear.",
-        description: "Estimate eligible business expense deductions, self-employment write-offs, and potential tax savings for YouTube creators and online video entrepreneurs.",
-        shortDescription: "Estimate creator business write-offs, deductible expenses, and tax savings",
+        seoDescription: "Explore creator expense scenarios using your own assumed tax rate. Estimate a possible tax reduction; this tool does not determine deduction eligibility.",
+        description: "Plan creator business expenses and explore a possible tax reduction using an adjustable rate assumption.",
+        shortDescription: "Plan creator expenses and compare illustrative tax reduction scenarios",
         category: "analytics-earnings",
         icon: FaFileInvoiceDollar,
         isAI: false,
@@ -2497,57 +2497,57 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Creator Tax & Write-Off Calculator?",
-            text: "The YouTube Creator Tax & Write-Off Calculator is a business planning tool that helps 1099 independent contractors, LLCs, and sole-proprietor creators estimate allowable ordinary and necessary business expense deductions, lower taxable net income, and calculate estimated tax savings."
+            text: "This planning calculator subtracts entered expenses from revenue and applies your assumed rate to expenses up to the revenue amount. It does not calculate a tax bill, determine allowable deductions, or model losses and carryovers."
         },
         content: [
             {
                 title: "How Creator Business Tax Deductions Work",
-                content: "When you earn money from YouTube AdSense, brand sponsorships, or affiliate links, tax authorities (such as the IRS in the US, HMRC in the UK, or CRA in Canada) treat you as a self-employed business owner. You only pay income and self-employment taxes on your NET profit (Gross Revenue minus Legitimate Business Expenses)."
+                content: "Creator income may be taxable. The treatment of expenses depends on jurisdiction, business status, personal use and other circumstances. This calculator models one simplified scenario rather than a tax return."
             },
             {
                 title: "Ordinary & Necessary Expenses for Video Creators",
-                content: "Under IRS guidelines (and similar rules in the UK and Canada), any expense that is 'ordinary and necessary' for your video business can be deducted. This includes camera bodies, lenses, studio lighting, audio interfaces, microphones, editing computers, props used exclusively in videos, and cloud storage."
+                content: "For US businesses, IRS Publication 334 explains ordinary and necessary expenses and separating personal use. Some asset costs must be capitalized or depreciated. Enter the amount you expect to deduct this year, not automatically the full purchase price. Source: https://www.irs.gov/publications/p334"
             },
             {
                 title: "Software Subscriptions & Contractor Fees",
-                content: "Every subscription required to operate your channel is 100% tax-deductible: Adobe Creative Cloud, Epidemic Sound, Artlist, VidIQ, TubeBuddy, Google Workspace, and website hosting. Payments made to freelance video editors, thumbnail designers, and virtual assistants are also fully deductible as contract labor."
+                content: "Business software and contractor costs may qualify as expenses. Separate personal use, retain supporting records and check applicable eligibility and reporting rules before claiming a deduction."
             },
             {
                 title: "Home Studio & Dedicated Production Space",
-                content: "If you have a dedicated room or section of your home used regularly and exclusively for filming, recording, or editing, you may be eligible for the Home Office Deduction (either the simplified IRS rate of $5/sq ft up to 300 sq ft or actual proportion of rent/utilities)."
+                content: "Home office and studio expense rules differ by jurisdiction and how the space is used. Confirm eligibility and calculate the allowable business amount before entering it here."
             }
         ],
         howTo: {
             name: "How to Estimate Your Creator Tax Deductions",
             description: "Follow these steps to calculate potential expense write-offs and tax savings on your creator revenue.",
             steps: [
-                { name: "Select Tax Region & Gross Income", text: "Choose your tax jurisdiction (US, UK, Canada, Australia) and enter your annual gross earnings." },
-                { name: "Itemize Equipment & Software", text: "Enter total expenses on cameras, computers, editing software subscriptions, and music licenses." },
+                { name: "Select Tax Region & Gross Income", text: "Choose your region for currency labels, enter annual gross earnings, and set your assumed marginal tax rate. The default 30% is illustrative." },
+                { name: "Itemize Equipment & Software", text: "Enter only the business expense amounts you expect to deduct this year; equipment may require depreciation." },
                 { name: "Add Contractor & Production Costs", text: "Include payments made to freelance editors, thumbnail designers, studio rent, and props." },
-                { name: "Review Estimated Tax Savings", text: "See your total write-offs, revised net taxable income, and estimated tax dollars saved." }
+                { name: "Review Estimated Tax Savings", text: "Review entered expenses, revenue less expenses, and the illustrative reduction. The model caps the reduction at revenue times your assumed rate." }
             ],
             totalTime: "PT4M"
         },
         faqs: [
             {
                 question: "Do YouTubers have to pay taxes on AdSense?",
-                answer: "Yes. Google AdSense sends 1099-NEC forms (or equivalent reporting) to tax authorities for creators earning $600 or more in the US. You are responsible for income tax and self-employment/Medicare taxes on your net earnings."
+                answer: "Creator income may be taxable even when no reporting form is received. Filing obligations and tax treatment depend on your jurisdiction and circumstances. This calculator does not determine those obligations."
             },
             {
                 question: "Can I write off camera equipment I buy for YouTube?",
-                answer: "Yes. Equipment used exclusively for your YouTube business (cameras, mics, lights, monitors) is typically 100% deductible in the year of purchase using Section 179 depreciation in the US, or annual investment allowance in the UK."
+                answer: "Business equipment may qualify for a deduction or depreciation, subject to local rules, limits and business-use allocation. Immediate deduction of the full purchase price is not guaranteed. Check the applicable rules before entering an amount."
             },
             {
                 question: "What percentage of taxes should YouTubers save from each payout?",
-                answer: "Financial advisors typically recommend setting aside 25% to 35% of every gross payout into a dedicated tax savings account to cover quarterly estimated federal and state self-employment taxes."
+                answer: "There is no single rate suitable for every creator. Other income, jurisdiction and personal circumstances affect your tax position. Use a rate based on your own situation; the calculator starts with an illustrative 30% assumption."
             },
             {
                 question: "Can I deduct my home internet and phone bill?",
-                answer: "Yes, but only the business percentage. For example, if you use your home internet 50% for uploading 4K videos, researching content, and client emails, you can deduct 50% of your annual internet bill."
+                answer: "Only an eligible business portion should be considered. Keep records supporting the allocation and check local rules; the calculator expects a currency amount, not a percentage."
             },
             {
                 question: "Is this calculator official tax advice?",
-                answer: "No. This tool provides planning estimates based on standard self-employment deduction rules. Always consult a Certified Public Accountant (CPA) or Enrolled Agent for your specific tax filings."
+                answer: "No. This is an expense planning scenario using a user-supplied rate. It does not establish eligibility, compute tax liability or prepare a tax return."
             }
         ]
     },

@@ -1,3 +1,4 @@
+import { tools } from "@/config/tools";
 export interface GeoAeoHeadProps {
     /** Page title for AI context */
     title?: string;
@@ -49,9 +50,9 @@ export const GEO_AEO_PRESETS = {
         entityType: "WebApplication" as const,
         primaryTopic: "YouTube Creator Tools",
         conciseAnswer:
-            "YouTube Tools Hub is a free online platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. No signup required.",
+            `YouTube Tools Hub is a free online platform with ${tools.length} creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist. No signup required.`,
         keyFacts: [
-            "27+ free creator tools",
+            `${tools.length} free creator tools`,
             "No signup or browser extension required",
             "Country-specific CPM data for 50+ regions",
             "Free alternative to TubeBuddy and VidIQ",
@@ -74,7 +75,7 @@ export const GEO_AEO_PRESETS = {
         keyFacts: [
             `${toolName} is 100% free to use`,
             "No signup or browser extension required",
-            "Part of YouTube Tools Hub's 27+ free creator tool suite",
+            `Part of YouTube Tools Hub's ${tools.length} free creator tool suite`,
             `Category: ${toolCategory}`,
         ],
     }),
@@ -101,9 +102,9 @@ export const GEO_AEO_PRESETS = {
         entityType: "WebPage" as const,
         primaryTopic: "YouTube Tools FAQ",
         conciseAnswer:
-            "YouTube Tools Hub FAQ covers questions about our 27+ free creator tools, including thumbnail downloader, title generator, tag generator, and earnings calculator.",
+            `YouTube Tools Hub FAQ covers questions about our ${tools.length} free creator tools, including thumbnail downloader, title generator, tag generator, and earnings calculator.`,
         keyFacts: [
-            "27+ free tools covered in FAQ",
+            `${tools.length} free tools covered in FAQ`,
             "Answers about YouTube SEO, monetization, and growth",
             "Practical guidance for creator workflows",
         ],
@@ -111,14 +112,14 @@ export const GEO_AEO_PRESETS = {
     aboutPage: {
         title: "About YouTube Tools Hub - Free AI YouTube Tools",
         description:
-            "Learn about YouTube Tools Hub, a free suite of 27+ creator tools for YouTube content creators.",
+            `Learn about YouTube Tools Hub, a free suite of ${tools.length} creator tools for YouTube content creators.`,
         entityType: "Organization" as const,
         primaryTopic: "YouTube Tools Hub",
         conciseAnswer:
-            "YouTube Tools Hub is a free platform with 27+ creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist.",
+            `YouTube Tools Hub is a free platform with ${tools.length} creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist.`,
         keyFacts: [
             "Founded to democratize YouTube growth tools",
-            "27+ free creator tools",
+            `${tools.length} free creator tools`,
             "Free alternative to TubeBuddy and VidIQ",
             "No browser extension or private YouTube login required",
         ],
@@ -135,11 +136,11 @@ export const GEO_AEO_PRESETS = {
     pricingPage: {
         title: "Pricing - YouTube Tools Hub | Free & Pro Plans",
         description:
-            "YouTube Tools Hub pricing: 27+ core tools are 100% free. Pro tier offers higher daily limits and priority access for power users.",
+            `YouTube Tools Hub pricing: ${tools.length} core tools are 100% free. Pro tier offers higher daily limits and priority access for power users.`,
         entityType: "WebPage" as const,
         primaryTopic: "YouTube Tools Hub Pricing",
         conciseAnswer:
-            "YouTube Tools Hub's core suite of 27+ tools is 100% free with no hidden costs. A Pro tier with higher limits is available for power users.",
+            `YouTube Tools Hub's core suite of ${tools.length} tools is 100% free with no hidden costs. A Pro tier with higher limits is available for power users.`,
         keyFacts: [
             "Core tools: 100% free forever",
             "No signup required for free tier",
@@ -152,11 +153,11 @@ export const GEO_AEO_PRESETS = {
         description: `Compare YouTube Tools Hub AI features and pricing with ${competitorName}. Discover why YouTube Tools Hub is the free creator-tool alternative for creators.`,
         entityType: "WebPage" as const,
         primaryTopic: `${competitorName} Alternative`,
-        conciseAnswer: `YouTube Tools Hub is a free creator-tool alternative to ${competitorName}, offering 27+ tools including AI-assisted thumbnail generation and a channel workflow checklist with no browser extension required.`,
+        conciseAnswer: `YouTube Tools Hub is a free creator-tool alternative to ${competitorName}, offering ${tools.length} tools including AI-assisted thumbnail generation and a channel workflow checklist with no browser extension required.`,
         keyFacts: [
             `100% free alternative to ${competitorName}`,
             "No browser extension or login required",
-            "27+ creator tools included free",
+            `${tools.length} creator tools included free`,
             "Advanced AI thumbnail and title generation",
         ],
     }),

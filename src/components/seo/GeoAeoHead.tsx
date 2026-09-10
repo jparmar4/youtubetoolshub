@@ -69,10 +69,6 @@ export default function GeoAeoHead({
     pageSchema.about = {
       "@type": "Thing",
       name: primaryTopic || toolName,
-      sameAs: [
-        "https://en.wikipedia.org/wiki/YouTube",
-        "https://www.wikidata.org/wiki/Q866",
-      ],
       ...(toolCategory ? { description: `Category: ${toolCategory}` } : {}),
     };
   }
@@ -124,6 +120,7 @@ export default function GeoAeoHead({
   if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
       "@type": mainEntityType ?? "Thing",
+      ...(isTool ? { "@id": `${pageUrl}#software` } : {}),
       name: toolName || primaryTopic || title || siteConfig.name,
       ...(conciseAnswer ? { description: conciseAnswer } : {}),
     };
