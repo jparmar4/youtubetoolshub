@@ -11,6 +11,11 @@ import { siteConfig } from "@/config/site";
  * Googlebot from ever fetching them again, so the redirect would never be seen
  * and the ~550 thin URLs would stay in the index indefinitely. Let Google crawl
  * them, read the redirect, and drop them; only then is a Disallow safe.
+ *
+ * AI structured-data endpoints (/api/ai-context, /api/tools, /api/faqs) are
+ * explicitly Allowed for AI answer-engine crawlers below. An explicit Allow of
+ * a sub-path overrides the generic "/api/" Disallow per the REP, so AI systems
+ * can fetch our knowledge graph while private/action APIs stay blocked.
  */
 const DISALLOW = [
   "/api/",
@@ -22,6 +27,13 @@ const DISALLOW = [
   "/auth/",
   "/_next/data/",
   "/cdn-cgi/",
+] as const;
+
+/** Public structured-data endpoints AI answer engines should always fetch. */
+const AI_API_ALLOW = [
+  "/api/ai-context",
+  "/api/tools",
+  "/api/faqs",
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {
@@ -41,12 +53,27 @@ export default function robots(): MetadataRoute.Robots {
           "GPTBot",
           "PerplexityBot",
           "ClaudeBot",
+          "Claude-Web",
           "anthropic-ai",
           "Google-Extended",
+          "GoogleOther",
+          "Google-CloudVertexBot",
+          "Bingbot",
+          "BingPreview",
+          "MicrosoftPreview",
+          "meta-externalagent",
+          "FacebookBot",
+          "Applebot",
           "Applebot-Extended",
+          "Amazonbot",
+          "YouBot",
+          "CCBot",
+          "DeepSeekBot",
+          "MistralAI",
+          "BraveBot",
           "cohere-ai",
         ],
-        allow: "/",
+        allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],
       },
       {
@@ -55,7 +82,6 @@ export default function robots(): MetadataRoute.Robots {
           "MegaIndex",
           "BLEXBot",
           "DataForSeoBot",
-          "Bytespider",
           "PetalBot",
           "ZoominfoBot",
         ],

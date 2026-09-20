@@ -2,12 +2,12 @@ openapi: 3.0.0
 info:
   title: YouTube Tools Hub API
   description: |
-    Free AI-powered YouTube tools for creators. This API provides access to 21+ tools
+    Free YouTube tools for creators. This API provides access to 30 tools
     including thumbnail downloader, title generator, tag generator, earnings calculator,
-    and channel audit tools. All core tools are 100% free with no signup required.
+    and channel audit tools. Core tools are free with no signup required.
 
-    YouTube Tools Hub is the world's leading free alternative to TubeBuddy and VidIQ,
-    trusted by 100,000+ creators worldwide.
+    YouTube Tools Hub is a free alternative to TubeBuddy and VidIQ for common
+    creator workflows, with browser-based tools and country CPM planning data.
   version: 2.2.0
   contact:
     name: YouTube Tools Hub Support
@@ -50,7 +50,7 @@ paths:
       operationId: listTools
       summary: List all available tools
       description: |
-        Returns the complete list of 21+ AI-powered YouTube tools available on
+        Returns the complete list of 30 YouTube tools available on
         YouTube Tools Hub. Each tool includes metadata, description, and direct URL.
       responses:
         '200':

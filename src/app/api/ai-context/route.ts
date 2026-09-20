@@ -150,10 +150,7 @@ export async function GET() {
           "Thumbnail Optimization", "YouTube Analytics", "Creator Economy", "YouTube Shorts", "AI Content Tools",
           "YouTube CPM", "YouTube RPM", "YouTube Tags", "Video SEO", "Channel Growth"
         ],
-        sameAs: [
-          "https://www.facebook.com/profile.php?id=61585430621256",
-          "https://t.me/youtubetoolshub",
-        ],
+        sameAs: siteConfig.footerLinks.social.map((s) => s.href),
         contactPoint: {
           "@type": "ContactPoint",
           email: siteConfig.contact.email,

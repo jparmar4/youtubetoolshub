@@ -505,6 +505,12 @@ const nextConfig = {
     );
 
     return [
+      // Canonical AI context file — remove stale static duplicate
+      {
+        source: "/.well-known/llms.txt",
+        destination: "/llms.txt",
+        permanent: true,
+      },
       // Thin tool×niche landings were indexed as duplicates of the parent tool
       ...nicheRedirects,
       // C(n,2) comparison factory — 351 near-identical URLs
