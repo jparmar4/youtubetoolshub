@@ -235,6 +235,15 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
+        path: "/blog/youtube-description-generator-free-ai-tool-2026",
+        title: "YouTube Description Generator: Free AI Tool",
+        anchors: [
+          "free ai youtube description generator",
+          "youtube description generator guide",
+          "ai description generator for youtube",
+        ],
+      },
+      {
         path: "/blog/youtube-script-formula-retention",
         title: "YouTube Script Formula",
         anchors: [

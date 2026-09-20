@@ -47,6 +47,8 @@ const manualKeywords: Record<string, string> = {
     "how to write youtube titles": "/blog/youtube-title-generator-clickable-titles-free",
     "title generator": "/tools/youtube-title-generator",
     "youtube title generator": "/tools/youtube-title-generator",
+    "youtube description generator guide": "/blog/youtube-description-generator-free-ai-tool-2026",
+    "free ai youtube description generator": "/blog/youtube-description-generator-free-ai-tool-2026",
     "description generator": "/tools/youtube-description-generator",
     "youtube description generator": "/tools/youtube-description-generator",
     "tag generator": "/tools/youtube-tag-generator",
