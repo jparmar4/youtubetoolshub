@@ -184,6 +184,7 @@ export default function PlaylistLengthCalculator() {
                                                 src={result.playlistInfo.thumbnail}
                                                 alt={`${result.playlistInfo.title} YouTube playlist thumbnail preview`}
                                                 fill
+                                                sizes="(max-width: 640px) 96px, 128px"
                                                 className="object-cover"
                                             />
                                         ) : (

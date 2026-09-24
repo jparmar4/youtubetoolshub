@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTwitter, FaWhatsapp, FaLinkedin, FaFacebook, FaCopy, FaTimes, FaCheck } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { siteConfig } from "@/config/site";
 
 interface ShareModalProps {
@@ -16,6 +16,15 @@ interface ShareModalProps {
 export default function ShareModal({ isOpen, onClose, title, text, url = siteConfig.url }: ShareModalProps) {
     const [copied, setCopied] = useState(false);
     const fullText = `${text}\n\n${url}`;
+
+    useEffect(() => {
+        if (!isOpen) return;
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") onClose();
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onClose]);
 
     const handleCopy = () => {
         navigator.clipboard.writeText(fullText);
@@ -64,7 +73,7 @@ export default function ShareModal({ isOpen, onClose, title, text, url = siteCon
                     />
 
                     {/* Modal */}
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none" role="dialog" aria-modal="true" aria-label={title}>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -77,7 +86,8 @@ export default function ShareModal({ isOpen, onClose, title, text, url = siteCon
                                 </h3>
                                 <button
                                     onClick={onClose}
-                                    className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-400 hover:text-slate-600"
+                                    aria-label="Close share dialog"
+                                    className="p-2.5 min-w-11 min-h-11 flex items-center justify-center hover:bg-slate-100 rounded-full transition-colors text-slate-600 hover:text-slate-900"
                                 >
                                     <FaTimes />
                                 </button>

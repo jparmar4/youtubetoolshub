@@ -51,17 +51,19 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 : "bg-slate-50 border border-slate-200"
                 }`}>
                 <button
+                    type="button"
                     onClick={() => setDismissed(true)}
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    aria-label="Dismiss usage banner"
+                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 >
-                    <FaTimes className="w-3 h-3" />
+                    <FaTimes className="w-3 h-3" aria-hidden="true" />
                 </button>
 
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="flex flex-wrap items-center gap-4">
                         <div className="flex items-center gap-2">
                             <div className={`p-2 rounded-lg ${isLow ? 'bg-red-100' : 'bg-blue-100'}`}>
-                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-red-600' : 'text-blue-600'}`} />
+                                <FaBolt className={`w-4 h-4 ${isLow ? 'text-red-600' : 'text-blue-600'}`} aria-hidden="true" />
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-slate-900">
@@ -125,10 +127,12 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
             : "bg-slate-50 border border-slate-200"
             }`}>
             <button
+                type="button"
                 onClick={() => setDismissed(true)}
-                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                aria-label="Dismiss usage banner"
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
-                <FaTimes className="w-3 h-3" />
+                <FaTimes className="w-3 h-3" aria-hidden="true" />
             </button>
 
             <div className="flex flex-wrap items-center justify-between gap-4">

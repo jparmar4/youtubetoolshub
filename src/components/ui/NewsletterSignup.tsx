@@ -57,12 +57,12 @@ export default function NewsletterSignup() {
             </p>
 
             {status === "success" ? (
-                <div className="flex items-center justify-center gap-2 text-emerald-600 font-semibold py-2">
+                <div role="status" className="flex items-center justify-center gap-2 text-emerald-600 font-semibold py-2">
                     <FaCheck className="w-5 h-5" />
                     <span>{message || "Thanks for subscribing! Check your inbox for the matrix."}</span>
                 </div>
             ) : status === "error" ? (
-                <div className="space-y-3">
+                <div role="alert" className="space-y-3">
                     <p className="text-red-500 text-sm font-medium">{message || "Something went wrong."}</p>
                     <button onClick={() => setStatus("idle")} className="text-purple-600 hover:underline text-sm font-medium">Try again</button>
                 </div>
@@ -73,7 +73,8 @@ export default function NewsletterSignup() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your creator email"
-                        className="flex-1 px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
+                        aria-label="Email address"
+                        className="flex-1 px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
                         required
                         disabled={status === "loading"}
                     />

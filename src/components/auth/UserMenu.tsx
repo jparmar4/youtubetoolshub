@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import NextImage from "next/image";
@@ -11,17 +11,33 @@ export default function UserMenu() {
     const [isOpen, setIsOpen] = useState(false);
     const [imageError, setImageError] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const closeMenu = useCallback(() => setIsOpen(false), []);
 
     // Close menu when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
+                closeMenu();
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    }, [closeMenu]);
+
+    // Close menu on Escape and return focus to trigger
+    useEffect(() => {
+        if (!isOpen) return;
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                closeMenu();
+                buttonRef.current?.focus();
+            }
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, closeMenu]);
 
     if (status === "loading") {
         return (
@@ -43,13 +59,18 @@ export default function UserMenu() {
     return (
         <div className="relative" ref={menuRef}>
             <button
+                ref={buttonRef}
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 focus:outline-none"
+                aria-haspopup="menu"
+                aria-expanded={isOpen}
+                aria-label="Account menu"
+                className="flex items-center gap-2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
                 {session.user.image && !imageError ? (
                     <NextImage
                         src={session.user.image}
-                        alt={session.user.name || "User"}
+                        alt=""
                         width={40}
                         height={40}
                         className="rounded-full border-2 border-purple-500 object-cover"
@@ -58,7 +79,7 @@ export default function UserMenu() {
                 ) : (
                     <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 flex items-center justify-center border-2 border-purple-500">
                         {session.user.name ? (
-                            <span className="text-white font-bold text-lg">
+                            <span className="text-white font-bold text-lg" aria-hidden="true">
                                 {session.user.name.charAt(0).toUpperCase()}
                             </span>
                         ) : (
@@ -69,13 +90,17 @@ export default function UserMenu() {
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg border border-white/5 py-2 z-50">
+                <div
+                    role="menu"
+                    aria-label="Account"
+                    className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50"
+                >
                     {/* User Info */}
-                    <div className="px-4 py-3 border-b border-white/5">
-                        <p className="font-medium text-white truncate">
+                    <div className="px-4 py-3 border-b border-slate-200">
+                        <p className="font-medium text-slate-900 truncate">
                             {session.user.name}
                         </p>
-                        <p className="text-sm text-slate-400 truncate">
+                        <p className="text-sm text-slate-600 truncate">
                             {session.user.email}
                         </p>
                     </div>
@@ -84,29 +109,33 @@ export default function UserMenu() {
                     <div className="py-2">
                         <Link
                             href="/dashboard"
-                            className="flex items-center gap-3 px-4 py-2 text-slate-300 hover:bg-purple-500/10 hover:text-purple-400 font-medium"
-                            onClick={() => setIsOpen(false)}
+                            role="menuitem"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-purple-700 focus-visible:bg-purple-50 focus-visible:text-purple-700 font-medium"
+                            onClick={closeMenu}
                         >
-                            <span className="w-4 h-4 flex items-center justify-center">🚀</span>
+                            <span className="w-4 h-4 flex items-center justify-center" aria-hidden="true">🚀</span>
                             My Dashboard
                         </Link>
                         <Link
                             href="/tools"
-                            className="flex items-center gap-3 px-4 py-2 text-slate-300 hover:bg-purple-500/10 hover:text-purple-400"
-                            onClick={() => setIsOpen(false)}
+                            role="menuitem"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-purple-700 focus-visible:bg-purple-50 focus-visible:text-purple-700"
+                            onClick={closeMenu}
                         >
-                            <FaCog className="w-4 h-4" />
+                            <FaCog className="w-4 h-4" aria-hidden="true" />
                             All Tools
                         </Link>
                     </div>
 
                     {/* Sign Out */}
-                    <div className="border-t border-white/5 pt-2">
+                    <div className="border-t border-slate-200 pt-2">
                         <button
+                            type="button"
+                            role="menuitem"
                             onClick={() => signOut({ callbackUrl: "/" })}
-                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-fuchsia-400 hover:bg-purple-500/10"
+                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-purple-700 hover:bg-purple-50 focus-visible:bg-purple-50"
                         >
-                            <FaSignOutAlt className="w-4 h-4" />
+                            <FaSignOutAlt className="w-4 h-4" aria-hidden="true" />
                             Sign Out
                         </button>
                     </div>

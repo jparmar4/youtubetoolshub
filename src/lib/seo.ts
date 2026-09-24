@@ -367,56 +367,6 @@ export function getHowToSchema(howTo: {
   };
 }
 
-// Local Business Schema (optional, for credibility)
-export function getLocalBusinessSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    priceRange: "Free",
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: "US",
-    },
-  };
-}
-
-// Speakable Schema for Voice Search (AEO - Google Assistant, Alexa, Siri)
-export function getSpeakableSchema(page: {
-  url: string;
-  headline: string;
-  summary: string;
-  cssSelectors?: string[];
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": page.url,
-    name: page.headline,
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: page.cssSelectors || [
-        "h1",
-        "h2",
-        ".summary",
-        ".key-facts",
-        ".key-takeaways",
-        ".quick-answer",
-        "[data-speakable]",
-      ],
-    },
-    url: page.url,
-    description: page.summary,
-    isPartOf: {
-      "@type": "WebSite",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-  };
-}
-
 // ItemList Schema for tool listings (helps AI understand tool collection)
 export function getToolListSchema(
   tools: { name: string; url: string; description: string }[],
@@ -435,26 +385,6 @@ export function getToolListSchema(
       url: tool.url,
       description: tool.description,
     })),
-  };
-}
-
-// DefinedTerm Schema for key concepts (helps AI understand terminology)
-export function getDefinedTermSchema(term: {
-  name: string;
-  description: string;
-  url: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "DefinedTerm",
-    name: term.name,
-    description: term.description,
-    url: term.url,
-    inDefinedTermSet: {
-      "@type": "DefinedTermSet",
-      name: "YouTube Creator Terms",
-      url: `${siteConfig.url}/faq`,
-    },
   };
 }
 
@@ -478,65 +408,6 @@ export function getVideoObjectSchema(video: {
     duration: video.duration,
     contentUrl: video.contentUrl,
     embedUrl: video.embedUrl,
-  };
-}
-
-// Review Schema for tool ratings
-export function getReviewSchema(review: {
-  itemReviewed: string;
-  reviewRating: {
-    ratingValue: string;
-    bestRating: string;
-    worstRating: string;
-  };
-  author: {
-    "@type": string;
-    name: string;
-  };
-  reviewBody?: string;
-  datePublished?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    itemReviewed: {
-      "@type": "SoftwareApplication",
-      name: review.itemReviewed,
-    },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: review.reviewRating.ratingValue,
-      bestRating: review.reviewRating.bestRating || "5",
-      worstRating: review.reviewRating.worstRating || "1",
-    },
-    author: {
-      "@type": review.author["@type"] || "Person",
-      name: review.author.name,
-    },
-    reviewBody: review.reviewBody,
-    datePublished: review.datePublished,
-  };
-}
-
-// AggregateRating Schema for overall tool ratings
-export function getAggregateRatingSchema(rating: {
-  itemReviewed: string;
-  ratingValue: string;
-  ratingCount: string;
-  bestRating?: string;
-  worstRating?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "AggregateRating",
-    itemReviewed: {
-      "@type": "SoftwareApplication",
-      name: rating.itemReviewed,
-    },
-    ratingValue: rating.ratingValue,
-    ratingCount: rating.ratingCount,
-    bestRating: rating.bestRating || "5",
-    worstRating: rating.worstRating || "1",
   };
 }
 
@@ -583,132 +454,6 @@ export function getCollectionPageSchema(collection: {
   };
 }
 
-// NewsArticle Schema for Google Discover and Google News
-// Critical for appearing in Discover feed and Top Stories
-export function getNewsArticleSchema(article: {
-  title: string;
-  description: string;
-  author: string;
-  datePublished: string;
-  dateModified?: string;
-  url: string;
-  imageUrl?: string;
-  section?: string;
-  keywords?: string[];
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    headline: article.title,
-    description: article.description,
-    author: {
-      "@type": "Person",
-      name: article.author,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/og-image.png`,
-        width: 1200,
-        height: 630,
-      },
-    },
-    datePublished: article.datePublished,
-    dateModified: article.dateModified || article.datePublished,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": article.url,
-    },
-    image: article.imageUrl
-      ? [article.imageUrl]
-      : [`${siteConfig.url}/og-image.png`],
-    articleSection: article.section || "YouTube Creator Tools",
-    keywords: article.keywords?.join(", "),
-    inLanguage: "en",
-    // Essential for Google Discover
-    isAccessibleForFree: true,
-    isPartOf: {
-      "@type": "WebSite",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-  };
-}
-
-// WebPage Schema with navigation for AI understanding
-export function getWebPageSchema(page: {
-  url: string;
-  name: string;
-  description: string;
-  breadcrumb?: { name: string; url: string }[];
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": page.url,
-    name: page.name,
-    description: page.description,
-    url: page.url,
-    inLanguage: "en",
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`,
-    },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-    },
-    ...(page.breadcrumb && {
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: page.breadcrumb.map((item, index) => {
-          const absoluteUrl = item.url.startsWith("http")
-            ? item.url
-            : `${siteConfig.url}${item.url.startsWith("/") ? "" : "/"}${item.url}`;
-          return {
-            "@type": "ListItem",
-            position: index + 1,
-            name: item.name,
-            item: absoluteUrl,
-          };
-        }),
-      },
-    }),
-  };
-}
-
-// Author Schema for E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
-export function getAuthorSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": `${siteConfig.url}/#author`,
-    name: "YouTube Tools Hub Team",
-    url: siteConfig.url,
-    jobTitle: "YouTube Growth Experts",
-    worksFor: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-    },
-    sameAs: [
-      "https://www.facebook.com/profile.php?id=61585430621256",
-      "https://t.me/youtubetoolshub",
-    ],
-    knowsAbout: [
-      "YouTube SEO",
-      "Video Marketing",
-      "Content Creator Tools",
-      "YouTube Monetization",
-      "AI Content Generation",
-    ],
-  };
-}
-
 // Person Schema for author pages
 export function getPersonSchema(author: {
   name: string;
@@ -730,68 +475,6 @@ export function getPersonSchema(author: {
       name: siteConfig.name,
       url: siteConfig.url,
     },
-  };
-}
-
-// ClaimReview Schema for fact-checking (enhances E-E-A-T)
-export function getClaimReviewSchema(claim: {
-  claimReviewed: string;
-  reviewRating: {
-    ratingValue: string;
-    bestRating: string;
-    worstRating: string;
-    alternateName: string;
-  };
-  url: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ClaimReview",
-    claimReviewed: claim.claimReviewed,
-    url: claim.url,
-    author: {
-      "@type": "Organization",
-      name: siteConfig.name,
-    },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: claim.reviewRating.ratingValue,
-      bestRating: claim.reviewRating.bestRating,
-      worstRating: claim.reviewRating.worstRating,
-      alternateName: claim.reviewRating.alternateName,
-    },
-  };
-}
-
-// LiveBlogPosting Schema for trending/real-time content
-export function getLiveBlogPostingSchema(blog: {
-  headline: string;
-  description: string;
-  startTime: string;
-  url: string;
-  author: string;
-  coverageStartTime?: string;
-  coverageEndTime?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "LiveBlogPosting",
-    headline: blog.headline,
-    description: blog.description,
-    url: blog.url,
-    datePublished: blog.startTime,
-    author: {
-      "@type": "Person",
-      name: blog.author,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    coverageStartTime: blog.coverageStartTime || blog.startTime,
-    coverageEndTime: blog.coverageEndTime,
-    liveBlogUpdate: [],
   };
 }
 
@@ -886,30 +569,6 @@ export function getDatasetSchema(options?: {
         name: "AdSense Revenue",
       },
     ],
-  };
-}
-
-// Answer Schema for Featured Snippets Optimization
-export function getAnswerSchema(answer: {
-  question: string;
-  answer: string;
-  url?: string;
-  author?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Question",
-    name: answer.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: answer.answer,
-      author: {
-        "@type": "Organization",
-        name: answer.author || siteConfig.name,
-      },
-      inLanguage: "en",
-    },
-    url: answer.url,
   };
 }
 

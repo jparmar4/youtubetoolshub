@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { FaCrown, FaLock, FaTimes } from "react-icons/fa";
-import { getToolBySlug } from "@/config/tools";
+import { getToolMetaBySlug } from "@/config/tool-meta";
 import { getToolLimit } from "@/lib/usage";
 
 import { useUsage } from "@/hooks/useUsage";
@@ -16,14 +17,23 @@ interface LimitReachedModalProps {
 export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitReachedModalProps) {
     const { isPro } = useUsage();
 
+    useEffect(() => {
+        if (!isOpen) return;
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") onClose();
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onClose]);
+
     if (!isOpen || !toolSlug) return null;
 
-    const tool = getToolBySlug(toolSlug);
+    const tool = getToolMetaBySlug(toolSlug);
     const limit = getToolLimit(toolSlug, isPro);
     const toolName = tool?.name || "Tool";
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="limit-reached-title">
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -34,7 +44,8 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
             <div className="relative glass-premium border border-slate-200 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-200">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors"
+                    aria-label="Close dialog"
+                    className="absolute top-4 right-4 p-2.5 min-w-11 min-h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors rounded-lg"
                 >
                     <FaTimes className="w-5 h-5" />
                 </button>
@@ -48,7 +59,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
 
                 {/* Content */}
                 <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    <h3 id="limit-reached-title" className="text-xl font-bold text-slate-900 mb-2">
                         {toolName} Limit Reached
                     </h3>
                     <p className="text-slate-600">

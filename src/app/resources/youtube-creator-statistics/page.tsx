@@ -201,13 +201,13 @@ export default function YouTubeStatistics() {
               <table className="w-full">
                 <thead>
                   <tr className="border-b-2 border-slate-200">
-                    <th className="text-left py-4 px-4 font-bold text-slate-900">
+                    <th scope="col" className="text-left py-4 px-4 font-bold text-slate-900">
                       Niche
                     </th>
-                    <th className="text-right py-4 px-4 font-bold text-slate-900">
+                    <th scope="col" className="text-right py-4 px-4 font-bold text-slate-900">
                       Context
                     </th>
-                    <th className="text-right py-4 px-4 font-bold text-slate-900">
+                    <th scope="col" className="text-right py-4 px-4 font-bold text-slate-900">
                       Note
                     </th>
                   </tr>

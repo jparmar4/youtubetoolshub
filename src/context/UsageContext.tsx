@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
 import {
     fetchUserUsage,
     incrementUserUsage,
@@ -159,7 +159,7 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
         };
     }, [usageMap, isPro]);
 
-    const value = {
+    const value = useMemo(() => ({
         usageMap,
         isPro,
         loading,
@@ -170,7 +170,18 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
         closeLimitModal,
         getStats,
         summary: getSummary()
-    };
+    }), [
+        usageMap,
+        isPro,
+        loading,
+        limitReachedTool,
+        checkLimit,
+        increment,
+        checkAndIncrement,
+        closeLimitModal,
+        getStats,
+        getSummary,
+    ]);
 
     return (
         <UsageContext.Provider value={value}>

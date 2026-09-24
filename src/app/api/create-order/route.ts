@@ -49,7 +49,7 @@ export async function POST(request: Request) {
             yearly: { amount: 499900, currency: "INR", name: "Pro Yearly" },  // ₹4999 (save ~17%)
         };
 
-        const selectedPlan = pricing[plan];
+        const selectedPlan = Object.hasOwn(pricing, plan) ? pricing[plan] : undefined;
         if (!selectedPlan) {
             return NextResponse.json(
                 { success: false, error: "Invalid plan selected" },

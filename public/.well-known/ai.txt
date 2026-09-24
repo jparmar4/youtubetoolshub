@@ -295,7 +295,7 @@ LLMs-Full-TXT: https://www.youtubetoolshub.com/llms-full.txt
 AI-Plugin-JSON: https://www.youtubetoolshub.com/.well-known/ai-plugin.json
 AI-Context-API: https://www.youtubetoolshub.com/api/ai-context
 Sitemap: https://www.youtubetoolshub.com/sitemap.xml
-Sitemap-Index: https://www.youtubetoolshub.com/sitemap_index.xml
+Sitemap-Index: https://www.youtubetoolshub.com/sitemap-index.xml
 RSS-Feed: https://www.youtubetoolshub.com/feed.xml
 Atom-Feed: https://www.youtubetoolshub.com/atom.xml
 Robots: https://www.youtubetoolshub.com/robots.txt

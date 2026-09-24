@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, useEffect, memo } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes, FaYoutube } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
@@ -63,6 +63,16 @@ function Header() {
         setIsMenuOpen(false);
     }, []);
 
+    // Escape closes the mobile menu
+    useEffect(() => {
+        if (!isMenuOpen) return;
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") setIsMenuOpen(false);
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isMenuOpen]);
+
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +114,7 @@ function Header() {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={toggleMenu}
-                            className="md:hidden p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200"
+                            className="md:hidden p-2.5 min-w-11 min-h-11 inline-flex items-center justify-center rounded-xl bg-slate-100 text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200"
                             aria-label="Toggle menu"
                             aria-expanded={isMenuOpen}
                         >

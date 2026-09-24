@@ -2,6 +2,20 @@ import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { tools } from "@/config/tools";
 
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+/** CDATA-safe wrapper: `]]>` inside content would terminate the section early. */
+function cdata(value: string): string {
+  return `<![CDATA[${value.replace(/\]\]>/g, "]]]]><![CDATA[>")}]]>`;
+}
+
 export async function GET() {
   const posts = getIndexableBlogPosts();
   const siteUrl = siteConfig.url;
@@ -14,16 +28,16 @@ export async function GET() {
 
       return `
     <entry>
-      <title><![CDATA[${post.title}]]></title>
-      <link href="${postUrl}" rel="alternate" type="text/html" />
-      <id>${postUrl}</id>
-      <updated>${updated}</updated>
-      <summary type="html"><![CDATA[${post.metaDescription}]]></summary>
+      <title>${cdata(post.title)}</title>
+      <link href="${escapeXml(postUrl)}" rel="alternate" type="text/html" />
+      <id>${escapeXml(postUrl)}</id>
+      <updated>${escapeXml(updated)}</updated>
+      <summary type="html">${cdata(post.metaDescription)}</summary>
       <author>
-        <name>${post.author}</name>
+        <name>${escapeXml(post.author)}</name>
       </author>
-      <category term="${post.category}" />
-      <content type="html"><![CDATA[${post.metaDescription}]]></content>
+      <category term="${escapeXml(post.category)}" />
+      <content type="html">${cdata(post.metaDescription)}</content>
     </entry>`;
     })
     .join("");
@@ -33,40 +47,40 @@ export async function GET() {
       const toolUrl = `${siteUrl}/tools/${tool.slug}`;
       return `
     <entry>
-      <title><![CDATA[${tool.name} – Free Online Tool]]></title>
-      <link href="${toolUrl}" rel="alternate" type="text/html" />
-      <id>${toolUrl}</id>
-      <updated>${now}</updated>
-      <summary type="html"><![CDATA[${tool.shortDescription}]]></summary>
+      <title>${cdata(`${tool.name} – Free Online Tool`)}</title>
+      <link href="${escapeXml(toolUrl)}" rel="alternate" type="text/html" />
+      <id>${escapeXml(toolUrl)}</id>
+      <updated>${escapeXml(now)}</updated>
+      <summary type="html">${cdata(tool.shortDescription)}</summary>
       <author>
-        <name>${siteConfig.name}</name>
+        <name>${escapeXml(siteConfig.name)}</name>
       </author>
-      <category term="${tool.category}" />
-      <content type="html"><![CDATA[${tool.description}]]></content>
+      <category term="${escapeXml(tool.category)}" />
+      <content type="html">${cdata(tool.description)}</content>
     </entry>`;
     })
     .join("");
 
   const atomFeed = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <title>${siteConfig.name}</title>
-  <subtitle>${siteConfig.description}</subtitle>
-  <link href="${siteUrl}/atom.xml" rel="self" type="application/atom+xml" />
-  <link href="${siteUrl}" rel="alternate" type="text/html" />
-  <link href="${siteUrl}/llms.txt" rel="related" type="text/plain" title="LLMs.txt" />
-  <link href="${siteUrl}/llms-full.txt" rel="related" type="text/plain" title="LLMs Full Context" />
-  <link href="${siteUrl}/.well-known/ai.txt" rel="related" type="text/plain" title="AI Crawler Guidance" />
-  <id>${siteUrl}/</id>
-  <updated>${now}</updated>
+  <title>${escapeXml(siteConfig.name)}</title>
+  <subtitle>${escapeXml(siteConfig.description)}</subtitle>
+  <link href="${escapeXml(`${siteUrl}/atom.xml`)}" rel="self" type="application/atom+xml" />
+  <link href="${escapeXml(siteUrl)}" rel="alternate" type="text/html" />
+  <link href="${escapeXml(`${siteUrl}/llms.txt`)}" rel="related" type="text/plain" title="LLMs.txt" />
+  <link href="${escapeXml(`${siteUrl}/llms-full.txt`)}" rel="related" type="text/plain" title="LLMs Full Context" />
+  <link href="${escapeXml(`${siteUrl}/.well-known/ai.txt`)}" rel="related" type="text/plain" title="AI Crawler Guidance" />
+  <id>${escapeXml(`${siteUrl}/`)}</id>
+  <updated>${escapeXml(now)}</updated>
   <author>
-    <name>${siteConfig.name}</name>
-    <email>${siteConfig.contact.email}</email>
-    <uri>${siteUrl}</uri>
+    <name>${escapeXml(siteConfig.name)}</name>
+    <email>${escapeXml(siteConfig.contact.email)}</email>
+    <uri>${escapeXml(siteUrl)}</uri>
   </author>
-  <rights>Copyright ${new Date().getFullYear()} ${siteConfig.name}. All rights reserved.</rights>
-  <generator uri="${siteUrl}" version="1.0">${siteConfig.name}</generator>
-  <icon>${siteUrl}/favicon.svg</icon>
-  <logo>${siteUrl}/og-image.png</logo>
+  <rights>Copyright ${new Date().getFullYear()} ${escapeXml(siteConfig.name)}. All rights reserved.</rights>
+  <generator uri="${escapeXml(siteUrl)}" version="1.0">${escapeXml(siteConfig.name)}</generator>
+  <icon>${escapeXml(`${siteUrl}/favicon.svg`)}</icon>
+  <logo>${escapeXml(`${siteUrl}/og-image.png`)}</logo>
   <category term="YouTube Tools" />
   <category term="Creator Economy" />
   <category term="SEO Tools" />

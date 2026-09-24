@@ -299,10 +299,10 @@ export default async function CountryEarningsPage({
                                     <table className="w-full text-left text-sm">
                                         <thead>
                                             <tr className="border-b border-slate-200 text-slate-500">
-                                                <th className="py-2 pr-4 font-semibold">Views</th>
-                                                <th className="py-2 pr-4 font-semibold">Low RPM (${countryData.rpmRange.min.toFixed(2)})</th>
-                                                <th className="py-2 pr-4 font-semibold">Mid RPM (${avgRpm.toFixed(2)})</th>
-                                                <th className="py-2 font-semibold">High RPM (${countryData.rpmRange.max.toFixed(2)})</th>
+                                                <th scope="col" className="py-2 pr-4 font-semibold">Views</th>
+                                                <th scope="col" className="py-2 pr-4 font-semibold">Low RPM (${countryData.rpmRange.min.toFixed(2)})</th>
+                                                <th scope="col" className="py-2 pr-4 font-semibold">Mid RPM (${avgRpm.toFixed(2)})</th>
+                                                <th scope="col" className="py-2 font-semibold">High RPM (${countryData.rpmRange.max.toFixed(2)})</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-slate-800 font-medium">

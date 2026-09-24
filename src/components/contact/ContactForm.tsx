@@ -229,6 +229,7 @@ export default function ContactForm() {
                                                 style={{ display: "none" }}
                                                 tabIndex={-1}
                                                 autoComplete="off"
+                                                aria-hidden="true"
                                             />
 
                                             {/* Error Message */}

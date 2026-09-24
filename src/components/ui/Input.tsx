@@ -92,7 +92,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                     <p className="mt-1 text-sm text-red-400">{error}</p>
                 )}
                 {helperText && !error && (
-                    <p className="mt-1 text-sm text-slate-400">{helperText}</p>
+                    <p className="mt-1 text-sm text-slate-600">{helperText}</p>
                 )}
             </div>
         );

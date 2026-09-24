@@ -14,12 +14,11 @@ import {
   FaChartPie,
   FaMagic,
 } from "react-icons/fa";
-import Button from "@/components/ui/Button";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
-  title: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026",
+  title: { absolute: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026" },
   description:
     "Learn about YouTube Tools Hub, a free suite of AI-powered tools for creators. Our mission is to make YouTube growth workflows easier for everyone.",
   keywords: [
@@ -278,23 +277,18 @@ export default function AboutPage() {
             needed.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="/tools">
-              <Button
-                size="lg"
-                className="bg-white text-slate-900 hover:bg-slate-100 border-none font-bold shadow-2xl px-10 py-8 text-lg rounded-full"
-              >
-                Explore All Tools
-                <FaArrowRight className="ml-2" />
-              </Button>
+            <Link
+              href="/tools"
+              className="inline-flex items-center justify-center bg-white text-slate-900 hover:bg-slate-100 border-none font-bold shadow-2xl px-10 py-8 text-lg rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            >
+              Explore All Tools
+              <FaArrowRight className="ml-2" aria-hidden="true" />
             </Link>
-            <Link href="/contact">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-slate-700 text-white hover:bg-white/10 hover:border-white px-10 py-8 text-lg rounded-full backdrop-blur-sm"
-              >
-                Get in Touch
-              </Button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center border-slate-700 text-white hover:bg-white/10 hover:border-white px-10 py-8 text-lg rounded-full backdrop-blur-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            >
+              Get in Touch
             </Link>
           </div>
         </div>

@@ -5,30 +5,7 @@
  */
 
 /** Blog slugs that should not appear in search (archived, off-topic, YMYL). */
-export const NOINDEX_BLOG_SLUGS = new Set([
-  "youtube-seo-basics-archived",
-  "insurance-youtube-marketing",
-  "lawyer-youtube-marketing",
-  "youtube-tax-guide-creators-usa-2026",
-  "best-enterprise-ai-platforms-2026",
-  // 301 targets — keep out of listings/sitemaps while redirects fire
-  "how-to-get-1000-subscribers-and-10000-views",
-  "youtube-partner-program-requirements-2026",
-  "youtube-algorithm-secrets-2026",
-  "youtube-seo-complete-guide",
-  "best-ai-tools-youtube-creators-2026",
-  "25-best-ai-tools-for-youtube-creators",
-  "youtube-automation-complete-guide-2026",
-  "youtube-algorithm-2026",
-  "youtube-algorithm-guide-2026",
-  "youtube-monetization-complete-guide-2026",
-  "youtube-monetization-guide-2026",
-  "most-profitable-youtube-niches-2026",
-  "faceless-youtube-channel-blueprint",
-  "youtube-shorts-domination-2026",
-  "youtube-pay-per-view-2026",
-  "youtube-automation-ai-tools-2026",
-]);
+export const NOINDEX_BLOG_SLUGS = new Set<string>([]);
 
 /** Tool × niche landings are template-generated. Do not index. */
 export const INDEX_PROGRAMMATIC_NICHE_PAGES = false;

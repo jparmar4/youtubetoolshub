@@ -1,6 +1,19 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+function cdata(value: string): string {
+  return `<![CDATA[${value.replace(/\]\]>/g, "]]]]><![CDATA[>")}]]>`;
+}
+
 export async function GET() {
   const posts = getIndexableBlogPosts();
   const siteUrl = siteConfig.url;
@@ -15,15 +28,15 @@ export async function GET() {
 
       return `
     <item>
-      <title><![CDATA[${post.title}]]></title>
-      <link>${postUrl}</link>
-      <guid isPermaLink="true">${postUrl}</guid>
+      <title>${cdata(post.title)}</title>
+      <link>${escapeXml(postUrl)}</link>
+      <guid isPermaLink="true">${escapeXml(postUrl)}</guid>
       <pubDate>${pubDate}</pubDate>
-      <description><![CDATA[${post.metaDescription}]]></description>
-      <author>${siteConfig.contact.email} (${post.author})</author>
-      <category><![CDATA[${post.category}]]></category>
-      <enclosure url="${imageUrl}" type="image/webp" length="150000" />
-      <media:content url="${imageUrl}" medium="image" type="image/webp" width="1200" height="675" />
+      <description>${cdata(post.metaDescription)}</description>
+      <author>${escapeXml(siteConfig.contact.email)} (${escapeXml(post.author)})</author>
+      <category>${cdata(post.category)}</category>
+      <enclosure url="${escapeXml(imageUrl)}" type="image/webp" length="150000" />
+      <media:content url="${escapeXml(imageUrl)}" medium="image" type="image/webp" width="1200" height="675" />
     </item>`;
     })
     .join("");
@@ -31,16 +44,16 @@ export async function GET() {
   const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title><![CDATA[${siteConfig.name} Blog]]></title>
-    <description><![CDATA[${siteConfig.description}]]></description>
-    <link>${siteUrl}/blog</link>
-    <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml" />
+    <title>${cdata(`${siteConfig.name} Blog`)}</title>
+    <description>${cdata(siteConfig.description)}</description>
+    <link>${escapeXml(`${siteUrl}/blog`)}</link>
+    <atom:link href="${escapeXml(`${siteUrl}/feed.xml`)}" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <image>
-      <url>${siteUrl}/icon.svg</url>
-      <title>${siteConfig.name}</title>
-      <link>${siteUrl}</link>
+      <url>${escapeXml(`${siteUrl}/icon.svg`)}</url>
+      <title>${escapeXml(siteConfig.name)}</title>
+      <link>${escapeXml(siteUrl)}</link>
     </image>
     ${rssItems}
   </channel>

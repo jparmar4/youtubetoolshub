@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getHistory, deleteHistory, HistoryItem } from "@/lib/history";
 import { FaHistory, FaTrash, FaTimes, FaCopy, FaCheck } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -148,19 +148,29 @@ function MiniHistoryCard({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.05 }}
+            role="button"
+            tabIndex={0}
             onClick={onClick}
-            className="group relative bg-white rounded-xl p-5 border border-slate-200 hover:shadow-lg hover:border-blue-200 transition-all cursor-pointer"
+            onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onClick();
+                }
+            }}
+            className="group relative bg-white rounded-xl p-5 border border-slate-200 hover:shadow-lg hover:border-blue-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all cursor-pointer"
         >
             <div className="flex justify-between items-start mb-3">
                 <span className="text-xs text-slate-400 font-medium">
                     {formatDate(item.created_at)}
                 </span>
                 <button
+                    type="button"
                     onClick={onDelete}
-                    className="text-slate-300 hover:text-emerald-500 transition-colors opacity-0 group-hover:opacity-100 p-1"
-                    title="Delete"
+                    onKeyDown={(e) => e.stopPropagation()}
+                    aria-label={`Delete history item: ${title}`}
+                    className="text-slate-400 hover:text-emerald-600 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 p-2 -m-1 rounded focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
                 >
-                    <FaTrash size={12} />
+                    <FaTrash size={12} aria-hidden="true" />
                 </button>
             </div>
 
@@ -172,7 +182,7 @@ function MiniHistoryCard({
                 <div className="relative h-24 mb-3 rounded-lg overflow-hidden bg-slate-100">
                     <Image
                         src={images[0]}
-                        alt={`Generated thumbnail for ${title}`}
+                        alt=""
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover"
@@ -185,7 +195,7 @@ function MiniHistoryCard({
             </p>
 
             <div className="flex justify-end">
-                <span className="text-xs text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                <span className="text-xs text-blue-500 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity font-medium">
                     Click to View →
                 </span>
             </div>
@@ -204,6 +214,16 @@ function HistoryDetailModal({
 }) {
     const [copied, setCopied] = useState(false);
     const content = item.content;
+    const closeRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        function handleKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") onClose();
+        }
+        document.addEventListener("keydown", handleKeyDown);
+        closeRef.current?.focus();
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text);
@@ -243,14 +263,16 @@ function HistoryDetailModal({
             <div className="space-y-4">
                 {title && (
                     <div>
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Title</label>
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Title</span>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
                             <p className="text-slate-800 font-medium">{title}</p>
                             <button
+                                type="button"
                                 onClick={() => handleCopy(title)}
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                aria-label="Copy title"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
-                                <FaCopy size={14} />
+                                <FaCopy size={14} aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -258,14 +280,16 @@ function HistoryDetailModal({
 
                 {concept && (
                     <div>
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Concept</label>
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Concept</span>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
                             <p className="text-slate-800">{concept}</p>
                             <button
+                                type="button"
                                 onClick={() => handleCopy(concept)}
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                aria-label="Copy concept"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
-                                <FaCopy size={14} />
+                                <FaCopy size={14} aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -273,14 +297,16 @@ function HistoryDetailModal({
 
                 {description && (
                     <div>
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Description</label>
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Description</span>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
                             <p className="text-slate-800 whitespace-pre-wrap">{description}</p>
                             <button
+                                type="button"
                                 onClick={() => handleCopy(description)}
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                aria-label="Copy description"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
-                                <FaCopy size={14} />
+                                <FaCopy size={14} aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -288,14 +314,16 @@ function HistoryDetailModal({
 
                 {thumbnailConcept && (
                     <div>
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Thumbnail Concept</label>
+                        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Thumbnail Concept</span>
                         <div className="mt-1 bg-slate-50 rounded-lg p-3 flex justify-between items-start gap-2">
                             <p className="text-slate-800 italic">&quot;{thumbnailConcept}&quot;</p>
                             <button
+                                type="button"
                                 onClick={() => handleCopy(thumbnailConcept)}
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0"
+                                aria-label="Copy thumbnail concept"
+                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
-                                <FaCopy size={14} />
+                                <FaCopy size={14} aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -304,7 +332,7 @@ function HistoryDetailModal({
                 {Number.isFinite(score) && score > 0 && (
                     <div className="flex items-center gap-4">
                         <div>
-                            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</label>
+                            <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</span>
                             <p className={`text-2xl font-black mt-1 ${score >= 90 ? "text-green-500" :
                                 score >= 80 ? "text-blue-500" : "text-yellow-500"
                                 }`}>
@@ -313,13 +341,13 @@ function HistoryDetailModal({
                         </div>
                         {difficulty && (
                             <div>
-                                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Difficulty</label>
+                                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Difficulty</span>
                                 <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{difficulty}</p>
                             </div>
                         )}
                         {angle && (
                             <div>
-                                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Angle</label>
+                                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Angle</span>
                                 <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{angle}</p>
                             </div>
                         )}
@@ -328,13 +356,13 @@ function HistoryDetailModal({
 
                 {images.length > 0 && (
                     <div>
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</label>
+                        <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</span>
                         <div className="mt-2 grid grid-cols-2 gap-2">
                             {images.map((img: string, i: number) => (
                                 <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-slate-100">
                                     <Image
                                         src={img}
-                                        alt={`AI-generated thumbnail option ${i + 1} for ${title}`}
+                                        alt=""
                                         fill
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         className="object-cover"
@@ -369,15 +397,21 @@ function HistoryDetailModal({
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="history-detail-title"
                 className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[80vh] overflow-hidden"
             >
                 <div className="flex items-center justify-between p-4 border-b border-slate-100">
-                    <h3 className="font-bold text-slate-900">History Details</h3>
+                    <h3 id="history-detail-title" className="font-bold text-slate-900">History Details</h3>
                     <button
+                        ref={closeRef}
+                        type="button"
                         onClick={onClose}
-                        className="p-2 text-slate-400 hover:text-slate-600 transition-colors"
+                        aria-label="Close history details"
+                        className="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                     >
-                        <FaTimes />
+                        <FaTimes aria-hidden="true" />
                     </button>
                 </div>
 

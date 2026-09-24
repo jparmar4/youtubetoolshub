@@ -10,7 +10,6 @@ import {
   FaChartPie,
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
   ],
   alternates: getGlobalAlternates("/"),
   openGraph: {
-    title: "Free YouTube Tools for Creators | YouTube Tools Hub",
+    title: { absolute: "Free YouTube Tools for Creators | YouTube Tools Hub" },
     description:
       `${tools.length} free tools: thumbnail downloader, tag generator, earnings calculator, and more. No signup required.`,
     url: siteConfig.url,
@@ -195,23 +194,18 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link href="/tools/youtube-thumbnail-downloader">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white shadow-2xl border-none font-black px-10 py-6 text-lg rounded-full transition-all hover:scale-105 active:scale-95"
-                >
-                  <FaRocket className="mr-2" />
-                  Download a thumbnail
-                </Button>
+              <Link
+                href="/tools/youtube-thumbnail-downloader"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white shadow-2xl font-black px-10 py-6 text-lg rounded-full transition-all hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              >
+                <FaRocket aria-hidden="true" />
+                Download a thumbnail
               </Link>
-              <Link href="/tools/youtube-earnings-calculator">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full sm:w-auto glass-premium hover:!bg-white/90 hover:!text-slate-900 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105"
-                >
-                  Calculate YouTube pay
-                </Button>
+              <Link
+                href="/tools/youtube-earnings-calculator"
+                className="inline-flex w-full sm:w-auto items-center justify-center glass-premium hover:!bg-white/90 hover:!text-slate-900 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              >
+                Calculate YouTube pay
               </Link>
             </div>
 
@@ -370,14 +364,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-20">
-            <Link href="/tools">
-              <Button
-                size="lg"
-                className="bg-slate-900 text-white rounded-full px-12 py-6 text-xl font-black shadow-2xl hover:bg-slate-800 transition-all hover:scale-105 group"
-              >
-                Access All {tools.length} Tools
-                <FaArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
-              </Button>
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-3 bg-slate-900 text-white rounded-full px-12 py-6 text-xl font-black shadow-2xl hover:bg-slate-800 transition-all hover:scale-105 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            >
+              Access All {tools.length} Tools
+              <FaArrowRight className="group-hover:translate-x-2 transition-transform" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -573,14 +565,12 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-16">
-            <Link href="/blog">
-              <Button
-                variant="ghost"
-                className="text-purple-600 font-black text-xl hover:bg-white/50 px-10 py-5 rounded-full"
-              >
-                View all YouTube guides
-                <FaArrowRight className="ml-3" />
-              </Button>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-purple-600 font-black text-xl hover:bg-white/50 px-10 py-5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            >
+              View all YouTube guides
+              <FaArrowRight aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -604,14 +594,12 @@ export default function Home() {
             Download a thumbnail, generate tags, or estimate what YouTube pays
             in your country — no signup.
           </p>
-          <Link href="/tools">
-            <Button
-              size="lg"
-              className="bg-white text-slate-900 hover:bg-slate-100 font-black px-16 py-10 h-auto text-3xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all hover:scale-105 active:scale-95 group"
-            >
-              Get Started Free
-              <FaArrowRight className="ml-4 group-hover:translate-x-3 transition-transform" />
-            </Button>
+          <Link
+            href="/tools"
+            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-slate-100 font-black px-16 py-10 h-auto text-3xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all hover:scale-105 active:scale-95 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+          >
+            Get Started Free
+            <FaArrowRight className="group-hover:translate-x-3 transition-transform" aria-hidden="true" />
           </Link>
           <div className="mt-12 text-slate-500 font-black text-xs uppercase tracking-[0.3em]">
             No Account Required | Instant Results | Scale Effortlessly

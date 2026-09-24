@@ -170,6 +170,7 @@ export default function ChannelIdFinder() {
                                             src={channelData.thumbnails.high.url}
                                             alt={`${channelData.title} YouTube Channel profile picture`}
                                             fill
+                                            sizes="(max-width: 640px) 96px, 128px"
                                             className="object-cover"
                                         />
                                     </div>

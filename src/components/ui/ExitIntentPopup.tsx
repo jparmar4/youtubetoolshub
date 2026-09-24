@@ -61,6 +61,15 @@ export default function ExitIntentPopup() {
         }
     };
 
+    useEffect(() => {
+        if (!isVisible) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setIsVisible(false);
+        };
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+    }, [isVisible]);
+
     const handleClose = () => {
         setIsVisible(false);
     };
@@ -80,6 +89,9 @@ export default function ExitIntentPopup() {
             <div
                 className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
                 style={{ animation: "fadeIn 0.3s ease" }}
+                role="dialog"
+                aria-modal="true"
+                aria-label="2026 YouTube SEO and High-CPM Niche Matrix signup"
             >
                 <div
                     className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden"
@@ -88,7 +100,7 @@ export default function ExitIntentPopup() {
                     {/* Close button */}
                     <button
                         onClick={handleClose}
-                        className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors z-10"
+                        className="absolute top-4 right-4 p-2.5 min-w-11 min-h-11 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors z-10 rounded-lg"
                         aria-label="Close popup"
                     >
                         <FaTimes className="w-5 h-5" />
@@ -150,7 +162,8 @@ export default function ExitIntentPopup() {
                                                 if (status === "error") setStatus("idle");
                                             }}
                                             placeholder="Enter your creator email"
-                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                                            aria-label="Email address"
+                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 text-slate-900 dark:text-white placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                             required
                                             disabled={status === "loading"}
                                         />

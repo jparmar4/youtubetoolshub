@@ -47,10 +47,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async redirect({ url, baseUrl }) {
             const canonicalBaseUrl = canonicalAuthUrl.replace(/\/$/, "");
 
-            if (url.startsWith("/")) {
+            // Relative app paths only — reject protocol-relative "//host" and "/\host".
+            if (url.startsWith("/") && !url.startsWith("//") && !url.startsWith("/\\")) {
                 return `${canonicalBaseUrl}${url}`;
             }
 
+            // Absolute URLs: require an exact site hostname (blocks @evil / .evil.com tricks).
             try {
                 const parsedUrl = new URL(url);
                 if (
@@ -65,10 +67,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 return canonicalBaseUrl;
             }
 
-            if (url.startsWith(baseUrl)) {
-                return url.replace(baseUrl, canonicalBaseUrl);
-            }
-
+            // Never fall back to prefix matching — that reopens open redirects.
+            if (baseUrl && url === baseUrl) return canonicalBaseUrl;
             return canonicalBaseUrl;
         },
     },

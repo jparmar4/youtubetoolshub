@@ -6,7 +6,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
-    title: "YouTube Tools Hub vs TubeBuddy: 2026 Comparison",
+    title: { absolute: "YouTube Tools Hub vs TubeBuddy: 2026 Comparison" },
     description: "Compare the YouTube Tools Hub browser-based creator toolkit with TubeBuddy. Review workflow focus, setup, and current pricing before choosing a tool.",
     keywords: ["YouTube Tools Hub vs TubeBuddy", "TubeBuddy alternative", "free youtube tools", "youtube seo tools comparison"],
     alternates: {

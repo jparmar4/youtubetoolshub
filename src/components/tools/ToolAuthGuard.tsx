@@ -3,7 +3,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FaLock, FaUser } from "react-icons/fa";
-import Button from "@/components/ui/Button"; // Assuming Button exists
 
 interface ToolAuthGuardProps {
     children: React.ReactNode;
@@ -54,11 +53,12 @@ export default function ToolAuthGuard({
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-                    <Link href="/sign-in" className="w-full">
-                        <Button size="lg" className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg">
-                            <FaUser className="mr-2" />
-                            Sign In to Use
-                        </Button>
+                    <Link
+                        href="/sign-in"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                    >
+                        <FaUser aria-hidden="true" />
+                        Sign In to Use
                     </Link>
                 </div>
                 <p className="mt-4 text-xs text-slate-500">

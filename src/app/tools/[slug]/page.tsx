@@ -27,70 +27,41 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
 
-// Import all tool components
-import ThumbnailDownloader from "@/components/tools/ThumbnailDownloader";
-import ThumbnailGenerator from "@/components/tools/ThumbnailGenerator";
-import AIThumbnailGenerator from "@/components/tools/AIThumbnailGenerator";
-import AIThumbnailPromptGenerator from "@/components/tools/AIThumbnailPromptGenerator";
-import TitleGenerator from "@/components/tools/TitleGenerator";
-import DescriptionGenerator from "@/components/tools/DescriptionGenerator";
-import TagGenerator from "@/components/tools/TagGenerator";
-import TagExtractor from "@/components/tools/TagExtractor";
-import VideoIdeasGenerator from "@/components/tools/VideoIdeasGenerator";
-import TrendHelper from "@/components/tools/TrendHelper";
-import ContentCalendarGenerator from "@/components/tools/ContentCalendarGenerator";
-import EarningsCalculator from "@/components/tools/EarningsCalculator";
-import EngagementCalculator from "@/components/tools/EngagementCalculator";
-import TitleABTester from "@/components/tools/TitleABTester";
-import ChannelNameGenerator from "@/components/tools/ChannelNameGenerator";
-import HashtagGenerator from "@/components/tools/HashtagGenerator";
-import IntroScriptGenerator from "@/components/tools/IntroScriptGenerator";
-import ChannelIdFinder from "@/components/tools/ChannelIdFinder";
-import PlaylistLengthCalculator from "@/components/tools/PlaylistLengthCalculator";
-import CommentPicker from "@/components/tools/CommentPicker";
-import ChannelAudit from "@/components/tools/ChannelAudit";
-import SubscriberCountChecker from "@/components/tools/SubscriberCountChecker";
-import VideoDownloadOptionsGuide from "@/components/tools/VideoDownloadOptionsGuide";
-import TimestampGenerator from "@/components/tools/TimestampGenerator";
-import ShortsScriptPlanner from "@/components/tools/ShortsScriptPlanner";
-import BannerLogoMaker from "@/components/tools/BannerLogoMaker";
-import NicheFinderQuiz from "@/components/tools/NicheFinderQuiz";
-import SponsorshipCalculator from "@/components/tools/SponsorshipCalculator";
-import ChannelValuationCalculator from "@/components/tools/ChannelValuationCalculator";
-import TaxDeductionCalculator from "@/components/tools/TaxDeductionCalculator";
+// Import all tool components dynamically so each tool's UI ships as its own
+// chunk instead of one mega-bundle on every /tools/* page.
+import dynamic from "next/dynamic";
 
-// Map slugs to components
 const toolComponents: Record<string, React.ComponentType> = {
-    "youtube-thumbnail-downloader": ThumbnailDownloader,
-    "youtube-thumbnail-generator": ThumbnailGenerator,
-    "youtube-ai-thumbnail-generator": AIThumbnailGenerator,
-    "youtube-ai-thumbnail-prompt": AIThumbnailPromptGenerator,
-    "youtube-title-generator": TitleGenerator,
-    "youtube-description-generator": DescriptionGenerator,
-    "youtube-tag-generator": TagGenerator,
-    "youtube-tag-extractor": TagExtractor,
-    "youtube-video-ideas-generator": VideoIdeasGenerator,
-    "youtube-trend-helper": TrendHelper,
-    "youtube-content-calendar-generator": ContentCalendarGenerator,
-    "youtube-earnings-calculator": EarningsCalculator,
-    "youtube-engagement-rate-calculator": EngagementCalculator,
-    "youtube-title-ab-tester": TitleABTester,
-    "youtube-channel-name-generator": ChannelNameGenerator,
-    "youtube-hashtag-generator": HashtagGenerator,
-    "youtube-intro-script-generator": IntroScriptGenerator,
-    "youtube-channel-id-finder": ChannelIdFinder,
-    "youtube-playlist-length-calculator": PlaylistLengthCalculator,
-    "youtube-comment-picker": CommentPicker,
-    "youtube-channel-audit": ChannelAudit,
-    "youtube-subscriber-count-checker": SubscriberCountChecker,
-    "youtube-video-download-options": VideoDownloadOptionsGuide,
-    "youtube-timestamp-generator": TimestampGenerator,
-    "youtube-shorts-script-planner": ShortsScriptPlanner,
-    "youtube-banner-logo-maker": BannerLogoMaker,
-    "youtube-niche-finder-quiz": NicheFinderQuiz,
-    "youtube-sponsorship-calculator": SponsorshipCalculator,
-    "youtube-channel-valuation-calculator": ChannelValuationCalculator,
-    "youtube-tax-deduction-calculator": TaxDeductionCalculator,
+    "youtube-thumbnail-downloader": dynamic(() => import("@/components/tools/ThumbnailDownloader")),
+    "youtube-thumbnail-generator": dynamic(() => import("@/components/tools/ThumbnailGenerator")),
+    "youtube-ai-thumbnail-generator": dynamic(() => import("@/components/tools/AIThumbnailGenerator")),
+    "youtube-ai-thumbnail-prompt": dynamic(() => import("@/components/tools/AIThumbnailPromptGenerator")),
+    "youtube-title-generator": dynamic(() => import("@/components/tools/TitleGenerator")),
+    "youtube-description-generator": dynamic(() => import("@/components/tools/DescriptionGenerator")),
+    "youtube-tag-generator": dynamic(() => import("@/components/tools/TagGenerator")),
+    "youtube-tag-extractor": dynamic(() => import("@/components/tools/TagExtractor")),
+    "youtube-video-ideas-generator": dynamic(() => import("@/components/tools/VideoIdeasGenerator")),
+    "youtube-trend-helper": dynamic(() => import("@/components/tools/TrendHelper")),
+    "youtube-content-calendar-generator": dynamic(() => import("@/components/tools/ContentCalendarGenerator")),
+    "youtube-earnings-calculator": dynamic(() => import("@/components/tools/EarningsCalculator")),
+    "youtube-engagement-rate-calculator": dynamic(() => import("@/components/tools/EngagementCalculator")),
+    "youtube-title-ab-tester": dynamic(() => import("@/components/tools/TitleABTester")),
+    "youtube-channel-name-generator": dynamic(() => import("@/components/tools/ChannelNameGenerator")),
+    "youtube-hashtag-generator": dynamic(() => import("@/components/tools/HashtagGenerator")),
+    "youtube-intro-script-generator": dynamic(() => import("@/components/tools/IntroScriptGenerator")),
+    "youtube-channel-id-finder": dynamic(() => import("@/components/tools/ChannelIdFinder")),
+    "youtube-playlist-length-calculator": dynamic(() => import("@/components/tools/PlaylistLengthCalculator")),
+    "youtube-comment-picker": dynamic(() => import("@/components/tools/CommentPicker")),
+    "youtube-channel-audit": dynamic(() => import("@/components/tools/ChannelAudit")),
+    "youtube-subscriber-count-checker": dynamic(() => import("@/components/tools/SubscriberCountChecker")),
+    "youtube-video-download-options": dynamic(() => import("@/components/tools/VideoDownloadOptionsGuide")),
+    "youtube-timestamp-generator": dynamic(() => import("@/components/tools/TimestampGenerator")),
+    "youtube-shorts-script-planner": dynamic(() => import("@/components/tools/ShortsScriptPlanner")),
+    "youtube-banner-logo-maker": dynamic(() => import("@/components/tools/BannerLogoMaker")),
+    "youtube-niche-finder-quiz": dynamic(() => import("@/components/tools/NicheFinderQuiz")),
+    "youtube-sponsorship-calculator": dynamic(() => import("@/components/tools/SponsorshipCalculator")),
+    "youtube-channel-valuation-calculator": dynamic(() => import("@/components/tools/ChannelValuationCalculator")),
+    "youtube-tax-deduction-calculator": dynamic(() => import("@/components/tools/TaxDeductionCalculator")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)

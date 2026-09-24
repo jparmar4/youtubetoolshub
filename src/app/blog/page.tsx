@@ -79,7 +79,7 @@ export default function BlogPage() {
     name: "YouTube Strategy Blog 2026",
     description: "Expert guides on AI-native creation, high-RPM niche selection, and YouTube growth strategies.",
     url: `${siteConfig.url}/blog`,
-    items: blogPosts.map((post) => ({
+    items: blogPosts.slice(0, POSTS_ON_INDEX).map((post) => ({
       name: post.title,
       url: `${siteConfig.url}/blog/${post.slug}`,
       datePublished: post.date,
@@ -179,7 +179,7 @@ export default function BlogPage() {
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-purple-500/5 to-transparent -z-10" />
 
                 <div className="relative z-10">
-                  <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-500 text-white rounded-full mb-8 uppercase tracking-widest">
+                  <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-700 text-white rounded-full mb-8 uppercase tracking-widest">
                     {featuredPost.category}
                   </span>
                   <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 group-hover:text-purple-600 transition-colors leading-[1.1] font-outfit tracking-tighter">

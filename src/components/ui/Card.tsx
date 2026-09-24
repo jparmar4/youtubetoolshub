@@ -56,7 +56,7 @@ export function ToolCard({ icon, title, description, href, isAI, className }: To
                         </p>
                     </div>
                 </div>
-                <div className="mt-4 flex items-center text-purple-400 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
+                <div className="mt-4 flex items-center text-purple-600 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
                     Use Tool
                     <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -103,7 +103,7 @@ export function BlogCard({
                     </div>
                 )}
                 <div className="p-6">
-                    <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-400 rounded-full mb-3 border border-fuchsia-500/20">
+                    <span className="inline-block px-3 py-1 text-xs font-medium bg-fuchsia-500/10 text-fuchsia-700 rounded-full mb-3 border border-fuchsia-500/20">
                         {category}
                     </span>
                     <h3 className={`font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors line-clamp-2 ${dark ? "text-white" : "text-slate-900"}`}>
@@ -114,7 +114,7 @@ export function BlogCard({
                     </p>
                     <div className="flex items-center justify-between gap-4">
                         <span className={`text-xs ${dark ? "text-slate-500" : "text-slate-500"}`}>{date}</span>
-                        <span className="shrink-0 text-purple-400 font-medium text-sm group-hover:translate-x-1 transition-transform">
+                        <span className="shrink-0 text-purple-600 font-medium text-sm group-hover:translate-x-1 transition-transform">
                             Read More -&gt;
                         </span>
                     </div>

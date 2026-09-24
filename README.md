@@ -3,7 +3,7 @@
 Free creator tools for YouTube: thumbnails, SEO metadata, earnings/RPM calculator, channel audit, and more.  
 **Live:** [https://www.youtubetoolshub.com](https://www.youtubetoolshub.com)
 
-Stack: **Next.js 16**, React 19, Tailwind 4, optional NextAuth + Postgres, Google AdSense.
+Stack: **Next.js 16**, React 19, Tailwind 4, optional NextAuth + MySQL, Google AdSense.
 
 ---
 
@@ -11,7 +11,7 @@ Stack: **Next.js 16**, React 19, Tailwind 4, optional NextAuth + Postgres, Googl
 
 ```bash
 npm install
-# copy env keys into .env.local (AI_API_KEY, YOUTUBE_API_KEY, AUTH_SECRET, DATABASE_URL, …)
+# copy env keys into .env.local (AI_API_KEY, YOUTUBE_API_KEY, AUTH_SECRET, MYSQL_*, …)
 npm run dev
 ```
 
@@ -62,11 +62,14 @@ npm run seo:check
 
 ### GitHub Actions
 
-Workflow: **Post-deploy SEO (IndexNow)** (`.github/workflows/post-deploy-seo.yml`)
+Workflows live in `.github/workflows/`:
 
-- Runs on push to `main`/`master` (after site is healthy)
-- Or **Actions → Run workflow** manually
-- Optional secret: `INDEXNOW_ADMIN_SECRET`
+- **CI** (`ci.yml`) — typecheck + lint + tests + production build on push/PR
+- **Post-deploy SEO (IndexNow)** (`post-deploy-seo.yml`)
+
+  - Runs on push to `main`/`master` (after site is healthy)
+  - Or **Actions → Run workflow** manually
+  - Optional secret: `INDEXNOW_ADMIN_SECRET`
 
 If you deploy via Hostinger FTP/SSH (not GitHub-connected hosting), always run `npm run deploy:post` on your machine after go-live.
 
@@ -146,7 +149,7 @@ Monetization blog posts auto-show the Earnings Calculator CTA (top, mid, bottom)
 | `YOUTUBE_API_KEY` | Tags, channel ID, comments, playlists |
 | `REPLICATE_API_TOKEN` | AI thumbnail images |
 | `AUTH_SECRET` / Google OAuth | Sign-in (optional for free tools) |
-| `DATABASE_URL` | Usage / history / subscriptions |
+| `MYSQL_HOST` / `MYSQL_USER` / `MYSQL_PASSWORD` / `MYSQL_DATABASE` (or `MYSQL_URL`) | Usage / history / subscriptions |
 | `INDEXNOW_ADMIN_SECRET` | Protect `GET /api/indexnow` |
 
 Never commit `.env.local`.

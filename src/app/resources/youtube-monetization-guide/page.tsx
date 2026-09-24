@@ -690,11 +690,11 @@ export default function YouTubeMonetizationGuidePage() {
                                 <caption className="sr-only">YouTube niche CPM comparison 2026</caption>
                                 <thead>
                                     <tr className="bg-gradient-to-r from-purple-700 to-purple-900 text-white">
-                                        <th className="text-left px-4 py-3 font-bold">Niche</th>
-                                        <th className="text-right px-4 py-3 font-bold">US CPM Range</th>
-                                        <th className="text-right px-4 py-3 font-bold">Avg RPM</th>
-                                        <th className="text-center px-4 py-3 font-bold">Difficulty</th>
-                                        <th className="text-center px-4 py-3 font-bold">Revenue Potential</th>
+                                        <th scope="col" className="text-left px-4 py-3 font-bold">Niche</th>
+                                        <th scope="col" className="text-right px-4 py-3 font-bold">US CPM Range</th>
+                                        <th scope="col" className="text-right px-4 py-3 font-bold">Avg RPM</th>
+                                        <th scope="col" className="text-center px-4 py-3 font-bold">Difficulty</th>
+                                        <th scope="col" className="text-center px-4 py-3 font-bold">Revenue Potential</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -777,7 +777,7 @@ export default function YouTubeMonetizationGuidePage() {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 href="/tools/youtube-earnings-calculator"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-bold transition-colors"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold transition-colors"
                             >
                                 <FaChartLine /> Estimate Earnings by Country
                             </Link>

@@ -124,23 +124,27 @@ export default async function middleware(request: NextRequest) {
   const legacyLocales = ["en", "es", "hi", "pt"];
   for (const locale of legacyLocales) {
     if (pathname === `/${locale}` || pathname === `/${locale}/`) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/";
-      return NextResponse.redirect(url, 308);
+      // Fixed origin — never derive Location from the request Host header.
+      return NextResponse.redirect(
+        new URL("/", "https://www.youtubetoolshub.com"),
+        308,
+      );
     }
     if (pathname.startsWith(`/${locale}/`)) {
-      const url = request.nextUrl.clone();
-      url.pathname = pathname.replace(`/${locale}`, "");
-      return NextResponse.redirect(url, 308);
+      return NextResponse.redirect(
+        new URL(pathname.replace(`/${locale}`, "") || "/", "https://www.youtubetoolshub.com"),
+        308,
+      );
     }
   }
 
   // 0.2 Normalize trailing slashes (remove trailing slash to prevent duplicates)
   // Skip for root path "/" which should not have trailing slash stripped
   if (pathname !== "/" && pathname.endsWith("/")) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.slice(0, -1);
-    return NextResponse.redirect(url, 308);
+    return NextResponse.redirect(
+      new URL(pathname.slice(0, -1), "https://www.youtubetoolshub.com"),
+      308,
+    );
   }
 
   // 1. Allow search bots unrestricted access (SEO) — still attach noindex on private paths

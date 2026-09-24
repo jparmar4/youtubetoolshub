@@ -26,6 +26,11 @@ export async function POST(req: NextRequest) {
 
         const { name, email, subject, message, website } = await req.json();
 
+        // Cap the raw payload early (before any further processing)
+        if (typeof message === "string" && message.length > 5000) {
+            return NextResponse.json({ error: "Input too long" }, { status: 400 });
+        }
+
         // Honeypot spam protection - if this hidden field has a value, it's a bot
         if (website) {
             return NextResponse.json(
@@ -45,6 +50,7 @@ export async function POST(req: NextRequest) {
         // Validate and sanitize against CRLF header injection attacks
         const cleanName = String(name).replace(/[\r\n]/g, " ").trim();
         const cleanSubject = String(subject).replace(/[\r\n]/g, " ").trim();
+        const cleanEmail = String(email).trim();
 
         // Validate input lengths
         if (cleanName.length > 100 || cleanSubject.length > 200 || message.length > 5000) {
@@ -54,9 +60,9 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Basic email validation
+        // Basic email validation + RFC length cap
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
+        if (!emailRegex.test(cleanEmail) || cleanEmail.length > 254) {
             return NextResponse.json(
                 { error: "Invalid email address" },
                 { status: 400 }
@@ -87,11 +93,11 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        // Send email
+        // Send email — structured addresses avoid display-name re-parsing issues
         await transporter.sendMail({
-            from: `"${cleanName}" <${process.env.EMAIL_USER}>`,
+            from: { name: cleanName, address: process.env.EMAIL_USER! },
             to: "support@youtubetoolshub.com",
-            replyTo: email,
+            replyTo: { address: cleanEmail },
             subject: `[Contact Form] ${cleanSubject} - from ${cleanName}`,
             html: `
                 <!DOCTYPE html>
@@ -122,7 +128,7 @@ export async function POST(req: NextRequest) {
                             </div>
                             <div class="field">
                                 <div class="label">📧 Email:</div>
-                                <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
+                                <div class="value"><a href="mailto:${escapeHtml(cleanEmail)}">${escapeHtml(cleanEmail)}</a></div>
                             </div>
                             <div class="field">
                                 <div class="label">📋 Subject:</div>

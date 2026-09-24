@@ -13,7 +13,7 @@ import {
 const baseUrl = siteConfig.url;
 
 export const metadata: Metadata = {
-    title: "API Documentation – YouTube Tools Hub Developer Resources",
+    title: { absolute: "API Documentation – YouTube Tools Hub Developer Resources" },
     description:
         "Explore the YouTube Tools Hub public API. Access tool listings, FAQs, AI context data, and OpenAPI specification. Free endpoints for developers and AI systems.",
     keywords: [

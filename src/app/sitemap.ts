@@ -28,6 +28,11 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/resources/youtube-algorithm-guide": "2026-09-04",
   "/resources/youtube-monetization-guide": "2026-09-04",
   "/api-docs": "2026-08-01",
+  "/privacy-policy": "2026-08-01",
+  "/terms-of-use": "2026-08-01",
+  "/disclaimer": "2026-08-01",
+  "/refund-policy": "2026-08-01",
+  "/resources": "2026-09-24",
 };
 
 const FALLBACK_LAST_MODIFIED = new Date("2026-09-04T00:00:00.000Z");

@@ -1,18 +1,38 @@
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 import { submitToIndexNow } from "@/lib/indexnow";
 import { siteConfig } from "@/config/site";
 import { getAllBlogPosts } from "@/config/blog";
 import { tools } from "@/config/tools";
 import { countryCPMData } from "@/lib/cpm-data";
 import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+function secretMatches(provided: string | null, expected: string): boolean {
+  if (!provided) return false;
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
+
 export async function GET(request: Request) {
+  const ip = getRequestIp(request.headers);
+  const rl = enforceRateLimit(`indexnow-admin:${ip}`, 10, 60 * 60 * 1000);
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Too many requests" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } },
+    );
+  }
+
   // Protect this endpoint — only allow requests with the correct admin secret
   const secret = request.headers.get("x-indexnow-secret");
-  if (!process.env.INDEXNOW_ADMIN_SECRET || secret !== process.env.INDEXNOW_ADMIN_SECRET) {
+  const expected = process.env.INDEXNOW_ADMIN_SECRET;
+  if (!expected || !secretMatches(secret, expected)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

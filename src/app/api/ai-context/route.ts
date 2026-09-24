@@ -288,7 +288,7 @@ export async function GET() {
       openapi: `${siteUrl}/.well-known/openapi.yaml`,
       knowledge_graph: `${siteUrl}/knowledge-graph.jsonld`,
       sitemap: `${siteUrl}/sitemap.xml`,
-      sitemap_index: `${siteUrl}/sitemap_index.xml`,
+      sitemap_index: `${siteUrl}/sitemap-index.xml`,
       robots: `${siteUrl}/robots.txt`,
     }
   };

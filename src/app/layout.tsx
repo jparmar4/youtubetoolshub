@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
+import { MotionConfig } from "framer-motion";
 import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
@@ -164,9 +165,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        {/* Edge DNS Preconnects for Global Performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Edge DNS Preconnects for Global Performance (fonts are self-hosted via next/font) */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/*
@@ -249,21 +248,10 @@ export default async function RootLayout({
         />
 
         {/* DNS Prefetch for external resources */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://pagead2.googlesyndication.com"
-          crossOrigin="anonymous"
-        />
 
         {/* Pinterest Business Verification */}
         <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />
@@ -336,8 +324,17 @@ export default async function RootLayout({
       >
         <AuthProvider>
           <UsageProvider>
+            <MotionConfig reducedMotion="user">
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-purple-600"
+            >
+              Skip to content
+            </a>
             <Header />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
+              {children}
+            </main>
             <Footer />
             <ScrollToTop />
             <CookieConsent />
@@ -347,6 +344,7 @@ export default async function RootLayout({
             <ExitIntentPopup />
             {/* High-viewability mobile/desktop sticky bottom anchor ad */}
             <StickyBottomAd />
+            </MotionConfig>
           </UsageProvider>
         </AuthProvider>
       </body>

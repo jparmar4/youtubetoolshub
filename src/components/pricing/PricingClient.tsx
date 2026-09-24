@@ -81,25 +81,29 @@ export default function PricingClient() {
                     </p>
 
                     {/* Billing Toggle */}
-                    <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-100">
+                    <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-100" role="group" aria-label="Billing cycle">
                         <button
+                            type="button"
                             onClick={() => setBillingCycle("monthly")}
-                            className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "monthly"
+                            aria-pressed={billingCycle === "monthly"}
+                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all ${billingCycle === "monthly"
                                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
-                                : "text-slate-600 hover:text-slate-900"
+                                : "text-slate-700 hover:text-slate-900"
                                 }`}
                         >
                             Monthly
                         </button>
                         <button
+                            type="button"
                             onClick={() => setBillingCycle("yearly")}
-                            className={`px-6 py-2 rounded-lg font-medium transition-all ${billingCycle === "yearly"
+                            aria-pressed={billingCycle === "yearly"}
+                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all ${billingCycle === "yearly"
                                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
-                                : "text-slate-600 hover:text-slate-900"
+                                : "text-slate-700 hover:text-slate-900"
                                 }`}
                         >
                             Yearly
-                            <span className="ml-2 text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                            <span className="ml-2 text-xs bg-green-700 text-white px-2 py-0.5 rounded-full">
                                 Save 17%
                             </span>
                         </button>
@@ -217,9 +221,9 @@ export default function PricingClient() {
                         <table className="w-full">
                             <thead>
                                 <tr className="border-b border-slate-100 bg-slate-50/50">
-                                    <th className="text-left py-5 px-8 font-bold text-slate-900">Feature</th>
-                                    <th className="text-center py-5 px-8 font-bold text-slate-900">Free</th>
-                                    <th className="text-center py-5 px-8 font-bold text-purple-600">
+                                    <th scope="col" className="text-left py-5 px-8 font-bold text-slate-900">Feature</th>
+                                    <th scope="col" className="text-center py-5 px-8 font-bold text-slate-900">Free</th>
+                                    <th scope="col" className="text-center py-5 px-8 font-bold text-purple-600">
                                         <span className="inline-flex items-center gap-2">
                                             <FaCrown />
                                             Pro

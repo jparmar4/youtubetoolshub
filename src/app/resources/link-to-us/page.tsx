@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   alternates: getGlobalAlternates("/resources/link-to-us"),
   openGraph: {
-    title: "Link to Us – Embed Badges & Calculator Widget | YouTube Tools Hub",
+    title: { absolute: "Link to Us – Embed Badges & Calculator Widget | YouTube Tools Hub" },
     description:
       "Copy free HTML badges and an embeddable YouTube earnings calculator card for your site.",
     url: `${siteConfig.url}/resources/link-to-us`,
@@ -375,7 +375,7 @@ export default function LinkToUsPage() {
               </Link>
               <Link
                 href="/blog"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-purple-500/30 text-white font-semibold rounded-xl hover:bg-purple-500/50 transition-colors border border-white/20"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-purple-700 text-white font-semibold rounded-xl hover:bg-purple-800 transition-colors border border-white/20"
               >
                 See Our Blog
               </Link>

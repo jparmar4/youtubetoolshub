@@ -769,7 +769,7 @@ export default function YouTubeAlgorithmGuidePage() {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 href="/tools/youtube-earnings-calculator"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-purple-500 hover:bg-purple-400 text-white font-bold transition-colors"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-bold transition-colors"
                             >
                                 <FaChartLine /> Calculate Your Potential Earnings
                             </Link>

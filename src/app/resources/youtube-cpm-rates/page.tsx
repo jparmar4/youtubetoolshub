@@ -194,11 +194,11 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
                 <caption className="sr-only">{tierLabel} YouTube CPM rates by country</caption>
                 <thead>
                     <tr className={`${tierColor} text-white`}>
-                        <th className="text-left px-4 py-3 font-bold">Country</th>
-                        <th className="text-right px-4 py-3 font-bold">CPM Min</th>
-                        <th className="text-right px-4 py-3 font-bold">CPM Avg</th>
-                        <th className="text-right px-4 py-3 font-bold">CPM Max</th>
-                        <th className="text-right px-4 py-3 font-bold">RPM Avg</th>
+                        <th scope="col" className="text-left px-4 py-3 font-bold">Country</th>
+                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Min</th>
+                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Avg</th>
+                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Max</th>
+                        <th scope="col" className="text-right px-4 py-3 font-bold">RPM Avg</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -392,10 +392,10 @@ export default function YouTubeCPMRatesPage() {
                             <table className="w-full text-sm">
                                 <thead>
                                     <tr className="bg-slate-900 text-white">
-                                        <th className="text-left px-4 py-3 font-bold">Niche</th>
-                                        <th className="text-right px-4 py-3 font-bold">US CPM Range</th>
-                                        <th className="text-right px-4 py-3 font-bold">Global Avg CPM</th>
-                                        <th className="text-left px-4 py-3 font-bold hidden md:table-cell">Notes</th>
+                                        <th scope="col" className="text-left px-4 py-3 font-bold">Niche</th>
+                                        <th scope="col" className="text-right px-4 py-3 font-bold">US CPM Range</th>
+                                        <th scope="col" className="text-right px-4 py-3 font-bold">Global Avg CPM</th>
+                                        <th scope="col" className="text-left px-4 py-3 font-bold hidden md:table-cell">Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody>

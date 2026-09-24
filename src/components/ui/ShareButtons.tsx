@@ -86,7 +86,7 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`p-2.5 rounded-xl ${link.bg} ${link.color} hover:text-white transition-all duration-200 hover:scale-110 hover:shadow-lg`}
+                        className={`p-2.5 min-w-11 min-h-11 inline-flex items-center justify-center rounded-xl ${link.bg} ${link.color} hover:text-white transition-all duration-200 hover:scale-110 hover:shadow-lg`}
                         aria-label={`Share on ${link.name}`}
                         title={`Share on ${link.name}`}
                     >
@@ -97,7 +97,7 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
 
             <button
                 onClick={handleShare}
-                className={`p-2.5 rounded-xl transition-all duration-200 hover:scale-110 ${
+                className={`p-2.5 min-w-11 min-h-11 inline-flex items-center justify-center rounded-xl transition-all duration-200 hover:scale-110 ${
                     copied
                         ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"

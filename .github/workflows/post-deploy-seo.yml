@@ -38,6 +38,9 @@ jobs:
     name: Health + IndexNow + smoke
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Expose to step-level `if:` (secrets context is not readable there).
+      INDEXNOW_ADMIN_SECRET: ${{ secrets.INDEXNOW_ADMIN_SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,7 +48,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
 
       - name: Wait for production health
         env:
@@ -74,9 +77,8 @@ jobs:
         run: node scripts/submit-indexnow.mjs
 
       - name: Optional server IndexNow API
-        if: ${{ secrets.INDEXNOW_ADMIN_SECRET != '' }}
+        if: ${{ env.INDEXNOW_ADMIN_SECRET != '' }}
         env:
-          INDEXNOW_ADMIN_SECRET: ${{ secrets.INDEXNOW_ADMIN_SECRET }}
           BASE: ${{ github.event.inputs.base_url || 'https://www.youtubetoolshub.com' }}
         run: |
           code=$(curl -s -o /tmp/indexnow.json -w "%{http_code}" \
@@ -86,4 +88,7 @@ jobs:
           cat /tmp/indexnow.json || true
 
       - name: Production smoke checklist
-        run: node scripts/deploy-checklist.mjs --post --base "${{ github.event.inputs.base_url || 'https://www.youtubetoolshub.com' }}"
+        env:
+          # Pass via env — never interpolate workflow inputs into the shell command.
+          BASE: ${{ github.event.inputs.base_url || 'https://www.youtubetoolshub.com' }}
+        run: node scripts/deploy-checklist.mjs --post --base "$BASE"

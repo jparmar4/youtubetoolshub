@@ -7,7 +7,7 @@ import { getBreadcrumbSchema, noIndexRobots } from "@/lib/seo";
 import { FaSearch, FaTools, FaBookOpen, FaArrowRight } from "react-icons/fa";
 
 export const metadata: Metadata = {
-    title: "Search YouTube Tools & Guides – YouTube Tools Hub",
+    title: { absolute: "Search YouTube Tools & Guides – YouTube Tools Hub" },
     description:
         "Search across 27+ free YouTube tools and expert blog guides. Find the right tool or strategy for your channel growth in 2026.",
     // Thin/dynamic result pages — must not appear in Google index

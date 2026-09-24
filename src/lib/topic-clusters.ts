@@ -630,7 +630,7 @@ export const topicClusters: TopicCluster[] = [
     id: "creator-business",
     name: "Creator Business & Legal",
     pillar: {
-      path: "/blog/youtube-channel-as-business-2026",
+      path: "/blog/how-to-start-youtube-business-2026",
       title: "Running Your YouTube Channel as a Business",
       anchors: [
         "youtube as a business",
@@ -640,22 +640,12 @@ export const topicClusters: TopicCluster[] = [
     },
     spokes: [
       {
-        path: "/blog/youtube-llc-setup-guide",
-        title: "YouTube LLC Setup Guide",
-        anchors: ["youtube llc", "llc for youtubers", "creator llc"],
-      },
-      {
-        path: "/blog/youtube-content-licensing-guide",
-        title: "Content Licensing Guide",
-        anchors: ["content licensing", "youtube licensing", "license youtube content"],
-      },
-      {
-        path: "/blog/youtube-creator-contracts-guide",
+        path: "/blog/youtube-sponsorship-guidelines-2026",
         title: "Creator Contracts & Sponsorship Agreements",
         anchors: ["creator contracts", "sponsorship contract", "youtube brand deal contract"],
       },
       {
-        path: "/blog/youtube-copyright-guide-2026",
+        path: "/blog/youtube-music-copyright-guide",
         title: "YouTube Copyright Guide",
         anchors: ["youtube copyright", "copyright claim", "fair use youtube"],
       },
@@ -680,19 +670,14 @@ export const topicClusters: TopicCluster[] = [
     },
     spokes: [
       {
-        path: "/blog/best-video-editing-software-youtube-2026",
+        path: "/blog/best-ai-video-editing-software-2026",
         title: "Best Video Editing Software for YouTube",
         anchors: ["video editing software", "best editor for youtube", "youtube editing software"],
       },
       {
-        path: "/blog/best-youtube-hosting-solutions",
-        title: "Best Hosting for Creator Websites",
-        anchors: ["hosting for creators", "youtube portfolio hosting", "creator website hosting"],
-      },
-      {
-        path: "/blog/best-vpn-for-youtube-creators",
-        title: "Best VPN for YouTube Creators",
-        anchors: ["vpn for youtube", "creator vpn", "best vpn creators"],
+        path: "/blog/best-free-video-editors-youtube-2026",
+        title: "Best Free Video Editors for YouTube",
+        anchors: ["free video editor", "best free editor youtube"],
       },
       {
         path: "/blog/ai-tools-youtube-creators-2026",
@@ -725,12 +710,7 @@ export const topicClusters: TopicCluster[] = [
     },
     spokes: [
       {
-        path: "/blog/youtube-taxes-guide-2026",
-        title: "YouTube Taxes Guide",
-        anchors: ["youtube taxes", "youtuber tax guide", "how youtubers file taxes"],
-      },
-      {
-        path: "/blog/youtube-sponsorship-rates-2026",
+        path: "/blog/youtube-sponsorship-guidelines-2026",
         title: "YouTube Sponsorship Rates",
         anchors: ["sponsorship rates", "youtube sponsorship pricing", "how much sponsors pay"],
       },

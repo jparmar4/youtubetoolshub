@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "All Free YouTube Tools | YouTube Tools Hub",
+    title: { absolute: "All Free YouTube Tools | YouTube Tools Hub" },
     description:
       "Browse 27 free tools by category: thumbnails, titles, tags, earnings, and channel growth. No signup required.",
     type: "website",

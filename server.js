@@ -58,23 +58,52 @@ function serveFile(filePath, res, isImmutable) {
 
     const ext = path.extname(filePath).toLowerCase();
     const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
+    const etag = '"' + stat.size + '-' + stat.mtimeMs + '"';
 
-    res.writeHead(200, {
+    const headers = {
       'Content-Type': mimeType,
       'Content-Length': stat.size,
       'Cache-Control': isImmutable
         ? 'public, max-age=31536000, immutable'
         : 'public, max-age=86400',
       'Vary': 'Accept-Encoding',
-      'ETag': '"' + stat.size + '-' + stat.mtimeMs + '"',
-    });
+      'ETag': etag,
+      // Static files bypass next.config headers() — set security headers here.
+      'X-Content-Type-Options': 'nosniff',
+    };
+    // SVG can execute script if opened directly — lock it down.
+    if (ext === '.svg') {
+      headers['Content-Security-Policy'] = "default-src 'none'; style-src 'unsafe-inline'; sandbox";
+    }
 
+    res.writeHead(200, headers);
     fs.createReadStream(filePath).pipe(res);
     return true;
   } catch {
     // File doesn't exist or is unreadable
     return false;
   }
+}
+
+function serveFileWithCache(req, filePath, res, isImmutable) {
+  try {
+    const stat = fs.statSync(filePath);
+    if (!stat.isFile()) return false;
+
+    const etag = '"' + stat.size + '-' + stat.mtimeMs + '"';
+    if (req.headers['if-none-match'] === etag) {
+      res.writeHead(304, { 'ETag': etag, 'X-Content-Type-Options': 'nosniff' });
+      res.end();
+      return true;
+    }
+    return serveFile(filePath, res, isImmutable);
+  } catch {
+    return false;
+  }
+}
+
+function isWithinBase(resolved, base) {
+  return resolved === base || resolved.startsWith(base + path.sep);
 }
 
 function handleStaticRequest(req, res, nextHandler) {
@@ -93,8 +122,8 @@ function handleStaticRequest(req, res, nextHandler) {
     for (const base of STATIC_PATHS) {
       const resolved = path.resolve(base, relative);
       // SECURITY: Prevent path traversal — resolved path must stay within base
-      if (!resolved.startsWith(base)) continue;
-      if (serveFile(resolved, res, true)) {
+      if (!isWithinBase(resolved, base)) continue;
+      if (serveFileWithCache(req, resolved, res, true)) {
         served = true;
         break;
       }
@@ -114,10 +143,11 @@ function handleStaticRequest(req, res, nextHandler) {
     const cleanPath = pathname === '/' ? null : pathname;
     if (cleanPath) {
       for (const base of PUBLIC_PATHS) {
-        const resolved = path.resolve(base, cleanPath);
+        // Join as relative so an absolute cleanPath cannot discard `base`.
+        const resolved = path.resolve(base, '.' + cleanPath);
         // SECURITY: Prevent path traversal — resolved path must stay within base
-        if (!resolved.startsWith(base)) continue;
-        if (serveFile(resolved, res, false)) return;
+        if (!isWithinBase(resolved, base)) continue;
+        if (serveFileWithCache(req, resolved, res, false)) return;
       }
     }
   }

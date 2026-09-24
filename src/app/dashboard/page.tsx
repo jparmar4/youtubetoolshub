@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FaCrown, FaChartBar, FaRocket, FaFire, FaLightbulb, FaMagic, FaImage, FaArrowRight, FaHistory, FaClock, FaCheckCircle, FaStar } from "react-icons/fa";
 import { useUsage } from "@/hooks/useUsage";
-import { tools } from "@/config/tools";
+import { toolMeta, getToolMetaBySlug, type ToolMeta } from "@/config/tool-meta";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, ToolCard } from "@/components/ui/Card";
@@ -85,7 +85,7 @@ export default function DashboardPage() {
         return Math.min(100, (used / numericLimit) * 100);
     };
 
-    const getToolBySlug = (slug: string) => tools.find(t => t.slug === slug);
+    const getToolBySlug = (slug: string): ToolMeta | undefined => getToolMetaBySlug(slug);
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-28 pb-12">
@@ -270,7 +270,7 @@ export default function DashboardPage() {
                                 Popular Tools
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {tools.filter(t => ['youtube-title-generator', 'youtube-thumbnail-generator', 'youtube-video-ideas-generator', 'youtube-channel-audit'].includes(t.slug)).map(tool => (
+                                {toolMeta.filter(t => ['youtube-title-generator', 'youtube-thumbnail-generator', 'youtube-video-ideas-generator', 'youtube-channel-audit'].includes(t.slug)).map(tool => (
                                     <ToolCard
                                         key={tool.slug}
                                         icon={<tool.icon />}

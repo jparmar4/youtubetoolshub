@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Button from "@/components/ui/Button";
 import { FaRocket, FaArrowRight } from "react-icons/fa";
 
 interface WorkflowStep {
@@ -146,13 +145,11 @@ export default function SmartWorkflow() {
                     </div>
 
                     <div className="text-center mt-16">
-                        <Link href="/tools/youtube-video-ideas-generator">
-                            <Button
-                                size="lg"
-                                className="bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20 px-8 py-4 rounded-xl text-lg font-bold transform hover:scale-105 transition-all duration-200"
-                            >
-                                <FaRocket className="mr-2" /> Start Your Workflow
-                            </Button>
+                        <Link
+                            href="/tools/youtube-video-ideas-generator"
+                            className="inline-flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20 px-8 py-4 rounded-xl text-lg font-bold transform hover:scale-105 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                        >
+                            <FaRocket aria-hidden="true" /> Start Your Workflow
                         </Link>
                     </div>
                 </div>

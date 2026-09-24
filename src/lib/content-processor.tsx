@@ -546,7 +546,7 @@ export function processContent(
                             <thead>
                                 <tr className="bg-slate-50 border-b border-slate-200">
                                     {headers.map((header, i) => (
-                                        <th key={i} className="px-6 py-4 text-sm font-bold text-slate-900 uppercase tracking-wider">
+                                        <th scope="col" key={i} className="px-6 py-4 text-sm font-bold text-slate-900 uppercase tracking-wider">
                                             {parseInlineMarkdown(header, `th-${key}-${i}`, false)}
                                         </th>
                                     ))}

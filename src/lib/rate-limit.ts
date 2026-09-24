@@ -54,6 +54,16 @@ export function enforceRateLimit(
 }
 
 export function getRequestIp(headers: Headers): string {
+  // Prefer the edge-set header (Hostinger/proxy overwrites it; clients cannot spoof).
+  const realIp = headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+
+  // Otherwise take the LAST X-Forwarded-For entry — the one appended by the
+  // trusted proxy. Never trust the first entry: the client controls it.
   const forwarded = headers.get("x-forwarded-for");
-  return forwarded?.split(",")[0]?.trim() || headers.get("x-real-ip") || "unknown";
+  if (forwarded) {
+    const parts = forwarded.split(",").map((p) => p.trim()).filter(Boolean);
+    if (parts.length > 0) return parts[parts.length - 1];
+  }
+  return headers.get("x-real-ip")?.trim() || "unknown";
 }

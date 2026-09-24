@@ -164,9 +164,12 @@ export default function PrivacyPolicyPage() {
                                 Third-Party Services
                             </h2>
                             <p className="text-slate-600 leading-relaxed text-lg">
-                                We may use third-party services for analytics (such as Google Analytics) and advertising.
-                                These services may collect information about your visit according to their own privacy policies.
-                                We recommend reviewing their privacy policies for more information.
+                                We may use third-party services for analytics (such as Google Analytics and
+                                Microsoft Clarity), advertising (Google AdSense), payments (Razorpay),
+                                sign-in (Google OAuth), and AI-powered tool features. Some tools also call
+                                the YouTube Data API. These services may collect information about your visit
+                                according to their own privacy policies. We recommend reviewing their privacy
+                                policies for more information.
                             </p>
                         </div>
 

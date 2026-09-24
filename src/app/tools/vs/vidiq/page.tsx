@@ -6,7 +6,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 
 export const metadata: Metadata = {
-    title: "YouTube Tools Hub vs VidIQ: Creator Tool Comparison",
+    title: { absolute: "YouTube Tools Hub vs VidIQ: Creator Tool Comparison" },
     description: "Compare the YouTube Tools Hub browser-based creator toolkit with VidIQ. Review workflow focus, setup, and current plan details before choosing a tool.",
     keywords: ["YouTube Tools Hub vs VidIQ", "VidIQ alternative", "best youtube seo tool", "ai youtube growth"],
     alternates: {
@@ -36,7 +36,7 @@ export default function VidIQComparisonPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                         {/* YT Tools Hub Card */}
                         <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-purple-500 shadow-xl relative overflow-hidden">
-                            <div className="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
+                            <div className="absolute top-0 right-0 bg-purple-700 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                                 Browser-based option
                             </div>
                             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">YouTube Tools Hub</h2>

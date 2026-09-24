@@ -31,6 +31,7 @@ export default function ExpertQuote({ quote, author, role, image }: ExpertQuoteP
                                 src={image}
                                 alt={author}
                                 fill
+                                sizes="48px"
                                 className="object-cover"
                             />
                         </div>

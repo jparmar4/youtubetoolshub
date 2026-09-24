@@ -40,9 +40,12 @@ export async function POST(request: Request) {
         const planIds = {
             monthly: "plan_RoHllplN8oKLO6",
             yearly: "plan_RoHnfy0vCII0Gq",
-        };
+        } as const;
 
-        const selectedPlanId = planIds[plan as keyof typeof planIds];
+        const selectedPlanId =
+            typeof plan === "string" && Object.hasOwn(planIds, plan)
+                ? planIds[plan as keyof typeof planIds]
+                : undefined;
 
         if (!selectedPlanId) {
             return NextResponse.json(

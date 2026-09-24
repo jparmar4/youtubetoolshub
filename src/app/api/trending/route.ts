@@ -41,6 +41,14 @@ export async function GET(req: NextRequest) {
     const region = searchParams.get("region") || "us";
     const category = searchParams.get("category"); // Optional category filter
 
+    // Numeric allowlist — prevents query-param injection into the upstream URL.
+    if (category !== null && category !== "" && !/^\d{1,2}$/.test(category)) {
+        return NextResponse.json(
+            { success: false, error: "Invalid category" },
+            { status: 400 },
+        );
+    }
+
     const apiKey = process.env.YOUTUBE_API_KEY;
 
     if (!apiKey) {
@@ -52,7 +60,10 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    const regionCode = REGION_CODES[region.toLowerCase()] || "US";
+    const regionKey = region.toLowerCase();
+    const regionCode = Object.hasOwn(REGION_CODES, regionKey)
+        ? REGION_CODES[regionKey]
+        : "US";
 
     try {
         // Fetch trending videos

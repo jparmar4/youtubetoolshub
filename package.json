@@ -8,6 +8,8 @@
     "build": "next build && node scripts/copy-standalone.js",
     "start": "node server.js",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-commercial-calculators.cjs && node scripts/test-discovery.cjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "seo:indexnow:priority": "node scripts/submit-indexnow.mjs --priority",
     "seo:check": "node scripts/check-seo.mjs",
@@ -22,21 +24,20 @@
     "deploy:post:skip-check": "node scripts/post-deploy.mjs --full --skip-check"
   },
   "dependencies": {
-    "@formatjs/intl-localematcher": "^0.7.3",
-    "@types/negotiator": "^0.6.4",
     "canvas-confetti": "^1.9.4",
     "critters": "^0.0.23",
-    "date-fns": "^4.1.0",
     "framer-motion": "^12.23.26",
     "mysql2": "^3.24.3",
-    "negotiator": "^1.0.0",
     "next": "^16.2.4",
     "next-auth": "^5.0.0-beta.30",
-    "nodemailer": "^8.0.7",
+    "nodemailer": "^10.0.10",
     "razorpay": "^2.9.6",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -52,6 +53,6 @@
     "typescript": "^5"
   },
   "overrides": {
-    "postcss": "8.5.13"
+    "postcss": "^8.5.23"
   }
 }

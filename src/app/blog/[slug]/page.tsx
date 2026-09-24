@@ -200,12 +200,13 @@ export default async function BlogPostPage({
     const clusterSiblings = getClusterSiblings(`/blog/${slug}`, 5);
 
     const videoIds = extractYoutubeVideoIds(post.content);
-    const videoSchemas = videoIds.map(id => getVideoObjectSchema({
+    const declaredDuration = post.video?.duration;
+    const videoSchemas = videoIds.map((id) => getVideoObjectSchema({
         name: `${post.title} (Video)`,
         description: `Video content from: ${post.title}`,
         thumbnailUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
         uploadDate: isoDate,
-        duration: "PT10M",
+        duration: declaredDuration ?? "PT10M",
         embedUrl: `https://www.youtube.com/embed/${id}`,
         contentUrl: `https://www.youtube.com/watch?v=${id}`
     }));
@@ -303,11 +304,11 @@ export default async function BlogPostPage({
                                 </div>
                                 <div className="flex items-center gap-6">
                                     <span className="flex items-center gap-2">
-                                        <FaCalendar className="w-4 h-4 text-purple-400" />
+                                        <FaCalendar className="w-4 h-4 text-purple-600" />
                                         <time dateTime={isoDate}>{post.date}</time>
                                     </span>
                                     <span className="flex items-center gap-2">
-                                        <FaClock className="w-4 h-4 text-purple-400" />
+                                        <FaClock className="w-4 h-4 text-purple-600" />
                                         {post.readTime}
                                     </span>
                                 </div>
@@ -329,6 +330,7 @@ export default async function BlogPostPage({
                                         src={post.coverImage}
                                         alt={post.imageAlt || post.title}
                                         fill
+                                        sizes="(min-width: 1024px) 66vw, 100vw"
                                         className="object-cover"
                                         priority
                                     />
@@ -477,7 +479,7 @@ export default async function BlogPostPage({
                                                     <span className="font-semibold text-slate-800 group-hover:text-purple-700 text-sm md:text-base">
                                                         {tool.name}
                                                     </span>
-                                                    <FaArrowRight className="text-purple-400 group-hover:translate-x-1 transition-transform shrink-0" />
+                                                    <FaArrowRight className="text-purple-600 group-hover:translate-x-1 transition-transform shrink-0" />
                                                 </Link>
                                             ))}
                                         </div>

@@ -323,10 +323,10 @@ export default function YouTubeEarningsCalculatorPage() {
                   <table className="w-full text-left text-sm md:text-base">
                     <thead>
                       <tr className="border-b border-slate-200 text-slate-500">
-                        <th className="py-3 pr-4 font-semibold">Scenario</th>
-                        <th className="py-3 pr-4 font-semibold">Views</th>
-                        <th className="py-3 pr-4 font-semibold">RPM</th>
-                        <th className="py-3 font-semibold">Est. revenue</th>
+                        <th scope="col" className="py-3 pr-4 font-semibold">Scenario</th>
+                        <th scope="col" className="py-3 pr-4 font-semibold">Views</th>
+                        <th scope="col" className="py-3 pr-4 font-semibold">RPM</th>
+                        <th scope="col" className="py-3 font-semibold">Est. revenue</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -443,9 +443,9 @@ export default function YouTubeEarningsCalculatorPage() {
                   <table className="w-full text-sm text-left">
                     <thead>
                       <tr className="border-b border-slate-200 text-slate-500">
-                        <th className="py-2 pr-3 font-semibold">Niche</th>
-                        <th className="py-2 pr-3 font-semibold">Avg CPM</th>
-                        <th className="py-2 font-semibold">Notes</th>
+                        <th scope="col" className="py-2 pr-3 font-semibold">Niche</th>
+                        <th scope="col" className="py-2 pr-3 font-semibold">Avg CPM</th>
+                        <th scope="col" className="py-2 font-semibold">Notes</th>
                       </tr>
                     </thead>
                     <tbody>

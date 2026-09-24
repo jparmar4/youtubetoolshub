@@ -139,7 +139,7 @@ export default function SubscriberCountChecker() {
                             <div className="flex flex-col sm:flex-row items-center gap-5">
                                 {thumbnail && (
                                     <div className="relative h-24 w-24 overflow-hidden rounded-full border border-slate-200">
-                                        <Image src={thumbnail} alt={`${channel.title} YouTube channel avatar`} fill className="object-cover" />
+                                        <Image src={thumbnail} alt={`${channel.title} YouTube channel avatar`} fill sizes="96px" className="object-cover" />
                                     </div>
                                 )}
                                 <div className="text-center sm:text-left">

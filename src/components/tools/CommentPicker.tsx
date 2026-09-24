@@ -260,6 +260,7 @@ export default function CommentPicker() {
                                         src={winner.authorProfileImageUrl}
                                         alt={`${winner.authorDisplayName} YouTube profile picture`}
                                         fill
+                                        sizes="96px"
                                         className="object-cover"
                                     />
                                 </div>

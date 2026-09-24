@@ -206,13 +206,13 @@ export default function ContentCalendarGenerator() {
                             <table className="w-full border-collapse">
                                 <thead>
                                     <tr className="bg-slate-100">
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tl-lg">
+                                        <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tl-lg">
                                             Day
                                         </th>
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
+                                        <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-slate-900">
                                             Video Title
                                         </th>
-                                        <th className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tr-lg">
+                                        <th scope="col" className="px-4 py-3 text-left text-sm font-semibold text-slate-900 rounded-tr-lg">
                                             Type
                                         </th>
                                     </tr>

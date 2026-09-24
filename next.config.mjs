@@ -54,13 +54,29 @@ const nextConfig = {
   // Headers for caching, security, SEO, and AI crawler optimization
   async headers() {
     return [
-      // ─── Static assets: aggressive immutable caching (1 year) ───
+      // ─── Content-hashed Next static assets: aggressive immutable caching ───
+      // Scope immutable 1yr to /_next/static only — stable public filenames
+      // (og-image.png, favicons, manifest) must not be pinned for a year.
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      // Fonts & other public static files: short TTL so updates roll out
       {
         source: "/:path*.(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2|ttf|eot)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
+            value: "public, max-age=86400, must-revalidate",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -125,7 +141,9 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://checkout.razorpay.com https://*.razorpay.com",
+              // unsafe-eval removed (audit): production Next + AdSense do not need eval.
+              // If a vendor (Clarity/Razorpay) breaks after deploy, re-add it here.
+              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://checkout.razorpay.com https://*.razorpay.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",

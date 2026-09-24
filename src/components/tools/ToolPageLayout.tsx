@@ -2,10 +2,10 @@
 
 import { ReactNode } from "react";
 
-// Dynamic import to avoid loading framer-motion on server
+// Dynamic import to avoid loading framer-motion / history UI on every tool paint
 import dynamic from "next/dynamic";
 const MotionWrapper = dynamic(() => import("@/components/ui/MotionWrapper"), { ssr: false });
-import ToolHistory from "./ToolHistory";
+const ToolHistory = dynamic(() => import("./ToolHistory"), { ssr: false });
 import { useToolContext } from "./ToolContext";
 
 interface ToolPageLayoutProps {
@@ -13,6 +13,7 @@ interface ToolPageLayoutProps {
     description: string;
     slug?: string; // Optional - will be generated from title if not provided
     children: ReactNode;
+    /** @deprecated Parent tool page renders the canonical FAQ set from seoFaqs. */
     faq?: { question: string; answer: string }[];
     howTo?: string[];
     seoContent?: string;
@@ -23,13 +24,13 @@ export default function ToolPageLayout({
     description,
     slug,
     children,
-    faq = [],
 }: ToolPageLayoutProps) {
     // Generate slug from title if not provided
     const toolSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     const { hideHeader } = useToolContext();
     // Definition blocks / long-form SEO copy live on the parent tool page
     // so crawlers only see one definition + key-facts block per URL.
+    // FAQ also lives on the parent page (seoFaqs) — do not render a second copy here.
 
     return (
         <>
@@ -48,34 +49,14 @@ export default function ToolPageLayout({
                     )}
 
                     {/* Tool Content */}
-                    <div className="glass-premium rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 mb-8 animate-fade-in-up delay-100 bg-white/50">
+                    <div
+                        className="glass-premium rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 mb-8 animate-fade-in-up delay-100 bg-white/50"
+                        aria-live="polite"
+                    >
                         <MotionWrapper>
                             {children}
                         </MotionWrapper>
                     </div>
-
-
-
-                    {/* FAQ Section */}
-                    {faq.length > 0 && (
-                        <div className="glass-premium rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 animate-fade-in-up delay-300 bg-white/50">
-                            <h2 className="text-2xl font-bold text-slate-900 mb-6">
-                                Frequently Asked Questions
-                            </h2>
-                            <div className="space-y-6">
-                                {faq.map((item, i) => (
-                                    <div key={i} className="border-b border-slate-200 pb-6 last:border-b-0 last:pb-0">
-                                        <h3 className="font-semibold text-slate-900 mb-2">
-                                            {item.question}
-                                        </h3>
-                                        <p className="text-slate-600">
-                                            {item.answer}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
 
                     {/* Recent History Section */}
                     <div className="mt-8">

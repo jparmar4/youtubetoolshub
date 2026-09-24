@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "FAQ - YouTube Tools Hub",
+    title: { absolute: "FAQ - YouTube Tools Hub" },
     description:
       "Find answers about YouTube Tools Hub creator tools, AI-assisted features, and monetization calculators.",
     type: "website",

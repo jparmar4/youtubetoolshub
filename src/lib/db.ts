@@ -4,16 +4,16 @@ let pool: mysql.Pool | null = null;
 
 export function getPool(): mysql.Pool {
     if (!pool) {
-        const host = process.env.MYSQL_HOST || process.env.DB_HOST || "localhost";
-        const user = process.env.MYSQL_USER || process.env.DB_USER || "u393706093_yuvraj";
-        const password = process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD || "Yuvraj@382017";
-        const database = process.env.MYSQL_DATABASE || process.env.DB_NAME || "u393706093_yuvi";
-        const port = Number(process.env.MYSQL_PORT || process.env.DB_PORT || 3306);
         const connectionUrl = process.env.MYSQL_URL || process.env.DATABASE_URL;
+        const host = process.env.MYSQL_HOST || process.env.DB_HOST;
+        const user = process.env.MYSQL_USER || process.env.DB_USER;
+        const password = process.env.MYSQL_PASSWORD || process.env.DB_PASSWORD;
+        const database = process.env.MYSQL_DATABASE || process.env.DB_NAME;
+        const port = Number(process.env.MYSQL_PORT || process.env.DB_PORT || 3306);
 
         if (connectionUrl && connectionUrl.startsWith("mysql://")) {
             pool = mysql.createPool(connectionUrl);
-        } else {
+        } else if (host && user && password && database) {
             pool = mysql.createPool({
                 host,
                 user,
@@ -26,6 +26,10 @@ export function getPool(): mysql.Pool {
                 enableKeepAlive: true,
                 connectTimeout: 10000,
             });
+        } else {
+            throw new Error(
+                "Database not configured: set MYSQL_URL (mysql://…) or MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE."
+            );
         }
 
         // Auto-recover if Hostinger drops idle connection
@@ -52,7 +56,9 @@ export async function sql<T = DbRow>(
     ...values: unknown[]
 ): Promise<{ rows: T[] }> {
     if (!tablesEnsured) {
-        await ensureTablesExist().catch(() => {});
+        await ensureTablesExist().catch((err) => {
+            console.error("[Database] ensureTablesExist failed:", err);
+        });
     }
 
     let queryText = "";
@@ -78,7 +84,9 @@ export const db = {
         params: unknown[] = []
     ): Promise<{ rows: T[] }> => {
         if (!tablesEnsured) {
-            await ensureTablesExist().catch(() => {});
+            await ensureTablesExist().catch((err) => {
+                console.error("[Database] ensureTablesExist failed:", err);
+            });
         }
         const currentPool = getPool();
         const [result] = await currentPool.query<RowDataPacket[]>(queryText, params);

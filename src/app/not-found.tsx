@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { FaHome, FaTools, FaSearch } from "react-icons/fa";
-import Button from "@/components/ui/Button";
 import { noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Page Not Found (404) | YouTube Tools Hub",
+  title: { absolute: "Page Not Found (404) | YouTube Tools Hub" },
   description:
     "The page you're looking for doesn't exist or has been moved. Browse our 27+ free creator tools or return to the homepage.",
   // noindex so 404s never rank; follow so links on the page still pass signals
@@ -34,17 +33,19 @@ export default function NotFound() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link href="/">
-            <Button size="lg" className="w-full sm:w-auto">
-              <FaHome className="mr-2" />
-              Go Home
-            </Button>
+          <Link
+            href="/"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-4 rounded-xl transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+          >
+            <FaHome aria-hidden="true" />
+            Go Home
           </Link>
-          <Link href="/tools">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              <FaTools className="mr-2" />
-              Browse Tools
-            </Button>
+          <Link
+            href="/tools"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 border-2 border-slate-300 text-slate-700 hover:bg-slate-50 font-semibold px-8 py-4 rounded-xl transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+          >
+            <FaTools aria-hidden="true" />
+            Browse Tools
           </Link>
         </div>
 
