@@ -65,7 +65,7 @@ export async function GET() {
 
 ## About
 
-YouTube Tools Hub is a free platform providing ${tools.length}+ creator tools for YouTube content creators. Core tools are free with no signup required and work directly in the browser. The platform launched in 2025 and is headquartered online at ${baseUrl}.
+YouTube Tools Hub is a free platform providing ${tools.length} creator tools for YouTube content creators. Core tools are free with no signup required and work directly in the browser. The platform launched in 2025 and is headquartered online at ${baseUrl}.
 
 **Website:** ${baseUrl}
 **Contact:** ${siteConfig.contact.email}
@@ -164,7 +164,7 @@ ${blogList}
 
 ## Key Pages
 
-- [Homepage](${baseUrl}): Main platform with all ${tools.length}+ tools
+- [Homepage](${baseUrl}): Main platform with all ${tools.length} tools
 - [All Tools](${baseUrl}/tools): Full tool directory
 - [Thumbnail Tools](${baseUrl}/tools/thumbnail-tools): Thumbnail-specific tools
 - [SEO Tools](${baseUrl}/tools/seo-tools): YouTube SEO tools

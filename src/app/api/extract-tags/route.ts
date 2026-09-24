@@ -100,12 +100,9 @@ async function extractTagsForVideoId(videoId: string, req: NextRequest) {
     );
   } catch (error) {
     console.error("Tag extraction error:", error);
+    // Generic message: raw error text can leak upstream API/DB details.
     return NextResponse.json(
-      {
-        success: false,
-        error:
-          error instanceof Error ? error.message : "Failed to extract tags",
-      },
+      { success: false, error: "Failed to extract tags. Please try again." },
       { status: 500 },
     );
   }

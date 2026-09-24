@@ -99,17 +99,6 @@ export const metadata = {
     creator: "@ytoolshub",
     site: "@ytoolshub",
   },
-  // Additional social signals
-  appLinks: {
-    web: {
-      url: siteConfig.url,
-      should_fallback: true,
-    },
-  },
-  // Pinterest rich pins
-  pinterest: {
-    richPin: true,
-  },
   robots: {
     index: true,
     follow: true,
@@ -132,14 +121,7 @@ export const metadata = {
     },
   },
   category: "technology",
-  classification: "YouTube Tools, SEO Tools, Content Creator Tools",
   other: {
-    source: siteConfig.name,
-    source_url: siteConfig.url,
-    language: siteConfig.language,
-    "content-language": siteConfig.language,
-    distribution: "global",
-    coverage: "Worldwide",
     "google-adsense-account": "ca-pub-1328083083403070",
   },
 };
@@ -155,6 +137,7 @@ export default async function RootLayout({
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
   const editorialSchema = getPersonSchema({
+    id: `${siteConfig.url}/#editorial`,
     name: siteConfig.editorial.name,
     url: siteConfig.editorial.url,
     jobTitle: siteConfig.editorial.jobTitle,

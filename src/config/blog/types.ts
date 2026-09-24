@@ -10,6 +10,13 @@ export interface BlogPost {
   seoTitle?: string;
   excerpt: string;
   date: string;
+  /**
+   * Editorial "Last updated" date (e.g. "September 24, 2026"). Same format as
+   * `date`. Only set when content was materially revised — a real value drives
+   * dateModified, sitemap lastmod, and the visible "Updated" line. Leave
+   * undefined rather than fabricating freshness.
+   */
+  updatedAt?: string;
   category: string;
   author: string;
   authorRole: string;

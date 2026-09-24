@@ -30,9 +30,16 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
       },
       {
-        // Replicate AI image generation CDN (generate-image route)
+        // Replicate AI image generation CDN (generate-image route) — image
+        // URLs use per-prediction subdomains like pbxt.replicate.delivery.
         protocol: "https",
-        hostname: "replicate.delivery",
+        hostname: "**.replicate.delivery",
+      },
+      {
+        // Demo-mode placeholder images returned by generate-image, which get
+        // persisted to tool history and re-rendered through next/image.
+        protocol: "https",
+        hostname: "placehold.co",
       },
     ],
   },
@@ -104,11 +111,6 @@ const nextConfig = {
           {
             key: "X-Frame-Options",
             value: "SAMEORIGIN",
-          },
-          // XSS protection (legacy browsers)
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
           },
           // HSTS: Force HTTPS for 1 year (critical for SEO trust signal)
           {

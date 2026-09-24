@@ -114,7 +114,13 @@ export const getLocalUsage = (): Record<string, number> => {
     if (typeof window === 'undefined') return {};
 
     const today = new Date().toISOString().split('T')[0];
-    const stored = localStorage.getItem('yt_tools_usage_v2');
+    let stored: string | null = null;
+    try {
+        stored = localStorage.getItem('yt_tools_usage_v2');
+    } catch {
+        // Privacy mode / storage disabled — treat as no usage recorded.
+        return {};
+    }
 
     if (!stored) return {};
 
@@ -122,7 +128,11 @@ export const getLocalUsage = (): Record<string, number> => {
         const parsed = JSON.parse(stored);
         if (parsed.date !== today) {
             // Reset for new day
-            localStorage.setItem('yt_tools_usage_v2', JSON.stringify({ date: today, usage: {} }));
+            try {
+                localStorage.setItem('yt_tools_usage_v2', JSON.stringify({ date: today, usage: {} }));
+            } catch {
+                // ignore write failure (privacy mode)
+            }
             return {};
         }
         return parsed.usage || {};

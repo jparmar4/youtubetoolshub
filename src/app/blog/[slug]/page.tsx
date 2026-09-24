@@ -7,9 +7,12 @@ import Link from "next/link";
 import ShareButtons from "@/components/ui/ShareButtons";
 import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { getCoverDimensions } from "@/config/blog/image-dimensions";
+import { resolveAuthor, getAuthorPageUrl } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema, noIndexRobots } from "@/lib/seo";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { getClusterSiblings } from "@/lib/topic-clusters";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
 
@@ -53,6 +56,12 @@ export async function generateMetadata({
     }
 
     const isoDate = toBlogIsoDate(post.date);
+    // dateModified only moves when the post was genuinely revised — never
+    // fake freshness by copying the publish date into modified fields.
+    const modifiedIso = post.updatedAt ? toBlogIsoDate(post.updatedAt) : isoDate;
+    const coverDims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+    const author = resolveAuthor(post.author);
+    const authorUrl = `${siteConfig.url}${getAuthorPageUrl(author)}`;
 
     // Prefer absolute titles so long post names are not double-padded by a long template.
     // Priority: hand-written post.seoTitle > full title + brand > bare title >
@@ -79,7 +88,7 @@ export async function generateMetadata({
         title: { absolute: serTitle },
         description: post.metaDescription,
         keywords: post.keywords,
-        authors: [{ name: post.author }],
+        authors: [{ name: author.name, url: authorUrl }],
         // noindex, but keep follow: these archived/off-topic posts still link to
         // canonical money pages, and nofollow would throw that internal equity away.
         robots: NOINDEX_BLOG_SLUGS.has(slug)
@@ -101,15 +110,18 @@ export async function generateMetadata({
             type: "article",
             url: `${siteConfig.url}/blog/${slug}`,
             publishedTime: isoDate,
-            modifiedTime: isoDate,
-            authors: [post.author],
+            modifiedTime: modifiedIso,
+            authors: [author.name],
             section: post.category,
             tags: post.keywords,
             images: [
                 {
                     url: `${siteConfig.url}${post.coverImage}`,
-                    width: 1200,
-                    height: 630,
+                    // Real pixel dims from image-dimensions.json — a declared
+                    // 1200x630 against a 640x640 file is a rich-results error.
+                    ...(coverDims
+                        ? { width: coverDims.width, height: coverDims.height }
+                        : {}),
                     alt: post.imageAlt || post.title,
                 },
             ],
@@ -122,13 +134,10 @@ export async function generateMetadata({
         },
         alternates: getGlobalAlternates(`/blog/${slug}`),
         other: {
-            'article:author': post.author,
+            'article:author': authorUrl,
             'article:published_time': isoDate,
-            'article:modified_time': isoDate,
+            'article:modified_time': modifiedIso,
             'article:section': post.category,
-            ...Object.fromEntries(
-                post.keywords.slice(0, 10).map((kw, i) => [`article:tag:${i}`, kw])
-            ),
         },
     };
 }
@@ -152,6 +161,12 @@ export default async function BlogPostPage({
     const priorityTools = getPriorityTools(6);
     const showEarningsCta = isMonetizationPost(post);
     const isoDate = toBlogIsoDate(post.date);
+    // dateModified only moves when the post was genuinely revised — never
+    // fake freshness by copying the publish date into modified fields.
+    const modifiedIso = post.updatedAt ? toBlogIsoDate(post.updatedAt) : isoDate;
+    const coverDims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+    const author = resolveAuthor(post.author);
+    const authorUrl = `${siteConfig.url}${getAuthorPageUrl(author)}`;
 
     const tocHeadings: TocHeading[] = post.content
         .split("\n")
@@ -170,15 +185,25 @@ export default async function BlogPostPage({
     const articleSchema = getArticleSchema({
         title: post.title,
         description: post.metaDescription,
-        author: post.author,
+        author: author.name,
         authorRole: post.authorRole,
+        authorUrl,
+        authorId: `${authorUrl}#person`,
         datePublished: isoDate,
-        dateModified: isoDate,
+        dateModified: modifiedIso,
         url: `${siteConfig.url}/blog/${slug}`,
         keywords: post.keywords,
         imageUrl: post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined,
+        imageWidth: coverDims?.width,
+        imageHeight: coverDims?.height,
         section: post.category,
         inLanguage: "en",
+        // Entity edges: the free tools this guide covers, so AI engines
+        // associate the article's answer with those tool URLs.
+        mentions: relatedTools.map((tool) => ({
+            "@id": `${siteConfig.url}/tools/${tool.slug}#software`,
+            name: tool.name,
+        })),
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
@@ -190,10 +215,12 @@ export default async function BlogPostPage({
     const faqSchema = post.faq ? getFAQSchema(post.faq) : null;
 
     const authorSchema = getPersonSchema({
-        name: post.author,
-        url: `${siteConfig.url}/blog/${slug}`,
+        name: author.name,
+        id: `${authorUrl}#person`,
+        url: authorUrl,
         jobTitle: post.authorRole || "Content Strategist",
-        description: `${post.author} writes practical YouTube growth, SEO, and monetization guides for YouTube Tools Hub.`,
+        description: author.bio,
+        sameAs: [siteConfig.url],
     });
 
     // Plain-text cluster siblings for topical authority (no new UI chrome)
@@ -217,9 +244,9 @@ export default async function BlogPostPage({
             <GeoAeoHead {...GEO_AEO_PRESETS.blogPost(
                 post.title,
                 post.metaDescription,
-                post.author,
+                author.name,
                 post.authorRole || "Content Strategist",
-                isoDate,
+                modifiedIso,
             )} pathname={`/blog/${post.slug}`} />
             {/* JSON-LD Structured Data */}
             <script
@@ -295,10 +322,15 @@ export default async function BlogPostPage({
                             <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 border-t border-slate-200 pt-6">
                                 <div className="flex items-center gap-3">
                                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                                        {post.author.charAt(0)}
+                                        {author.name.charAt(0)}
                                     </div>
                                     <div className="text-left">
-                                        <span className="block text-slate-900 font-bold">{post.author}</span>
+                                        <Link
+                                            href={getAuthorPageUrl(author)}
+                                            className="block text-slate-900 font-bold hover:text-purple-600 transition-colors"
+                                        >
+                                            {author.name}
+                                        </Link>
                                         <span className="text-sm text-slate-500">{post.authorRole}</span>
                                     </div>
                                 </div>
@@ -307,6 +339,15 @@ export default async function BlogPostPage({
                                         <FaCalendar className="w-4 h-4 text-purple-600" />
                                         <time dateTime={isoDate}>{post.date}</time>
                                     </span>
+                                    {post.updatedAt && (
+                                        <span className="flex items-center gap-2">
+                                            <FaCalendar className="w-4 h-4 text-purple-600" />
+                                            <span>
+                                                Updated{" "}
+                                                <time dateTime={modifiedIso}>{post.updatedAt}</time>
+                                            </span>
+                                        </span>
+                                    )}
                                     <span className="flex items-center gap-2">
                                         <FaClock className="w-4 h-4 text-purple-600" />
                                         {post.readTime}
@@ -351,12 +392,12 @@ export default async function BlogPostPage({
                                 answer={post.metaDescription}
                                 keyPoints={[
                                     `Topic: ${post.category} · Estimated read time: ${post.readTime}`,
-                                    `Includes practical benchmarks, templates & data updated for 2026`,
-                                    `Reviewed and authored by ${post.author} (${post.authorRole})`,
+                                    `Includes practical benchmarks, templates & data reviewed ${DATA_LAST_REVIEWED}`,
+                                    `Written by ${author.name} (${post.authorRole})`,
                                     `Actionable creator strategies with zero fluff or filler`,
                                 ]}
                                 badgeText="⚡ AI Article Summary"
-                                verifiedNote="Verified for 2026 YouTube Studio & algorithm guidelines"
+                                verifiedNote={`Fact-checked by the editorial team — last full review ${DATA_LAST_REVIEWED}`}
                                 className="mb-8"
                             />
 

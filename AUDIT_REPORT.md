@@ -305,3 +305,74 @@ Already solid (unchanged): header menu `aria-expanded`, breadcrumb `aria-current
 - Dead one-off scripts under `scripts/` (`expand-*.mjs`, `insert-*.mjs`, etc.) left — operational utilities, not wired into npm scripts.
 - `NOINDEX`/`RETIRED` sets emptied rather than removed — call sites (`blog/[slug]`, `indexnow`, `getIndexableBlogPosts`) keep the filter API.
 - Git history still contains the old MySQL password (same as first-pass finding #17).
+
+---
+
+# Third-pass audit (growth: AI search, Discover, residual bugs)
+
+**Date:** 2026-09-24
+**Scope:** residual bugs + AEO/GEO (AI answer engines) + Google Discover readiness
+**Gates:** typecheck ✅ · lint ✅ · tests ✅ · `npm audit --omit=dev` 0 ✅ · `next build` ✅ (all routes SSG) · live smoke tests on robots.txt / ai.txt / sitemap-index / blog JSON-LD / author pages ✅
+
+## A. Bugs fixed
+
+| # | Sev | Finding | Fix |
+|---|---|---|---|
+| A1 | HIGH | `server.js` streamed static files via `createReadStream().pipe()` with no error listener — a read error (file rotated mid-serve, client abort) crashed the whole production Node process | `stream.pipeline(readStream, res)` — destroys both sides, never crashes |
+| A2 | MED | Free tier advertised "1 free AI image/day" but `/api/generate-image` 403'd every non-Pro | Signed-in free users get 1/day server-side (rate-limited), Pro 10/hr; anonymous → 401 |
+| A3 | MED | `next/image` throws on history images: `placehold.co` (demo mode) missing from `remotePatterns`; `pbxt.replicate.delivery` didn't match literal `replicate.delivery` | Added `placehold.co` + `**.replicate.delivery` |
+| A4 | MED | `/api/generate`, `/api/extract-tags`, `/api/trending` returned raw internal `Error.message` to clients (DB config, upstream bodies) | Generic 500 messages; details stay server-side |
+| A5 | MED | Malformed JSON body → 500 instead of 400 on 9 routes | `request.json().catch(() => null)` + 400 on all |
+| A6 | MED | `/api/history` GET: one malformed `content` row 500'd the user's entire history | Per-row try/catch, falls back to raw string |
+| A7 | MED | `data/subscribers.json`: non-atomic write could truncate → silent `[]` → duplicate DB inserts | Atomic tmp+rename write; file backup now best-effort (MySQL authoritative) |
+| A8 | LOW | `/api/contact`: `{"name":123}` reached `escapeHtml()` → 500 | Strict typeof validation → 400 |
+| A9 | LOW | OpenAI fetch had no timeout — hung connection pinned a worker | `AbortSignal.timeout(30s)` |
+| A10 | LOW | Razorpay plan vocabulary drift (webhook wrote `monthly/yearly` via substring guess; verify-payment wrote `pro-monthly/pro-yearly`) | `src/lib/razorpay-plans.ts` single source (`RAZORPAY_PLAN_IDS` + `planIdToCanonical`) |
+| A11 | LOW | Cancelling a Razorpay subscription revoked paid-for days immediately (`subscription.ts` required `status='active'`) | Access granted while `end_date > NOW()` for active/cancelled/halted |
+| A12 | LOW | `verify-payment` inserted email un-lowercased (webhook lowercases) | `.toLowerCase()` |
+| A13 | LOW | `usage.ts getLocalUsage` wrote outside try/catch (privacy-mode throw) | Wrapped |
+| A14 | LOW | Footer copyright year frozen at build time | `<CurrentYear />` client island |
+| A15 | LOW | Stale eslint glob (`remove_hreflang.js`), IndexNow priority list contained a 301-redirecting slug | Cleaned |
+
+## B. AI search / AEO / GEO fixes
+
+| # | Finding | Fix |
+|---|---|---|
+| B1 | `ai.txt` static copy listed **21 of 30 tools**, hand-typed CPM numbers contradicted `seo-data.ts`, and "All Rights Reserved" contradicted llms-full's training grant | Replaced with dynamic route `src/app/.well-known/ai.txt/route.ts` generated from `tools.ts` + `seo-data.ts` (all 30 products verbatim, license harmonized to CC-BY-4.0-with-attribution, key facts from single source of truth) |
+| B2 | `/api/ai-context` truncated to 20 blog entities / 15 blog-index entries of 86 | Full inventory for all 86 posts incl. dates |
+| B3 | Unnamed retrieval bots (Perplexity-User, Claude-User, Claude-SearchBot, ChatGPT-Agent, DuckAssistBot, ImagesiftBot, Diffbot, omgili, Bytespider) fell through to `*` group and lost `/api/ai-context` access | Added to the named AI group in robots.ts |
+| B4 | llms.txt said "30+ tools" (actual 30) — invites verifier mismatch | Exact count |
+| B5 | Tool pages emitted SoftwareApplication with zero freshness dates | `dateModified: DATA_LAST_REVIEWED` |
+| B6 | 15 of 30 tools had no unique `definitionBlock` (templated fallback text repeated across 15 URLs — the single most extraction-friendly block) | Hand-written 30–50 word definitions with concrete facts for all 15 (all 30 now unique) |
+| B7 | BlogPosting lacked `mentions` edges to tool entities — no article→tool association for answer engines | `getArticleSchema` accepts `mentions`; blog pages pass related tools' `#software` @ids |
+| B8 | Editorial Person serialized twice without shared `@id` (entity fragmentation) | `@id: …/#editorial` on layout node; per-post authors get `@id …/blog/author/slug#person` |
+| B9 | Stale default `dateModified: 2026-07-19` in GEO_AEO_PRESETS.resourcePage + Dataset schema | Defaults to `DATA_LAST_REVIEWED` |
+| B10 | ai-context blog entries had no dates | publish + updated dates included |
+
+## C. Google Discover fixes
+
+| # | Finding | Fix |
+|---|---|---|
+| C1 | **47 of 76 cover images < 1200px wide** (640×640, 800×533, 1024×1024…) — below Discover's large-image bar; one cover was JPEG bytes served as `.webp` | `scripts/normalize-blog-covers.mjs` upscaled all 47 to ≥1200px (Lanczos + mild sharpen), re-encoded the mislabeled file; **all 76 covers now ≥1200px** |
+| C2 | OG tags / Article schema declared hardcoded 1200×630 for every cover — wrong against real files | Build-time manifest `src/config/blog/image-dimensions.json` (via the same script); blog metadata + JSON-LD + feed now declare real dimensions |
+| C3 | `public/og-image.png` was a 1024×1024 JPEG with a `.png` name while metadata declared 1200×630 PNG | `scripts/generate-og-image.mjs` generates a true branded 1200×630 PNG |
+| C4 | E-E-A-T: 15 drifting pseudonymous bylines (3 "Sarah" variants, 4 "Alex" variants, "Marcus Aurelius"), Person `url` pointed at the article itself, no author pages | Canonical 9-author roster (`src/config/blog/authors.ts`) with alias resolution + honest bios; new indexable `/blog/author/[slug]` pages (Person JSON-LD, breadcrumb, post lists, in sitemap); bylines now link to author pages |
+| C5 | No freshness mechanism: single `date` field, `dateModified` always = published, no "Updated" display | `BlogPost.updatedAt?` field plumbed into dateModified (schema + OG), sitemap lastmod, ai-context, ai.txt, and a visible "Updated …" line — set it only on genuine revisions |
+| C6 | `sitemap-index.xml` pinned a stale hardcoded lastmod (2026-08-21) and omitted `sitemap-news.xml` | Child lastmods now derived from real content dates; news sitemap included |
+| C7 | `/search`: robots Disallow + noindex conflicted (Google can't see a noindex it can't fetch) | Disallow removed; noindex retained (Google's documented pattern) |
+| C8 | Apex→www 301 skipped sitemaps/feeds/images (matcher excluded them) | Middleware matcher broadened; apex requests to any path now canonicalize to www |
+| C9 | `feed.xml` fabricated `enclosure length="150000"` and hardcoded 1200×675 media dims | Length omitted; real dimensions from the manifest |
+| C10 | Legacy meta junk: `distribution/coverage/content-language/classification/source`, dead `appLinks`/`pinterest` Next keys, numbered `article:tag:N`, unused 60-keyword meta array in site.ts | Removed |
+
+## D. Also improved
+
+- `related-tools.ts`: added alias layer mapping the 30 real post categories onto the tool map (posts like "SEO & Metadata" / "Thumbnail & Design" previously fell through to generic fallbacks → weak internal links)
+- `X-XSS-Protection` header removed (deprecated no-op)
+- IndexNow priority list de-duplicated slug fixed; `npm run images:normalize` / `images:og` scripts added
+
+## E. Verified-OK this pass (no change needed)
+
+- `max-image-preview:large` already present site-wide (layout + per-page)
+- Canonicals, hreflang self-references, thin-page 301s, redirect hygiene: clean
+- All SQL parameterized; rate limits on all abuse-prone routes; webhook/checkout signatures timing-safe
+- llms.txt / llms-full.txt / knowledge-graph.jsonld / ai-context architecture: strong (model AEO patte

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { db } from "@/lib/db";
+import { planIdToCanonical } from "@/lib/razorpay-plans";
 
 export const dynamic = "force-dynamic";
 
@@ -57,7 +58,11 @@ export async function POST(req: NextRequest) {
 
             if (userEmail && currentEnd) {
                 const endDate = new Date(currentEnd * 1000).toISOString();
-                const planName = planId?.includes("RoHnfy") ? "yearly" : "monthly";
+                // Canonical plan vocabulary — same names verify-payment writes.
+                // Nothing reads `plan` today (only status/end_date); unknown plan
+                // IDs (rotation) fall back to monthly rather than guessing by
+                // substring.
+                const planName = planIdToCanonical(planId) ?? "pro-monthly";
 
                 await db.sql`
                     INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)

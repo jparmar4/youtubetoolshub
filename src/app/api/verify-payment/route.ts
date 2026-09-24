@@ -4,11 +4,7 @@ import Razorpay from "razorpay";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { enforceRateLimit } from "@/lib/rate-limit";
-
-const PLAN_IDS = {
-  monthly: "plan_RoHllplN8oKLO6",
-  yearly: "plan_RoHnfy0vCII0Gq",
-} as const;
+import { RAZORPAY_PLAN_IDS } from "@/lib/razorpay-plans";
 
 type RazorpaySubscription = {
   plan_id?: string;
@@ -39,7 +35,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Payment gateway not configured" }, { status: 503 });
     }
 
-    const { razorpay_payment_id, razorpay_subscription_id, razorpay_signature } = await request.json();
+    const parsedBody = await request.json().catch(() => null);
+    if (!parsedBody) {
+        return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
+    const { razorpay_payment_id, razorpay_subscription_id, razorpay_signature } = parsedBody;
     if (!razorpay_payment_id || !razorpay_subscription_id || !razorpay_signature) {
       return NextResponse.json({ success: false, error: "Missing payment verification data" }, { status: 400 });
     }
@@ -61,9 +61,9 @@ export async function POST(request: Request) {
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
     const subscription = await razorpay.subscriptions.fetch(razorpay_subscription_id) as unknown as RazorpaySubscription;
-    const planType = subscription.plan_id === PLAN_IDS.yearly
+    const planType = subscription.plan_id === RAZORPAY_PLAN_IDS.yearly
       ? "yearly"
-      : subscription.plan_id === PLAN_IDS.monthly
+      : subscription.plan_id === RAZORPAY_PLAN_IDS.monthly
         ? "monthly"
         : null;
 
@@ -80,7 +80,7 @@ export async function POST(request: Request) {
 
     await db.sql`
       INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)
-      VALUES (${session.user.email}, ${planName}, 'active', ${startDate}, ${endDate}, ${razorpay_payment_id})
+      VALUES (${session.user.email.toLowerCase()}, ${planName}, 'active', ${startDate}, ${endDate}, ${razorpay_payment_id})
       ON DUPLICATE KEY UPDATE
         plan = VALUES(plan),
         status = 'active',

@@ -1,4 +1,5 @@
 import { tools } from "@/config/tools";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 export interface GeoAeoHeadProps {
     /** Page title for AI context */
     title?: string;
@@ -167,7 +168,7 @@ export const GEO_AEO_PRESETS = {
         primaryTopic: string,
         conciseAnswer: string,
         keyFacts: string[],
-        dateModified: string = "2026-07-19",
+        dateModified: string = DATA_LAST_REVIEWED,
     ) => ({
         title,
         description,

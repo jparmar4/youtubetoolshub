@@ -48,13 +48,14 @@ export async function GET() {
     };
   });
 
-  const blogEntities = blogPosts.slice(0, 20).map((post) => ({
+  const blogEntities = blogPosts.map((post) => ({
     "@type": "BlogPosting",
     "@id": `${siteUrl}/blog/${post.slug}#article`,
     headline: post.title,
     url: `${siteUrl}/blog/${post.slug}`,
     description: post.metaDescription,
     datePublished: toBlogIsoDate(post.date),
+    ...(post.updatedAt ? { dateModified: toBlogIsoDate(post.updatedAt) } : {}),
     author: {
       "@type": "Person",
       name: post.author,
@@ -275,11 +276,12 @@ export async function GET() {
       tool_entities: toolEntities,
     },
     faqs: faqEntities,
-    blog_index: blogPosts.slice(0, 15).map(p => ({
+    blog_index: blogPosts.map(p => ({
       title: p.title,
       url: `${siteUrl}/blog/${p.slug}`,
       author: p.author,
-      expertise: p.authorRole
+      expertise: p.authorRole,
+      date: toBlogIsoDate(p.updatedAt ?? p.date),
     })),
     machine_readable_index: {
       llms_txt: `${siteUrl}/llms.txt`,

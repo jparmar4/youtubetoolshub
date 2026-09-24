@@ -27,7 +27,10 @@ interface ReplicateResult {
 
 export async function POST(req: NextRequest) {
     try {
-        const body = await req.json();
+        const body = await req.json().catch(() => null);
+        if (!body) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
         const { prompt, style } = body;
 
         if (typeof prompt !== "string" || prompt.trim().length === 0) {
@@ -42,17 +45,29 @@ export async function POST(req: NextRequest) {
 
         const session = await auth();
         const email = session?.user?.email;
-        if (!email || !(await hasActiveSubscription(email))) {
+        if (!email) {
             return NextResponse.json(
-                { error: "Image generation is a premium feature. Please upgrade to Pro." },
-                { status: 403 }
+                { error: "Sign in to generate thumbnails." },
+                { status: 401 }
             );
         }
 
-        const rateLimit = enforceRateLimit(`ai-image:${email}`, 10, 60 * 60 * 1000);
+        const isPro = await hasActiveSubscription(email);
+
+        // Free tier gets the advertised 1 image/week; Pro gets 10/hour.
+        // (TOOL_LIMITS['youtube-ai-thumbnail-generator'].free = 1 and pricing
+        // copy advertise the free weekly generation — the server enforces it.)
+        const rateLimit = isPro
+            ? enforceRateLimit(`ai-image:${email}`, 10, 60 * 60 * 1000)
+            : enforceRateLimit(`ai-image-free:${email}`, 1, 7 * 24 * 60 * 60 * 1000);
         if (!rateLimit.allowed) {
             return NextResponse.json(
-                { error: "Image generation limit reached. Please try again later." },
+                {
+                    error: isPro
+                        ? "Image generation limit reached. Please try again later."
+                        : "You've used your free image for this week. Upgrade to Pro for unlimited generations.",
+                    upgradeRequired: !isPro,
+                },
                 { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
             );
         }

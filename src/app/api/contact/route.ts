@@ -24,7 +24,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const { name, email, subject, message, website } = await req.json();
+        const body = await req.json().catch(() => null);
+        if (!body) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { name, email, subject, message, website } = body;
 
         // Cap the raw payload early (before any further processing)
         if (typeof message === "string" && message.length > 5000) {
@@ -39,8 +43,15 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Validate required fields
-        if (!name || !email || !subject || !message) {
+        // Validate required fields — must be strings, or escapeHtml below
+        // throws on e.g. {"name": 123} instead of returning a 400.
+        if (
+            typeof name !== "string" ||
+            typeof email !== "string" ||
+            typeof subject !== "string" ||
+            typeof message !== "string" ||
+            !name || !email || !subject || !message
+        ) {
             return NextResponse.json(
                 { error: "All fields are required" },
                 { status: 400 }

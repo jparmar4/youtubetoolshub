@@ -13,7 +13,11 @@ export async function POST(req: Request) {
             );
         }
 
-        const { query } = await req.json();
+        const parsedBody = await req.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { query } = parsedBody;
 
         if (!query) {
             return NextResponse.json(

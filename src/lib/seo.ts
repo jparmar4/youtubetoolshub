@@ -1,6 +1,7 @@
 // JSON-LD Structured Data for SEO
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Shared robots metadata for app UI / thin pages that must stay out of Google index */
 export const noIndexRobots: NonNullable<Metadata["robots"]> = {
@@ -208,10 +209,18 @@ export function getArticleSchema(article: {
   url: string;
   keywords?: string[];
   imageUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   dateModified?: string;
   section?: string;
   inLanguage?: string;
   authorRole?: string;
+  /** Author page (or profile) URL — anchors the Person node to a real page. */
+  authorUrl?: string;
+  /** @id for the author Person node so every post strengthens one entity. */
+  authorId?: string;
+  /** Entity edges: tool/asset nodes this article covers. */
+  mentions?: { "@id": string; name: string }[];
 }) {
   const imageUrl = article.imageUrl
     ? article.imageUrl.startsWith("http")
@@ -228,6 +237,8 @@ export function getArticleSchema(article: {
     author: {
       "@type": "Person",
       name: article.author,
+      ...(article.authorId ? { "@id": article.authorId } : {}),
+      ...(article.authorUrl ? { url: article.authorUrl } : {}),
       ...(article.authorRole ? { jobTitle: article.authorRole } : {}),
       worksFor: {
         "@type": "Organization",
@@ -259,8 +270,11 @@ export function getArticleSchema(article: {
       {
         "@type": "ImageObject",
         url: imageUrl,
-        width: 1200,
-        height: 675,
+        // Declared dims must come from the real file (image-dimensions.json);
+        // a guessed 1200x675 against a 640x640 file is a rich-results error.
+        ...(article.imageWidth && article.imageHeight
+          ? { width: article.imageWidth, height: article.imageHeight }
+          : {}),
       },
     ],
     about: {
@@ -271,6 +285,9 @@ export function getArticleSchema(article: {
         "https://www.wikidata.org/wiki/Q866",
       ],
     },
+    ...(article.mentions && article.mentions.length > 0
+      ? { mentions: article.mentions }
+      : {}),
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", ".summary", "[data-speakable]"],
@@ -458,6 +475,8 @@ export function getCollectionPageSchema(collection: {
 export function getPersonSchema(author: {
   name: string;
   url: string;
+  /** Stable node id (e.g. `${siteUrl}/blog/author/slug#person`). */
+  id?: string;
   jobTitle?: string;
   description?: string;
   sameAs?: string[];
@@ -465,6 +484,7 @@ export function getPersonSchema(author: {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    ...(author.id ? { "@id": author.id } : {}),
     name: author.name,
     url: author.url,
     jobTitle: author.jobTitle || "Creator Growth Expert",
@@ -504,7 +524,8 @@ export function getDatasetSchema(options?: {
       url: siteConfig.url,
     },
     datePublished: "2025-01-01",
-    dateModified: options?.dateModified ?? "2026-07-19",
+    // Track the CPM dataset refresh cycle, not a hardcoded past date.
+    dateModified: options?.dateModified ?? DATA_LAST_REVIEWED,
     license: `${siteConfig.url}/terms-of-use`,
     distribution: [
       {

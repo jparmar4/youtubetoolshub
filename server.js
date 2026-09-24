@@ -1,6 +1,7 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const { pipeline } = require('stream');
 
 // Set environment to production if not already set
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
@@ -77,7 +78,10 @@ function serveFile(filePath, res, isImmutable) {
     }
 
     res.writeHead(200, headers);
-    fs.createReadStream(filePath).pipe(res);
+    // pipeline destroys both sides on error/abort — a read error (e.g. the file
+    // being rotated between stat and stream) must never crash the process, and
+    // a client abort must release the file handle.
+    pipeline(fs.createReadStream(filePath), res, () => {});
     return true;
   } catch {
     // File doesn't exist or is unreadable

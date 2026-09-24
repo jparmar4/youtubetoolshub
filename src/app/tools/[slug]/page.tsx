@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getToolBySlug, tools } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getGlobalAlternates } from "@/lib/seo";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
 import BlogSidebar from "@/components/blog/BlogSidebar";
@@ -188,6 +189,9 @@ export default async function ToolPage({
         description: tool.description,
         url: `${siteConfig.url}/tools/${tool.slug}`,
         category: tool.category,
+        // Freshness anchor for the tool entity — without it the
+        // SoftwareApplication node carries no timestamp at all.
+        dateModified: DATA_LAST_REVIEWED,
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([

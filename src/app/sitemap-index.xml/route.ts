@@ -1,21 +1,34 @@
-import { siteConfig } from '@/config/site';
+import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { siteConfig } from "@/config/site";
 
-// Keep the index's dates aligned with real changes in its child sitemaps.
-// Do not generate the current timestamp: it falsely tells crawlers that every
-// sitemap changed on each fetch.
-const MAIN_SITEMAP_LAST_MODIFIED = "2026-08-21T00:00:00.000Z";
-const IMAGE_SITEMAP_LAST_MODIFIED = "2026-08-15T00:00:00.000Z";
+// Child lastmods are derived from real content dates (max blog post lastmod,
+// data review date) instead of hardcoded constants that drift stale.
+export const dynamic = "force-static";
+
+function maxBlogLastmod(): string {
+  const posts = getIndexableBlogPosts();
+  let max = 0;
+  for (const post of posts) {
+    const t = new Date(toBlogIsoDate(post.updatedAt ?? post.date)).getTime();
+    if (!Number.isNaN(t) && t > max) max = t;
+  }
+  return max ? new Date(max).toISOString() : new Date().toISOString();
+}
 
 export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${siteConfig.url}/sitemap.xml</loc>
-    <lastmod>${MAIN_SITEMAP_LAST_MODIFIED}</lastmod>
+    <lastmod>${maxBlogLastmod()}</lastmod>
   </sitemap>
   <sitemap>
     <loc>${siteConfig.url}/sitemap-images.xml</loc>
-    <lastmod>${IMAGE_SITEMAP_LAST_MODIFIED}</lastmod>
+    <lastmod>${maxBlogLastmod()}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${siteConfig.url}/sitemap-news.xml</loc>
+    <lastmod>${maxBlogLastmod()}</lastmod>
   </sitemap>
 </sitemapindex>`;
 

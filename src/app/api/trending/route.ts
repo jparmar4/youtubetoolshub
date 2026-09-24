@@ -131,11 +131,9 @@ export async function GET(req: NextRequest) {
 
     } catch (error) {
         console.error("Trending fetch error:", error);
+        // Generic message: raw error text can leak upstream API details.
         return NextResponse.json(
-            {
-                error: error instanceof Error ? error.message : "Failed to fetch trending videos",
-                success: false
-            },
+            { error: "Failed to fetch trending videos. Please try again later.", success: false },
             { status: 500 }
         );
     }

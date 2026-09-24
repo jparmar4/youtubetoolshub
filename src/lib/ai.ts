@@ -5,7 +5,7 @@
  * Configure in your .env.local file:
  *
  * AI_API_KEY=your-openai-api-key-here
- * AI_MODEL=gpt-4o-mini  (optional, defaults to gpt-4o-mini)
+ * AI_MODEL=gpt-6-luna  (optional, defaults to gpt-6-luna)
  */
 
 import { aiCache, hashString } from "./cache";
@@ -48,7 +48,7 @@ export async function generateAIText(
     }
 
     const apiKey = process.env.AI_API_KEY;
-    const model = process.env.AI_MODEL || "gpt-4o-mini";
+    const model = process.env.AI_MODEL || "gpt-6-luna";
 
     if (!apiKey) {
         // Dev-only mocks so local UI can be exercised without a key.
@@ -84,6 +84,9 @@ export async function generateAIText(
                 temperature,
                 max_tokens: maxTokens,
             }),
+            // A hung connection must release the request slot instead of
+            // pinning a worker until the platform timeout.
+            signal: AbortSignal.timeout(30_000),
         });
 
         if (!response.ok) {

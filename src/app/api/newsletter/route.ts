@@ -24,7 +24,11 @@ async function getSubscribers(): Promise<Subscriber[]> {
 async function saveSubscribers(subscribers: Subscriber[]): Promise<void> {
   const dir = path.dirname(SUBSCRIBERS_FILE);
   await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2), "utf-8");
+  // Atomic write: a crash mid-write previously truncated subscribers.json,
+  // after which reads silently returned [] and duplicates flowed to MySQL.
+  const tmpPath = `${SUBSCRIBERS_FILE}.tmp`;
+  await fs.writeFile(tmpPath, JSON.stringify(subscribers, null, 2), "utf-8");
+  await fs.rename(tmpPath, SUBSCRIBERS_FILE);
 }
 
 export async function POST(request: NextRequest) {
@@ -38,7 +42,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    }
     const { email } = body;
 
     // Validate email
@@ -88,14 +95,18 @@ export async function POST(request: NextRequest) {
       console.error("[Newsletter] Database save error:", dbErr);
     }
 
-    // 2. Add to local file backup
-    subscribers.push({
-      email: normalizedEmail,
-      subscribedAt: new Date().toISOString(),
-      source,
-    });
-
-    await saveSubscribers(subscribers);
+    // 2. Best-effort local file backup — MySQL is the durable store; a file
+    // failure must not fail the request after the DB insert succeeded.
+    try {
+      subscribers.push({
+        email: normalizedEmail,
+        subscribedAt: new Date().toISOString(),
+        source,
+      });
+      await saveSubscribers(subscribers);
+    } catch (fileErr) {
+      console.error("[Newsletter] File backup error (non-fatal):", fileErr);
+    }
 
     return NextResponse.json(
       { message: "Successfully subscribed! Welcome to YouTube Tools Hub." },

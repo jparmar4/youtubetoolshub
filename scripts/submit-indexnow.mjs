@@ -72,7 +72,7 @@ const PRIORITY_PATHS = [
   "/blog/youtube-monetization-truths-cpm-rpm",
   "/blog/how-much-youtube-pays-per-1000-views-2026",
   "/blog/get-1000-subscribers-youtube-fast-2026",
-  "/blog/faceless-youtube-channel-blueprint",
+  "/blog/faceless-youtube-channel-2026",
   "/tools/youtube-channel-name-generator",
   "/tools/youtube-description-generator",
   "/blog/youtube-hashtag-generator-best-tags-videos-2026",

@@ -12,6 +12,10 @@ import { siteConfig } from "@/config/site";
  * and the ~550 thin URLs would stay in the index indefinitely. Let Google crawl
  * them, read the redirect, and drop them; only then is a Disallow safe.
  *
+ * Deliberately NOT disallowed: /search. It carries a noindex (page metadata +
+ * X-Robots-Tag) that Google must be able to fetch to honor — Disallow would
+ * hide the noindex and leave the URL in the index indefinitely.
+ *
  * AI structured-data endpoints (/api/ai-context, /api/tools, /api/faqs) are
  * explicitly Allowed for AI answer-engine crawlers below. An explicit Allow of
  * a sub-path overrides the generic "/api/" Disallow per the REP, so AI systems
@@ -19,7 +23,6 @@ import { siteConfig } from "@/config/site";
  */
 const DISALLOW = [
   "/api/",
-  "/search",
   "/sign-in",
   "/dashboard",
   "/history",
@@ -51,9 +54,16 @@ export default function robots(): MetadataRoute.Robots {
           "OAI-SearchBot",
           "ChatGPT-User",
           "GPTBot",
+          "ChatGPT-Agent",
           "PerplexityBot",
+          // Perplexity-User / Claude-User / Claude-SearchBot are the
+          // answer-time retrieval agents — without an explicit Allow they'd
+          // fall through to the "*" group and lose /api/ai-context access.
+          "Perplexity-User",
           "ClaudeBot",
           "Claude-Web",
+          "Claude-User",
+          "Claude-SearchBot",
           "anthropic-ai",
           "Google-Extended",
           "GoogleOther",
@@ -72,6 +82,11 @@ export default function robots(): MetadataRoute.Robots {
           "MistralAI",
           "BraveBot",
           "cohere-ai",
+          "DuckAssistBot",
+          "ImagesiftBot",
+          "Diffbot",
+          "omgili",
+          "Bytespider",
         ],
         allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],

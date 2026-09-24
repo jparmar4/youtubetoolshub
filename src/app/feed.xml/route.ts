@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { getCoverDimensions } from "@/config/blog/image-dimensions";
 
 function escapeXml(value: string): string {
   return value
@@ -25,6 +26,14 @@ export async function GET() {
       const imageUrl = post.coverImage
         ? (post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`)
         : `${siteUrl}/og-image.png`;
+      // Real pixel dimensions from the build-time manifest — a fabricated
+      // 1200x675 against a 640x640 file misleads feed readers and Discover.
+      const dims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+      const mediaDims = dims
+        ? ` width="${dims.width}" height="${dims.height}"`
+        : "";
+      // enclosure length omitted: RSS readers accept it and a made-up byte
+      // count is worse than none.
 
       return `
     <item>
@@ -35,8 +44,8 @@ export async function GET() {
       <description>${cdata(post.metaDescription)}</description>
       <author>${escapeXml(siteConfig.contact.email)} (${escapeXml(post.author)})</author>
       <category>${cdata(post.category)}</category>
-      <enclosure url="${escapeXml(imageUrl)}" type="image/webp" length="150000" />
-      <media:content url="${escapeXml(imageUrl)}" medium="image" type="image/webp" width="1200" height="675" />
+      <enclosure url="${escapeXml(imageUrl)}" type="image/webp" />
+      <media:content url="${escapeXml(imageUrl)}" medium="image" type="image/webp"${mediaDims} />
     </item>`;
     })
     .join("");

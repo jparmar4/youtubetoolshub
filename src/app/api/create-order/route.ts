@@ -41,7 +41,11 @@ export async function POST(request: Request) {
             );
         }
 
-        const { plan } = await request.json();
+        const parsedBody = await request.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { plan } = parsedBody;
 
         // Define pricing
         const pricing: Record<string, { amount: number; currency: string; name: string }> = {

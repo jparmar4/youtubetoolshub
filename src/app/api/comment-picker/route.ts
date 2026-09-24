@@ -5,7 +5,11 @@ import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 export async function POST(req: Request) {
     try {
-        const { url } = await req.json();
+        const parsedBody = await req.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { url } = parsedBody;
 
         // Rate limiting: 10 requests/hour per IP (each call makes up to 20 YouTube API calls)
         const ip = getRequestIp((req as { headers: Headers }).headers);

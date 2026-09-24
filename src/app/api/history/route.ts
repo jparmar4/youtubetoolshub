@@ -21,16 +21,27 @@ export async function GET() {
             LIMIT 50
         `;
 
-        // Map to frontend format
-        const mapped = rows.map(item => ({
-            id: item.id,
-            tool_slug: item.tool_slug,
-            type: item.type || (item.tool_slug.includes('audit') ? 'audit' :
-                item.tool_slug.includes('title') ? 'title' :
-                    item.tool_slug.includes('idea') ? 'idea' : 'other'),
-            content: typeof item.content === 'string' ? JSON.parse(item.content) : item.content,
-            created_at: item.created_at,
-        }));
+        // Map to frontend format. A single malformed row must not 500 the
+        // user's whole history — fall back to the raw string.
+        const mapped = rows.map(item => {
+            let content: unknown = item.content;
+            if (typeof content === 'string') {
+                try {
+                    content = JSON.parse(content);
+                } catch {
+                    // keep raw string
+                }
+            }
+            return {
+                id: item.id,
+                tool_slug: item.tool_slug,
+                type: item.type || (item.tool_slug.includes('audit') ? 'audit' :
+                    item.tool_slug.includes('title') ? 'title' :
+                        item.tool_slug.includes('idea') ? 'idea' : 'other'),
+                content,
+                created_at: item.created_at,
+            };
+        });
 
         return NextResponse.json(mapped);
     } catch (error) {

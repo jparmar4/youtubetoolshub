@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { auth } from "@/auth";
 import { enforceRateLimit } from "@/lib/rate-limit";
+import { RAZORPAY_PLAN_IDS } from "@/lib/razorpay-plans";
 
 export async function POST(request: Request) {
     try {
@@ -34,17 +35,15 @@ export async function POST(request: Request) {
             );
         }
 
-        const { plan } = await request.json();
-
-        // Plan IDs provided by user
-        const planIds = {
-            monthly: "plan_RoHllplN8oKLO6",
-            yearly: "plan_RoHnfy0vCII0Gq",
-        } as const;
+        const parsedBody = await request.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { plan } = parsedBody;
 
         const selectedPlanId =
-            typeof plan === "string" && Object.hasOwn(planIds, plan)
-                ? planIds[plan as keyof typeof planIds]
+            typeof plan === "string" && Object.hasOwn(RAZORPAY_PLAN_IDS, plan)
+                ? RAZORPAY_PLAN_IDS[plan as keyof typeof RAZORPAY_PLAN_IDS]
                 : undefined;
 
         if (!selectedPlanId) {

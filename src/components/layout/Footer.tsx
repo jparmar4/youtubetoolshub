@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaYoutube, FaTelegram, FaFacebook, FaHeart } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import CurrentYear from "@/components/layout/CurrentYear";
 
 const popularTools = [
   { name: "Thumbnail Downloader", href: "/tools/youtube-thumbnail-downloader" },
@@ -25,8 +26,6 @@ const popularTools = [
 ];
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-slate-50 text-slate-600 border-t border-slate-200">
       {/* Newsletter Section */}
@@ -157,7 +156,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm">
-            © {currentYear} {siteConfig.name}. All rights reserved.
+            © <CurrentYear /> {siteConfig.name}. All rights reserved.
           </p>
           <p className="text-slate-500 text-sm flex items-center gap-1">
             Made with <FaHeart className="text-purple-500" /> for YouTube

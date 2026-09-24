@@ -157,6 +157,11 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["youtube thumbnail text", "thumbnail text generator", "catchy thumbnail text", "thumbnail ideas", "ai thumbnail text", "viral thumbnail copywriting", "clickbait text generator", "thumbnail hook ideas"],
+        definitionBlock: {
+            title: "What is the YouTube Thumbnail Generator?",
+            text: "YouTube Thumbnail Generator is a free design tool that creates click-ready 1280x720 YouTube thumbnails from your title, niche, and style choice. It applies proven high-CTR patterns - bold text, strong contrast, and clear focal points - and runs fully in your browser with no signup."
+        },
+
         content: [
             {
                 title: "Generate Viral-Worthy Thumbnail Text with AI",
@@ -244,6 +249,11 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai thumbnail generator", "youtube thumbnail creator", "ai image generator for youtube", "custom thumbnail maker", "generate youtube thumbnails", "ai art for youtube", "automatic thumbnail creator", "high ctr thumbnails free"],
+        definitionBlock: {
+            title: "What is the YouTube AI Thumbnail Generator?",
+            text: "The YouTube AI Thumbnail Generator creates original 16:9 thumbnail images from a text prompt using AI image generation. Describe the scene you want, pick a style such as gaming or tech, and get two ready-to-use thumbnail options - one free generation per week, unlimited on Pro."
+        },
+
         content: [
             {
                 title: "Create Thumbnail Concepts with AI",
@@ -331,6 +341,11 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["ai prompt generator", "thumbnail prompt generator", "midjourney prompts for thumbnails", "dall-e thumbnail prompts", "stable diffusion prompts", "thumbnail art prompt", "ai thumbnail prompt generator free", "how to write ai prompts for youtube"],
+
+        definitionBlock: {
+            title: "What is the YouTube AI Thumbnail Prompt Generator?",
+            text: "The AI Thumbnail Prompt Generator writes detailed, image-model-ready prompts for YouTube thumbnail concepts. It turns your video topic, niche, and mood into five structured prompts covering subject, lighting, angle, and composition - ready to paste into any AI image tool."
+        },
 
         content: [
             {
@@ -422,6 +437,11 @@ export const tools: Tool[] = [
         isFeatured: true,
         keywords: ["youtube title generator", "video title maker", "clickbait title generator", "catchy youtube titles", "seo title generator", "viral title ideas", "how to write youtube titles", "title optimizer ai", "best youtube titles 2026"],
 
+        definitionBlock: {
+            title: "What is the YouTube Title Generator?",
+            text: "The YouTube Title Generator produces ten scored title ideas for any video topic using proven CTR patterns like curiosity gaps, negativity bias, and specificity. Each suggestion includes a predicted viral score and the psychology behind it. YouTube allows 100-character titles; around 60 characters display in search."
+        },
+
         content: [
             {
                 title: "Write Clear YouTube Titles Faster",
@@ -508,6 +528,11 @@ export const tools: Tool[] = [
         icon: FaAlignLeft,
         isAI: true,
         keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator", "youtube description tips", "optimized youtube description"],
+
+        definitionBlock: {
+            title: "What is the YouTube Description Generator?",
+            text: "The YouTube Description Generator writes complete, paste-ready YouTube descriptions with a hook, timestamps, key insight bullets, links section, and hashtags. YouTube allows 5,000 characters per description and only the first 100-150 words show before Show more, so the hook is front-loaded for you."
+        },
 
         content: [
             {
@@ -688,6 +713,11 @@ export const tools: Tool[] = [
         icon: FaSearch,
         isAI: false,
         keywords: ["youtube tag extractor", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video", "how to see youtube tags", "competitor tags tool", "hidden youtube keywords"],
+        definitionBlock: {
+            title: "What is the YouTube Tag Extractor?",
+            text: "The YouTube Tag Extractor pulls the complete tag list from any public YouTube video - including competitor uploads - along with the video title, channel, and publish date. Reverse-engineering working tags is the fastest way to research the keywords real channels in your niche target."
+        },
+
         content: [
             {
                 title: "Competitive Intelligence: Spy on the Best in Your Niche",
@@ -776,6 +806,11 @@ export const tools: Tool[] = [
         icon: FaLightbulb,
         isAI: true,
         keywords: ["video ideas generator", "youtube content ideas", "video topics", "viral video ideas", "content inspiration", "youtube growth strategy", "creative video concepts", "ai content planner"],
+        definitionBlock: {
+            title: "What is the YouTube Video Ideas Generator?",
+            text: "The YouTube Video Ideas Generator creates ten strategic video concepts tailored to your niche, channel size, and goal. Each idea comes with a viral-potential score, difficulty rating, psychological angle, and a thumbnail concept - so you get a production-ready plan, not just brainstormed topics."
+        },
+
         content: [
             {
                 title: "Strategic Video Concepts, Not Just Topics",
@@ -864,6 +899,11 @@ export const tools: Tool[] = [
         icon: FaChartLine,
         isAI: true,
         keywords: ["youtube trends", "trending topics", "viral video ideas", "what is trending on youtube", "niche research", "youtube trend finder", "trend prediction 2026", "real-time youtube analytics"],
+        definitionBlock: {
+            title: "What is the YouTube Trend Helper?",
+            text: "The YouTube Trend Helper generates eight currently trending video topics for your niche and region, each with a unique angle to stand out. It accounts for seasonal events, recent news, and end-of-year prediction formats so your next upload rides an actual trend instead of a stale one."
+        },
+
         content: [
             {
                 title: "Spot Trends Before They Peak",
@@ -950,6 +990,11 @@ export const tools: Tool[] = [
         icon: FaCalendarAlt,
         isAI: true,
         keywords: ["content calendar generator", "youtube upload schedule", "content planner", "video content plan", "social media calendar", "youtube scheduler", "content strategy tool", "creator workflow 2026"],
+        definitionBlock: {
+            title: "What is the YouTube Content Calendar Generator?",
+            text: "The YouTube Content Calendar Generator builds a day-by-day posting schedule for your niche and upload frequency, balancing roughly 40% educational, 30% entertainment, 20% community, and 10% trending content. Each entry includes a working title and format so planning a month takes minutes."
+        },
+
         content: [
             {
                 title: "Consistency: The #1 Secret to Algorithm Success",
@@ -1216,6 +1261,11 @@ export const tools: Tool[] = [
         isAI: true,
         isFeatured: true,
         keywords: ["title ab tester", "youtube title rater", "title comparison", "best title checker", "click through rate tool", "ctr predictor", "viral title tester", "ai headline analyzer"],
+        definitionBlock: {
+            title: "What is the YouTube Title A/B Tester?",
+            text: "The YouTube Title A/B Tester simulates 1,000 impressions for two title options and predicts a winner with a confidence score and estimated CTR for each. It scores curiosity, urgency, and specificity so you can pick the stronger title before you publish instead of after."
+        },
+
         content: [
             {
                 title: "Stop Guessing, Start Data-Testing",
@@ -1304,6 +1354,11 @@ export const tools: Tool[] = [
         icon: FaUser,
         isAI: true,
         keywords: ["channel name generator", "youtube name ideas", "creative channel names", "brand name generator", "cool youtube names", "youtube channel namer", "catchy channel names", "ai brand namer"],
+        definitionBlock: {
+            title: "What is the YouTube Channel Name Generator?",
+            text: "The YouTube Channel Name Generator creates 15 brandable channel names across five naming styles - personal brand, creative compounds, action-based, abstract, and descriptive - with a memorability score and reasoning per name. Short, easy-to-spell names are scored highest for global reach."
+        },
+
         content: [
             {
                 title: "Your Name is Your Destiny: Branding in 2026",
@@ -1390,6 +1445,11 @@ export const tools: Tool[] = [
         icon: FaHashtag,
         isAI: true,
         keywords: ["youtube hashtag generator", "video hashtags", "best hashtags for youtube", "viral hashtags", "hashtag finder", "trending hashtags 2026", "how to use hashtags on youtube", "seo hashtags"],
+        definitionBlock: {
+            title: "What is the YouTube Hashtag Generator?",
+            text: "The YouTube Hashtag Generator builds a balanced hashtag set for your video - broad, niche, and trending groups with relevance ratings. YouTube shows only the first three hashtags above your title, so the generator orders the highest-impact tags first."
+        },
+
         content: [
             {
                 title: "The Role of Hashtags in 2026 Search & Discovery",
@@ -1476,6 +1536,11 @@ export const tools: Tool[] = [
         icon: FaMicrophone,
         isAI: true,
         keywords: ["intro script generator", "youtube intro writer", "video hook generator", "script writing ai", "youtube script maker", "how to write a video intro", "retention hooks", "youtube hook writer"],
+        definitionBlock: {
+            title: "What is the YouTube Intro Script Generator?",
+            text: "The YouTube Intro Script Generator writes a structured video intro - hook, context, promise, and transition - tailored to your topic and persona. Strong intros target the first 30 seconds, where YouTube measures the audience retention that drives recommendations."
+        },
+
         content: [
             {
                 title: "The War for Attention: Mastering the First 30 Seconds",
@@ -1562,6 +1627,11 @@ export const tools: Tool[] = [
         icon: FaIdCard,
         isAI: false,
         keywords: ["channel id finder", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle", "uc id finder", "youtube api channel id"],
+        definitionBlock: {
+            title: "What is the YouTube Channel ID Finder?",
+            text: "The Channel ID Finder converts any YouTube channel URL, handle, or video link into the underlying channel ID - the UC-prefixed, 24-character identifier YouTube APIs and third-party tools require - plus the channel's RSS feed URL, instantly and without signing in."
+        },
+
         content: [
             {
                 title: "The Importance of the 'UC' ID",
@@ -1648,6 +1718,11 @@ export const tools: Tool[] = [
         icon: FaListUl,
         isAI: false,
         keywords: ["youtube playlist length", "playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time", "total hours of playlist"],
+
+        definitionBlock: {
+            title: "What is the YouTube Playlist Length Calculator?",
+            text: "The Playlist Length Calculator totals the watch time of any public YouTube playlist at 1x, 1.25x, 1.5x, and 2x speeds - ideal for planning courses, binge sessions, or watch-hour goals. Paste a playlist URL to see video count, average length, and total duration."
+        },
 
         content: [
             {

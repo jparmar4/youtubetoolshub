@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
@@ -94,9 +95,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Blog posts — skip noindex slugs so crawl budget stays on useful URLs
+  // Blog posts — skip noindex slugs so crawl budget stays on useful URLs.
+  // lastmod tracks real revisions (updatedAt), not just the publish date.
   for (const post of blogPosts) {
-    const postDate = parseSafeDate(toBlogIsoDate(post.date), FALLBACK_LAST_MODIFIED);
+    const postDate = parseSafeDate(
+      toBlogIsoDate(post.updatedAt ?? post.date),
+      FALLBACK_LAST_MODIFIED,
+    );
     const url = `${baseUrl}/blog/${post.slug}`;
     allEntries.push({
       url,
@@ -104,6 +109,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
       images: post.coverImage ? [`${baseUrl}${post.coverImage}`] : undefined,
+    });
+  }
+
+  // Author profile pages (E-E-A-T entity anchors)
+  for (const author of authors) {
+    allEntries.push({
+      url: `${baseUrl}/blog/author/${author.slug}`,
+      lastModified: FALLBACK_LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.5,
     });
   }
 

@@ -57,7 +57,11 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { toolSlug } = await request.json();
+        const parsedBody = await request.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const { toolSlug } = parsedBody;
 
         // Validate toolSlug — must be a non-empty string of known slug characters
         if (

@@ -64,6 +64,33 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
   ],
 };
 
+/**
+ * Real post categories (30 drifting strings across 86 posts) → entries in
+ * CATEGORY_TOOL_MAP. The fuzzy includes-match already catches variants like
+ * "YouTube Growth" → Growth and "AI Tools" → AI; these aliases cover the
+ * misses ("SEO & Metadata", "Thumbnail & Design", "Business", …) so posts
+ * get topical tool links instead of falling straight to priority fallbacks.
+ */
+const CATEGORY_ALIASES: Record<string, string[]> = {
+  "YouTube SEO": ["SEO", "SEO & Growth", "SEO & Metadata", "SEO Tools", "SEO Tips"],
+  Monetization: ["Business", "YouTube Monetization", "Finance"],
+  Thumbnails: ["Thumbnail & Design", "Thumbnail & CTR", "Design & Branding"],
+  Growth: [
+    "Content Strategy",
+    "Content Ideas",
+    "Getting Started",
+    "Analytics & Growth",
+  ],
+  Equipment: [
+    "Video Editing",
+    "YouTube Gear",
+    "Creator Gear",
+    "Scripting",
+    "YouTube Tutorials",
+  ],
+  AI: ["Automation", "Tools & Automation", "Tool Reviews", "YouTube Tools"],
+};
+
 const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
   { pattern: /sponsor|brand.?deal|media.?kit/i, slugs: ["youtube-sponsorship-calculator"] },
   { pattern: /valuation|channel.?worth|sell.*channel|buy.*channel/i, slugs: ["youtube-channel-valuation-calculator"] },
@@ -179,11 +206,19 @@ export function getRelatedToolsForPost(
   }
 
   if (post.category) {
-    // Fuzzy category match
+    const cat = post.category.toLowerCase();
+    // 1. Direct alias hit
+    for (const [mapKey, aliases] of Object.entries(CATEGORY_ALIASES)) {
+      if (aliases.some((a) => a.toLowerCase() === cat)) {
+        slugs.push(...CATEGORY_TOOL_MAP[mapKey]);
+        break;
+      }
+    }
+    // 2. Fuzzy match for unaliased variants
     const catKey = Object.keys(CATEGORY_TOOL_MAP).find(
       (k) =>
-        post.category!.toLowerCase().includes(k.toLowerCase()) ||
-        k.toLowerCase().includes(post.category!.toLowerCase()),
+        cat.includes(k.toLowerCase()) ||
+        k.toLowerCase().includes(cat),
     );
     if (catKey) slugs.push(...CATEGORY_TOOL_MAP[catKey]);
   }

@@ -36,9 +36,9 @@ const toolsPageFaqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "All Free YouTube Tools — 27 Creator Tools, No Signup",
+  title: `All Free YouTube Tools — ${tools.length} Creator Tools, No Signup`,
   description:
-    "Browse all 27 free YouTube tools by category: thumbnails, titles and tags, channel growth, earnings calculators, and utilities. No signup or extension.",
+    `Browse all ${tools.length} free YouTube tools by category: thumbnails, titles and tags, channel growth, earnings calculators, and utilities. No signup or extension.`,
   keywords: [
     "free youtube tools",
     "youtube thumbnail downloader",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: { absolute: "All Free YouTube Tools | YouTube Tools Hub" },
     description:
-      "Browse 27 free tools by category: thumbnails, titles, tags, earnings, and channel growth. No signup required.",
+      `Browse ${tools.length} free tools by category: thumbnails, titles, tags, earnings, and channel growth. No signup required.`,
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
@@ -97,13 +97,13 @@ export default function ToolsPage() {
     <>
       {/* GEO/AEO Head for AI discoverability */}
       <GeoAeoHead
-        title="27+ Free YouTube Tools – Creator Suite for Creators"
+        title={`${tools.length} Free YouTube Tools – Creator Suite for Creators`}
         description="A free suite of creator tools, including AI-assisted generators. Download thumbnails, generate title ideas, calculate earnings, and optimize your channel SEO."
         entityType="WebPage"
         primaryTopic="YouTube Creator Tools Suite"
-        conciseAnswer="YouTube Tools Hub offers 27+ free creator tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required."
+        conciseAnswer={`YouTube Tools Hub offers ${tools.length} free creator tools for YouTube creators including thumbnail downloader, title generator, tag extractor, earnings calculator, and channel audit. No signup required.`}
         keyFacts={[
-          "27+ free creator tools",
+          `${tools.length} free creator tools`,
           "No signup or browser extension required",
           "Tools organized into 5 categories: Thumbnail, SEO, Growth, Analytics, Utility",
           "Free alternative to TubeBuddy and VidIQ",
@@ -144,7 +144,7 @@ export default function ToolsPage() {
               className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
               data-speakable
             >
-              All 27 Free YouTube Tools, Organized by Job
+              {`All ${tools.length} Free YouTube Tools, Organized by Job`}
             </h1>
             <p
               className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit summary"

@@ -180,17 +180,14 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - robots.txt (robots file)
-     * - sitemap*.xml (sitemap files)
-     * - AI discovery files (llms.txt, atom.xml, etc.)
-     * - .well-known directory (ai.txt, security.txt, ai-plugin.json, etc.)
-     * - public folder files (images, etc.)
+     * Match everything except API routes and Next internals so the apex→www
+     * 301 also covers sitemaps, feeds, ads.txt, .well-known files, and images.
+     * Previously those were matcher-excluded, so e.g.
+     * https://youtubetoolshub.com/sitemap.xml served 200 instead of
+     * redirecting to the www canonical host. On the www host the middleware
+     * just calls next() for these, so the only behavior change is the
+     * canonicalizing redirect for apex-host requests.
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|sitemap-index.xml|sitemap-images.xml|sitemap-news.xml|feed.xml|atom.xml|ads.txt|llms.txt|llms-full.txt|knowledge-graph.jsonld|authors.txt|\\.well-known|01d46652569c40eaa19149073834de57.txt|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.svg$|.*\\.webp$|.*\\.ico$|.*\\.txt$).*)",
+    "/((?!api|_next/static|_next/image|_next/data|favicon\\.ico).*)",
   ],
 };

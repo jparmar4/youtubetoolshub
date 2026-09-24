@@ -309,9 +309,10 @@ export async function POST(request: Request) {
                 { status: 503 },
             );
         }
-        const message = error instanceof Error ? error.message : "Failed to generate content";
+        // Never echo raw internal error text (DB config, fetch failures) to
+        // the client — it is already logged above.
         return NextResponse.json(
-            { error: message.includes("AI API error") ? "AI generation error. Please try again." : message || "Failed to generate content" },
+            { error: "Failed to generate content. Please try again." },
             { status: 500 }
         );
     }
