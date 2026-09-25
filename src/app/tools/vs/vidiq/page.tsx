@@ -4,21 +4,57 @@ import { FaCheck, FaBolt, FaBrain, FaChartLine } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { siteConfig } from "@/config/site";
+import {
+    getBreadcrumbSchema,
+    getFAQSchema,
+    getGlobalAlternates,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
     title: { absolute: "YouTube Tools Hub vs VidIQ: Creator Tool Comparison" },
     description: "Compare the YouTube Tools Hub browser-based creator toolkit with VidIQ. Review workflow focus, setup, and current plan details before choosing a tool.",
     keywords: ["YouTube Tools Hub vs VidIQ", "VidIQ alternative", "best youtube seo tool", "ai youtube growth"],
-    alternates: {
-        canonical: "/tools/vs/vidiq",
-        
-    },
+    alternates: getGlobalAlternates("/tools/vs/vidiq"),
 };
 
+const comparisonFaqs = [
+    {
+        question: "What is the best free VidIQ alternative?",
+        answer:
+            "For core metadata workflows — titles, tags, descriptions, thumbnail downloads, and earnings estimates — YouTube Tools Hub covers VidIQ's most-used features free, in the browser with no extension or signup. VidIQ still leads on in-YouTube keyword scores and competitor tracking.",
+    },
+    {
+        question: "Does YouTube Tools Hub need a browser extension?",
+        answer:
+            "No. Every tool runs in a web page — open the tool, paste your video link or topic, and get results. VidIQ and TubeBuddy are browser extensions that overlay data while you browse YouTube; that's useful for competitor research but not required for content production.",
+    },
+    {
+        question: "Can I use YouTube Tools Hub and VidIQ together?",
+        answer:
+            "Yes, and many creators do. VidIQ's extension helps with keyword scores and trend alerts inside YouTube, while YouTube Tools Hub handles generation work — titles, descriptions, tags, hashtags, thumbnails, and calculators — without consuming extension quota.",
+    },
+];
+
 export default function VidIQComparisonPage() {
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        { name: "YouTube Tools Hub vs VidIQ", url: `${siteConfig.url}/tools/vs/vidiq` },
+    ]);
+    const faqSchema = getFAQSchema(comparisonFaqs);
+
     return (
         <>
             <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("VidIQ")} pathname="/tools/vs/vidiq" />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <div className="min-h-screen bg-white dark:bg-slate-950 pt-28 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -120,6 +156,21 @@ export default function VidIQComparisonPage() {
                                     Use creator tools to support packaging and planning decisions, then measure actual click-through rate and retention inside your own YouTube Studio account.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* FAQ */}
+                    <div className="max-w-4xl mx-auto mb-12">
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                            VidIQ Alternative — FAQ
+                        </h2>
+                        <div className="space-y-6">
+                            {comparisonFaqs.map((item) => (
+                                <div key={item.question} className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800">
+                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-3">{item.question}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.answer}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 

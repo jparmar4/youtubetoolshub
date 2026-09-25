@@ -96,6 +96,8 @@ export const siteConfig = {
       },
       { name: "YouTube CPM Rates 2026", href: "/resources/youtube-cpm-rates" },
       { name: "Creator Statistics", href: "/resources/youtube-creator-statistics" },
+      { name: "YouTube Glossary", href: "/resources/youtube-glossary" },
+      { name: "Growth Guides Hub", href: "/blog/category/channel-growth" },
       { name: "YouTube SEO Blog", href: "/blog" },
       { name: "FAQ", href: "/faq" },
     ],

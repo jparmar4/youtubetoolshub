@@ -11,10 +11,14 @@ import { getCoverDimensions } from "@/config/blog/image-dimensions";
 import { resolveAuthor, getAuthorPageUrl } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
-import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema, noIndexRobots } from "@/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema, getHowToSchema, noIndexRobots } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { getClusterSiblings } from "@/lib/topic-clusters";
 import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
+import {
+    getCanonicalCategorySlug,
+    getCategoryDisplayName,
+} from "@/config/blog/categories";
 
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -213,6 +217,14 @@ export default async function BlogPostPage({
     ]);
 
     const faqSchema = post.faq ? getFAQSchema(post.faq) : null;
+    const howToSchema = post.howTo
+        ? getHowToSchema({
+            name: post.howTo.name,
+            description: post.howTo.description,
+            totalTime: post.howTo.totalTime,
+            steps: post.howTo.steps,
+        })
+        : null;
 
     const authorSchema = getPersonSchema({
         name: author.name,
@@ -269,6 +281,14 @@ export default async function BlogPostPage({
                     }}
                 />
             )}
+            {howToSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(howToSchema),
+                    }}
+                />
+            )}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -304,9 +324,12 @@ export default async function BlogPostPage({
                         <div className="max-w-4xl mx-auto text-center">
                             {/* Category */}
                             <div className="mb-6 flex justify-center">
-                                <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide">
-                                    {post.category}
-                                </span>
+                                <Link
+                                    href={`/blog/category/${getCanonicalCategorySlug(post)}`}
+                                    className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide hover:bg-purple-200 transition-colors"
+                                >
+                                    {getCategoryDisplayName(post)}
+                                </Link>
                             </div>
 
                             {/* Title */}
@@ -560,7 +583,7 @@ export default async function BlogPostPage({
                                                 <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
                                                     <article className="h-full bg-white rounded-2xl p-5 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
                                                         <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-md uppercase tracking-wide">
-                                                            {relatedPost.category}
+                                                            {getCategoryDisplayName(relatedPost)}
                                                         </span>
                                                         <h3 className="text-lg font-bold text-slate-900 mt-3 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
                                                             {relatedPost.title}

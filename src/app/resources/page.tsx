@@ -39,6 +39,12 @@ const resources = [
       "AdSense eligibility, RPM levers, memberships, Super Chats, and brand-deal math explained end to end.",
   },
   {
+    href: "/resources/youtube-glossary",
+    title: "YouTube Glossary — 44 Terms Defined",
+    description:
+      "Plain-English definitions of creator terms: CPM, RPM, CTR, watch time, YPP, Content ID, Shorts revenue, retention, and more.",
+  },
+  {
     href: "/resources/link-to-us",
     title: "Link to Us — Badges & Widgets",
     description:

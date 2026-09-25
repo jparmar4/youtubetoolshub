@@ -342,6 +342,16 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["thumbnail ab testing", "thumbnail a/b test"],
       },
       {
+        path: "/blog/youtube-banner-size-2026",
+        title: "YouTube Banner Size 2026",
+        anchors: [
+          "youtube banner size",
+          "youtube banner size 2026",
+          "youtube banner dimensions",
+          "channel art size",
+        ],
+      },
+      {
         path: "/tools/thumbnail-tools",
         title: "All Thumbnail Tools",
         anchors: ["thumbnail tools"],

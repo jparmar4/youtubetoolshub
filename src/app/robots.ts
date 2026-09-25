@@ -67,11 +67,17 @@ export default function robots(): MetadataRoute.Robots {
           "anthropic-ai",
           "Google-Extended",
           "GoogleOther",
+          // GoogleOther variants: separate tokens for image/video research
+          // crawls — without explicit Allows they lose the AI API exceptions.
+          "GoogleOther-Image",
+          "GoogleOther-Video",
           "Google-CloudVertexBot",
           "Bingbot",
           "BingPreview",
           "MicrosoftPreview",
           "meta-externalagent",
+          // Meta's second indexer token used for AI model grounding
+          "meta-externalfetcher",
           "FacebookBot",
           "Applebot",
           "Applebot-Extended",
@@ -80,12 +86,17 @@ export default function robots(): MetadataRoute.Robots {
           "CCBot",
           "DeepSeekBot",
           "MistralAI",
+          // Le Chat's answer-time fetch agent (distinct from MistralAI trainer)
+          "MistralAI-User",
           "BraveBot",
           "cohere-ai",
           "DuckAssistBot",
           "ImagesiftBot",
           "Diffbot",
           "omgili",
+          "omgilibot",
+          // TikTok's search index crawler — TikTok search surfaces web results
+          "TikTokSpider",
           "Bytespider",
         ],
         allow: ["/", ...AI_API_ALLOW],

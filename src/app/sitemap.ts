@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { BLOG_CATEGORIES, getPostsForCategory } from "@/config/blog/categories";
 import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
@@ -28,6 +29,7 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/tools/vs/vidiq": "2026-09-04",
   "/resources/youtube-algorithm-guide": "2026-09-04",
   "/resources/youtube-monetization-guide": "2026-09-04",
+  "/resources/youtube-glossary": "2026-09-25",
   "/api-docs": "2026-08-01",
   "/privacy-policy": "2026-08-01",
   "/terms-of-use": "2026-08-01",
@@ -62,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resources/youtube-creator-statistics",
     "/resources/youtube-algorithm-guide",
     "/resources/youtube-monetization-guide",
+    "/resources/youtube-glossary",
     "/resources/link-to-us",
     "/tools/channel-tools",
     "/tools/utility-tools",
@@ -119,6 +122,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: FALLBACK_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.5,
+    });
+  }
+
+  // Category hub pages — lastmod tracks the newest post in each hub
+  for (const category of BLOG_CATEGORIES) {
+    const posts = getPostsForCategory(category.slug);
+    const newest = posts.reduce<string | null>((acc, post) => {
+      const value = post.updatedAt ?? post.date;
+      return !acc || new Date(toBlogIsoDate(value)) > new Date(toBlogIsoDate(acc))
+        ? value
+        : acc;
+    }, null);
+    allEntries.push({
+      url: `${baseUrl}/blog/category/${category.slug}`,
+      lastModified: newest
+        ? parseSafeDate(toBlogIsoDate(newest), FALLBACK_LAST_MODIFIED)
+        : FALLBACK_LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.7,
     });
   }
 

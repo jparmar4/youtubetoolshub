@@ -376,3 +376,73 @@ Already solid (unchanged): header menu `aria-expanded`, breadcrumb `aria-current
 - Canonicals, hreflang self-references, thin-page 301s, redirect hygiene: clean
 - All SQL parameterized; rate limits on all abuse-prone routes; webhook/checkout signatures timing-safe
 - llms.txt / llms-full.txt / knowledge-graph.jsonld / ai-context architecture: strong (model AEO patte
+
+---
+
+# Fourth-pass growth audit (SEO/AEO/GEO expansion, Tier-1/2 targeting, Discover)
+
+**Date:** 2026-09-25
+**Scope:** growth-level additions (previous passes were remediation). New indexable surfaces, schema depth, AI-crawler coverage, internal linking.
+**Gates:** typecheck ✅ · lint ✅ · tests ✅ · `next build` ✅ (322 static pages, up from 301) · `scripts/check-seo.mjs` "All checks passed" ✅ · rendered-page screenshots of all new routes ✅
+
+## 1. Canonical blog category system (topical authority + internal linking)
+
+- **Was:** 29 free-text category labels across 86 posts ("Growth" / "Growth Strategy" / "Channel Growth"…) with **zero** category landing pages — crawlers had no hub pages and related-post matching was the only topical signal.
+- **Now:** 9 canonical hubs resolved in `src/config/blog/categories.ts` via alias map (raw label → hub) + per-slug overrides (raw labels too coarse for some posts). Post data untouched, so related-posts and the tool alias layer keep working.
+  - New SSG route `/blog/category/[slug]` (9 pages, `dynamicParams = false`): CollectionPage + BreadcrumbList + FAQPage JSON-LD, GeoAeoHead WebPage node, 40–60-word AEO definition per hub, 3 hub-level FAQs, related-tool CTAs, cross-links to all other hubs.
+  - Wired into: blog index ("Browse by topic" chip strip with live counts), post-page category badge (span → hub link, canonical display name), sitemap (priority 0.7, lastmod = newest post in hub), llms.txt ("Blog category hubs" section), ai-context (`blog_categories`), footer ("Growth Guides Hub"), IndexNow priority list.
+- Hub counts resolve to: Channel Growth 20 · Monetization 17 · YouTube SEO 10 · AI Tools 8 · Gear & Equipment 8 · Video Editing 7 · Thumbnails & Design 6 · Tools & Reviews 6 · Shorts 5 (= 87 posts incl. new post).
+
+## 2. YouTube Creator Glossary (AEO/GEO citation asset)
+
+- New `/resources/youtube-glossary`: **44 terms** across 5 groups, each definition a 30–60-word direct answer ("what is RPM" format) — the exact shape answer engines extract and cite.
+- **DefinedTermSet JSON-LD** (new `getDefinedTermSetSchema` in `seo.ts`) with all 44 `DefinedTerm` nodes + per-term anchor URLs; FAQPage (4 Qs) + Breadcrumb + GeoAeoHead.
+- Wired into: resources hub page, sitemap (high-priority route), llms.txt (Reference pages + Key Pages), ai-context (`glossary` section: url + term_count + all terms/definitions), footer.
+
+## 3. HowTo schema for blog posts
+
+- **Was:** ~163 "Step N" blocks in blog prose, zero HowTo markup on any post.
+- **Now:** `BlogPost.howTo?` field (`types.ts`), emitted as HowTo JSON-LD on post pages when present. Added to 6 step-heavy posts, each mirroring the visible step section (not invented): description generator (5 steps), thumbnail download (5), tag research (3), chapters (4), thumbnail A/B testing (4), SEO checklist (4).
+
+## 4. Competitor comparison pages completed
+
+- `/tools/vs/tubebuddy` + `/tools/vs/vidiq` had **no JSON-LD and no hreflang**.
+- Now: BreadcrumbList + FAQPage JSON-LD, `getGlobalAlternates` (canonical + en + x-default self-references), and a 3-question FAQ section per page (best-free-alternative, works-together, extension question) — matches the llms.txt "free alternative" positioning with real on-page content.
+
+## 5. AI-crawler & entity coverage
+
+- robots.ts AI group additions: `GoogleOther-Image`, `GoogleOther-Video`, `meta-externalfetcher` (Meta AI grounding indexer), `MistralAI-User` (Le Chat answer-time agent), `omgilibot`, `TikTokSpider` (TikTok search index).
+- Organization schema: `publishingPrinciples` → `/blog/why-youtube-tools-hub`; BlogPosting schema also emits `publishingPrinciples` (E-E-A-T trust link for search + AI engines).
+
+## 6. New commercial-intent blog post
+
+- `vidiq-tubebuddy-alternatives-2026` — "7 Best Free VidIQ & TubeBuddy Alternatives (2026)" (Tool Reviews hub): targets "free vidiq alternative" / "free tubebuddy alternatives" (previously only promised in root meta keywords + llms.txt, no page existed). ~1,600 words, comparison table, honest "when to still pay" section, 6 FAQs, HowTo schema, 15+ internal links to tools/guides.
+- Branded cover generated at exactly 1200×675 (`scripts/` one-off, sharp; webp q88) and registered in `image-dimensions.json` — Discover large-image compliant.
+
+## 7. Ops fixes
+
+- `scripts/check-seo.mjs`: stale assertion inverted — it still demanded `Disallow: /search`, which third-pass C7 deliberately removed (a Disallow hides /search's noindex from crawlers). Now asserts the correct behavior (must NOT disallow /search).
+- IndexNow `PRIORITY_PATHS`: added 11 new URLs (9 hubs + glossary + alternatives post).
+
+## New pages in this pass (all SSG, all linked)
+
+| Surface | Count | Schema |
+|---|---|---|
+| `/blog/category/[slug]` | 9 | CollectionPage, BreadcrumbList, FAQPage, WebPage |
+| `/resources/youtube-glossary` | 1 | DefinedTermSet (44), FAQPage, BreadcrumbList, WebPage |
+| `/blog/vidiq-tubebuddy-alternatives-2026` | 1 | BlogPosting + HowTo + FAQPage + BreadcrumbList + VideoObject |
+| **Total new static pages** | **11** | |
+
+## Deliberately not done (with reasons)
+
+- **No en-GB/en-AU hreflang variants** — no localized content exists; self-referencing en/x-default (site-wide) is the correct single-language pattern.
+- **SearchAction still omitted** from WebSite schema — /search remains noindex (documented third-pass decision).
+- **No tool×country programmatic expansion** beyond the existing 54 calculator pages — existing set is data-backed; expanding other calculators without real per-country data would create thin pages.
+- **News sitemap** left as plain urlset — site is not a Google News publisher; Discover does not require a News sitemap (regular sitemap + large images + freshness, all in place).
+
+## Off-site checklist (cannot be done from code)
+
+1. Search Console: submit updated sitemap-index; request indexing for the 11 new URLs (IndexNow pings Bing/Yandex/Seznam automatically on next deploy).
+2. Google Discover: traffic follows publishing cadence — 2–3 new guides/week on trending creator topics keeps the feed feeding; the category hubs give Discover's topic model clean entity clusters.
+3. Tier 1/2 growth levers already on-site: 54 country calculator pages, CPM-by-country data (US/UK/CA/AU covered), llms.txt CPM snapshot. Keep citing these in new posts.
+4. Bing Webmaster + Yandex Webmaster: both verified; import sitemap there too (Bing powers DuckDuckGo/Ecosia/Yahoo — "all the search engines" runs through Bing's index).

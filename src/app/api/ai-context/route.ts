@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import {
+  BLOG_CATEGORIES,
+  getPostsForCategory,
+} from "@/config/blog/categories";
+import { glossaryTerms } from "@/config/glossary";
 import { countryCPMData } from "@/lib/cpm-data";
 import {
   citableFacts,
@@ -226,12 +231,28 @@ export async function GET() {
       pillar: `${siteUrl}${c.pillar.path}`,
       spokes: c.spokes.map((s) => `${siteUrl}${s.path}`),
     })),
+    blog_categories: BLOG_CATEGORIES.map((category) => ({
+      name: category.name,
+      url: `${siteUrl}/blog/category/${category.slug}`,
+      post_count: getPostsForCategory(category.slug).length,
+      definition: category.definition,
+    })),
+    glossary: {
+      url: `${siteUrl}/resources/youtube-glossary`,
+      term_count: glossaryTerms.length,
+      terms: glossaryTerms.map((t) => ({
+        term: t.term,
+        definition: t.definition,
+      })),
+    },
     primary_urls: {
       tools: `${siteUrl}/tools`,
       earnings_calculator: `${siteUrl}/tools/youtube-earnings-calculator`,
       cpm_rates: `${siteUrl}/resources/youtube-cpm-rates`,
       monetization_guide: `${siteUrl}/resources/youtube-monetization-guide`,
       algorithm_guide: `${siteUrl}/resources/youtube-algorithm-guide`,
+      glossary: `${siteUrl}/resources/youtube-glossary`,
+      blog_category_hubs: `${siteUrl}/blog/category/channel-growth`,
       llms_txt: `${siteUrl}/llms.txt`,
       llms_full: `${siteUrl}/llms-full.txt`,
     },

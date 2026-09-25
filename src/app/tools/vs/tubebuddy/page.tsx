@@ -4,21 +4,57 @@ import { FaCheck, FaDollarSign, FaRobot } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { siteConfig } from "@/config/site";
+import {
+    getBreadcrumbSchema,
+    getFAQSchema,
+    getGlobalAlternates,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
     title: { absolute: "YouTube Tools Hub vs TubeBuddy: 2026 Comparison" },
     description: "Compare the YouTube Tools Hub browser-based creator toolkit with TubeBuddy. Review workflow focus, setup, and current pricing before choosing a tool.",
     keywords: ["YouTube Tools Hub vs TubeBuddy", "TubeBuddy alternative", "free youtube tools", "youtube seo tools comparison"],
-    alternates: {
-        canonical: "/tools/vs/tubebuddy",
-        
-    },
+    alternates: getGlobalAlternates("/tools/vs/tubebuddy"),
 };
 
+const comparisonFaqs = [
+    {
+        question: "What is the best free TubeBuddy alternative?",
+        answer:
+            "For the workflows most creators actually run — titles, tags, descriptions, thumbnail downloads, hashtags, and earnings estimates — YouTube Tools Hub covers TubeBuddy's core features free, in the browser with no extension. TubeBuddy still leads on in-YouTube bulk editing and A/B test overlays.",
+    },
+    {
+        question: "Is YouTube Tools Hub really free compared to TubeBuddy?",
+        answer:
+            "Yes — all 30 core tools are free with no signup. YouTube Tools Hub's optional Pro tier only raises usage limits for heavy users. TubeBuddy pricing is set by TubeBuddy and changes over time, so compare its current plans before subscribing.",
+    },
+    {
+        question: "Can I use YouTube Tools Hub and TubeBuddy together?",
+        answer:
+            "Yes. TubeBuddy's extension adds in-YouTube overlays and bulk tools, while YouTube Tools Hub handles generation and estimation work in a separate browser tab — there's no conflict and no extension install required for the hub.",
+    },
+];
+
 export default function TubeBuddyComparisonPage() {
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        { name: "YouTube Tools Hub vs TubeBuddy", url: `${siteConfig.url}/tools/vs/tubebuddy` },
+    ]);
+    const faqSchema = getFAQSchema(comparisonFaqs);
+
     return (
         <>
             <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("TubeBuddy")} pathname="/tools/vs/tubebuddy" />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <div className="min-h-screen bg-white dark:bg-slate-950 pt-28 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -90,6 +126,21 @@ export default function TubeBuddyComparisonPage() {
                             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                                 Core YouTube Tools Hub utilities can be used free. TubeBuddy features and pricing are controlled by TubeBuddy and may change, so check its current product pages before deciding which workflow fits your needs.
                             </p>
+                        </div>
+                    </div>
+
+                    {/* FAQ */}
+                    <div className="max-w-4xl mx-auto mb-12">
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                            TubeBuddy Alternative — FAQ
+                        </h2>
+                        <div className="space-y-6">
+                            {comparisonFaqs.map((item) => (
+                                <div key={item.question} className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800">
+                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-3">{item.question}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.answer}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 

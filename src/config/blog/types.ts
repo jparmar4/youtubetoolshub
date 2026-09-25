@@ -30,6 +30,18 @@ export interface BlogPost {
     question: string;
     answer: string;
   }[];
+  /**
+   * Optional step procedure for posts built around a task ("how to X").
+   * When present it is emitted as HowTo JSON-LD on the post page. Only add
+   * steps the article body genuinely walks through — the schema must
+   * reflect visible content, not summarize the topic.
+   */
+  howTo?: {
+    name: string;
+    description: string;
+    totalTime?: string;
+    steps: { name: string; text: string }[];
+  };
   rating?: {
     ratingValue: string;
     ratingCount: string;

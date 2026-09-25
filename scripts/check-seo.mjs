@@ -125,8 +125,11 @@ function checks(r) {
   if (r.path === "/robots.txt") {
     if (!r.body.includes("Sitemap:")) issues.push("robots missing Sitemap");
     if (!r.body.includes("Allow:")) issues.push("robots missing Allow");
-    if (!r.body.includes("Disallow: /search")) {
-      issues.push("robots missing Disallow: /search");
+    // /search must stay crawlable: it carries a noindex that Google can only
+    // honor by fetching it. A Disallow here hides the noindex and leaves the
+    // URL indexed indefinitely (third-pass audit, finding C7).
+    if (r.body.includes("Disallow: /search")) {
+      issues.push("robots Disallows /search — hides its noindex from crawlers");
     }
     if (!r.body.includes("Disallow: /api/")) {
       issues.push("robots missing Disallow: /api/");

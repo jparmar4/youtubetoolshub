@@ -1,5 +1,7 @@
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts } from "@/config/blog";
+import { BLOG_CATEGORIES, getPostsForCategory } from "@/config/blog/categories";
+import { glossaryTerms } from "@/config/glossary";
 import { siteConfig } from "@/config/site";
 import {
   citableFacts,
@@ -87,6 +89,7 @@ YouTube payout data.
 - CPM data table: ${baseUrl}/resources/youtube-cpm-rates
 - Monetization guide: ${baseUrl}/resources/youtube-monetization-guide
 - Algorithm guide: ${baseUrl}/resources/youtube-algorithm-guide
+- Creator glossary: ${baseUrl}/resources/youtube-glossary (${glossaryTerms.length} terms defined as direct answers)
 
 ## Core Value Proposition
 
@@ -154,6 +157,17 @@ A: Ranking is driven heavily by CTR, watch time / retention, absolute watch time
 
 ${clusters}
 
+## Blog category hubs
+
+${BLOG_CATEGORIES.map((category) => {
+  const posts = getPostsForCategory(category.slug);
+  const sample = posts
+    .slice(0, 3)
+    .map((p) => p.title)
+    .join("; ");
+  return `- [${category.name}](${baseUrl}/blog/category/${category.slug}): ${posts.length} guides. Covers: ${sample}.`;
+}).join("\n")}
+
 ## Tools (${tools.length} total)
 
 ${toolsList}
@@ -173,6 +187,7 @@ ${blogList}
 - [Monetization Guide](${baseUrl}/resources/youtube-monetization-guide): YPP and revenue paths
 - [Algorithm Guide](${baseUrl}/resources/youtube-algorithm-guide): Ranking signals
 - [Blog](${baseUrl}/blog): YouTube growth strategy guides
+- [Creator Glossary](${baseUrl}/resources/youtube-glossary): ${glossaryTerms.length} YouTube terms defined in plain English
 - [FAQ](${baseUrl}/faq): Frequently asked questions
 - [About](${baseUrl}/about): About YouTube Tools Hub
 - [Pricing](${baseUrl}/pricing): Pricing information (core tools are free)

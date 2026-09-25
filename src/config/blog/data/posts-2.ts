@@ -3,6 +3,30 @@ import type { BlogPost } from "../types";
 export const posts2: BlogPost[] = [
   {
     slug: "youtube-seo-checklist-2026",
+    howTo: {
+      name: "How to Run the YouTube SEO Checklist for a New Video",
+      description:
+        "A four-phase YouTube SEO workflow: validate the keyword and search intent before filming, optimize title, description, tags, and thumbnail before upload, finish upload-day settings, then execute the post-publish week.",
+      totalTime: "PT60M",
+      steps: [
+        {
+          name: "Validate your keyword before filming",
+          text: "Check YouTube search and autocomplete for your target query, map the search intent behind the top results, and plan your hook around the retention patterns of the videos that already rank.",
+        },
+        {
+          name: "Optimize metadata before upload",
+          text: "Front-load the primary keyword in the title, structure the description in three zones, write hierarchical tags, pick the right category, and design a custom thumbnail as the highest-leverage visual decision.",
+        },
+        {
+          name: "Finish upload-day optimizations",
+          text: "Time the upload to your audience heatmap, add end screens and cards to relevant content, pin a keyword-aware comment, and include keyword-rich chapter timestamps.",
+        },
+        {
+          name: "Execute the post-publish week",
+          text: "Share to the Community tab immediately, monitor realtime CTR and retention, and adjust packaging if early signals underperform — the first week's engagement shapes long-term recommendations.",
+        },
+      ],
+    },
     title: "YouTube SEO Checklist 2026 (Copy-Paste Template)",
     excerpt:
       "Most YouTube creators optimize their videos the same wrong way — spending 20 minutes picking tags and calling it SEO. This 2026 checklist covers everything that actually moves the needle: the pre-upload setup, the metadata your competition is getting wrong, and the post-publish signals YouTube watches after your video goes live.",

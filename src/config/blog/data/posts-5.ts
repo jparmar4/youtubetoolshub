@@ -73,6 +73,8 @@ This is where most creators make mistakes. Your 2560×1440 banner displays diffe
 > [!IMPORTANT]
 >**The Safe Area Rule:**Always place your channel name, tagline, and any important visual elements inside the**1546 × 423 pixel center safe zone**. Anything outside this area will be cropped on mobile devices. Every tool on this list provides safe area guides—use them.
 
+Want the full reasoning behind each number — device-by-device crops, file-size workarounds, and a step-by-step design process? Read the [YouTube Banner Size 2026: Exact Dimensions Guide](/blog/youtube-banner-size-2026).
+
 ## 10 Best Free YouTube Banner Makers Ranked (2026)
 
 We ranked each tool on a scale of 1-10 across five categories: template quality, customization depth, ease of use, free tier value, and export quality.
@@ -2324,6 +2326,8 @@ This guide breaks down every single layer of that system.
 > 4.**Your channel intro**should be 5 seconds or shorter — viewers skip anything longer
 > 5.**Brand consistency** across all touchpoints (thumbnail, banner, social) is more powerful than any single element
 
+Not sure about rule 2? The [YouTube Banner Size 2026 guide](/blog/youtube-banner-size-2026) walks through every banner dimension, the safe area, and how to check your design on TV, desktop, and mobile before you upload.
+
 ## Why Channel Branding Matters More Than Most Creators Realize
 
 Let me give you a number: YouTube has over 800 million videos and 50 million active creator channels as of 2026. The platforms that survive in that environment are the ones that feel like a destination, not just a content dump.
@@ -2613,6 +2617,30 @@ For more channel growth fundamentals, read our guide on [how to get more views o
   },
   {
     slug: "youtube-thumbnail-ab-testing-guide-2026",
+    howTo: {
+      name: "How to Run a YouTube Thumbnail A/B Test",
+      description:
+        "Run a valid thumbnail A/B test on YouTube: design two genuinely different concepts, build compliant assets, launch Test & Compare in YouTube Studio, then pick the winner on watch-time share rather than raw CTR.",
+      totalTime: "PT30M",
+      steps: [
+        {
+          name: "Conceptualize two distinct directions",
+          text: "Test entirely different psychological hooks — not two near-identical images. Strong contrasts include in-context vs. isolated subject, curiosity vs. clarity, and expressive face vs. text-focused design.",
+        },
+        {
+          name: "Build the thumbnail assets",
+          text: "Follow the golden rules: maximum four words of text, high contrast, legible on a small mobile screen. Study competitor layouts with a thumbnail downloader before designing your own variants.",
+        },
+        {
+          name: "Launch the test in YouTube Studio",
+          text: "In the upload or edit flow, scroll to the Thumbnail section, click Test & Compare, upload up to three variants, and publish. YouTube distributes impressions evenly across variants.",
+        },
+        {
+          name: "Pick the winner on watch-time share",
+          text: "YouTube declares the winner on watch-time share, not raw CTR — an accurate thumbnail that holds viewers beats a clickbait one that bounces. Check traffic sources to see which variant wins in Browse vs. Search.",
+        },
+      ],
+    },
     title: "Best YouTube Thumbnail A/B Testing: Step-by-Step",
     excerpt:
       "Stop guessing what makes viewers click. This step-by-step guide breaks down exactly how to run a YouTube thumbnail A/B test in 2026, which metrics actually matter, and how to scientifically double your click-through rate without relying on luck.",
@@ -3771,6 +3799,430 @@ The calculator is only as accurate as your inputs. Use your real Studio RPM. If 
 When you model your income correctly, the monetization calculator becomes genuinely useful: it tells you exactly how many more views you need, or how much your RPM needs to improve, to hit a specific monthly income target. That is the question worth answering.
 
 **Start with the numbers you actually have:** [YouTube Earnings Calculator](/tools/youtube-earnings-calculator).
+`,
+  },
+  {
+    slug: "vidiq-tubebuddy-alternatives-2026",
+    title: "7 Best Free VidIQ & TubeBuddy Alternatives (2026)",
+    seoTitle: "7 Best Free VidIQ & TubeBuddy Alternatives (2026)",
+    excerpt:
+      "You do not need a $10–$50/month extension to run solid YouTube SEO. These seven free VidIQ and TubeBuddy alternatives cover titles, tags, descriptions, thumbnails, and earnings estimates — including the free tools YouTube already ships with.",
+    date: "September 25, 2026",
+    category: "Tool Reviews",
+    author: "David Chen",
+    authorRole: "YouTube SEO Specialist",
+    readTime: "11 min read",
+    metaDescription:
+      "Looking for a free VidIQ or TubeBuddy alternative? These 7 free tools cover keyword research, titles, tags, descriptions, thumbnails, and earnings estimates — no extension or subscription required.",
+    keywords: [
+      "free vidiq alternative",
+      "vidiq alternatives",
+      "free tubebuddy alternative",
+      "tubebuddy alternatives",
+      "free youtube seo tools",
+      "youtube tag generator free",
+      "youtube keyword tool free",
+      "vidiq free vs paid",
+      "tubebuddy free plan",
+      "best free youtube tools 2026",
+    ],
+    coverImage: "/images/blog/vidiq-tubebuddy-alternatives-2026.webp",
+    imageAlt:
+      "Dark purple branded graphic reading VidIQ and TubeBuddy Alternatives 2026 with YouTube play button icons on a gradient background",
+
+    howTo: {
+      name: "How to Replace a VidIQ or TubeBuddy Subscription with Free Tools",
+      description:
+        "Swap a paid YouTube SEO extension for free tools in one afternoon: audit which paid features you actually use, replace generation work with browser-based free tools, move research to YouTube's own Research tab, and re-check results after two weeks.",
+      totalTime: "PT2H",
+      steps: [
+        {
+          name: "List the paid features you actually use",
+          text: "Open VidIQ or TubeBuddy and note which features you touched in the last 30 days. Most creators find it is three: keyword scores, tag suggestions, and thumbnail downloads — all replaceable free.",
+        },
+        {
+          name: "Replace generation work with free browser tools",
+          text: "Move titles, tags, descriptions, hashtags, and thumbnails to free browser-based tools such as the YouTube Tools Hub suite, which needs no extension or login for core features.",
+        },
+        {
+          name: "Move keyword research to YouTube's Research tab",
+          text: "Use the Research tab inside YouTube Studio — it shows what your niche's audiences search for, straight from the platform, with no third-party estimates in the middle.",
+        },
+        {
+          name: "Re-check performance after two weeks",
+          text: "Publish two or three videos with the free workflow and compare impressions, CTR, and impressions-from-search in Studio against your previous videos. If metrics hold, the subscription was not earning its fee.",
+        },
+      ],
+    },
+
+    faq: [
+      {
+        question: "Is there a genuinely free alternative to VidIQ?",
+        answer:
+          "Yes. For content production — titles, tags, descriptions, hashtags, thumbnails, and earnings estimates — free browser suites like YouTube Tools Hub cover the most-used VidIQ features with no extension and no signup. VidIQ's paid tiers mainly add competitor tracking, keyword scores inside YouTube, and trend alerts.",
+      },
+      {
+        question: "Is there a free alternative to TubeBuddy?",
+        answer:
+          "Yes. TubeBuddy's core workflows (metadata editing, tag suggestions, thumbnail grabbing) map directly onto free tools: a browser-based tag generator, description generator, and thumbnail downloader. TubeBuddy's paid edge is bulk processing and in-YouTube A/B test overlays across large libraries.",
+      },
+      {
+        question: "Do free YouTube SEO tools work as well as paid ones?",
+        answer:
+          "For creators publishing under five videos a month, yes — the metadata and research outputs are nearly identical, because YouTube's own ranking signals (CTR and watch time) matter more than which tool formatted your tags. Paid tools earn their fee at scale: bulk updates, saved templates, and competitor monitoring across dozens of videos.",
+      },
+      {
+        question: "Does YouTube have a built-in keyword research tool?",
+        answer:
+          "Yes — the Research tab in YouTube Studio shows what viewers on YouTube actually search, including queries from your niche and content gaps for your channel. It is free, first-party data, and most third-party keyword scores are estimates layered on top of the same signals.",
+      },
+      {
+        question: "Can I use VidIQ or TubeBuddy for free forever?",
+        answer:
+          "Both keep a permanent free tier, but its limits move over time — features migrate between tiers as pricing changes. If your workflow only needs the free features today, a free browser-based alternative avoids the surprise of a feature being moved behind a paywall.",
+      },
+      {
+        question: "What is the catch with free YouTube tools?",
+        answer:
+          "Usually usage limits and no competitor spying. Free tools generally cap daily generations (Pro tiers raise the limits) and cannot overlay data while you browse YouTube, because that requires an extension. Neither limitation affects the quality of the output itself.",
+      },
+    ],
+
+    content: `
+Every few months a creator tells me the same thing: they signed up for VidIQ or TubeBuddy on a free trial, upgraded when the trial ended, and now they are paying $10–$50 a month for features they use maybe three times per upload. The extension sits in the browser bar doing its job — but the job is smaller than the invoice.
+
+Here is the uncomfortable truth from the tool side of the fence: the metadata work most creators do with those extensions — titles, tags, descriptions, thumbnails, keyword ideas — can be done just as well with free tools in 2026. What you actually pay for at the high tiers is scale (bulk edits across hundreds of videos) and surveillance (competitor tracking and trend alerts). Those are real features. They are also features most channels under 50,000 subscribers never touch.
+
+This guide covers seven free alternatives that replace the core VidIQ and TubeBuddy workflows, what each one does well, and where the paid tools still genuinely win. Nothing here is sponsored.
+
+## Why creators look for a VidIQ or TubeBuddy alternative
+
+Three reasons come up again and again:
+
+- **Subscription fatigue.** Creator stacks stack up — editing software, music licensing, hosting, then $10–$50/month for a browser extension. When the extension's free tier shrinks or a feature moves behind a paywall, the alternative search starts.
+- **Extension fatigue.** Extensions add a layer to every YouTube page: overlays, scores, and popups. Some creators want the output (a good tag list) without the constant in-page apparatus.
+- **Feature overlap.** Since YouTube rebuilt Studio analytics, the platform itself shows impressions, CTR, traffic sources, and even search demand (the Research tab). A surprising share of what extensions charge for is now visible for free.
+
+## What a free alternative actually needs to cover
+
+Before listing tools, here is the honest baseline — the five jobs that matter on a per-video basis:
+
+1. **Keyword research** — what people search that your video can realistically rank for.
+2. **Titles** — front-loaded keywords, within ~60 visible characters, paired with the thumbnail.
+3. **Tags and hashtags** — minor ranking signal, but worth five minutes done right.
+4. **Descriptions** — the first 150 characters for search, chapters for navigation.
+5. **Thumbnails** — researching competitors' covers and producing your own.
+
+Everything else — competitor scores, trend alerts, bulk tools — is scale features, not per-video essentials.
+
+## The 7 best free VidIQ & TubeBuddy alternatives
+
+### 1. YouTube Tools Hub Title Generator — replaces VidIQ title suggestions
+
+VidIQ's title ideas are AI suggestions scored against search volume. The free [YouTube Title Generator](/tools/youtube-title-generator) does the generative half: you enter your topic and it returns multiple title variants optimized around your keyword, front-loaded for search and framed for click-through. Pair it with the [Title A/B Tester](/tools/youtube-title-ab-tester) to compare phrasings before you commit.
+
+**Best for:** creators who want title options fast, without opening YouTube's upload page to get them.
+
+### 2. YouTube Tag Generator + Tag Extractor — replaces the tag workflow end to end
+
+This two-tool combo covers both directions of tag work:
+
+- The [YouTube Tag Generator](/tools/youtube-tag-generator) builds a baseline list from your primary keyword — pre-formatted, comma-separated, ready to paste into Studio's 500-character tag field.
+- The [YouTube Tag Extractor](/tools/youtube-tag-extractor) reverse-engineers the exact tags behind any ranking video. Paste the URL of the #1 video for your target query, see its backend tags, and keep the topical ones that apply to yours.
+
+Together that is the full VidIQ tag workflow — generate for yourself, extract from competitors — at $0.
+
+**Best for:** anyone whose main extension use is tag copying.
+
+### 3. YouTube Description Generator — replaces description templates
+
+A good description has structure: the searchable first 150 characters, then links, chapters, and disclosure language. The free [YouTube Description Generator](/tools/youtube-description-generator) builds that structure for you — you supply the topic, tone, timestamps, and links, and it returns a formatted description with your chapters polished into hooks. If you prefer manual control, the [description template guide](/blog/youtube-description-template-2026) breaks down the same five-zone architecture to copy by hand.
+
+**Best for:** creators who currently keep a description in a notes app and re-edit it every upload.
+
+### 4. Thumbnail Downloader + AI Thumbnail Generator — replaces thumbnail research and drafting
+
+TubeBuddy and VidIQ let you view competitor thumbnails; a dedicated downloader does it better. The [YouTube Thumbnail Downloader](/tools/youtube-thumbnail-downloader) pulls any public video's thumbnail in maximum resolution from a single URL — useful for studying what wins in your niche before you design. Then the [AI Thumbnail Generator](/tools/youtube-ai-thumbnail-generator) drafts your own variants, which you can refine in any editor.
+
+One honest note: downloading a thumbnail for research is fine; reusing someone else's thumbnail is not — the image remains their copyrighted work.
+
+**Best for:** channels that outgrow YouTube's three auto-generated thumbnail frames.
+
+### 5. YouTube Earnings Calculator with country pages — replaces revenue calculators
+
+VidIQ and TubeBuddy both estimate earnings; their estimates are usually US-defaulted black boxes. The free [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) runs country-specific CPM and RPM ranges — dedicated pages cover the [US](/tools/youtube-earnings-calculator/usa), [UK](/tools/youtube-earnings-calculator/uk), [Canada](/tools/youtube-earnings-calculator/canada), [India](/tools/youtube-earnings-calculator/india), [Australia](/tools/youtube-earnings-calculator/australia), and 50+ more markets — and pairs with a [CPM rates table](/resources/youtube-cpm-rates) you can cite line by line. The companion [sponsorship calculator](/tools/youtube-sponsorship-calculator) prices brand deals from expected views.
+
+**Best for:** creators planning income or pricing sponsorships — especially outside the US, where generic calculators are wildly off.
+
+### 6. YouTube Studio's Research tab — the first-party keyword tool nobody uses
+
+This is the one that surprises people: YouTube ships its own keyword research tool inside Studio. The Research tab shows:
+
+- What viewers on YouTube searched for, grouped by your niche.
+- **Content gaps** — searches your own channel has not covered yet.
+- Search volume hints for queries entered on YouTube itself.
+
+Third-party keyword scores are estimates modeled from public data. The Research tab is the platform's own data, free, with no extension. Before paying for keyword scores, check whether the free first-party version answers the question.
+
+**Best for:** everyone — this one is not an alternative so much as the baseline.
+
+### 7. Google Trends + autocomplete — replaces trend alerts
+
+VidIQ's higher tiers alert you when a topic is trending. Two free tools cover the same ground with a little manual discipline:
+
+- **YouTube search autocomplete** — type your seed keyword and the suggested completions are real queries typed this week. New phrasings appearing in autocomplete are your trend signal.
+- **Google Trends** with the "YouTube Search" filter — compare topic momentum over 12 months before you commit a video to one.
+
+The trade-off is honest: you must check these yourself instead of receiving alerts. For most creators, a weekly 15-minute check is enough.
+
+### Quick comparison
+
+| Paid feature | Free alternative | What is missing |
+| --- | --- | --- |
+| Keyword scores in YouTube | Studio Research tab | No third-party score numbers |
+| Tag suggestions | Tag Generator | None for per-video use |
+| Competitor tag viewing | Tag Extractor | Manual (paste URL per video) |
+| Title ideas | Title Generator | No in-extension overlay |
+| Thumbnail view/download | Thumbnail Downloader | No bulk download |
+| Earnings estimates | Earnings Calculator | No channel-sync estimate |
+| Trend alerts | Autocomplete + Google Trends | No push alerts |
+
+## When you should still pay for VidIQ or TubeBuddy
+
+Free alternatives have limits, and pretending otherwise helps no one. Pay when one of these is true:
+
+- **You manage a large library.** Bulk description edits, link swaps across 100+ videos, and template application are genuinely worth an extension — manually updating 200 descriptions is a day of work.
+- **You need competitor surveillance.** Tracking a competitor's upload cadence, tag strategy, and trending videos over months is what the top tiers are built for.
+- **You publish daily and live in the upload page.** In-YouTube overlays remove context-switching, which adds up at volume.
+
+If none of those describe your channel, the free stack covers the per-video workflow completely.
+
+## How to switch to a free workflow in one afternoon
+
+1. **List the paid features you actually used in the last 30 days.** Most creators find it is three: keyword ideas, tag suggestions, and thumbnail downloads.
+2. **Map each to a free tool** from the list above — generation work to the browser-based tools, research to the Studio Research tab, trends to autocomplete and Google Trends.
+3. **Run both workflows in parallel for two weeks.** Publish with the free stack and watch impressions, CTR, and search impressions in Studio.
+4. **Decide on data, not on habit.** If the metrics hold, cancel the subscription. If they drop — and they rarely do for small channels — you have learned exactly which paid feature earns its fee.
+
+**Start with the free stack:** [YouTube Tools Hub](/tools) — all 30 tools, no signup required.
+
+---
+
+## The bottom line
+
+VidIQ and TubeBuddy are good products, and for large libraries and competitor research they remain worth paying for. But the core YouTube SEO workflow — research, titles, tags, descriptions, thumbnails — no longer requires a subscription in 2026. YouTube's own Research tab provides the keyword data, and free browser tools handle the generation work without an extension in sight.
+
+Try the free workflow on your next three uploads. The subscription will still be there if the numbers say you need it.
+`,
+  },
+  {
+    slug: "youtube-banner-size-2026",
+    title: "YouTube Banner Size 2026: Exact Dimensions Guide",
+    seoTitle: "YouTube Banner Size 2026: Exact Dimensions Guide",
+    excerpt:
+      "Upload your channel banner at 2560×1440 px, keep the important stuff inside a 1546×423 safe area, and export under 6 MB. Every YouTube banner dimension that matters in 2026, with a size table for TV, desktop, and mobile.",
+    date: "September 25, 2026",
+    category: "Design & Branding",
+    author: "Emma Richardson",
+    authorRole: "Visual Content Designer",
+    readTime: "9 min read",
+    metaDescription:
+      "The exact YouTube banner size for 2026: upload at 2560×1440 px, keep text inside the 1546×423 safe area, and export under 6 MB. Full dimensions table by device.",
+    keywords: [
+      "youtube banner size",
+      "youtube banner size 2026",
+      "youtube channel banner dimensions",
+      "youtube banner safe area",
+      "channel art size",
+      "youtube banner dimensions guide",
+      "2560x1440 banner",
+      "youtube banner safe zone",
+    ],
+    coverImage: "/images/blog/youtube-banner-size-2026-hero.webp",
+    imageAlt:
+      "Designer's ultrawide monitor showing a purple gradient YouTube channel banner in editing software at dusk, with 2026 banner dimension guide overlay",
+
+    howTo: {
+      name: "How to Make a YouTube Banner That Fits Every Screen",
+      description:
+        "Build a channel banner that displays correctly on TVs, desktops, and phones: set a 2560×1440 canvas, design full bleed but keep text inside the 1546×423 safe area, export under 6 MB, then upload and check on every device.",
+      totalTime: "PT45M",
+      steps: [
+        {
+          name: "Set your canvas to 2560×1440",
+          text: "Open your design tool and create a 2560×1440 px canvas (16:9). That is YouTube's recommended banner upload size and the resolution TVs display in full.",
+        },
+        {
+          name: "Design the full canvas, but keep it simple",
+          text: "Background art can run edge to edge — viewers on TVs see all of it. Keep edges simple: soft gradients, textures, or scenery that still look intentional when cropped.",
+        },
+        {
+          name: "Keep text and logos inside the safe area",
+          text: "Place your channel name, tagline, and schedule inside the centered 1546×423 px safe area — the only strip every device shows. Anything outside it gets cropped on desktop and mobile.",
+        },
+        {
+          name: "Export under 6 MB in JPG or PNG",
+          text: "YouTube accepts non-animated JPG, PNG, GIF, and BMP up to 6 MB. Export at full 2560×1440 resolution — never upscale a smaller image, which causes blur.",
+        },
+        {
+          name: "Upload in Studio and check every device",
+          text: "In YouTube Studio, use Customization → Branding → Banner image. Use the built-in preview to check TV, desktop, and mobile crops, then verify on a real phone — the safe-area preview is close, but your phone is the truth.",
+        },
+      ],
+    },
+
+    faq: [
+      {
+        question: "What is the YouTube banner size in 2026?",
+        answer:
+          "Upload at 2560×1440 pixels (16:9). That's the recommended size YouTube gives in Studio, it's what TVs display in full, and it scales down cleanly for desktop and mobile. The only part guaranteed to show on every device is the centered 1546×423 safe area.",
+      },
+      {
+        question: "Why does my YouTube banner look different on mobile?",
+        answer:
+          "Because each device shows a different crop. TVs display the full 2560×1440 image, desktop shows a 2560×423 strip, and phones show roughly the 1546×423 safe area. If your text sits outside the safe area, mobile viewers only see background art.",
+      },
+      {
+        question: "Why is my YouTube banner blurry after upload?",
+        answer:
+          "Almost always because the image was smaller than 2048×1152 and got upscaled, or it was heavily compressed before upload. Rebuild at 2560×1440 and export fresh — stretching a smaller banner never recovers detail.",
+      },
+      {
+        question: "What is the minimum size for a YouTube banner?",
+        answer:
+          "2048×1152 pixels. Anything smaller triggers an upload warning, and below about 989×200 pixels YouTube rejects the image outright. Even when a small file technically uploads, it will look soft on TVs.",
+      },
+      {
+        question: "Can I use an animated GIF as my YouTube banner?",
+        answer:
+          "No. YouTube accepts GIF as a file format, but banners are static — animation is stripped on upload. For movement on your channel page, use a channel trailer instead.",
+      },
+      {
+        question: "How big can a YouTube banner file be?",
+        answer:
+          "6 MB maximum. If your design exceeds it, export as JPG at high quality instead of PNG — JPG handles photographic and gradient backgrounds at a fraction of the file size with no visible difference on a banner.",
+      },
+    ],
+
+    content: `
+The first banner I ever uploaded looked perfect on my monitor and half-broken everywhere else. My channel name sat on the left edge, which looked great on the TV preview and got sliced in half the moment I checked on my phone. It took three re-uploads before I stopped guessing and learned the actual numbers.
+
+Here they are, all of them, so you only upload once.
+
+::: QUICK-ANSWER
+The correct YouTube banner size in 2026 is **2560×1440 pixels** (16:9). Keep your channel name and logo inside the centered **1546×423 px safe area**, use a minimum image size of **2048×1152 px**, and export the file at **6 MB or less** in JPG or PNG.
+:::
+
+## The exact YouTube banner size (quick answer)
+
+YouTube asks for one image and then crops it intelligently per device. The recommended upload size is **2560×1440 px**. You design the full canvas, but only one centered strip is guaranteed to survive the crop:
+
+| Device | What YouTube displays | Dimensions shown |
+| --- | --- | --- |
+| Smart TV | The entire image | 2560 × 1440 px |
+| Desktop / laptop | A horizontal strip | Max 2560 × 423 px |
+| Mobile apps | A narrower strip | ~1546 × 423 px |
+
+So the workflow is simple: design at 2560×1440, but treat the middle **1546×423 px** rectangle as your "real" banner. That rectangle is the **safe area**, and it's the part every viewer sees no matter what they're watching on.
+
+## Why the recommended size is 2560×1440
+
+TVs are the awkward one. Desktop and mobile both crop your banner to a thin strip, but a TV app displays the whole thing, edge to edge. Since YouTube has to pick a single spec that works for the largest display, it optimized for TV: a 16:9 image at 2560×1440.
+
+That's also why you shouldn't "save time" by designing a 1546×423 strip and uploading just that. It technically works — it exceeds the absolute minimum — but TV viewers get a stretched, low-resolution mess, and YouTube will warn you on upload anyway. Design big, crop small.
+
+## The safe area: 1546×423, centered
+
+This is the number that actually matters for your design.
+
+Imagine your 2560×1440 canvas. Draw a centered rectangle that's 1546 wide and 423 tall. Everything you *need* people to see — channel name, logo, tagline, upload schedule, face — goes inside it. Everything outside it is decoration.
+
+A few things worth knowing about that safe zone:
+
+- It's **centered both ways**. Don't eyeball it; turn on guides in your design tool and snap the rectangle to the center.
+- Desktop shows a bit more than the safe area (up to 2560×423), but never count on that extra space for text — the exact crop varies with browser width.
+- Faces should sit near the center of the safe area, not at its edges, so the crop never nicks a chin.
+
+## Minimum size and file limits
+
+Three hard limits from YouTube Studio, unchanged as of 2026:
+
+- **Minimum upload size:** 2048×1152 px. Below that, Studio warns you; below roughly 989×200 px, it rejects the upload entirely.
+- **Maximum file size:** 6 MB.
+- **Accepted formats:** JPG, PNG, GIF, and BMP — but GIFs upload as a still frame. Banners don't animate, no matter what the file format promises.
+
+One practical tip on file size: if your PNG export sails past 6 MB (gradients and noise are the usual culprits), switch to JPG at quality 85–90. On a banner, which most people see at 423 pixels tall, the difference is invisible — and the file lands under the limit without another round of compression.
+
+## What happens when you upload the wrong size
+
+I've seen every version of this in creator communities, and the failure modes are predictable:
+
+- **Too small, upscaled.** A 1280×720 design stretched to fit reads as soft and slightly blurry, especially on 4K TVs where the banner fills a huge screen. This is the most common "why does my banner look blurry" complaint, and no amount of sharpening after the fact fixes it.
+- **Text at the edges.** Looks fine in the Studio editor preview if you're only watching the desktop thumbnail. Then a phone crops it and your channel name loses its last three letters.
+- **Designed at 1546×423 only.** Uploads fine, mobile looks great, and TV viewers see a blurry strip floating in space. The backwards problem: your mobile viewers are happy and your biggest screen is embarrassed.
+
+## How to make a banner that fits every screen
+
+Here's the process I use for client channels. It takes about 45 minutes the first time and 15 minutes once you have a template.
+
+### Step 1: Set your canvas to 2560×1440
+
+Create the artboard at exactly 2560×1440 px in Canva, Figma, or Photoshop. If you're using Canva, search "YouTube banner" — its default template is already 2560×1440 with the safe area marked.
+
+### Step 2: Design the full canvas, but keep edges simple
+
+TV viewers see all of it, so make the full canvas worth looking at — gradients, textures, landscape art. Just don't put anything *important* near the edges, because most of your audience won't see them.
+
+### Step 3: Keep text and logos inside the safe area
+
+Drop a 1546×423 rectangle in the center, lock it, and build your text layout inside it. Channel name on one side, face or logo on the other, tagline underneath. If it doesn't fit in the safe area, it doesn't fit — cut copy rather than shrinking text below ~28 px, which turns to mush on phones.
+
+### Step 4: Export under 6 MB
+
+Full-resolution JPG or PNG. No upscaling from smaller canvases, no screenshots of other banners — YouTube's compression punishes muddy sources.
+
+### Step 5: Upload and check every device
+
+In YouTube Studio: **Customization → Branding → Banner image**. The upload dialog shows TV, desktop, and mobile previews. Trust them for the crop check, then open your channel on an actual phone — real devices occasionally reveal a crop edge the preview rounds off.
+
+![Vertical 2026 YouTube banner size cheat sheet listing the 2560×1440 upload size, the 1546×423 safe area, the 2048×1152 minimum, and the 6 MB limit, saveable to Pinterest](/images/blog/youtube-banner-size-2026-pinterest.webp)
+
+*Save the cheat sheet above to your Pinterest design board — it has every number in one image.*
+
+## Three banner mistakes that survive every trend
+
+1. **Treating the banner like a poster.** A banner is a business card, not a billboard. Three elements max: name, one line of context, one visual anchor.
+2. **Low-contrast text.** White text on a light gradient reads fine on a bright monitor and vanishes on a dimmed phone screen. Check contrast at phone brightness, not studio brightness.
+3. **Last updated never.** A "2024 schedule" line still sitting in your banner in 2026 quietly signals an inactive channel. If you include dates, pick a phrasing that doesn't expire.
+
+## Free tools for the job
+
+You don't need paid software for this. A few free options that handle the 2560×1440 spec properly:
+
+- **[YouTube Banner & Logo Maker](/tools/youtube-banner-logo-maker)** — our free browser tool, built around the exact safe-area spec in this guide. No signup.
+- **[10 Free YouTube Banner Makers (2026)](/blog/youtube-banner-makers-2026)** — ranked roundup if you want options beyond our tool.
+- **[YouTube Branding Guide](/blog/youtube-channel-branding-guide)** — banner, logo, colors, and intro as one system, so your banner matches the rest of your channel.
+- **[YouTube Thumbnail Size Guide](/blog/youtube-thumbnail-size-2026)** — the companion spec for thumbnails (1280×720), since banners and thumbnails usually get designed in the same sitting.
+
+For the rest of the visual spec — sizes, formats, and design patterns — browse the [Thumbnails & Design hub](/blog/category/thumbnails-design), which collects every guide on this topic.
+
+## FAQ
+
+**Does the banner size change often?**
+No. The 2560×1440 recommendation and 1546×423 safe area have been stable for years. Check this page once a year; we keep it updated if YouTube ever moves the numbers.
+
+**Is the banner the same as channel art?**
+Yes — same thing, three names: banner, channel art, and channel header image. The spec in this guide covers all three.
+
+**Do I need to match my banner to my thumbnail style?**
+You don't have to, but matching colors or typography between banner and thumbnails makes the channel page feel intentional. It takes one extra minute if you reuse your thumbnail template's font and palette.
+
+**Can I see exactly what mobile users see?**
+Approximately, in the Studio upload preview. Exactly, by opening your channel in your phone's YouTube app. The safe-area guides are accurate, but I still do the phone check every time — it takes ten seconds.
+
+---
+
+The whole system comes down to one habit: design at 2560×1440, judge it inside 1546×423. Get that right and your banner looks sharp on the biggest TV and the smallest phone, from the very first upload.
 `,
   },
 ];

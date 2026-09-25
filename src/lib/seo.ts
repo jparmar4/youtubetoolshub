@@ -55,6 +55,8 @@ export function getOrganizationSchema() {
     ],
     // Social profiles for entity disambiguation
     sameAs: siteConfig.footerLinks.social.map((link) => link.href),
+    // Editorial policy page — E-E-A-T trust signal for search + AI engines
+    publishingPrinciples: `${siteConfig.url}/blog/why-youtube-tools-hub`,
     // Knowledge domain for E-E-A-T
     knowsAbout: [
       {
@@ -264,6 +266,7 @@ export function getArticleSchema(article: {
       "@id": article.url,
     },
     isAccessibleForFree: true,
+    publishingPrinciples: `${siteConfig.url}/blog/why-youtube-tools-hub`,
     keywords: article.keywords?.join(", "),
     image: [
       imageUrl,
@@ -346,9 +349,39 @@ export function getSoftwareApplicationSchema(tool: {
   };
 }
 
-// FAQ Schema
-export function getFAQSchema(faqs: { question: string; answer: string }[]) {
+// DefinedTermSet Schema — glossary definitions for AI answer engines
+export function getDefinedTermSetSchema(terms: {
+  name: string;
+  description: string;
+  url?: string;
+}[]) {
   return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": `${siteConfig.url}/resources/youtube-glossary#termset`,
+    name: "YouTube Creator Glossary",
+    description:
+      "Definitions of YouTube creator, monetization, and analytics terms, written as direct answers for quick reference.",
+    url: `${siteConfig.url}/resources/youtube-glossary`,
+    inLanguage: "en",
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    hasDefinedTerm: terms.map((term) => ({
+      "@type": "DefinedTerm",
+      name: term.name,
+      description: term.description,
+      inDefinedTermSet: { "@id": `${siteConfig.url}/resources/youtube-glossary#termset` },
+      ...(term.url ? { url: term.url } : {}),
+    })),
+  };
+}
+
+// FAQ Schema
+export function getFAQSchema(faqs: { question: string; answer: string }[]) {  return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((faq) => ({

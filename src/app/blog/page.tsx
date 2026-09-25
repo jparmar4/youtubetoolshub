@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getIndexableBlogPosts } from "@/config/blog";
+import { BLOG_CATEGORIES, getCategoryPostCounts } from "@/config/blog/categories";
 import { siteConfig } from "@/config/site";
 import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
@@ -71,6 +72,7 @@ export default function BlogPage() {
   // Cap initial HTML payload for Core Web Vitals — full archive still linked in sitemap/RSS
   const POSTS_ON_INDEX = 24;
   const blogPosts = getIndexableBlogPosts();
+  const categoryPostCounts = getCategoryPostCounts();
   const featuredPost = blogPosts[0];
   const otherPosts = blogPosts.slice(1, POSTS_ON_INDEX);
   const remainingCount = Math.max(0, blogPosts.length - POSTS_ON_INDEX);
@@ -158,6 +160,27 @@ export default function BlogPage() {
                 monetization, thumbnail strategy, and free AI tools — written for
                 creators who want clear steps, not fluff.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Browse by topic — canonical category hubs */}
+        <section aria-label="Browse topics by category" className="pb-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 text-center">
+              Browse by topic
+            </h2>
+            <div className="flex flex-wrap justify-center gap-2">
+              {BLOG_CATEGORIES.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/blog/category/${category.slug}`}
+                  className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-full text-sm font-semibold hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-colors shadow-sm"
+                >
+                  {category.name}
+                  <span className="text-slate-400 font-normal"> · {categoryPostCounts[category.slug] ?? 0}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
@@ -280,7 +303,11 @@ export default function BlogPage() {
             {remainingCount > 0 && (
               <p className="mt-12 text-center text-slate-400 text-sm">
                 Showing {POSTS_ON_INDEX} of {blogPosts.length} guides. Browse by
-                topic via internal links, the{" "}
+                topic on our{" "}
+                <Link href="/blog/category/channel-growth" className="text-purple-400 underline">
+                  category hubs
+                </Link>
+                , the{" "}
                 <Link href="/feed.xml" className="text-purple-400 underline">
                   RSS feed
                 </Link>
