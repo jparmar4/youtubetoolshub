@@ -9,37 +9,37 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-09-10",
-  "/tools": "2026-09-04",
-  "/tools/thumbnail-tools": "2026-09-04",
-  "/tools/seo-tools": "2026-09-04",
-  "/tools/analytics-tools": "2026-09-04",
-  "/tools/channel-tools": "2026-09-04",
-  "/tools/utility-tools": "2026-09-04",
-  "/about": "2026-09-04",
+  "": "2026-09-29",
+  "/tools": "2026-09-29",
+  "/tools/thumbnail-tools": "2026-09-29",
+  "/tools/seo-tools": "2026-09-29",
+  "/tools/analytics-tools": "2026-09-29",
+  "/tools/channel-tools": "2026-09-29",
+  "/tools/utility-tools": "2026-09-29",
+  "/about": "2026-09-29",
   "/contact": "2026-08-01",
-  "/blog": "2026-09-04",
-  "/blog/why-youtube-tools-hub": "2026-08-10",
-  "/faq": "2026-09-04",
-  "/resources/youtube-creator-statistics": "2026-09-04",
-  "/resources/youtube-cpm-rates": "2026-09-04",
-  "/resources/link-to-us": "2026-08-15",
-  "/pricing": "2026-09-04",
-  "/tools/vs/tubebuddy": "2026-09-04",
-  "/tools/vs/vidiq": "2026-09-04",
-  "/resources/youtube-algorithm-guide": "2026-09-04",
-  "/resources/youtube-monetization-guide": "2026-09-04",
-  "/resources/youtube-glossary": "2026-09-25",
+  "/blog": "2026-09-29",
+  "/blog/why-youtube-tools-hub": "2026-09-29",
+  "/faq": "2026-09-29",
+  "/resources/youtube-creator-statistics": "2026-09-29",
+  "/resources/youtube-cpm-rates": "2026-09-29",
+  "/resources/link-to-us": "2026-09-29",
+  "/pricing": "2026-09-29",
+  "/tools/vs/tubebuddy": "2026-09-29",
+  "/tools/vs/vidiq": "2026-09-29",
+  "/resources/youtube-algorithm-guide": "2026-09-29",
+  "/resources/youtube-monetization-guide": "2026-09-29",
+  "/resources/youtube-glossary": "2026-09-29",
   "/api-docs": "2026-08-01",
   "/privacy-policy": "2026-08-01",
   "/terms-of-use": "2026-08-01",
   "/disclaimer": "2026-08-01",
   "/refund-policy": "2026-08-01",
-  "/resources": "2026-09-24",
+  "/resources": "2026-09-29",
 };
 
-const FALLBACK_LAST_MODIFIED = new Date("2026-09-04T00:00:00.000Z");
-const TOOL_LAST_MODIFIED = new Date("2026-09-04T00:00:00.000Z");
+const FALLBACK_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");
+const TOOL_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");
 const DATA_LAST_MODIFIED = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`);
 
 function parseSafeDate(value: string | undefined, fallback: Date): Date {
@@ -91,7 +91,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const url = `${baseUrl}/tools/${tool.slug}`;
     allEntries.push({
       url,
-      lastModified: tool.slug === "youtube-earnings-calculator" ? TOOL_LAST_MODIFIED : new Date("2026-09-10T00:00:00.000Z"),
+      lastModified: TOOL_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
       images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],

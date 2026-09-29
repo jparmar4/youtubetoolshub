@@ -18,7 +18,7 @@ const resources = [
     href: "/resources/youtube-cpm-rates",
     title: "YouTube CPM Rates by Country & Niche",
     description:
-      "2026 CPM and RPM benchmarks for 50+ countries and high-paying niches so you can price sponsorships and forecast ad revenue.",
+      "2026 CPM and RPM benchmarks for 54 countries and high-paying niches so you can price sponsorships and forecast ad revenue.",
   },
   {
     href: "/resources/youtube-creator-statistics",
@@ -67,7 +67,7 @@ export default function ResourcesIndexPage() {
           "YouTube creator resources",
           "Free long-form guides covering CPM benchmarks, the recommendation algorithm, monetization levers, and channel statistics.",
           [
-            "CPM rates for 50+ countries",
+            "CPM rates for 54 countries",
             "Algorithm and packaging explainers",
             "Monetization and brand-deal playbooks",
             "Embeddable badges and widgets",
@@ -109,6 +109,48 @@ export default function ResourcesIndexPage() {
             </li>
           ))}
         </ul>
+        <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
+          <h2 className="text-lg font-bold text-slate-900 mb-2">
+            Global earnings calculators — 54 markets
+          </h2>
+          <p className="text-slate-600 text-sm mb-4">
+            Localized CPM/RPM calculators for the US, UK, Canada, Australia, India,
+            Germany, Brazil, Mexico, South Africa, Nigeria, Singapore, UAE and 42 more.
+            Start global, then drill into your audience country.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/tools/youtube-earnings-calculator"
+              className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-bold hover:bg-emerald-700 transition-colors"
+            >
+              Global calculator hub
+            </Link>
+            <Link
+              href="/tools/youtube-earnings-calculator/usa"
+              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+            >
+              🇺🇸 United States
+            </Link>
+            <Link
+              href="/tools/youtube-earnings-calculator/india"
+              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+            >
+              🇮🇳 India
+            </Link>
+            <Link
+              href="/tools/youtube-earnings-calculator/uk"
+              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+            >
+              🇬🇧 UK
+            </Link>
+            <Link
+              href="/resources/youtube-cpm-rates"
+              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+            >
+              Full 54-country table
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -26,6 +26,7 @@ export default function GeoAeoHead({
   isTool,
   toolName,
   toolCategory,
+  geoTargets,
   disabled = false,
   pathname,
 }: GeoAeoHeadProps & { pathname: string }) {
@@ -103,6 +104,19 @@ export default function GeoAeoHead({
       name: author,
       ...(authorRole ? { jobTitle: authorRole } : {}),
     };
+  }
+
+  // GEO: country targeting for global traffic. Emits areaServed so search +
+  // AI engines associate this URL with a specific market (e.g. IN, BR).
+  if (geoTargets && geoTargets.length > 0) {
+    pageSchema.areaServed = geoTargets.map((code) => ({
+      "@type": "Country",
+      identifier: code,
+    }));
+    pageSchema.spatialCoverage = geoTargets.map((code) => ({
+      "@type": "Country",
+      identifier: code,
+    }));
   }
 
   // What the page is primarily about. `conciseAnswer` is the AEO citation

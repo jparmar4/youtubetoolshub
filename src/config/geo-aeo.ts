@@ -193,7 +193,13 @@ export const GEO_AEO_PRESETS = {
             "Designed for practical creator workflows",
         ],
     }),
-    countryPage: (countryName: string, currency: string, avgRPM: number) => ({
+    countryPage: (
+        countryName: string,
+        currency: string,
+        avgRPM: number,
+        countryCode?: string,
+        dateModified: string = DATA_LAST_REVIEWED,
+    ) => ({
         title: `YouTube Earnings Calculator ${countryName} (${currency})`,
         description: `Calculate YouTube earnings in ${countryName} with updated 2026 RPM rates. Average RPM for ${countryName} is approximately $${avgRPM}.`,
         entityType: "Service" as const,
@@ -205,5 +211,9 @@ export const GEO_AEO_PRESETS = {
             `Average RPM: $${avgRPM}`,
             "Niche-specific earning projections",
         ],
+        geoTargets: countryCode ? [countryCode] : [],
+        dateModified,
+        author: "YouTube Tools Hub Editorial Team",
+        authorRole: "Creator Tools & YouTube Growth Research",
     }),
 };

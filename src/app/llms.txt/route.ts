@@ -26,7 +26,10 @@ export async function GET() {
     )
     .join("\n");
 
-  const blogList = blogPosts
+  // Lean discovery file: top 30 newest guides only. Full 88-post index lives
+  // in llms-full.txt + sitemap.xml so AI crawlers don't truncate this file.
+  const topPosts = blogPosts.slice(0, 30);
+  const blogList = topPosts
     .map(
       (p) =>
         `- [${p.title}](${baseUrl}/blog/${p.slug}): ${p.excerpt.substring(0, 120)}...`,
@@ -172,9 +175,13 @@ ${BLOG_CATEGORIES.map((category) => {
 
 ${toolsList}
 
-## Blog Posts
+## Top Blog Posts (30 newest of ${blogPosts.length} — full index in llms-full.txt)
 
 ${blogList}
+
+Full article index with dates, authors, and summaries: ${baseUrl}/llms-full.txt
+Sitemap with all URLs + lastmod: ${baseUrl}/sitemap.xml
+AI structured data: ${baseUrl}/api/ai-context
 
 ## Key Pages
 

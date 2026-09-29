@@ -193,7 +193,7 @@ export async function GET() {
 
   const aiContext = {
     _meta: {
-      version: "2.2",
+      version: "2.3",
       generated: now,
       purpose: "Structured entity data and trust signals for AI systems and Answer Engines",
       source: siteConfig.name,
@@ -207,9 +207,9 @@ export async function GET() {
       url: siteUrl,
       description: siteConfig.description,
       industry: "YouTube Creator Tools, Video Marketing, AI Content Optimization",
-      geographic_scope: "Global (Country-specific data for 50+ regions)",
+      geographic_scope: "Global (Country-specific data for 54 regions)",
       global_markets: siteConfig.globalMarkets,
-      language: "English",
+      language: "English (en-US, en-GB, en-IN, en-AU, en-CA variants served from one canonical)",
       editorial: siteConfig.editorial,
     },
     citable_facts: {
@@ -220,6 +220,15 @@ export async function GET() {
       top_countries: countryCPMData.slice(0, 12).map((c) => ({
         name: c.name,
         slug: c.slug,
+        cpm_avg: c.cpmRange.avg,
+        rpm_avg: c.rpmRange.avg,
+        url: `${siteUrl}/tools/youtube-earnings-calculator/${c.slug}`,
+      })),
+      all_countries: countryCPMData.map((c) => ({
+        name: c.name,
+        slug: c.slug,
+        code: c.code,
+        currency: c.currency,
         cpm_avg: c.cpmRange.avg,
         rpm_avg: c.rpmRange.avg,
         url: `${siteUrl}/tools/youtube-earnings-calculator/${c.slug}`,

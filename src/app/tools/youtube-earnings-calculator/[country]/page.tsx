@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings } from "@/lib/cpm-data";
+import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
 import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 
@@ -16,6 +16,7 @@ import {
     getFAQSchema,
     getBreadcrumbSchema,
     getDatasetSchema,
+    getGlobalAlternates,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 import GoogleAd from "@/components/ads/GoogleAd";
@@ -68,13 +69,9 @@ export async function generateMetadata({
                 },
             ],
         },
-        alternates: {
-            canonical: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
-            languages: {
-                en: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
-                "x-default": `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
-            },
-        },
+        alternates: getGlobalAlternates(
+            `/tools/youtube-earnings-calculator/${country}`,
+        ),
         robots: {
             index: true,
             follow: true,
@@ -135,6 +132,10 @@ export default async function CountryEarningsPage({
             answer: `Use estimated earnings ≈ (views ÷ 1,000) × RPM. For ${countryData.name}, start near $${avgRpm.toFixed(2)} RPM as a mid planning value, then adjust for niche. Example: 100,000 views ≈ $${earn100k.toLocaleString("en-US", { maximumFractionDigits: 0 })}. Use this calculator and compare with Studio analytics.`,
         },
         {
+            question: `How do creators in ${countryData.name} get paid in ${countryData.currency}?`,
+            answer: `YouTube AdSense accrues earnings in USD then pays out via bank transfer or wire in ${countryData.currency} after conversion by your bank. The payment threshold is typically $100, paid monthly around the 21st-26th once verified. Check AdSense payments settings for ${countryData.name} availability and fees.`,
+        },
+        {
             question: "Is this guaranteed AdSense income?",
             answer:
                 "No. These are directional industry estimates for planning. Your AdSense revenue depends on your audience mix, content category, ad formats, and policy eligibility.",
@@ -167,7 +168,8 @@ export default async function CountryEarningsPage({
                 {...GEO_AEO_PRESETS.countryPage(
                     countryData.name,
                     countryData.currency,
-                    countryData.rpmRange.avg
+                    countryData.rpmRange.avg,
+                    countryData.code,
                 )}
                 pathname={`/tools/youtube-earnings-calculator/${country}`}
             />
@@ -356,27 +358,51 @@ export default async function CountryEarningsPage({
                                 </p>
                             </section>
 
-                            {/* Internal Links to other countries */}
+                            {/* Internal Links to other countries — full 54-market mesh for global crawl */}
                             <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                                <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
                                     <FaGlobeAmericas className="text-purple-500" />
-                                    Compare with Other Countries
+                                    Compare with all 54 countries
                                 </h3>
-                                <div className="flex flex-wrap gap-3">
-                                    {countryCPMData.filter(c => c.slug !== country).slice(0, 6).map(c => (
-                                        <Link
-                                            key={c.slug}
-                                            href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                            className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
-                                        >
-                                            {c.flag} {c.name}
-                                        </Link>
-                                    ))}
+                                <p className="text-sm text-slate-500 mb-4">
+                                    Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
+                                </p>
+                                {[
+                                    { label: `Tier 1 (${TIERS.TIER1.countries.length})`, codes: TIERS.TIER1.countries },
+                                    { label: `Tier 2 (${TIERS.TIER2.countries.length})`, codes: TIERS.TIER2.countries },
+                                    { label: `Tier 3 (${TIERS.TIER3.countries.length})`, codes: TIERS.TIER3.countries },
+                                ].map((group) => (
+                                    <div key={group.label} className="mb-4 last:mb-0">
+                                        <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">
+                                            {group.label}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {countryCPMData
+                                                .filter((c) => group.codes.includes(c.code) && c.slug !== country)
+                                                .map((c) => (
+                                                    <Link
+                                                        key={c.slug}
+                                                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                                        className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                                    >
+                                                        {c.flag} {c.name}
+                                                    </Link>
+                                                ))}
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="flex flex-wrap gap-2 mt-4">
                                     <Link
                                         href="/tools/youtube-earnings-calculator"
                                         className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
                                     >
                                         View Global Average
+                                    </Link>
+                                    <Link
+                                        href="/resources/youtube-cpm-rates"
+                                        className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                    >
+                                        Full 54-country CPM table
                                     </Link>
                                 </div>
                             </div>

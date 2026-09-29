@@ -239,6 +239,14 @@ export default async function RootLayout({
         {/* Pinterest Business Verification */}
         <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />
 
+        {/* Global English targeting: one canonical URL serves all English variants.
+            Prevents thin /en-GB, /en-IN duplicates while signaling US/UK/IN/AU/CA relevance. */}
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale:alternate" content="en_GB" />
+        <meta property="og:locale:alternate" content="en_IN" />
+        <meta property="og:locale:alternate" content="en_AU" />
+        <meta property="og:locale:alternate" content="en_CA" />
+
         {/* PWA & Mobile SEO Meta Tags */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />

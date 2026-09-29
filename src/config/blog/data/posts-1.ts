@@ -3718,6 +3718,46 @@ If you are ready to plan your next video concept and see if the topic has high C
   },
   {
     slug: "obs-studio-youtube-setup",
+    howTo: {
+      name: "How to Set Up OBS Studio for YouTube Recording",
+      description:
+        "Set up OBS Studio for clean YouTube recordings: download safely, create core scenes, set 1080p canvas, use MKV + hardware encoding, set bitrate, fix audio levels, frame the camera, and run a pre-recording checklist.",
+      totalTime: "PT20M",
+      steps: [
+        {
+          name: "Download OBS Studio from the official site",
+          text: "Download OBS Studio from obsproject.com, install it, and run the Auto-Configuration Wizard as a first pass before manually verifying the settings below.",
+        },
+        {
+          name: "Create core scenes and sources",
+          text: "Create 4 scenes: Main Camera, Screen Share, Camera + Screen, and Intro. Add Video Capture Device, Window Capture for tutorials, Audio Input Capture, and Text sources.",
+        },
+        {
+          name: "Set canvas to 1920x1080 and frame rate",
+          text: "In Settings > Video set Base and Output to 1920x1080 with Lanczos filter. Use 30 FPS for talking-head and tutorials, 60 FPS for gaming and motion-heavy video.",
+        },
+        {
+          name: "Use MKV and hardware encoding for recording",
+          text: "In Settings > Output Advanced mode, record to MKV with hardware encoder when available otherwise x264, CQP 16-22, keyframe 2s, then remux to MP4 via File > Remux Recordings.",
+        },
+        {
+          name: "Set recording bitrate for YouTube compression",
+          text: "Use 10-15 Mbps for 1080p30 and 12-20 Mbps for 1080p60 so the file survives YouTube recompression. For livestreams stay inside upload headroom.",
+        },
+        {
+          name: "Fix audio levels and filters",
+          text: "Peak the mic at -12 dB to -6 dB, add Noise Suppression, Noise Gate, Compressor and Limiter, then record a 30-second headphone test.",
+        },
+        {
+          name: "Frame the camera and lighting",
+          text: "Add camera as Video Capture Device, set resolution and FPS manually, lock exposure and white balance, and place key light in front, not behind.",
+        },
+        {
+          name: "Run the pre-recording checklist",
+          text: "Confirm mic, levels, scene, framing, recording path space, notifications off, 10-second test clip, and that the video topic and title angle are chosen.",
+        },
+      ],
+    },
     title: "OBS Studio Complete Setup Guide for YouTube",
     excerpt:
       "A practical OBS Studio YouTube setup guide for creators who want clean video, crisp audio, stable recording, and livestream settings that work without turning the first upload into a technical headache.",

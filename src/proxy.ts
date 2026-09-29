@@ -121,6 +121,9 @@ export default async function middleware(request: NextRequest) {
 
   // 0.1 Redirect locale-prefixed URLs to a single canonical URL
   // This prevents duplicate indexing like /en/blog/... and /blog/... (cannibalization)
+  // Global strategy (2026-09-29): single English canonical + hreflang en-US/GB/IN/AU/CA
+  // + 54 country calculator pages. Only remove a locale from this list when a fully
+  // translated page tree exists for it — otherwise it creates thin duplicates.
   const legacyLocales = ["en", "es", "hi", "pt"];
   for (const locale of legacyLocales) {
     if (pathname === `/${locale}` || pathname === `/${locale}/`) {

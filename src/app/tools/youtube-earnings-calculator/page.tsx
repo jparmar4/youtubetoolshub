@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { getToolBySlug, tools } from "@/config/tools";
-import { countryCPMData, nicheCPMData } from "@/lib/cpm-data";
+import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
 import {
   getSoftwareApplicationSchema,
   getFAQSchema,
@@ -39,7 +39,7 @@ const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
 export const metadata: Metadata = {
   title: "YouTube Earnings Calculator — Pay per 1,000 Views (Free)",
   description:
-    "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 50+). See 100k and 1M view scenarios. Free, no signup.",
+    "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 54 markets). See 100k and 1M view scenarios. Free, no signup.",
   keywords: [
     "youtube earnings calculator",
     "youtube money calculator",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "YouTube Earnings Calculator 2026 | Free RPM & CPM Estimator",
     description:
-      "Estimate monthly and yearly YouTube AdSense revenue from views and RPM. Country CPM data for 50+ markets. Free, no signup.",
+      "Estimate monthly and yearly YouTube AdSense revenue from views and RPM. Country CPM data for 54 markets. Free, no signup.",
     type: "website",
     url: pageUrl,
     // Dynamic image: /tools/youtube-earnings-calculator/opengraph-image
@@ -144,7 +144,9 @@ function money(n: number) {
 }
 
 export default function YouTubeEarningsCalculatorPage() {
-  const topCountries = countryCPMData.slice(0, 12);
+  const tier1 = countryCPMData.filter((c) => TIERS.TIER1.countries.includes(c.code));
+  const tier2 = countryCPMData.filter((c) => TIERS.TIER2.countries.includes(c.code));
+  const tier3 = countryCPMData.filter((c) => TIERS.TIER3.countries.includes(c.code));
   const relatedTools = getRelatedToolsForPost(
     {
       title: "YouTube Earnings Calculator",
@@ -162,7 +164,7 @@ export default function YouTubeEarningsCalculatorPage() {
     url: pageUrl,
     category: "analytics-earnings",
     datePublished: "2025-01-01",
-    dateModified: "2026-07-15",
+    dateModified: "2026-09-29",
   });
 
   const faqSchema = getFAQSchema(pillarFAQs);
@@ -193,7 +195,7 @@ export default function YouTubeEarningsCalculatorPage() {
   ]);
   const datasetSchema = {
     ...getDatasetSchema(),
-    dateModified: "2026-07-15",
+    dateModified: "2026-09-29",
   };
 
   return (
@@ -208,10 +210,10 @@ export default function YouTubeEarningsCalculatorPage() {
         keyFacts={[
           "Formula: earnings ≈ (views / 1000) × RPM",
           "US RPM often $4–$15; global average often $2–$4",
-          "50+ country CPM/RPM reference pages",
+          "54 country CPM/RPM reference pages",
           "Free AdSense estimator — no signup",
         ]}
-        dateModified="2026-09-05"
+        dateModified="2026-09-29"
         pathname="/tools/youtube-earnings-calculator"
       />
 
@@ -397,35 +399,47 @@ export default function YouTubeEarningsCalculatorPage() {
                 <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
               </div>
 
-              {/* Countries */}
+              {/* Countries — full 54-market index grouped by tier for global crawl + UX */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                   <FaGlobeAmericas className="text-blue-600" />
-                  Calculate earnings by country
+                  Calculate earnings by country (54 markets)
                 </h2>
                 <p className="text-slate-600 mb-6">
                   Open a localized calculator for CPM/RPM context in that market.
+                  Tier 1 = premium ad spend, Tier 2 = solid rates, Tier 3 = high volume emerging markets.
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {topCountries.map((c) => (
-                    <Link
-                      key={c.slug}
-                      href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm font-medium text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-colors"
-                    >
-                      <span>{c.flag}</span>
-                      {c.name}
-                      <span className="text-xs text-slate-500">
-                        ~${c.rpmRange.avg.toFixed(1)} RPM
-                      </span>
-                    </Link>
-                  ))}
-                </div>
+                {[
+                  { label: "Tier 1 — Premium markets", countries: tier1 },
+                  { label: "Tier 2 — Strong markets", countries: tier2 },
+                  { label: "Tier 3 — Emerging markets", countries: tier3 },
+                ].map((group) => (
+                  <div key={group.label} className="mb-5 last:mb-0">
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-slate-500 mb-3">
+                      {group.label} ({group.countries.length})
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {group.countries.map((c) => (
+                        <Link
+                          key={c.slug}
+                          href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm font-medium text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-colors"
+                        >
+                          <span>{c.flag}</span>
+                          {c.name}
+                          <span className="text-xs text-slate-500">
+                            ~${c.rpmRange.avg.toFixed(1)} RPM
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
                 <Link
                   href="/resources/youtube-cpm-rates"
                   className="inline-flex items-center gap-2 mt-6 text-purple-600 font-bold hover:underline"
                 >
-                  View all 50+ country CPM rates
+                  View all 54 country CPM rates
                   <FaArrowRight className="w-3 h-3" />
                 </Link>
               </section>

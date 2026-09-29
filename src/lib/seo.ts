@@ -678,8 +678,11 @@ export function absoluteUrl(path: string): string {
 }
 
 /**
- * Per-page canonical + self-referencing hreflang.
- * Never point language alternates at the homepage from inner URLs.
+ * Per-page canonical + self-referencing hreflang for global English traffic.
+ * Single-language site: all English variants point to the same canonical URL.
+ * This signals to Google that one URL serves US/UK/IN/AU/CA English queries
+ * without creating thin duplicate locale URLs. Never point alternates at
+ * the homepage from inner URLs.
  */
 export function getGlobalAlternates(path: string) {
   const url = absoluteUrl(path);
@@ -687,6 +690,11 @@ export function getGlobalAlternates(path: string) {
     canonical: url,
     languages: {
       en: url,
+      "en-US": url,
+      "en-GB": url,
+      "en-IN": url,
+      "en-AU": url,
+      "en-CA": url,
       "x-default": url,
     },
   };

@@ -2120,6 +2120,38 @@ Buy the machine that removes the friction from your creative process. Start edit
   },
   {
     slug: "opus-clip-tutorial",
+    howTo: {
+      name: "How to Turn Long Videos into Shorts with Opus Clip",
+      description:
+        "Repurpose long-form video into viral Shorts: pick a high-value source, ingest it into Opus Clip, configure AI preferences, pick high virality-score clips, fine-tune captions and framing, then export for Shorts TikTok and Reels.",
+      totalTime: "PT15M",
+      steps: [
+        {
+          name: "Select a high-value source video",
+          text: "Choose a long video with clear hooks, good audio, and distinct sub-topics in finance tech or business for higher Tier-1 RPM potential.",
+        },
+        {
+          name: "Ingest the video into Opus Clip",
+          text: "Create an Opus Clip account and paste the YouTube link or upload the file to start AI transcription and analysis.",
+        },
+        {
+          name: "Configure AI preferences",
+          text: "Set clip length to under 60 seconds, enable auto-captions and active speaker tracking, and choose virality-score sorting.",
+        },
+        {
+          name: "Pick clips by virality score",
+          text: "Review AI-generated clips and select those with the highest virality scores where hook context and payoff are intact.",
+        },
+        {
+          name: "Fine-tune captions and framing",
+          text: "Edit captions for accuracy, keep the speaker centered in 9 by 16, add B-roll pacing, and hook viewers in the first 3 seconds.",
+        },
+        {
+          name: "Export and publish to Shorts",
+          text: "Export vertical 1080x1920, write a searchable title with hashtags, and syndicate the same file to Shorts TikTok and Reels.",
+        },
+      ],
+    },
     title: "Opus Clip AI Tutorial: Turn Long Videos into Shorts",
     excerpt:
       "Master the art of AI video repurposing with our complete Opus Clip tutorial. Learn how to turn long videos into viral Shorts, maximize Tier 1 traffic, and skyrocket your AdSense RPM in 2026.",

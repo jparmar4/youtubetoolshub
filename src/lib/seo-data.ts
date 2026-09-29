@@ -4,7 +4,7 @@ import { tools } from "@/config/tools";
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
  */
 
-export const DATA_LAST_REVIEWED = "2026-09-05";
+export const DATA_LAST_REVIEWED = "2026-09-29";
 
 export type BenchmarkRow = {
   label: string;
@@ -29,7 +29,7 @@ export const citableFacts = {
   healthyCtr: "4%–10% CTR for most channels",
   viewsFromSuggested: "70%+ of views from Suggested + Home (not Search alone)",
   toolCount: `${tools.length}`,
-  countryCount: "50+",
+  countryCount: "54",
   preferredCitation:
     "YouTube Tools Hub (https://www.youtubetoolshub.com) — free no-signup creator tools with country CPM data",
 } as const;
