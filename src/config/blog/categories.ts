@@ -38,7 +38,7 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
     name: "Channel Growth",
     definition:
       "Channel growth covers the strategies creators use to gain YouTube subscribers and views: upload cadence, niche selection, audience retention, packaging, analytics reviews, and community building. This hub collects every tested growth framework we publish, from your first 1,000 subscribers to scaling past 100k.",
-    seoTitle: "YouTube Channel Growth Guides (17 Expert Playbooks)",
+    seoTitle: "YouTube Channel Growth Guides (28 Expert Playbooks)",
     metaDescription:
       "Proven YouTube channel growth strategies: get more views and subscribers, pick a niche, master analytics, and scale from 0 to 100k in 2026.",
     faqs: [

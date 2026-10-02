@@ -277,6 +277,20 @@ export const topicClusters: TopicCluster[] = [
         title: "SEO Tools Hub",
         anchors: ["youtube seo tools", "free youtube seo tools"],
       },
+      {
+        path: "/blog/youtube-playlist-description-2026",
+        title: "YouTube Playlist Description Template",
+        anchors: ["youtube playlist description", "playlist description template"],
+      },
+      {
+        path: "/blog/youtube-tag-extractor-2026",
+        title: "YouTube Tag Extractor Guide",
+        anchors: [
+          "youtube tag extractor guide",
+          "how to extract youtube tags",
+          "extract tags from youtube video",
+        ],
+      },
     ],
   },
   {
@@ -457,6 +471,21 @@ export const topicClusters: TopicCluster[] = [
         title: "Subscriber Count Checker",
         anchors: ["subscriber count checker", "check subscribers"],
       },
+      {
+        path: "/blog/youtube-end-screen-best-practices-2026",
+        title: "YouTube End Screen Best Practices",
+        anchors: ["youtube end screen best practices", "youtube end screens"],
+      },
+      {
+        path: "/blog/youtube-channel-audit-checklist-2026",
+        title: "YouTube Channel Audit Checklist",
+        anchors: ["youtube channel audit checklist", "channel audit checklist 2026"],
+      },
+      {
+        path: "/blog/youtube-live-stream-setup-2026",
+        title: "YouTube Live Stream Setup",
+        anchors: ["youtube live stream setup", "live stream setup youtube"],
+      },
     ],
   },
   {
@@ -582,6 +611,25 @@ export const topicClusters: TopicCluster[] = [
         title: "YouTube Studio Walkthrough",
         anchors: ["youtube studio guide", "youtube studio walkthrough"],
       },
+      {
+        path: "/blog/best-youtube-analytics-tools-2026",
+        title: "Best YouTube Analytics Tools 2026",
+        anchors: [
+          "best youtube analytics tools",
+          "youtube analytics tools 2026",
+          "youtube analytics tool comparison",
+        ],
+      },
+      {
+        path: "/blog/youtube-competitor-analysis-2026",
+        title: "YouTube Competitor Analysis",
+        anchors: ["youtube competitor analysis", "competitor analysis youtube"],
+      },
+      {
+        path: "/blog/youtube-audience-retention-2026",
+        title: "YouTube Audience Retention",
+        anchors: ["youtube audience retention", "audience retention graph"],
+      },
     ],
   },
   {
@@ -633,6 +681,29 @@ export const topicClusters: TopicCluster[] = [
         title: "Title Generator Tool",
         anchors: ["title generator tool", "generate youtube titles"],
       },
+      {
+        path: "/blog/youtube-content-calendar-template-2026",
+        title: "YouTube Content Calendar Template",
+        anchors: [
+          "youtube content calendar template",
+          "content calendar template youtube",
+          "youtube editorial calendar",
+        ],
+      },
+      {
+        path: "/blog/youtube-hook-examples-2026",
+        title: "YouTube Hook Examples",
+        anchors: ["youtube hook examples", "hook examples for youtube", "video hook examples"],
+      },
+      {
+        path: "/blog/youtube-content-repurposing-2026",
+        title: "Repurpose YouTube Content",
+        anchors: [
+          "youtube content repurposing",
+          "repurpose youtube content",
+          "repurpose youtube videos",
+        ],
+      },
     ],
   },
   /* ── High-CPC clusters (target $10-50 CPC keywords) ─────────────── */
@@ -663,6 +734,11 @@ export const topicClusters: TopicCluster[] = [
         path: "/resources/youtube-monetization-guide",
         title: "YouTube Monetization Guide",
         anchors: ["youtube monetization", "monetize youtube"],
+      },
+      {
+        path: "/blog/hire-youtube-video-editor-2026",
+        title: "How to Hire a YouTube Video Editor",
+        anchors: ["hire youtube video editor", "youtube video editor for hire"],
       },
     ],
   },
