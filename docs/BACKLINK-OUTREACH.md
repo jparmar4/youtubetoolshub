@@ -17,6 +17,8 @@
 | Thumbnail downloader | `/tools/youtube-thumbnail-downloader` | Practical free tool next to size guide |
 | **YouTube title generator guide** | `/blog/youtube-title-generator-clickable-titles-free` | Free tool workflow + citation block |
 | Free title generator tool | `/tools/youtube-title-generator` | No-signup title ideas tool |
+| **YouTube channel names (200+ ideas)** | `/blog/youtube-channel-name-ideas-2026` | 210 brainstorm starters in 21 niches, official handle guidance, and a Pinterest-ready visual |
+| Free channel name generator | `/tools/youtube-channel-name-generator` | Interactive companion for creators shortlisting a channel brand |
 
 **Outreach tracker (spreadsheet):**  
 `outputs/youtubetoolshub_backlink_outreach_tracker.xlsx`  
@@ -141,6 +143,39 @@ YouTube Tools Hub
 (1000×1500 style pin — link pin to the blog URL above)
 
 ---
+
+## Template CN — YouTube channel naming guide
+
+**Subject:** A practical channel-naming resource for your YouTube creator guide
+
+```
+Hi [Name],
+
+I read your guide “[Article Title]” about starting or branding a YouTube channel. We updated a free naming resource with 210 original brainstorming prompts across 21 niches, a short handle and brand-safety checklist, and links to YouTube’s current profile and handle guidance:
+
+https://www.youtubetoolshub.com/blog/youtube-channel-name-ideas-2026
+
+There is also a free channel name generator for readers who want to make their own shortlist:
+https://www.youtubetoolshub.com/tools/youtube-channel-name-generator
+
+If the resource fits your article, you are welcome to cite it. The names are prompts rather than availability-cleared brands, and the guide says so clearly.
+
+Thanks,
+[Your Name]
+YouTube Tools Hub
+```
+
+**Good-fit prospects:** creator education sites, YouTube-startup tutorials, branding/design newsletters, naming and small-business blogs, and course resource pages. Personalize each note to the page and only contact editors where the resource would help their readers. Do not offer a reciprocal link or paid placement.
+
+**Initial prospect shortlist (verify the page is still current before pitching):**
+
+| Page | Why it may fit | Suggested angle |
+|------|----------------|-----------------|
+| [WildandFree Tools: How to Come Up With a YouTube Channel Name](https://wildandfreetools.com/blog/how-to-come-up-with-a-youtube-channel-name/) | A naming framework that recommends generating a broad shortlist before filtering. | Offer the 210 niche-organized prompts as an optional example library, not as a replacement for their framework. |
+| [NapoleonCat: YouTube Channel Names](https://napoleoncat.com/blog/youtube-channel-names/) | A creator education article with name ideas and practical naming advice. | Suggest the updated niche-by-niche list if it fills a gap for readers looking for more examples. |
+| [1of10: YouTube Name Ideas](https://1of10.com/blog/youtube-channel-name-ideas/) | A recent naming guide with categorized examples and selection advice. | Pitch only if its editor wants an additional, distinctly organized set of brainstorm prompts. |
+
+These are uncontacted prospects, not acquired links or endorsements. Check current editorial/contact policies and personalize the pitch; do not mass-submit or imply an existing relationship.
 
 ## Template A — Resource page link request (highest ROI)
 

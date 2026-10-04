@@ -20,7 +20,11 @@ export async function GET() {
       <image:loc>${baseUrl}${post.coverImage}</image:loc>
       <image:title>${post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
     </image:image>
-  </url>`);
+${post.pinterestImage ? `    <image:image>
+      <image:loc>${baseUrl}${post.pinterestImage}</image:loc>
+      <image:title>${`${post.title} Pinterest guide`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
+    </image:image>
+` : ""}  </url>`);
         }
     }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import GoogleAd from "./GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
 import { FaTimes } from "react-icons/fa";
@@ -44,9 +44,21 @@ function subscribe(callback: () => void) {
 
 export default function StickyBottomAd() {
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [isReady, setIsReady] = useState(false);
+
+  // An anchor ad must never compete with a page's first useful render. Waiting
+  // until the reader has had time to see the content improves mobile UX and
+  // avoids a large fixed element distorting the initial viewport for Discover
+  // and search visitors. Consent/dismissal still takes precedence.
+  useEffect(() => {
+    if (!visible) return;
+
+    const timer = window.setTimeout(() => setIsReady(true), 5000);
+    return () => window.clearTimeout(timer);
+  }, [visible]);
 
   useEffect(() => {
-    if (!visible) {
+    if (!visible || !isReady) {
       document.body.style.removeProperty("padding-bottom");
       return;
     }
@@ -54,7 +66,7 @@ export default function StickyBottomAd() {
     return () => {
       document.body.style.removeProperty("padding-bottom");
     };
-  }, [visible]);
+  }, [visible, isReady]);
 
   const handleDismiss = () => {
     try {
@@ -65,7 +77,7 @@ export default function StickyBottomAd() {
     }
   };
 
-  if (!visible) return null;
+  if (!visible || !isReady) return null;
 
   return (
     <div

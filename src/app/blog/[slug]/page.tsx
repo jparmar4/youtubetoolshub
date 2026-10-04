@@ -459,6 +459,22 @@ export default async function BlogPostPage({
                                     })}
                                 </div>
 
+                                {post.pinterestImage && (
+                                    <figure className="max-w-sm mx-auto my-10 rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
+                                        <NextImage
+                                            src={post.pinterestImage}
+                                            alt={post.pinterestImageAlt || post.title}
+                                            width={getCoverDimensions(post.pinterestImage)?.width ?? 1024}
+                                            height={getCoverDimensions(post.pinterestImage)?.height ?? 1536}
+                                            sizes="(min-width: 1024px) 384px, 80vw"
+                                            className="w-full h-auto"
+                                        />
+                                        <figcaption className="px-4 py-3 text-sm text-slate-600">
+                                            Save this portrait guide to Pinterest while you shortlist names.
+                                        </figcaption>
+                                    </figure>
+                                )}
+
                                 {/* Topic-cluster internal links (plain text, no new component) */}
                                 {clusterSiblings.length > 0 && (
                                     <p className="mt-10 text-slate-600 leading-relaxed">
@@ -556,6 +572,7 @@ export default async function BlogPostPage({
                                         url={`${siteConfig.url}/blog/${post.slug}`}
                                         title={post.title}
                                         description={post.metaDescription}
+                                        pinterestImage={post.pinterestImage ? `${siteConfig.url}${post.pinterestImage}` : undefined}
                                     />
                                 </div>
                             </article>

@@ -1,15 +1,16 @@
 "use client";
 
-import { FaTwitter, FaFacebook, FaLinkedin, FaLink, FaCheck, FaWhatsapp, FaRedditAlien } from "react-icons/fa";
+import { FaTwitter, FaFacebook, FaLinkedin, FaLink, FaCheck, FaWhatsapp, FaRedditAlien, FaPinterest } from "react-icons/fa";
 import { useState } from "react";
 
 interface ShareButtonsProps {
     url: string;
     title: string;
     description?: string;
+    pinterestImage?: string;
 }
 
-export default function ShareButtons({ url, title, description }: ShareButtonsProps) {
+export default function ShareButtons({ url, title, description, pinterestImage }: ShareButtonsProps) {
     const [copied, setCopied] = useState(false);
 
     const encodedUrl = encodeURIComponent(url);
@@ -52,6 +53,15 @@ export default function ShareButtons({ url, title, description }: ShareButtonsPr
             color: "hover:bg-blue-700",
             bg: "bg-blue-50 text-blue-700",
         },
+        ...(pinterestImage
+            ? [{
+                name: "Pinterest",
+                icon: FaPinterest,
+                href: `https://www.pinterest.com/pin/create/button/?url=${encodedUrl}&media=${encodeURIComponent(pinterestImage)}&description=${encodedTitle}%20${encodedDescription}`,
+                color: "hover:bg-red-600",
+                bg: "bg-red-50 text-red-600",
+            }]
+            : []),
     ];
 
     const handleShare = async () => {

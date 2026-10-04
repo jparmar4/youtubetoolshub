@@ -2294,16 +2294,16 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
   },
   {
     slug: "youtube-channel-name-ideas-2026",
-    title: "YouTube Channel Name Ideas 2026: Practical Framework by Niche",
-    seoTitle: "250+ YouTube Channel Name Ideas (Catchy & Creative • 2026)",
-    excerpt: "YouTube channel name ideas for 2026: naming formulas, 90+ niche examples, a 60-second checklist, and a free AI generator — without trademark guessing.",
+    title: "YouTube Channel Names: 200+ Ideas for Every Niche",
+    seoTitle: "200+ YouTube Channel Names by Niche (2026)",
+    excerpt: "Browse 210 original YouTube channel name ideas across 21 niches, then use a practical checklist to check your handle, audience fit, and brand safety.",
     date: "August 15, 2026",
-    updatedAt: "October 1, 2026",
+    updatedAt: "October 4, 2026",
     category: "Channel Growth",
     author: "Alex Rivera",
     authorRole: "YouTube Creator Strategist",
-    readTime: "12 min read",
-    metaDescription: "YouTube channel name ideas 2026: 90+ examples by niche, 3 naming formulas, availability checklist, and a free channel name generator. No signup.",
+    readTime: "15 min read",
+    metaDescription: "Find 210 YouTube channel names across 21 niches, plus naming formulas and a checklist for handles, clarity, and avoiding brand confusion.",
     keywords: [
       "youtube channel name ideas",
       "youtube channel names",
@@ -2314,8 +2314,10 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
       "gaming youtube channel names",
       "how to name a youtube channel"
     ],
-    coverImage: "/images/blog/youtube-channel-branding-guide-hero.webp",
-    imageAlt: "Brainstorm board of YouTube channel name ideas with niche categories",
+    coverImage: "/images/blog/youtube-channel-names-2026-cover.webp",
+    imageAlt: "A creator writing possible YouTube channel names at a bright home desk with ideas grouped on a whiteboard",
+    pinterestImage: "/images/blog/youtube-channel-names-2026-pinterest.webp",
+    pinterestImageAlt: "Portrait overhead photo of a creator's channel naming brainstorm with notebook, blank idea cards, camera, and coffee",
 
     faq: [
       {
@@ -2356,15 +2358,15 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
       {
         question: "How do I check if a YouTube handle is available?",
         answer:
-          "Open youtube.com/@yourhandle in a private browser window — a 404 page means the handle is free. Also search your exact name on YouTube and Google, and check Instagram, TikTok, and X manually. Do this the day you decide, because released handles can be claimed by anyone at any time.",
+          "Check the preferred handle in YouTube Studio → Customization → Profile or at youtube.com/handle. Handles are unique and distinct from channel names; availability can change, so confirm before announcing the brand. Then search the exact name on YouTube and the web, and check other social platforms manually.",
       },
     ],
     content: `::: QUICK-ANSWER
-A strong YouTube name is **short, speakable, spellable, available, and flexible**. Use **Name + Niche**, **Niche + Proof**, or a **Metaphor Brand**, generate 20 options, then filter with the checklist. Draft faster with the free [Channel Name Generator](/tools/youtube-channel-name-generator). These lists are inspiration — check trademarks and handles before you print anything.
+A strong YouTube channel name is easy to say, spell, remember, and use as a handle. Below are **210 name ideas across 21 niches**. Treat them as starting points: search YouTube and the web, check the handle, and research trademarks before you commit. Generate more options with the free [Channel Name Generator](/tools/youtube-channel-name-generator).
 :::
 
 ::: KEY-TAKEAWAYS
-- People search “channel name ideas” for **lists**. Use a formula first, then pick from the niche tables below.
+- Browse the **210 ideas below**, then shortlist names that fit your audience and the videos you can consistently make.
 - Under **3 words**, easy to say out loud, no random numbers.
 - A light niche hint helps; keyword stuffing ages badly.
 - Claim YouTube + Instagram/TikTok/X the same day you decide.
@@ -2372,6 +2374,8 @@ A strong YouTube name is **short, speakable, spellable, available, and flexible*
 :::
 
 Your name shows up in search suggestions, spoken word-of-mouth, end screens, email, and brand deals. A joke only you understand becomes a growth tax. Aim for **clarity + personality**.
+
+The examples are original brainstorming prompts, but availability can change and we have not cleared them as trademarks or handles. Search your finalists before building a logo or ordering merchandise.
 
 ## Three formulas that still work
 
@@ -2427,68 +2431,74 @@ Do this in one sitting. A structured hour beats a week of staring at a blank pag
 
 Machines generate volume; you supply taste. Get raw options from the [Channel Name Generator](/tools/youtube-channel-name-generator), then apply steps 5–7 by hand.
 
-## 90+ YouTube channel name ideas by niche
+## 210 YouTube channel names by niche
 
-Remix these. Do **not** copy a name that already ranks or is trademarked.
+Use these as brainstorm starters, not cleared brand names. Search the exact phrase, check YouTube and social handles, and make sure your choice does not suggest an affiliation that does not exist.
 
 ### Personal finance
-Ledger Lane · Paycheck Pilot · Calm Compounding · First Dollar Desk · After-Tax Notes · Split the Bill Lab · Starter Portfolio · Quiet Wealth Brief
+Ledger Lane · Paycheck Pilot · Calm Compounding · First Dollar Desk · After-Tax Notes · Split the Bill Lab · Starter Portfolio · Quiet Wealth Brief · The Savings Edit · Everyday Investor Notes
 
-### Tech / how-to
-Circuit Desk · Fix-It Frame · Shortcut Studio · Setup Saturday · Cable Tidy Lab · Budget Build Bench · Click Path Guides · Home Lab Notes
+### Tech and how-to
+Circuit Desk · Fix-It Frame · Shortcut Studio · Setup Saturday · Cable Tidy Lab · Budget Build Bench · Click Path Guides · Home Lab Notes · Practical Pixel · Tech in Plain Sight
 
 ### Gaming
-Loadout Lab · Respawn Notes · Quiet Aim · Patch Day Desk · Side Quest Brief · Rank Reset · Co-op Clipboard · Fog of War Daily
+Loadout Lab · Respawn Notes · Quiet Aim · Patch Day Desk · Side Quest Brief · Rank Reset · Co-op Clipboard · Fog of War Daily · Save Point Stories · The Last Checkpoint
 
-### Faceless / explainers
-Atlas Briefing · Daily Datum · Map and Myth · Plain Fact Desk · Context Brief · Still Frame Stories · Archive Hour · Soft Spotlight
+### Faceless explainers
+Atlas Briefing · Daily Datum · Map and Myth · Plain Fact Desk · Context Brief · Still Frame Stories · Archive Hour · Soft Spotlight · The Curious Index · Signal and Story
 
-### Fitness / health habits
-Form First Lab · Home Rep Club · Desk Mobility Co · Slow Strength · Kitchen Plate Lab · Walk Club Daily · Sleep Reset Notes
+### Fitness and health habits
+Form First Lab · Home Rep Club · Desk Mobility Co · Slow Strength · Kitchen Plate Lab · Walk Club Daily · Sleep Reset Notes · Move at Home · The Steady Set · Better Habit Studio
 
-### Education / study
-Explainery · Whiteboard North · Office Hours Daily · Exam Window · Rubric Room · Slow Lesson Lab · Margin Notes TV
+### Education and study
+Explainery · Whiteboard North · Office Hours Daily · Exam Window · Rubric Room · Slow Lesson Lab · Margin Notes TV · The Study Map · Clear Concept Club · One More Example
 
-### Food / cooking
-Pixel Pantry · Weeknight Skillet · One-Pan Desk · Grocery Math · Leftover Lab · Salt and Timer · Small Kitchen Brief
+### Food and cooking
+Pixel Pantry · Weeknight Skillet · One-Pan Desk · Grocery Math · Leftover Lab · Salt and Timer · Small Kitchen Brief · The Quiet Kitchen · Good Plate Journal · Pantry to Table
 
-### Beauty / fashion
-Mirror Notes · Palette Desk · Fit Check Lab · Soft Glam Brief · Closet Edit Daily · Shade Match Studio
+### Beauty and fashion
+Mirror Notes · Palette Desk · Fit Check Lab · Soft Glam Brief · Closet Edit Daily · Shade Match Studio · The Outfit Index · Skin Routine Notes · Wear It Well · Color Story Closet
 
-### Business / career
-Offer Desk · Client Pipeline · First Hire Notes · Invoice Hour · Scope Creep Lab · Manager Brief · Remote Stack
+### Business and career
+Offer Desk · Client Pipeline · First Hire Notes · Invoice Hour · Scope Creep Lab · Manager Brief · Remote Stack · The Practical Founder · Career Side Notes · Workday Field Guide
 
-### Parenting / home
-House Reset · Tuesday Chore Club · Small Human Desk · Calm Kitchen Hour · Toy Rotation Lab
+### Parenting and family
+House Reset · Tuesday Chore Club · Small Human Desk · Calm Kitchen Hour · Toy Rotation Lab · The Family Edit · Little Steps Journal · Parent Pause · Home Team Notes · Growing Together Daily
 
-### Cars / DIY
-Driveway Notes · Torque Brief · Weekend Bay · Trim and Tape · First Tool Bench
+### Home, decor, and organization
+Room by Room Notes · The Tidy Corner · Sunday Shelf · Small Space Studio · Warm Light Home · The Useful Room · Home Reset Journal · Shelf Life Design · Everyday Nest · Simple Space Guide
 
-### Music / production
-Session Notes · Spare Room Mix · Loop Desk · Quiet Arrangement · Demo Day Lab
+### Cars and DIY
+Driveway Notes · Torque Brief · Weekend Bay · Trim and Tape · First Tool Bench · The Garage Manual · Bolt by Bolt · Roadside Workshop · Practical Motorist · Wrench Day Journal
 
-### Travel
-Carry-On Brief · Shoulder Season · One-Bag Notes · Transit Window · Side Street Atlas
+### Music and production
+Session Notes · Spare Room Mix · Loop Desk · Quiet Arrangement · Demo Day Lab · The Sound Shelf · Track by Track · Bedroom Producer Notes · Signal Chain Studio · After the Chorus
 
-### Creator / YouTube how-to
-Upload Desk · Packaging Lab · Retention Notes · Thumbnail Bench · Title Workshop
+### Travel and local guides
+Carry-On Brief · Shoulder Season · One-Bag Notes · Transit Window · Side Street Atlas · The Local Detour · Weekend Wayfinder · Window Seat Journal · Slow Route Studio · Map Fold Stories
 
-### True crime / storytime
-Case Notebook · Cold File Desk · Statement Room · Night Shift Stories · Verdict Lane
+### Creator and YouTube education
+Upload Desk · Packaging Lab · Retention Notes · Thumbnail Bench · Title Workshop · Creator Field Notes · The Edit Timeline · Channel Craft Studio · Publish With Purpose · Video Lesson Room
 
-### AI / tech news
-Model Watch · Prompt Ledger · Inference Desk · Ship Log Daily · The Batch Brief
+### True crime and mystery
+Case Notebook · Cold File Desk · Statement Room · Night Shift Stories · Verdict Lane · The Evidence Index · Unsolved Footnotes · Archive After Dark · Clue by Clue · The Case Brief
+
+### AI and technology news
+Model Watch · Prompt Ledger · Inference Desk · Ship Log Daily · The Batch Brief · Practical AI Notes · Machine Room News · The Update Window · Human in the Loop · Tomorrow, Explained
 
 ### Language learning
-Drill Desk · Fluency Log · Phrase Window · Comprehensible Corner · Daily Conjugation
+Drill Desk · Fluency Log · Phrase Window · Comprehensible Corner · Daily Conjugation · The Word Habit · Speak More Studio · Little Language Lessons · Phrase by Phrase · The Listening Room
 
-### Homestead / crafts
-Scrapheap Studio · Offcut Notes · Mending Hour · Plot and Pantry · Slow Workshop
+### Gardening and homesteading
+Plot and Pantry · Backyard Field Notes · The Seed Shelf · Small Garden Season · Soil to Supper · Weekend Grower · Rooted at Home · The Kitchen Garden Log · Green Thumb Journal · Slow Harvest Studio
+
+### Crafts and making
+Scrapheap Studio · Offcut Notes · Mending Hour · The Slow Workshop · Make Room Studio · Useful Hands Club · The Craft Table · Second Life Materials · Stitch and Shape · Small Batch Maker
 
 ### Sports analysis
-Film Room Notes · Fourth Down Desk · Set Piece Lab · Rotation Log · Tape Room
+Film Room Notes · Fourth Down Desk · Set Piece Lab · Rotation Log · Tape Room · The Match Breakdown · Play by Play Study · Touchline Tactics · Beyond the Box Score · The Training Ground
 
-If a name feels taken, add a **proof word** (Lab, Desk, Brief, Notes, Club) instead of a random number.
+That is **10 names for each of 21 niches: 210 ideas total**. If a favorite is taken, change the concept itself or add a meaningful word that reflects your format. Avoid copying a creator’s name with a number, punctuation change, or “official” suffix.
 
 ## When your first choice is already taken
 
@@ -2509,11 +2519,11 @@ Claim every handle the same day you decide, including platforms you are not post
 Run this before you design a logo, not after.
 
 1. **YouTube search, exact phrase.** Search the name in quotes and scan the channels. One small unrelated channel is fine; an established channel with the same name is a hard stop.
-2. **Handle check.** Open youtube.com/@yourname in a private window. A 404 page means it is free.
+2. **Handle check.** In YouTube Studio, open Customization → Profile and try your preferred handle. YouTube reports availability; a guessed URL or 404 is not a reliable check.
 3. **Social sweep.** Check Instagram, TikTok, and X manually — that is where your future viewers will look too.
-4. **Domain check.** A .com is nice, not mandatory. If it is parked at a four-figure price, change the name rather than starting broke.
-5. **Trademark databases.** Search the USPTO database (or your country's equivalent, such as EUIPO) for the exact name in the media and entertainment class.
-6. **Quoted Google search.** Search "your name" in quotation marks. If page one belongs to an unrelated company, pick another name — you will never own that result.
+4. **Domain check.** A .com is useful, but it is not required for a YouTube brand. If it is expensive, compare other available names before spending.
+5. **Trademark search.** Search the relevant official trademark database in the countries where you plan to operate. A quick search is not legal clearance; ask a qualified professional when commercial stakes are high.
+6. **Quoted web search.** Search the exact name in quotes. If results are dominated by an established creator or company in a related field, choose another name.
 
 Log the six results in a spreadsheet. The whole check takes about 15 minutes and saves you from rebranding later.
 
@@ -2523,9 +2533,9 @@ Log the six results in a spreadsheet. The whole check takes about 15 minutes and
 | :--- | :--- | :--- |
 | Say it out loud | "Check out Budget Build Lab" | Pass — three plain English words |
 | Spell test | Nothing rhymes with itself, no silent letters | Pass |
-| Handle | youtube.com/@budgetbuildlab in a private window | Free or contested — verify before committing |
+| Handle | Check in YouTube Studio → Customization → Profile | Availability is reported by YouTube; confirm before announcing the name |
 | Channel collision | "Budget Build Lab" searched on YouTube and Google | If a large channel owns it, walk away |
-| Trademark | USPTO / EUIPO search plus a quoted Google search | "Budget Build" alone is generic; the compound is fine |
+| Brand conflict | Official database and exact-name web search | If the brand will earn money, get qualified clearance advice |
 | Year-two flexibility | Still works if you add home labs or tool reviews? | Yes — "build" is broad on purpose |
 
 If the handle is gone, do not respell it (Budjet Build Lab). Add a proof word instead: Budget Build Bench, Budget Build Daily, Build Lab Notes. Misspellings are the classic mistake in the table below — people cannot recommend what they cannot spell.
@@ -2583,6 +2593,14 @@ Run this as a launch sequence — the order matters, and the whole list fits in 
 6. **Draft titles** with the [Title Generator](/tools/youtube-title-generator) to confirm the name pairs with how your headlines will actually look in search.
 
 Starting from zero? [How to start a YouTube channel 2026](/blog/how-to-start-youtube-channel-2026) walks through the rest of the setup.
+
+## Sources and update notes
+
+Updated **October 4, 2026**. We reviewed YouTube's official profile and handle guidance while refreshing this article. The names above are brainstorming prompts; we have not checked them for availability or trademark status.
+
+- [Manage your YouTube channel profile](https://support.google.com/youtube/answer/2657964?hl=en) — how to change a channel name and handle in Studio.
+- [Learn about YouTube handles](https://support.google.com/youtube/answer/11585688?hl=en) — handles are unique identifiers, separate from channel names, with their own naming requirements.
+- [YouTube impersonation policy](https://support.google.com/youtube/answer/2801947?hl=en) — avoid names, handles, and branding that could mislead viewers into thinking you are another creator or organization.
 
 ## Bottom line
 
@@ -3762,15 +3780,15 @@ If your kit has not been updated since spring, updating it is the single highest
     slug: "youtube-adsense-payment-schedule-2026",
     title:
       "YouTube AdSense Payment Schedule 2026: Dates, Thresholds, and Common Delays",
-    seoTitle: "YouTube AdSense Payment Schedule (Exact Dates 2026)",
-    excerpt: "YouTube AdSense payment schedule 2026: exact payout dates (21st–26th), $100 threshold rules, address PIN verification, and delay troubleshooting.",
+    seoTitle: "When Does YouTube Pay? AdSense Schedule (2026)",
+    excerpt: "When does YouTube pay? Understand the AdSense payment cycle, 21st–26th issue window, payment threshold, verification, and bank-processing delays.",
     date: "August 28, 2026",
-    updatedAt: "October 1, 2026",
+    updatedAt: "October 4, 2026",
     category: "Monetization",
     author: "Alex Rivera",
     authorRole: "YouTube Monetization Expert",
     readTime: "19 min read",
-    metaDescription: "YouTube AdSense payment schedule 2026: exact payout dates (21st–26th), $100 minimum threshold, AdSense PIN verification, and bank deposit timelines.",
+    metaDescription: "When does YouTube pay creators? A source-checked guide to the AdSense payment cycle, the 21st–26th issue window, thresholds, verification, and bank delays.",
     keywords: [
       "youtube adsense payment schedule",
       "when does youtube pay",
@@ -3788,12 +3806,12 @@ If your kit has not been updated since spring, updating it is the single highest
     imageAlt:
       "Calendar and earnings chart illustrating YouTube AdSense payment schedule for creators",
     content: `::: QUICK-ANSWER
-YouTube pays creators on a strict monthly schedule between the **21st and 26th of each month**, provided your finalized balance reaches the **$100 minimum payment threshold** (or local currency equivalent) and you have zero payment holds. Earnings from the previous calendar month are finalized and transferred from YouTube Studio to Google AdSense between the **7th and 12th of the month**. Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to project your monthly payout.
+YouTube creators in the Partner Program are normally issued payment **between the 21st and 26th of the month** when their balance meets the payment threshold for their currency and there are no payment holds. Previous-month YouTube earnings are finalized in AdSense for YouTube **between the 7th and 12th**. The exact arrival time depends on your time zone, payment method, bank, and weekends or holidays. Use our [YouTube Earnings Calculator](/tools/youtube-earnings-calculator) to model a payout—not to predict a deposit date.
 :::
 
 ::: KEY-TAKEAWAYS
-- **The Monthly Payout Cycle**: (1) Previous month earnings accumulate in YouTube Studio $\rightarrow$ (2) Finalized in AdSense by the 7th–12th $\rightarrow$ (3) Dispatched via Direct Deposit/Wire between the 21st–26th.
-- **$100 Minimum Threshold**: If your finalized earnings are $95, they roll over to the next month until your cumulative balance crosses $100.
+- **The Monthly Payout Cycle**: (1) Previous-month YouTube earnings are finalized in AdSense for YouTube during the 7th–12th $\rightarrow$ (2) your balance must meet its currency threshold by the 20th $\rightarrow$ (3) payment is normally issued during the 21st–26th.
+- **Payment threshold**: The threshold is currency-specific. For a USD account it is commonly $100; a balance below the applicable threshold rolls to the next month.
 - **Address PIN Verification**: When your channel hits $10 in lifetime earnings, Google mails a physical 6-digit PIN card to verify your address. Payments are held until entered.
 - **Tax Form Requirement (W-8BEN)**: Non-US creators must submit Form W-8BEN in AdSense to claim tax treaty benefits, otherwise Google may withhold up to 30% of US-derived views.
 - **Weekend & Holiday Delays**: If the 21st falls on a weekend or bank holiday, AdSense initiates transfers on the next business day.
@@ -3849,9 +3867,9 @@ The legal name on your Google AdSense account must match the account holder name
 
 ---
 
-## 2026 AdSense Payment Dates: Month-by-Month Table
+## 2026 Payment Windows: Plan Around the Cycle, Not an “Exact” Deposit Date
 
-AdSense processes YouTube payouts between the **21st and 26th** of each month. When the 21st lands on a weekend or US bank holiday, Google initiates the transfer on the next business day. Here is every 2026 payment window with the weekend adjustment already applied:
+Google says eligible payments are issued between the **21st and 26th** of each month. When the 21st is a weekend or holiday, issue may move to the first business day after the 21st. This planning table identifies the relevant payment cycle; it cannot guarantee your issue date or bank-settlement date.
 
 | Earnings Month | Payment Window (2026) | Notes |
 | :--- | :--- | :--- |
@@ -3868,9 +3886,19 @@ AdSense processes YouTube payouts between the **21st and 26th** of each month. W
 | October 2026 | November 23 (Mon) – November 26 | 21st falls on Saturday → rolls to Monday |
 | November 2026 | December 21 (Mon) – December 26 | Normal window |
 
-**How to read this table:** earnings you accrue in a given month are paid in the *following* month's window. January's revenue arrives around February 23–26. Your bank then needs 2–7 additional business days to post the deposit (longer for international SWIFT transfers).
+**How to read this table:** earnings you accrue in a given month are considered in the *following* month's cycle. Your actual payment still depends on your eligible balance and account status on the 20th. After issue, EFT can take up to 7 business days and wire transfers up to 15 business days, according to Google.
 
-> **Note on US bank holidays:** if the 21st–26th window includes a Federal Reserve holiday (for example, the day after Thanksgiving), that specific day is skipped, but Google still initiates within the window. When in doubt, check the **Payments** page in your AdSense account — it shows the exact "Payment issued" date once the transfer is dispatched.
+> **Check your own account, not a generic calendar:** the **Payments** page in AdSense for YouTube is the source of truth for a payment that has actually been issued. Individual bank, time-zone, currency, and holiday handling can change the arrival date.
+
+---
+
+## Sources, Methodology, and Revision History
+
+This guide was revised on **October 4, 2026** against Google's current help documentation. We distinguish Google's published payment **issue window** from the date money reaches a bank account. We do not have access to your AdSense account, so any estimate here should be verified in **AdSense for YouTube → Payments**.
+
+- **Primary source:** [Understand AdSense for YouTube’s payment process](https://support.google.com/youtube/answer/14728151?hl=en) — monthly finalization, the 20th eligibility cutoff, and issue/arrival timing by payment method.
+- **Primary source:** [Payment timelines for AdSense](https://support.google.com/adsense/answer/7164703?hl=en) — payment timing, holds, and what appears in the Payments page.
+- **Editorial method:** Our explanatory examples use the published timeline above. Country-specific revenue estimates belong in our [YouTube CPM rates by country](/resources/youtube-cpm-rates) resource and are planning ranges, not a promise of earnings.
 
 ---
 

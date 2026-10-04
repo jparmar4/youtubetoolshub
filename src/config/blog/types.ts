@@ -26,6 +26,9 @@ export interface BlogPost {
   keywords: string[];
   coverImage: string;
   imageAlt: string;
+  /** Optional portrait image prepared for Pinterest sharing. */
+  pinterestImage?: string;
+  pinterestImageAlt?: string;
   faq: {
     question: string;
     answer: string;
