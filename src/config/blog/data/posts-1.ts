@@ -2297,8 +2297,11 @@ For highest resolution with least friction, use the free [YouTube Thumbnail Down
     title: "YouTube Channel Names: 200+ Ideas for Every Niche",
     seoTitle: "200+ YouTube Channel Names by Niche (2026)",
     excerpt: "Browse 210 original YouTube channel name ideas across 21 niches, then use a practical checklist to check your handle, audience fit, and brand safety.",
-    date: "August 15, 2026",
-    updatedAt: "October 4, 2026",
+    // This was substantially rewritten and republished with a new 210-name
+    // library, original visuals, and current handle guidance. Keeping the
+    // existing canonical URL avoids creating a duplicate competing page.
+    date: "October 5, 2026",
+    updatedAt: "October 5, 2026",
     category: "Channel Growth",
     author: "Alex Rivera",
     authorRole: "YouTube Creator Strategist",
