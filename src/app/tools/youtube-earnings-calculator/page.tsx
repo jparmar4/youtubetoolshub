@@ -13,6 +13,7 @@ import {
 } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
@@ -39,7 +40,7 @@ const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
 export const metadata: Metadata = {
   title: "YouTube Earnings Calculator — Pay per 1,000 Views (Free)",
   description:
-    "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 54 markets). See 100k and 1M view scenarios. Free, no signup.",
+    `Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, ${countryCPMData.length} markets). See 100k and 1M view scenarios. Free, no signup.`,
   keywords: [
     "youtube earnings calculator",
     "youtube money calculator",
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "YouTube Earnings Calculator 2026 | Free RPM & CPM Estimator",
     description:
-      "Estimate monthly and yearly YouTube AdSense revenue from views and RPM. Country CPM data for 54 markets. Free, no signup.",
+      `Estimate monthly and yearly YouTube AdSense revenue from views and RPM. Country CPM data for ${countryCPMData.length} markets. Free, no signup.`,
     type: "website",
     url: pageUrl,
     // Dynamic image: /tools/youtube-earnings-calculator/opengraph-image
@@ -210,10 +211,10 @@ export default function YouTubeEarningsCalculatorPage() {
         keyFacts={[
           "Formula: earnings ≈ (views / 1000) × RPM",
           "US RPM often $4–$15; global average often $2–$4",
-          "54 country CPM/RPM reference pages",
+          `${countryCPMData.length} country CPM/RPM reference pages`,
           "Free AdSense estimator — no signup",
         ]}
-        dateModified="2026-09-29"
+        dateModified={DATA_LAST_REVIEWED}
         pathname="/tools/youtube-earnings-calculator"
       />
 
@@ -399,11 +400,11 @@ export default function YouTubeEarningsCalculatorPage() {
                 <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
               </div>
 
-              {/* Countries — full 54-market index grouped by tier for global crawl + UX */}
+              {/* Countries — full 52-market index grouped by tier for global crawl + UX */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
                   <FaGlobeAmericas className="text-blue-600" />
-                  Calculate earnings by country (54 markets)
+                  {`Calculate earnings by country (${countryCPMData.length} markets)`}
                 </h2>
                 <p className="text-slate-600 mb-6">
                   Open a localized calculator for CPM/RPM context in that market.
@@ -439,7 +440,7 @@ export default function YouTubeEarningsCalculatorPage() {
                   href="/resources/youtube-cpm-rates"
                   className="inline-flex items-center gap-2 mt-6 text-purple-600 font-bold hover:underline"
                 >
-                  View all 54 country CPM rates
+                  {`View all ${countryCPMData.length} country CPM rates`}
                   <FaArrowRight className="w-3 h-3" />
                 </Link>
               </section>

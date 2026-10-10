@@ -67,3 +67,27 @@ export function getRequestIp(headers: Headers): string {
   }
   return headers.get("x-real-ip")?.trim() || "unknown";
 }
+
+/**
+ * Detect major search engine and web crawlers from their User-Agent.
+ * Crawlers should not receive 429 rate limits which GSC flags as "Blocked due to other 4xx issue".
+ */
+export function isSearchEngineBot(userAgent: string | null): boolean {
+  if (!userAgent) return false;
+  const ua = userAgent.toLowerCase();
+  return (
+    ua.includes("googlebot") ||
+    ua.includes("bingbot") ||
+    ua.includes("bingpreview") ||
+    ua.includes("googleother") ||
+    ua.includes("google-extended") ||
+    ua.includes("slurp") ||
+    ua.includes("duckduckbot") ||
+    ua.includes("baiduspider") ||
+    ua.includes("yandexbot") ||
+    ua.includes("applebot") ||
+    ua.includes("facebot") ||
+    ua.includes("facebookexternalhit") ||
+    ua.includes("twitterbot")
+  );
+}

@@ -55,7 +55,6 @@ ${entries}
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
-      "X-Robots-Tag": "noindex",
     },
   });
 }

@@ -2,9 +2,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema, getGlobalAlternates } from "@/lib/seo";
+import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
 import { FaRocket, FaArrowRight, FaBrain } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
     title: "YouTube Channel Research & Growth Tools - AI Strategist 2026",
@@ -19,6 +23,25 @@ export const metadata: Metadata = {
     alternates: getGlobalAlternates("/tools/channel-tools"),
 };
 
+const channelFaqs = [
+    {
+        question: "How do YouTube research tools help accelerate channel growth?",
+        answer: "Channel research tools identify underserved video topics, rising search queries, and content gaps that high-growth creators use to capture new viewers. By analyzing topic clusters and audience search intent before filming, creators produce videos with significantly higher recommendation velocity.",
+    },
+    {
+        question: "How often should I publish videos to trigger the 2026 YouTube algorithm?",
+        answer: "Consistency and viewer satisfaction outweigh raw frequency. Publishing 1-2 thoroughly researched, high-retention videos weekly paired with regular Community Posts builds stronger algorithmic momentum than daily low-retention uploads. Use our Content Calendar Generator to plan predictable upload schedules.",
+    },
+    {
+        question: "Can AI video idea generators help prevent creator burnout?",
+        answer: "Yes. AI idea generators remove the cognitive load of brainstorming from scratch by generating curated lists of topic hooks, angles, and curiosity gaps tailored to your specific niche. This allows creators to focus their energy on scriptwriting, storytelling, and high-quality production.",
+    },
+    {
+        question: "What is the best way to choose a profitable YouTube niche in 2026?",
+        answer: "The most profitable YouTube niches balance high advertiser demand (CPMs above $15-$30 such as Tech, Finance, B2B SaaS) with personal domain authority and audience search intent. Use our Niche Finder and Trend Helper to validate niche interest before launching.",
+    },
+];
+
 export default function ChannelToolsHub() {
     const growthTools = getToolsByCategory("channel-growth");
 
@@ -30,17 +53,53 @@ export default function ChannelToolsHub() {
         }))
     );
 
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        { name: "Channel Growth", url: `${siteConfig.url}/tools/channel-tools` },
+    ]);
+
+    const faqSchema = getFAQSchema(channelFaqs);
+
     return (
         <>
-            {/* JSON-LD Schema */}
+            {/* GEO / AEO signals for AI Answer Engines */}
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.categoryPage(
+                    "YouTube Channel Research & Growth Tools",
+                    "Research trending topics, generate viral video ideas, and organize content calendars with AI-assisted YouTube growth tools.",
+                    growthTools.length,
+                    [
+                        "AI viral video ideas generator based on viewer curiosity gaps",
+                        "Real-time trend helper for rising topical search velocity",
+                        "Multi-week content calendar generator for reliable release schedules",
+                        "100% free with no browser extension or YouTube credentials required",
+                    ]
+                )}
+                pathname="/tools/channel-tools"
+            />
+
+            {/* JSON-LD Schemas */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(toolListSchema),
                 }}
             />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(faqSchema),
+                }}
+            />
 
-            <div className="min-h-screen py-20 relative overflow-hidden">
+            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}
@@ -57,17 +116,23 @@ export default function ChannelToolsHub() {
                     </nav>
 
                     {/* Header */}
-                    <div className="text-center mb-16">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 text-xs font-black uppercase tracking-[0.2em] mb-6">
+                    <div className="text-center mb-10">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 text-xs font-black uppercase tracking-[0.2em] mb-4">
                             <FaBrain className="w-3 h-3" />
                             Growth Intelligence
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit">
                             Master the <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-rose-600">Algorithm</span>
                         </h1>
-                        <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
+                        <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary" data-speakable>
                             Stop guessing, start growing. In 2026, the algorithm favors creators who use data-driven strategies. Our growth suite provides the AI-powered research tools needed to win the attention economy.
                         </p>
+                    </div>
+
+                    {/* Top Leaderboard Ad */}
+                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                        <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                     </div>
 
                     {/* Growth Strategy Checklist */}
@@ -90,7 +155,7 @@ export default function ChannelToolsHub() {
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
                                     <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
-                                    <p className="text-slate-700 font-outfit"><strong>Niche Authority:</strong> Generate video ideas that reinforce your "Topic Cluster" to improve your semantic ranking.</p>
+                                    <p className="text-slate-700 font-outfit"><strong>Niche Authority:</strong> Generate video ideas that reinforce your &ldquo;Topic Cluster&rdquo; to improve your semantic ranking.</p>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
@@ -133,7 +198,12 @@ export default function ChannelToolsHub() {
                         ))}
                     </div>
 
-                    {/* Ad placement */}
+                    {/* Pro Creator Growth Recommendation */}
+                    <div className="my-8">
+                        <AffiliateBanner toolId="tubebuddy" variant="inArticle" />
+                    </div>
+
+                    {/* Mid Ad placement */}
                     <div className="my-8" aria-hidden="true">
                         <GoogleAd slot="7688425196" />
                     </div>
@@ -141,17 +211,36 @@ export default function ChannelToolsHub() {
                     {/* Authority Guide Section */}
                     <div className="max-w-4xl mx-auto mb-12">
                         <div className="glass-premium rounded-[3rem] p-12 shadow-sm relative overflow-hidden border-t-4 border-rose-500/20">
-                            <h2 className="text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-                                Why Strategy Beats "Luck" in 2026
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+                                Why Strategy Beats &ldquo;Luck&rdquo; in 2026
                             </h2>
-                            <div className="prose prose-xl text-slate-600 font-outfit">
+                            <div className="prose prose-lg md:prose-xl text-slate-600 font-outfit">
                                 <p className="mb-6">
-                                    The 2026 YouTube algorithm is powered by deep neural networks that analyze **Human Satisfaction Metrics**. It's no longer just about clicks—it's about "Value Delivered."
+                                    The 2026 YouTube algorithm is powered by deep neural networks that analyze <strong>Human Satisfaction Metrics</strong>. It&apos;s no longer just about clicks—it&apos;s about &ldquo;Value Delivered.&rdquo;
                                 </p>
                                 <p>
                                     Our growth tools help you align with this shift by providing insights into high-satisfaction topics and trending interests. By planning your content strategically, you ensure that every upload contributes to your long-term authority and channel health.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* AEO / FAQ Section */}
+                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
+                            Frequently Asked Questions About YouTube Channel Growth
+                        </h2>
+                        <div className="space-y-6">
+                            {channelFaqs.map((faq, idx) => (
+                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                        {faq.question}
+                                    </h3>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        {faq.answer}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 

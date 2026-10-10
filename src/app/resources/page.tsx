@@ -4,11 +4,14 @@ import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
+import { countryCPMData } from "@/lib/cpm-data";
 
 export const metadata: Metadata = {
   title: "YouTube Creator Resources & Guides",
   description:
-    "Free YouTube creator resources: CPM rate benchmarks, algorithm guides, monetization playbooks, creator statistics, and link-to-us assets.",
+    `Free YouTube creator resources: CPM rate benchmarks across ${countryCPMData.length} countries, algorithm guides, monetization playbooks, creator statistics, and link-to-us assets.`,
   alternates: getGlobalAlternates("/resources"),
   robots: { index: true, follow: true },
 };
@@ -18,7 +21,7 @@ const resources = [
     href: "/resources/youtube-cpm-rates",
     title: "YouTube CPM Rates by Country & Niche",
     description:
-      "2026 CPM and RPM benchmarks for 54 countries and high-paying niches so you can price sponsorships and forecast ad revenue.",
+      `2026 CPM and RPM benchmarks for ${countryCPMData.length} countries and high-paying niches so you can price sponsorships and forecast ad revenue.`,
   },
   {
     href: "/resources/youtube-creator-statistics",
@@ -63,11 +66,11 @@ export default function ResourcesIndexPage() {
       <GeoAeoHead
         {...GEO_AEO_PRESETS.resourcePage(
           "YouTube Creator Resources & Guides",
-          "Free YouTube creator resources: CPM rates, algorithm guides, monetization playbooks, and statistics.",
+          `Free YouTube creator resources: CPM rates across ${countryCPMData.length} countries, algorithm guides, monetization playbooks, and statistics.`,
           "YouTube creator resources",
           "Free long-form guides covering CPM benchmarks, the recommendation algorithm, monetization levers, and channel statistics.",
           [
-            "CPM rates for 54 countries",
+            `CPM rates for ${countryCPMData.length} countries`,
             "Algorithm and packaging explainers",
             "Monetization and brand-deal playbooks",
             "Embeddable badges and widgets",
@@ -92,10 +95,17 @@ export default function ResourcesIndexPage() {
         <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
           YouTube Creator Resources
         </h1>
-        <p className="text-slate-600 mb-10 max-w-2xl">
+        <p className="text-slate-600 mb-6 max-w-2xl">
           Long-form benchmarks, algorithm explainers, and monetization playbooks — free, no
           signup required.
         </p>
+
+        {/* Above-the-fold Leaderboard Ad */}
+        <div className="mb-10 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center text-center">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+          <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+        </div>
+
         <ul className="space-y-4">
           {resources.map((item) => (
             <li key={item.href}>
@@ -111,11 +121,11 @@ export default function ResourcesIndexPage() {
         </ul>
         <div className="mt-10 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6">
           <h2 className="text-lg font-bold text-slate-900 mb-2">
-            Global earnings calculators — 54 markets
+            {`Global earnings calculators — ${countryCPMData.length} markets`}
           </h2>
           <p className="text-slate-600 text-sm mb-4">
             Localized CPM/RPM calculators for the US, UK, Canada, Australia, India,
-            Germany, Brazil, Mexico, South Africa, Nigeria, Singapore, UAE and 42 more.
+            Germany, Brazil, Mexico, South Africa, Nigeria, Singapore, UAE and 40 more.
             Start global, then drill into your audience country.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -147,7 +157,7 @@ export default function ResourcesIndexPage() {
               href="/resources/youtube-cpm-rates"
               className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
             >
-              Full 54-country table
+              {`Full ${countryCPMData.length}-country table`}
             </Link>
           </div>
         </div>

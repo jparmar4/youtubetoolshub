@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { enforceRateLimit, getRequestIp, isSearchEngineBot } from "@/lib/rate-limit";
 
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
+const NOINDEX_HEADERS = {
+    "X-Robots-Tag": "noindex, nofollow",
+};
 
 /**
  * Proxy route to download images with proper filename
@@ -9,13 +12,24 @@ const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
  */
 export async function GET(req: NextRequest) {
     try {
-        const ip = getRequestIp(req.headers);
-        const rateLimit = enforceRateLimit(`download-image:${ip}`, 30, 60 * 60 * 1000);
-        if (!rateLimit.allowed) {
-            return NextResponse.json(
-                { error: "Too many downloads. Please try again later." },
-                { status: 429, headers: { "Retry-After": String(rateLimit.retryAfterSeconds) } },
-            );
+        const userAgent = req.headers.get("user-agent");
+        const isBot = isSearchEngineBot(userAgent);
+
+        if (!isBot) {
+            const ip = getRequestIp(req.headers);
+            const rateLimit = enforceRateLimit(`download-image:${ip}`, 30, 60 * 60 * 1000);
+            if (!rateLimit.allowed) {
+                return NextResponse.json(
+                    { error: "Too many downloads. Please try again later." },
+                    {
+                        status: 429,
+                        headers: {
+                            ...NOINDEX_HEADERS,
+                            "Retry-After": String(rateLimit.retryAfterSeconds),
+                        },
+                    },
+                );
+            }
         }
 
         const { searchParams } = new URL(req.url);
@@ -24,7 +38,7 @@ export async function GET(req: NextRequest) {
         if (!imageUrl) {
             return NextResponse.json(
                 { error: "Image URL is required" },
-                { status: 400 }
+                { status: 400, headers: NOINDEX_HEADERS }
             );
         }
 
@@ -42,13 +56,13 @@ export async function GET(req: NextRequest) {
             if (!isAllowed || !["http:", "https:"].includes(parsedUrl.protocol)) {
                 return NextResponse.json(
                     { error: "Domain not allowed" },
-                    { status: 400 }
+                    { status: 400, headers: NOINDEX_HEADERS }
                 );
             }
         } catch {
             return NextResponse.json(
                 { error: "Invalid image URL" },
-                { status: 400 }
+                { status: 400, headers: NOINDEX_HEADERS }
             );
         }
 
@@ -67,7 +81,7 @@ export async function GET(req: NextRequest) {
         if (!responseContentType.toLowerCase().startsWith("image/")) {
             return NextResponse.json(
                 { error: "The remote resource is not an image" },
-                { status: 415 },
+                { status: 415, headers: NOINDEX_HEADERS },
             );
         }
 
@@ -75,7 +89,7 @@ export async function GET(req: NextRequest) {
         if (Number.isFinite(declaredSize) && declaredSize > MAX_IMAGE_BYTES) {
             return NextResponse.json(
                 { error: "Image is too large to download" },
-                { status: 413 },
+                { status: 413, headers: NOINDEX_HEADERS },
             );
         }
 
@@ -85,7 +99,7 @@ export async function GET(req: NextRequest) {
         if (imageBuffer.byteLength > MAX_IMAGE_BYTES) {
             return NextResponse.json(
                 { error: "Image is too large to download" },
-                { status: 413 },
+                { status: 413, headers: NOINDEX_HEADERS },
             );
         }
 
@@ -136,6 +150,7 @@ export async function GET(req: NextRequest) {
         headers.set("Expires", "0");
         // Force download in all browsers
         headers.set("X-Content-Type-Options", "nosniff");
+        headers.set("X-Robots-Tag", "noindex, nofollow");
 
         return new NextResponse(imageBuffer, {
             status: 200,
@@ -145,7 +160,7 @@ export async function GET(req: NextRequest) {
         console.error("Download proxy error:", error);
         return NextResponse.json(
             { error: "Failed to download image" },
-            { status: 500 }
+            { status: 500, headers: NOINDEX_HEADERS }
         );
     }
 }

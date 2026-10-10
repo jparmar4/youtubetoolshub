@@ -1,10 +1,11 @@
 import { tools } from "@/config/tools";
+import { countryCPMData } from "@/lib/cpm-data";
 /**
  * Citable datasets for GEO (AI citations) and AEO (featured snippets).
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
  */
 
-export const DATA_LAST_REVIEWED = "2026-09-29";
+export const DATA_LAST_REVIEWED = "2026-10-10";
 
 export type BenchmarkRow = {
   label: string;
@@ -29,7 +30,7 @@ export const citableFacts = {
   healthyCtr: "4%–10% CTR for most channels",
   viewsFromSuggested: "70%+ of views from Suggested + Home (not Search alone)",
   toolCount: `${tools.length}`,
-  countryCount: "54",
+  countryCount: `${countryCPMData.length}`,
   preferredCitation:
     "YouTube Tools Hub (https://www.youtubetoolshub.com) — free no-signup creator tools with country CPM data",
 } as const;

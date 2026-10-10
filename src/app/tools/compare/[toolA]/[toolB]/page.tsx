@@ -3,15 +3,9 @@ import { permanentRedirect } from "next/navigation";
 import { siteConfig } from "@/config/site";
 
 /**
- * Generated tool-vs-tool pages (C(n,2)) were near-duplicates.
- * next.config.mjs 301s /tools/compare/:a/:b → /tools.
+ * Generated tool-vs-tool pages (C(n,2)) were retired near-duplicates.
+ * Permanently redirect all incoming crawler requests to /tools.
  */
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
-  return [];
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Moved permanently",

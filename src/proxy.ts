@@ -128,26 +128,29 @@ export default async function middleware(request: NextRequest) {
   for (const locale of legacyLocales) {
     if (pathname === `/${locale}` || pathname === `/${locale}/`) {
       // Fixed origin — never derive Location from the request Host header.
-      return NextResponse.redirect(
-        new URL("/", "https://www.youtubetoolshub.com"),
-        308,
-      );
+      const dest = new URL("/", "https://www.youtubetoolshub.com");
+      dest.search = request.nextUrl.search;
+      return NextResponse.redirect(dest, 308);
     }
     if (pathname.startsWith(`/${locale}/`)) {
-      return NextResponse.redirect(
-        new URL(pathname.replace(`/${locale}`, "") || "/", "https://www.youtubetoolshub.com"),
-        308,
+      const dest = new URL(
+        pathname.replace(`/${locale}`, "") || "/",
+        "https://www.youtubetoolshub.com",
       );
+      dest.search = request.nextUrl.search;
+      return NextResponse.redirect(dest, 308);
     }
   }
 
   // 0.2 Normalize trailing slashes (remove trailing slash to prevent duplicates)
   // Skip for root path "/" which should not have trailing slash stripped
   if (pathname !== "/" && pathname.endsWith("/")) {
-    return NextResponse.redirect(
-      new URL(pathname.slice(0, -1), "https://www.youtubetoolshub.com"),
-      308,
+    const dest = new URL(
+      pathname.slice(0, -1),
+      "https://www.youtubetoolshub.com",
     );
+    dest.search = request.nextUrl.search;
+    return NextResponse.redirect(dest, 308);
   }
 
   // 1. Allow search bots unrestricted access (SEO) — still attach noindex on private paths

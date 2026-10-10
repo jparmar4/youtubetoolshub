@@ -358,11 +358,11 @@ export default async function CountryEarningsPage({
                                 </p>
                             </section>
 
-                            {/* Internal Links to other countries — full 54-market mesh for global crawl */}
+                            {/* Internal Links to other countries — full 52-market mesh for global crawl */}
                             <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
                                 <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
                                     <FaGlobeAmericas className="text-purple-500" />
-                                    Compare with all 54 countries
+                                    {`Compare with all ${countryCPMData.length} countries`}
                                 </h3>
                                 <p className="text-sm text-slate-500 mb-4">
                                     Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
@@ -402,7 +402,7 @@ export default async function CountryEarningsPage({
                                         href="/resources/youtube-cpm-rates"
                                         className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
                                     >
-                                        Full 54-country CPM table
+                                        {`Full ${countryCPMData.length}-country CPM table`}
                                     </Link>
                                 </div>
                             </div>

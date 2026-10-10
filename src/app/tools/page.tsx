@@ -11,6 +11,7 @@ import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 
 const toolsPageFaqs = [
   {
@@ -158,8 +159,9 @@ export default function ToolsPage() {
           </div>
 
           {/* Above-the-fold Ad Placement */}
-          <div className="mb-12">
-            <GoogleAd slot="8649718301" />
+          <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-3 text-center min-h-[90px] flex flex-col items-center justify-center">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
           </div>
 
           {/* Tools by Category */}

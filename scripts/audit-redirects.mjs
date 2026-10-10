@@ -29,10 +29,23 @@ function readSrc(rel) {
   return readFileSync(path.join(root, rel), "utf8");
 }
 
-const blogSrc = readSrc("src/config/blog.ts");
-const blogSlugs = new Set(
-  [...blogSrc.matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)].map((m) => m[1]),
-);
+const blogDataDir = path.join(root, "src/config/blog/data");
+const blogFiles = existsSync(blogDataDir)
+  ? readdirSync(blogDataDir)
+      .filter((f) => f.endsWith(".ts"))
+      .map((f) => path.join("src/config/blog/data", f))
+  : [];
+if (existsSync(path.join(root, "src/config/blog.ts"))) {
+  blogFiles.push("src/config/blog.ts");
+}
+
+const blogSlugs = new Set();
+for (const rel of blogFiles) {
+  const content = readSrc(rel);
+  for (const m of content.matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)) {
+    blogSlugs.add(m[1]);
+  }
+}
 
 const policySrc = readSrc("src/config/index-policy.ts");
 const noindexBlock = policySrc.match(
@@ -128,7 +141,7 @@ for (const slug of noindexSlugs) {
 //    Every one of these wastes a crawl hop and dilutes the internal PageRank
 //    that should be reaching the canonical page directly.
 const linkFiles = [
-  "src/config/blog.ts",
+  ...blogFiles,
   "src/config/tools.ts",
   "src/lib/topic-clusters.ts",
   "src/lib/related-tools.ts",

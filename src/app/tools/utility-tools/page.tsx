@@ -2,9 +2,13 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema, getGlobalAlternates } from "@/lib/seo";
-import { FaMagic, FaArrowRight } from "react-icons/fa";
+import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
+import { FaBolt, FaMagic, FaArrowRight } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
     title: "YouTube Utility & Productivity Tools - Scale Your Workflow 2026",
@@ -19,6 +23,25 @@ export const metadata: Metadata = {
     alternates: getGlobalAlternates("/tools/utility-tools"),
 };
 
+const utilityFaqs = [
+    {
+        question: "How does the Playlist Length Calculator help creators and viewers?",
+        answer: "The Playlist Length Calculator computes the exact total watch duration of any YouTube playlist across multiple playback speeds (1x, 1.25x, 1.5x, 2x). This helps viewers plan educational study sessions and enables creators to design binge-watching arcs for maximum channel watch time.",
+    },
+    {
+        question: "Why use a verifiable Comment Picker for YouTube giveaways?",
+        answer: "Our YouTube Comment Picker randomly and fairly selects contest winners while filtering duplicate entries, specific answer keywords, or blacklisted accounts. Using a neutral third-party tool establishes community trust and complies with YouTube contest guidelines.",
+    },
+    {
+        question: "What does a YouTube Channel Audit inspect?",
+        answer: "A channel audit evaluates critical creator health factors including metadata consistency, custom thumbnail coverage, upload cadence, description links, and playlist structure to ensure maximum algorithmic discoverability.",
+    },
+    {
+        question: "Are these YouTube utility tools free to use?",
+        answer: "Yes, 100% free with no signups, installations, browser extensions, or YouTube channel login permissions required. All calculations run instantly in your web browser.",
+    },
+];
+
 export default function UtilityToolsHub() {
     const utilityTools = getToolsByCategory("utility-fun");
 
@@ -30,17 +53,53 @@ export default function UtilityToolsHub() {
         }))
     );
 
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: "Home", url: siteConfig.url },
+        { name: "Tools", url: `${siteConfig.url}/tools` },
+        { name: "Utility Tools", url: `${siteConfig.url}/tools/utility-tools` },
+    ]);
+
+    const faqSchema = getFAQSchema(utilityFaqs);
+
     return (
         <>
-            {/* JSON-LD Schema */}
+            {/* GEO / AEO signals for AI Answer Engines */}
+            <GeoAeoHead
+                {...GEO_AEO_PRESETS.categoryPage(
+                    "YouTube Utility & Productivity Tools",
+                    "Automate channel management tasks, calculate playlist watch time, pick giveaway winners, and audit channel health with free creator utilities.",
+                    utilityTools.length,
+                    [
+                        "Instant YouTube playlist duration calculator with variable playback speed",
+                        "Provably fair YouTube comment picker for contests and giveaways",
+                        "Comprehensive channel health audit checklist",
+                        "100% browser-based with zero software installation required",
+                    ]
+                )}
+                pathname="/tools/utility-tools"
+            />
+
+            {/* JSON-LD Schemas */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(toolListSchema),
                 }}
             />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbSchema),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(faqSchema),
+                }}
+            />
 
-            <div className="min-h-screen py-20 relative overflow-hidden">
+            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Breadcrumbs */}
@@ -57,17 +116,23 @@ export default function UtilityToolsHub() {
                     </nav>
 
                     {/* Header */}
-                    <div className="text-center mb-16">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs font-black uppercase tracking-[0.2em] mb-6">
+                    <div className="text-center mb-10">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs font-black uppercase tracking-[0.2em] mb-4">
                             <FaBolt className="w-3 h-3" />
                             Efficiency Engine
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit">
                             Creator <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">Utility</span> Suite
                         </h1>
-                        <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
-                            Don't work harder—work smarter. In 2026, the successful creator is the one who automates the mundane. Our utility suite handles the logistics so you can handle the vision.
+                        <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary" data-speakable>
+                            Don&apos;t work harder—work smarter. In 2026, the successful creator automates repetitive logistics. Our utility suite handles the operational friction so you can focus on creative vision.
                         </p>
+                    </div>
+
+                    {/* Top Leaderboard Ad */}
+                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                        <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                     </div>
 
                     {/* Productivity Strategy */}
@@ -87,7 +152,7 @@ export default function UtilityToolsHub() {
                             </div>
                             <div className="space-y-3">
                                 <h3 className="font-black text-emerald-700 uppercase tracking-widest text-xs">Channel Integrity</h3>
-                                <p className="text-slate-600 text-sm leading-relaxed">The <strong>Channel Health Auditor</strong> checks for metadata drift and recommendation status to prevent shadowbands.</p>
+                                <p className="text-slate-600 text-sm leading-relaxed">The <strong>Channel Health Auditor</strong> checks for metadata drift and recommendation status to prevent reach dips.</p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +190,12 @@ export default function UtilityToolsHub() {
                         ))}
                     </div>
 
-                    {/* Ad placement */}
+                    {/* Pro Creator Growth Recommendation */}
+                    <div className="my-8">
+                        <AffiliateBanner toolId="tubebuddy" variant="inArticle" />
+                    </div>
+
+                    {/* Mid Ad placement */}
                     <div className="my-8" aria-hidden="true">
                         <GoogleAd slot="8649718301" />
                     </div>
@@ -133,17 +203,36 @@ export default function UtilityToolsHub() {
                     {/* Deep Dive Section */}
                     <div className="max-w-4xl mx-auto mb-12">
                         <div className="glass-premium rounded-[3rem] p-12 shadow-sm relative overflow-hidden">
-                            <h2 className="text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
                                 Building a Media Business in 2026
                             </h2>
-                            <div className="prose prose-xl text-slate-600 font-outfit">
+                            <div className="prose prose-lg md:prose-xl text-slate-600 font-outfit">
                                 <p className="mb-6">
-                                    The "Solopreneur" model is evolving. To scale in 2026, you must think like a <strong>Media House</strong>. This requires standardizing your operations and protecting your most valuable asset: <em>Time</em>.
+                                    The &ldquo;Solopreneur&rdquo; model is evolving. To scale in 2026, you must think like a <strong>Media House</strong>. This requires standardizing your operations and protecting your most valuable asset: <em>Time</em>.
                                 </p>
                                 <p>
-                                    Our utility suite is designed to automate the non-creative hurdles that slow you down. Whether it's verifying ID formats, calculating binging potential, or auditing your meta-data, we provide the industrial-strength tools needed for professional creators.
+                                    Our utility suite is designed to automate the non-creative hurdles that slow you down. Whether it&apos;s verifying channel IDs, calculating series watch times, or auditing your metadata, we provide the industrial-strength utilities needed for professional creators.
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* AEO / FAQ Section */}
+                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                        <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
+                            Frequently Asked Questions About Creator Utilities
+                        </h2>
+                        <div className="space-y-6">
+                            {utilityFaqs.map((faq, idx) => (
+                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                                        {faq.question}
+                                    </h3>
+                                    <p className="text-slate-600 leading-relaxed">
+                                        {faq.answer}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -153,30 +242,12 @@ export default function UtilityToolsHub() {
                             href="/tools"
                             className="inline-flex items-center gap-4 px-12 py-6 bg-slate-900 text-white rounded-full font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95 group"
                         >
-                            Explore Global Suite
+                            View Entire Stack
                             <FaArrowRight className="group-hover:translate-x-3 transition-transform" />
                         </Link>
                     </div>
                 </div>
             </div>
         </>
-    );
-}
-
-// Helper for icon
-function FaBolt(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 448 512"
-            height="1em"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path d="M448 201.1c0 23.3-15.5 43-37.1 48.7L224 304v192c0 8.8-7.2 16-16 16s-16-7.2-16-16V304L25.1 249.8C3.5 244.1-12 224.4-12 201.1c0-23.3 15.5-43 37.1-48.7l172.9-48V32c0-8.8 7.2-16 16-16s16 7.2 16 16v72.4l172.9 48c21.6 5.7 37.1 25.4 37.1 48.7z"></path>
-        </svg>
     );
 }

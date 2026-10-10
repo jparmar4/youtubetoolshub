@@ -121,6 +121,7 @@ export default function ThumbnailDownloader() {
                                         <a
                                             href={`/api/download-image?url=${encodeURIComponent(thumb.url)}&filename=${encodeURIComponent(`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`)}`}
                                             download={`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`}
+                                            rel="nofollow"
                                             className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
                                         >
                                             <FaDownload />

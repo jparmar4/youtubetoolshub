@@ -159,7 +159,7 @@ ${speakableAnswers.cpmVsRpm}
 Estimated earnings ≈ (Views / 1,000) × RPM. Example US mid range: 100,000 views × $5 RPM ≈ $500/month. Country-specific ranges: ${baseUrl}/tools/youtube-earnings-calculator
 
 ### What is the average YouTube CPM by country?
-US: ${citableFacts.usCpmRange} (avg ${citableFacts.usCpmAvg}) | UK: ${citableFacts.ukCpmRange} | Canada: ${citableFacts.caCpmRange} | Australia: ${citableFacts.auCpmRange} | India: ${citableFacts.inCpmRange}. Full 54-country table: ${baseUrl}/resources/youtube-cpm-rates
+US: ${citableFacts.usCpmRange} (avg ${citableFacts.usCpmAvg}) | UK: ${citableFacts.ukCpmRange} | Canada: ${citableFacts.caCpmRange} | Australia: ${citableFacts.auCpmRange} | India: ${citableFacts.inCpmRange}. Full ${citableFacts.countryCount}-country table: ${baseUrl}/resources/youtube-cpm-rates
 
 ### What are YPP requirements?
 ${speakableAnswers.yppRequirements}

@@ -115,10 +115,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/sitemap-images.xml`,
-      `${baseUrl}/sitemap-news.xml`,
       `${baseUrl}/sitemap-index.xml`,
+      `${baseUrl}/sitemap.xml`,
     ],
     host: baseUrl,
   };

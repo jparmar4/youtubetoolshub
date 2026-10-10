@@ -9,20 +9,20 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-09-29",
-  "/tools": "2026-09-29",
-  "/tools/thumbnail-tools": "2026-09-29",
-  "/tools/seo-tools": "2026-09-29",
-  "/tools/analytics-tools": "2026-09-29",
-  "/tools/channel-tools": "2026-09-29",
-  "/tools/utility-tools": "2026-09-29",
+  "": "2026-10-10",
+  "/tools": "2026-10-10",
+  "/tools/thumbnail-tools": "2026-10-10",
+  "/tools/seo-tools": "2026-10-10",
+  "/tools/analytics-tools": "2026-10-10",
+  "/tools/channel-tools": "2026-10-10",
+  "/tools/utility-tools": "2026-10-10",
   "/about": "2026-09-29",
   "/contact": "2026-08-01",
-  "/blog": "2026-09-29",
+  "/blog": "2026-10-10",
   "/blog/why-youtube-tools-hub": "2026-09-29",
   "/faq": "2026-09-29",
   "/resources/youtube-creator-statistics": "2026-09-29",
-  "/resources/youtube-cpm-rates": "2026-09-29",
+  "/resources/youtube-cpm-rates": "2026-10-10",
   "/resources/link-to-us": "2026-09-29",
   "/pricing": "2026-09-29",
   "/tools/vs/tubebuddy": "2026-09-29",
@@ -35,7 +35,7 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/terms-of-use": "2026-08-01",
   "/disclaimer": "2026-08-01",
   "/refund-policy": "2026-08-01",
-  "/resources": "2026-09-29",
+  "/resources": "2026-10-10",
 };
 
 const FALLBACK_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");

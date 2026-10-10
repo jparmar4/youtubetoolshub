@@ -220,9 +220,56 @@ const nextConfig = {
         ],
       },
 
-      // ─── AI Context API: structured entity data for AI systems ───
+      // ─── Default API endpoints: non-public APIs should not be indexed ───
+      {
+        source: "/api/:path*",
+        headers: [
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow",
+          },
+        ],
+      },
+
+      // ─── AI Context & Public Discovery APIs (override default api noindex) ───
       {
         source: "/api/ai-context",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, noarchive",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/api/tools",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, noarchive",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/api/faqs",
         headers: [
           {
             key: "Cache-Control",
@@ -483,16 +530,36 @@ const nextConfig = {
    */
   async redirects() {
     const programmaticTools = [
-      "youtube-tag-generator",
+      "youtube-thumbnail-downloader",
+      "youtube-thumbnail-generator",
+      "youtube-ai-thumbnail-generator",
+      "youtube-ai-thumbnail-prompt",
       "youtube-title-generator",
       "youtube-description-generator",
-      "youtube-hashtag-generator",
+      "youtube-tag-generator",
+      "youtube-tag-extractor",
       "youtube-video-ideas-generator",
-      "youtube-intro-script-generator",
+      "youtube-trend-helper",
       "youtube-content-calendar-generator",
+      "youtube-earnings-calculator",
+      "youtube-engagement-rate-calculator",
+      "youtube-title-ab-tester",
       "youtube-channel-name-generator",
-      "youtube-ai-thumbnail-prompt",
-      "youtube-thumbnail-generator",
+      "youtube-hashtag-generator",
+      "youtube-intro-script-generator",
+      "youtube-channel-id-finder",
+      "youtube-playlist-length-calculator",
+      "youtube-comment-picker",
+      "youtube-channel-audit",
+      "youtube-subscriber-count-checker",
+      "youtube-video-download-options",
+      "youtube-timestamp-generator",
+      "youtube-shorts-script-planner",
+      "youtube-banner-logo-maker",
+      "youtube-niche-finder-quiz",
+      "youtube-sponsorship-calculator",
+      "youtube-channel-valuation-calculator",
+      "youtube-tax-deduction-calculator",
     ];
     const niches = [
       "gaming",
@@ -533,9 +600,14 @@ const nextConfig = {
       },
       // Thin tool×niche landings were indexed as duplicates of the parent tool
       ...nicheRedirects,
-      // C(n,2) comparison factory — 351 near-identical URLs
+      // Comparison factory — near-identical programmatic URLs
       {
-        source: "/tools/compare/:toolA/:toolB",
+        source: "/tools/compare",
+        destination: "/tools",
+        permanent: true,
+      },
+      {
+        source: "/tools/compare/:path*",
         destination: "/tools",
         permanent: true,
       },

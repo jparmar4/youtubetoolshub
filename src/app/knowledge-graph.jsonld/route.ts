@@ -1,12 +1,67 @@
 import { siteConfig } from "@/config/site";
-import { tools } from "@/config/tools";
+import { tools, toolCategories } from "@/config/tools";
 import { citableFacts, DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
 
+const categorySlugMap: Record<string, string> = {
+    "thumbnail-media": "/tools/thumbnail-tools",
+    "seo-metadata": "/tools/seo-tools",
+    "channel-growth": "/tools/channel-tools",
+    "analytics-earnings": "/tools/analytics-tools",
+    "utility-fun": "/tools/utility-tools",
+};
+
 export async function GET() {
     const baseUrl = siteConfig.url;
+
+    const categoryHubNodes = toolCategories.map((cat) => {
+        const hubPath = categorySlugMap[cat.id] || "/tools";
+        const catTools = tools.filter((t) => t.category === cat.id);
+
+        return {
+            "@type": ["WebPage", "CollectionPage"],
+            "@id": `${baseUrl}${hubPath}#hub`,
+            url: `${baseUrl}${hubPath}`,
+            name: cat.name,
+            description: cat.description,
+            isPartOf: { "@id": `${baseUrl}/#website` },
+            about: {
+                "@type": "Thing",
+                name: cat.name,
+                description: cat.description,
+            },
+            hasPart: catTools.map((t) => ({
+                "@type": "SoftwareApplication",
+                "@id": `${baseUrl}/tools/${t.slug}#app`,
+                name: t.name,
+                url: `${baseUrl}/tools/${t.slug}`,
+            })),
+        };
+    });
+
+    const toolNodes = tools.map((tool) => ({
+        "@type": "SoftwareApplication",
+        "@id": `${baseUrl}/tools/${tool.slug}#app`,
+        name: tool.name,
+        url: `${baseUrl}/tools/${tool.slug}`,
+        description: tool.seoDescription || tool.description,
+        applicationCategory: "MultimediaApplication",
+        applicationSubCategory: tool.category,
+        operatingSystem: "All (Web Browser)",
+        isAccessibleForFree: true,
+        offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+        },
+        author: {
+            "@id": `${baseUrl}/#organization`,
+        },
+        dateModified: DATA_LAST_REVIEWED,
+    }));
 
     const knowledgeGraph = {
         "@context": "https://schema.org",
@@ -89,6 +144,12 @@ export async function GET() {
                     "@type": "Organization",
                     "@id": `${baseUrl}/#organization`,
                 },
+                hasPart: tools.map((t) => ({
+                    "@type": "SoftwareApplication",
+                    "@id": `${baseUrl}/tools/${t.slug}#app`,
+                    name: t.name,
+                    url: `${baseUrl}/tools/${t.slug}`,
+                })),
             },
             {
                 "@type": "WebSite",
@@ -100,6 +161,14 @@ export async function GET() {
                     "@type": "Organization",
                     "@id": `${baseUrl}/#organization`,
                 },
+                hasPart: [
+                    ...categoryHubNodes.map((hub) => ({
+                        "@type": "CollectionPage",
+                        "@id": hub["@id"],
+                        name: hub.name,
+                        url: hub.url,
+                    })),
+                ],
                 potentialAction: {
                     "@type": "SearchAction",
                     target: {
@@ -110,6 +179,8 @@ export async function GET() {
                 },
                 inLanguage: "en",
             },
+            ...categoryHubNodes,
+            ...toolNodes,
         ],
     };
 

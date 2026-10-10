@@ -14,7 +14,8 @@ export interface GeoAeoHeadProps {
     | "FAQPage"
     | "HowTo"
     | "Service"
-    | "WebPage";
+    | "WebPage"
+    | "CollectionPage";
     /** Primary topic/keyword for the page */
     primaryTopic?: string;
     /** Comma-separated list of key facts AI should surface */
@@ -215,5 +216,24 @@ export const GEO_AEO_PRESETS = {
         dateModified,
         author: "YouTube Tools Hub Editorial Team",
         authorRole: "Creator Tools & YouTube Growth Research",
+    }),
+    categoryPage: (
+        categoryName: string,
+        categoryDescription: string,
+        toolCount: number,
+        keyFacts: string[] = [],
+    ) => ({
+        title: `${categoryName} - Free YouTube Creator Tools`,
+        description: categoryDescription,
+        entityType: "CollectionPage" as const,
+        primaryTopic: categoryName,
+        conciseAnswer: `${categoryName} suite by YouTube Tools Hub provides ${toolCount} free tools for content creators: ${categoryDescription}. 100% free with no browser extension or signup required.`,
+        keyFacts: [
+            `${toolCount} free creator tools in ${categoryName}`,
+            "No browser extension or login required",
+            "Runs directly in any web browser",
+            "Designed for practical creator workflows",
+            ...keyFacts,
+        ],
     }),
 };

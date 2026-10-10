@@ -97,7 +97,7 @@ export async function GET() {
         headers: {
             "Cache-Control":
                 "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
-            "X-Robots-Tag": "noindex",
+            "X-Robots-Tag": "index, follow, noarchive",
             "Access-Control-Allow-Origin": "*",
         },
     });

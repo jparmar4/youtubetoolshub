@@ -189,7 +189,9 @@ AI structured data: ${baseUrl}/api/ai-context
 - [All Tools](${baseUrl}/tools): Full tool directory
 - [Thumbnail Tools](${baseUrl}/tools/thumbnail-tools): Thumbnail-specific tools
 - [SEO Tools](${baseUrl}/tools/seo-tools): YouTube SEO tools
+- [Channel Tools](${baseUrl}/tools/channel-tools): YouTube channel research and growth tools
 - [Analytics Tools](${baseUrl}/tools/analytics-tools): Analytics and earnings tools
+- [Utility Tools](${baseUrl}/tools/utility-tools): YouTube utility, productivity, and automation tools
 - [CPM Rates](${baseUrl}/resources/youtube-cpm-rates): Country CPM/RPM data table
 - [Monetization Guide](${baseUrl}/resources/youtube-monetization-guide): YPP and revenue paths
 - [Algorithm Guide](${baseUrl}/resources/youtube-algorithm-guide): Ranking signals

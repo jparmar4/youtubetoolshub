@@ -43,6 +43,7 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
         <Link
             href="/dashboard"
             onClick={onClick}
+            rel="nofollow"
             className="text-slate-600 hover:text-purple-600 font-medium transition-colors flex items-center gap-1 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-purple-50 rounded-xl"
         >
             <span>🚀</span>

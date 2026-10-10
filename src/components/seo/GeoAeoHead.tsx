@@ -119,10 +119,14 @@ export default function GeoAeoHead({
     }));
   }
 
+  if (entityType === "CollectionPage") {
+    pageSchema["@type"] = ["WebPage", "CollectionPage"];
+  }
+
   // What the page is primarily about. `conciseAnswer` is the AEO citation
   // snippet answer engines can lift; the type comes from entityType/isTool.
   const mainEntityType =
-    entityType && entityType !== "WebPage"
+    entityType && entityType !== "WebPage" && entityType !== "CollectionPage"
       ? entityType
       : isTool
         ? "SoftwareApplication"
@@ -134,7 +138,19 @@ export default function GeoAeoHead({
   if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
       "@type": mainEntityType ?? "Thing",
-      ...(isTool ? { "@id": `${pageUrl}#software` } : {}),
+      ...(isTool
+        ? {
+            "@id": `${pageUrl}#software`,
+            applicationCategory: "MultimediaApplication",
+            operatingSystem: "All (Web Browser)",
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+            },
+          }
+        : {}),
       name: toolName || primaryTopic || title || siteConfig.name,
       ...(conciseAnswer ? { description: conciseAnswer } : {}),
     };

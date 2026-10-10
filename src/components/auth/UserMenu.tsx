@@ -49,6 +49,7 @@ export default function UserMenu() {
         return (
             <Link
                 href="/sign-in"
+                rel="nofollow"
                 className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
                 Sign In
@@ -110,6 +111,7 @@ export default function UserMenu() {
                         <Link
                             href="/dashboard"
                             role="menuitem"
+                            rel="nofollow"
                             className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-purple-700 focus-visible:bg-purple-50 focus-visible:text-purple-700 font-medium"
                             onClick={closeMenu}
                         >
