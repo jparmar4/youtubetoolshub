@@ -523,6 +523,33 @@ export function processContent(
     };
 
 
+    // State for code blocks
+    let inCodeBlock = false;
+    let codeBlockLang = '';
+    let codeBlockLines: string[] = [];
+
+    const flushCodeBlock = (key: string) => {
+        if (codeBlockLines.length > 0 || inCodeBlock) {
+            const rawCode = codeBlockLines.join('\n');
+            elements.push(
+                <div key={key} className="my-8 rounded-2xl overflow-hidden shadow-xl border border-slate-800 bg-slate-900 not-prose">
+                    {codeBlockLang && (
+                        <div className="flex items-center justify-between px-5 py-2.5 bg-slate-800/90 border-b border-slate-700/60 text-xs font-mono text-slate-300">
+                            <span className="font-semibold uppercase tracking-wider text-purple-400">{codeBlockLang}</span>
+                            <span className="text-[11px] text-slate-400 font-sans">Code Snippet</span>
+                        </div>
+                    )}
+                    <pre className="p-5 overflow-x-auto text-sm text-slate-100 font-mono leading-relaxed whitespace-pre">
+                        <code>{rawCode}</code>
+                    </pre>
+                </div>
+            );
+            codeBlockLines = [];
+            codeBlockLang = '';
+            inCodeBlock = false;
+        }
+    };
+
     // State for tables
     let tableLines: string[] = [];
 
@@ -580,6 +607,26 @@ export function processContent(
 
     lines.forEach((line, index) => {
         const trimmedLine = line.trim();
+
+        // Code block line handling
+        if (inCodeBlock) {
+            if (trimmedLine.startsWith('```')) {
+                flushCodeBlock(`code-${index}`);
+                return;
+            }
+            codeBlockLines.push(line);
+            return;
+        }
+
+        // Code block trigger
+        if (trimmedLine.startsWith('```')) {
+            flushList(`list-${index}`);
+            flushBlockquote(`quote-${index}`);
+            flushTable(`table-${index}`);
+            inCodeBlock = true;
+            codeBlockLang = trimmedLine.replace(/^```+/, '').trim();
+            return;
+        }
 
         // Empty line
         if (trimmedLine === '') {
@@ -779,6 +826,8 @@ export function processContent(
     flushList('list-final');
     flushBlockquote('quote-final');
     flushAEO('aeo-final');
+    flushTable('table-final');
+    flushCodeBlock('code-final');
 
     return elements;
 }
