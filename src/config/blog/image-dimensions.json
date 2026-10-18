@@ -3,6 +3,10 @@
     "width": 1200,
     "height": 1200
   },
+  "/images/blog/ai-creator-analytics-dashboard.webp": {
+    "width": 1200,
+    "height": 800
+  },
   "/images/blog/ai-scriptwriting-tools-youtube-hero.webp": {
     "width": 1200,
     "height": 1200
@@ -87,6 +91,10 @@
     "width": 1200,
     "height": 800
   },
+  "/images/blog/content-strategy-calendar.webp": {
+    "width": 1536,
+    "height": 1024
+  },
   "/images/blog/davinci-resolve-youtube-tutorial-hero.webp": {
     "width": 1200,
     "height": 1200
@@ -104,6 +112,10 @@
     "height": 800
   },
   "/images/blog/free-midjourney-alternatives-2026-hero.webp": {
+    "width": 1500,
+    "height": 1000
+  },
+  "/images/blog/free-video-editors-comparison-2026.webp": {
     "width": 1500,
     "height": 1000
   },
@@ -175,6 +187,10 @@
     "width": 1200,
     "height": 800
   },
+  "/images/blog/youtube-analytics-weekly-routine.webp": {
+    "width": 1200,
+    "height": 800
+  },
   "/images/blog/youtube-banner-makers-2026-hero.webp": {
     "width": 1500,
     "height": 1000
@@ -182,10 +198,6 @@
   "/images/blog/youtube-banner-size-2026-hero.webp": {
     "width": 1600,
     "height": 900
-  },
-  "/images/blog/youtube-banner-size-2026-pinterest.webp": {
-    "width": 1000,
-    "height": 1500
   },
   "/images/blog/youtube-business-ideas-2026-blueprint.webp": {
     "width": 1500,
@@ -198,10 +210,6 @@
   "/images/blog/youtube-channel-names-2026-cover.webp": {
     "width": 1672,
     "height": 941
-  },
-  "/images/blog/youtube-channel-names-2026-pinterest.webp": {
-    "width": 1024,
-    "height": 1536
   },
   "/images/blog/youtube-content-batching-hero.webp": {
     "width": 1200,
@@ -319,6 +327,10 @@
     "width": 1920,
     "height": 1080
   },
+  "/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp": {
+    "width": 1376,
+    "height": 768
+  },
   "/images/blog/youtube-video-ideas-for-every-niche-2026-hero.webp": {
     "width": 1376,
     "height": 768
@@ -326,5 +338,9 @@
   "/images/blog/youtube-vs-tiktok-money-comparison-2026.webp": {
     "width": 1200,
     "height": 800
+  },
+  "/images/blog/youtube-transcript-downloader-guide-pinterest.webp": {
+    "width": 848,
+    "height": 1264
   }
 }

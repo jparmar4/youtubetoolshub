@@ -206,6 +206,20 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
+        path: "/youtube-transcript-downloader",
+        title: "YouTube Transcript Downloader",
+        anchors: ["youtube transcript downloader", "transcript downloader", "extract subtitles free"],
+      },
+      {
+        path: "/blog/youtube-transcript-downloader-extract-subtitles-free",
+        title: "YouTube Transcript Downloader & Keyword Extractor Guide",
+        anchors: [
+          "download youtube transcript free",
+          "extract subtitles from youtube",
+          "youtube transcript keyword research",
+        ],
+      },
+      {
         path: "/tools/youtube-tag-generator",
         title: "Tag Generator",
         anchors: ["youtube tag generator", "video tags generator"],

@@ -49,6 +49,8 @@ const PRIORITY_PATHS = [
   "/tools/youtube-content-calendar-generator",
   "/tools/youtube-channel-name-generator",
   "/tools/youtube-timestamp-generator",
+  "/youtube-transcript-downloader",
+  "/blog/youtube-transcript-downloader-extract-subtitles-free",
   "/tools/vs/tubebuddy",
   "/tools/vs/vidiq",
   "/tools/seo-tools",
