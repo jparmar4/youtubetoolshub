@@ -233,6 +233,12 @@ If your video has defined sections, add timestamp chapters to your description. 
 
 Name each chapter after the keyword phrase someone would search for that section's content. YouTube displays these as "Key Moments" in Google Search results, driving additional traffic from Google's video snippets.
 
+### ✅ 3.6 Closed Captions & Spoken Transcripts — The 3x Semantic Multiplier
+
+Never leave your audio transcription entirely to YouTube's raw speech-to-text algorithm. YouTube's automated transcription engine frequently mishears technical terminology, tool names, and creator brands, corrupting the semantic entities assigned to your video in the recommendation graph.
+
+Before publishing, audit your video dialogue or download a clean SRT subtitle file using our [YouTube Transcript Downloader & Keyword Extractor](/blog/youtube-transcript-downloader-extract-subtitles-free). Spoken dialogue carries up to 3x more search relevance in YouTube's neural algorithm than backend tags. Uploading a verified, error-free caption file ensures Google and YouTube index every spoken entity with 100% accuracy.
+
 ---
 
 ## Phase 4 — Post-Publish Week: What to Do After You Upload

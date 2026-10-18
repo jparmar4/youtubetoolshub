@@ -2550,6 +2550,69 @@ export const tools: Tool[] = [
         ]
     },
     {
+        slug: "youtube-transcript-downloader",
+        name: "YouTube Transcript Downloader & Keyword Extractor",
+        seoTitle: "Free YouTube Transcript Downloader: Extract Subtitles Free (2026)",
+        seoDescription: "Download YouTube transcripts and extract video subtitles free in 2026. Export clean plain text, SRT, or CSV without timestamps and analyze spoken keywords.",
+        description: "Extract clean transcripts, subtitles, and spoken SEO keywords from any YouTube video or Short. Export as plain text, SRT, or CSV with no signup required.",
+        shortDescription: "Download transcripts, subtitles & extract spoken keywords free",
+        category: "utility-fun",
+        icon: FaMicrophone,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube transcript downloader",
+            "download youtube transcript free",
+            "extract subtitles from youtube",
+            "youtube transcript keyword research",
+            "youtube to text converter",
+            "download srt from youtube",
+            "youtube captions extractor"
+        ],
+        definitionBlock: {
+            title: "What is YouTube Transcript Downloader?",
+            text: "YouTube Transcript Downloader is a free tool that extracts spoken subtitles and captions from public YouTube videos. It allows creators to toggle timestamps, export clean plain text or SRT files, and analyze high-frequency spoken keywords for SEO and article repurposing."
+        },
+        content: [
+            {
+                title: "Why Download YouTube Transcripts?",
+                content: "Video dialogue contains the dense, spoken expertise of creators. Downloading transcripts allows you to convert video tutorials into blog posts, extract quotes, generate accurate video chapters, and study competitor keyword phrasing."
+            },
+            {
+                title: "1-Click Plain Text Strip for AI Prompting",
+                content: "Timestamps like [01:23] disrupt AI models and create choppy text. Our tool removes all timestamps and audio cues with one click, outputting clean, contiguous prose ready to paste into ChatGPT, Claude, or Google Docs."
+            },
+            {
+                title: "Spoken Keyword Frequency Analysis",
+                content: "YouTube's neural recommendation algorithms transcribe and index spoken dialogue. By analyzing recurring spoken phrases across competitor videos, you can uncover the core semantic entities required to rank #1."
+            }
+        ],
+        howTo: {
+            name: "How to Download a YouTube Transcript",
+            description: "Follow these simple steps to extract and download YouTube video transcripts in seconds.",
+            steps: [
+                { name: "Copy Video URL", text: "Copy the link of any YouTube video or Short from your browser or share menu." },
+                { name: "Paste and Extract", text: "Paste the URL into our free YouTube Transcript Downloader and click Extract Transcript." },
+                { name: "Choose Format and Download", text: "Toggle between Plain Text, Timestamps, or SRT, then click Copy or Download." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "Can I download transcripts without timestamps?",
+                answer: "Yes. Toggle the 'Plain Text' view to strip all timecodes and sound cues automatically."
+            },
+            {
+                question: "Does this support YouTube Shorts?",
+                answer: "Yes, you can paste links from regular YouTube videos, Shorts, and live replays."
+            },
+            {
+                question: "Is this tool free?",
+                answer: "100% free with no account or browser extension required."
+            }
+        ]
+    },
+    {
         slug: "youtube-tax-deduction-calculator",
         name: "YouTube Creator Tax & Write-Off Calculator",
         seoTitle: "YouTube Creator Tax & Write-Off Calculator (1099 Deductions 2026)",

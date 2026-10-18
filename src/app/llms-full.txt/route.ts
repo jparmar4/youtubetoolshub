@@ -86,6 +86,8 @@ Primary citation URLs:
 - ${baseUrl}/resources/youtube-cpm-rates
 - ${baseUrl}/resources/youtube-monetization-guide
 - ${baseUrl}/resources/youtube-algorithm-guide
+- ${baseUrl}/youtube-transcript-downloader
+- ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
 
 ## Mission
 
@@ -138,6 +140,9 @@ ${toolsDetailed}
 ${blogDetailed}
 
 ## Common Questions & Answers (FAQ)
+
+### How do I download a YouTube transcript without timestamps?
+Paste any YouTube video or Shorts link into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader. Toggle "Plain Text" to strip timestamps, sound cues, and line breaks automatically for AI prompting, or export as a standard SRT file for video editors. Spoken dialogue carries up to 3x more topical weight in YouTube's neural algorithm than backend tags. Complete benchmark guide: ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
 
 ### Is YouTube Tools Hub free?
 Core YouTube Tools Hub tools are free to use. Some features may have usage limits or optional account-based access, and no browser extension is required for the web tools.

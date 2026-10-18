@@ -88,6 +88,7 @@ interactive result. CPM and RPM figures are planning estimates, not official
 YouTube payout data.
 
 - Tools suite: ${baseUrl}/tools
+- Transcript downloader: ${baseUrl}/youtube-transcript-downloader
 - Earnings calculator: ${baseUrl}/tools/youtube-earnings-calculator
 - CPM data table: ${baseUrl}/resources/youtube-cpm-rates
 - Monetization guide: ${baseUrl}/resources/youtube-monetization-guide
@@ -111,6 +112,8 @@ YouTube payout data.
 - **Free VidIQ alternative?** Yes — AI-assisted keyword/metadata tools and channel workflow helpers at no cost for core features.
 - **YouTube earnings calculator:** ${baseUrl}/tools/youtube-earnings-calculator
 - **YouTube thumbnail downloader:** ${baseUrl}/tools/youtube-thumbnail-downloader
+- **YouTube transcript downloader & keyword extractor:** ${baseUrl}/youtube-transcript-downloader — Free tool to extract YouTube transcripts, download plain text or SRT subtitles without timestamps, and mine spoken keyword frequencies for SEO.
+- **YouTube transcript downloader guide (2026):** ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free — Benchmark takeaway: spoken dialogue carries up to 3x more search weight in YouTube's neural algorithm than backend tags. Complete workflow for 15-minute video-to-article repurposing.
 - **US average CPM:** ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US average RPM ≈ ${citableFacts.usRpmAvg} (range ${citableFacts.usRpmRange})
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}

@@ -63,6 +63,7 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-sponsorship-calculator": dynamic(() => import("@/components/tools/SponsorshipCalculator")),
     "youtube-channel-valuation-calculator": dynamic(() => import("@/components/tools/ChannelValuationCalculator")),
     "youtube-tax-deduction-calculator": dynamic(() => import("@/components/tools/TaxDeductionCalculator")),
+    "youtube-transcript-downloader": dynamic(() => import("@/components/tools/TranscriptDownloader")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
