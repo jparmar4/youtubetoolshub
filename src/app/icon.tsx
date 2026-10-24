@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
-// Route segment config
-export const runtime = 'edge';
+// Route segment config (nodejs runtime for Next.js 16 standalone compatibility)
+export const runtime = 'nodejs';
 
 // Image metadata
 export const size = {
