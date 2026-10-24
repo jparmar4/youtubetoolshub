@@ -56,6 +56,9 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["react-icons", "framer-motion"],
+    // Limit build worker threads to prevent EAGAIN crashes on constrained hosting (Hostinger).
+    // Next.js defaults to os.cpus().length which exceeds ulimits on VPS/shared plans.
+    cpus: 2,
   },
 
   // Headers for caching, security, SEO, and AI crawler optimization
