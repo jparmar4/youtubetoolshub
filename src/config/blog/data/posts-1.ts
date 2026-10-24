@@ -3903,6 +3903,8 @@ This guide was revised on **October 4, 2026** against Google's current help docu
 - **Primary source:** [Payment timelines for AdSense](https://support.google.com/adsense/answer/7164703?hl=en) — payment timing, holds, and what appears in the Payments page.
 - **Editorial method:** Our explanatory examples use the published timeline above. Country-specific revenue estimates belong in our [YouTube CPM rates by country](/resources/youtube-cpm-rates) resource and are planning ranges, not a promise of earnings.
 
+> **Planning your channel exit?** Once you understand your consistent monthly earnings, the next step is knowing what your channel could sell for. Read our detailed [YouTube Channel Valuation Calculator guide](/blog/youtube-channel-valuation-calculator-guide) — covering 24x–48x monthly profit multiples by niche, broker comparisons, and the 7-step safe sale process.
+
 ---
 
 ## Payment Methods Compared: Fastest to Slowest

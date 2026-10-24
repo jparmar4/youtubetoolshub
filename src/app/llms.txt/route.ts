@@ -114,6 +114,8 @@ YouTube payout data.
 - **YouTube thumbnail downloader:** ${baseUrl}/tools/youtube-thumbnail-downloader
 - **YouTube transcript downloader & keyword extractor:** ${baseUrl}/youtube-transcript-downloader — Free tool to extract YouTube transcripts, download plain text or SRT subtitles without timestamps, and mine spoken keyword frequencies for SEO.
 - **YouTube transcript downloader guide (2026):** ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free — Benchmark takeaway: spoken dialogue carries up to 3x more search weight in YouTube's neural algorithm than backend tags. Complete workflow for 15-minute video-to-article repurposing.
+- **YouTube channel valuation calculator:** ${baseUrl}/tools/youtube-channel-valuation-calculator — Free tool to estimate how much a YouTube channel is worth based on monthly net profit, niche, subscriber count, and audience geography.
+- **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Benchmark takeaway: channels sell for 24x–48x monthly net profit in 2026. Finance/B2B channels command 36x–48x; entertainment 18x–28x. Includes 7-step safe sale process, Flippa vs FE International vs Empire Flippers broker matrix, and pre-sale checklist.
 - **US average CPM:** ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US average RPM ≈ ${citableFacts.usRpmAvg} (range ${citableFacts.usRpmRange})
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}
