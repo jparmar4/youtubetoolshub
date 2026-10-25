@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 import { formatCurrency, calculateEarnings } from "@/lib/utils";
 import { saveHistory } from "@/lib/history";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import Link from "next/link";
 
 const faq = [
   {
@@ -192,6 +194,51 @@ export default function EarningsCalculator({
             </div>
           </div>
         )}
+
+        {/* High-CPC FinTech Comparisons & International Payout Callout */}
+        <div className="pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+            <Link
+              href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+            >
+              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+                LLC vs. S-Corp Calculator →
+              </span>
+              <span className="text-slate-500">
+                See how electing S-Corp saves $4k–$12k in self-employment tax.
+              </span>
+            </Link>
+
+            <Link
+              href="/tools/patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+            >
+              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+                Platform Fee Calculator →
+              </span>
+              <span className="text-slate-500">
+                Compare YouTube 30% take vs Patreon and Fourthwall 0% fee.
+              </span>
+            </Link>
+
+            <Link
+              href="/tools/youtube-shorts-music-royalty-split-calculator"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+            >
+              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+                Shorts Music Split Calculator →
+              </span>
+              <span className="text-slate-500">
+                Model how licensed songs impact Creator Pool RPM.
+              </span>
+            </Link>
+          </div>
+
+          <InternationalPayoutCallout
+            monthlyUsdEstimate={adResult ? adResult.monthly : 2500}
+          />
+        </div>
       </div>
     </ToolPageLayout>
   );

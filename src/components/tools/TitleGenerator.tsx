@@ -16,6 +16,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
+import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 
 const toneOptions = [
     { value: "casual", label: "Casual & Friendly" },
@@ -440,6 +441,7 @@ export default function TitleGenerator() {
                         })}
                     </AnimatePresence>
                 </div>
+                <CreatorSoftwareCard defaultCategory="seo" />
             </div>
         </ToolPageLayout>
     );

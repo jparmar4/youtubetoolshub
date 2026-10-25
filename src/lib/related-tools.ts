@@ -24,6 +24,9 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-tag-extractor",
     "youtube-description-generator",
     "youtube-channel-audit",
+    "youtube-llc-vs-s-corp-tax-savings-calculator",
+    "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator",
+    "youtube-shorts-music-royalty-split-calculator",
   ],
   Monetization: [
     "youtube-earnings-calculator",
@@ -38,6 +41,7 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-thumbnail-generator",
     "youtube-ai-thumbnail-generator",
     "youtube-ai-thumbnail-prompt",
+    "youtube-thumbnail-feed-previewer",
   ],
   Shorts: [
     "youtube-shorts-script-planner",
@@ -94,6 +98,10 @@ const CATEGORY_ALIASES: Record<string, string[]> = {
 const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
   { pattern: /sponsor|brand.?deal|media.?kit/i, slugs: ["youtube-sponsorship-calculator"] },
   { pattern: /valuation|channel.?worth|sell.*channel|buy.*channel/i, slugs: ["youtube-channel-valuation-calculator"] },
+  { pattern: /s.?corp|llc.?tax/i, slugs: ["youtube-llc-vs-s-corp-tax-savings-calculator"] },
+  { pattern: /patreon|fourthwall|membership.?fee/i, slugs: ["patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator"] },
+  { pattern: /shorts.?music|royalty.?split|music.?tax/i, slugs: ["youtube-shorts-music-royalty-split-calculator"] },
+  { pattern: /feed.?preview|safe.?zone|timestamp.?block/i, slugs: ["youtube-thumbnail-feed-previewer"] },
   { pattern: /tax|write.?off|deduct/i, slugs: ["youtube-tax-deduction-calculator"] },
   {
     pattern: /thumbnail|ctr|click.?through/i,

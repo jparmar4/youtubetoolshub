@@ -25,6 +25,8 @@ function component(name, overrides = [], clipboard) {
   '@/components/ui/Input': {Input: stub},
   '@/components/ui/Button': {default: stub},
   '@/components/ads/GoogleAd': {default: stub},
+  '@/components/ads/InternationalPayoutCallout': {default: stub},
+  '@/components/ads/CreatorSoftwareCard': {default: stub},
   '@/lib/history': {saveHistory: async () => {}},
  });
  return {tree: result.default(), updates};

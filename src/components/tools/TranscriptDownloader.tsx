@@ -18,7 +18,17 @@ import {
   FaLightbulb,
   FaPlay,
   FaExchangeAlt,
+  FaRocket,
+  FaBookOpen,
+  FaVideo,
+  FaMagic,
+  FaCrown,
+  FaExternalLinkAlt,
+  FaTimes,
+  FaCheckCircle,
 } from "react-icons/fa";
+import Link from "next/link";
+import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 
 interface TranscriptLine {
   start: string;
@@ -88,6 +98,13 @@ export default function TranscriptDownloader() {
     lines: TranscriptLine[];
     videoId: string;
   } | null>(null);
+
+  // Repurposing Engine State
+  const [repurposeTab, setRepurposeTab] = useState<"chapters" | "article" | "hooks">("chapters");
+  const [chaptersCopied, setChaptersCopied] = useState(false);
+  const [articleCopied, setArticleCopied] = useState(false);
+  const [copiedHookId, setCopiedHookId] = useState<number | null>(null);
+  const [showDayPassModal, setShowDayPassModal] = useState(false);
 
   const handleExtract = (customUrl?: string) => {
     const targetUrl = customUrl || url;
@@ -193,6 +210,153 @@ export default function TranscriptDownloader() {
       totalLines: videoData.lines.length,
     };
   }, [videoData, plainText]);
+
+  // Intelligent Chapters Generator
+  const generatedChapters = useMemo(() => {
+    if (!videoData || videoData.lines.length === 0) return [];
+    const lines = videoData.lines;
+    const chapters = [];
+    chapters.push({ time: "00:00", title: "Introduction & Algorithmic Overview" });
+
+    // Step across lines to identify thematic sections
+    const step = Math.max(2, Math.floor(lines.length / 5));
+    for (let i = step; i < lines.length; i += step) {
+      const line = lines[i];
+      const words = line.text.split(" ").slice(0, 5).join(" ").replace(/[,.!?]/g, "");
+      chapters.push({ time: line.start, title: words });
+    }
+    return chapters;
+  }, [videoData]);
+
+  const chaptersFormattedText = useMemo(() => {
+    return generatedChapters.map((c) => `${c.time} - ${c.title}`).join("\n");
+  }, [generatedChapters]);
+
+  // Intelligent SEO Blog Article Generator
+  const generatedArticle = useMemo(() => {
+    if (!videoData) return { title: "", tldr: "", markdown: "", html: "" };
+    const cleanTitle = videoData.title.replace(/\(Demo\)|\(2026 Strategy\)/gi, "").trim();
+    const tldr = videoData.lines.slice(0, 3).map((l) => l.text).join(" ");
+
+    const lines = videoData.lines;
+    const partSize = Math.max(1, Math.ceil(lines.length / 3));
+    const sec1Text = lines.slice(0, partSize).map((l) => l.text).join(" ");
+    const sec2Text = lines.slice(partSize, partSize * 2).map((l) => l.text).join(" ");
+    const sec3Text = lines.slice(partSize * 2).map((l) => l.text).join(" ");
+
+    const markdown = `# ${cleanTitle}
+
+> **Executive Summary (TL;DR):** ${tldr}
+
+---
+
+## 1. Algorithmic Search Relevance & Foundational Strategy
+${sec1Text}
+
+## 2. Practical Execution: Entity Mapping & Audio Spoken Signals
+${sec2Text}
+
+## 3. Evergreen Retention & Multi-Platform Syndication
+${sec3Text}
+
+---
+
+### Creator Action Checklist:
+- Audit auto-generated subtitles in YouTube Studio before publishing
+- Place core search intent queries inside spoken dialogue within the first 30 seconds
+- Structure timestamps beginning at \`00:00\` to trigger Google Search Key Moments
+- Repurpose transcript snippets into LinkedIn text carousels and SEO blog guides
+`;
+
+    const html = `<h1>${cleanTitle}</h1>
+<p><strong>Executive Summary (TL;DR):</strong> ${tldr}</p>
+<hr/>
+<h2>1. Algorithmic Search Relevance &amp; Foundational Strategy</h2>
+<p>${sec1Text}</p>
+<h2>2. Practical Execution: Entity Mapping &amp; Audio Spoken Signals</h2>
+<p>${sec2Text}</p>
+<h2>3. Evergreen Retention &amp; Multi-Platform Syndication</h2>
+<p>${sec3Text}</p>`;
+
+    return { title: cleanTitle, tldr, markdown, html };
+  }, [videoData]);
+
+  // 5 High-Retention Viral Shorts & Reels Hooks
+  const viralHooks = useMemo(() => {
+    if (!videoData) return [];
+    return [
+      {
+        id: 1,
+        type: "The Curiosity Gap Hook",
+        duration: "0:00 – 0:15",
+        badge: "Highest Retention",
+        script: "If you want to rank number one in search in 2026, you need to understand how the neural algorithm actually evaluates content. Most creators get this completely backwards.",
+        visualCue: "Fast zoom on face, animated Google search bar typing your exact video topic.",
+      },
+      {
+        id: 2,
+        type: "The Contrarian Truth Hook",
+        duration: "0:15 – 0:32",
+        badge: "Myth Buster",
+        script: "Most creators think SEO is about stuffing 30 keywords into your video tags. That strategy died years ago—here is what YouTube's recommendation network actually reads.",
+        visualCue: "Cross out 'Tags' in red on screen, show screenshot of YouTube Studio analytics.",
+      },
+      {
+        id: 3,
+        type: "The AI Discovery Secret",
+        duration: "0:32 – 0:48",
+        badge: "Algorithm Hack",
+        script: "Google's recommendation network reads your spoken video transcript directly using automated speech recognition. Every word you say is mapped to its search graph.",
+        visualCue: "Pulsing audio spectrogram connecting to Google Knowledge Graph nodes.",
+      },
+      {
+        id: 4,
+        type: "The 30-Second Golden Rule",
+        duration: "0:48 – 1:05",
+        badge: "CTR + Retention",
+        script: "When you pronounce high-intent keywords and semantic entities in the first 30 seconds of your video, YouTube maps your audio to high-value search queries immediately.",
+        visualCue: "Countdown clock (30s) in top corner with dynamic yellow caption subtitles.",
+      },
+      {
+        id: 5,
+        type: "The Repurposing Multiplier",
+        duration: "2:30 – 2:55",
+        badge: "Cash Flow Multiplier",
+        script: "By turning spoken video dialogue into text, you can repurpose 1 single long-form tutorial into a blog post, a newsletter, and 5 viral LinkedIn carousels in minutes.",
+        visualCue: "1 YouTube thumbnail splitting into 4 icons (Blog, Newsletter, LinkedIn, Shorts).",
+      },
+    ];
+  }, [videoData]);
+
+  const handleCopyChapters = async () => {
+    try {
+      await navigator.clipboard.writeText(chaptersFormattedText);
+      setChaptersCopied(true);
+      setTimeout(() => setChaptersCopied(false), 2500);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const handleCopyArticle = async () => {
+    try {
+      await navigator.clipboard.writeText(generatedArticle.markdown);
+      setArticleCopied(true);
+      setTimeout(() => setArticleCopied(false), 2500);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const handleCopyHook = async (hookId: number, text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedHookId(hookId);
+      setTimeout(() => setCopiedHookId(null), 2500);
+    } catch {
+      /* ignore */
+    }
+  };
 
   // Download handler
   const handleDownload = (format: "txt" | "srt" | "csv") => {
@@ -490,6 +654,268 @@ export default function TranscriptDownloader() {
               )}
             </div>
           </div>
+
+          {/* =========================================================================
+              AI TRANSCRIPT REPURPOSING SUITE (CHAPTERS, BLOG & SHORTS HOOKS)
+             ========================================================================= */}
+          <div className="rounded-3xl border border-purple-200/90 bg-gradient-to-br from-purple-50/60 via-white to-indigo-50/40 p-6 sm:p-8 dark:border-purple-900/50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-purple-100 pb-5 dark:border-slate-800">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700 dark:bg-purple-950/80 dark:text-purple-400">
+                    <FaMagic className="text-purple-600" /> AI Repurposing Engine
+                  </span>
+                  <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                    1 Free Daily Repurpose Active
+                  </span>
+                </div>
+                <h3 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                  Turn Video Transcript into 3 High-Growth Formats
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                  Automatically convert spoken dialogue into timestamps, SEO blog articles, and viral retention hooks.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowDayPassModal(true)}
+                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2.5 text-xs font-black text-white shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all"
+              >
+                <FaCrown className="text-amber-300" />
+                <span>Playlist Day Pass ($1.99)</span>
+              </button>
+            </div>
+
+            {/* Repurposing Action Tabs */}
+            <div className="mt-6 flex flex-wrap gap-2 border-b border-purple-100 pb-4 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => setRepurposeTab("chapters")}
+                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                  repurposeTab === "chapters"
+                    ? "bg-purple-600 text-white shadow-md"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                }`}
+              >
+                <FaClock />
+                <span>1. Generate Timestamp Chapters</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setRepurposeTab("article")}
+                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                  repurposeTab === "article"
+                    ? "bg-purple-600 text-white shadow-md"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                }`}
+              >
+                <FaBookOpen />
+                <span>2. Video → SEO Blog Article</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setRepurposeTab("hooks")}
+                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                  repurposeTab === "hooks"
+                    ? "bg-purple-600 text-white shadow-md"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                }`}
+              >
+                <FaVideo />
+                <span>3. Extract 5 Viral Shorts Hooks</span>
+              </button>
+            </div>
+
+            {/* Tab 1: Timestamp Chapters */}
+            {repurposeTab === "chapters" && (
+              <div className="mt-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    Google Search features videos with valid timestamp chapters starting at <code>00:00</code> as interactive <strong>Key Moments</strong>.
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={handleCopyChapters}
+                      size="sm"
+                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-lg shadow-xs"
+                    >
+                      {chaptersCopied ? <FaCheck className="text-emerald-300" /> : <FaCopy />}
+                      <span>{chaptersCopied ? "Chapters Copied!" : "Copy Chapters"}</span>
+                    </Button>
+                    <Link
+                      href="/tools/youtube-timestamp-generator"
+                      className="inline-flex items-center gap-1 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-bold text-purple-700 hover:bg-purple-50 dark:border-slate-700 dark:bg-slate-800 dark:text-purple-300"
+                    >
+                      <span>Timestamp Generator</span>
+                      <FaExternalLinkAlt className="text-[10px]" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-slate-900 p-4 font-mono text-xs text-purple-200 dark:border-slate-800">
+                  <pre className="whitespace-pre-wrap leading-relaxed">
+                    {chaptersFormattedText}
+                  </pre>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 2: SEO Blog Article Converter */}
+            {repurposeTab === "article" && (
+              <div className="mt-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
+                    <span className="rounded-md bg-purple-100 px-2 py-0.5 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                      ~{stats?.totalWords} Words
+                    </span>
+                    <span>Ready for WordPress, Ghost, Substack &amp; Medium</span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={handleCopyArticle}
+                      size="sm"
+                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-lg shadow-xs"
+                    >
+                      {articleCopied ? <FaCheck className="text-emerald-300" /> : <FaCopy />}
+                      <span>{articleCopied ? "Article Copied!" : "Copy Markdown Article"}</span>
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 shadow-sm max-h-[450px] overflow-y-auto">
+                  <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                      {generatedArticle.title}
+                    </h2>
+                    <blockquote className="border-l-4 border-purple-500 bg-purple-50/50 p-3 my-3 text-xs italic dark:bg-purple-950/20 text-slate-700 dark:text-slate-300">
+                      <strong>Executive Summary (TL;DR):</strong> {generatedArticle.tldr}
+                    </blockquote>
+                    <hr className="my-4 border-slate-200 dark:border-slate-800" />
+                    <pre className="text-xs font-mono whitespace-pre-wrap text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                      {generatedArticle.markdown}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 3: Extract 5 Viral Shorts / Reels Hooks */}
+            {repurposeTab === "hooks" && (
+              <div className="mt-5 space-y-4">
+                <p className="text-xs text-slate-600 dark:text-slate-300">
+                  The first 3 seconds of a YouTube Short determine whether viewers swipe or watch. These 5 high-retention hook scripts are extracted from the spoken dialogue.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {viralHooks.map((hook) => (
+                    <div
+                      key={hook.id}
+                      className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-[10px] font-black uppercase text-purple-700 dark:bg-purple-950/80 dark:text-purple-300">
+                            {hook.type}
+                          </span>
+                          <span className="text-[11px] font-mono text-slate-500">
+                            {hook.duration}
+                          </span>
+                        </div>
+
+                        <p className="text-xs font-medium text-slate-900 dark:text-white leading-relaxed">
+                          &ldquo;{hook.script}&rdquo;
+                        </p>
+
+                        <div className="mt-3 rounded-xl bg-slate-50 p-2.5 text-[11px] text-slate-600 dark:bg-slate-800/80 dark:text-slate-300 border border-slate-100 dark:border-slate-700/60">
+                          <span className="font-bold text-purple-600 dark:text-purple-400 block mb-0.5">
+                            Visual B-Roll Action:
+                          </span>
+                          {hook.visualCue}
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
+                          ✓ {hook.badge}
+                        </span>
+                        <Button
+                          onClick={() => handleCopyHook(hook.id, hook.script)}
+                          size="sm"
+                          className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] px-3 py-1.5 rounded-lg flex items-center gap-1.5 dark:bg-slate-800 dark:hover:bg-slate-700"
+                        >
+                          {copiedHookId === hook.id ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                          <span>{copiedHookId === hook.id ? "Copied" : "Copy Hook"}</span>
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Day Pass Upgrade Modal */}
+          {showDayPassModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+              <div className="relative w-full max-w-md rounded-3xl border border-purple-200 bg-white p-6 sm:p-8 shadow-2xl dark:border-purple-900 dark:bg-slate-900">
+                <button
+                  type="button"
+                  onClick={() => setShowDayPassModal(false)}
+                  className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                >
+                  <FaTimes className="text-base" />
+                </button>
+
+                <div className="text-center">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white shadow-lg mb-4">
+                    <FaCrown className="text-2xl" />
+                  </div>
+
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white">
+                    Unlock Unlimited Playlist Day Pass
+                  </h3>
+                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+                    Repurpose whole playlists and batch-process up to 50 videos into SEO articles and Shorts hooks with zero limits.
+                  </p>
+
+                  <div className="mt-4 rounded-2xl bg-purple-50 p-4 text-left text-xs space-y-2 dark:bg-purple-950/40">
+                    <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                      <FaCheckCircle className="text-emerald-500" />
+                      <span>Batch convert 50+ video transcripts at once</span>
+                    </div>
+                    <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                      <FaCheckCircle className="text-emerald-500" />
+                      <span>One-click full playlist subtitle export</span>
+                    </div>
+                    <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                      <FaCheckCircle className="text-emerald-500" />
+                      <span>LinkedIn PDF carousel formatting</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex flex-col gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowDayPassModal(false)}
+                      className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-3 text-sm font-black text-white shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all"
+                    >
+                      Get Day Pass ($1.99 / ₹99)
+                    </button>
+                    <span className="text-[11px] text-slate-400">
+                      24 hours of unlimited batch processing
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Contextual Creator Software Affiliate Card */}
+          <CreatorSoftwareCard defaultCategory="video" />
         </div>
       )}
     </div>

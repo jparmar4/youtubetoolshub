@@ -5,6 +5,8 @@ import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import Link from "next/link";
 import { 
     FaFileInvoiceDollar, 
     FaCheckCircle, FaExclamationTriangle, FaExchangeAlt, FaRegLightbulb 
@@ -350,6 +352,38 @@ export default function TaxDeductionCalculator() {
                                 <strong>Important Disclaimer:</strong> This calculator is an educational planning estimator using your entered expenses and rate assumption for {currentRegion.name}. It does not constitute certified legal or tax advice. Tax regulations change frequently; always verify your specific business situation with a licensed CPA, Enrolled Agent, or chartered tax accountant.
                             </div>
                         </div>
+
+                        {/* High-CPC FinTech Comparison Calculators */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <Link
+                                href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                                className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 hover:border-blue-400 dark:border-blue-900/60 dark:bg-slate-900 transition-all text-xs"
+                            >
+                                <span className="font-bold text-blue-900 dark:text-blue-300 block mb-1">
+                                    LLC vs. S-Corp Tax Savings Calculator →
+                                </span>
+                                <span className="text-slate-600 dark:text-slate-400">
+                                    Full-time creator? Calculate how an S-Corp election can save you $5,000–$15,000 in self-employment taxes.
+                                </span>
+                            </Link>
+
+                            <Link
+                                href="/tools/patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator"
+                                className="p-4 rounded-xl border border-purple-200 bg-purple-50/40 hover:border-purple-400 dark:border-purple-900/60 dark:bg-slate-900 transition-all text-xs"
+                            >
+                                <span className="font-bold text-purple-900 dark:text-purple-300 block mb-1">
+                                    Patreon vs YouTube vs Fourthwall Fees →
+                                </span>
+                                <span className="text-slate-600 dark:text-slate-400">
+                                    Compare platform cuts and Stripe processing fees to maximize your recurring monthly take-home pay.
+                                </span>
+                            </Link>
+                        </div>
+
+                        {/* International Payout Callout */}
+                        <InternationalPayoutCallout
+                            monthlyUsdEstimate={calculations ? Math.round(calculations.gross / 12) : 3750}
+                        />
 
                         {/* High-Value In-Tool Ad Placement */}
                         <div className="pt-4 text-center">

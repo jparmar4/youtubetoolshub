@@ -64,6 +64,10 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-channel-valuation-calculator": dynamic(() => import("@/components/tools/ChannelValuationCalculator")),
     "youtube-tax-deduction-calculator": dynamic(() => import("@/components/tools/TaxDeductionCalculator")),
     "youtube-transcript-downloader": dynamic(() => import("@/components/tools/TranscriptDownloader")),
+    "youtube-thumbnail-feed-previewer": dynamic(() => import("@/components/tools/ThumbnailFeedPreviewer")),
+    "youtube-llc-vs-s-corp-tax-savings-calculator": dynamic(() => import("@/components/tools/LLCvsSCorpCalculator")),
+    "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator": dynamic(() => import("@/components/tools/MembershipFeeCalculator")),
+    "youtube-shorts-music-royalty-split-calculator": dynamic(() => import("@/components/tools/ShortsMusicSplitCalculator")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)

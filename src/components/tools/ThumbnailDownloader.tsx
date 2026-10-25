@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
-import { FaDownload, FaImage } from "react-icons/fa";
+import { FaDownload, FaImage, FaEye } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
 import GoogleAd from "@/components/ads/GoogleAd";
-
+import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
+import Link from "next/link";
 
 export default function ThumbnailDownloader() {
     const [url, setUrl] = useState("");
@@ -80,10 +81,19 @@ export default function ThumbnailDownloader() {
                         </Button>
                     </div>
                 </div>
-                <p className="text-sm text-slate-500">
-                    Supports regular videos, Shorts, youtu.be links, and live replays. Downloads
-                    public thumbnail images YouTube already hosts — no account required.
-                </p>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-slate-500">
+                    <p>
+                        Supports regular videos, Shorts, youtu.be links, and live replays. Downloads
+                        public thumbnail images YouTube already hosts — no account required.
+                    </p>
+                    <Link
+                        href="/tools/youtube-thumbnail-feed-previewer"
+                        className="inline-flex shrink-0 items-center gap-1.5 font-bold text-red-600 hover:text-red-700 dark:text-red-400"
+                    >
+                        <FaEye />
+                        <span>Preview in YouTube Feed →</span>
+                    </Link>
+                </div>
 
                 {/* Results Section */}
                 {thumbnails && (
@@ -133,6 +143,9 @@ export default function ThumbnailDownloader() {
                         </div>
                     </div>
                 )}
+
+                {/* Creator Software Comparison Card (OpusClip, ElevenLabs, Epidemic) */}
+                <CreatorSoftwareCard defaultCategory="video" />
 
                 {/* Ad placed BELOW results — safe distance from download buttons (AdSense policy) */}
                 {thumbnails && (

@@ -7,7 +7,7 @@ import {
     FaDollarSign, FaChartBar, FaBalanceScale,
     FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl,
     FaTrophy, FaUsers, FaClock, FaDownload, FaVideo, FaPaintBrush, FaCompass,
-    FaHandshake, FaFileInvoiceDollar, FaCoins
+    FaHandshake, FaFileInvoiceDollar, FaCoins, FaMobileAlt, FaMusic, FaStore, FaBuilding
 } from "react-icons/fa";
 import { IconType } from "react-icons";
 
@@ -2686,6 +2686,345 @@ export const tools: Tool[] = [
             {
                 question: "Is this calculator official tax advice?",
                 answer: "No. This is an expense planning scenario using a user-supplied rate. It does not establish eligibility, compute tax liability or prepare a tax return."
+            }
+        ]
+    },
+    // =========================================================================
+    // NEW HIGH-IMPACT CREATOR SUITE (2026 ROADMAP)
+    // =========================================================================
+    {
+        slug: "youtube-thumbnail-feed-previewer",
+        name: "YouTube Thumbnail & Feed Safe-Zone Previewer",
+        seoTitle: "YouTube Thumbnail Feed Previewer (Desktop, Mobile & Shorts Safe-Zone)",
+        seoDescription: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading. Free tool.",
+        description: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading.",
+        shortDescription: "Preview thumbnails in realistic YouTube feeds and Shorts safe zones",
+        category: "thumbnail-media",
+        icon: FaMobileAlt,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube thumbnail previewer",
+            "youtube thumbnail feed simulator",
+            "youtube shorts safe zone checker",
+            "thumbnail timestamp danger zone",
+            "youtube mobile feed preview",
+            "test youtube thumbnail in feed",
+            "thumbnail safe zone template 2026",
+            "youtube title truncation checker"
+        ],
+        definitionBlock: {
+            title: "What is YouTube Thumbnail Feed Previewer?",
+            text: "YouTube Thumbnail Feed Previewer is a free browser tool that allows creators to preview draft thumbnails and titles inside simulated YouTube desktop home feeds, mobile app feeds, and Shorts 9:16 safe-zone grids. It helps detect title truncations and prevent the bottom-right video duration badge from obscuring critical thumbnail text."
+        },
+        content: [
+            {
+                title: "The Problem with Thumbnail Packaging in 2026",
+                content: "Creating a high-resolution 1280x720 thumbnail inside Photoshop or Canva only solves half the packaging equation. Once uploaded to YouTube, your thumbnail must compete against dozens of neighboring videos in dark and light mode feeds, survive smartphone title truncations, and remain completely readable under YouTube's interface overlays."
+            },
+            {
+                title: "The 14:22 Timestamp Collision: Why 38% of Thumbnails Fail",
+                content: "YouTube automatically renders a solid black duration badge (e.g., 14:22) across the bottom-right 20% of every video card. Thousands of creators mistakenly place crucial focal points, logos, or punchline text in this corner. Our previewer outlines this exact danger zone so you can verify zero critical information gets blocked."
+            },
+            {
+                title: "YouTube Shorts 9:16 Safe Zones: Don't Let Buttons Hide Your Hook",
+                content: "Vertical Shorts players superimpose heavy UI overlays: the channel handle, subscribe pill, and caption bar occupy the bottom 30% of the screen, while the like, comment, and share buttons occupy the right-hand margin. Our interactive Shorts grid shows the exact 100% visible central safe zone so your vertical hooks never get covered."
+            },
+            {
+                title: "Mobile vs. Desktop Title Truncation Limits",
+                content: "Smartphone screens truncate YouTube video titles after roughly 45 to 50 characters, whereas desktop monitors display up to 65 characters before displaying ellipses. If your primary curiosity trigger or core keyword is placed at character 55, mobile viewers will never read it. Our tool audits character counts in real time."
+            },
+            {
+                title: "Luminance Contrast & The Peripheral Vision Squint Test",
+                content: "Top YouTube packaging designers use the squint test to verify that thumbnail elements pop even when blurred in a viewer's peripheral vision. Use our built-in Black & White contrast and blur diagnostic filters to test visual hierarchy and color separation before publishing."
+            }
+        ],
+        howTo: {
+            name: "How to Preview Your Thumbnail in YouTube Feeds",
+            description: "Test your thumbnail and title across all device formats in four simple steps.",
+            steps: [
+                { name: "Upload Image", text: "Drag and drop your draft thumbnail (16:9 or 9:16) or paste an image URL into the preview studio." },
+                { name: "Enter Title & Length", text: "Type your draft title, channel name, and duration to simulate realistic YouTube video cards." },
+                { name: "Inspect Danger Zones", text: "Toggle the Timestamp Danger Box and Shorts Safe-Zone overlays to detect text collisions." },
+                { name: "Switch Viewport Feeds", text: "Review how your video looks inside simulated Desktop Dark/Light, Mobile Suggested, and Smart TV feeds." }
+            ]
+        },
+        faqs: [
+            {
+                question: "Where does YouTube place the timestamp duration badge?",
+                answer: "YouTube places the video duration badge in the bottom-right corner of the thumbnail on all desktop, mobile, and connected TV feeds. Never place text or key faces in the lower right 20%."
+            },
+            {
+                question: "What is the safe zone for YouTube Shorts thumbnails?",
+                answer: "For vertical 9:16 Shorts, keep all essential text, logos, and focal subjects centered between 15% from the top margin and 35% from the bottom margin, leaving a 15% margin on the right side for UI buttons."
+            },
+            {
+                question: "How many characters can a YouTube video title have before truncating?",
+                answer: "While YouTube allows up to 100 characters in titles, mobile devices typically truncate titles after 45 to 50 characters, and desktop displays truncate after roughly 60 to 70 characters."
+            },
+            {
+                question: "Does this previewer upload my draft thumbnail to YouTube?",
+                answer: "No. The previewer runs completely inside your browser using client-side JavaScript. Your draft images are never uploaded to any public server or YouTube channel."
+            },
+            {
+                question: "What is the squint blur test for YouTube thumbnails?",
+                answer: "The squint test simulates how viewers scan YouTube feeds in their peripheral vision. If the main subject and high-contrast text are still recognizable when blurred, the thumbnail has strong visual hierarchy."
+            },
+            {
+                question: "What is the recommended YouTube thumbnail size and aspect ratio?",
+                answer: "The standard YouTube thumbnail dimensions are 1280x720 pixels with a 16:9 aspect ratio and a file size under 2 MB in JPG, PNG, or WebP format."
+            }
+        ]
+    },
+    {
+        slug: "youtube-llc-vs-s-corp-tax-savings-calculator",
+        name: "YouTube LLC vs S-Corp Tax Savings Calculator",
+        seoTitle: "YouTube LLC vs S-Corp Tax Savings Calculator (2026 Form 2553)",
+        seoDescription: "Calculate IRS Self-Employment tax savings by electing S-Corp status for your YouTube channel. Compare W-2 salary, shareholder distributions, and CPA overhead.",
+        description: "Calculate IRS Self-Employment tax savings by electing S-Corp status for your YouTube channel. Compare W-2 salary, shareholder distributions, and CPA overhead.",
+        shortDescription: "Calculate self-employment tax savings from electing S-Corp status",
+        category: "analytics-earnings",
+        icon: FaFileInvoiceDollar,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube llc vs s corp",
+            "creator s corp tax savings calculator",
+            "youtube self employment tax calculator",
+            "irs form 2553 for youtubers",
+            "reasonable salary for youtube creators",
+            "gusto payroll for creators",
+            "creator cpa tax savings",
+            "youtube business structure tax deductions"
+        ],
+        definitionBlock: {
+            title: "What is the YouTube LLC vs S-Corp Calculator?",
+            text: "The YouTube LLC vs S-Corp Tax Savings Calculator compares the 15.3% Self-Employment tax burden of a default single-member LLC against electing S-Corporation tax status via IRS Form 2553. It estimates net annual cash savings after accounting for owner W-2 reasonable salary, Gusto payroll software, and corporate CPA tax filing costs."
+        },
+        content: [
+            {
+                title: "The 15.3% Self-Employment Tax Trap for Full-Time YouTubers",
+                content: "When you operate as a sole proprietor or standard single-member LLC, the IRS treats 100% of your net YouTube profit as self-employment income. This means you pay a mandatory 15.3% FICA tax (12.4% Social Security up to the annual wage cap plus 2.9% Medicare) on every dollar of AdSense, brand deals, and affiliate revenue before federal and state income taxes even apply."
+            },
+            {
+                title: "How S-Corporation Distributions Reduce FICA Tax Liability",
+                content: "By filing IRS Form 2553 to elect S-Corporation taxation, you divide your business profit into two streams: a W-2 Reasonable Salary subject to standard payroll taxes, and Shareholder Distributions which are legally exempt from the 15.3% self-employment tax. For a creator earning $120,000 in net profit with a $60,000 salary, this can save over $7,000 annually."
+            },
+            {
+                title: "The IRS Reasonable Compensation Rule for Content Creators",
+                content: "The IRS strictly requires S-Corp owner-operators to pay themselves a reasonable market salary for the services they perform. You cannot set your W-2 wage to $0 to avoid all payroll taxes. Most specialized creator CPAs recommend setting owner compensation between 40% and 55% of net creator profits depending on duties and contractor expenses."
+            },
+            {
+                title: "Calculating the S-Corp Break-Even Income Threshold ($65k–$80k)",
+                content: "Operating an S-Corporation carries administrative overhead, including automated payroll software like Gusto ($480–$600/year), state corporate franchise taxes (e.g. California's $800 minimum), and corporate Form 1120-S CPA filing fees ($1,000–$1,800/year). Typically, electing S-Corp status becomes financially advantageous once your annual net creator profit exceeds $65,000 to $80,000."
+            },
+            {
+                title: "Quarterly Estimated Taxes, State Franchise Fees & Gusto Payroll",
+                content: "Once you operate as an S-Corp, you must run regular payroll with federal and state income tax withholdings. This simplifies your quarterly estimated tax burden because tax withholdings from your W-2 salary satisfy IRS requirements throughout the calendar year."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate S-Corp Tax Savings for Creators",
+            description: "Determine whether electing S-Corp status will save you money on creator earnings.",
+            steps: [
+                { name: "Input Net Profit", text: "Enter your estimated annual YouTube net profit after gear, software, and contractor write-offs." },
+                { name: "Set Reasonable Salary", text: "Select your owner W-2 salary percentage (typically 40% to 50% for solo creators)." },
+                { name: "Enter Compliance Overhead", text: "Input annual CPA corporate filing and Gusto payroll software costs." },
+                { name: "Select State", text: "Choose your state of residence to incorporate local franchise tax rules." }
+            ]
+        },
+        faqs: [
+            {
+                question: "At what income should a YouTuber elect S-Corp status?",
+                answer: "Most creator accountants recommend considering an S-Corp election once your annual net creator profit consistently exceeds $65,000 to $80,000. Below that threshold, corporate overhead and CPA fees usually outweigh the self-employment tax savings."
+            },
+            {
+                question: "What is IRS Form 2553?",
+                answer: "IRS Form 2553 is the official election form used by small business corporations and LLCs to elect taxation under Subchapter S of the Internal Revenue Code. It must typically be filed within 75 days of the start of the tax year."
+            },
+            {
+                question: "What is considered a reasonable salary for a YouTube creator?",
+                answer: "A reasonable salary is what you would have to pay an employee to perform your core daily duties (video editing, scriptwriting, hosting). In the creator economy, CPAs commonly benchmark owner W-2 salaries between 40% and 60% of net business profits."
+            },
+            {
+                question: "Can I run an S-Corp without a payroll service like Gusto?",
+                answer: "No. S-Corp owner-employees cannot simply write themselves checks or take owner draws as salary. You must generate official W-2 paystubs with automated FICA, Medicare, and federal tax withholdings using an approved payroll provider."
+            },
+            {
+                question: "Does an S-Corporation pay corporate income tax?",
+                answer: "Federal S-Corporations are pass-through entities and do not pay federal income tax at the corporate level. Profits and losses pass through to the owner's individual Form 1040 via Schedule K-1. However, some states (like California's $800 min) levy annual franchise fees."
+            },
+            {
+                question: "Is this calculator certified legal or CPA tax advice?",
+                answer: "No. This tool provides an illustrative mathematical comparison for planning purposes. Always consult a licensed CPA or tax attorney before making legal corporate entity elections."
+            }
+        ]
+    },
+    {
+        slug: "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator",
+        name: "Patreon vs YouTube Memberships vs Fourthwall Fee Calculator",
+        seoTitle: "Patreon vs YouTube Memberships vs Fourthwall Fee Calculator",
+        seoDescription: "Compare platform cuts and Stripe processing fees across YouTube Channel Memberships (30%), Patreon (8-12%), and Fourthwall (0%). Calculate creator take-home pay.",
+        description: "Compare platform cuts and Stripe processing fees across YouTube Channel Memberships (30%), Patreon (8-12%), and Fourthwall (0%). Calculate creator take-home pay.",
+        shortDescription: "Compare platform fees and take-home pay across creator membership platforms",
+        category: "analytics-earnings",
+        icon: FaStore,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "patreon vs youtube memberships fee calculator",
+            "fourthwall vs patreon fees",
+            "youtube channel membership platform cut",
+            "creator membership take home pay",
+            "fourthwall 0 percent membership fee",
+            "patreon stripe processing fees",
+            "youtube 30 percent revenue share",
+            "best creator membership platform 2026"
+        ],
+        definitionBlock: {
+            title: "What is the Patreon vs YouTube Memberships vs Fourthwall Calculator?",
+            text: "The Patreon vs YouTube Memberships vs Fourthwall Fee Calculator compares the net take-home earnings of creators across top membership and fan-funding platforms. It calculates platform cuts, merchant credit card processing fees, and physical/digital merch revenue to illustrate total dollars retained."
+        },
+        content: [
+            {
+                title: "The True Cost of YouTube's 30% Channel Membership Cut",
+                content: "YouTube Channel Memberships offer seamless 1-click frictionless signups directly below your video player. However, YouTube takes a permanent 30% platform cut on every membership dollar. While YouTube absorbs credit card transaction fees, a channel grossing $5,000 monthly in memberships gives away $18,000 every year to YouTube."
+            },
+            {
+                title: "Patreon Pricing Breakdown: Platform Fees vs. Payment Processing",
+                content: "Patreon charges an 8% platform fee on its Pro plan (or 12% on Premium), plus merchant payment processing fees of 2.9% + $0.30 per pledge (or 5% + $0.10 for micro-pledges under $3). Additionally, creators withdrawing international payouts face currency conversion fees of roughly 2.5%, leading to an effective total fee take of 11% to 15%."
+            },
+            {
+                title: "Why Fourthwall's 0% Membership Fee Model Changes Creator Economics",
+                content: "Fourthwall has disrupted fan subscriptions by charging a 0% platform fee on recurring memberships. Creators pay only standard Stripe/PayPal credit card processing fees (2.9% + $0.30 per transaction) and keep approximately 95% of every dollar earned from recurring supporters."
+            },
+            {
+                title: "Audience Ownership: Why Supporter Email CSVs Are Non-Negotiable",
+                content: "The biggest vulnerability of YouTube Channel Memberships is audience lock-in: YouTube never provides you with the email addresses of your paying members. If your channel receives a community strike or demonetization notice, your recurring income vanishes overnight. Platforms like Fourthwall and Patreon give you direct 1-click CSV email export."
+            },
+            {
+                title: "Optimizing Tier Pricing ($5, $10, $25) for Highest Lifetime Value",
+                content: "Top creators structure their memberships around three clear value tiers: a low-barrier $5/mo Community Supporter tier with Discord perks, a $10/mo VIP tier with exclusive monthly bonus videos or livestreams, and a $25–$50/mo Inner Circle tier with direct mentorship or product perks."
+            }
+        ],
+        howTo: {
+            name: "How to Compare Creator Membership Platform Fees",
+            description: "Calculate your net recurring monthly take-home pay across fan subscription platforms.",
+            steps: [
+                { name: "Enter Member Count", text: "Input your active recurring monthly paying members or patrons." },
+                { name: "Set Average Tier Price", text: "Enter your weighted average monthly subscription price (e.g. $10.00)." },
+                { name: "Add Merch & Digital Sales", text: "Include estimated monthly apparel, preset, or digital downloads volume." },
+                { name: "Compare Net Pay", text: "Review the side-by-side fee deductions and see your total annual take-home difference." }
+            ]
+        },
+        faqs: [
+            {
+                question: "How much does YouTube take from Channel Memberships?",
+                answer: "YouTube takes a flat 30% revenue share of all Channel Memberships revenue. Creators receive 70% of the gross subscription amount, and YouTube absorbs standard credit card merchant processing costs."
+            },
+            {
+                question: "What are the fees for Patreon in 2026?",
+                answer: "Patreon charges an 8% platform fee on the Pro plan or 12% on Premium, plus standard payment processing fees (2.9% + $0.30 per charge for pledges over $3, or 5% + $0.10 for micropayments), plus a payout fee depending on transfer method."
+            },
+            {
+                question: "How does Fourthwall make money if memberships are 0% fee?",
+                answer: "Fourthwall offers 0% platform fees on recurring memberships and digital subscriptions. They monetize through a small margin on physical print-on-demand merchandise and a 5% fee on a la carte digital product catalog sales."
+            },
+            {
+                question: "Do I get to export my members' email addresses on YouTube?",
+                answer: "No. YouTube does not share subscriber or channel member email addresses with creators. Both Patreon and Fourthwall allow full CSV export of your supporters' names, emails, and pledge histories."
+            },
+            {
+                question: "Can I offer custom branded domains with these platforms?",
+                answer: "Fourthwall provides free custom domain connection (e.g. yourname.com) for both your store and membership hub. Patreon and YouTube Memberships require supporters to stay on patreon.com and youtube.com respectively."
+            },
+            {
+                question: "Which platform is best for integrating with Discord?",
+                answer: "All three platforms support automated Discord role assignment for paying members, granting instant access to private channels and subscriber-only communities."
+            }
+        ]
+    },
+    {
+        slug: "youtube-shorts-music-royalty-split-calculator",
+        name: "YouTube Shorts Music Royalty & Revenue Split Calculator",
+        seoTitle: "YouTube Shorts Music Royalty & Revenue Split Calculator (Creator Pool)",
+        seoDescription: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
+        description: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
+        shortDescription: "Model how commercial music licensing shares impact YouTube Shorts RPM",
+        category: "analytics-earnings",
+        icon: FaMusic,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube shorts music royalty split calculator",
+            "shorts creator pool formula",
+            "youtube shorts rpm with music",
+            "how much youtube pays for shorts with music",
+            "shorts music licensing deduction",
+            "epidemic sound shorts revenue increase",
+            "youtube shorts commercial audio revenue share",
+            "youtube shorts monetization model 2026"
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Shorts Music Royalty Calculator?",
+            text: "The YouTube Shorts Music Royalty & Revenue Split Calculator models YouTube's official Creator Pool monetization framework. It calculates how commercial audio tracks divide revenue between record labels (50% for 1 track, 66.7% for 2 tracks) and the creator allocation, helping creators maximize their blended Shorts RPM."
+        },
+        content: [
+            {
+                title: "Inside the YouTube Shorts Creator Pool: How Monetization Actually Works",
+                content: "Unlike long-form YouTube videos where ads run directly on your content, YouTube Shorts revenue is pooled collectively across the entire platform. Every month, all ad revenue from the Shorts feed is gathered into the Creator Pool. YouTube then calculates what percentage of total platform Shorts views your videos generated."
+            },
+            {
+                title: "The 1-Track and 2-Track Music Tax: Why Your Shorts RPM Plummeted",
+                content: "When you add a commercial song from the YouTube Shorts sound picker (e.g., Drake, Taylor Swift, or Dua Lipa), YouTube pays the music publisher directly out of that video's pool allocation. A Short with 1 commercial song surrenders 50% of its Creator Pool revenue to the record label. A Short with 2 tracks surrenders 66.7%. After that, YouTube applies its 45% creator share."
+            },
+            {
+                title: "The Discovery Trade-Off: Viral Trending Audio vs. Monetization Payouts",
+                content: "Using viral trending songs can help your Short ride algorithmic audio wave discovery and tap into trending audio feeds. However, for videos generating millions of views, the music tax can cost creators thousands of dollars in lost AdSense payouts."
+            },
+            {
+                title: "Using Royalty-Free Music (Epidemic Sound) to Retain 100% of Creator Pool Revenue",
+                content: "When you upload Shorts with your own original spoken voiceover, sound effects, or royalty-free background music cleared through Epidemic Sound or Artlist, your video qualifies as a '0-Track Short'. This means 100% of the allocated Creator Pool revenue flows to your channel, effectively doubling your Shorts RPM."
+            },
+            {
+                title: "Optimizing Shorts Retention and Audio Dynamics for Maximum Monetization",
+                content: "Because Shorts Creator Pool distributions are proportional to your share of total platform views and watch duration, high average percentage viewed (APV over 85%) is critical. Pairing high retention loops with original audio delivers the highest effective RPM possible on vertical video."
+            }
+        ],
+        howTo: {
+            name: "How to Model Shorts Music Revenue Splits",
+            description: "Evaluate how music choices impact your YouTube Shorts monthly ad earnings.",
+            steps: [
+                { name: "Enter Monthly Views", text: "Input your total monthly views across all published YouTube Shorts." },
+                { name: "Set Baseline RPM", text: "Enter your channel's baseline Shorts RPM without commercial music (typically $0.05–$0.15)." },
+                { name: "Distribute Music Usage", text: "Specify the percentage of your Shorts that use 0 tracks, 1 track, or 2 commercial songs." },
+                { name: "Evaluate Royalties", text: "Review your net payout, blended RPM, and total annual revenue lost to record labels." }
+            ]
+        },
+        faqs: [
+            {
+                question: "How does YouTube calculate Shorts ad revenue sharing?",
+                answer: "YouTube combines all ad revenue from the Shorts feed into a shared Creator Pool. Revenue is allocated to creators based on their share of total platform views, with YouTube taking 55% and distributing 45% of the allocated Creator Pool to eligible creators."
+            },
+            {
+                question: "How much revenue is deducted when I use a commercial song in Shorts?",
+                answer: "Under YouTube's official licensing model, using 1 commercial music track allocates 50% of the video's revenue share to music partners. Using 2 commercial tracks allocates 66.7% to music partners."
+            },
+            {
+                question: "Can I earn more money on Shorts by using Epidemic Sound or royalty-free audio?",
+                answer: "Yes. When you use original voiceover or royalty-free music from services like Epidemic Sound that you import directly into your video editor, YouTube classifies the Short as having 0 commercial tracks, retaining 100% of the Creator Pool allocation."
+            },
+            {
+                question: "What is a normal YouTube Shorts RPM in 2026?",
+                answer: "Most creators experience Shorts RPM ranging from $0.04 to $0.15 per 1,000 views for Tier-1 audiences (US, UK, Canada). Emerging market viewership can average $0.01 to $0.03 RPM."
+            },
+            {
+                question: "Do sound effects count as music tracks?",
+                answer: "Standard sound effects (whooshes, pops, impacts) that you include in your video edit do not trigger commercial music licensing splits. Only music tracks selected from YouTube's licensed sound library are counted."
+            },
+            {
+                question: "Can I monetize Shorts that use licensed music tracks?",
+                answer: "Yes. You still monetize Shorts that use songs from the YouTube Shorts Audio Library, but your payout is reduced by the 50% or 66.7% music partner deduction before YouTube's 45% share is paid to you."
             }
         ]
     },
