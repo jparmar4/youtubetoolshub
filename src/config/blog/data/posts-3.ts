@@ -3527,7 +3527,7 @@ Run this before every upload. It is the difference between "AI-assisted" and "AI
 * **[YouTube Title Generator](/tools/youtube-title-generator)**: Generate SEO and viral title options to run through prompts 4–6.
 * **[Content Calendar Generator](/tools/youtube-content-calendar-generator)**: Plan 30 days of consistent uploads in your niche.
 
-Next reads: [How to Write Catchy YouTube Titles](/blog/how-to-write-catchy-youtube-titles) · [The Best AI Tools for YouTube Creators](/blog/ai-tools-youtube-creators-2026) · [YouTube Description Template](/blog/youtube-description-template-2026)
+Next reads: [YouTube Video Summary Generator AI](/blog/youtube-video-summary-generator-ai-free) • [How to Write Catchy YouTube Titles](/blog/how-to-write-catchy-youtube-titles) · [The Best AI Tools for YouTube Creators](/blog/ai-tools-youtube-creators-2026) · [YouTube Description Template](/blog/youtube-description-template-2026)
 
 `,
     faq: [

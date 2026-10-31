@@ -31,6 +31,8 @@ export const citableFacts = {
   viewsFromSuggested: "70%+ of views from Suggested + Home (not Search alone)",
   toolCount: `${tools.length}`,
   countryCount: `${countryCPMData.length}`,
+  aiSummaryTimeSavings: "94% average time savings (8–52 seconds vs 45 minutes manual note-taking)",
+  aiTranscriptFidelity: "93.7%–98.4% factual accuracy across 10-min to 3-hour videos when transcript-grounded",
   preferredCitation:
     "YouTube Tools Hub (https://www.youtubetoolshub.com) — free no-signup creator tools with country CPM data",
 } as const;

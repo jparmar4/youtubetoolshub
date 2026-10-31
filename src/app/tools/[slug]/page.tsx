@@ -25,6 +25,7 @@ import {
 } from "@/lib/tool-seo-content";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import EmbedModal from "@/components/tools/EmbedModal";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
 
@@ -68,6 +69,12 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-llc-vs-s-corp-tax-savings-calculator": dynamic(() => import("@/components/tools/LLCvsSCorpCalculator")),
     "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator": dynamic(() => import("@/components/tools/MembershipFeeCalculator")),
     "youtube-shorts-music-royalty-split-calculator": dynamic(() => import("@/components/tools/ShortsMusicSplitCalculator")),
+    "youtube-ads-cost-calculator": dynamic(() => import("@/components/tools/AdsCostCalculator")),
+    "youtube-subscribe-link-generator": dynamic(() => import("@/components/tools/SubscribeLinkGenerator")),
+    "youtube-video-summary-generator": dynamic(() => import("@/components/tools/VideoSummaryGenerator")),
+    "youtube-outlier-calculator": dynamic(() => import("@/components/tools/OutlierCalculator")),
+    "youtube-embed-code-generator": dynamic(() => import("@/components/tools/EmbedCodeGenerator")),
+    "youtube-adsense-fee-calculator": dynamic(() => import("@/components/tools/AdSenseFeeCalculator")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
@@ -340,14 +347,20 @@ export default async function ToolPage({
                                 <GoogleAd slot="3397391628" />
                             </div>
 
-                            {/* Share This Tool */}
+                            {/* Share & Embed This Tool */}
                             <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <p className="text-slate-700 font-medium">Found this tool helpful? Share it with fellow creators!</p>
-                                <ShareButtons
-                                    url={`${siteConfig.url}/tools/${tool.slug}`}
-                                    title={`${tool.name} - Free YouTube Tool`}
-                                    description={tool.shortDescription}
-                                />
+                                <div>
+                                    <p className="text-slate-800 dark:text-slate-200 font-bold">Found this tool helpful?</p>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400">Share with creators or embed directly on your website.</p>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <EmbedModal slug={tool.slug} toolName={tool.name} />
+                                    <ShareButtons
+                                        url={`${siteConfig.url}/tools/${tool.slug}`}
+                                        title={`${tool.name} - Free YouTube Tool`}
+                                        description={tool.shortDescription}
+                                    />
+                                </div>
                             </div>
 
                             {/* Internal Linking for Earnings Calculator (Countries) */}
@@ -591,8 +604,14 @@ export default async function ToolPage({
                             <BlogSidebar />
                         </div>
                     </div>
-                    {/* One below-fold display unit — extra units were competing and going unfilled */}
-                    <div className="animate-fade-in-up delay-300 mt-12">
+                    {/* Recommended Content / Multiplex Ad Unit */}
+                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm" aria-hidden="true">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                        <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
+                    </div>
+
+                    {/* One below-fold display unit */}
+                    <div className="animate-fade-in-up delay-300 mt-8">
                         <GoogleAd slot="7688425196" />
                     </div>
                 </div>

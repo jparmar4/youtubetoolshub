@@ -164,6 +164,36 @@ const nextConfig = {
         ],
       },
 
+      // ─── Embeddable Widgets: allow framing from external creator & webmaster sites ───
+      {
+        source: "/embed/:path*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "ALLOWALL",
+          },
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
+              "img-src 'self' data: blob: https: http:",
+              "font-src 'self' https://fonts.gstatic.com",
+              "connect-src 'self' https://*.googlesyndication.com https://*.google-analytics.com https://*.analytics.google.com https://*.googleadservices.com https://*.doubleclick.net https://adservice.google.com https://*.googleapis.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.clarity.ms https://*.clarity.ms https://*.google.com",
+              "frame-src 'self' https://*.googlesyndication.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://www.google.com https://*.google.com https://*.googleadservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.googletagmanager.com",
+              "frame-ancestors *",
+              "object-src 'none'",
+              "base-uri 'self'",
+            ].join("; "),
+          },
+        ],
+      },
+
       // ─── AI Plugin JSON: OpenAI discovery protocol ───
       {
         source: "/.well-known/ai-plugin.json",

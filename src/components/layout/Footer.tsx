@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaYoutube, FaTelegram, FaFacebook, FaHeart } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
@@ -26,6 +29,9 @@ const popularTools = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/embed")) return null;
+
   return (
     <footer className="bg-slate-50 text-slate-600 border-t border-slate-200">
       {/* Newsletter Section */}

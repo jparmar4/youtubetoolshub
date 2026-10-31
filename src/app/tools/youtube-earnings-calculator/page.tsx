@@ -21,6 +21,7 @@ import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
+import EmbedModal from "@/components/tools/EmbedModal";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
 import {
@@ -544,9 +545,10 @@ export default function YouTubeEarningsCalculatorPage() {
                 </div>
               </section>
 
-              {/* Ad placement */}
-              <div className="my-8" aria-hidden="true">
-                <GoogleAd slot="8649718301" />
+              {/* Recommended Content / Multiplex Ad Unit */}
+              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm" aria-hidden="true">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
               </div>
 
               <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-sm text-amber-900">
@@ -556,11 +558,20 @@ export default function YouTubeEarningsCalculatorPage() {
                 seasonality, and your audience.
               </div>
 
-              <ShareButtons
-                url={pageUrl}
-                title="YouTube Earnings Calculator 2026"
-                description="Free YouTube money calculator with RPM and country CPM estimates."
-              />
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <p className="text-slate-800 font-bold">Embed or share this calculator</p>
+                  <p className="text-xs text-slate-500">Free to add to your own blog, agency site, or creator article.</p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <EmbedModal slug="youtube-earnings-calculator" toolName="YouTube Earnings Calculator" />
+                  <ShareButtons
+                    url={pageUrl}
+                    title="YouTube Earnings Calculator 2026"
+                    description="Free YouTube money calculator with RPM and country CPM estimates."
+                  />
+                </div>
+              </div>
 
               <NewsletterSignup />
             </div>

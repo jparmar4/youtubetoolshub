@@ -1,11 +1,15 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaCookie } from "react-icons/fa";
 import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 export default function CookieConsent() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/embed")) return null;
+
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {

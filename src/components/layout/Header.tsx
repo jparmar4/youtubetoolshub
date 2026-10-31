@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, memo } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaBars, FaTimes, FaYoutube } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import UserMenu from "@/components/auth/UserMenu";
@@ -53,6 +54,7 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
 });
 
 function Header() {
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     // Memoized menu toggle
     const toggleMenu = useCallback(() => {
@@ -73,6 +75,10 @@ function Header() {
         document.addEventListener("keydown", handleKeyDown);
         return () => document.removeEventListener("keydown", handleKeyDown);
     }, [isMenuOpen]);
+
+    if (pathname?.startsWith("/embed")) {
+        return null;
+    }
 
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">

@@ -25,6 +25,8 @@ const PRIORITY_PATHS = [
   "/about",
   // Money / commercial intent
   "/tools/youtube-earnings-calculator",
+  "/tools/youtube-ads-cost-calculator",
+  "/tools/youtube-adsense-fee-calculator",
   "/tools/youtube-sponsorship-calculator",
   "/tools/youtube-channel-valuation-calculator",
   "/tools/youtube-tax-deduction-calculator",
@@ -38,6 +40,10 @@ const PRIORITY_PATHS = [
   "/resources/link-to-us",
   // High-volume acquisition tools
   "/tools/youtube-thumbnail-downloader",
+  "/tools/youtube-subscribe-link-generator",
+  "/tools/youtube-video-summary-generator",
+  "/tools/youtube-outlier-calculator",
+  "/tools/youtube-embed-code-generator",
   "/tools/youtube-title-generator",
   "/tools/youtube-tag-generator",
   "/tools/youtube-tag-extractor",
@@ -51,6 +57,8 @@ const PRIORITY_PATHS = [
   "/tools/youtube-timestamp-generator",
   "/youtube-transcript-downloader",
   "/blog/youtube-transcript-downloader-extract-subtitles-free",
+  "/blog/youtube-channel-valuation-calculator-guide",
+  "/blog/youtube-video-summary-generator-ai-free",
   "/tools/vs/tubebuddy",
   "/tools/vs/vidiq",
   "/tools/seo-tools",

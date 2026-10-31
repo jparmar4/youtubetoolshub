@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import GoogleAd from "./GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
@@ -43,6 +44,9 @@ function subscribe(callback: () => void) {
 }
 
 export default function StickyBottomAd() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/embed")) return null;
+
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isReady, setIsReady] = useState(false);
 

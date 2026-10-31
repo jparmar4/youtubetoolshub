@@ -121,6 +121,26 @@ export const topicClusters: TopicCluster[] = [
         title: "YouTube AdSense Payment Schedule",
         anchors: ["adsense payment schedule", "when does youtube pay"],
       },
+      {
+        path: "/tools/youtube-ads-cost-calculator",
+        title: "YouTube Ads Cost & CPV Calculator",
+        anchors: [
+          "youtube ads cost calculator",
+          "youtube cpv calculator",
+          "google ads cost youtube",
+          "youtube ad budget calculator",
+        ],
+      },
+      {
+        path: "/tools/youtube-adsense-fee-calculator",
+        title: "YouTube AdSense Wire Fee & Net Payout Calculator",
+        anchors: [
+          "adsense wire fee calculator",
+          "adsense bank fee calculator",
+          "youtube payout fee calculator",
+          "adsense wire transfer fees",
+        ],
+      },
     ],
   },
   {
@@ -303,6 +323,16 @@ export const topicClusters: TopicCluster[] = [
           "youtube tag extractor guide",
           "how to extract youtube tags",
           "extract tags from youtube video",
+        ],
+      },
+      {
+        path: "/tools/youtube-embed-code-generator",
+        title: "YouTube Responsive Embed Code Generator",
+        anchors: [
+          "youtube embed code generator",
+          "responsive youtube embed generator",
+          "custom youtube iframe generator",
+          "embed youtube video responsive",
         ],
       },
     ],
@@ -500,6 +530,26 @@ export const topicClusters: TopicCluster[] = [
         title: "YouTube Live Stream Setup",
         anchors: ["youtube live stream setup", "live stream setup youtube"],
       },
+      {
+        path: "/tools/youtube-subscribe-link-generator",
+        title: "YouTube Auto-Subscribe Link Generator",
+        anchors: [
+          "youtube subscribe link generator",
+          "auto subscribe link generator",
+          "sub_confirmation=1 link generator",
+          "youtube confirmation popup link",
+        ],
+      },
+      {
+        path: "/tools/youtube-outlier-calculator",
+        title: "YouTube Video Outlier & 10x Viral Multiplier Calculator",
+        anchors: [
+          "youtube outlier calculator",
+          "video outlier multiplier",
+          "channel outlier score",
+          "youtube viral benchmark calculator",
+        ],
+      },
     ],
   },
   {
@@ -584,6 +634,25 @@ export const topicClusters: TopicCluster[] = [
         path: "/tools/youtube-title-generator",
         title: "AI Title Generator",
         anchors: ["ai title generator"],
+      },
+      {
+        path: "/blog/youtube-video-summary-generator-ai-free",
+        title: "YouTube Video Summary Generator AI Guide",
+        anchors: [
+          "youtube video summary generator ai",
+          "ai youtube summarizer free",
+          "summarize youtube video with ai",
+          "youtube video to blog post notes",
+        ],
+      },
+      {
+        path: "/tools/youtube-video-summary-generator",
+        title: "YouTube Video Summary Generator AI",
+        anchors: [
+          "youtube video summary generator tool",
+          "free youtube video summary generator",
+          "summarize youtube video tool",
+        ],
       },
     ],
   },
@@ -833,6 +902,16 @@ export const topicClusters: TopicCluster[] = [
         path: "/blog/youtube-media-kit-template-2026",
         title: "Media Kit Template",
         anchors: ["media kit", "creator media kit"],
+      },
+      {
+        path: "/tools/youtube-ads-cost-calculator",
+        title: "YouTube Ads Cost Calculator",
+        anchors: ["calculate youtube ad costs", "estimate youtube cpv"],
+      },
+      {
+        path: "/tools/youtube-adsense-fee-calculator",
+        title: "AdSense Net Payout Calculator",
+        anchors: ["calculate adsense bank fee", "net adsense payout"],
       },
     ],
   },

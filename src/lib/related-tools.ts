@@ -6,9 +6,15 @@ export const PRIORITY_TOOL_SLUGS = [
   "youtube-title-generator",
   "youtube-tag-generator",
   "youtube-earnings-calculator",
+  "youtube-ads-cost-calculator",
+  "youtube-video-summary-generator",
+  "youtube-subscribe-link-generator",
+  "youtube-adsense-fee-calculator",
   "youtube-sponsorship-calculator",
   "youtube-channel-valuation-calculator",
   "youtube-tax-deduction-calculator",
+  "youtube-outlier-calculator",
+  "youtube-embed-code-generator",
   "youtube-tag-extractor",
   "youtube-description-generator",
   "youtube-channel-audit",
@@ -24,12 +30,15 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-tag-extractor",
     "youtube-description-generator",
     "youtube-channel-audit",
+    "youtube-embed-code-generator",
     "youtube-llc-vs-s-corp-tax-savings-calculator",
     "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator",
     "youtube-shorts-music-royalty-split-calculator",
   ],
   Monetization: [
     "youtube-earnings-calculator",
+    "youtube-ads-cost-calculator",
+    "youtube-adsense-fee-calculator",
     "youtube-sponsorship-calculator",
     "youtube-channel-valuation-calculator",
     "youtube-tax-deduction-calculator",
@@ -50,6 +59,8 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-video-ideas-generator",
   ],
   Growth: [
+    "youtube-subscribe-link-generator",
+    "youtube-outlier-calculator",
     "youtube-video-ideas-generator",
     "youtube-content-calendar-generator",
     "youtube-channel-audit",
@@ -61,6 +72,7 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-intro-script-generator",
   ],
   AI: [
+    "youtube-video-summary-generator",
     "youtube-ai-thumbnail-generator",
     "youtube-ai-thumbnail-prompt",
     "youtube-title-generator",
@@ -96,6 +108,36 @@ const CATEGORY_ALIASES: Record<string, string[]> = {
 };
 
 const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
+  {
+    pattern: /summary|summariz|transcript|repurpos|notes/i,
+    slugs: [
+      "youtube-video-summary-generator",
+      "youtube-transcript-downloader",
+      "youtube-intro-script-generator",
+      "youtube-description-generator",
+      "youtube-timestamp-generator",
+    ],
+  },
+  {
+    pattern: /ads.?cost|cpv|cpc|google.?ads|ad.?spend|ad.?budget|cost.?per.?view|in-stream.?cost/i,
+    slugs: ["youtube-ads-cost-calculator", "youtube-earnings-calculator"],
+  },
+  {
+    pattern: /subscribe.?link|auto.?subscribe|\?sub_confirmation=1|confirmation.?dialog|subscriber.?growth/i,
+    slugs: ["youtube-subscribe-link-generator", "youtube-channel-audit"],
+  },
+  {
+    pattern: /outlier|viral.?ratio|benchmark|view.?to.?sub|viral.?video|10x.?views/i,
+    slugs: ["youtube-outlier-calculator", "youtube-engagement-rate-calculator"],
+  },
+  {
+    pattern: /embed|iframe|responsive.?embed|embed.?generator|embed.?code/i,
+    slugs: ["youtube-embed-code-generator"],
+  },
+  {
+    pattern: /wire.?fee|intermediary.?bank|adsense.?fee|bank.?fee|payout.?fee|forex.?fee|swift.?fee/i,
+    slugs: ["youtube-adsense-fee-calculator", "youtube-earnings-calculator"],
+  },
   { pattern: /sponsor|brand.?deal|media.?kit/i, slugs: ["youtube-sponsorship-calculator"] },
   { pattern: /valuation|channel.?worth|sell.*channel|buy.*channel/i, slugs: ["youtube-channel-valuation-calculator"] },
   { pattern: /s.?corp|llc.?tax/i, slugs: ["youtube-llc-vs-s-corp-tax-savings-calculator"] },

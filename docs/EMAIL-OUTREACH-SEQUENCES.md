@@ -13,6 +13,7 @@
 | EMBED | Link-to-us / embed | https://www.youtubetoolshub.com/resources/link-to-us |
 | TB | vs TubeBuddy | https://www.youtubetoolshub.com/tools/vs/tubebuddy |
 | VQ | vs VidIQ | https://www.youtubetoolshub.com/tools/vs/vidiq |
+| SUMMARY | Video Summary & Transcript Guide | https://www.youtubetoolshub.com/blog/youtube-video-summary-generator-ai-free |
 
 **Signature (all emails):**
 ```
@@ -327,6 +328,48 @@ Hi [Name],
 
 Last ping on the broken link. No worries if you’ve already fixed it another way.
 
+[Signature]
+```
+
+---
+
+## Sequence 7 — AI Video Summarizer & Repurposing Guide (Tech & AI Blogs)
+
+**Who:** Creators, tech bloggers, and newsletter curators covering AI productivity, YouTube workflows, and content repurposing  
+**Primary asset:** SUMMARY (https://www.youtubetoolshub.com/blog/youtube-video-summary-generator-ai-free)  
+
+### Day 0 — First touch
+**Subject:** Free tool & benchmark for your [topic] readers (no paid extension)  
+
+```
+Hi [Name],
+
+Enjoyed your recent breakdown on [Topic/Article Title] — particularly your point about [specific insight from their post].
+
+We just published a benchmark study and free browser workflow testing 50 long-form YouTube videos (10-min tutorials to 3-hour podcasts) across AI summarizers:
+https://www.youtubetoolshub.com/blog/youtube-video-summary-generator-ai-free
+
+It pairs with our free YouTube Transcript Downloader (no Chrome extension required, no signup, no token truncation):
+https://www.youtubetoolshub.com/youtube-transcript-downloader
+
+If you ever do a creator roundup on free AI tools or content repurposing workflows, feel free to cite our 50-video speed/accuracy benchmark data or link the tool as a free resource for your audience.
+
+Best regards,
+[Signature]
+```
+
+### Day 7 — Follow-up 1
+**Subject:** Re: Free tool & benchmark for your [topic] readers (no paid extension)  
+
+```
+Hi [Name],
+
+Quick follow-up on the YouTube video summary workflow — wanted to share one concrete takeaway from our 50-video test: grounding AI summarizers strictly in extracted transcripts reduced hallucination rates to under 3% even on 3-hour podcasts.
+
+If you ever update your resources or AI guide, here's the full study:
+https://www.youtubetoolshub.com/blog/youtube-video-summary-generator-ai-free
+
+Thanks,
 [Signature]
 ```
 

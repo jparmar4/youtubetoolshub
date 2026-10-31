@@ -62,6 +62,9 @@ Also confirm **Bing Webmaster** has the same sitemap (import from GSC if not alr
 | 10 | https://www.youtubetoolshub.com/blog/youtube-description-template-2026 |
 | 11 | https://www.youtubetoolshub.com/blog/youtube-channel-name-ideas-2026 |
 | 12 | https://www.youtubetoolshub.com/blog/youtube-chapters-template-2026 |
+| 13 | https://www.youtubetoolshub.com/blog/youtube-transcript-downloader-extract-subtitles-free |
+| 14 | https://www.youtubetoolshub.com/blog/youtube-channel-valuation-calculator-guide |
+| 15 | https://www.youtubetoolshub.com/blog/youtube-video-summary-generator-ai-free |
 
 ---
 

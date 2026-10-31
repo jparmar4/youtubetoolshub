@@ -12,6 +12,7 @@ import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
 import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
 import StickyBottomAd from "@/components/ads/StickyBottomAd";
+import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -335,6 +336,7 @@ export default async function RootLayout({
             <ExitIntentPopup />
             {/* High-viewability mobile/desktop sticky bottom anchor ad */}
             <StickyBottomAd />
+            <PWAInstallPrompt />
             </MotionConfig>
           </UsageProvider>
         </AuthProvider>

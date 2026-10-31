@@ -1,10 +1,14 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import { FaTimes, FaRocket, FaEnvelope, FaSpinner, FaCheck } from "react-icons/fa";
 import Link from "next/link";
 
 export default function ExitIntentPopup() {
+  const pathname = usePathname();
+  if (pathname?.startsWith("/embed")) return null;
+
     const [isVisible, setIsVisible] = useState(false);
     const [hasShown, setHasShown] = useState(() => {
         if (typeof window === "undefined") return false;

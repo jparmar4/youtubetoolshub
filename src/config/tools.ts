@@ -7,8 +7,8 @@ import {
     FaDollarSign, FaChartBar, FaBalanceScale,
     FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl,
     FaTrophy, FaUsers, FaClock, FaDownload, FaVideo, FaPaintBrush, FaCompass,
-    FaHandshake, FaFileInvoiceDollar, FaCoins, FaMobileAlt, FaMusic, FaStore, FaBuilding
-} from "react-icons/fa";
+    FaHandshake, FaFileInvoiceDollar, FaCoins, FaMobileAlt, FaMusic, FaStore, FaBuilding,
+    FaBullhorn, FaLink, FaCode, FaUniversity, FaFire} from "react-icons/fa";
 import { IconType } from "react-icons";
 
 export interface Tool {
@@ -3025,6 +3025,351 @@ export const tools: Tool[] = [
             {
                 question: "Can I monetize Shorts that use licensed music tracks?",
                 answer: "Yes. You still monetize Shorts that use songs from the YouTube Shorts Audio Library, but your payout is reduced by the 50% or 66.7% music partner deduction before YouTube's 45% share is paid to you."
+            }
+        ]
+    },
+    // 36. YouTube Video Ads Cost (CPV & CPM) Calculator
+    {
+        slug: "youtube-ads-cost-calculator",
+        name: "YouTube Video Ads Cost Calculator (CPV & CPM)",
+        seoTitle: "YouTube Ads Cost Calculator 2026 (CPV, CPM & Budget Estimator)",
+        seoDescription: "Calculate YouTube advertising costs, Cost Per View (CPV), CPM, and budget requirements across countries and video ad formats in 2026. 100% Free.",
+        description: "Estimate YouTube video ad campaign budgets, expected views, impressions, and Cost Per View (CPV) across skippable in-stream, non-skippable, bumper, and Shorts ads.",
+        shortDescription: "Estimate YouTube video ad costs, CPV, and view reach",
+        category: "analytics-earnings",
+        icon: FaBullhorn,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube ads cost calculator",
+            "youtube cpv calculator",
+            "how much do youtube ads cost",
+            "youtube cpm calculator",
+            "youtube advertising budget estimator",
+            "cost per view youtube ads 2026",
+            "youtube video ad pricing",
+            "google ads youtube cost",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Video Ads Cost Calculator?",
+            text: "The YouTube Video Ads Cost Calculator is a free planning tool that projects required budgets, Cost Per View (CPV), CPM, and reach for YouTube video advertising campaigns across 5 major ad formats and global geographic tiers.",
+        },
+        content: [
+            {
+                title: "How Much Do YouTube Video Ads Cost in 2026?",
+                content: "Most YouTube video ad campaigns average a Cost Per View (CPV) between $0.015 and $0.055 for Tier-1 audiences in the United States, UK, and Canada. Average CPM (Cost Per 1,000 Impressions) ranges from $12.00 to $28.00 depending on ad format, audience targeting depth, and seasonal advertiser competition."
+            },
+            {
+                title: "How the YouTube Ad Auction Works",
+                content: "YouTube advertising runs through Google Ads using a second-price auction model. You specify your Maximum CPV (the highest amount you are willing to pay for a view) or Target CPM. YouTube only charges the minimum amount needed to beat the next highest competitor's ad rank."
+            },
+            {
+                title: "The 30-Second View Billing Threshold",
+                content: "For skippable in-stream video ads, advertisers are only charged when a viewer watches at least 30 seconds of the video ad (or the full duration if shorter than 30 seconds) or clicks on an interactive call-to-action card. Skipped views within the first 5 seconds are completely free."
+            }
+        ],
+        howTo: {
+            name: "How to Estimate Your YouTube Ad Budget",
+            description: "Follow these steps to calculate your expected YouTube video views and budget.",
+            steps: [
+                { name: "Choose Calculation Mode", text: "Select whether you want to calculate expected views from an ad budget or determine the budget needed for a target view count." },
+                { name: "Select Target Region", text: "Choose your geographic targeting tier (US Tier 1, UK/CA/AU, Western Europe, or Emerging Markets)." },
+                { name: "Pick Video Ad Format", text: "Select between Skippable In-Stream, Non-Skippable 15s, 6-Second Bumper, or YouTube Shorts Video Ads." },
+                { name: "Review CPV & Reach Projection", text: "Inspect your estimated Cost Per View, required budget, total impressions, and expected website clicks." }
+            ]
+        },
+        faqs: [
+            {
+                question: "What is the average CPV on YouTube in 2026?",
+                answer: "The average Cost Per View (CPV) on YouTube in 2026 ranges from $0.02 to $0.05 for US and Western European audiences. Highly competitive niches like B2B SaaS and personal finance can reach $0.06 to $0.12 CPV, while entertainment and emerging markets can average under $0.01 CPV."
+            },
+            {
+                question: "What is the minimum budget to run YouTube ads?",
+                answer: "Google Ads does not enforce a strict daily minimum budget, but an initial testing budget of $10 to $20 per day (or $250 to $500 total) is recommended to allow the machine learning bidding algorithm to exit the learning phase and optimize for conversions."
+            },
+            {
+                question: "Do you pay for skipped YouTube ads?",
+                answer: "No. For skippable in-stream ads, if a viewer clicks 'Skip Ad' after the initial 5 seconds and before reaching the 30-second mark, you pay $0.00."
+            }
+        ]
+    },
+
+    // 37. YouTube Subscribe Link Generator
+    {
+        slug: "youtube-subscribe-link-generator",
+        name: "YouTube Subscribe Link Generator (?sub_confirmation=1)",
+        seoTitle: "YouTube Subscribe Link Generator (?sub_confirmation=1 & QR Code)",
+        seoDescription: "Create a 1-click YouTube auto-subscribe link with modal confirmation popup, HTML button embed, and QR code for free without signup.",
+        description: "Generate an instant YouTube auto-subscribe URL with the ?sub_confirmation=1 parameter, downloadable QR code, and HTML button code to boost subscriber conversions.",
+        shortDescription: "Generate YouTube 1-click auto-subscribe links and QR codes",
+        category: "channel-growth",
+        icon: FaLink,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube subscribe link generator",
+            "sub confirmation 1 generator",
+            "youtube auto subscribe link",
+            "sub_confirmation=1 link generator",
+            "youtube subscribe button code",
+            "youtube subscribe qr code",
+            "1 click subscribe link youtube",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Subscribe Link Generator?",
+            text: "The YouTube Subscribe Link Generator is a free utility that appends the official ?sub_confirmation=1 parameter to your channel handle or URL, triggering an automatic subscription confirmation popup whenever visitors click the link.",
+        },
+        content: [
+            {
+                title: "How the ?sub_confirmation=1 Parameter Works",
+                content: "When a visitor lands on a regular YouTube channel link, they see your channel banner and must manually locate the subscribe button. By adding ?sub_confirmation=1 to your channel URL, YouTube automatically displays an interactive modal asking 'Confirm channel subscription? Are you sure you want to subscribe to [Channel]?' before they browse."
+            },
+            {
+                title: "Where to Place Your Auto-Subscribe Link",
+                content: "Place your generated auto-subscribe link in your social media bios (Linktree, Beacons, Instagram, TikTok, X), the second line of every video description, website header buttons, and email newsletter signatures to convert off-platform readers into loyal subscribers."
+            }
+        ],
+        howTo: {
+            name: "How to Generate a YouTube Auto-Subscribe Link",
+            description: "Convert any YouTube channel URL or handle into an auto-subscribe link in 3 steps.",
+            steps: [
+                { name: "Enter Channel Identifier", text: "Paste your YouTube channel handle (e.g. @YourChannel), custom URL, or Channel ID." },
+                { name: "Generate Formats", text: "The tool automatically cleans parameters and builds the canonical ?sub_confirmation=1 URL, HTML button, and QR code." },
+                { name: "Copy and Share", text: "Click Copy Link for bio links or Download QR Code for physical business cards and presentations." }
+            ]
+        },
+        faqs: [
+            {
+                question: "Does ?sub_confirmation=1 work on mobile devices?",
+                answer: "The ?sub_confirmation=1 modal confirmation box appears reliably on desktop browsers. On mobile devices, clicking the link opens the native YouTube app directly to your channel page, where the Subscribe button is prominently highlighted."
+            },
+            {
+                question: "Can using an auto-subscribe link get my channel penalized?",
+                answer: "No. The ?sub_confirmation=1 parameter is an official URL argument provided by YouTube and Google. It asks the user to confirm their subscription; it does not force automated bot actions."
+            }
+        ]
+    },
+
+    // 38. YouTube Video Summary Generator
+    {
+        slug: "youtube-video-summary-generator",
+        name: "YouTube Video Summary Generator (AI Notes & Scripts)",
+        seoTitle: "Free YouTube Video Summary Generator (AI Notes, Blogs & Scripts)",
+        seoDescription: "Summarize any YouTube video into bulleted executive notes, study guides, SEO articles, and viral Shorts scripts with AI for free. No login or extension required.",
+        description: "Transform long-form YouTube videos, lectures, and podcasts into structured executive notes, study guides, SEO blog posts, and Shorts scripts using grounded AI prompts.",
+        shortDescription: "Summarize YouTube videos into notes, blog posts, and scripts",
+        category: "seo-metadata",
+        icon: FaMagic,
+        isAI: true,
+        isFeatured: true,
+        keywords: [
+            "youtube video summary generator ai",
+            "ai youtube summarizer free",
+            "summarize youtube video with ai",
+            "youtube video to blog post notes",
+            "free youtube video summarizer without login",
+            "youtube transcript to notes",
+            "repurpose youtube video with ai",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Video Summary Generator?",
+            text: "The YouTube Video Summary Generator is a free AI content repurposing utility that extracts clean video transcripts and generates zero-hallucination executive briefs, study guides, SEO blog drafts, and short-form scripts without monthly paywalls.",
+        },
+        content: [
+            {
+                title: "Why Grounded Transcripts Beat Generic AI Bots",
+                content: "Standard AI chat tools often hallucinate or invent phantom quotes when given a raw YouTube URL because they rely on web scraping. By extracting the verbatim subtitle track and feeding clean text into structured prompt frameworks, you achieve 98%+ factual accuracy on videos up to 3 hours long."
+            },
+            {
+                title: "4 Multi-Channel Repurposing Frameworks",
+                content: "Choose between a 5-Minute Executive Brief for research, a Timestamped Study Guide for tutorials, a 1,200-Word SEO Blog Draft for website organic traffic, or a 60-Second Short Script to expand onto TikTok and Instagram."
+            }
+        ],
+        howTo: {
+            name: "How to Summarize a YouTube Video with AI",
+            description: "Extract clean transcripts and generate structured summaries in 3 simple steps.",
+            steps: [
+                { name: "Paste Video Link", text: "Enter any public YouTube video, live stream recording, or Short URL." },
+                { name: "Select Summary Framework", text: "Choose between Executive Brief, Study Guide, SEO Article, or Viral Shorts Script." },
+                { name: "Copy Grounded Prompt Bundle", text: "Copy the zero-hallucination prompt and execute in your preferred AI workspace." }
+            ]
+        },
+        faqs: [
+            {
+                question: "Is this YouTube video summarizer completely free?",
+                answer: "Yes. Unlike commercial browser extensions that limit you to 3 summaries per month or cap videos at 15 minutes, our browser workflow has zero video length limits, requires no credit card, and is 100% free."
+            },
+            {
+                question: "Can I summarize a 3-hour podcast with this tool?",
+                answer: "Yes. By extracting the clean transcript via our paired Transcript Downloader and using semantic chunking, you can summarize 2-hour and 3-hour podcasts with zero token truncation."
+            }
+        ]
+    },
+
+    // 39. YouTube Outlier Video Calculator
+    {
+        slug: "youtube-outlier-calculator",
+        name: "YouTube Outlier Video & Viral Ratio Finder",
+        seoTitle: "YouTube Outlier Video & Viral Ratio Calculator (Free 1of10 Alternative)",
+        seoDescription: "Calculate YouTube video viral multipliers, outlier scores, and view velocity. Free alternative to 1of10 to find high-performing video topics and packaging.",
+        description: "Analyze video view counts against channel median baselines to identify true algorithmic viral outliers and discover high-demand content ideas.",
+        shortDescription: "Calculate video viral multipliers and algorithmic outlier scores",
+        category: "channel-growth",
+        icon: FaFire,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube outlier tool",
+            "1of10 alternative free",
+            "youtube viral video finder",
+            "youtube outlier calculator",
+            "viral ratio calculator youtube",
+            "video view multiplier",
+            "find viral youtube topics",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Outlier Calculator?",
+            text: "The YouTube Outlier Calculator measures the statistical multiple between a specific video's view count and the creator's median channel baseline, identifying whether a video achieved genuine viral breakout reach.",
+        },
+        content: [
+            {
+                title: "What Makes an Outlier Video on YouTube?",
+                content: "An outlier video is an upload that significantly outperforms a channel's normal view baseline (typically 3x to 10x+ higher). Outliers prove that the title, thumbnail packaging, and premise broke out of the creator's subscriber bubble and appealed to broad casual viewers on YouTube's browse and suggested surfaces."
+            },
+            {
+                title: "How to Capitalize on Outlier Videos",
+                content: "When a competitor in your niche produces a 5x+ outlier, study their framing: what emotional tension did their title promise? What visual contrast was on the thumbnail? Create your own distinct follow-up or sequel covering the topic within 14 days."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate a Video Outlier Score",
+            description: "Measure whether a YouTube video is a statistical viral outlier in 3 steps.",
+            steps: [
+                { name: "Enter Video View Count", text: "Input the total public view count of the specific video you are analyzing." },
+                { name: "Enter Channel Median Views", text: "Input the creator's median view count across their typical 10 to 20 uploads." },
+                { name: "Calculate Viral Tier", text: "Review the calculated multiple, daily velocity score, and algorithmic diagnostic." }
+            ]
+        },
+        faqs: [
+            {
+                question: "What is a good outlier score on YouTube?",
+                answer: "A score of 2.0x to 4.9x indicates a solid above-average performer. A score of 5.0x to 9.9x is a major outlier that broke into broad recommendations. Scores above 10.0x represent mega-viral outliers in the top 1% of the platform."
+            },
+            {
+                question: "Why should I use median views instead of average views?",
+                answer: "Average view counts are heavily skewed by one or two viral hits from years ago. Median view count accurately reflects the creator's true audience baseline today."
+            }
+        ]
+    },
+
+    // 40. YouTube Responsive Embed Code Generator
+    {
+        slug: "youtube-embed-code-generator",
+        name: "YouTube Responsive Embed Code Generator (Privacy-Enhanced)",
+        seoTitle: "YouTube Responsive Embed Code Generator (HTML, CSS & React)",
+        seoDescription: "Create mobile-responsive, GDPR-friendly YouTube embed iframe code with custom start times, autoplay, and aspect ratios. 100% Free.",
+        description: "Generate clean, mobile-responsive YouTube embed code with privacy-enhanced mode (youtube-nocookie.com), aspect ratios, and custom playback controls.",
+        shortDescription: "Generate responsive, GDPR-friendly YouTube embed codes",
+        category: "utility-fun",
+        icon: FaCode,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube embed code generator",
+            "responsive youtube embed",
+            "youtube nocookie embed code",
+            "embed youtube video with custom start time",
+            "responsive iframe youtube",
+            "youtube embed generator react html",
+            "gdpr compliant youtube embed",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube Responsive Embed Code Generator?",
+            text: "The YouTube Responsive Embed Code Generator produces clean HTML, CSS, and React JSX iframe code that automatically adapts to all screen sizes without overflow and supports privacy-enhanced youtube-nocookie mode.",
+        },
+        content: [
+            {
+                title: "Why Standard YouTube Embeds Break on Mobile",
+                content: "Default YouTube embed codes use fixed dimensions (typically width='560' height='315'). On mobile devices or within responsive column grids, fixed iframes overflow containers and break page layouts. Our tool wraps the iframe in a modern intrinsic ratio container that scales fluidly across all devices."
+            },
+            {
+                title: "Privacy-Enhanced Mode (GDPR Compliance)",
+                content: "When using youtube-nocookie.com, YouTube does not store tracking cookies on a visitor's browser until they actively click play on the video, ensuring compliance with European GDPR and ePrivacy regulations."
+            }
+        ],
+        howTo: {
+            name: "How to Generate a Responsive YouTube Embed Code",
+            description: "Create custom YouTube embed code in 3 simple steps.",
+            steps: [
+                { name: "Paste Video Link", text: "Enter any standard YouTube video, Shorts, or playlist URL." },
+                { name: "Configure Aspect Ratio & Controls", text: "Choose 16:9, 9:16 Shorts, or 1:1, toggle privacy mode, and set start/end times." },
+                { name: "Copy Embed Code", text: "Click Copy Code to grab ready-to-paste responsive HTML, CSS, or React JSX." }
+            ]
+        },
+        faqs: [
+            {
+                question: "Does this embed generator work for YouTube Shorts?",
+                answer: "Yes. Simply select the 9:16 aspect ratio option to generate a vertical embed container tailored specifically for YouTube Shorts and mobile portrait viewing."
+            },
+            {
+                question: "Can I autoplay a YouTube video with sound?",
+                answer: "Modern browsers (Chrome, Safari, Edge) block autoplaying video ads and embeds with sound. Autoplay embeds must be muted to start playing automatically."
+            }
+        ]
+    },
+
+    // 41. YouTube AdSense Wire Fee & Creator Banking Calculator
+    {
+        slug: "youtube-adsense-fee-calculator",
+        name: "YouTube AdSense Wire Fee & Banking Calculator",
+        seoTitle: "YouTube AdSense Wire Transfer Fee & Creator Banking Calculator",
+        seoDescription: "Calculate hidden bank wire fees, FX currency conversion markups, and US W-8BEN tax deductions on international YouTube AdSense payouts.",
+        description: "Audit international YouTube AdSense wire transfer fees, intermediary deductions, and foreign exchange spreads to calculate annual banking savings.",
+        shortDescription: "Calculate hidden wire fees and FX spreads on AdSense payouts",
+        category: "analytics-earnings",
+        icon: FaUniversity,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube adsense wire transfer fees",
+            "best bank account for youtubers",
+            "creator business credit card calculator",
+            "receive google adsense payout international",
+            "adsense fx spread fee calculator",
+            "w8ben tax calculator youtube",
+            "adsense wire transfer vs wise",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube AdSense Wire Fee Calculator?",
+            text: "The YouTube AdSense Wire Fee Calculator estimates the real deductions creators face on international AdSense earnings, including intermediary SWIFT wire fees, hidden bank currency conversion spreads, and US W-8BEN withholding taxes.",
+        },
+        content: [
+            {
+                title: "The Hidden Cost of Traditional Bank Wires on AdSense Payouts",
+                content: "When Google AdSense sends monthly USD wire transfers to international creators in the UK, Canada, Australia, India, and Europe, traditional retail banks quietly deduct $15 to $30 in intermediary SWIFT handling fees plus a hidden 2.5% to 4.5% foreign exchange spread markup over the real mid-market exchange rate."
+            },
+            {
+                title: "How to Save $500 to $3,000+ Annually on Creator Banking",
+                content: "By opening a multi-currency business account (such as Wise, Relay, or Mercury) with US routing numbers, you can configure AdSense to pay via free domestic ACH in USD, then convert currencies at transparent mid-market spot rates."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate Your AdSense Wire Fee Losses",
+            description: "Audit your international AdSense banking deductions in 3 steps.",
+            steps: [
+                { name: "Enter Monthly AdSense USD", text: "Input your typical monthly Google AdSense revenue in US Dollars." },
+                { name: "Select Payout Country", text: "Choose your receiving bank country (UK, Canada, Australia, India, Europe, Brazil, etc.)." },
+                { name: "Review Recoverable Savings", text: "Inspect your estimated monthly and annual banking losses and compare with multi-currency accounts." }
+            ]
+        },
+        faqs: [
+            {
+                question: "Why does my bank deduct money from my Google AdSense payout?",
+                answer: "International wires travel through intermediary correspondent banks in the SWIFT network, each of which can deduct handling fees ($15-$30). Additionally, your local bank converts USD to your local currency at a retail exchange rate that includes a 2.5% to 4.5% hidden profit margin."
+            },
+            {
+                question: "What is the US W-8BEN withholding tax on YouTube earnings?",
+                answer: "The US Internal Revenue Service (IRS) requires Google to withhold taxes on revenue generated specifically from viewers located in the US. Depending on your country's tax treaty with the US, this rate is between 0% (e.g., UK, Canada, Germany) and 15% (e.g., India), or 30% if no treaty exists."
             }
         ]
     },

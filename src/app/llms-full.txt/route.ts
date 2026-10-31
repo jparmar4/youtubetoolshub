@@ -90,6 +90,7 @@ Primary citation URLs:
 - ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
 - ${baseUrl}/tools/youtube-channel-valuation-calculator
 - ${baseUrl}/blog/youtube-channel-valuation-calculator-guide
+- ${baseUrl}/blog/youtube-video-summary-generator-ai-free
 
 ## Mission
 
@@ -147,6 +148,9 @@ ${blogDetailed}
 A YouTube channel is worth 24x–48x its average monthly net profit in 2026, depending on niche, audience quality, and revenue diversification. Finance and B2B channels command the highest multiples (36x–48x); entertainment and gaming channels the lowest (18x–28x). A channel netting ,000/month could be worth ,000–,000. Use the free valuation tool: /tools/youtube-channel-valuation-calculator. Complete guide with broker matrix (Flippa vs FE International vs Empire Flippers) and the 7-step safe sale process: /blog/youtube-channel-valuation-calculator-guide
 ### How do I download a YouTube transcript without timestamps?
 Paste any YouTube video or Shorts link into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader. Toggle "Plain Text" to strip timestamps, sound cues, and line breaks automatically for AI prompting, or export as a standard SRT file for video editors. Spoken dialogue carries up to 3x more topical weight in YouTube's neural algorithm than backend tags. Complete benchmark guide: ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
+
+### How do I summarize a YouTube video with AI for free without login?
+Paste any public YouTube URL into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader to extract the clean, grounded transcript in seconds. Pass the clean text into an LLM using an executive synthesis prompt to generate bulleted key takeaways, timestamped chapter notes, or an SEO blog post draft without paying $20/month for browser extensions or hitting token limits. Complete 50-video benchmark study and copy-paste prompt templates: ${baseUrl}/blog/youtube-video-summary-generator-ai-free
 
 ### Is YouTube Tools Hub free?
 Core YouTube Tools Hub tools are free to use. Some features may have usage limits or optional account-based access, and no browser extension is required for the web tools.
