@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaRocket, FaExternalLinkAlt, FaStar, FaBolt, FaCrown } from "react-icons/fa";
+import { FaExternalLinkAlt, FaCrown } from "react-icons/fa";
 import { AFFILIATE_TOOLS, DEFAULT_AFFILIATE_DISCLOSURE, type AffiliateTool } from "@/config/affiliates";
 
 interface CreatorSoftwareCardProps {

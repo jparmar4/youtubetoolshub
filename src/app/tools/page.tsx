@@ -12,6 +12,19 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
+import {
+  FaCalculator,
+  FaHandshake,
+  FaFileInvoiceDollar,
+  FaBuilding,
+  FaCoins,
+  FaChartLine,
+  FaArrowRight,
+  FaBolt,
+  FaClock,
+  FaBalanceScale,
+  FaAward,
+} from "react-icons/fa";
 
 const toolsPageFaqs = [
   {
@@ -129,7 +142,7 @@ export default function ToolsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <div className="min-h-screen py-20 relative overflow-hidden bg-slate-50">
+      <div className="min-h-screen py-16 sm:py-20 relative overflow-hidden bg-slate-50">
         {/* Background Decorations */}
         <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-purple-100/40 via-blue-50/20 to-transparent -z-10" />
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl -z-10" />
@@ -137,46 +150,196 @@ export default function ToolsPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="text-center mb-12 animate-fade-in-up">
+          <div className="text-center mb-10 animate-fade-in-up">
             <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-lg shadow-purple-500/20">
-              Creator Tool Suite
+              {tools.length} Free Creator Tools · No Signup
             </span>
             <h1
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 tracking-tight font-outfit"
+              className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-outfit"
               data-speakable
             >
-              {`All ${tools.length} Free YouTube Tools, Organized by Job`}
+              All {tools.length} Free YouTube Tools
             </h1>
             <p
               className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit summary"
               data-speakable
             >
-              {tools.length}+ free online tools for YouTube creators: download HD
-              thumbnails, generate titles and tags, calculate CPM earnings by
-              country, audit channels, and plan content — no signup or extension
-              required.
+              Streamline your YouTube workflow: download full HD &amp; 4K thumbnails, generate high-CTR titles and tags, calculate country-level AdSense payouts, estimate tax deductions, and grow without extensions.
             </p>
+
+            {/* Quick Category Chips */}
+            <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mt-8">
+              <a
+                href="#tier1-calculators"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold shadow-xs hover:scale-105 transition-all"
+              >
+                <FaBolt className="w-3 h-3 text-amber-300" />
+                <span>Tier 1 Money &amp; Tax Suite</span>
+              </a>
+              {toolCategories.map((cat) => (
+                <a
+                  key={cat.id}
+                  href={`#${cat.id}`}
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700 text-xs font-semibold shadow-2xs transition-all"
+                >
+                  {cat.name.replace(" Tools", "")} ({getToolsByCategory(cat.id).length})
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Above-the-fold Ad Placement */}
-          <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-3 text-center min-h-[90px] flex flex-col items-center justify-center">
+          <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 backdrop-blur-sm p-3 text-center min-h-[90px] flex flex-col items-center justify-center">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
             <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
           </div>
 
+          {/* Tier 1 Commercial Stack Spotlight */}
+          <div id="tier1-calculators" className="mb-20 scroll-mt-24">
+            <div className="bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="relative z-10">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                  <div>
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                      High-RPM Monetization &amp; Planning
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
+                      Tier 1 Creator Financial &amp; Tax Suite
+                    </h2>
+                    <p className="text-slate-300 text-sm mt-1 max-w-xl">
+                      Commercial calculators designed specifically for creators targeting high advertiser CPMs in the US, UK, Canada, Australia, and Germany.
+                    </p>
+                  </div>
+                  <Link
+                    href="/resources/youtube-cpm-rates"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md self-start md:self-auto"
+                  >
+                    <span>Country CPM Benchmarks</span>
+                    <FaArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      name: "YouTube Earnings Calculator",
+                      href: "/tools/youtube-earnings-calculator",
+                      desc: "Estimate monthly and yearly AdSense by country and RPM.",
+                      badge: "50+ Markets",
+                      icon: FaCalculator,
+                      color: "text-emerald-400 bg-emerald-950/60 border-emerald-800/60",
+                    },
+                    {
+                      name: "Sponsorship Rate Calculator",
+                      href: "/tools/youtube-sponsorship-calculator",
+                      desc: "Calculate 60s integrations, 30s shoutouts, and pitch templates.",
+                      badge: "Media Kit",
+                      icon: FaHandshake,
+                      color: "text-amber-400 bg-amber-950/60 border-amber-800/60",
+                    },
+                    {
+                      name: "US Tax Deduction Estimator",
+                      href: "/tools/youtube-tax-deduction-calculator",
+                      desc: "Model IRS Schedule C & 1099 write-offs on cameras, studio & tech.",
+                      badge: "IRS & HMRC",
+                      icon: FaFileInvoiceDollar,
+                      color: "text-blue-400 bg-blue-950/60 border-blue-800/60",
+                    },
+                    {
+                      name: "LLC vs S-Corp Tax Savings",
+                      href: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator",
+                      desc: "Discover how S-Corp saves $4k–$12k in self-employment tax.",
+                      badge: "Tax Strategy",
+                      icon: FaBuilding,
+                      color: "text-purple-400 bg-purple-950/60 border-purple-800/60",
+                    },
+                    {
+                      name: "Channel Valuation Calculator",
+                      href: "/tools/youtube-channel-valuation-calculator",
+                      desc: "Estimate channel exit value based on 24x–36x net profit multiples.",
+                      badge: "Asset Exit",
+                      icon: FaCoins,
+                      color: "text-rose-400 bg-rose-950/60 border-rose-800/60",
+                    },
+                    {
+                      name: "YouTube Ads Cost Calculator",
+                      href: "/tools/youtube-ads-cost-calculator",
+                      desc: "Model CPV and budget requirements to promote YouTube videos.",
+                      badge: "Google Ads",
+                      icon: FaChartLine,
+                      color: "text-teal-400 bg-teal-950/60 border-teal-800/60",
+                    },
+                    {
+                      name: "4,000 Watch Hours Planner",
+                      href: "/tools/youtube-watch-hours-calculator",
+                      desc: "Calculate views and pace needed to unlock YPP monetization.",
+                      badge: "YPP Monetization",
+                      icon: FaClock,
+                      color: "text-emerald-400 bg-emerald-950/60 border-emerald-800/60",
+                    },
+                    {
+                      name: "Shorts vs. Long-Form Profitability",
+                      href: "/tools/youtube-shorts-vs-long-form-calculator",
+                      desc: "Compare AdSense yield, editing effort, and hourly creator wage.",
+                      badge: "RPM Arbitrage",
+                      icon: FaBalanceScale,
+                      color: "text-amber-400 bg-amber-950/60 border-amber-800/60",
+                    },
+                    {
+                      name: "Play Button Milestone Tracker",
+                      href: "/tools/youtube-milestone-countdown-calculator",
+                      desc: "Track velocity and project exact dates for Silver (100K) and Gold (1M).",
+                      badge: "Creator Awards",
+                      icon: FaAward,
+                      color: "text-purple-400 bg-purple-950/60 border-purple-800/60",
+                    },
+                  ].map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="group p-5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 transition-all hover:border-purple-400/50 hover:shadow-lg flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className={`w-9 h-9 rounded-xl border flex items-center justify-center ${item.color}`}>
+                            <item.icon className="w-4 h-4" />
+                          </div>
+                          <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white/20 text-white">
+                            {item.badge}
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-base text-white group-hover:text-purple-300 transition-colors">
+                          {item.name}
+                        </h3>
+                        <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                          {item.desc}
+                        </p>
+                      </div>
+                      <div className="mt-4 flex items-center text-xs font-bold text-purple-300 group-hover:translate-x-1 transition-transform">
+                        <span>Launch Tool</span>
+                        <FaArrowRight className="ml-1.5 w-3 h-3" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Tools by Category */}
-          <div className="space-y-32">
+          <div className="space-y-28">
             {toolCategories.map((category) => {
               const categoryTools = getToolsByCategory(category.id);
               return (
-                <div key={category.id}>
+                <div key={category.id} id={category.id} className="scroll-mt-24">
                   <section className="animate-fade-in-up">
-                    <div className="mb-12 flex flex-col items-center text-center">
-                      <h2 className="text-4xl font-bold text-slate-900 mb-4 font-outfit relative">
+                    <div className="mb-10 flex flex-col items-center text-center">
+                      <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 font-outfit relative">
                         {category.name}
                         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-purple-500 rounded-full"></div>
                       </h2>
-                      <p className="text-lg text-slate-500 max-w-2xl mb-6">
+                      <p className="text-base sm:text-lg text-slate-500 max-w-2xl mb-4">
                         {category.description}
                       </p>
                       {/* Link to Hub Page */}
@@ -192,23 +355,10 @@ export default function ToolsPage() {
                         return hubUrl ? (
                           <Link
                             href={hubUrl}
-                            className="inline-flex items-center gap-2 text-purple-600 font-bold hover:text-purple-700 transition-colors group"
+                            className="inline-flex items-center gap-1.5 text-purple-600 font-bold hover:text-purple-700 transition-colors text-sm group"
                           >
-                            View Full {category.name.replace(" Tools", "")}{" "}
-                            Suite
-                            <svg
-                              className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M13 7l5 5m0 0l-5 5m5-5H6"
-                              />
-                            </svg>
+                            <span>View Full {category.name.replace(" Tools", "")} Suite</span>
+                            <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                           </Link>
                         ) : null;
                       })()}
@@ -230,8 +380,8 @@ export default function ToolsPage() {
                     </div>
 
                     <div className="mt-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                        <GoogleAd slot="3104734850" format="fluid" layout="in-article" />
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
+                      <GoogleAd slot="3104734850" format="fluid" layout="in-article" />
                     </div>
                   </section>
                 </div>
@@ -243,7 +393,7 @@ export default function ToolsPage() {
               <h3 className="text-2xl font-bold text-slate-900 mb-4 font-outfit italic">
                 "A practical toolkit for faster creator workflows."
               </h3>
-              <div className="flex justify-center items-center gap-8 opacity-40 grayscale">
+              <div className="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale">
                 <span className="font-bold text-xl tracking-tighter">
                   BROWSER BASED
                 </span>

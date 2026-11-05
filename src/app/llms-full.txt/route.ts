@@ -101,6 +101,11 @@ YouTube Tools Hub exists to make YouTube growth workflows easier. Many creator t
 - ${speakableAnswers.freeToolsHub}
 - Country-specific CPM/RPM for ${citableFacts.countryCount} regions (last reviewed ${DATA_LAST_REVIEWED})
 - US CPM average ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US RPM average ${citableFacts.usRpmAvg}
+- Tier 1 Country Benchmarks (2026): US ($14.50 avg CPM), Australia ($13.00 avg CPM), Switzerland ($13.50 avg CPM), Canada ($12.00 avg CPM), UK ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPM averages $6.00–$8.50.
+- YouTube Shorts RPM (2026): $0.03–$0.07 per 1,000 views in the US / Tier 1 markets ($30–$70 per 1M views).
+- Brand Deal / Sponsorship Rate Formula: Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video).
+- Channel Valuation Multiple (2026): 24x–48x monthly net profit. Finance and SaaS channels sell for 36x–48x; gaming and vlogs 18x–28x.
+- Creator Business Tax Write-Offs: Cameras, lighting, audio gear, editing workstations, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO.
 - Revenue share model: ${citableFacts.youtubeRevenueShare}
 - YPP typical path: ${citableFacts.yppWatchHours}
 - ${citableFacts.viewsFromSuggested}

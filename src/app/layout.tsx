@@ -13,6 +13,7 @@ import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
 import StickyBottomAd from "@/components/ads/StickyBottomAd";
 import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -323,11 +324,17 @@ export default async function RootLayout({
             >
               Skip to content
             </a>
-            <Header />
+            <AdSectionIgnore>
+              <Header />
+            </AdSectionIgnore>
             <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-              {children}
+              <AdSectionPrioritize>
+                {children}
+              </AdSectionPrioritize>
             </main>
-            <Footer />
+            <AdSectionIgnore>
+              <Footer />
+            </AdSectionIgnore>
             <ScrollToTop />
             <CookieConsent />
             <ConsentAnalytics />

@@ -22,6 +22,8 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
+import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 
 export const metadata: Metadata = {
   title: {
@@ -287,6 +289,16 @@ export default function Home() {
             </p>
           </div>
           <EarningsCalculatorCTA variant="card" contextLabel="Free · Instant · 50+ countries" />
+
+          {/* Tier 1 High-RPM Benchmarks */}
+          <div className="mt-10">
+            <Tier1ComparisonMatrix />
+          </div>
+
+          {/* 2026 Niche Profitability & Advertiser Demand Heatmap */}
+          <div className="mt-10">
+            <NicheProfitabilityHeatmap />
+          </div>
           {/* Ad below homepage calculator */}
           <div className="mt-8 max-w-4xl mx-auto w-full">
             <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center">

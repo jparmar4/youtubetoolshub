@@ -8,24 +8,18 @@ import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import CurrentYear from "@/components/layout/CurrentYear";
 
 const popularTools = [
-  { name: "Thumbnail Downloader", href: "/tools/youtube-thumbnail-downloader" },
+  { name: "Thumbnail Downloader (HD & 4K)", href: "/tools/youtube-thumbnail-downloader" },
+  { name: "YouTube Earnings Calculator", href: "/tools/youtube-earnings-calculator" },
+  { name: "Sponsorship Rate Calculator", href: "/tools/youtube-sponsorship-calculator" },
+  { name: "US Tax Deduction Estimator", href: "/tools/youtube-tax-deduction-calculator" },
+  { name: "LLC vs S-Corp Tax Savings", href: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator" },
+  { name: "Channel Valuation Calculator", href: "/tools/youtube-channel-valuation-calculator" },
+  { name: "YouTube CPM Rates 2026", href: "/resources/youtube-cpm-rates" },
   { name: "Title Generator", href: "/tools/youtube-title-generator" },
   { name: "Tag Generator", href: "/tools/youtube-tag-generator" },
-  { name: "Earnings Calculator", href: "/tools/youtube-earnings-calculator" },
   { name: "Tag Extractor", href: "/tools/youtube-tag-extractor" },
-  { name: "Channel Audit", href: "/tools/youtube-channel-audit" },
-  {
-    name: "AI Thumbnail Generator",
-    href: "/tools/youtube-ai-thumbnail-generator",
-  },
-  {
-    name: "Description Generator",
-    href: "/tools/youtube-description-generator",
-  },
-  { name: "Hashtag Generator", href: "/tools/youtube-hashtag-generator" },
-  { name: "vs TubeBuddy (Free)", href: "/tools/vs/tubebuddy" },
-  { name: "Channel Name Ideas", href: "/blog/youtube-channel-name-ideas-2026" },
-  { name: "Description Template", href: "/blog/youtube-description-template-2026" },
+  { name: "Free TubeBuddy Alternative", href: "/tools/vs/tubebuddy" },
+  { name: "Free VidIQ Alternative", href: "/tools/vs/vidiq" },
 ];
 
 export default function Footer() {
@@ -35,7 +29,7 @@ export default function Footer() {
   return (
     <footer className="bg-slate-50 text-slate-600 border-t border-slate-200">
       {/* Newsletter Section */}
-      <div className="border-b border-white/5">
+      <div className="border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="max-w-xl mx-auto">
             <NewsletterSignup />
@@ -45,7 +39,7 @@ export default function Footer() {
 
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
@@ -65,7 +59,7 @@ export default function Footer() {
                 href="https://t.me/youtubetoolshub"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-surface-200 hover:bg-[#0088cc] hover:text-white transition-all duration-300"
+                className="p-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-[#0088cc] hover:text-white transition-all duration-300"
                 aria-label="Telegram"
               >
                 <FaTelegram className="w-4 h-4" />
@@ -74,7 +68,7 @@ export default function Footer() {
                 href="https://www.facebook.com/profile.php?id=61585430621256"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-surface-200 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
+                className="p-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
                 aria-label="Facebook"
               >
                 <FaFacebook className="w-4 h-4" />
@@ -99,7 +93,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tools"
-                  className="text-sm text-purple-600 hover:text-purple-700 transition-colors"
+                  className="text-sm text-purple-600 hover:text-purple-700 transition-colors font-medium"
                 >
                   View All Tools →
                 </Link>
@@ -121,6 +115,30 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/about"
+                  className="text-sm hover:text-purple-600 transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-sm hover:text-purple-600 transition-colors"
+                >
+                  Contact Support
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-sm hover:text-purple-600 transition-colors"
+                >
+                  Creator FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -149,7 +167,7 @@ export default function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm hover:text-purple-400 transition-colors"
+                    className="text-sm hover:text-purple-600 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -165,8 +183,7 @@ export default function Footer() {
             © <CurrentYear /> {siteConfig.name}. All rights reserved.
           </p>
           <p className="text-slate-500 text-sm flex items-center gap-1">
-            Made with <FaHeart className="text-purple-500" /> for YouTube
-            Creators
+            Made with <FaHeart className="text-purple-500" /> for YouTube Creators Worldwide
           </p>
         </div>
       </div>

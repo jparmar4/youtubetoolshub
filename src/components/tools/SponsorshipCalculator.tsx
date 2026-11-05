@@ -10,8 +10,8 @@ import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCall
 import { saveHistory } from "@/lib/history";
 import { 
     FaCopy, FaCheck, FaShieldAlt, FaRocket, FaExchangeAlt,
-    FaFilePdf, FaCrown, FaEnvelope, FaGlobeAmericas, FaUsers, FaChartLine,
-    FaLock, FaCheckCircle, FaStar, FaExternalLinkAlt, FaTimes
+    FaFilePdf, FaCrown, FaEnvelope,
+    FaCheckCircle, FaTimes
 } from "react-icons/fa";
 
 type Currency = "USD" | "EUR" | "GBP" | "CAD" | "AUD";
@@ -259,7 +259,7 @@ Cheers,
 ${channelHandle}`
             }
         ];
-    }, [calculations, channelHandle, monthlyViewsCount, activeNiche, topAudienceGeo, activeCurrency, contactEmail]);
+    }, [calculations, channelHandle, monthlyViewsCount, activeNiche, topAudienceGeo, activeCurrency, contactEmail, currency]);
 
     const handleCopyScript = async (text: string) => {
         try {

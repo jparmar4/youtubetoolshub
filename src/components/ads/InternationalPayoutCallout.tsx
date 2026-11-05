@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaGlobeAmericas, FaExternalLinkAlt, FaInfoCircle, FaShieldAlt, FaCoins, FaCheckCircle } from "react-icons/fa";
+import { FaGlobeAmericas, FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa";
 import { AFFILIATE_TOOLS, DEFAULT_AFFILIATE_DISCLOSURE } from "@/config/affiliates";
 
 interface InternationalPayoutCalloutProps {

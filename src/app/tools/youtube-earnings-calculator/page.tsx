@@ -17,6 +17,8 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
+import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
@@ -313,6 +315,16 @@ export default function YouTubeEarningsCalculatorPage() {
               </div>
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
+
+              {/* Tier 1 High-RPM Comparison Matrix */}
+              <section className="my-8">
+                <Tier1ComparisonMatrix />
+              </section>
+
+              {/* 2026 Niche Profitability & Advertiser Demand Heatmap */}
+              <section className="my-8">
+                <NicheProfitabilityHeatmap />
+              </section>
 
               {/* Example table */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">

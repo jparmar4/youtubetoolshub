@@ -118,6 +118,11 @@ YouTube payout data.
 - **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Benchmark takeaway: channels sell for 24x–48x monthly net profit in 2026. Finance/B2B channels command 36x–48x; entertainment 18x–28x. Includes 7-step safe sale process, Flippa vs FE International vs Empire Flippers broker matrix, and pre-sale checklist.
 - **YouTube video summary generator AI guide (2026):** ${baseUrl}/blog/youtube-video-summary-generator-ai-free — Benchmark takeaway: ${citableFacts.aiSummaryTimeSavings} with ${citableFacts.aiTranscriptFidelity}. Free browser workflow to summarize up to 4-hour YouTube videos into executive notes, study guides, SEO articles, and viral scripts without paid extensions or token caps.
 - **US average CPM:** ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US average RPM ≈ ${citableFacts.usRpmAvg} (range ${citableFacts.usRpmRange})
+- **Tier 1 Country Benchmarks (2026):** United States ($14.50 avg CPM), Australia ($13.00 avg CPM), Switzerland ($13.50 avg CPM), Canada ($12.00 avg CPM), United Kingdom ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPMs average $6.00–$8.50.
+- **YouTube Shorts RPM (2026):** $0.03–$0.07 per 1,000 views in the United States and Tier 1 markets ($30–$70 per 1M views).
+- **Brand Deal / Sponsorship Pricing Formula:** Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video).
+- **Channel Valuation Multiple (2026):** 24x–48x monthly net profit. Finance/B2B/Tech channels command 36x–48x; gaming/vlog 18x–28x. Faceless channels command a 20% premium.
+- **Creator Business Tax Write-Offs:** Cameras, lighting, microphones, editing computers, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO.
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}
 - **Mid-roll eligibility:** ${citableFacts.midRollMinutes}

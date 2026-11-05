@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
 import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema, getGlobalAlternates } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -12,6 +12,8 @@ import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GoogleAd from "@/components/ads/GoogleAd";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
+import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 
 export const metadata: Metadata = {
     title: "YouTube CPM Rates by Country 2026 (50+ Markets)",
@@ -314,6 +316,11 @@ export default function YouTubeCPMRatesPage() {
                         </div>
                     </section>
 
+                    {/* Tier 1 Interactive Benchmark Matrix */}
+                    <section>
+                        <Tier1ComparisonMatrix />
+                    </section>
+
                     <EarningsCalculatorCTA
                         variant="card"
                         contextLabel="Turn CPM data into your estimate"
@@ -379,41 +386,9 @@ export default function YouTubeCPMRatesPage() {
                         <CPMTable countries={tier3} tierLabel="Tier 3" tierColor="bg-orange-600" />
                     </section>
 
-                    {/* Niche CPM Table */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
-                        <div className="mb-8">
-                            <h2 className="text-3xl font-black text-slate-900 font-outfit mb-3">YouTube CPM by Niche (2026)</h2>
-                            <p className="text-slate-600 leading-relaxed">
-                                Your niche has as much impact on CPM as your audience country. Finance channels in the US earn <strong>10–20× more per view</strong> than gaming channels with the same US audience.
-                                <span className="text-xs text-slate-400 ml-2">(Industry estimates based on aggregated creator reports. Actual rates vary.)</span>
-                            </p>
-                        </div>
-                        <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-                            <table className="w-full text-sm">
-                                <thead>
-                                    <tr className="bg-slate-900 text-white">
-                                        <th scope="col" className="text-left px-4 py-3 font-bold">Niche</th>
-                                        <th scope="col" className="text-right px-4 py-3 font-bold">US CPM Range</th>
-                                        <th scope="col" className="text-right px-4 py-3 font-bold">Global Avg CPM</th>
-                                        <th scope="col" className="text-left px-4 py-3 font-bold hidden md:table-cell">Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {nicheCPMData.map((n, i) => (
-                                        <tr key={n.niche} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                                            <td className="px-4 py-3 font-semibold text-slate-900">{n.niche}</td>
-                                            <td className="px-4 py-3 text-right font-bold text-purple-700">
-                                                ${n.topCountryCPM.min}–${n.topCountryCPM.max}
-                                            </td>
-                                            <td className="px-4 py-3 text-right text-emerald-700 font-semibold">
-                                                ${n.avgCPM.min}–${n.avgCPM.max}
-                                            </td>
-                                            <td className="px-4 py-3 text-slate-500 text-xs hidden md:table-cell">{n.notes}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                    {/* Interactive 2026 Niche Profitability Heatmap */}
+                    <section className="my-8">
+                        <NicheProfitabilityHeatmap />
                     </section>
 
 

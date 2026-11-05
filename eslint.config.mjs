@@ -11,6 +11,7 @@ const eslintConfig = defineConfig([
       // than HTML entity noise. Keep lint focused on build and runtime risks.
       "react/no-unescaped-entities": "off",
       "react/jsx-no-comment-textnodes": "off",
+      "react-hooks/preserve-manual-memoization": "off",
     },
   },
   {

@@ -21,6 +21,7 @@ import {
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import { AD_SLOTS } from "@/lib/adsense";
 
 /** Unknown country slugs → 404 (prevents soft-404 index bloat) */
@@ -330,6 +331,11 @@ export default async function CountryEarningsPage({
                                         full country CPM table
                                     </Link>.
                                 </p>
+                            </div>
+
+                            {/* Tier 1 Benchmark Comparison */}
+                            <div className="my-8">
+                                <Tier1ComparisonMatrix />
                             </div>
 
                             {/* AEO FAQ (visible + schema) */}

@@ -45,7 +45,7 @@ function subscribe(callback: () => void) {
 
 export default function StickyBottomAd() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/embed")) return null;
+  const isEmbed = pathname?.startsWith("/embed");
 
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isReady, setIsReady] = useState(false);
@@ -55,14 +55,14 @@ export default function StickyBottomAd() {
   // avoids a large fixed element distorting the initial viewport for Discover
   // and search visitors. Consent/dismissal still takes precedence.
   useEffect(() => {
-    if (!visible) return;
+    if (isEmbed || !visible) return;
 
     const timer = window.setTimeout(() => setIsReady(true), 5000);
     return () => window.clearTimeout(timer);
-  }, [visible]);
+  }, [isEmbed, visible]);
 
   useEffect(() => {
-    if (!visible || !isReady) {
+    if (isEmbed || !visible || !isReady) {
       document.body.style.removeProperty("padding-bottom");
       return;
     }
@@ -70,7 +70,7 @@ export default function StickyBottomAd() {
     return () => {
       document.body.style.removeProperty("padding-bottom");
     };
-  }, [visible, isReady]);
+  }, [isEmbed, visible, isReady]);
 
   const handleDismiss = () => {
     try {
@@ -81,7 +81,7 @@ export default function StickyBottomAd() {
     }
   };
 
-  if (!visible || !isReady) return null;
+  if (isEmbed || !visible || !isReady) return null;
 
   return (
     <div

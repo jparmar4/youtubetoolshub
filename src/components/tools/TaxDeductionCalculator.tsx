@@ -137,7 +137,97 @@ export default function TaxDeductionCalculator() {
 
                 <div className="space-y-2">
                     <Input label="Assumed marginal tax rate (%)" type="text" inputMode="decimal" value={assumedRate} onChange={(e) => setAssumedRate(e.target.value)} />
-                    <p className="text-sm text-slate-500">30% is an illustrative starting assumption, not a country tax rate. Enter a rate from 0 to 100 for your scenario. Region changes currency labels only; amounts are not converted. Enter only the business portion you expect to deduct this year, including any applicable depreciation rather than the full asset price.</p>
+                    {region === "US" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick US Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("30")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                US Baseline (30%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("39")}
+                                className="px-2 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-medium transition-colors"
+                            >
+                                California (39% fed+state)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("37")}
+                                className="px-2 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 font-medium transition-colors"
+                            >
+                                New York (37% fed+state)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("28")}
+                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
+                            >
+                                TX / FL / WA (0% state tax ~28%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "UK" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick UK Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("29")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Basic Rate (20% + NI ~29%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("42")}
+                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
+                            >
+                                Higher Rate (40% + NI ~42%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "CA" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick Canada Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("31")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Ontario/BC Moderate (~31%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("43")}
+                                className="px-2 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-medium transition-colors"
+                            >
+                                High Earner (~43%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "AU" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick Australia Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("32.5")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Middle Bracket (32.5%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("37")}
+                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
+                            >
+                                Upper Bracket (37%)
+                            </button>
+                        </div>
+                    )}
+                    <p className="text-sm text-slate-500">Illustrative marginal rate assumption. Enter a rate from 0 to 100 for your scenario. Enter only the business portion you expect to deduct this year, including applicable depreciation rather than the full asset price.</p>
                 </div>
                 {/* Gross Creator Income Input */}
                 <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">

@@ -8,11 +8,12 @@ import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 export default function CookieConsent() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/embed")) return null;
+  const isEmbed = pathname?.startsWith("/embed");
 
     const [showBanner, setShowBanner] = useState(false);
 
     useEffect(() => {
+        if (isEmbed) return;
         const consent = localStorage.getItem("cookieConsent");
         if (consent) return;
 
@@ -26,7 +27,7 @@ export default function CookieConsent() {
 
         const timer = setTimeout(() => setShowBanner(true), 800);
         return () => clearTimeout(timer);
-    }, []);
+    }, [isEmbed]);
 
     const acceptCookies = () => {
         localStorage.setItem("cookieConsent", "accepted");
@@ -40,7 +41,7 @@ export default function CookieConsent() {
         window.dispatchEvent(new Event("cookie-consent-changed"));
     };
 
-    if (!showBanner) return null;
+    if (isEmbed || !showBanner) return null;
 
     return (
         <div

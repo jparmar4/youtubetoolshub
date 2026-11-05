@@ -144,14 +144,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Country-specific earnings calculator pages
+  // Country-specific earnings calculator pages (Tier 1 prioritized for crawl frequency)
+  const TIER1_CODES = ["US", "AU", "GB", "CA", "CH", "DE", "NO", "NZ", "SE", "NL", "DK", "FI", "IE", "AT", "BE", "SG"];
   for (const country of countryCPMData) {
+    const isTier1 = TIER1_CODES.includes(country.code);
     const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
       url,
       lastModified: DATA_LAST_MODIFIED,
-      changeFrequency: "monthly",
-      priority: 0.65,
+      changeFrequency: isTier1 ? "weekly" : "monthly",
+      priority: isTier1 ? 0.85 : 0.65,
     });
   }
 

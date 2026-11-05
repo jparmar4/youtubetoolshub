@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function ExitIntentPopup() {
   const pathname = usePathname();
-  if (pathname?.startsWith("/embed")) return null;
+  const isEmbed = pathname?.startsWith("/embed");
 
     const [isVisible, setIsVisible] = useState(false);
     const [hasShown, setHasShown] = useState(() => {
@@ -24,7 +24,7 @@ export default function ExitIntentPopup() {
 
     const handleMouseLeave = useCallback((e: MouseEvent) => {
         // Desktop exit intent only (clientY near top). Skip on touch devices.
-        if (window.matchMedia("(pointer: coarse)").matches) return;
+        if (isEmbed || window.matchMedia("(pointer: coarse)").matches) return;
         if (e.clientY <= 5 && !hasShown) {
             setIsVisible(true);
             setHasShown(true);
@@ -32,7 +32,7 @@ export default function ExitIntentPopup() {
                 sessionStorage.setItem("exitPopupShown", "true");
             } catch { /* ignore */ }
         }
-    }, [hasShown]);
+    }, [hasShown, isEmbed]);
 
     useEffect(() => {
         if (hasShown) return;
@@ -78,7 +78,7 @@ export default function ExitIntentPopup() {
         setIsVisible(false);
     };
 
-    if (!isVisible) return null;
+    if (isEmbed || !isVisible) return null;
 
     return (
         <>

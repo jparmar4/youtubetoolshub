@@ -75,6 +75,9 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-outlier-calculator": dynamic(() => import("@/components/tools/OutlierCalculator")),
     "youtube-embed-code-generator": dynamic(() => import("@/components/tools/EmbedCodeGenerator")),
     "youtube-adsense-fee-calculator": dynamic(() => import("@/components/tools/AdSenseFeeCalculator")),
+    "youtube-watch-hours-calculator": dynamic(() => import("@/components/tools/WatchHoursCalculator")),
+    "youtube-shorts-vs-long-form-calculator": dynamic(() => import("@/components/tools/ShortsVsLongFormCalculator")),
+    "youtube-milestone-countdown-calculator": dynamic(() => import("@/components/tools/MilestoneCountdownCalculator")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)

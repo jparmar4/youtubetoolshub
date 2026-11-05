@@ -363,7 +363,7 @@ ${sec3Text}
     if (!videoData) return;
     let content = "";
     let mimeType = "text/plain";
-    let filename = `transcript-${videoData.videoId || "export"}.${format}`;
+    const filename = `transcript-${videoData.videoId || "export"}.${format}`;
 
     if (format === "txt") {
       content =
