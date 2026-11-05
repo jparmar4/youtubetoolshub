@@ -856,6 +856,32 @@ const nextConfig = {
         destination: "/blog",
         permanent: true,
       },
+      // Short utility aliases & legal route aliases
+      {
+        source: "/privacy",
+        destination: "/privacy-policy",
+        permanent: true,
+      },
+      {
+        source: "/terms",
+        destination: "/terms-of-use",
+        permanent: true,
+      },
+      {
+        source: "/tos",
+        destination: "/terms-of-use",
+        permanent: true,
+      },
+      {
+        source: "/calculator",
+        destination: "/tools/youtube-earnings-calculator",
+        permanent: true,
+      },
+      {
+        source: "/calculators",
+        destination: "/tools/youtube-earnings-calculator",
+        permanent: true,
+      },
     ];
   },
 };

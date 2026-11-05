@@ -25,7 +25,7 @@ function getSnapshot(): boolean {
 }
 
 function getServerSnapshot(): boolean {
-  return false; // never render on server to avoid hydration mismatch
+  return true; // render on server so there is ZERO CLS (Cumulative Layout Shift)
 }
 
 function AnnouncementBar() {

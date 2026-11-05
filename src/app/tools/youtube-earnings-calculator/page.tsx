@@ -25,6 +25,7 @@ import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import { RecentToolTracker } from "@/lib/recent-tools";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
 import {
@@ -278,6 +279,7 @@ export default function YouTubeEarningsCalculatorPage() {
                       toolSlug="youtube-earnings-calculator"
                       toolName="YouTube Earnings Calculator"
                     />
+                    <RecentToolTracker slug="youtube-earnings-calculator" />
                   </div>
                 </div>
                 <p

@@ -103,7 +103,7 @@ function Header() {
   const handleMegaMenuAreaLeave = useCallback(() => {
     megaMenuTimeoutRef.current = setTimeout(() => {
       setIsMegaMenuOpen(false);
-    }, 250);
+    }, 320);
   }, []);
 
   // Cleanup timeout on unmount
@@ -157,7 +157,7 @@ function Header() {
         <AnnouncementBar />
 
         {/* 2. Main Header with Ambient Gradient Accent Line */}
-        <header className="transition-all">
+        <header className="relative transition-all">
           {/* Dynamic Glowing Accent Top Border */}
           <div className="h-[2px] w-full bg-gradient-to-r from-red-600 via-purple-600 to-amber-500" />
 
@@ -182,10 +182,10 @@ function Header() {
                 </div>
 
                 {/* Desktop Navigation Links */}
-                <div className="hidden lg:flex items-center gap-1 xl:gap-2">
+                <div className="hidden lg:flex items-center h-full gap-1 xl:gap-2">
                   {/* Tools Mega-Menu Trigger */}
                   <div
-                    className="relative"
+                    className="relative h-full flex items-center"
                     onMouseEnter={handleMegaMenuAreaEnter}
                     onMouseLeave={handleMegaMenuAreaLeave}
                   >

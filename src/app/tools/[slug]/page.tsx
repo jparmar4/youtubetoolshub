@@ -27,6 +27,7 @@ import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
 
@@ -299,6 +300,7 @@ export default async function ToolPage({
                                     </div>
                                     <div className="flex-shrink-0 sm:pt-1">
                                         <ToolFavoriteButton toolSlug={tool.slug} toolName={tool.name} />
+                                        <RecentToolTracker slug={tool.slug} />
                                     </div>
                                 </div>
 

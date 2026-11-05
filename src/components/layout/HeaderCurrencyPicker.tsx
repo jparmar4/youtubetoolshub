@@ -69,7 +69,7 @@ function HeaderCurrencyPicker() {
           {currentFlag}
         </span>
         <span className="tracking-tight">{currency}</span>
-        <span className="text-purple-600 dark:text-purple-400 font-extrabold text-[11px]">
+        <span className="hidden sm:inline text-purple-600 dark:text-purple-400 font-extrabold text-[11px]">
           ({symbol})
         </span>
         <FaChevronDown

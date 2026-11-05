@@ -189,9 +189,9 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                   >
                     <CatIcon className="w-3.5 h-3.5" />
                   </div>
-                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
                     {category.title}
-                  </h2>
+                  </span>
                 </div>
 
                 {/* Tool List */}
