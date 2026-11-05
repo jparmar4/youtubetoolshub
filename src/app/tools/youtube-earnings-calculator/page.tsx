@@ -24,6 +24,7 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
+import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
 import {
@@ -259,16 +260,26 @@ export default function YouTubeEarningsCalculatorPage() {
             <div className="lg:col-span-2 space-y-10">
               {/* Hero / AEO answer */}
               <header className="space-y-5">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wider">
-                  <FaCalculator /> Free · No signup · 2026 data
-                </span>
-                <h1
-                  className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight"
-                  data-speakable
-                >
-                  YouTube Earnings Calculator — Estimate AdSense Revenue by
-                  Views &amp; RPM (2026)
-                </h1>
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="flex-1">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wider mb-3">
+                      <FaCalculator /> Free · No signup · 2026 data
+                    </span>
+                    <h1
+                      className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight"
+                      data-speakable
+                    >
+                      YouTube Earnings Calculator — Estimate AdSense Revenue by
+                      Views &amp; RPM (2026)
+                    </h1>
+                  </div>
+                  <div className="flex-shrink-0 sm:pt-1">
+                    <ToolFavoriteButton
+                      toolSlug="youtube-earnings-calculator"
+                      toolName="YouTube Earnings Calculator"
+                    />
+                  </div>
+                </div>
                 <p
                   className="text-lg md:text-xl text-slate-600 leading-relaxed summary"
                   data-speakable

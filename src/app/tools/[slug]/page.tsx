@@ -26,6 +26,7 @@ import {
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import EmbedModal from "@/components/tools/EmbedModal";
+import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
 
@@ -281,19 +282,24 @@ export default async function ToolPage({
                               crawlers often never see an H1 if it lives only in ToolPageLayout.
                             */}
                             <header className="space-y-5">
-                                <div>
-                                    <h1
-                                        className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight"
-                                        data-speakable
-                                    >
-                                        {tool.name}
-                                    </h1>
-                                    <p
-                                        className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed"
-                                        data-speakable
-                                    >
-                                        {tool.seoDescription || tool.description}
-                                    </p>
+                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                                    <div className="flex-1">
+                                        <h1
+                                            className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight"
+                                            data-speakable
+                                        >
+                                            {tool.name}
+                                        </h1>
+                                        <p
+                                            className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed"
+                                            data-speakable
+                                        >
+                                            {tool.seoDescription || tool.description}
+                                        </p>
+                                    </div>
+                                    <div className="flex-shrink-0 sm:pt-1">
+                                        <ToolFavoriteButton toolSlug={tool.slug} toolName={tool.name} />
+                                    </div>
                                 </div>
 
                                 <QuickAnswerCapsule

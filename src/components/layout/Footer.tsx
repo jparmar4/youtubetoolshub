@@ -10,6 +10,9 @@ import CurrentYear from "@/components/layout/CurrentYear";
 const popularTools = [
   { name: "Thumbnail Downloader (HD & 4K)", href: "/tools/youtube-thumbnail-downloader" },
   { name: "YouTube Earnings Calculator", href: "/tools/youtube-earnings-calculator" },
+  { name: "4,000 Watch Hours Countdown", href: "/tools/youtube-watch-hours-calculator" },
+  { name: "Shorts vs. Long-Form Equivalence", href: "/tools/youtube-shorts-vs-long-form-calculator" },
+  { name: "Milestone Countdown Calculator", href: "/tools/youtube-milestone-countdown-calculator" },
   { name: "Sponsorship Rate Calculator", href: "/tools/youtube-sponsorship-calculator" },
   { name: "US Tax Deduction Estimator", href: "/tools/youtube-tax-deduction-calculator" },
   { name: "LLC vs S-Corp Tax Savings", href: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator" },
@@ -17,9 +20,6 @@ const popularTools = [
   { name: "YouTube CPM Rates 2026", href: "/resources/youtube-cpm-rates" },
   { name: "Title Generator", href: "/tools/youtube-title-generator" },
   { name: "Tag Generator", href: "/tools/youtube-tag-generator" },
-  { name: "Tag Extractor", href: "/tools/youtube-tag-extractor" },
-  { name: "Free TubeBuddy Alternative", href: "/tools/vs/tubebuddy" },
-  { name: "Free VidIQ Alternative", href: "/tools/vs/vidiq" },
 ];
 
 export default function Footer() {

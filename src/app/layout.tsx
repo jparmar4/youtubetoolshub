@@ -13,6 +13,7 @@ import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
 import StickyBottomAd from "@/components/ads/StickyBottomAd";
 import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
+import ToastContainer from "@/components/ui/Toast";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
@@ -336,6 +337,7 @@ export default async function RootLayout({
               <Footer />
             </AdSectionIgnore>
             <ScrollToTop />
+            <ToastContainer />
             <CookieConsent />
             <ConsentAnalytics />
             <PrivacyH1Fix />
