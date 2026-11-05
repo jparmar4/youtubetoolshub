@@ -60,7 +60,7 @@ function HeaderSavedTools() {
         <FaStar className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
         <span className="hidden sm:inline">Saved</span>
         {favorites.length > 0 && (
-          <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-black">
+          <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black">
             {favorites.length}
           </span>
         )}

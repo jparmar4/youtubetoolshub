@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +26,7 @@ export function Card({ children, className = "", hover = true }: CardProps) {
       className={`
         glass-premium
         rounded-2xl shadow-lg 
-        ${hover ? "hover:shadow-xl hover:-translate-y-1 transition-all duration-300" : ""}
+        ${hover ? "hover:shadow-xl transition-all duration-300" : ""}
         ${className}
       `}
     >
@@ -37,56 +39,48 @@ export function ToolCard({ icon, title, description, href, isAI, className }: To
   const slug = href.replace(/^\/tools\//, "");
 
   return (
-    <div className="relative group h-full">
+    <Link href={href} className="block h-full group" prefetch={true}>
       <Card
-        className={`p-6 h-full cursor-pointer relative flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-purple-500/30 ${
+        hover={false}
+        className={`p-6 h-full cursor-pointer relative transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 ${
           className || ""
         }`}
       >
-        {/* Full-Card Click Target Link */}
-        <Link
-          href={href}
-          className="absolute inset-0 z-0 rounded-2xl"
-          aria-label={title}
-          prefetch={true}
-        />
-
-        {/* Card Content (z-10, pointer-events-none so click passes through to Link) */}
-        <div className="relative z-10 pointer-events-none">
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 text-xl group-hover:scale-110 transition-transform duration-300 border border-purple-200">
-              {icon}
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 text-xl group-hover:scale-110 transition-transform duration-300 border border-purple-200">
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0 pr-8">
+            <div className="flex items-center gap-2 mb-1">
+              <h3 className="font-semibold text-slate-900 truncate group-hover:text-purple-600 transition-colors">
+                {title}
+              </h3>
+              {isAI && (
+                <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white rounded-full shadow-sm">
+                  AI
+                </span>
+              )}
             </div>
-            <div className="flex-1 min-w-0 pr-6">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold text-slate-900 truncate group-hover:text-purple-600 transition-colors">
-                  {title}
-                </h3>
-                {isAI && (
-                  <span className="px-2 py-0.5 text-xs font-medium bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white rounded-full shadow-sm">
-                    AI
-                  </span>
-                )}
-              </div>
-              <p className="text-sm text-slate-600 line-clamp-2">{description}</p>
-            </div>
+            <p className="text-sm text-slate-600 line-clamp-2">{description}</p>
           </div>
         </div>
 
-        {/* Quick Star Pin Button in top-right (z-20, pointer-events-auto) */}
-        <div className="absolute top-4 right-4 z-20 pointer-events-auto">
+        {/* Quick Star Pin Button — stops propagation so it doesn't navigate */}
+        <div
+          className="absolute top-4 right-4 z-10"
+          onClick={(e) => e.preventDefault()}
+        >
           <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
         </div>
 
-        {/* Bottom CTA */}
-        <div className="relative z-10 pointer-events-none mt-4 flex items-center text-purple-600 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
+        <div className="mt-4 flex items-center text-purple-600 font-medium text-sm group-hover:translate-x-2 transition-transform duration-300">
           <span>Use Tool</span>
           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </div>
       </Card>
-    </div>
+    </Link>
   );
 }
 

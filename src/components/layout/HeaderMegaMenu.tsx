@@ -27,6 +27,8 @@ import { toast } from "@/components/ui/Toast";
 interface HeaderMegaMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const MENU_CATEGORIES = [
@@ -162,15 +164,16 @@ const MENU_CATEGORIES = [
   },
 ];
 
-function HeaderMegaMenu({ isOpen, onClose }: HeaderMegaMenuProps) {
+function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuProps) {
   const { isFavorite, toggleFavorite } = useFavoriteTools();
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="absolute top-full left-0 right-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl border-b border-slate-200/90 dark:border-slate-800/90 shadow-2xl animate-fade-in-up"
-      onMouseLeave={onClose}
+      className="absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-2xl border-b border-slate-200/90 shadow-2xl animate-fade-in-up"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Categories Grid */}
@@ -216,7 +219,7 @@ function HeaderMegaMenu({ isOpen, onClose }: HeaderMegaMenuProps) {
                                 {tool.name}
                               </span>
                               {tool.badge && (
-                                <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
+                                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
                                   {tool.badge}
                                 </span>
                               )}
