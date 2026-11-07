@@ -21,6 +21,8 @@ import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
@@ -247,18 +249,21 @@ export default function YouTubeEarningsCalculatorPage() {
       <div className="min-h-screen py-10 lg:py-16 relative overflow-hidden">
         <div className="nebula-bg" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <Breadcrumb
-              items={[
-                { name: "Home", href: "/" },
-                { name: "Tools", href: "/tools" },
-                { name: "Earnings Calculator" },
-              ]}
-            />
-          </div>
+          <AdSectionIgnore>
+            <div className="mb-8">
+              <Breadcrumb
+                items={[
+                  { name: "Home", href: "/" },
+                  { name: "Tools", href: "/tools" },
+                  { name: "Earnings Calculator" },
+                ]}
+              />
+            </div>
+          </AdSectionIgnore>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 space-y-10">
+              <AdSectionPrioritize>
               {/* Hero / AEO answer */}
               <header className="space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -324,7 +329,7 @@ export default function YouTubeEarningsCalculatorPage() {
               {/* Ad immediately below the Calculator */}
               <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
-                <GoogleAd slot="8649718301" responsive className="w-full text-center" />
+                <GoogleAd slot="8649718301" format="fluid" layout="in-article" responsive className="w-full text-center" />
               </div>
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
@@ -334,10 +339,16 @@ export default function YouTubeEarningsCalculatorPage() {
                 <Tier1ComparisonMatrix />
               </section>
 
+              {/* International Payout & Banking Optimization */}
+              <section className="my-8">
+                <InternationalPayoutCallout />
+              </section>
+
               {/* 2026 Niche Profitability & Advertiser Demand Heatmap */}
               <section className="my-8">
                 <NicheProfitabilityHeatmap />
               </section>
+              </AdSectionPrioritize>
 
               {/* Example table */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">

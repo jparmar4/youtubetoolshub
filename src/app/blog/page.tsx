@@ -4,13 +4,14 @@ import Link from "next/link";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { BLOG_CATEGORIES, getCategoryPostCounts } from "@/config/blog/categories";
 import { siteConfig } from "@/config/site";
-import { getCollectionPageSchema, getBreadcrumbSchema } from "@/lib/seo";
+import { getCollectionPageSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 
 export const metadata: Metadata = {
   title: "YouTube Blog 2026: SEO, Monetization & Growth Guides",
@@ -26,22 +27,16 @@ export const metadata: Metadata = {
     "ai tools for youtube creators",
     "youtube thumbnail tips",
   ],
-  alternates: {
-    canonical: `${siteConfig.url}/blog`,
-    languages: {
-      en: `${siteConfig.url}/blog`,
-      "x-default": `${siteConfig.url}/blog`,
-    },
-  },
+  alternates: getGlobalAlternates("/blog"),
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   openGraph: {
@@ -185,7 +180,12 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
+          <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+          </div>
+        </div>
 
         {/* Featured Post */}
         <section className="pb-24">
@@ -256,7 +256,7 @@ export default function BlogPage() {
 
         {/* Ad: Between Featured and Other Posts */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-          <GoogleAd slot="8649718301" />
+          <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
         </div>
 
         {/* Other Posts */}
@@ -294,7 +294,7 @@ export default function BlogPage() {
                   {(i + 1) % 6 === 0 && (
                     <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                       <GoogleAd slot="3104734850" layout="in-article" format="fluid" />
+                       <GoogleAd slot={pickInArticleSlot(Math.floor(i / 6))} layout="in-article" format="fluid" />
                     </div>
                   )}
                 </Fragment>
@@ -321,7 +321,12 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <div className="max-w-7xl mx-auto px-4 py-12 bg-white" />
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
+            <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
+          </div>
+        </div>
 
         {/* CTA Section */}
         <section className="py-20 relative overflow-hidden">
@@ -360,4 +365,3 @@ export default function BlogPage() {
     </>
   );
 }
-

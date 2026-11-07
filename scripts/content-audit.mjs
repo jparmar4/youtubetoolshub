@@ -12,10 +12,15 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
-const blogPath = path.join(root, "src", "config", "blog.ts");
+const blogDataDir = path.join(root, "src", "config", "blog", "data");
 const outDir = path.join(root, "outputs");
 
-const raw = fs.readFileSync(blogPath, "utf8");
+const raw = fs
+  .readdirSync(blogDataDir)
+  .filter((file) => file.endsWith(".ts"))
+  .sort()
+  .map((file) => fs.readFileSync(path.join(blogDataDir, file), "utf8"))
+  .join("\n");
 
 // Keep this aligned with RETIRED_BLOG_SLUGS in src/config/blog.ts. Redirected
 // posts are intentionally excluded from editorial recommendations.
@@ -41,7 +46,7 @@ function field(block, name) {
 
 function contentField(block) {
   const start = block.search(/content:\s*`/);
-  if (start < 0) return "";
+  if (start < 0) return field(block, "content");
 
   // Content uses Markdown code spans, which are escaped as \` inside the
   // TypeScript template literal. A non-greedy regex stops at the first of
@@ -67,7 +72,7 @@ function countFaq(block) {
   const faqStart = block.indexOf("faq:");
   if (faqStart < 0) return 0;
   const slice = block.slice(faqStart, faqStart + 8000);
-  return (slice.match(/question:\s*"/g) || []).length;
+  return (slice.match(/"?question"?:\s*"/g) || []).length;
 }
 
 const posts = [];

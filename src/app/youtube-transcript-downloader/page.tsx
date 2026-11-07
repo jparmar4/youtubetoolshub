@@ -17,6 +17,8 @@ import TranscriptDownloader from "@/components/tools/TranscriptDownloader";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
 import {
   FaFileAlt,
@@ -134,12 +136,8 @@ export default function YouTubeTranscriptDownloaderPage() {
     name: "YouTube Transcript Downloader & Keyword Extractor",
     description:
       "Free web-based tool to download YouTube transcripts, extract closed captions as SRT or plain text, and perform spoken keyword frequency analysis.",
-    category: "utility-tools",
+    category: "utility-fun",
     url: pageUrl,
-    rating: {
-      ratingValue: "4.9",
-      ratingCount: "2480",
-    },
   });
 
   const faqSchema = getFAQSchema(toolFAQs);
@@ -188,32 +186,48 @@ export default function YouTubeTranscriptDownloaderPage() {
         {/* Hero Header */}
         <div className="bg-gradient-to-b from-purple-100/70 via-purple-50/30 to-transparent dark:from-purple-950/20 dark:via-transparent pt-8 pb-12 px-4 sm:px-6 lg:px-8 border-b border-slate-200/60 dark:border-slate-800/60">
           <div className="max-w-5xl mx-auto">
-            <Breadcrumb
-              items={[
-                { name: "Home", href: "/" },
-                { name: "Tools", href: "/tools" },
-                { name: "Transcript Downloader" },
-              ]}
-              className="mb-6"
-            />
+            <AdSectionIgnore>
+              <Breadcrumb
+                items={[
+                  { name: "Home", href: "/" },
+                  { name: "Tools", href: "/tools" },
+                  { name: "Transcript Downloader" },
+                ]}
+                className="mb-6"
+              />
+            </AdSectionIgnore>
 
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
-                ⚡ 100% Free · No Login Required · Instant Export
-              </span>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                YouTube Transcript Downloader &amp; Keyword Extractor
-              </h1>
-              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
-                Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO.
-              </p>
-            </div>
+            <AdSectionPrioritize>
+              <div className="text-center max-w-3xl mx-auto space-y-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
+                  ⚡ 100% Free · No Login Required · Instant Export
+                </span>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-speakable>
+                  YouTube Transcript Downloader &amp; Keyword Extractor
+                </h1>
+                <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400" data-speakable>
+                  Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO.
+                </p>
+              </div>
+            </AdSectionPrioritize>
           </div>
         </div>
 
         {/* Tool Section */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
-          <TranscriptDownloader />
+          {/* Above-the-fold Leaderboard Ad */}
+          <div className="mb-6 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+          </div>
+
+          <AdSectionPrioritize>
+            <TranscriptDownloader />
+          </AdSectionPrioritize>
+
+          <div className="mt-8">
+            <AffiliateBanner toolId="vidiq" variant="compact" />
+          </div>
 
           {/* Quick Answer Capsule */}
           <div className="mt-12">
@@ -296,7 +310,7 @@ export default function YouTubeTranscriptDownloaderPage() {
             {/* In-Article Ad Unit */}
             <div className="my-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-center">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
-              <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} lazy responsive className="w-full text-center" />
+              <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" lazy responsive className="w-full text-center" />
             </div>
 
             {/* Step-by-Step How To Guide */}
@@ -390,16 +404,24 @@ export default function YouTubeTranscriptDownloaderPage() {
               </div>
             </div>
 
-            {/* Newsletter & Social Share */}
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-8">
-              <NewsletterSignup />
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-xs text-slate-500">
-                  Share this free utility with other creators:
-                </p>
-                <ShareButtons url={pageUrl} title="YouTube Transcript Downloader & Keyword Extractor" />
-              </div>
+            {/* Multiplex Ad Unit */}
+            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Recommended For Creators</p>
+              <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
             </div>
+
+            {/* Newsletter & Social Share */}
+            <AdSectionIgnore>
+              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-8">
+                <NewsletterSignup />
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <p className="text-xs text-slate-500">
+                    Share this free utility with other creators:
+                  </p>
+                  <ShareButtons url={pageUrl} title="YouTube Transcript Downloader & Keyword Extractor" />
+                </div>
+              </div>
+            </AdSectionIgnore>
           </div>
         </div>
       </main>

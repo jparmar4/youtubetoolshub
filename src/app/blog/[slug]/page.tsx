@@ -32,6 +32,8 @@ import {
 } from "@/lib/related-tools";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import GoogleAd from "@/components/ads/GoogleAd";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
 import BlogSidebar from "@/components/blog/BlogSidebar";
 // Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
@@ -103,9 +105,9 @@ export async function generateMetadata({
                 googleBot: {
                     index: true,
                     follow: true,
-                    'max-image-preview': 'large',
-                    'max-snippet': -1,
-                    'max-video-preview': -1,
+                    "max-image-preview": "large",
+                    "max-snippet": -1,
+                    "max-video-preview": -1,
                 },
             },
         openGraph: {
@@ -138,10 +140,10 @@ export async function generateMetadata({
         },
         alternates: getGlobalAlternates(`/blog/${slug}`),
         other: {
-            'article:author': authorUrl,
-            'article:published_time': isoDate,
-            'article:modified_time': modifiedIso,
-            'article:section': post.category,
+            "article:author": authorUrl,
+            "article:published_time": isoDate,
+            "article:modified_time": modifiedIso,
+            "article:section": post.category,
         },
     };
 }
@@ -313,71 +315,75 @@ export default async function BlogPostPage({
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         {/* Back Link */}
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 text-slate-500 hover:text-purple-600 mb-8 group transition-colors font-medium"
-                        >
-                            <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
-                            Back to Blog
-                        </Link>
+                        <AdSectionIgnore>
+                            <Link
+                                href="/blog"
+                                className="inline-flex items-center gap-2 text-slate-500 hover:text-purple-600 mb-8 group transition-colors font-medium"
+                            >
+                                <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                                Back to Blog
+                            </Link>
+                        </AdSectionIgnore>
 
-                        <div className="max-w-4xl mx-auto text-center">
-                            {/* Category */}
-                            <div className="mb-6 flex justify-center">
-                                <Link
-                                    href={`/blog/category/${getCanonicalCategorySlug(post)}`}
-                                    className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide hover:bg-purple-200 transition-colors"
-                                >
-                                    {getCategoryDisplayName(post)}
-                                </Link>
-                            </div>
-
-                            {/* Title */}
-                            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
-                                {post.title}
-                            </h1>
-
-                            <div className="summary text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto mb-8">
-                                {post.metaDescription}
-                            </div>
-
-                            {/* Meta */}
-                            <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 border-t border-slate-200 pt-6">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                                        {author.name.charAt(0)}
-                                    </div>
-                                    <div className="text-left">
-                                        <Link
-                                            href={getAuthorPageUrl(author)}
-                                            className="block text-slate-900 font-bold hover:text-purple-600 transition-colors"
-                                        >
-                                            {author.name}
-                                        </Link>
-                                        <span className="text-sm text-slate-500">{post.authorRole}</span>
-                                    </div>
+                        <AdSectionPrioritize>
+                            <div className="max-w-4xl mx-auto text-center">
+                                {/* Category */}
+                                <div className="mb-6 flex justify-center">
+                                    <Link
+                                        href={`/blog/category/${getCanonicalCategorySlug(post)}`}
+                                        className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide hover:bg-purple-200 transition-colors"
+                                    >
+                                        {getCategoryDisplayName(post)}
+                                    </Link>
                                 </div>
-                                <div className="flex items-center gap-6">
-                                    <span className="flex items-center gap-2">
-                                        <FaCalendar className="w-4 h-4 text-purple-600" />
-                                        <time dateTime={isoDate}>{post.date}</time>
-                                    </span>
-                                    {post.updatedAt && (
+
+                                {/* Title */}
+                                <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight" data-speakable>
+                                    {post.title}
+                                </h1>
+
+                                <div className="summary text-lg text-slate-700 leading-relaxed max-w-2xl mx-auto mb-8" data-speakable>
+                                    {post.metaDescription}
+                                </div>
+
+                                {/* Meta */}
+                                <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 border-t border-slate-200 pt-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
+                                            {author.name.charAt(0)}
+                                        </div>
+                                        <div className="text-left">
+                                            <Link
+                                                href={getAuthorPageUrl(author)}
+                                                className="block text-slate-900 font-bold hover:text-purple-600 transition-colors"
+                                            >
+                                                {author.name}
+                                            </Link>
+                                            <span className="text-sm text-slate-500">{post.authorRole}</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-6">
                                         <span className="flex items-center gap-2">
                                             <FaCalendar className="w-4 h-4 text-purple-600" />
-                                            <span>
-                                                Updated{" "}
-                                                <time dateTime={modifiedIso}>{post.updatedAt}</time>
-                                            </span>
+                                            <time dateTime={isoDate}>{post.date}</time>
                                         </span>
-                                    )}
-                                    <span className="flex items-center gap-2">
-                                        <FaClock className="w-4 h-4 text-purple-600" />
-                                        {post.readTime}
-                                    </span>
+                                        {post.updatedAt && (
+                                            <span className="flex items-center gap-2">
+                                                <FaCalendar className="w-4 h-4 text-purple-600" />
+                                                <span>
+                                                    Updated{" "}
+                                                    <time dateTime={modifiedIso}>{post.updatedAt}</time>
+                                                </span>
+                                            </span>
+                                        )}
+                                        <span className="flex items-center gap-2">
+                                            <FaClock className="w-4 h-4 text-purple-600" />
+                                            {post.readTime}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </AdSectionPrioritize>
                     </div>
                 </header>
 
@@ -436,6 +442,7 @@ export default async function BlogPostPage({
                             </div>
 
                             <article itemScope itemType="https://schema.org/Article">
+                                <AdSectionPrioritize>
                                 {/* Article Content */}
                                 <div
                                     className="prose prose-lg prose-slate max-w-none 
@@ -458,6 +465,7 @@ export default async function BlogPostPage({
                                             : 0,
                                     })}
                                 </div>
+                                </AdSectionPrioritize>
 
                                 {post.pinterestImage && (
                                     <figure className="max-w-sm mx-auto my-10 rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm">
@@ -496,7 +504,12 @@ export default async function BlogPostPage({
 
                                 {/* End money CTA — final conversion touch */}
                                 {showEarningsCta && (
-                                    <EarningsCalculatorCTA variant="banner" />
+                                    <AdSectionPrioritize>
+                                        <div className="space-y-8 my-8">
+                                            <EarningsCalculatorCTA variant="banner" />
+                                            <InternationalPayoutCallout />
+                                        </div>
+                                    </AdSectionPrioritize>
                                 )}
 
                                 {/* Tags */}
@@ -536,7 +549,7 @@ export default async function BlogPostPage({
 
                                 {/* Ad: After FAQ section */}
                                 <div className="my-8" aria-hidden="true">
-                                    <GoogleAd slot="8649718301" />
+                                    <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
                                 </div>
 
                                 {/* Related free tools CTA — strong internal links for SEO */}
@@ -567,14 +580,16 @@ export default async function BlogPostPage({
                                 )}
 
                                 {/* Share */}
-                                <div className="mt-12 pt-8 border-t border-slate-200">
-                                    <ShareButtons
-                                        url={`${siteConfig.url}/blog/${post.slug}`}
-                                        title={post.title}
-                                        description={post.metaDescription}
-                                        pinterestImage={post.pinterestImage ? `${siteConfig.url}${post.pinterestImage}` : undefined}
-                                    />
-                                </div>
+                                <AdSectionIgnore>
+                                    <div className="mt-12 pt-8 border-t border-slate-200">
+                                        <ShareButtons
+                                            url={`${siteConfig.url}/blog/${post.slug}`}
+                                            title={post.title}
+                                            description={post.metaDescription}
+                                            pinterestImage={post.pinterestImage ? `${siteConfig.url}${post.pinterestImage}` : undefined}
+                                        />
+                                    </div>
+                                </AdSectionIgnore>
                             </article>
 
                             {/* Recommended Content / Multiplex Ad Unit */}
@@ -584,9 +599,11 @@ export default async function BlogPostPage({
                             </div>
 
                             {/* Newsletter CTA */}
-                            <div className="my-12">
-                                <NewsletterSignup />
-                            </div>
+                            <AdSectionIgnore>
+                                <div className="my-12">
+                                    <NewsletterSignup />
+                                </div>
+                            </AdSectionIgnore>
 
                             {/* Related Posts */}
                             <div className="mt-16">

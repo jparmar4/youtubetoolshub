@@ -1,23 +1,26 @@
 # YouTube Tools Hub - Author Information
 
 ## Primary Author
-Name: YouTube Tools Hub
+Name: YouTube Tools Hub Editorial Team
 Email: support@youtubetoolshub.com
 Website: https://www.youtubetoolshub.com
-Social: @youtubetools
+Social: https://x.com/ytoolshub
+Pinterest: https://pinterest.com/youtubetoolshub
+Telegram: https://t.me/youtubetoolshub
 
 ## Expertise Areas
 - YouTube SEO and optimization
-- Content creation strategies
-- AI-powered creator tools
-- Video analytics and monetization
-- Thumbnail design and optimization
+- Content creation strategies & AI workflows
+- AI-powered creator tools (44 free browser-based tools)
+- Video analytics, CPM/RPM benchmarks (52 countries), and monetization
+- Creator business finance, tax planning (Schedule C / S-Corp Form 2553), and channel valuation
+- Thumbnail design, safe-zone testing, and CTR optimization
 - Channel growth strategies
 
 ## Content Focus
 - Educational content for YouTube creators
 - Tool tutorials and best practices
-- Industry insights and trends
+- Tier-1 creator economy insights and financial benchmarks
 - Technical guides and walkthroughs
 
 ## Contact for Media

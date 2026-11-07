@@ -34,16 +34,32 @@ export async function GET() {
             },
             hasPart: catTools.map((t) => ({
                 "@type": "SoftwareApplication",
-                "@id": `${baseUrl}/tools/${t.slug}#app`,
+                "@id": `${baseUrl}/tools/${t.slug}#software`,
                 name: t.name,
                 url: `${baseUrl}/tools/${t.slug}`,
             })),
         };
     });
 
+    const tier1Markets = [
+        { "@type": "Country", name: "United States", identifier: "US" },
+        { "@type": "Country", name: "United Kingdom", identifier: "GB" },
+        { "@type": "Country", name: "Canada", identifier: "CA" },
+        { "@type": "Country", name: "Australia", identifier: "AU" },
+        { "@type": "Country", name: "Germany", identifier: "DE" },
+        { "@type": "Country", name: "Switzerland", identifier: "CH" },
+        { "@type": "Country", name: "Netherlands", identifier: "NL" },
+        { "@type": "Country", name: "Sweden", identifier: "SE" },
+        { "@type": "Country", name: "Norway", identifier: "NO" },
+        { "@type": "Country", name: "Denmark", identifier: "DK" },
+        { "@type": "Country", name: "Ireland", identifier: "IE" },
+        { "@type": "Country", name: "New Zealand", identifier: "NZ" },
+        { "@type": "Country", name: "Singapore", identifier: "SG" },
+    ];
+
     const toolNodes = tools.map((tool) => ({
         "@type": "SoftwareApplication",
-        "@id": `${baseUrl}/tools/${tool.slug}#app`,
+        "@id": `${baseUrl}/tools/${tool.slug}#software`,
         name: tool.name,
         url: `${baseUrl}/tools/${tool.slug}`,
         description: tool.seoDescription || tool.description,
@@ -51,6 +67,7 @@ export async function GET() {
         applicationSubCategory: tool.category,
         operatingSystem: "All (Web Browser)",
         isAccessibleForFree: true,
+        areaServed: tier1Markets,
         offers: {
             "@type": "Offer",
             price: "0",
@@ -146,7 +163,7 @@ export async function GET() {
                 },
                 hasPart: tools.map((t) => ({
                     "@type": "SoftwareApplication",
-                    "@id": `${baseUrl}/tools/${t.slug}#app`,
+                    "@id": `${baseUrl}/tools/${t.slug}#software`,
                     name: t.name,
                     url: `${baseUrl}/tools/${t.slug}`,
                 })),
@@ -169,15 +186,7 @@ export async function GET() {
                         url: hub.url,
                     })),
                 ],
-                potentialAction: {
-                    "@type": "SearchAction",
-                    target: {
-                        "@type": "EntryPoint",
-                        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-                    },
-                    "query-input": "required name=search_term_string",
-                },
-                inLanguage: "en",
+                inLanguage: "en-US",
             },
             ...categoryHubNodes,
             ...toolNodes,

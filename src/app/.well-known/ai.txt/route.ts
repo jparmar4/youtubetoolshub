@@ -17,9 +17,9 @@ export const revalidate = 86400; // Revalidate daily so counts/dates never go st
 const CATEGORY_LABELS: Record<string, string> = {
   "thumbnail-media": "Thumbnail & Media Tools",
   "seo-metadata": "SEO & Metadata Tools",
-  "analytics-monetization": "Analytics & Earnings Tools",
+  "analytics-earnings": "Analytics & Earnings Tools",
   "channel-growth": "Channel Growth Tools",
-  "utility-productivity": "Utility Tools",
+  "utility-fun": "Utility & Productivity Tools",
 };
 
 function categoryLabel(category: string): string {

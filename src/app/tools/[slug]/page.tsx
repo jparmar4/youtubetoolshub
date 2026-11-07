@@ -25,6 +25,9 @@ import {
 } from "@/lib/tool-seo-content";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import { RecentToolTracker } from "@/lib/recent-tools";
@@ -264,39 +267,52 @@ export default async function ToolPage({
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb Navigation */}
-                    <div className="mb-8">
-                        <Breadcrumb
-                            items={[
-                                { name: "Home", href: "/" },
-                                { name: "Tools", href: "/tools" },
-                                { name: tool.name }
-                            ]}
-                        />
-                    </div>
+                    <AdSectionIgnore>
+                        <div className="mb-8">
+                            <Breadcrumb
+                                items={[
+                                    { name: "Home", href: "/" },
+                                    { name: "Tools", href: "/tools" },
+                                    { name: tool.name }
+                                ]}
+                            />
+                        </div>
+                    </AdSectionIgnore>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Column */}
                         <div className="lg:col-span-2 space-y-12">
+                            <AdSectionPrioritize>
                             {/*
                               Server-rendered H1 + summary OUTSIDE Suspense/client tools.
                               Many tools use useSearchParams() and only stream client HTML —
                               crawlers often never see an H1 if it lives only in ToolPageLayout.
                             */}
-                            <header className="space-y-5">
+                            <header className="card-3d rounded-3xl p-6 sm:p-8 space-y-5 relative overflow-hidden">
+                                <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500" />
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                                    <div className="flex-1">
-                                        <h1
-                                            className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight"
-                                            data-speakable
-                                        >
-                                            {tool.name}
-                                        </h1>
-                                        <p
-                                            className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed"
-                                            data-speakable
-                                        >
-                                            {tool.seoDescription || tool.description}
-                                        </p>
+                                    <div className="flex items-start gap-4 flex-1">
+                                        <div className="icon-cube-3d hidden sm:flex w-15 h-15 rounded-2xl items-center justify-center text-purple-600 text-2xl flex-shrink-0 mt-1">
+                                            <tool.icon />
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider mb-3">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                                <span>{tool.isAI ? "AI-Powered 3D Studio" : "Instant UHD Browser Studio"} · Free</span>
+                                            </div>
+                                            <h1
+                                                className="text-3xl md:text-4xl font-black text-slate-900 mb-3 tracking-tight font-outfit"
+                                                data-speakable
+                                            >
+                                                {tool.name}
+                                            </h1>
+                                            <p
+                                                className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed"
+                                                data-speakable
+                                            >
+                                                {tool.seoDescription || tool.description}
+                                            </p>
+                                        </div>
                                     </div>
                                     <div className="flex-shrink-0 sm:pt-1">
                                         <ToolFavoriteButton toolSlug={tool.slug} toolName={tool.name} />
@@ -321,22 +337,40 @@ export default async function ToolPage({
                             </header>
 
                             {/* Leaderboard after the tool H1 — lazy={false} for immediate viewability */}
-                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
-                            <ToolContextProvider value={{ hideHeader: true }}>
-                                <Suspense
-                                    fallback={
-                                        <div className="min-h-[400px] flex items-center justify-center">
-                                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" />
-                                        </div>
-                                    }
-                                >
-                                    <ToolComponent />
-                                </Suspense>
-                            </ToolContextProvider>
+                            {/* 3D UHD Interactive Tool Console */}
+                            <div className="studio-console-3d rounded-3xl overflow-hidden">
+                                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                                        <span className="ml-2 text-xs font-bold text-slate-300 truncate">
+                                            {tool.name} — Interactive Workspace
+                                        </span>
+                                    </div>
+                                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                        Ready
+                                    </span>
+                                </div>
+                                <div className="p-4 sm:p-6">
+                                    <ToolContextProvider value={{ hideHeader: true }}>
+                                        <Suspense
+                                            fallback={
+                                                <div className="min-h-[400px] flex items-center justify-center">
+                                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" />
+                                                </div>
+                                            }
+                                        >
+                                            <ToolComponent />
+                                        </Suspense>
+                                    </ToolContextProvider>
+                                </div>
+                            </div>
 
                             {toolExamples[tool.slug] && (
                                 <section className="rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4" aria-labelledby="worked-example-title">
@@ -355,24 +389,37 @@ export default async function ToolPage({
                             {/* Ad: Below Tool Component */}
                             <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[100px]">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                                <GoogleAd slot="3397391628" />
+                                <GoogleAd slot="3397391628" format="fluid" layout="in-article" />
                             </div>
+                            </AdSectionPrioritize>
 
                             {/* Share & Embed This Tool */}
-                            <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <div>
-                                    <p className="text-slate-800 dark:text-slate-200 font-bold">Found this tool helpful?</p>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400">Share with creators or embed directly on your website.</p>
+                            <AdSectionIgnore>
+                                <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                    <div>
+                                        <p className="text-slate-800 dark:text-slate-200 font-bold">Found this tool helpful?</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">Share with creators or embed directly on your website.</p>
+                                    </div>
+                                    <div className="flex flex-wrap items-center gap-3">
+                                        <EmbedModal slug={tool.slug} toolName={tool.name} />
+                                        <ShareButtons
+                                            url={`${siteConfig.url}/tools/${tool.slug}`}
+                                            title={`${tool.name} - Free YouTube Tool`}
+                                            description={tool.shortDescription}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="flex flex-wrap items-center gap-3">
-                                    <EmbedModal slug={tool.slug} toolName={tool.name} />
-                                    <ShareButtons
-                                        url={`${siteConfig.url}/tools/${tool.slug}`}
-                                        title={`${tool.name} - Free YouTube Tool`}
-                                        description={tool.shortDescription}
-                                    />
-                                </div>
-                            </div>
+                            </AdSectionIgnore>
+
+                            {/* High-CPC Tier-1 Financial & Banking Context for Analytics & Revenue Tools */}
+                            {tool.category === "analytics-earnings" && (
+                                <AdSectionPrioritize>
+                                    <div className="space-y-8">
+                                        <Tier1ComparisonMatrix />
+                                        <InternationalPayoutCallout />
+                                    </div>
+                                </AdSectionPrioritize>
+                            )}
 
                             {/* Internal Linking for Earnings Calculator (Countries) */}
                             {tool.slug === "youtube-earnings-calculator" && (
@@ -580,34 +627,36 @@ export default async function ToolPage({
                             )}
 
                             {/* Newsletter CTA */}
-                            <div className="my-8">
-                                <NewsletterSignup />
-                            </div>
-
-                            {/* Related Tools */}
-                            <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                    <span className="text-purple-500">🔗</span>
-                                    Related Tools
-                                </h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    {relatedTools.map((t) => {
-                                        const Icon = t.icon;
-                                        return (
-                                            <Link
-                                                key={t.slug}
-                                                href={`/tools/${t.slug}`}
-                                                className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
-                                            >
-                                                <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
-                                                    <Icon />
-                                                </span>
-                                                <span className="font-medium text-sm">{t.name}</span>
-                                            </Link>
-                                        );
-                                    })}
+                            <AdSectionIgnore>
+                                <div className="my-8">
+                                    <NewsletterSignup />
                                 </div>
-                            </div>
+
+                                {/* Related Tools */}
+                                <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <span className="text-purple-500">🔗</span>
+                                        Related Tools
+                                    </h3>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {relatedTools.map((t) => {
+                                            const Icon = t.icon;
+                                            return (
+                                                <Link
+                                                    key={t.slug}
+                                                    href={`/tools/${t.slug}`}
+                                                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
+                                                >
+                                                    <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
+                                                        <Icon />
+                                                    </span>
+                                                    <span className="font-medium text-sm">{t.name}</span>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </AdSectionIgnore>
                         </div>
 
                         {/* Sidebar Column — ad-only rail for vertical AdSense */}

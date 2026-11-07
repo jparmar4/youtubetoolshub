@@ -15,6 +15,7 @@ import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts } from "@/config/blog";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
+import Hero3DShowcase from "@/components/home/Hero3DShowcase";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { Metadata } from "next";
 import { getFAQSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
@@ -164,20 +165,20 @@ export default function Home() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden py-16 md:py-24 flex items-center justify-center">
+      <section className="relative overflow-hidden py-14 md:py-22 flex items-center justify-center">
         <div className="nebula-bg" />
 
-        <div className="absolute top-1/4 -right-24 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/10 rounded-full blur-[120px] animate-pulse delay-700" />
+        <div className="absolute top-1/4 -right-24 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[120px] animate-pulse delay-700" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div className="animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/40 backdrop-blur-md border border-white/60 text-purple-700 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-sm">
-              <FaBrain className="text-pink-500 animate-glow-pulse" />
-              {tools.length} free tools · no signup
+            <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
+              <FaBrain className="text-pink-600 animate-glow-pulse" />
+              {tools.length} free tools · 4K UHD · no signup
             </span>
             <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.08]"
+              className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.06] max-w-5xl mx-auto"
               data-speakable
             >
               Free YouTube Tools:{" "}
@@ -187,46 +188,49 @@ export default function Home() {
               , Tags &amp; Earnings Calculator
             </h1>
             <p
-              className="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
+              className="text-lg md:text-xl text-slate-600 mb-9 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
               data-speakable
             >
-              Download HD thumbnails, generate titles and tags, and estimate
-              AdSense earnings by country. A free browser alternative to
+              Download HD &amp; 4K thumbnails, generate viral titles and tags, and estimate
+              Tier-1 AdSense earnings across 52 countries. A free browser alternative to
               TubeBuddy and VidIQ — no extension, no account.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link
                 href="/tools/youtube-thumbnail-downloader"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white shadow-2xl font-black px-10 py-6 text-lg rounded-full transition-all hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="btn-3d-primary inline-flex w-full sm:w-auto items-center justify-center gap-2.5 font-black px-10 py-5 text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
-                <FaRocket aria-hidden="true" />
+                <FaRocket aria-hidden="true" className="text-pink-400" />
                 Download a thumbnail
               </Link>
               <Link
                 href="/tools/youtube-earnings-calculator"
-                className="inline-flex w-full sm:w-auto items-center justify-center glass-premium hover:!bg-white/90 hover:!text-slate-900 border-white/60 text-slate-900 font-bold px-10 py-6 text-lg rounded-full backdrop-blur-md shadow-xl transition-all hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="btn-3d-glass inline-flex w-full sm:w-auto items-center justify-center font-extrabold px-10 py-5 text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 Calculate YouTube pay
               </Link>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3 text-sm font-semibold">
-              <Link href="/tools/youtube-title-generator" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+            <div className="flex flex-wrap justify-center gap-2.5 text-sm font-bold">
+              <Link href="/tools/youtube-title-generator" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
                 Title generator
               </Link>
-              <Link href="/tools/youtube-tag-generator" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+              <Link href="/tools/youtube-tag-generator" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
                 Tag generator
               </Link>
-              <Link href="/resources/youtube-cpm-rates" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+              <Link href="/resources/youtube-cpm-rates" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
                 CPM rates by country
               </Link>
-              <Link href="/tools" className="px-4 py-2 rounded-full bg-white/70 border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700">
+              <Link href="/tools" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
                 All {tools.length} tools
               </Link>
             </div>
 
-            {/* Above-the-fold Ad immediately below download thumbnail buttons */}
+            {/* Interactive 3D UHD Creator Command Studio Showcase */}
+            <Hero3DShowcase />
+
+            {/* Above-the-fold Ad immediately below 3D Hero Showcase */}
             <div className="mt-8 max-w-4xl mx-auto w-full">
               <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-3 text-center">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
@@ -235,41 +239,27 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Social Proof Bar */}
-          <div className="mt-24 max-w-6xl mx-auto border-t border-slate-200/50 pt-12 animate-fade-in-up delay-300">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 items-center opacity-70">
-              <div className="text-center">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  {tools.length}
+          {/* 3D UHD Telemetry Stat Pods */}
+          <div className="mt-14 max-w-6xl mx-auto animate-fade-in-up delay-300">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+              {[
+                { value: `${tools.length}`, label: "Free Creator Tools", accent: "from-purple-600 to-fuchsia-600" },
+                { value: "$0", label: "Monthly Fees", accent: "from-emerald-600 to-teal-600" },
+                { value: "52", label: "Country CPM Markets", accent: "from-sky-600 to-indigo-600" },
+                { value: "4K UHD", label: "Instant Browser Engine", accent: "from-pink-600 to-rose-600" },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="card-3d rounded-2xl p-5 sm:p-6 text-center"
+                >
+                  <div className={`text-3xl sm:text-4xl font-black font-outfit mb-1 text-transparent bg-clip-text bg-gradient-to-r ${stat.accent}`}>
+                    {stat.value}
+                  </div>
+                  <div className="text-xs font-extrabold uppercase tracking-widest text-slate-500">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Free Tools
-                </div>
-              </div>
-              <div className="text-center border-l border-slate-200/50">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  Zero
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Monthly Fees
-                </div>
-              </div>
-              <div className="text-center border-l border-slate-200/50">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  Fresh
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Creator Workflows
-                </div>
-              </div>
-              <div className="text-center border-l border-slate-200/50">
-                <div className="text-4xl font-black text-slate-900 font-outfit mb-1">
-                  No
-                </div>
-                <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                  Signup Needed
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -318,27 +308,33 @@ export default function Home() {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="mb-4 flex justify-center text-purple-600">
-                <FaBolt className="h-10 w-10" aria-hidden="true" />
+            <div className="card-3d rounded-2xl p-8 text-center group">
+              <div className="mb-5 flex justify-center">
+                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-purple-600">
+                  <FaBolt className="h-7 w-7" aria-hidden="true" />
+                </div>
               </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">{tools.length} Free YouTube Tools</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 YouTube Tools Hub is a free online platform providing {tools.length} creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
               </p>
             </div>
-            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="mb-4 flex justify-center text-pink-600">
-                <FaMagic className="h-10 w-10" aria-hidden="true" />
+            <div className="card-3d rounded-2xl p-8 text-center group">
+              <div className="mb-5 flex justify-center">
+                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-pink-600">
+                  <FaMagic className="h-7 w-7" aria-hidden="true" />
+                </div>
               </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 Includes: Thumbnail Downloader, AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator, Channel Audit, and more.
               </p>
             </div>
-            <div className="glass-premium rounded-2xl p-8 border-white/60 text-center">
-              <div className="mb-4 flex justify-center text-indigo-600">
-                <FaCheck className="h-10 w-10" aria-hidden="true" />
+            <div className="card-3d rounded-2xl p-8 text-center group">
+              <div className="mb-5 flex justify-center">
+                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-indigo-600">
+                  <FaCheck className="h-7 w-7" aria-hidden="true" />
+                </div>
               </div>
               <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Accessible Worldwide</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
@@ -361,7 +357,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredTools.map((tool) => (
               <ToolCard
                 key={tool.slug}
@@ -370,15 +366,14 @@ export default function Home() {
                 description={tool.shortDescription}
                 href={`/tools/${tool.slug}`}
                 isAI={tool.isAI}
-                className="glass-premium border-white/40 hover:-translate-y-4 transition-all duration-500 shadow-sm hover:shadow-2xl hover:border-purple-500/20"
               />
             ))}
           </div>
 
-          <div className="text-center mt-20">
+          <div className="text-center mt-16">
             <Link
               href="/tools"
-              className="inline-flex items-center gap-3 bg-slate-900 text-white rounded-full px-12 py-6 text-xl font-black shadow-2xl hover:bg-slate-800 transition-all hover:scale-105 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="btn-3d-primary inline-flex items-center gap-3 rounded-2xl px-12 py-5 text-xl font-black group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               Access All {tools.length} Tools
               <FaArrowRight className="group-hover:translate-x-2 transition-transform" aria-hidden="true" />
@@ -387,16 +382,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Authority & Vision */}
+      {/* Authority & 3D Layered Creator Architecture */}
       <section className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-24 items-center">
+          <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10 leading-[0.9] font-outfit tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10 leading-[0.95] font-outfit tracking-tight">
                 Data Patterns <br />
                 <span className="text-purple-600">Reducing Guesswork.</span>
               </h2>
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {[
                   {
                     icon: FaMagic,
@@ -419,7 +414,7 @@ export default function Home() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex gap-6 p-8 rounded-[2rem] glass-premium border-white/40 hover:border-purple-500/20 transition-all duration-500 shadow-sm"
+                    className="flex gap-6 p-7 rounded-3xl card-3d"
                   >
                     <div
                       className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center text-white flex-shrink-0 shadow-lg`}
@@ -438,25 +433,68 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="lg:w-1/2 relative">
-              <div className="aspect-[4/5] glass-premium rounded-[4rem] p-1 shadow-2xl overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-900 to-slate-950 p-16 flex flex-col justify-end text-white">
-                  <h3 className="text-4xl font-black font-outfit mb-4">
+            <div className="lg:w-1/2 w-full relative">
+              <div className="rounded-[2.5rem] p-1.5 bg-gradient-to-b from-purple-500/30 via-slate-900 to-slate-950 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.45)] overflow-hidden">
+                <div className="rounded-[2.2rem] bg-slate-950 uhd-dark-grid p-8 sm:p-10 text-white relative">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-extrabold uppercase tracking-wider mb-6">
+                    <span>3D Creator Stack Architecture</span>
+                  </div>
+                  <h3 className="text-3xl font-black font-outfit mb-3">
                     Practical Creator Workflows
                   </h3>
-                  <p className="text-xl text-purple-100/80 font-medium leading-relaxed mb-6">
-                    "Our tools focus on practical creator workflows: clearer
-                    metadata, stronger ideas, better planning, and easier
-                    revenue estimation."
+                  <p className="text-base text-slate-300 leading-relaxed mb-8">
+                    Our tools focus on practical creator workflows: clearer
+                    metadata, stronger ideas, better planning, and accurate
+                    Tier-1 revenue estimation.
                   </p>
+
+                  {/* 3D Isometric Stacked Layers */}
+                  <div className="space-y-4 mb-8">
+                    {[
+                      {
+                        layer: "LAYER 01 • DISCOVERY & PACKAGING",
+                        title: "4K Thumbnail, Title A/B & Semantic Tags",
+                        metric: "+41.8% Impressions",
+                        accent: "border-pink-500/40 bg-pink-950/30 text-pink-300",
+                      },
+                      {
+                        layer: "LAYER 02 • RETENTION & AEO INDEXING",
+                        title: "Transcript NLP, Chapters & Key Moments",
+                        metric: "+114% Google SERP",
+                        accent: "border-purple-500/40 bg-purple-950/30 text-purple-300",
+                      },
+                      {
+                        layer: "LAYER 03 • TIER-1 MONETIZATION",
+                        title: "52-Country AdSense RPM, Tax & Valuation",
+                        metric: "$14–$32+ US CPM",
+                        accent: "border-emerald-500/40 bg-emerald-950/30 text-emerald-300",
+                      },
+                    ].map((stack) => (
+                      <div
+                        key={stack.layer}
+                        className={`rounded-2xl border ${stack.accent} p-4 backdrop-blur-md shadow-lg transition-transform duration-300 hover:-translate-y-1`}
+                      >
+                        <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest mb-1">
+                          <span>{stack.layer}</span>
+                          <span className="px-2 py-0.5 rounded bg-white/10 text-white">
+                            {stack.metric}
+                          </span>
+                        </div>
+                        <div className="text-sm sm:text-base font-bold text-white">
+                          {stack.title}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
                   <div className="flex items-center gap-4 pt-6 border-t border-white/10">
-                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center font-black">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center font-black shadow-md">
                       EE
                     </div>
                     <div>
-                      <div className="font-bold">Creator Workflow Notes</div>
-                      <div className="text-xs text-purple-300 font-bold uppercase tracking-widest">
-                        Public Tool Documentation
+                      <div className="font-bold text-sm">Creator Workflow Notes</div>
+                      <div className="text-[11px] text-purple-300 font-bold uppercase tracking-widest">
+                        Public Tool Documentation • 2026 Verified
                       </div>
                     </div>
                   </div>
@@ -482,24 +520,24 @@ export default function Home() {
               <span className="text-gradient">YouTube Tools Hub</span>
             </h2>
             <p className="text-xl text-slate-500 max-w-3xl mx-auto font-outfit font-medium italic">
-              "Simple browser-based utilities for common creator tasks,
-              available without a browser extension."
+              &ldquo;Simple browser-based utilities for common creator tasks,
+              available without a browser extension.&rdquo;
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, i) => (
               <div
                 key={i}
-                className="glass-premium rounded-[2.5rem] p-10 text-center border-white/60 hover:shadow-2xl transition-all duration-500 group"
+                className="card-3d rounded-3xl p-8 text-center group"
               >
-                <div className="w-20 h-20 mx-auto mb-8 rounded-[1.5rem] bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-all duration-500">
-                  <benefit.icon className="w-10 h-10" />
+                <div className="w-18 h-18 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-[0_10px_25px_-5px_rgba(124,58,237,0.45),inset_0_1.5px_0_0_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300">
+                  <benefit.icon className="w-8 h-8" />
                 </div>
-                <h3 className="font-black text-2xl text-slate-900 mb-4 font-outfit tracking-tight">
+                <h3 className="font-black text-xl text-slate-900 mb-3 font-outfit tracking-tight">
                   {benefit.title}
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-outfit font-medium">
+                <p className="text-slate-600 text-sm leading-relaxed font-outfit font-medium">
                   {benefit.description}
                 </p>
               </div>
@@ -519,25 +557,25 @@ export default function Home() {
               Straight answers on thumbnails, pay per view, and free tools.
             </p>
           </div>
-          <div className="space-y-12">
+          <div className="space-y-6">
             {homeFAQs.map((faq, i) => (
               <div
                 key={i}
-                className="glass-premium p-10 rounded-[2.5rem] border-white/60 hover:shadow-xl transition-all duration-500 relative"
+                className="card-3d p-8 rounded-3xl relative"
               >
-                <h3 className="text-2xl font-black text-slate-900 mb-6 flex items-center gap-4 font-outfit">
-                  <span className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                <h3 className="text-xl font-black text-slate-900 mb-3 flex items-center gap-4 font-outfit">
+                  <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0 shadow-sm">
                     Q
                   </span>
                   {faq.question}
                 </h3>
-                <p className="text-slate-600 leading-relaxed text-xl font-outfit font-medium pl-14">
+                <p className="text-slate-600 leading-relaxed text-base font-outfit font-medium pl-13">
                   {faq.answer}
                 </p>
               </div>
             ))}
           </div>
-          <div className="mt-16 text-center">
+          <div className="mt-12 text-center">
             <Link
               href="/faq"
               className="text-purple-600 font-black text-xl hover:underline underline-offset-8"
@@ -571,7 +609,6 @@ export default function Home() {
                 slug={post.slug}
                 coverImage={post.coverImage}
                 coverAlt={post.title}
-                className="glass-premium border-white/40 shadow-sm"
               />
             ))}
           </div>
@@ -579,7 +616,7 @@ export default function Home() {
           <div className="text-center mt-16">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-purple-600 font-black text-xl hover:bg-white/50 px-10 py-5 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black text-lg px-8 py-4 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               View all YouTube guides
               <FaArrowRight aria-hidden="true" />
@@ -588,32 +625,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Heroic 3D UHD CTA Section */}
+      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3.5rem] border border-purple-500/30 shadow-[0_32px_70px_-15px_rgba(15,23,42,0.5)]">
+        <div className="absolute inset-0 bg-slate-950 uhd-dark-grid" />
+        <div className="absolute inset-x-16 top-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
 
-
-      {/* Heroic CTA Section */}
-      <section className="py-20 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[5rem]">
-        <div className="absolute inset-0 bg-slate-950" />
-        <div className="nebula-bg opacity-50 absolute inset-0" />
-
-        <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-16">
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tighter font-outfit leading-[0.95]">
+        <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-12">
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter font-outfit leading-[1.05]">
             Start with a{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">
-              free tool
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-emerald-400">
+              free 4K creator tool
             </span>
           </h2>
-          <p className="text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
+          <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
             Download a thumbnail, generate tags, or estimate what YouTube pays
-            in your country — no signup.
+            in your country — instant 3D browser studio, no signup.
           </p>
           <Link
             href="/tools"
-            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-slate-100 font-black px-16 py-10 h-auto text-3xl rounded-full shadow-[0_0_50px_rgba(255,255,255,0.15)] transition-all hover:scale-105 active:scale-95 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-purple-50 font-black px-12 py-6 text-xl md:text-2xl rounded-2xl shadow-[0_6px_0_0_#cbd5e1,0_20px_50px_rgba(168,85,247,0.4)] transition-all hover:-translate-y-1 active:translate-y-1 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
           >
             Get Started Free
-            <FaArrowRight className="group-hover:translate-x-3 transition-transform" aria-hidden="true" />
+            <FaArrowRight className="group-hover:translate-x-2 transition-transform text-purple-600" aria-hidden="true" />
           </Link>
-          <div className="mt-12 text-slate-500 font-black text-xs uppercase tracking-[0.3em]">
+          <div className="mt-10 text-slate-400 font-black text-xs uppercase tracking-[0.3em]">
             No Account Required | Instant Results | Scale Effortlessly
           </div>
         </div>

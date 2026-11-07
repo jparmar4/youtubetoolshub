@@ -21,6 +21,8 @@ import {
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import { AD_SLOTS } from "@/lib/adsense";
 
@@ -79,9 +81,9 @@ export async function generateMetadata({
             googleBot: {
                 index: true,
                 follow: true,
-                'max-image-preview': 'large',
-                'max-snippet': -1,
-                'max-video-preview': -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+                "max-video-preview": -1,
             },
         },
         other: {
@@ -182,21 +184,23 @@ export default async function CountryEarningsPage({
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb */}
-                    <div className="mb-8">
-                        <Breadcrumb
-                            items={[
-                                { name: "Home", href: "/" },
-                                { name: "Tools", href: "/tools" },
-                                { name: "Earnings Calculator", href: "/tools/youtube-earnings-calculator" },
-                                { name: countryData.name }
-                            ]}
-                        />
-                    </div>
+                    <AdSectionIgnore>
+                        <div className="mb-8">
+                            <Breadcrumb
+                                items={[
+                                    { name: "Home", href: "/" },
+                                    { name: "Tools", href: "/tools" },
+                                    { name: "Earnings Calculator", href: "/tools/youtube-earnings-calculator" },
+                                    { name: countryData.name }
+                                ]}
+                            />
+                        </div>
+                    </AdSectionIgnore>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Content */}
                         <div className="lg:col-span-2 space-y-8">
-
+                            <AdSectionPrioritize>
                             {/* Header */}
                             <div className="text-center md:text-left mb-8">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold mb-4">
@@ -232,13 +236,13 @@ export default async function CountryEarningsPage({
                             </div>
 
                             {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
-                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center mb-8">
                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
                             {/* Calculator Component */}
-                            <div className="bg-white rounded-3xl p-1 shadow-xl shadow-green-900/5 border border-slate-100">
+                            <div className="bg-white rounded-3xl p-1 shadow-xl shadow-green-900/5 border border-slate-100 mb-8">
                                 <ToolContextProvider value={{ hideHeader: true }}>
                                     <EarningsCalculator
                                         initialRPM={countryData.rpmRange.avg}
@@ -253,7 +257,7 @@ export default async function CountryEarningsPage({
 
 
                             {/* Country Stats Grid */}
-                            <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="grid sm:grid-cols-2 gap-4 mt-8">
                                 <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                                     <div className="flex items-center gap-3 mb-2">
                                         <FaChartLine className="text-green-500 text-xl" />
@@ -338,6 +342,12 @@ export default async function CountryEarningsPage({
                                 <Tier1ComparisonMatrix />
                             </div>
 
+                            {/* International Banking & Wire Fee Savings */}
+                            <div className="my-8">
+                                <InternationalPayoutCallout />
+                            </div>
+                            </AdSectionPrioritize>
+
                             {/* AEO FAQ (visible + schema) */}
                             <section className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
                                 <h2 className="text-2xl font-bold text-slate-900 mb-6">
@@ -365,54 +375,61 @@ export default async function CountryEarningsPage({
                             </section>
 
                             {/* Internal Links to other countries — full 52-market mesh for global crawl */}
-                            <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                                <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
-                                    <FaGlobeAmericas className="text-purple-500" />
-                                    {`Compare with all ${countryCPMData.length} countries`}
-                                </h3>
-                                <p className="text-sm text-slate-500 mb-4">
-                                    Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
-                                </p>
-                                {[
-                                    { label: `Tier 1 (${TIERS.TIER1.countries.length})`, codes: TIERS.TIER1.countries },
-                                    { label: `Tier 2 (${TIERS.TIER2.countries.length})`, codes: TIERS.TIER2.countries },
-                                    { label: `Tier 3 (${TIERS.TIER3.countries.length})`, codes: TIERS.TIER3.countries },
-                                ].map((group) => (
-                                    <div key={group.label} className="mb-4 last:mb-0">
-                                        <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">
-                                            {group.label}
-                                        </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {countryCPMData
-                                                .filter((c) => group.codes.includes(c.code) && c.slug !== country)
-                                                .map((c) => (
-                                                    <Link
-                                                        key={c.slug}
-                                                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                                        className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
-                                                    >
-                                                        {c.flag} {c.name}
-                                                    </Link>
-                                                ))}
+                            <AdSectionIgnore>
+                                <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+                                    <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                        <FaGlobeAmericas className="text-purple-500" />
+                                        {`Compare with all ${countryCPMData.length} countries`}
+                                    </h3>
+                                    <p className="text-sm text-slate-500 mb-4">
+                                        Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
+                                    </p>
+                                    {[
+                                        { label: `Tier 1 (${TIERS.TIER1.countries.length})`, codes: TIERS.TIER1.countries },
+                                        { label: `Tier 2 (${TIERS.TIER2.countries.length})`, codes: TIERS.TIER2.countries },
+                                        { label: `Tier 3 (${TIERS.TIER3.countries.length})`, codes: TIERS.TIER3.countries },
+                                    ].map((group) => (
+                                        <div key={group.label} className="mb-4 last:mb-0">
+                                            <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">
+                                                {group.label}
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {countryCPMData
+                                                    .filter((c) => group.codes.includes(c.code) && c.slug !== country)
+                                                    .map((c) => (
+                                                        <Link
+                                                            key={c.slug}
+                                                            href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                                            className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                                        >
+                                                            {c.flag} {c.name}
+                                                        </Link>
+                                                    ))}
+                                            </div>
                                         </div>
+                                    ))}
+                                    <div className="flex flex-wrap gap-2 mt-4">
+                                        <Link
+                                            href="/tools/youtube-earnings-calculator"
+                                            className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
+                                        >
+                                            View Global Average
+                                        </Link>
+                                        <Link
+                                            href="/resources/youtube-cpm-rates"
+                                            className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                        >
+                                            {`Full ${countryCPMData.length}-country CPM table`}
+                                        </Link>
                                     </div>
-                                ))}
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                    <Link
-                                        href="/tools/youtube-earnings-calculator"
-                                        className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition-colors"
-                                    >
-                                        View Global Average
-                                    </Link>
-                                    <Link
-                                        href="/resources/youtube-cpm-rates"
-                                        className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
-                                    >
-                                        {`Full ${countryCPMData.length}-country CPM table`}
-                                    </Link>
                                 </div>
-                            </div>
+                            </AdSectionIgnore>
 
+                            {/* Bottom Multiplex Ad Unit */}
+                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm" aria-hidden="true">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
+                            </div>
                         </div>
 
                         {/* Sidebar */}
@@ -420,27 +437,29 @@ export default async function CountryEarningsPage({
                             <div className="sticky top-24 space-y-8">
 
                                 {/* Related Tools */}
-                                <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-                                    <h3 className="font-bold text-slate-900 mb-4">Related Tools</h3>
-                                    <ul className="space-y-3">
-                                        <li>
-                                            <Link href="/tools/youtube-channel-audit" className="flex items-center gap-3 text-slate-600 hover:text-green-600 transition-colors">
-                                                <span className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-500">
-                                                    <FaChartLine />
-                                                </span>
-                                                <span className="font-medium">Channel Audit</span>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/tools/youtube-tag-generator" className="flex items-center gap-3 text-slate-600 hover:text-blue-600 transition-colors">
-                                                <span className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
-                                                    <FaDollarSign />
-                                                </span>
-                                                <span className="font-medium">Tag Generator</span>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <AdSectionIgnore>
+                                    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
+                                        <h3 className="font-bold text-slate-900 mb-4">Related Tools</h3>
+                                        <ul className="space-y-3">
+                                            <li>
+                                                <Link href="/tools/youtube-channel-audit" className="flex items-center gap-3 text-slate-600 hover:text-green-600 transition-colors">
+                                                    <span className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-500">
+                                                        <FaChartLine />
+                                                    </span>
+                                                    <span className="font-medium">Channel Audit</span>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="/tools/youtube-tag-generator" className="flex items-center gap-3 text-slate-600 hover:text-blue-600 transition-colors">
+                                                    <span className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
+                                                        <FaDollarSign />
+                                                    </span>
+                                                    <span className="font-medium">Tag Generator</span>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </AdSectionIgnore>
 
                                 {/* AdSense Sticky Sidebar Unit */}
                                 <div className="w-full">

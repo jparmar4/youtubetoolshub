@@ -2585,6 +2585,10 @@ export const tools: Tool[] = [
             {
                 title: "Spoken Keyword Frequency Analysis",
                 content: "YouTube's neural recommendation algorithms transcribe and index spoken dialogue. By analyzing recurring spoken phrases across competitor videos, you can uncover the core semantic entities required to rank #1."
+            },
+            {
+                title: "Exporting Standard SRT & CSV Subtitle Tracks",
+                content: "Video editors and localization teams can export timecoded SRT files directly for Adobe Premiere Pro, DaVinci Resolve, and Final Cut Pro, or download structured CSV spreadsheets to audit timestamped hooks and sponsor reads."
             }
         ],
         howTo: {
@@ -2609,6 +2613,14 @@ export const tools: Tool[] = [
             {
                 question: "Is this tool free?",
                 answer: "100% free with no account or browser extension required."
+            },
+            {
+                question: "Can I export subtitles as an SRT file for Premiere Pro or DaVinci Resolve?",
+                answer: "Yes. Click the 'SRT' export button to download a standard SubRip (.srt) file with sequential cue numbers and millisecond timecodes compatible with all major NLE video editors."
+            },
+            {
+                question: "Why does a video say no transcript is available?",
+                answer: "If a video was uploaded within the last few minutes, has zero spoken audio, or the channel owner explicitly disabled both closed captions and automatic speech recognition, YouTube does not expose a caption track."
             }
         ]
     },
@@ -3052,20 +3064,28 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Video Ads Cost Calculator?",
-            text: "The YouTube Video Ads Cost Calculator is a free planning tool that projects required budgets, Cost Per View (CPV), CPM, and reach for YouTube video advertising campaigns across 5 major ad formats and global geographic tiers.",
+            text: "The YouTube Video Ads Cost Calculator is a free media-buying planning tool that projects required budgets, Cost Per View (CPV), Cost Per Mille (CPM), impressions, and expected click-through volume for Google Ads video campaigns across 5 major ad formats and Tier-1 to Tier-3 geographic markets.",
         },
         content: [
             {
                 title: "How Much Do YouTube Video Ads Cost in 2026?",
-                content: "Most YouTube video ad campaigns average a Cost Per View (CPV) between $0.015 and $0.055 for Tier-1 audiences in the United States, UK, and Canada. Average CPM (Cost Per 1,000 Impressions) ranges from $12.00 to $28.00 depending on ad format, audience targeting depth, and seasonal advertiser competition."
+                content: "Most YouTube video ad campaigns average a Cost Per View (CPV) between $0.015 and $0.055 for Tier-1 audiences in the United States, United Kingdom, Canada, and Australia. Average advertiser CPM (Cost Per 1,000 Impressions) ranges from $12.00 to $28.00 depending on ad format, B2B or B2C audience targeting depth, remarketing segmentation, and Q4 seasonal competition."
             },
             {
-                title: "How the YouTube Ad Auction Works",
-                content: "YouTube advertising runs through Google Ads using a second-price auction model. You specify your Maximum CPV (the highest amount you are willing to pay for a view) or Target CPM. YouTube only charges the minimum amount needed to beat the next highest competitor's ad rank."
+                title: "How the Google Ads YouTube Auction Works",
+                content: "YouTube advertising runs through Google Ads using a dynamic second-price auction model. Media buyers specify a Maximum CPV (for view campaigns) or Target CPM / Target CPA (for awareness and conversion campaigns). Google's ad rank algorithm combines your bid with expected view-through rate (VTR) and landing page relevance, charging only the minimum amount needed to clear the auction."
             },
             {
-                title: "The 30-Second View Billing Threshold",
-                content: "For skippable in-stream video ads, advertisers are only charged when a viewer watches at least 30 seconds of the video ad (or the full duration if shorter than 30 seconds) or clicks on an interactive call-to-action card. Skipped views within the first 5 seconds are completely free."
+                title: "The 30-Second View Billing Threshold for Skippable In-Stream Ads",
+                content: "For TrueView skippable in-stream video ads, advertisers are only billed when a viewer watches at least 30 seconds of the video ad (or the complete duration if the ad is shorter than 30 seconds) or clicks an interactive call-to-action overlay. Viewers who click 'Skip Ad' after the mandatory 5-second intro incur $0.00 in ad spend, providing free brand impressions."
+            },
+            {
+                title: "Comparing Ad Formats: In-Stream vs. Non-Skippable vs. Shorts Ads",
+                content: "Skippable In-Stream ads offer the lowest CPV ($0.02–$0.04) for product demos and direct-response funnels. Non-Skippable 15-second ads and 6-second Bumper ads are billed strictly on a Target CPM basis ($14–$26 CPM in Tier-1 markets) to maximize brand recall. Vertical YouTube Shorts Ads blend into the mobile feed and deliver strong engagement at $0.015–$0.035 CPV."
+            },
+            {
+                title: "Optimizing ROAS and Lowering CPV in High-Intent Niches",
+                content: "B2B SaaS, personal finance, cybersecurity, and legal advertisers face the highest auction floors ($25–$45 CPM). To reduce effective CPV and Cost Per Acquisition (CPA), pair custom intent search audiences with strong 5-second visual hooks that qualify your ideal buyer immediately while encouraging non-buyers to skip before the 30-second billing trigger."
             }
         ],
         howTo: {
@@ -3076,20 +3096,29 @@ export const tools: Tool[] = [
                 { name: "Select Target Region", text: "Choose your geographic targeting tier (US Tier 1, UK/CA/AU, Western Europe, or Emerging Markets)." },
                 { name: "Pick Video Ad Format", text: "Select between Skippable In-Stream, Non-Skippable 15s, 6-Second Bumper, or YouTube Shorts Video Ads." },
                 { name: "Review CPV & Reach Projection", text: "Inspect your estimated Cost Per View, required budget, total impressions, and expected website clicks." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "What is the average CPV on YouTube in 2026?",
-                answer: "The average Cost Per View (CPV) on YouTube in 2026 ranges from $0.02 to $0.05 for US and Western European audiences. Highly competitive niches like B2B SaaS and personal finance can reach $0.06 to $0.12 CPV, while entertainment and emerging markets can average under $0.01 CPV."
+                answer: "The average Cost Per View (CPV) on YouTube in 2026 ranges from $0.02 to $0.05 for US, UK, Canadian, and Australian audiences. Highly competitive commercial niches like B2B SaaS, insurance, and personal finance can reach $0.06 to $0.12 CPV, while broad entertainment and emerging markets often average under $0.01 CPV."
             },
             {
                 question: "What is the minimum budget to run YouTube ads?",
-                answer: "Google Ads does not enforce a strict daily minimum budget, but an initial testing budget of $10 to $20 per day (or $250 to $500 total) is recommended to allow the machine learning bidding algorithm to exit the learning phase and optimize for conversions."
+                answer: "Google Ads does not enforce a strict daily minimum, allowing campaigns to start at $5 to $10 per day. However, media buyers recommend an initial testing budget of $20 to $50 per day ($600–$1,500 monthly) so Google's Smart Bidding algorithm gathers enough conversion data to exit the learning phase."
             },
             {
                 question: "Do you pay for skipped YouTube ads?",
-                answer: "No. For skippable in-stream ads, if a viewer clicks 'Skip Ad' after the initial 5 seconds and before reaching the 30-second mark, you pay $0.00."
+                answer: "No. For skippable in-stream campaigns billed on CPV, if a viewer clicks 'Skip Ad' after the initial 5 seconds and before reaching the 30-second mark without clicking your link, you pay $0.00."
+            },
+            {
+                question: "How much does 100,000 views cost on YouTube Ads?",
+                answer: "At an average Tier-1 CPV of $0.03, buying 100,000 targeted views on YouTube costs approximately $3,000. In Tier-2 and Tier-3 global markets where CPV averages $0.008 to $0.015, 100,000 views can cost between $800 and $1,500."
+            },
+            {
+                question: "Do views from YouTube Ads count toward the 4,000 watch hours for YPP?",
+                answer: "No. According to official YouTube Partner Program policies, watch time generated from paid Google Ads campaigns does not count toward the 4,000 public watch hour monetization threshold. However, subscribers gained from ad viewers who choose to subscribe do count."
             }
         ]
     },
@@ -3117,16 +3146,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Subscribe Link Generator?",
-            text: "The YouTube Subscribe Link Generator is a free utility that appends the official ?sub_confirmation=1 parameter to your channel handle or URL, triggering an automatic subscription confirmation popup whenever visitors click the link.",
+            text: "The YouTube Subscribe Link Generator is a free conversion utility that appends the official ?sub_confirmation=1 query parameter to your channel handle, custom URL, or Channel ID, triggering an automatic subscription confirmation modal whenever visitors click the link.",
         },
         content: [
             {
-                title: "How the ?sub_confirmation=1 Parameter Works",
-                content: "When a visitor lands on a regular YouTube channel link, they see your channel banner and must manually locate the subscribe button. By adding ?sub_confirmation=1 to your channel URL, YouTube automatically displays an interactive modal asking 'Confirm channel subscription? Are you sure you want to subscribe to [Channel]?' before they browse."
+                title: "How the ?sub_confirmation=1 Parameter Boosts Subscriber Conversion",
+                content: "When an external visitor clicks a standard YouTube channel link from your newsletter, blog, or social bio, they land on your channel homepage and must visually hunt for the Subscribe button. By appending ?sub_confirmation=1 to your channel URL, YouTube immediately overlays a centered modal dialog asking 'Confirm channel subscription? Are you sure you want to subscribe to [Channel]?'—lifting click-to-subscriber conversion rates by 20% to 40%."
             },
             {
-                title: "Where to Place Your Auto-Subscribe Link",
-                content: "Place your generated auto-subscribe link in your social media bios (Linktree, Beacons, Instagram, TikTok, X), the second line of every video description, website header buttons, and email newsletter signatures to convert off-platform readers into loyal subscribers."
+                title: "Supporting @Handle, /channel/UC, and Custom URL Formats",
+                content: "YouTube supports multiple URL structures, including modern @handles (youtube.com/@handle), legacy Channel IDs (youtube.com/channel/UC...), and custom vanity URLs (youtube.com/c/...). If your URL already contains query parameters or trailing slashes, manually pasting ?sub_confirmation=1 can break the link. Our generator parses and sanitizes any input format into a clean, canonical subscription URL."
+            },
+            {
+                title: "High-Converting Placements: Descriptions, Link-in-Bio & Email Signatures",
+                content: "Deploy your generated auto-subscribe link in the top 3 lines of every video description, inside Linktree or Fourthwall bio pages, at the bottom of SEO blog articles, and inside lead-magnet PDFs. Every off-platform touchpoint becomes a frictionless subscriber acquisition funnel."
+            },
+            {
+                title: "Printable QR Codes & Responsive Website Embed Buttons",
+                content: "In addition to the raw URL, this tool generates a high-contrast downloadable QR code for conference slides, product packaging, podcast studio backdrops, and business cards, alongside copy-paste HTML button snippets for WordPress, Webflow, and Shopify sites."
             }
         ],
         howTo: {
@@ -3136,16 +3173,29 @@ export const tools: Tool[] = [
                 { name: "Enter Channel Identifier", text: "Paste your YouTube channel handle (e.g. @YourChannel), custom URL, or Channel ID." },
                 { name: "Generate Formats", text: "The tool automatically cleans parameters and builds the canonical ?sub_confirmation=1 URL, HTML button, and QR code." },
                 { name: "Copy and Share", text: "Click Copy Link for bio links or Download QR Code for physical business cards and presentations." }
-            ]
+            ],
+            totalTime: "PT1M"
         },
         faqs: [
             {
                 question: "Does ?sub_confirmation=1 work on mobile devices?",
-                answer: "The ?sub_confirmation=1 modal confirmation box appears reliably on desktop browsers. On mobile devices, clicking the link opens the native YouTube app directly to your channel page, where the Subscribe button is prominently highlighted."
+                answer: "The ?sub_confirmation=1 modal confirmation box appears reliably on desktop and laptop web browsers. On iOS and Android mobile devices, clicking the link deep-links into the native YouTube app or mobile web view directly on your channel header where the Subscribe button is prominently displayed."
             },
             {
                 question: "Can using an auto-subscribe link get my channel penalized?",
-                answer: "No. The ?sub_confirmation=1 parameter is an official URL argument provided by YouTube and Google. It asks the user to confirm their subscription; it does not force automated bot actions."
+                answer: "No. The ?sub_confirmation=1 parameter is an official first-party URL argument built by YouTube engineering. Because it prompts the viewer with an explicit confirmation button rather than subscribing them without consent, it is 100% compliant with YouTube Terms of Service."
+            },
+            {
+                question: "Does the auto-subscribe link work with @handles?",
+                answer: "Yes. Modern YouTube handle URLs such as https://www.youtube.com/@ChannelName?sub_confirmation=1 are fully supported and trigger the subscription confirmation dialog."
+            },
+            {
+                question: "What happens if someone is already subscribed to my channel?",
+                answer: "If a viewer is already logged in and subscribed to your channel, YouTube automatically skips the confirmation popup and loads your channel homepage normally without unsubscribing them."
+            },
+            {
+                question: "Can I shorten my ?sub_confirmation=1 link with Bitly or a custom domain?",
+                answer: "Yes. Any 301 or 302 URL shortener or custom brand redirect (such as yourdomain.com/youtube) preserves the ?sub_confirmation=1 query parameter when forwarding visitors to YouTube."
             }
         ]
     },
@@ -3173,16 +3223,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Video Summary Generator?",
-            text: "The YouTube Video Summary Generator is a free AI content repurposing utility that extracts clean video transcripts and generates zero-hallucination executive briefs, study guides, SEO blog drafts, and short-form scripts without monthly paywalls.",
+            text: "The YouTube Video Summary Generator is a free AI content repurposing utility that extracts clean video transcripts and generates zero-hallucination executive briefs, timestamped study guides, SEO blog drafts, and short-form scripts without monthly SaaS paywalls.",
         },
         content: [
             {
-                title: "Why Grounded Transcripts Beat Generic AI Bots",
-                content: "Standard AI chat tools often hallucinate or invent phantom quotes when given a raw YouTube URL because they rely on web scraping. By extracting the verbatim subtitle track and feeding clean text into structured prompt frameworks, you achieve 98%+ factual accuracy on videos up to 3 hours long."
+                title: "Why Grounded Transcripts Beat Generic AI URL Summarizers",
+                content: "When you paste a raw YouTube URL into a standard AI chatbot without providing the transcript, the model often guesses the video's contents based on the title alone—hallucinating statistics and inventing quotes. By extracting the verbatim closed-caption track first and pairing it with structured synthesis instructions, you achieve near-100% factual fidelity across technical tutorials, earnings calls, and 3-hour podcasts."
             },
             {
-                title: "4 Multi-Channel Repurposing Frameworks",
-                content: "Choose between a 5-Minute Executive Brief for research, a Timestamped Study Guide for tutorials, a 1,200-Word SEO Blog Draft for website organic traffic, or a 60-Second Short Script to expand onto TikTok and Instagram."
+                title: "4 Multi-Channel Content Repurposing Frameworks",
+                content: "Select the exact output structure your workflow requires: (1) 5-Minute Executive Brief with core thesis and bulleted takeaways; (2) Academic & Technical Study Guide with glossary definitions and step-by-step methodologies; (3) 1,200-Word SEO Blog Article structured with H2/H3 headings and FAQ schema; or (4) 60-Second Viral Shorts / Reels Script with scroll-stopping hooks."
+            },
+            {
+                title: "Turning Video Libraries into High-RPM Written Search Assets",
+                content: "Media businesses and B2B creators maximize Return on Content (ROC) by publishing companion written guides for every YouTube upload. Converting spoken video expertise into structured articles allows you to capture Google Search, AI Overviews, and Perplexity citations alongside YouTube watch time."
+            },
+            {
+                title: "Zero Token Truncation on Long-Form Podcasts & Keynotes",
+                content: "Commercial browser extensions frequently cap free users at 15-minute videos or 3 summaries per month. Our browser-based workflow strips noisy timestamp tags and sound cues to compress token count by up to 35%, enabling full-context synthesis of 2-hour interviews and university lectures."
             }
         ],
         howTo: {
@@ -3192,16 +3250,29 @@ export const tools: Tool[] = [
                 { name: "Paste Video Link", text: "Enter any public YouTube video, live stream recording, or Short URL." },
                 { name: "Select Summary Framework", text: "Choose between Executive Brief, Study Guide, SEO Article, or Viral Shorts Script." },
                 { name: "Copy Grounded Prompt Bundle", text: "Copy the zero-hallucination prompt and execute in your preferred AI workspace." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "Is this YouTube video summarizer completely free?",
-                answer: "Yes. Unlike commercial browser extensions that limit you to 3 summaries per month or cap videos at 15 minutes, our browser workflow has zero video length limits, requires no credit card, and is 100% free."
+                answer: "Yes. Unlike paid Chrome extensions that charge $15–$30/month or restrict video duration to 15 minutes, our tool is 100% free in your browser with no account registration or credit card required."
             },
             {
-                question: "Can I summarize a 3-hour podcast with this tool?",
-                answer: "Yes. By extracting the clean transcript via our paired Transcript Downloader and using semantic chunking, you can summarize 2-hour and 3-hour podcasts with zero token truncation."
+                question: "Can I summarize a 2-hour or 3-hour podcast with this tool?",
+                answer: "Yes. By extracting the plain-text transcript without timestamps and using our grounded prompt bundle, modern long-context LLMs (ChatGPT, Claude, Gemini) can process 2-to-3-hour podcasts in a single pass without truncation."
+            },
+            {
+                question: "How do I turn a YouTube video into an SEO blog post?",
+                answer: "Select the 'SEO Blog Post' framework in the generator. It structures the spoken transcript into an engaging introduction, keyword-rich H2 and H3 subheadings, actionable bullet points, and a concise FAQ section ready for your CMS."
+            },
+            {
+                question: "Does this work on YouTube Shorts and live stream replays?",
+                answer: "Yes. Any public YouTube video, Short, or archived live stream that has auto-generated or creator-uploaded captions can be summarized."
+            },
+            {
+                question: "Do I need to install a Chrome extension to use this?",
+                answer: "No. Everything runs directly in your mobile or desktop browser at YouTube Tools Hub, keeping your browser fast and private."
             }
         ]
     },
@@ -3229,16 +3300,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Outlier Calculator?",
-            text: "The YouTube Outlier Calculator measures the statistical multiple between a specific video's view count and the creator's median channel baseline, identifying whether a video achieved genuine viral breakout reach.",
+            text: "The YouTube Outlier Calculator measures the statistical multiplier between a specific video's view count and the channel's median view baseline, plus daily view velocity and subscriber-to-view breakout ratios, to identify proven viral topics.",
         },
         content: [
             {
                 title: "What Makes an Outlier Video on YouTube?",
-                content: "An outlier video is an upload that significantly outperforms a channel's normal view baseline (typically 3x to 10x+ higher). Outliers prove that the title, thumbnail packaging, and premise broke out of the creator's subscriber bubble and appealed to broad casual viewers on YouTube's browse and suggested surfaces."
+                content: "An outlier video is an upload that significantly outperforms a channel's normal view baseline—typically achieving a 3.0x to 10.0x+ multiplier over the channel's median views across its last 10 to 20 uploads. Because the channel's existing subscriber base cannot account for a 5x spike, an outlier proves that the topic, title, and thumbnail achieved high Click-Through Rate (CTR) and retention among cold audiences on YouTube Home and Suggested feeds."
             },
             {
-                title: "How to Capitalize on Outlier Videos",
-                content: "When a competitor in your niche produces a 5x+ outlier, study their framing: what emotional tension did their title promise? What visual contrast was on the thumbnail? Create your own distinct follow-up or sequel covering the topic within 14 days."
+                title: "Why Median Baseline Beats Average Views for Outlier Research",
+                content: "A single mega-viral hit from two years ago can artificially inflate a channel's mean (average) view count, hiding recent breakout videos. Professional YouTube strategists benchmark against the median of the last 10 long-form uploads (excluding Shorts) to measure true current channel momentum."
+            },
+            {
+                title: "View Velocity & The Small-Channel Breakout Signal",
+                content: "A video with 150,000 views on a 2-million-subscriber channel is an underperformer (0.3x), whereas a video with 150,000 views on a 4,000-subscriber channel with a 3,000-view baseline is a massive 50x algorithmic outlier. Combining the Outlier Multiplier with Daily View Velocity (views divided by days since upload) reveals which topics have active, surging audience demand right now."
+            },
+            {
+                title: "How to Reverse-Engineer Competitor Outliers Without Copying",
+                content: "Once you identify a 5x+ outlier in your niche or an adjacent Tier-1 niche, dissect three elements: (1) the core curiosity gap in the title, (2) the visual contrast and focal subject in the thumbnail, and (3) the first 30 seconds of the transcript hook. Apply that structural framing to your own original expertise within 14 days."
             }
         ],
         howTo: {
@@ -3248,16 +3327,29 @@ export const tools: Tool[] = [
                 { name: "Enter Video View Count", text: "Input the total public view count of the specific video you are analyzing." },
                 { name: "Enter Channel Median Views", text: "Input the creator's median view count across their typical 10 to 20 uploads." },
                 { name: "Calculate Viral Tier", text: "Review the calculated multiple, daily velocity score, and algorithmic diagnostic." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "What is a good outlier score on YouTube?",
-                answer: "A score of 2.0x to 4.9x indicates a solid above-average performer. A score of 5.0x to 9.9x is a major outlier that broke into broad recommendations. Scores above 10.0x represent mega-viral outliers in the top 1% of the platform."
+                answer: "An outlier multiplier of 2.0x to 2.9x indicates strong above-average interest. A score of 3.0x to 4.9x is a clear breakout performer. A score of 5.0x to 9.9x is a major algorithmic outlier, and 10.0x+ represents a mega-viral hit in the top 1% of uploads."
             },
             {
                 question: "Why should I use median views instead of average views?",
-                answer: "Average view counts are heavily skewed by one or two viral hits from years ago. Median view count accurately reflects the creator's true audience baseline today."
+                answer: "Mean averages are easily distorted by a single viral video or a few low-view announcements. The median (the middle value of the last 10–15 long-form videos) reflects what the channel reliably earns on a typical upload."
+            },
+            {
+                question: "How is this different from paid outlier tools like 1of10 or VidIQ?",
+                answer: "Paid SaaS subscriptions charge $29 to $79 per month to display multiplier badges. Our Outlier Video Calculator lets you audit any competitor video, calculate exact view multipliers, model daily velocity, and score topic viability for free."
+            },
+            {
+                question: "Should I include YouTube Shorts when calculating a channel's baseline?",
+                answer: "No. Always keep long-form horizontal videos and vertical Shorts separate when calculating median baselines, because Shorts feed impressions follow a completely different distribution curve."
+            },
+            {
+                question: "What does a high view-to-subscriber ratio mean?",
+                answer: "When a video's views exceed the channel's total subscriber count by 3x or more, it proves that the topic has broad TAM (Total Addressable Market) appeal independent of creator fame—making it an ideal topic for newer channels to target."
             }
         ]
     },
@@ -3285,16 +3377,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Responsive Embed Code Generator?",
-            text: "The YouTube Responsive Embed Code Generator produces clean HTML, CSS, and React JSX iframe code that automatically adapts to all screen sizes without overflow and supports privacy-enhanced youtube-nocookie mode.",
+            text: "The YouTube Responsive Embed Code Generator builds clean HTML5, modern CSS aspect-ratio, and React/Next.js JSX iframe code that scales fluidly across mobile and desktop viewports while supporting GDPR privacy-enhanced youtube-nocookie.com mode and lazy loading.",
         },
         content: [
             {
-                title: "Why Standard YouTube Embeds Break on Mobile",
-                content: "Default YouTube embed codes use fixed dimensions (typically width='560' height='315'). On mobile devices or within responsive column grids, fixed iframes overflow containers and break page layouts. Our tool wraps the iframe in a modern intrinsic ratio container that scales fluidly across all devices."
+                title: "Why Default YouTube Iframe Embeds Break Mobile Layouts",
+                content: "When you click 'Share → Embed' on YouTube, the default snippet uses hardcoded pixel attributes (width='560' height='315'). On smartphones and narrow blog columns, fixed-width iframes overflow their parent containers, trigger horizontal scrollbars, and fail Google Search Console Mobile Usability checks. Wrapping the player in a modern CSS aspect-ratio: 16 / 9 container ensures pixel-perfect scaling on every screen."
             },
             {
-                title: "Privacy-Enhanced Mode (GDPR Compliance)",
-                content: "When using youtube-nocookie.com, YouTube does not store tracking cookies on a visitor's browser until they actively click play on the video, ensuring compliance with European GDPR and ePrivacy regulations."
+                title: "Privacy-Enhanced Mode (youtube-nocookie.com) for GDPR & ePrivacy",
+                content: "Standard youtube.com embeds set tracking and advertising cookies the moment a web page loads, even if the visitor never clicks play. Switching the embed domain to youtube-nocookie.com prevents YouTube from storing personally identifiable browser cookies until the user actively initiates playback—a critical requirement for European GDPR, UK PECR, and California CCPA compliance."
+            },
+            {
+                title: "Core Web Vitals Optimization: Native Lazy Loading & LCP",
+                content: "Embedding multiple YouTube iframes on a landing page or documentation site can add over 1.2 MB of third-party JavaScript and degrade Largest Contentful Paint (LCP) and Interaction to Next Paint (INP). Our generator includes loading='lazy' and clean referrer-policy attributes so off-screen video players do not block initial page rendering."
+            },
+            {
+                title: "Custom Start/End Timestamps, Loop & Same-Channel Related Videos",
+                content: "Highlight the exact segment of a tutorial or product demo by setting custom start and end timestamps (converted automatically into seconds), configuring single-video playlist looping, and setting rel=0 so pause and end screens only display videos from the same channel rather than competitor content."
             }
         ],
         howTo: {
@@ -3304,16 +3404,29 @@ export const tools: Tool[] = [
                 { name: "Paste Video Link", text: "Enter any standard YouTube video, Shorts, or playlist URL." },
                 { name: "Configure Aspect Ratio & Controls", text: "Choose 16:9, 9:16 Shorts, or 1:1, toggle privacy mode, and set start/end times." },
                 { name: "Copy Embed Code", text: "Click Copy Code to grab ready-to-paste responsive HTML, CSS, or React JSX." }
-            ]
+            ],
+            totalTime: "PT1M"
         },
         faqs: [
             {
                 question: "Does this embed generator work for YouTube Shorts?",
-                answer: "Yes. Simply select the 9:16 aspect ratio option to generate a vertical embed container tailored specifically for YouTube Shorts and mobile portrait viewing."
+                answer: "Yes. Select the 9:16 Vertical Shorts aspect ratio to generate a portrait container (max-width 380px centered) that renders vertical videos natively without black sidebars."
             },
             {
                 question: "Can I autoplay a YouTube video with sound?",
-                answer: "Modern browsers (Chrome, Safari, Edge) block autoplaying video ads and embeds with sound. Autoplay embeds must be muted to start playing automatically."
+                answer: "No. Chrome, Safari, Firefox, and iOS/Android browsers block unmuted autoplay by default to protect user experience. When you enable Autoplay in our generator, it automatically appends mute=1 so browsers permit instant playback."
+            },
+            {
+                question: "What does the rel=0 parameter do in 2026?",
+                answer: "Prior to 2018, rel=0 hid all related videos. In 2026, setting rel=0 instructs the YouTube player to only recommend related videos from the same channel that uploaded the embedded video, preventing competitor videos from appearing on your site."
+            },
+            {
+                question: "What is youtube-nocookie.com?",
+                answer: "youtube-nocookie.com is Google's official Privacy-Enhanced Mode domain for embedded players. It stops YouTube from placing tracking cookies on your website visitors' devices unless they click the play button."
+            },
+            {
+                question: "Can I use the generated JSX code in Next.js and React?",
+                answer: "Yes. Switch the output tab to React / Next.js JSX to copy camelCase attributes (frameBorder, allowFullScreen, referrerPolicy) and style objects that compile cleanly in TypeScript and React 19."
             }
         ]
     },
@@ -3341,16 +3454,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube AdSense Wire Fee Calculator?",
-            text: "The YouTube AdSense Wire Fee Calculator estimates the real deductions creators face on international AdSense earnings, including intermediary SWIFT wire fees, hidden bank currency conversion spreads, and US W-8BEN withholding taxes.",
+            text: "The YouTube AdSense Wire Fee & Creator Banking Calculator audits the exact deductions creators lose on monthly AdSense payouts, including intermediary SWIFT wire fees, hidden retail bank foreign exchange (FX) spreads, and US IRS W-8BEN withholding taxes.",
         },
         content: [
             {
                 title: "The Hidden Cost of Traditional Bank Wires on AdSense Payouts",
-                content: "When Google AdSense sends monthly USD wire transfers to international creators in the UK, Canada, Australia, India, and Europe, traditional retail banks quietly deduct $15 to $30 in intermediary SWIFT handling fees plus a hidden 2.5% to 4.5% foreign exchange spread markup over the real mid-market exchange rate."
+                content: "When Google AdSense disburses monthly USD payouts to creators outside the United States (or creators receiving cross-currency wires in the UK, Canada, Australia, Europe, India, and Latin America), traditional high-street retail banks deduct $15 to $35 in incoming SWIFT and intermediary correspondent bank fees. Worse, banks convert USD into your local currency using a retail exchange rate that hides a 2.5% to 4.5% FX markup over the real mid-market rate."
             },
             {
-                title: "How to Save $500 to $3,000+ Annually on Creator Banking",
-                content: "By opening a multi-currency business account (such as Wise, Relay, or Mercury) with US routing numbers, you can configure AdSense to pay via free domestic ACH in USD, then convert currencies at transparent mid-market spot rates."
+                title: "How Multi-Currency Creator Banking Saves $500 to $3,000+ Annually",
+                content: "By opening a specialized multi-currency business account (such as Wise Business, Revolut Business, Airwallex, or US business banking via Mercury and Relay for LLCs), creators receive local USD routing and account numbers. This allows Google AdSense to pay via free domestic US ACH in USD, reducing conversion fees to ~0.4% at the real mid-market exchange rate."
+            },
+            {
+                title: "Understanding US IRS W-8BEN Tax Withholding on Tier-1 Viewership",
+                content: "Under Internal Revenue Code Chapter 3, Google is required to withhold US tax on the portion of a non-US creator's AdSense earnings generated specifically from viewers located in the United States (typically 30% to 55% of an English-language channel's revenue). If you fail to submit Form W-8BEN in AdSense, Google deducts 24% of your entire worldwide payout. Submitting W-8BEN with a tax treaty ID reduces withholding on US-viewer revenue to 0% (UK, Canada, Australia, Germany) or 15% (India, Philippines)."
+            },
+            {
+                title: "Separating Personal & Creator Business Banking for Clean Bookkeeping",
+                content: "Routing AdSense payouts, sponsorship wires, and affiliate commissions into a dedicated business checking account simplifies CPA tax preparation, protects LLC corporate veil liability, and unlocks 1.5% to 3% cashback on high-spend creator categories like Google Ads, Adobe Creative Cloud, and camera gear."
             }
         ],
         howTo: {
@@ -3360,16 +3481,29 @@ export const tools: Tool[] = [
                 { name: "Enter Monthly AdSense USD", text: "Input your typical monthly Google AdSense revenue in US Dollars." },
                 { name: "Select Payout Country", text: "Choose your receiving bank country (UK, Canada, Australia, India, Europe, Brazil, etc.)." },
                 { name: "Review Recoverable Savings", text: "Inspect your estimated monthly and annual banking losses and compare with multi-currency accounts." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "Why does my bank deduct money from my Google AdSense payout?",
-                answer: "International wires travel through intermediary correspondent banks in the SWIFT network, each of which can deduct handling fees ($15-$30). Additionally, your local bank converts USD to your local currency at a retail exchange rate that includes a 2.5% to 4.5% hidden profit margin."
+                answer: "International USD wire transfers travel through 1 to 3 intermediary correspondent banks on the SWIFT network, each deducting $10 to $25 before the funds even reach your bank. Your local bank then charges an incoming wire fee plus a 2.5%–4.5% exchange rate markup."
             },
             {
                 question: "What is the US W-8BEN withholding tax on YouTube earnings?",
-                answer: "The US Internal Revenue Service (IRS) requires Google to withhold taxes on revenue generated specifically from viewers located in the US. Depending on your country's tax treaty with the US, this rate is between 0% (e.g., UK, Canada, Germany) and 15% (e.g., India), or 30% if no treaty exists."
+                answer: "The US IRS requires Google to withhold tax only on AdSense earnings generated from viewers watching in the United States. With a valid W-8BEN form and tax treaty, creators in the UK, Canada, Australia, and most of the EU pay 0% US withholding, while creators in treaty countries like India pay 15% on US-sourced views (and 30% if no treaty exists)."
+            },
+            {
+                question: "What happens if I don't submit tax info in Google AdSense?",
+                answer: "If a creator outside the US does not submit Form W-8BEN in AdSense, Google is legally required to assume the creator is a US person subject to backup withholding and deducts 24% of your total global earnings—not just US views."
+            },
+            {
+                question: "What is the minimum payout threshold for YouTube AdSense?",
+                answer: "In the United States and most USD-denominated AdSense accounts, the minimum payout threshold is $100 USD (or £60 in the UK, €70 in the Eurozone, C$100 in Canada, and A$100 in Australia). Payouts are issued between the 21st and 26th of each month."
+            },
+            {
+                question: "Does Google AdSense charge a fee to send a wire transfer?",
+                answer: "Google AdSense itself does not charge an outgoing fee to send your monthly payment. All wire deductions and currency conversion losses are levied by the intermediary SWIFT banks and your receiving retail bank."
             }
         ]
     },
@@ -3397,16 +3531,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Watch Hours Calculator?",
-            text: "The YouTube Watch Hours Calculator computes the exact views, retention duration, and upload schedule required to hit the 4,000 public watch hour (240,000 minute) threshold for the YouTube Partner Program.",
+            text: "The YouTube Watch Hours Calculator computes the exact view volume, Average View Duration (AVD), and weekly upload cadence required to cross both the 500-subscriber / 3,000-hour Early YPP tier and the 1,000-subscriber / 4,000-hour (240,000-minute) Full AdSense YPP threshold within YouTube's rolling 365-day window.",
         },
         content: [
             {
-                title: "How the 4,000 Watch Hour Requirement Actually Works",
-                content: "To join the YouTube Partner Program, you need 4,000 valid public watch hours within a rolling 365-day window. This means watch time earned more than 12 months ago expires daily, making consistent upload pacing and retention optimization critical."
+                title: "How the Rolling 365-Day Watch Hour Window Actually Works",
+                content: "Many new creators mistakenly believe their watch hours reset to zero on January 1st or after one year on YouTube. In reality, YouTube evaluates your channel over a continuous rolling 365-day window. On Day 366, the watch hours you earned on Day 1 drop off your eligibility meter, and today's watch hours are added. To reach 4,000 hours without stalling, yourchannel must average at least 11.0 watch hours (660 minutes) per day."
             },
             {
-                title: "Views Needed Based on Average View Duration (AVD)",
-                content: "4,000 hours equals 240,000 minutes of watch time. If your videos average 4 minutes of watch time per viewer, you need 60,000 total views. If you increase retention to 6 minutes, you only need 40,000 views."
+                title: "How Many Views Equal 4,000 Watch Hours? (The AVD Multiplier)",
+                content: "4,000 watch hours equals exactly 240,000 minutes of public watch time. The number of views you need depends entirely on your Average View Duration (AVD): at a 2-minute AVD, you need 120,000 views; at a 4-minute AVD, you need 60,000 views; at an 8-minute AVD (common in in-depth tutorials and essays), you only need 30,000 views across your entire channel to unlock full AdSense monetization."
+            },
+            {
+                title: "Two-Tier YPP in 2026: 3,000 Hours (Fan Funding) vs. 4,000 Hours (AdSense)",
+                content: "YouTube operates a two-step Partner Program. Tier 1 (Expanded YPP) requires 500 subscribers, 3 public uploads in 90 days, and 3,000 watch hours (or 3M Shorts views), unlocking Channel Memberships, Super Chat, Super Thanks, and YouTube Shopping. Tier 2 (Full YPP) requires 1,000 subscribers and 4,000 watch hours (or 10M Shorts views), unlocking long-form AdSense revenue and Shorts Creator Pool payouts."
+            },
+            {
+                title: "Which Videos Count Toward Valid Public Watch Hours?",
+                content: "Only watch time accumulated from public long-form horizontal videos and public live streams (including archived public live replays) counts toward the 4,000-hour threshold. Views from YouTube Shorts, private videos, unlisted videos, deleted videos, and paid Google Ads campaigns are excluded from the 4,000-hour meter."
             }
         ],
         howTo: {
@@ -3416,16 +3558,29 @@ export const tools: Tool[] = [
                 { name: "Enter Current Hours & Subs", text: "Input your current public watch hours and subscriber count from YouTube Studio." },
                 { name: "Set Video Length & Retention", text: "Enter your typical video length and average percentage retention." },
                 { name: "Review Completion Roadmap", text: "Inspect your estimated completion date, views needed, and rolling window risk score." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "Do YouTube Shorts views count toward the 4,000 watch hours?",
-                answer: "No. Views from the vertical YouTube Shorts feed do not count toward the 4,000 public watch hours. Shorts have an alternate monetization threshold: 10 million valid public Shorts views in the last 90 days."
+                answer: "No. Watch hours generated from the vertical YouTube Shorts feed do not count toward the 4,000 public watch hours requirement. Instead, Shorts creators can qualify for YPP through a separate threshold: 10 million valid public Shorts views within a 90-day period."
             },
             {
                 question: "What happens if I don't reach 4,000 hours within 365 days?",
-                answer: "Your channel does not reset to zero. The 365-day window is a rolling calculation, meaning watch time earned on day 366 replaces watch time earned on day 1. As long as your rolling 12-month total crosses 4,000 hours, you qualify."
+                answer: "Your channel does not reset to zero. Because the 365-day window is rolling, YouTube simply sums your valid public watch time from the most recent 52 weeks. As soon as your trailing 12-month total crosses 4,000 hours and 1,000 subscribers, the Apply button unlocks in YouTube Studio."
+            },
+            {
+                question: "How many minutes is 4,000 watch hours on YouTube?",
+                answer: "4,000 watch hours is equal to 240,000 minutes of total viewer watch time (4,000 × 60 minutes). For the 3,000-hour basic YPP tier, you need 180,000 minutes of watch time."
+            },
+            {
+                question: "What happens to my watch hours if I delete or unlist an old video?",
+                answer: "If you delete a video or change its visibility to Private or Unlisted, all historical watch hours generated by that video are permanently subtracted from your YPP eligibility meter. Keep older videos Public while working toward monetization."
+            },
+            {
+                question: "Do live streams count toward the 4,000 watch hours?",
+                answer: "Yes. Both live watch time during a public broadcast and replay watch time after the stream is published publicly on your channel count 100% toward the 4,000 watch hours."
             }
         ]
     },
@@ -3452,16 +3607,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the Shorts vs Long-Form Profitability Calculator?",
-            text: "This calculator models the financial yield, view equivalence ratio, and production effort between 60-second YouTube Shorts and standard horizontal long-form videos using verified 2026 RPM benchmarks.",
+            text: "The YouTube Shorts vs. Long-Form Profitability Calculator models the real financial yield, view equivalence ratio, production time investment, and effective creator hourly wage between 60-second vertical Shorts and horizontal long-form videos using 2026 Tier-1 RPM benchmarks.",
         },
         content: [
             {
-                title: "The View Equivalence Disparity: $0.05 vs $7.50 RPM",
-                content: "Because YouTube Shorts share pooled ad revenue without standalone commercial interruptions, typical Shorts RPMs hover between $0.03 and $0.07. In contrast, long-form videos in Tier 1 countries average $4.00 to $15.00+ RPM. Consequently, 1 long-form view often equals 100 to 200 Shorts views in revenue."
+                title: "The View Equivalence Disparity: $0.06 Shorts RPM vs. $8.50 Long-Form RPM",
+                content: "Because YouTube Shorts ads run between videos in a shared vertical swipe feed rather than directly inside a specific video, Shorts RPM typically averages $0.04 to $0.12 for Tier-1 audiences. In contrast, 8+ minute long-form videos with pre-roll and mid-roll ad breaks earn $4.50 to $18.00+ RPM in the US, UK, Canada, and Australia. Consequently, 1 long-form view generates the same AdSense revenue as 80 to 150 Shorts views."
             },
             {
-                title: "The 80/20 Hybrid Creator Strategy",
-                content: "Top creators do not choose one format exclusively. They produce high-RPM evergreen long-form videos as their primary business asset, while chopping key hooks into 1-2 Shorts to fuel top-of-funnel algorithmic discovery."
+                title: "Calculating Effective Creator Hourly Wage (ROI on Production Time)",
+                content: "Raw RPM only tells half the story—production effort determines your actual hourly pay. While a 12-minute long-form video may require 12 to 20 hours of research, scripting, filming, and editing, a 45-second Short can often be produced in 1 to 2 hours. Our calculator factors in your editing hours per upload to reveal which format pays a higher hourly return on your time."
+            },
+            {
+                title: "Sponsorship & Affiliate Conversion Differences Across Formats",
+                content: "Long-form viewers exhibit deep buyer intent: clickable links in the description box and 60-second mid-video brand integrations convert at 3x to 8x higher rates than vertical feeds. Shorts excel at rapid brand awareness and subscriber acquisition, while long-form videos drive high-ticket SaaS affiliates, course sales, and $25–$45 CPM sponsorships."
+            },
+            {
+                title: "The 80/20 Hybrid Funnel Strategy Used by Top Media Channels",
+                content: "Profitable creator businesses rarely rely on Shorts alone for AdSense. Instead, they allocate 80% of production bandwidth to evergreen, search-optimized long-form videos that compound watch time for years, and use the remaining 20% to cut high-retention Shorts that link directly to the parent long-form video via YouTube's 'Related Video' pill."
             }
         ],
         howTo: {
@@ -3471,16 +3634,29 @@ export const tools: Tool[] = [
                 { name: "Set Revenue Goal", text: "Enter your desired monthly AdSense revenue target." },
                 { name: "Adjust Format RPMs", text: "Input your channel's specific RPM for long-form and Shorts." },
                 { name: "Compare Views & Hours", text: "Review the required view volume, monthly editing hours, and effective hourly wage." }
-            ]
+            ],
+            totalTime: "PT2M"
         },
         faqs: [
             {
                 question: "Why do YouTube Shorts pay so much less than long-form videos?",
-                answer: "Shorts ads appear between videos in a continuous vertical feed rather than directly on the creator's video. Ad revenue is pooled across all creators and divided by view share, whereas long-form creators receive 55% of all ads served directly on their content."
+                answer: "Shorts ads appear between videos in the vertical feed rather than on individual uploads. All Shorts ad revenue goes into the Creator Pool, deducts music licensing costs, and pays creators 45% based on view share—whereas long-form creators receive 55% of pre-roll, mid-roll, and post-roll ads served directly on their video."
+            },
+            {
+                question: "How many Shorts views equal 100,000 long-form views in revenue?",
+                answer: "At a typical Tier-1 long-form RPM of $7.50 ($750 per 100,000 views) and a Shorts RPM of $0.06, you need approximately 12.5 million YouTube Shorts views to earn the same $750 in AdSense revenue."
             },
             {
                 question: "Do Shorts subscribers watch long-form videos?",
-                answer: "Generally, Shorts viewers have short attention spans and lower long-form click-through rates. Expect 2% to 5% of Shorts subscribers to actively watch your 10+ minute videos."
+                answer: "On average, only 2% to 5% of subscribers acquired purely from viral Shorts transition into watching 10+ minute long-form uploads spontaneously. Using YouTube's built-in 'Related Video' link on every Short is essential to bridge viewers across formats."
+            },
+            {
+                question: "Does posting Shorts hurt my long-form video reach?",
+                answer: "No. YouTube's recommendation neural network separates vertical Shorts viewer histories from long-form watch histories, so publishing Shorts on the same channel does not penalize your long-form CTR or impressions."
+            },
+            {
+                question: "Which format is faster for reaching YouTube monetization?",
+                answer: "For most creators, reaching 4,000 watch hours via 8-to-12-minute searchable tutorials requires only 40,000 to 60,000 total views, which is significantly more predictable than generating 10 million public Shorts views within a strict 90-day window."
             }
         ]
     },
@@ -3507,16 +3683,24 @@ export const tools: Tool[] = [
         ],
         definitionBlock: {
             title: "What is the YouTube Milestone Countdown Calculator?",
-            text: "The YouTube Milestone Countdown Calculator estimates the calendar arrival dates for YouTube Creator Awards (100K Silver Play Button, 1M Gold Play Button) based on recent subscriber velocity.",
+            text: "The YouTube Milestone & Play Button Countdown Calculator projects the exact calendar dates your channel will unlock 1,000 subscribers (Full YPP), 10,000 subscribers (Brand Deal Tier), 100,000 subscribers (Silver Creator Award), and 1,000,000 subscribers (Gold Creator Award) using linear and compound growth velocity models.",
         },
         content: [
             {
-                title: "Official YouTube Creator Award Thresholds",
-                content: "YouTube awards physical Creator Awards plaques to channels that meet strict subscriber milestones: Silver (100,000 subscribers), Gold (1,000,000 subscribers), and Diamond (10,000,000 subscribers). Channels must be in good standing with zero active Community Guidelines strikes."
+                title: "Official YouTube Creator Award Thresholds (Silver, Gold & Diamond)",
+                content: "YouTube's Creator Awards program recognizes channels that cross verified subscriber milestones with physical plaques: the Silver Creator Award at 100,000 subscribers, the Gold Creator Award at 1,000,000 subscribers, the Diamond Creator Award at 10,000,000 subscribers, and the Red Diamond Award at 100,000,000 subscribers. Beyond physical plaques, 1,000 subscribers unlocks Full YPP AdSense, and 10,000 subscribers unlocks agency sponsorship retainers."
             },
             {
-                title: "Accelerating Subscriber Velocity with Milestone Roadmaps",
-                content: "Tracking daily subscriber velocity helps creators identify momentum shifts, set realistic sponsorship targets, and plan celebratory community live streams as major milestones approach."
+                title: "Linear vs. Compounding Subscriber Velocity Modeling",
+                content: "Early-stage channels rarely grow in a flat straight line. As your video library expands and older evergreen tutorials continue ranking in search, your monthly subscriber gain compounds. Our calculator lets you model both flat 30-day linear pace and compounding monthly acceleration (e.g., +5% to +15% monthly growth) to see how one viral outlier shifts your Play Button arrival date by months."
+            },
+            {
+                title: "Eligibility Audit: Why Some 100K Channels Are Denied a Play Button",
+                content: "Crossing 100,000 subscribers does not automatically guarantee a Silver Play Button. Before issuing a redemption code, YouTube human reviewers audit the channel for: zero active Community Guidelines or copyright strikes in the last 365 days, compliance with YouTube Partner Program policies, no artificially inflated/botted subscribers, and original commentary or creative value."
+            },
+            {
+                title: "Using Milestone Roadmaps to Negotiate Higher Sponsorship Rates",
+                content: "When pitching brand sponsors and talent agencies, showing your verified 30-day subscriber velocity and projected milestone date proves upward trajectory. Brands frequently lock in multi-video packages ahead of a creator's 50K or 100K milestone to capture rising audience momentum at current CPM rates."
             }
         ],
         howTo: {
@@ -3526,16 +3710,29 @@ export const tools: Tool[] = [
                 { name: "Enter Current Subscribers", text: "Input your live subscriber count." },
                 { name: "Enter 30-Day Growth", text: "Input how many new subscribers you gained over the past month." },
                 { name: "Review Milestone Calendar", text: "Inspect completion dates, days remaining, and download your roadmap certificate." }
-            ]
+            ],
+            totalTime: "PT1M"
         },
         faqs: [
             {
                 question: "Is the YouTube Silver Play Button made of real silver?",
-                answer: "No. The Silver Creator Award plaque is made of nickel-plated cupronickel. The Gold Play Button is made of gold-plated brass."
+                answer: "No. The modern Silver Creator Award plaque is crafted from 92% nickel, 5% carbon, and 2.5% zinc, with traces of other metals to give it a durable brushed-silver finish. The Gold Creator Award is made of gold-plated brass."
             },
             {
                 question: "How long does it take for YouTube to ship a Play Button?",
-                answer: "Once you cross 100,000 or 1,000,000 subscribers, YouTube reviews your channel for eligibility (usually 1-2 weeks), provides a redemption code in YouTube Studio, and ships the plaque in 2 to 4 weeks."
+                answer: "After your channel crosses 100,000 or 1,000,000 subscribers, YouTube's eligibility review takes 1 to 2 weeks. Once approved, you receive a redemption code banner in YouTube Studio to enter on the Society Awards portal, and physical delivery typically takes 2 to 4 weeks."
+            },
+            {
+                question: "Does the YouTube Play Button cost money or shipping fees?",
+                answer: "Your first official Creator Award plaque for each milestone (100K, 1M, 10M) is 100% free, including international shipping and customs duties covered by YouTube. Ordering extra duplicate plaques for team members incurs a fee."
+            },
+            {
+                question: "Can a YouTube Shorts channel get a Silver or Gold Play Button?",
+                answer: "Yes. Subscribers gained from YouTube Shorts count identically to long-form subscribers toward the 100,000 Silver and 1,000,000 Gold Play Button thresholds, provided your content is original and follows Community Guidelines."
+            },
+            {
+                question: "What is a healthy monthly subscriber growth rate for a growing channel?",
+                answer: "Established channels typically grow their subscriber count by 3% to 8% per month, while breakout channels publishing high-CTR long-form and Shorts content frequently sustain 10% to 25%+ monthly compounding growth."
             }
         ]
     },

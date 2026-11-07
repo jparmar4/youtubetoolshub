@@ -3,36 +3,36 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Premium Light Theme (Luminous Violet) */
-  /* Base: Soft Porcelain */
+  /* Premium UHD Light Theme (Luminous Spatial Violet) */
   --background: #f8fafc;
-
-  /* Text: Deep Charcoal & Slate */
   --foreground: #0f172a;
 
-  /* Primary: Electric Violet (High contrast against white) */
-  --primary: #8b5cf6;
+  /* Primary: Electric Violet */
+  --primary: #7c3aed;
   --primary-light: #a78bfa;
-  --primary-dark: #7c3aed;
-  --primary-glow: rgba(139, 92, 246, 0.15);
+  --primary-dark: #6d28d9;
+  --primary-glow: rgba(124, 58, 237, 0.18);
 
   /* Accents */
   --secondary: #f1f5f9;
   --accent: #d8b4fe;
 
-  /* Surfaces - Light & Clean */
+  /* Surfaces - UHD Multi-Layer */
   --surface-100: #ffffff;
   --surface-200: #f8fafc;
   --surface-300: #f1f5f9;
 
   /* UI Borders */
-  --border-color: rgba(148, 163, 184, 0.2);
+  --border-color: rgba(148, 163, 184, 0.22);
 
-  /* Glassmorphism - Light Frost */
-  --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95));
+  /* 3D Glassmorphism - UHD Crystal */
+  --card-gradient: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(248, 250, 252, 0.88) 55%,
+    rgba(241, 245, 249, 0.94) 100%
+  );
 }
-
-/* Dark mode styles removed to enforce Premium Light Theme */
 
 @theme inline {
   --color-background: var(--background);
@@ -48,17 +48,20 @@
   --font-heading: var(--font-outfit);
 }
 
-/* Base Setup */
+/* Base Setup — UHD Crisp Subpixel Rendering */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Keyboard focus visibility (do not remove outlines without a replacement) */
+/* Keyboard focus visibility */
 :focus-visible {
-  outline: 2px solid var(--primary-dark, #7c3aed);
+  outline: 2px solid var(--primary-dark, #6d28d9);
   outline-offset: 2px;
 }
 
@@ -80,72 +83,226 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading), sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
-/* --- Premium Utilities --- */
+/* ==========================================================================
+   UHD SPATIAL BACKGROUNDS & 3D ARCHITECTURAL GRIDS
+   ========================================================================== */
 
-/* Hero Background - The "Deep Cosmic Nebula" */
-/* Hero Background - The "Luminous Nebula" */
+/* Hero Background - UHD Spatial Nebula + Precision Grid */
 .nebula-bg {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
   z-index: -1;
-  background: var(--background);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(at 18% 12%, rgba(124, 58, 237, 0.11) 0px, transparent 50%),
+    radial-gradient(at 82% 18%, rgba(217, 70, 239, 0.10) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(14, 165, 233, 0.08) 0px, transparent 55%),
+    linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
 }
 
 .nebula-bg::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 70%;
-  height: 70%;
-  /* Subtle light mode glow */
+  top: -15%;
+  left: -8%;
+  width: 65%;
+  height: 65%;
   background: radial-gradient(circle, var(--primary-glow) 0%, transparent 65%);
-  filter: blur(100px);
-  animation: float-slow 15s infinite alternate ease-in-out;
-  opacity: 0.6;
+  filter: blur(90px);
+  animation: float-slow 16s infinite alternate ease-in-out;
+  opacity: 0.75;
 }
 
 .nebula-bg::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -10%;
-  right: -5%;
-  width: 60%;
-  height: 70%;
-  /* Soft pink/purple glow */
-  background: radial-gradient(circle, rgba(216, 180, 254, 0.2) 0%, transparent 65%);
-  filter: blur(100px);
+  bottom: -12%;
+  right: -6%;
+  width: 55%;
+  height: 65%;
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.18) 0%, transparent 65%);
+  filter: blur(95px);
   animation: float-slow 20s infinite alternate-reverse ease-in-out;
-  opacity: 0.5;
+  opacity: 0.65;
 }
 
-/* Glassmorphism 2.0 - Light Crystal */
+/* Subtle UHD Isometric / Perspective Floor Grid for Dark Sections */
+.uhd-dark-grid {
+  background-image:
+    radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.28) 0px, transparent 60%),
+    radial-gradient(at 85% 90%, rgba(236, 72, 153, 0.18) 0px, transparent 55%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+}
+
+/* ==========================================================================
+   3D GLASSMORPHISM & TACTILE SURFACES
+   ========================================================================== */
+
+/* Glassmorphism 3.0 - UHD Tactile Crystal with Specular Inner Bevel */
 .glass-premium {
   background: var(--card-gradient);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 20px rgba(148, 163, 184, 0.1);
-  /* Soft slate shadow */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 0 rgba(15, 23, 42, 0.03),
+    0 4px 6px -1px rgba(15, 23, 42, 0.04),
+    0 12px 28px -6px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
 }
 
 .glass-premium:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
-  /* Purple tint on hover */
-  transform: translateY(-2px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    inset 0 -2px 0 0 rgba(124, 58, 237, 0.08),
+    0 14px 32px -8px rgba(124, 58, 237, 0.16),
+    0 6px 14px -4px rgba(15, 23, 42, 0.06);
+  transform: translate3d(0, -4px, 0);
 }
 
-/* Text Gradients - Vibrant on White */
+/* 3D Interactive Card with Physical Lip & Depth Elevation */
+.card-3d {
+  position: relative;
+  background: linear-gradient(160deg, #ffffff 0%, #f8fafc 65%, #f1f5f9 100%);
+  border: 1px solid rgba(203, 213, 225, 0.75);
+  box-shadow:
+    inset 0 1.5px 0 0 #ffffff,
+    0 3px 0 0 rgba(203, 213, 225, 0.65),
+    0 10px 25px -5px rgba(15, 23, 42, 0.07),
+    0 4px 10px -2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+.card-3d:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  transform: translate3d(0, -6px, 0);
+  box-shadow:
+    inset 0 1.5px 0 0 #ffffff,
+    0 5px 0 0 rgba(124, 58, 237, 0.22),
+    0 22px 44px -10px rgba(124, 58, 237, 0.18),
+    0 8px 18px -4px rgba(15, 23, 42, 0.07);
+}
+
+/* 3D Extruded Icon Cube */
+.icon-cube-3d {
+  background: linear-gradient(145deg, #ffffff 0%, #f3e8ff 100%);
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  box-shadow:
+    inset 0 1.5px 0 0 #ffffff,
+    0 3px 0 0 rgba(147, 51, 234, 0.18),
+    0 8px 16px -4px rgba(124, 58, 237, 0.22);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.35s ease;
+}
+
+.group:hover .icon-cube-3d {
+  background: linear-gradient(145deg, #7c3aed 0%, #c026d3 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translate3d(0, -3px, 0) scale(1.08) rotate(-3deg);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.45),
+    0 4px 0 0 #4c1d95,
+    0 12px 24px -4px rgba(124, 58, 237, 0.45);
+}
+
+/* Tactile 3D Primary CTA Button */
+.btn-3d-primary {
+  position: relative;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.28),
+    0 4px 0 0 #020617,
+    0 14px 28px -6px rgba(15, 23, 42, 0.4),
+    0 0 25px -5px rgba(124, 58, 237, 0.35);
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-3d-primary:hover {
+  background: linear-gradient(180deg, #6d28d9 0%, #4c1d95 100%);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.4),
+    0 6px 0 0 #2e1065,
+    0 20px 36px -8px rgba(124, 58, 237, 0.55);
+}
+
+.btn-3d-primary:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    0 1px 0 0 #2e1065,
+    0 6px 12px -4px rgba(124, 58, 237, 0.4);
+}
+
+/* Tactile 3D Crystal Secondary Button */
+.btn-3d-glass {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  color: #0f172a;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow:
+    inset 0 1.5px 0 0 #ffffff,
+    0 4px 0 0 #cbd5e1,
+    0 12px 24px -6px rgba(15, 23, 42, 0.1);
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-3d-glass:hover {
+  border-color: rgba(124, 58, 237, 0.5);
+  color: #6d28d9;
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 1.5px 0 0 #ffffff,
+    0 6px 0 0 #ddd6fe,
+    0 18px 32px -6px rgba(124, 58, 237, 0.18);
+}
+
+.btn-3d-glass:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 0 #ffffff,
+    0 1px 0 0 #cbd5e1;
+}
+
+/* 3D Studio Console Frame for Tool Interfaces */
+.studio-console-3d {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  box-shadow:
+    inset 0 2px 0 0 #ffffff,
+    0 6px 0 0 #e2e8f0,
+    0 25px 50px -12px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(15, 23, 42, 0.02);
+}
+
+/* ==========================================================================
+   UHD TEXT GRADIENTS & ANIMATIONS
+   ========================================================================== */
+
 .text-gradient {
-  background: linear-gradient(135deg, #7c3aed 0%, #d946ef 100%);
-  /* Deep Purple to Pink */
+  background: linear-gradient(135deg, #6d28d9 0%, #c026d3 55%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -158,16 +315,31 @@ h6 {
   background-clip: text;
 }
 
-/* --- Animations --- */
-
 @keyframes float-slow {
   0% {
     transform: translate(0, 0);
   }
-
   100% {
     transform: translate(30px, 50px);
   }
+}
+
+@keyframes float-3d {
+  0%,
+  100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+.animate-float-3d {
+  animation: float-3d 6s ease-in-out infinite;
+}
+
+.animate-float-3d-delayed {
+  animation: float-3d 7s ease-in-out 1.5s infinite;
 }
 
 @keyframes fade-in-up {
@@ -175,7 +347,6 @@ h6 {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -200,12 +371,10 @@ h6 {
 
 /* Glow Pulse for AI badges or Call to actions */
 @keyframes glow-pulse {
-
   0%,
   100% {
     box-shadow: 0 0 15px var(--primary-glow);
   }
-
   50% {
     box-shadow: 0 0 30px var(--primary-glow), 0 0 10px var(--accent);
   }

@@ -6,12 +6,13 @@ import {
   getToolListSchema,
   getBreadcrumbSchema,
   getFAQSchema,
+  getGlobalAlternates,
 } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
-import { AD_SLOTS } from "@/lib/adsense";
+import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 import {
   FaCalculator,
   FaHandshake,
@@ -81,13 +82,7 @@ export const metadata: Metadata = {
     type: "website",
     url: `${siteConfig.url}/tools`,
   },
-  alternates: {
-    canonical: `${siteConfig.url}/tools`,
-    languages: {
-      en: `${siteConfig.url}/tools`,
-      "x-default": `${siteConfig.url}/tools`,
-    },
-  },
+  alternates: getGlobalAlternates("/tools"),
 };
 
 export default function ToolsPage() {
@@ -143,16 +138,15 @@ export default function ToolsPage() {
       />
 
       <div className="min-h-screen py-16 sm:py-20 relative overflow-hidden bg-slate-50">
-        {/* Background Decorations */}
+        {/* UHD Spatial Background Decorations */}
+        <div className="nebula-bg" />
         <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-purple-100/40 via-blue-50/20 to-transparent -z-10" />
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 -left-24 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
           <div className="text-center mb-10 animate-fade-in-up">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-lg shadow-purple-500/20">
-              {tools.length} Free Creator Tools · No Signup
+            <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-[0_6px_20px_rgba(124,58,237,0.28),inset_0_1px_0_rgba(255,255,255,0.25)]">
+              {tools.length} Free Creator Tools · 4K UHD · No Signup
             </span>
             <h1
               className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-outfit"
@@ -196,8 +190,9 @@ export default function ToolsPage() {
 
           {/* Tier 1 Commercial Stack Spotlight */}
           <div id="tier1-calculators" className="mb-20 scroll-mt-24">
-            <div className="bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-slate-950 uhd-dark-grid border border-purple-500/30 rounded-3xl p-6 sm:p-10 text-white shadow-[0_28px_60px_-15px_rgba(15,23,42,0.5)] relative overflow-hidden">
+              <div className="absolute inset-x-12 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
               <div className="relative z-10">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                   <div>
@@ -329,7 +324,7 @@ export default function ToolsPage() {
 
           {/* Tools by Category */}
           <div className="space-y-28">
-            {toolCategories.map((category) => {
+            {toolCategories.map((category, index) => {
               const categoryTools = getToolsByCategory(category.id);
               return (
                 <div key={category.id} id={category.id} className="scroll-mt-24">
@@ -381,7 +376,7 @@ export default function ToolsPage() {
 
                     <div className="mt-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                      <GoogleAd slot="3104734850" format="fluid" layout="in-article" />
+                      <GoogleAd slot={pickInArticleSlot(index)} format="fluid" layout="in-article" />
                     </div>
                   </section>
                 </div>
@@ -407,6 +402,12 @@ export default function ToolsPage() {
                   CREATOR FOCUSED
                 </span>
               </div>
+            </div>
+
+            {/* Bottom Multiplex Ad Unit */}
+            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
+              <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
             </div>
 
             {/* AEO: visible FAQ matching FAQPage schema */}

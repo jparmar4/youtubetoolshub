@@ -117,7 +117,7 @@ export default function SEOToolsHub() {
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
-                            5 Free SEO Tools
+                            {seoTools.length} Free SEO &amp; Metadata Tools
                         </div>
                         <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
                             YouTube SEO Tools 2026
@@ -199,7 +199,7 @@ export default function SEOToolsHub() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd slot="8649718301" />
+                        <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
                     </div>
 
                     {/* Deep Dive Content */}

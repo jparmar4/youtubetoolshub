@@ -161,13 +161,13 @@ function Header() {
           {/* Dynamic Glowing Accent Top Border */}
           <div className="h-[2px] w-full bg-gradient-to-r from-red-600 via-purple-600 to-amber-500" />
 
-          <div className="bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_25px_-5px_rgba(0,0,0,0.06)]">
+          <div className="bg-white/90 backdrop-blur-2xl border-b border-slate-200/90 shadow-[0_8px_30px_-8px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16 md:h-20 gap-3">
                 {/* Logo & Brand */}
                 <div className="flex-shrink-0 flex items-center">
                   <Link href="/" className="flex items-center gap-2.5 group">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-purple-500/25 group-hover:scale-105 group-hover:shadow-purple-500/40 transition-all duration-300">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-[inset_0_1.5px_0_0_rgba(255,255,255,0.45),0_3px_0_0_#4c1d95,0_8px_16px_-4px_rgba(124,58,237,0.4)] group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300">
                       <FaYoutube className="w-5 h-5 sm:w-5.5 sm:h-5.5" />
                     </div>
                     <div className="flex flex-col">
@@ -175,7 +175,7 @@ function Header() {
                         {siteConfig.name}
                       </span>
                       <span className="hidden sm:inline-block text-[10px] font-bold text-purple-700 tracking-wider uppercase -mt-0.5">
-                        Free Creator Suite • 44 Tools
+                        4K Creator Suite • 44 Tools
                       </span>
                     </div>
                   </Link>

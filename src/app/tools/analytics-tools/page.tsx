@@ -5,17 +5,19 @@ import { siteConfig } from "@/config/site";
 import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
+import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
-    title: "YouTube Analytics & Earnings Tools - ROI & Revenue Calculators 2026",
-    description: "YouTube analytics tools for creators. Estimate revenue potential, review engagement benchmarks, and compare title ideas with our free 2026 suite.",
-    keywords: ["youtube earnings calculator", "engagement rate benchmarks 2026", "youtube monetization tools", "cpm by niche 2026", "title ab testing tool", "youtube roi calculator"],
+    title: "YouTube Analytics, Revenue & Tax Calculators — 14 Free Tools (2026)",
+    description: "14 free YouTube analytics, revenue, sponsorship, channel valuation, S-Corp tax, and AdSense banking calculators for Tier-1 and global creators in 2026.",
+    keywords: ["youtube earnings calculator", "youtube sponsorship calculator", "youtube channel valuation calculator", "youtube llc vs s corp calculator", "engagement rate benchmarks 2026", "youtube monetization tools", "cpm by niche 2026", "youtube roi calculator"],
     openGraph: {
-        title: "3 Free YouTube Analytics & Earnings Tools | Revenue & ROI 2026",
-        description: "Calculate your YouTube income, analyze engagement depth, and optimize title performance with our 2026 AI-powered analytics suite.",
+        title: "14 Free YouTube Analytics, Revenue & Tax Calculators | ROI 2026",
+        description: "Calculate your YouTube AdSense income, sponsorship rates, channel net worth, S-Corp tax savings, and engagement depth with our 2026 suite.",
         type: "website",
         url: `${siteConfig.url}/tools/analytics-tools`,
     },
@@ -117,13 +119,13 @@ export default function AnalyticsToolsHub() {
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4">
-                            3 Free Analytics Tools
+                            {analyticsTools.length} Free Analytics &amp; Revenue Calculators
                         </div>
                         <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
-                            Analytics &amp; Earnings Hub 2026
+                            Analytics, Revenue &amp; Tax Hub 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed summary" data-speakable>
-                            Turn your data into a sustainable media business. Our 2026 analytics suite helps you calculate revenue potential, verify engagement depth, and predict viral click outcomes.
+                            Turn your data into a sustainable media business. Our {analyticsTools.length}-tool analytics suite helps you model Tier-1 AdSense RPM, price brand sponsorships, value your channel, and optimize LLC vs S-Corp creator taxes.
                         </p>
                     </div>
 
@@ -195,9 +197,19 @@ export default function AnalyticsToolsHub() {
                         <AffiliateBanner toolId="vidiq" variant="inArticle" />
                     </div>
 
+                    {/* Tier-1 CPM & Tax Comparison Matrix */}
+                    <div className="my-10">
+                        <Tier1ComparisonMatrix />
+                    </div>
+
+                    {/* International Banking & Payout Optimization */}
+                    <div className="my-8">
+                        <InternationalPayoutCallout />
+                    </div>
+
                     {/* Mid Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd slot="8649718301" />
+                        <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
                     </div>
 
                     {/* Deep Dive Content */}
@@ -250,6 +262,12 @@ export default function AnalyticsToolsHub() {
                                 </div>
                             ))}
                         </div>
+                    </div>
+
+                    {/* Bottom Multiplex Ad */}
+                    <div className="mb-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
+                        <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
                     </div>
 
                     {/* Final CTA */}

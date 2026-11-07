@@ -4,156 +4,167 @@ import Link from "next/link";
 import { FaRocket, FaArrowRight } from "react-icons/fa";
 
 interface WorkflowStep {
-    id: number;
-    title: string;
-    description: string;
-    tool: string;
-    toolSlug: string;
-    color: string;
-    paramKey?: string; // The query parameter to use for the next tool
+  id: number;
+  title: string;
+  description: string;
+  tool: string;
+  toolSlug: string;
+  color: "yellow" | "blue" | "purple" | "pink";
+  paramKey?: string;
 }
 
 const workflowSteps: WorkflowStep[] = [
-    {
-        id: 1,
-        title: "Find an Idea",
-        description: "Use Video Ideas Generator to find a high-potential topic.",
-        tool: "Video Ideas Generator",
-        toolSlug: "youtube-video-ideas-generator",
-        color: "yellow",
-    },
-    {
-        id: 2,
-        title: "Get a Title",
-        description: "Generate viral title options for your idea.",
-        tool: "Title Generator",
-        toolSlug: "youtube-title-generator",
-        color: "blue",
-        paramKey: "topic",
-    },
-    {
-        id: 3,
-        title: "Write Description",
-        description: "Create SEO-optimized description text.",
-        tool: "Description Generator",
-        toolSlug: "youtube-description-generator",
-        color: "purple",
-        paramKey: "topic",
-    },
-    {
-        id: 4,
-        title: "Create Thumbnail",
-        description: "Get the perfect AI prompt for your thumbnail.",
-        tool: "AI Thumbnail Prompt",
-        toolSlug: "youtube-ai-thumbnail-prompt",
-        color: "pink",
-        paramKey: "topic",
-    },
+  {
+    id: 1,
+    title: "Find an Idea",
+    description: "Use Video Ideas Generator to find a high-potential topic.",
+    tool: "Video Ideas Generator",
+    toolSlug: "youtube-video-ideas-generator",
+    color: "yellow",
+  },
+  {
+    id: 2,
+    title: "Get a Title",
+    description: "Generate viral title options for your idea.",
+    tool: "Title Generator",
+    toolSlug: "youtube-title-generator",
+    color: "blue",
+    paramKey: "topic",
+  },
+  {
+    id: 3,
+    title: "Write Description",
+    description: "Create SEO-optimized description text.",
+    tool: "Description Generator",
+    toolSlug: "youtube-description-generator",
+    color: "purple",
+    paramKey: "topic",
+  },
+  {
+    id: 4,
+    title: "Create Thumbnail",
+    description: "Get the perfect AI prompt for your thumbnail.",
+    tool: "AI Thumbnail Prompt",
+    toolSlug: "youtube-ai-thumbnail-prompt",
+    color: "pink",
+    paramKey: "topic",
+  },
 ];
 
+const colorClasses: Record<
+  WorkflowStep["color"],
+  { cube: string; text: string; pill: string; rim: string }
+> = {
+  yellow: {
+    cube: "from-amber-500 to-orange-500 shadow-amber-500/30",
+    text: "text-amber-600",
+    pill: "bg-amber-50 text-amber-700 border-amber-200",
+    rim: "from-amber-400 to-orange-500",
+  },
+  blue: {
+    cube: "from-sky-500 to-indigo-600 shadow-sky-500/30",
+    text: "text-sky-600",
+    pill: "bg-sky-50 text-sky-700 border-sky-200",
+    rim: "from-sky-400 to-indigo-500",
+  },
+  purple: {
+    cube: "from-purple-600 to-violet-700 shadow-purple-500/30",
+    text: "text-purple-600",
+    pill: "bg-purple-50 text-purple-700 border-purple-200",
+    rim: "from-purple-500 to-violet-600",
+  },
+  pink: {
+    cube: "from-fuchsia-600 to-pink-600 shadow-pink-500/30",
+    text: "text-pink-600",
+    pill: "bg-pink-50 text-pink-700 border-pink-200",
+    rim: "from-fuchsia-500 to-pink-600",
+  },
+};
+
 export default function SmartWorkflow() {
-    const getStepLink = (step: WorkflowStep) => {
-        return `/tools/${step.toolSlug}`;
-    };
+  return (
+    <section className="py-20 relative overflow-hidden bg-slate-50">
+      <div className="nebula-bg opacity-70" />
 
-    const colorClasses: Record<string, { bg: string; text: string; ring: string; border: string }> = {
-        yellow: {
-            bg: "bg-amber-100",
-            text: "text-amber-600",
-            ring: "ring-amber-500",
-            border: "border-amber-200"
-        },
-        blue: {
-            bg: "bg-cyan-100",
-            text: "text-cyan-600",
-            ring: "ring-cyan-500",
-            border: "border-cyan-200"
-        },
-        purple: {
-            bg: "bg-purple-100",
-            text: "text-purple-600",
-            ring: "ring-purple-500",
-            border: "border-purple-200"
-        },
-        pink: {
-            bg: "bg-fuchsia-100",
-            text: "text-fuchsia-600",
-            ring: "ring-fuchsia-500",
-            border: "border-fuchsia-200"
-        },
-    };
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-14">
+          <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
+            3D Smart Context Pipeline
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
+            From Idea to Upload in{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
+              5 Minutes
+            </span>{" "}
+            ⚡
+          </h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Our tools utilize{" "}
+            <span className="font-bold text-purple-700">Smart Context Passing</span>.
+            Data flows automatically from one tool to the next, building your video package effortlessly.
+          </p>
+        </div>
 
-    return (
-        <section className="py-16 relative overflow-hidden bg-slate-50">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-purple-200/20 blur-[120px] rounded-full -z-10" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-100/30 blur-[100px] rounded-full -z-10" />
+        <div className="relative">
+          {/* 3D Glowing Connector Beam (Desktop) */}
+          <div className="hidden lg:block absolute top-[32%] left-[12%] w-[76%] h-1.5 rounded-full bg-gradient-to-r from-amber-300 via-purple-400 to-pink-400 opacity-50 -translate-y-1/2 z-0" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-12 relative">
-                    <span className="inline-block py-1 px-3 rounded-full bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold uppercase tracking-widest mb-4">
-                        Seamless & Fast
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+            {workflowSteps.map((step) => {
+              const colors = colorClasses[step.color];
+
+              return (
+                <Link
+                  key={step.id}
+                  href={`/tools/${step.toolSlug}`}
+                  className="group card-3d rounded-3xl p-7 block overflow-hidden text-center"
+                >
+                  {/* Top Specular Color Rim */}
+                  <div
+                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${colors.rim}`}
+                  />
+
+                  <div className="relative z-10">
+                    <div
+                      className={`w-15 h-15 rounded-2xl bg-gradient-to-br ${colors.cube} text-white flex items-center justify-center text-xl font-black mb-6 mx-auto shadow-lg group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300`}
+                    >
+                      0{step.id}
+                    </div>
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border mb-2.5 ${colors.pill}`}
+                    >
+                      {step.tool}
                     </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                        From Idea to Upload in <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">5 Minutes</span> ⚡
-                    </h2>
-                    <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                        Our tools utilize <span className="font-semibold text-purple-700">Smart Context Passing</span>.
-                        Data flows automatically from one tool to the next, building your video package effortlessly.
+                    <h3 className="font-black text-xl text-slate-900 mb-2.5 group-hover:text-purple-700 transition-colors font-outfit">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {step.description}
                     </p>
-                </div>
 
-                <div className="relative">
-                    {/* Connector Line (Desktop) */}
-                    <div className="hidden lg:block absolute top-[28%] left-[10%] w-[80%] h-1 bg-gradient-to-r from-transparent via-purple-300 to-transparent -translate-y-1/2 z-0" />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                        {workflowSteps.map((step) => {
-                            const colors = colorClasses[step.color];
-
-                            return (
-                                <Link
-                                    key={step.id}
-                                    href={getStepLink(step)}
-                                    className={`group relative bg-white rounded-2xl p-6 shadow-xl shadow-purple-900/5 border ${colors.border} hover:-translate-y-2 transition-all duration-300 block overflow-hidden`}
-                                >
-                                    {/* Hover Gradient Overlay */}
-                                    <div className={`absolute inset-0 bg-gradient-to-br from-white to-${step.color}-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-
-                                    <div className="relative z-10">
-                                        <div
-                                            className={`w-14 h-14 rounded-2xl ${colors.bg} ${colors.text} flex items-center justify-center text-xl font-bold mb-6 mx-auto shadow-sm group-hover:rotate-6 transition-transform duration-300`}
-                                        >
-                                            {step.id}
-                                        </div>
-                                        <h3 className="font-bold text-xl text-slate-900 mb-3 text-center group-hover:text-purple-700 transition-colors">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-sm text-slate-500 text-center leading-relaxed">
-                                            {step.description}
-                                        </p>
-
-                                        <div className="mt-6 flex justify-center opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                                            <span className={`text-xs font-bold uppercase tracking-wide ${colors.text} flex items-center gap-1`}>
-                                                Start Now <FaArrowRight />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                    <div className="mt-5 pt-3 border-t border-slate-200/60 flex justify-center">
+                      <span
+                        className={`text-xs font-extrabold uppercase tracking-wider ${colors.text} flex items-center gap-1.5 group-hover:translate-x-1 transition-transform`}
+                      >
+                        Launch Step <FaArrowRight className="w-3 h-3" />
+                      </span>
                     </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
 
-                    <div className="text-center mt-16">
-                        <Link
-                            href="/tools/youtube-video-ideas-generator"
-                            className="inline-flex items-center gap-2 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-900/20 px-8 py-4 rounded-xl text-lg font-bold transform hover:scale-105 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-                        >
-                            <FaRocket aria-hidden="true" /> Start Your Workflow
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+          <div className="text-center mt-14">
+            <Link
+              href="/tools/youtube-video-ideas-generator"
+              className="btn-3d-primary inline-flex items-center gap-2.5 px-9 py-4 rounded-2xl text-lg font-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            >
+              <FaRocket aria-hidden="true" className="text-pink-400" /> Start Your Workflow
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

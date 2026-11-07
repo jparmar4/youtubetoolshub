@@ -117,7 +117,7 @@ export default function ThumbnailToolsHub() {
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider mb-4">
-                            4 Free Media Tools
+                            {thumbnailTools.length} Free Thumbnail &amp; Media Tools
                         </div>
                         <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
                             YouTube Thumbnail Tools 2026
@@ -199,7 +199,7 @@ export default function ThumbnailToolsHub() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd slot="7688425196" />
+                        <GoogleAd slot="7688425196" format="fluid" layout="in-article" />
                     </div>
 
                     {/* Deep Dive Content - E-E-A-T Optimized */}
