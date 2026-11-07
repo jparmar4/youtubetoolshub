@@ -8,7 +8,9 @@ import {
     FaUser, FaHashtag, FaMicrophone, FaIdCard, FaListUl,
     FaTrophy, FaUsers, FaClock, FaDownload, FaVideo, FaPaintBrush, FaCompass,
     FaHandshake, FaFileInvoiceDollar, FaCoins, FaMobileAlt, FaMusic, FaStore, FaBuilding,
-    FaBullhorn, FaLink, FaCode, FaUniversity, FaFire, FaAward} from "react-icons/fa";
+    FaBullhorn, FaLink, FaCode, FaUniversity, FaFire, FaAward,
+    FaPalette, FaClipboardCheck, FaClosedCaptioning, FaCompressAlt, FaHourglassHalf, FaExchangeAlt
+} from "react-icons/fa";
 import { IconType } from "react-icons";
 
 export interface Tool {
@@ -245,7 +247,7 @@ export const tools: Tool[] = [
         description: "Generate stunning thumbnail images with AI. Just describe what you want and get a unique, professional thumbnail in seconds optimized for YouTube.",
         shortDescription: "Generate thumbnail images with AI",
         category: "thumbnail-media",
-        icon: FaImage,
+        icon: FaPalette,
         isAI: true,
         isFeatured: true,
         keywords: ["ai thumbnail generator", "youtube thumbnail creator", "ai image generator for youtube", "custom thumbnail maker", "generate youtube thumbnails", "ai art for youtube", "automatic thumbnail creator", "high ctr thumbnails free"],
@@ -1882,7 +1884,7 @@ export const tools: Tool[] = [
         description: "Review your creator workflow with an honest self-assessment checklist and a short list of practical next improvements.",
         shortDescription: "Review your creator workflow checklist",
         category: "channel-growth",
-        icon: FaChartBar,
+        icon: FaClipboardCheck,
         isAI: false,
         isFeatured: true,
         keywords: ["channel audit", "youtube channel checker", "channel health score", "youtube analytics tool", "audit my channel", "youtube seo check", "channel performance report", "free youtube audit", "youtube channel checklist"],
@@ -2557,7 +2559,7 @@ export const tools: Tool[] = [
         description: "Extract clean transcripts, subtitles, and spoken SEO keywords from any YouTube video or Short. Export as plain text, SRT, or CSV with no signup required.",
         shortDescription: "Download transcripts, subtitles & extract spoken keywords free",
         category: "utility-fun",
-        icon: FaMicrophone,
+        icon: FaClosedCaptioning,
         isAI: false,
         isFeatured: true,
         keywords: [
@@ -2796,7 +2798,7 @@ export const tools: Tool[] = [
         description: "Calculate IRS Self-Employment tax savings by electing S-Corp status for your YouTube channel. Compare W-2 salary, shareholder distributions, and CPA overhead.",
         shortDescription: "Calculate self-employment tax savings from electing S-Corp status",
         category: "analytics-earnings",
-        icon: FaFileInvoiceDollar,
+        icon: FaBuilding,
         isAI: false,
         isFeatured: true,
         keywords: [
@@ -3209,7 +3211,7 @@ export const tools: Tool[] = [
         description: "Transform long-form YouTube videos, lectures, and podcasts into structured executive notes, study guides, SEO blog posts, and Shorts scripts using grounded AI prompts.",
         shortDescription: "Summarize YouTube videos into notes, blog posts, and scripts",
         category: "seo-metadata",
-        icon: FaMagic,
+        icon: FaCompressAlt,
         isAI: true,
         isFeatured: true,
         keywords: [
@@ -3517,7 +3519,7 @@ export const tools: Tool[] = [
         description: "Calculate your exact roadmap to 4,000 public watch hours and 1,000 subscribers for YouTube Partner Program (YPP) monetization.",
         shortDescription: "Calculate views and pace needed for 4,000 watch hours & YPP",
         category: "analytics-earnings",
-        icon: FaClock,
+        icon: FaHourglassHalf,
         isAI: false,
         isFeatured: true,
         keywords: [
@@ -3594,7 +3596,7 @@ export const tools: Tool[] = [
         description: "Compare required view volume, editing effort, AdSense revenue, and creator hourly wage between YouTube Shorts and long-form videos.",
         shortDescription: "Compare real AdSense revenue, views, and effort: Shorts vs Long-Form",
         category: "analytics-earnings",
-        icon: FaBalanceScale,
+        icon: FaExchangeAlt,
         isAI: false,
         isFeatured: true,
         keywords: [

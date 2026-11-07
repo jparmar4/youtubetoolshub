@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { ToolCard } from "@/components/ui/Card";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
@@ -166,35 +167,17 @@ export default function ChannelToolsHub() {
                     </div>
 
                     {/* Tools Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7 mb-14">
                         {growthTools.map((tool) => (
-                            <Link
+                            <ToolCard
                                 key={tool.slug}
+                                icon={<tool.icon />}
+                                title={tool.name}
+                                description={tool.shortDescription || tool.description}
                                 href={`/tools/${tool.slug}`}
-                                className="group glass-premium border-white/40 rounded-[2.5rem] p-10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
-                            >
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 blur-3xl rounded-full" />
-                                <div className="relative z-10">
-                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-rose-600 flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-500 mb-8">
-                                        <tool.icon className="w-8 h-8" />
-                                    </div>
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <h3 className="text-2xl font-black text-slate-900 group-hover:text-orange-600 transition-colors font-outfit tracking-tight">
-                                            {tool.name}
-                                        </h3>
-                                        {tool.isAI && (
-                                            <span className="px-2 py-0.5 rounded-full bg-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-wider">AI</span>
-                                        )}
-                                    </div>
-                                    <p className="text-slate-600 leading-relaxed text-lg font-outfit font-medium">
-                                        {tool.shortDescription || tool.description}
-                                    </p>
-                                    <div className="mt-8 flex items-center text-orange-600 font-black text-sm uppercase tracking-widest group-hover:translate-x-2 transition-transform">
-                                        Explore Tool
-                                        <FaArrowRight className="ml-2 w-3 h-3" />
-                                    </div>
-                                </div>
-                            </Link>
+                                isAI={tool.isAI}
+                                category={tool.category}
+                            />
                         ))}
                     </div>
 

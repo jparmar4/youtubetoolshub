@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 
 interface CardProps {
   children: ReactNode;
@@ -17,6 +18,7 @@ interface ToolCardProps {
   description: string;
   href: string;
   isAI?: boolean;
+  category?: string;
   className?: string;
 }
 
@@ -35,8 +37,8 @@ export function Card({ children, className = "", hover = true }: CardProps) {
   );
 }
 
-export function ToolCard({ icon, title, description, href, isAI, className }: ToolCardProps) {
-  const slug = href.replace(/^\/tools\//, "");
+export function ToolCard({ icon, title, description, href, isAI, category, className }: ToolCardProps) {
+  const slug = href.replace(/^\/tools\//, "").replace(/^\//, "");
 
   return (
     <Link href={href} className="block h-full group" prefetch={true}>
@@ -59,11 +61,9 @@ export function ToolCard({ icon, title, description, href, isAI, className }: To
         />
 
         <div>
-          {/* Top Row: 3D Icon Cube + Badges + Favorite Star */}
+          {/* Top Row: Bespoke 3D Jewel Icon Cube + Badges + Favorite Star */}
           <div className="flex items-center justify-between gap-3 mb-4">
-            <div className="icon-cube-3d shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-purple-600 text-xl">
-              {icon}
-            </div>
+            <ToolIcon3D icon={icon} slug={slug} category={category} size="md" />
 
             <div className="flex items-center gap-2">
               {isAI && (

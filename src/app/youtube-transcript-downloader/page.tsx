@@ -14,6 +14,10 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import TranscriptDownloader from "@/components/tools/TranscriptDownloader";
+import { ToolContextProvider } from "@/components/tools/ToolContext";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import { RecentToolTracker } from "@/lib/recent-tools";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import GoogleAd from "@/components/ads/GoogleAd";
@@ -182,48 +186,83 @@ export default function YouTubeTranscriptDownloaderPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-20">
-        {/* Hero Header */}
-        <div className="bg-gradient-to-b from-purple-100/70 via-purple-50/30 to-transparent dark:from-purple-950/20 dark:via-transparent pt-8 pb-12 px-4 sm:px-6 lg:px-8 border-b border-slate-200/60 dark:border-slate-800/60">
-          <div className="max-w-5xl mx-auto">
-            <AdSectionIgnore>
-              <Breadcrumb
-                items={[
-                  { name: "Home", href: "/" },
-                  { name: "Tools", href: "/tools" },
-                  { name: "Transcript Downloader" },
-                ]}
-                className="mb-6"
-              />
-            </AdSectionIgnore>
+      <main className="min-h-screen bg-slate-50 text-slate-900 py-10 lg:py-16 relative overflow-hidden">
+        <div className="nebula-bg" />
+        {/* Hero Header + 3D Studio Console */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSectionIgnore>
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Tools", href: "/tools" },
+                { name: "Transcript Downloader" },
+              ]}
+              className="mb-6"
+            />
+          </AdSectionIgnore>
 
-            <AdSectionPrioritize>
-              <div className="text-center max-w-3xl mx-auto space-y-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">
-                  ⚡ 100% Free · No Login Required · Instant Export
-                </span>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-speakable>
-                  YouTube Transcript Downloader &amp; Keyword Extractor
-                </h1>
-                <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400" data-speakable>
-                  Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO.
-                </p>
+          <AdSectionPrioritize>
+            <header className="card-3d rounded-3xl p-6 sm:p-7 mb-8 relative overflow-hidden">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600" />
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <div className="flex items-start gap-4 sm:gap-5 flex-1">
+                  <ToolIcon3D
+                    icon={<FaFileAlt />}
+                    slug="youtube-transcript-downloader"
+                    category="utility-fun"
+                    size="lg"
+                    className="mt-0.5"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-sky-50 border border-sky-200/80 text-sky-800 mb-2.5">
+                      ⚡ 100% Free · No Login Required · Instant SRT &amp; TXT Export
+                    </span>
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 mb-2 font-outfit" data-speakable>
+                      YouTube Transcript Downloader &amp; Keyword Extractor
+                    </h1>
+                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed" data-speakable>
+                      Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO.
+                    </p>
+                  </div>
+                </div>
+                <div className="shrink-0 sm:pt-1">
+                  <ToolFavoriteButton
+                    toolSlug="youtube-transcript-downloader"
+                    toolName="YouTube Transcript Downloader"
+                  />
+                  <RecentToolTracker slug="youtube-transcript-downloader" />
+                </div>
               </div>
-            </AdSectionPrioritize>
-          </div>
-        </div>
+            </header>
 
-        {/* Tool Section */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
-          {/* Above-the-fold Leaderboard Ad */}
-          <div className="mb-6 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+            {/* 3D UHD Interactive Console */}
+            <div className="studio-console-3d rounded-3xl overflow-hidden mb-8">
+              <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
+                  <span className="ml-2 text-xs font-bold text-slate-200 truncate">
+                    YouTube Transcript &amp; SRT Extractor — Interactive Studio Workspace
+                  </span>
+                </div>
+                <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300">
+                  TXT · SRT · CSV
+                </span>
+              </div>
+              <div className="p-4 sm:p-6">
+                <ToolContextProvider value={{ hideHeader: true }}>
+                  <TranscriptDownloader />
+                </ToolContextProvider>
+              </div>
+            </div>
+          </AdSectionPrioritize>
+
+          {/* Leaderboard Ad */}
+          <div className="mb-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
             <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
           </div>
-
-          <AdSectionPrioritize>
-            <TranscriptDownloader />
-          </AdSectionPrioritize>
 
           <div className="mt-8">
             <AffiliateBanner toolId="vidiq" variant="compact" />

@@ -30,6 +30,7 @@ import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSection
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
 
@@ -291,11 +292,15 @@ export default async function ToolPage({
                             <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500" />
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                                    <div className="flex items-start gap-4 flex-1">
-                                        <div className="icon-cube-3d hidden sm:flex w-14 h-14 rounded-2xl items-center justify-center text-purple-600 text-2xl shrink-0 mt-0.5">
-                                            <tool.icon />
-                                        </div>
-                                        <div className="flex-1">
+                                    <div className="flex items-start gap-4 sm:gap-5 flex-1">
+                                        <ToolIcon3D
+                                            icon={<tool.icon />}
+                                            slug={tool.slug}
+                                            category={tool.category}
+                                            size="lg"
+                                            className="mt-0.5"
+                                        />
+                                        <div className="flex-1 min-w-0">
                                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                                 <span>{tool.isAI ? "AI-Powered 3D Studio" : "Instant UHD Browser Studio"} · Free</span>
@@ -514,24 +519,24 @@ export default async function ToolPage({
 
                                 {/* How To Section */}
                                 {tool.howTo && (
-                                    <div className="glass-premium rounded-2xl p-8 shadow-sm">
-                                        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                                    <div className="card-3d rounded-3xl p-6 sm:p-8">
+                                        <h2 className="text-2xl font-black text-slate-900 mb-3 font-outfit">
                                             {tool.howTo.name}
                                         </h2>
-                                        <p className="text-slate-600 mb-8 text-lg">
+                                        <p className="text-slate-600 mb-7 text-base sm:text-lg">
                                             {tool.howTo.description}
                                         </p>
-                                        <div className="space-y-8">
+                                        <div className="space-y-6">
                                             {tool.howTo.steps.map((step, idx) => (
-                                                <div key={idx} className="flex gap-6">
-                                                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xl">
+                                                <div key={idx} className="flex gap-4 sm:gap-5 items-start">
+                                                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center font-black text-sm shadow-[0_3px_0_0_#4c1d95]">
                                                         {idx + 1}
                                                     </div>
                                                     <div>
-                                                        <h3 className="font-semibold text-xl text-gray-900 mb-2">
+                                                        <h3 className="font-extrabold text-lg text-slate-900 mb-1 font-outfit">
                                                             {step.name}
                                                         </h3>
-                                                        <p className="text-slate-600 text-lg">
+                                                        <p className="text-slate-600 text-base leading-relaxed">
                                                             {step.text}
                                                         </p>
                                                     </div>
@@ -544,17 +549,17 @@ export default async function ToolPage({
 
                             {/* FAQ Section (always rendered from expanded set) */}
                             {seoFaqs.length > 0 && (
-                                <div className="glass-premium rounded-2xl p-8 shadow-sm animate-fade-in-up delay-200">
-                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                                <div className="card-3d rounded-3xl p-6 sm:p-8 animate-fade-in-up delay-200">
+                                    <h2 className="text-2xl font-black text-slate-900 mb-6 font-outfit">
                                         Frequently Asked Questions
                                     </h2>
                                     <div className="space-y-4">
                                         {seoFaqs.map((faq, idx) => (
-                                            <div key={idx} className="border-b border-pink-100 dark:border-pink-900/30 last:border-0 pb-4 last:pb-0">
-                                                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                                            <div key={idx} className="border-b border-slate-200/80 last:border-0 pb-4 last:pb-0">
+                                                <h3 className="font-extrabold text-slate-900 mb-1.5 font-outfit">
                                                     {faq.question}
                                                 </h3>
-                                                <p className="text-slate-600 dark:text-slate-300">
+                                                <p className="text-slate-600 leading-relaxed">
                                                     {faq.answer}
                                                 </p>
                                             </div>
@@ -565,25 +570,25 @@ export default async function ToolPage({
 
                             {/* Related guides — tool → blog internal links */}
                             {relatedGuides.length > 0 && (
-                                <div className="glass-premium rounded-2xl p-8 shadow-sm border border-slate-100">
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                                        Related free guides
+                                <div className="card-3d rounded-3xl p-6 sm:p-8">
+                                    <h2 className="text-2xl font-black text-slate-900 mb-2 font-outfit">
+                                        Related Creator Guides
                                     </h2>
-                                    <p className="text-slate-600 mb-6">
-                                        Deep-dive articles that pair well with this tool.
+                                    <p className="text-slate-600 mb-6 text-sm sm:text-base">
+                                        Deep-dive Playbooks &amp; RPM strategies that pair with this tool.
                                     </p>
                                     <ul className="space-y-3">
                                         {relatedGuides.map((guide) => (
                                             <li key={guide.slug}>
                                                 <Link
                                                     href={`/blog/${guide.slug}`}
-                                                    className="group flex items-start justify-between gap-3 rounded-xl border border-slate-100 bg-white px-4 py-3 hover:border-purple-300 hover:shadow-sm transition-all"
+                                                    className="group flex items-start justify-between gap-3 rounded-2xl border border-slate-200/80 bg-slate-50/70 px-4 py-3.5 hover:border-purple-300 hover:bg-white hover:shadow-sm transition-all"
                                                 >
                                                     <span>
-                                                        <span className="text-xs font-bold uppercase tracking-wide text-purple-600">
+                                                        <span className="text-[11px] font-extrabold uppercase tracking-wider text-purple-600">
                                                             {guide.category}
                                                         </span>
-                                                        <span className="block font-semibold text-slate-800 group-hover:text-purple-700">
+                                                        <span className="block font-bold text-slate-800 group-hover:text-purple-700 mt-0.5">
                                                             {guide.title}
                                                         </span>
                                                     </span>
@@ -601,24 +606,41 @@ export default async function ToolPage({
                                 </div>
 
                                 {/* Related Tools */}
-                                <div className="glass-premium rounded-2xl p-6 border border-purple-100 dark:border-purple-900/30 mt-8">
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                                        <span className="text-purple-500">🔗</span>
-                                        Related Tools
-                                    </h3>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div className="card-3d rounded-3xl p-6 sm:p-8 mt-8">
+                                    <div className="flex items-center justify-between gap-3 mb-5">
+                                        <h3 className="text-xl font-black text-slate-900 font-outfit">
+                                            Related 3D Creator Tools
+                                        </h3>
+                                        <Link
+                                            href="/tools"
+                                            className="text-xs font-extrabold text-purple-700 hover:text-purple-900"
+                                        >
+                                            All {tools.length} Tools →
+                                        </Link>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                         {relatedTools.map((t) => {
                                             const Icon = t.icon;
                                             return (
                                                 <Link
                                                     key={t.slug}
                                                     href={`/tools/${t.slug}`}
-                                                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 text-slate-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-all"
+                                                    className="group flex items-center gap-3.5 p-3 rounded-2xl border border-slate-200/80 bg-slate-50/60 hover:bg-white hover:border-purple-300 hover:shadow-md transition-all"
                                                 >
-                                                    <span className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
-                                                        <Icon />
-                                                    </span>
-                                                    <span className="font-medium text-sm">{t.name}</span>
+                                                    <ToolIcon3D
+                                                        icon={<Icon />}
+                                                        slug={t.slug}
+                                                        category={t.category}
+                                                        size="sm"
+                                                    />
+                                                    <div className="min-w-0 flex-1">
+                                                        <span className="block font-bold text-sm text-slate-900 group-hover:text-purple-700 transition-colors leading-snug">
+                                                            {t.name}
+                                                        </span>
+                                                        <span className="block text-xs text-slate-500 truncate mt-0.5">
+                                                            {t.shortDescription}
+                                                        </span>
+                                                    </div>
                                                 </Link>
                                             );
                                         })}

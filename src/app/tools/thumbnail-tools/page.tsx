@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { ToolCard } from "@/components/ui/Card";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
@@ -163,32 +164,17 @@ export default function ThumbnailToolsHub() {
                     </div>
 
                     {/* Tools Grid */}
-                    <div className="grid md:grid-cols-2 gap-8 mb-16">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7 mb-16">
                         {thumbnailTools.map((tool) => (
-                            <Link
+                            <ToolCard
                                 key={tool.slug}
+                                icon={<tool.icon />}
+                                title={tool.name}
+                                description={tool.description}
                                 href={`/tools/${tool.slug}`}
-                                className="group glass-premium rounded-2xl p-8 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-white/20"
-                            >
-                                <div className="flex items-start gap-5">
-                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-500">
-                                        <tool.icon className="w-8 h-8" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <h3 className="text-2xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors font-outfit">
-                                                {tool.name}
-                                            </h3>
-                                            {tool.isAI && (
-                                                <span className="px-2 py-0.5 rounded-full bg-pink-100 text-pink-600 text-[10px] font-bold uppercase tracking-wider">AI</span>
-                                            )}
-                                        </div>
-                                        <p className="text-slate-600 leading-relaxed text-lg">
-                                            {tool.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </Link>
+                                isAI={tool.isAI}
+                                category={tool.category}
+                            />
                         ))}
                     </div>
 

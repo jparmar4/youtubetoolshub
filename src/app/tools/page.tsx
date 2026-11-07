@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import {
   getToolListSchema,
@@ -293,25 +294,28 @@ export default function ToolsPage() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="group p-5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/10 transition-all hover:border-purple-400/50 hover:shadow-lg flex flex-col justify-between"
+                      className="group p-5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.12] border border-white/12 transition-all hover:border-purple-400/50 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
                     >
                       <div>
-                        <div className="flex items-center justify-between mb-3">
-                          <div className={`w-9 h-9 rounded-xl border flex items-center justify-center ${item.color}`}>
-                            <item.icon className="w-4 h-4" />
-                          </div>
-                          <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-white/20 text-white">
+                        <div className="flex items-center justify-between mb-3.5">
+                          <ToolIcon3D
+                            icon={<item.icon className="w-4 h-4" />}
+                            slug={item.href.replace("/tools/", "")}
+                            category="analytics-earnings"
+                            size="sm"
+                          />
+                          <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-white">
                             {item.badge}
                           </span>
                         </div>
-                        <h3 className="font-bold text-base text-white group-hover:text-purple-300 transition-colors">
+                        <h3 className="font-extrabold text-base text-white group-hover:text-emerald-300 transition-colors font-outfit">
                           {item.name}
                         </h3>
                         <p className="text-xs text-slate-300 mt-1 leading-relaxed">
                           {item.desc}
                         </p>
                       </div>
-                      <div className="mt-4 flex items-center text-xs font-bold text-purple-300 group-hover:translate-x-1 transition-transform">
+                      <div className="mt-4 flex items-center text-xs font-bold text-emerald-300 group-hover:translate-x-1 transition-transform">
                         <span>Launch Tool</span>
                         <FaArrowRight className="ml-1.5 w-3 h-3" />
                       </div>
@@ -359,7 +363,7 @@ export default function ToolsPage() {
                       })()}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                       {categoryTools.map((tool) => (
                         <Fragment key={tool.slug}>
                           <ToolCard
@@ -368,7 +372,7 @@ export default function ToolsPage() {
                             description={tool.shortDescription}
                             href={`/tools/${tool.slug}`}
                             isAI={tool.isAI}
-                            className="hover:-translate-y-2 transition-all duration-500 shadow-sm hover:shadow-xl border-white/40 glass-premium"
+                            category={tool.category}
                           />
                         </Fragment>
                       ))}

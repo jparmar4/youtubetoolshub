@@ -27,6 +27,7 @@ import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
@@ -264,20 +265,40 @@ export default function YouTubeEarningsCalculatorPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2 space-y-10">
               <AdSectionPrioritize>
-              {/* Hero / AEO answer */}
-              <header className="space-y-5">
+              {/* 3D Studio Hero Header */}
+              <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                  <div className="flex-1">
-                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black uppercase tracking-wider mb-3">
-                      <FaCalculator /> Free · No signup · 2026 data
-                    </span>
-                    <h1
-                      className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight"
-                      data-speakable
-                    >
-                      YouTube Earnings Calculator — Estimate AdSense Revenue by
-                      Views &amp; RPM (2026)
-                    </h1>
+                  <div className="flex items-start gap-4 sm:gap-5 flex-1">
+                    <ToolIcon3D
+                      icon={<FaCalculator />}
+                      slug="youtube-earnings-calculator"
+                      category="analytics-earnings"
+                      size="lg"
+                      className="mt-0.5"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>Free · 52 Country Markets · 2026 Verified</span>
+                      </span>
+                      <h1
+                        className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit leading-tight"
+                        data-speakable
+                      >
+                        YouTube Earnings Calculator — Estimate AdSense Revenue by
+                        Views &amp; RPM (2026)
+                      </h1>
+                      <p
+                        className="text-sm sm:text-base text-slate-600 leading-relaxed summary"
+                        data-speakable
+                      >
+                        Use this free YouTube money calculator to estimate monthly and
+                        yearly AdSense income from your views and RPM. Compare country
+                        CPM/RPM ranges, model high-intent niches, and plan channel
+                        revenue before you publish.
+                      </p>
+                    </div>
                   </div>
                   <div className="flex-shrink-0 sm:pt-1">
                     <ToolFavoriteButton
@@ -287,44 +308,50 @@ export default function YouTubeEarningsCalculatorPage() {
                     <RecentToolTracker slug="youtube-earnings-calculator" />
                   </div>
                 </div>
-                <p
-                  className="text-lg md:text-xl text-slate-600 leading-relaxed summary"
-                  data-speakable
-                >
-                  Use this free YouTube money calculator to estimate monthly and
-                  yearly AdSense income from your views and RPM. Compare country
-                  CPM/RPM ranges, model high-intent niches, and plan channel
-                  revenue before you publish.
-                </p>
-
-                <QuickAnswerCapsule
-                  question="Quick Answer: How much does YouTube pay for views?"
-                  answer="YouTube pays creators based on Revenue Per Mille (RPM). On average, 100,000 views earn between $200 and $1,200 depending on audience location and niche (estimated earnings ≈ [monthly views ÷ 1,000] × RPM). YouTube Shorts pay $30–$120 per 1 million views."
-                  keyPoints={[
-                    "Formula: Estimated earnings = (Views ÷ 1,000) × RPM",
-                    "Tier 1 (US, UK, CA, AU) averages $4.00–$16.00 RPM",
-                    "Tier 3 (India, Brazil, PH) averages $0.40–$2.50 RPM",
-                    "Finance, Tech & Business niches pay 3x–5x higher than Gaming",
-                  ]}
-                  badgeText="⚡ AI Quick Summary"
-                />
               </header>
 
-              {/* Leaderboard Ad immediately above the Calculator */}
-              <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
+              {/* 3D UHD Interactive Calculator Console — Immediately Above the Fold */}
+              <section
+                id="calculator"
+                className="studio-console-3d rounded-3xl overflow-hidden"
+              >
+                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="ml-2 text-xs font-bold text-slate-200 truncate">
+                      YouTube Earnings &amp; RPM Calculator — Interactive Studio Workspace
+                    </span>
+                  </div>
+                  <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                    Live Engine
+                  </span>
+                </div>
+                <div className="p-4 sm:p-6">
+                  <ToolContextProvider value={{ hideHeader: true }}>
+                    <EarningsCalculator />
+                  </ToolContextProvider>
+                </div>
+              </section>
+
+              {/* Leaderboard Ad immediately below the Calculator */}
+              <div className="rounded-2xl overflow-hidden shadow-xs border border-emerald-100 bg-white p-2 flex flex-col items-center justify-center">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
               </div>
 
-              {/* Calculator */}
-              <section
-                id="calculator"
-                className="rounded-3xl border border-slate-200 bg-white/80 shadow-xl shadow-emerald-900/5 overflow-hidden"
-              >
-                <ToolContextProvider value={{ hideHeader: true }}>
-                  <EarningsCalculator />
-                </ToolContextProvider>
-              </section>
+              <QuickAnswerCapsule
+                question="Quick Answer: How much does YouTube pay for views?"
+                answer="YouTube pays creators based on Revenue Per Mille (RPM). On average, 100,000 views earn between $200 and $1,200 depending on audience location and niche (estimated earnings ≈ [monthly views ÷ 1,000] × RPM). YouTube Shorts pay $30–$120 per 1 million views."
+                keyPoints={[
+                  "Formula: Estimated earnings = (Views ÷ 1,000) × RPM",
+                  "Tier 1 (US, UK, CA, AU) averages $4.00–$16.00 RPM",
+                  "Tier 3 (India, Brazil, PH) averages $0.40–$2.50 RPM",
+                  "Finance, Tech & Business niches pay 3x–5x higher than Gaming",
+                ]}
+                badgeText="⚡ AI Quick Summary"
+              />
 
               {/* Ad immediately below the Calculator */}
               <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
@@ -461,11 +488,13 @@ export default function YouTubeEarningsCalculatorPage() {
                         <Link
                           key={c.slug}
                           href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 text-sm font-medium text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-colors"
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-all shadow-2xs"
                         >
-                          <span>{c.flag}</span>
-                          {c.name}
-                          <span className="text-xs text-slate-500">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black tracking-wider">
+                            {c.code}
+                          </span>
+                          <span>{c.name}</span>
+                          <span className="text-xs font-semibold text-emerald-700">
                             ~${c.rpmRange.avg.toFixed(1)} RPM
                           </span>
                         </Link>

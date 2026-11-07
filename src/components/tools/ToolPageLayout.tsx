@@ -28,42 +28,41 @@ export default function ToolPageLayout({
     // Generate slug from title if not provided
     const toolSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     const { hideHeader } = useToolContext();
-    // Definition blocks / long-form SEO copy live on the parent tool page
-    // so crawlers only see one definition + key-facts block per URL.
-    // FAQ also lives on the parent page (seoFaqs) — do not render a second copy here.
 
     return (
-        <>
-            <div className="w-full">
-                <div className="max-w-6xl mx-auto">
-                    {/* Header — use H1 only when parent page does not supply one */}
-                    {!hideHeader && (
-                        <div className="text-center mb-10 animate-fade-in-up">
-                            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                                {title}
-                            </h1>
-                            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                                {description}
-                            </p>
-                        </div>
-                    )}
-
-                    {/* Tool Content */}
-                    <div
-                        className="glass-premium rounded-2xl shadow-lg border border-slate-200 p-6 md:p-8 mb-8 animate-fade-in-up delay-100 bg-white/50"
-                        aria-live="polite"
-                    >
-                        <MotionWrapper>
-                            {children}
-                        </MotionWrapper>
+        <div className="w-full">
+            <div className="max-w-6xl mx-auto">
+                {/* Header — use H1 only when parent page does not supply one */}
+                {!hideHeader && (
+                    <div className="text-center mb-10 animate-fade-in-up">
+                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
+                            {title}
+                        </h1>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                            {description}
+                        </p>
                     </div>
+                )}
 
-                    {/* Recent History Section */}
-                    <div className="mt-8">
-                        <ToolHistory toolSlug={toolSlug} />
-                    </div>
+                {/* Tool Content — flush inside parent .studio-console-3d when hideHeader is true */}
+                <div
+                    className={
+                        hideHeader
+                            ? "animate-fade-in-up"
+                            : "studio-console-3d rounded-3xl p-6 md:p-8 mb-8 animate-fade-in-up"
+                    }
+                    aria-live="polite"
+                >
+                    <MotionWrapper>
+                        {children}
+                    </MotionWrapper>
+                </div>
+
+                {/* Recent History Section */}
+                <div className="mt-8 pt-6 border-t border-slate-200/70">
+                    <ToolHistory toolSlug={toolSlug} />
                 </div>
             </div>
-        </>
+        </div>
     );
 }

@@ -12,6 +12,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import {
     getFAQSchema,
     getBreadcrumbSchema,
@@ -201,27 +202,77 @@ export default async function CountryEarningsPage({
                         {/* Main Content */}
                         <div className="lg:col-span-2 space-y-8">
                             <AdSectionPrioritize>
-                            {/* Header */}
-                            <div className="text-center md:text-left mb-8">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-bold mb-4">
-                                    <span className="text-xl">{countryData.flag}</span>
-                                    {countryData.name} Edition (2026 Updated)
+                            {/* 3D Studio Header */}
+                            <header className="card-3d rounded-3xl p-6 sm:p-7 mb-8 relative overflow-hidden">
+                                <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
+                                <div className="flex items-start gap-4 sm:gap-5">
+                                    <ToolIcon3D
+                                        icon={<FaDollarSign />}
+                                        slug="youtube-earnings-calculator"
+                                        category="analytics-earnings"
+                                        size="lg"
+                                        badge={countryData.code}
+                                        className="mt-0.5"
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-extrabold uppercase tracking-wider mb-3">
+                                            <span className="px-1.5 py-0.5 rounded bg-emerald-700 text-white text-[10px] font-black">
+                                                {countryData.code}
+                                            </span>
+                                            <span>{countryData.name} Edition · 2026 Updated ({countryData.currency})</span>
+                                        </div>
+                                        <h1
+                                            className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit leading-tight"
+                                            data-speakable
+                                        >
+                                            YouTube Earnings Calculator{" "}
+                                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+                                                {countryData.name}
+                                            </span>{" "}
+                                            — CPM &amp; RPM 2026
+                                        </h1>
+                                        <p className="text-sm sm:text-base text-slate-600 leading-relaxed" data-speakable>
+                                            Estimate YouTube income for creators in {countryData.name} using
+                                            updated CPM/RPM ranges ({countryData.currency}). Free planning tool —
+                                            verify results in YouTube Studio.
+                                        </p>
+                                    </div>
                                 </div>
-                                <h1
-                                    className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight"
-                                    data-speakable
-                                >
-                                    YouTube Earnings Calculator{" "}
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">
-                                        {countryData.name}
-                                    </span>{" "}
-                                    — CPM &amp; RPM 2026
-                                </h1>
-                                <p className="text-xl text-slate-600 mb-6 leading-relaxed" data-speakable>
-                                    Estimate YouTube income for creators in {countryData.name} using
-                                    updated CPM/RPM ranges ({countryData.currency}). Free planning tool —
-                                    verify results in YouTube Studio.
-                                </p>
+                            </header>
+
+                            {/* 3D UHD Calculator Console — Immediately Above the Fold */}
+                            <div className="studio-console-3d rounded-3xl overflow-hidden mb-8">
+                                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                                    <div className="flex items-center gap-2 min-w-0">
+                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
+                                        <span className="ml-2 text-xs font-bold text-slate-200 truncate">
+                                            {countryData.name} ({countryData.currency}) YouTube RPM Studio Console
+                                        </span>
+                                    </div>
+                                    <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                        Avg ${countryData.rpmRange.avg.toFixed(2)} RPM
+                                    </span>
+                                </div>
+                                <div className="p-4 sm:p-6">
+                                    <ToolContextProvider value={{ hideHeader: true }}>
+                                        <EarningsCalculator
+                                            initialRPM={countryData.rpmRange.avg}
+                                            currency={countryData.currency}
+                                            countryName={countryData.name}
+                                        />
+                                    </ToolContextProvider>
+                                </div>
+                            </div>
+
+                            {/* Top Responsive Leaderboard Ad */}
+                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center mb-8">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                            </div>
+
+                            <div className="mb-8">
                                 <QuickAnswerCapsule
                                     question={`Quick Answer: How much does YouTube pay in ${countryData.name}?`}
                                     answer={`In ${countryData.name}, YouTube creators earn between $${countryData.rpmRange.min.toFixed(2)} and $${countryData.rpmRange.max.toFixed(2)} per 1,000 views (average $${countryData.rpmRange.avg.toFixed(2)} RPM). For 100,000 views, estimated AdSense earnings range from $${(100 * countryData.rpmRange.min).toFixed(0)} to $${(100 * countryData.rpmRange.max).toFixed(0)} (${countryData.currency}).`}
@@ -233,23 +284,6 @@ export default async function CountryEarningsPage({
                                     ]}
                                     badgeText={`⚡ ${countryData.name} 2026 Summary`}
                                 />
-                            </div>
-
-                            {/* Top Responsive Leaderboard Ad (Above-the-fold with lazy=false for immediate viewability) */}
-                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center mb-8">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                            </div>
-
-                            {/* Calculator Component */}
-                            <div className="bg-white rounded-3xl p-1 shadow-xl shadow-green-900/5 border border-slate-100 mb-8">
-                                <ToolContextProvider value={{ hideHeader: true }}>
-                                    <EarningsCalculator
-                                        initialRPM={countryData.rpmRange.avg}
-                                        currency={countryData.currency}
-                                        countryName={countryData.name}
-                                    />
-                                </ToolContextProvider>
                             </div>
 
                             {/* Top Affiliate Recommendation */}
@@ -400,9 +434,12 @@ export default async function CountryEarningsPage({
                                                         <Link
                                                             key={c.slug}
                                                             href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                                            className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-bold hover:border-purple-500 hover:text-purple-600 transition-colors"
                                                         >
-                                                            {c.flag} {c.name}
+                                                            <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black">
+                                                                {c.code}
+                                                            </span>
+                                                            <span>{c.name}</span>
                                                         </Link>
                                                     ))}
                                             </div>

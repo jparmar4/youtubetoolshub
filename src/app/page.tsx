@@ -444,6 +444,7 @@ export default function Home() {
                 description={tool.shortDescription}
                 href={`/tools/${tool.slug}`}
                 isAI={tool.isAI}
+                category={tool.category}
               />
             ))}
           </div>
