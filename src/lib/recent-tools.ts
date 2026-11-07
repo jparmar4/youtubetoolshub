@@ -55,25 +55,26 @@ function subscribe(callback: () => void) {
   };
 }
 
-let cachedSnapshot: string[] = [];
+const EMPTY_RECENT_TOOLS: string[] = [];
+let cachedSnapshot: string[] = EMPTY_RECENT_TOOLS;
 let cachedRaw: string | null = null;
 
 function getSnapshot(): string[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY_RECENT_TOOLS;
   try {
     const raw = localStorage.getItem(RECENT_TOOLS_STORAGE_KEY);
     if (raw !== cachedRaw) {
       cachedRaw = raw;
-      cachedSnapshot = raw ? JSON.parse(raw).slice(0, MAX_RECENT_TOOLS) : [];
+      cachedSnapshot = raw ? JSON.parse(raw).slice(0, MAX_RECENT_TOOLS) : EMPTY_RECENT_TOOLS;
     }
     return cachedSnapshot;
   } catch {
-    return [];
+    return EMPTY_RECENT_TOOLS;
   }
 }
 
 function getServerSnapshot(): string[] {
-  return [];
+  return EMPTY_RECENT_TOOLS;
 }
 
 export function useRecentTools() {

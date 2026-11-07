@@ -89,7 +89,7 @@ export default function GoogleAd({
   return (
     <div
       ref={containerRef}
-      className={`google-ad-container w-full min-w-0 min-h-[90px] ${className}`}
+      className={`google-ad-container w-full min-w-0 ${className}`}
     >
       {isActive && (
         /*

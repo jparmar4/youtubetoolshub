@@ -64,22 +64,26 @@ const nextConfig = {
   // Headers for caching, security, SEO, and AI crawler optimization
   async headers() {
     return [
-      // ─── Content-hashed Next static assets: aggressive immutable caching ───
-      // Scope immutable 1yr to /_next/static only — stable public filenames
-      // (og-image.png, favicons, manifest) must not be pinned for a year.
-      {
-        source: "/_next/static/:path*",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-          {
-            key: "Access-Control-Allow-Origin",
-            value: "*",
-          },
-        ],
-      },
+      // ─── Content-hashed Next static assets: aggressive immutable caching (prod only) ───
+      // Scope immutable 1yr to /_next/static in production only — in `next dev`,
+      // unhashed chunk names are reused and immutable caching breaks hot reload.
+      ...(process.env.NODE_ENV === "production"
+        ? [
+            {
+              source: "/_next/static/:path*",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+                {
+                  key: "Access-Control-Allow-Origin",
+                  value: "*",
+                },
+              ],
+            },
+          ]
+        : []),
       // Fonts & other public static files: short TTL so updates roll out
       {
         source: "/:path*.(svg|jpg|jpeg|png|webp|avif|ico|woff|woff2|ttf|eot)",

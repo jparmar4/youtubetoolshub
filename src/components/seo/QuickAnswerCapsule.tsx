@@ -26,7 +26,7 @@ export default function QuickAnswerCapsule({
 }: QuickAnswerCapsuleProps) {
   return (
     <aside
-      className={`quick-answer relative overflow-hidden rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-slate-900/40 p-5 md:p-6 backdrop-blur-md shadow-lg shadow-emerald-500/5 ${className}`}
+      className={`quick-answer relative overflow-hidden rounded-2xl border border-emerald-200/90 bg-gradient-to-br from-emerald-50 via-white to-teal-50/70 p-5 md:p-6 shadow-[inset_0_1px_0_0_#fff,0_3px_0_0_rgba(167,243,208,0.55),0_12px_28px_-10px_rgba(16,185,129,0.18)] ${className}`}
       data-speakable="true"
       aria-label={question || badgeText}
     >

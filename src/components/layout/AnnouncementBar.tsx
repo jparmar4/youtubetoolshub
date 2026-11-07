@@ -25,7 +25,7 @@ function getSnapshot(): boolean {
 }
 
 function getServerSnapshot(): boolean {
-  return true; // render on server so there is ZERO CLS (Cumulative Layout Shift)
+  return true;
 }
 
 function AnnouncementBar() {
@@ -43,26 +43,28 @@ function AnnouncementBar() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-gradient-to-r from-slate-950 via-purple-950 to-slate-950 text-white text-xs py-2 px-4 border-b border-purple-500/20">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        <div className="flex-1 flex items-center justify-center gap-2 text-center truncate">
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-extrabold text-[10px] tracking-wide border border-emerald-500/30">
+    <div className="bg-slate-950 text-white text-xs py-2 px-3 sm:px-6 border-b border-white/10 relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-purple-900/30 via-fuchsia-900/20 to-emerald-900/30" />
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between gap-2 min-w-0">
+        <div className="flex-1 min-w-0 flex items-center justify-center gap-2 sm:gap-3 text-center">
+          <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px] tracking-wider uppercase border border-emerald-400/30">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            2026 UPDATE
+            2026 Suite
           </span>
 
-          <span className="hidden md:inline font-medium text-slate-200">
-            44 Free YouTube Creator Tools • 4,000 Watch Hours Planner &amp; Tier-1 CPM Matrices
+          <span className="hidden md:inline font-medium text-slate-200 truncate">
+            44 Free YouTube Creator Tools • 4K Thumbnail Studio, 4,000 Watch Hours &amp; 52-Country CPM Data
           </span>
-          <span className="md:hidden font-medium text-slate-200 truncate">
-            44 Free Creator Tools • 2026
+          <span className="md:hidden font-medium text-slate-200 truncate text-[11px]">
+            44 Free YouTube Tools • 2026 Suite
           </span>
 
           <Link
             href="/tools/youtube-watch-hours-calculator"
-            className="inline-flex items-center gap-1 text-purple-300 hover:text-white font-bold underline decoration-purple-400/50 hover:decoration-white transition-colors ml-1 flex-shrink-0"
+            className="shrink-0 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/20 text-purple-200 hover:text-white font-bold text-[11px] border border-white/15 transition-colors whitespace-nowrap"
           >
-            <span>Try Watch Hours Planner</span>
+            <span className="hidden sm:inline">Watch Hours Planner</span>
+            <span className="sm:hidden">Explore</span>
             <FaArrowRight className="w-2.5 h-2.5" />
           </Link>
         </div>
@@ -70,7 +72,7 @@ function AnnouncementBar() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="p-1 text-slate-400 hover:text-white rounded-lg transition-colors flex-shrink-0"
+          className="shrink-0 p-1 text-slate-400 hover:text-white rounded-lg transition-colors"
           aria-label="Dismiss banner"
         >
           <FaTimes className="w-3 h-3" />

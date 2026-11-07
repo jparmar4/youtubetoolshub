@@ -49,6 +49,12 @@
 }
 
 /* Base Setup — UHD Crisp Subpixel Rendering */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -57,6 +63,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Collapse unfilled AdSense units cleanly */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
 }
 
 /* Keyboard focus visibility */

@@ -256,7 +256,7 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-title" content="YT Tools Hub" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="YouTube Tools Hub" />
-        <link rel="manifest" href="/manifest.webmanifest?v=2" />
+        {/* Web app manifest link is emitted automatically by app/manifest.ts */}
 
         {/* Favicons handled by app/icon.tsx */}
 

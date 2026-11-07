@@ -193,7 +193,7 @@ export default function Tier1ComparisonMatrix() {
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
               1. Select Tier 1 Country
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {TIER1_BENCHMARKS.map((c) => {
                 const isSelected = c.code === selectedCountryCode;
                 return (
@@ -201,16 +201,24 @@ export default function Tier1ComparisonMatrix() {
                     key={c.code}
                     type="button"
                     onClick={() => setSelectedCountryCode(c.code)}
-                    className={`flex items-center gap-2.5 p-3 rounded-xl border text-left transition-all ${
+                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                       isSelected
                         ? "bg-purple-50 border-purple-500 text-purple-950 font-bold shadow-xs ring-1 ring-purple-500"
-                        : "bg-slate-50/70 border-slate-200 text-slate-700 hover:bg-slate-100"
+                        : "bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-white hover:border-purple-300"
                     }`}
                   >
-                    <span className="text-xl">{c.flag}</span>
+                    <span
+                      className={`w-8 h-8 rounded-lg font-mono text-xs font-black flex items-center justify-center shrink-0 shadow-2xs ${
+                        isSelected
+                          ? "bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white"
+                          : "bg-white border border-slate-200 text-slate-700"
+                      }`}
+                    >
+                      {c.code}
+                    </span>
                     <div className="min-w-0">
-                      <div className="text-xs truncate">{c.name}</div>
-                      <div className="text-[11px] text-purple-700 font-semibold">
+                      <div className="text-xs font-bold leading-tight text-slate-900">{c.name}</div>
+                      <div className="text-[11px] text-purple-700 font-semibold mt-0.5">
                         ~${c.rpmAvg.toFixed(2)} RPM
                       </div>
                     </div>
@@ -319,7 +327,9 @@ export default function Tier1ComparisonMatrix() {
         <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">{activeCountry.flag}</span>
+              <span className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 text-white font-mono text-sm font-black flex items-center justify-center shadow-md shrink-0">
+                {activeCountry.code}
+              </span>
               <div>
                 <h4 className="font-extrabold text-slate-900 text-lg">
                   {activeCountry.name} Monetization Intelligence (2026)

@@ -52,22 +52,22 @@ function HeaderSavedTools() {
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
-    <div ref={containerRef} className="relative inline-block text-left">
+    <div ref={containerRef} className="relative inline-block text-left shrink-0">
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-xs font-bold transition-all shadow-2xs hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-amber-500/50 ${
+        className={`h-9 inline-flex items-center gap-1.5 px-3 rounded-full border text-xs font-bold transition-all shadow-[inset_0_1px_0_0_#fff,0_1px_2px_rgba(15,23,42,0.05)] focus:outline-none focus:ring-2 focus:ring-amber-500/40 whitespace-nowrap ${
           favorites.length > 0
-            ? "bg-amber-50/80 border-amber-200 text-amber-900 hover:bg-amber-100/90"
-            : "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200/80"
+            ? "bg-amber-50/90 border-amber-200/90 text-amber-900 hover:bg-amber-100/90"
+            : "bg-white border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:border-purple-300"
         }`}
         aria-label="View saved and recently visited tools"
         aria-expanded={isOpen}
       >
-        <FaStar className="w-3.5 h-3.5 text-amber-500" />
-        <span className="hidden sm:inline">Saved</span>
+        <FaStar className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+        <span className="hidden xl:inline">Saved</span>
         {favorites.length > 0 && (
-          <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black">
+          <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black leading-none">
             {favorites.length}
           </span>
         )}

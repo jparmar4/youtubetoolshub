@@ -207,7 +207,7 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube seo checklist", "youtube seo tips"],
       },
       {
-        path: "/resources/youtube-algorithm-guide",
+        path: "/blog/youtube-seo-complete-guide-to-ranking-videos-2026",
         title: "Algorithm Ranking Factors 2026",
         anchors: ["youtube ranking factors", "rank on youtube"],
       },

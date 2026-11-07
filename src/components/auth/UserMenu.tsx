@@ -41,7 +41,7 @@ export default function UserMenu() {
 
     if (status === "loading") {
         return (
-            <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+            <div className="w-9 h-9 rounded-full bg-slate-200 animate-pulse shrink-0" />
         );
     }
 
@@ -50,7 +50,7 @@ export default function UserMenu() {
             <Link
                 href="/sign-in"
                 rel="nofollow"
-                className="px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                className="h-9 px-4 inline-flex items-center justify-center text-xs font-extrabold bg-slate-900 hover:bg-purple-700 text-white rounded-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_2px_0_0_#020617,0_6px_14px_-3px_rgba(15,23,42,0.3)] transition-all hover:-translate-y-0.5 whitespace-nowrap shrink-0"
             >
                 Sign In
             </Link>

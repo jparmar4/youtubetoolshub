@@ -19,30 +19,37 @@ import HeaderCurrencyPicker from "@/components/layout/HeaderCurrencyPicker";
 import HeaderSavedTools from "@/components/layout/HeaderSavedTools";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
 
-// Memoized navigation link component
 const NavLink = memo(function NavLink({
   href,
   children,
   onClick,
-  className,
+  isActive,
   badge,
+  badgeColor = "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white",
 }: {
   href: string;
   children: React.ReactNode;
   onClick?: () => void;
-  className?: string;
+  isActive?: boolean;
   badge?: string;
+  badgeColor?: string;
 }) {
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={`relative inline-flex items-center gap-1.5 transition-colors ${className}`}
+      className={`relative h-8 inline-flex items-center gap-1.5 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+        isActive
+          ? "bg-white text-purple-700 shadow-xs border border-slate-200/80"
+          : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
+      }`}
       prefetch={true}
     >
       <span>{children}</span>
       {badge && (
-        <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 text-white tracking-wide shadow-2xs">
+        <span
+          className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap ${badgeColor}`}
+        >
           {badge}
         </span>
       )}
@@ -60,10 +67,9 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
       href="/dashboard"
       onClick={onClick}
       rel="nofollow"
-      className="text-slate-600 hover:text-purple-600 font-medium transition-colors flex items-center gap-1.5 md:w-auto w-full md:px-0 px-4 md:py-0 py-3 md:hover:bg-transparent hover:bg-purple-50 rounded-xl text-sm"
+      className="h-8 px-3 rounded-full text-slate-700 hover:text-purple-700 hover:bg-white/60 font-bold transition-colors inline-flex items-center gap-1.5 text-xs whitespace-nowrap"
     >
-      <span>🚀</span>
-      Dashboard
+      <span>Dashboard</span>
     </Link>
   );
 });
@@ -75,7 +81,6 @@ function Header() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const megaMenuTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Global Cmd+K / Ctrl+K listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -87,7 +92,6 @@ function Header() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Mega-menu hover: open immediately, close with delay to bridge gap
   const cancelMegaMenuTimeout = useCallback(() => {
     if (megaMenuTimeoutRef.current) {
       clearTimeout(megaMenuTimeoutRef.current);
@@ -103,10 +107,9 @@ function Header() {
   const handleMegaMenuAreaLeave = useCallback(() => {
     megaMenuTimeoutRef.current = setTimeout(() => {
       setIsMegaMenuOpen(false);
-    }, 320);
+    }, 280);
   }, []);
 
-  // Cleanup timeout on unmount
   useEffect(() => {
     return () => cancelMegaMenuTimeout();
   }, [cancelMegaMenuTimeout]);
@@ -124,7 +127,6 @@ function Header() {
     setIsMegaMenuOpen(false);
   }, [cancelMegaMenuTimeout]);
 
-  // Escape closes all open menus
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -137,7 +139,6 @@ function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [cancelMegaMenuTimeout]);
 
-  // Auto-close menus on route change (render-phase safe pattern)
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
@@ -151,57 +152,53 @@ function Header() {
 
   return (
     <>
-      {/* Sticky wrapper: announcement + header + mega-menu all stick together */}
       <div className="sticky top-0 z-50">
-        {/* 1. Global Announcement / Ticker Bar */}
         <AnnouncementBar />
 
-        {/* 2. Main Header with Ambient Gradient Accent Line */}
         <header className="relative transition-all">
-          {/* Dynamic Glowing Accent Top Border */}
-          <div className="h-[2px] w-full bg-gradient-to-r from-red-600 via-purple-600 to-amber-500" />
+          {/* Specular Top Accent Line */}
+          <div className="h-[2px] w-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-emerald-500" />
 
-          <div className="bg-white/90 backdrop-blur-2xl border-b border-slate-200/90 shadow-[0_8px_30px_-8px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between h-16 md:h-20 gap-3">
-                {/* Logo & Brand */}
-                <div className="flex-shrink-0 flex items-center">
-                  <Link href="/" className="flex items-center gap-2.5 group">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-[inset_0_1.5px_0_0_rgba(255,255,255,0.45),0_3px_0_0_#4c1d95,0_8px_16px_-4px_rgba(124,58,237,0.4)] group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300">
-                      <FaYoutube className="w-5 h-5 sm:w-5.5 sm:h-5.5" />
+          <div className="bg-white/92 backdrop-blur-2xl border-b border-slate-200/85 shadow-[0_8px_28px_-10px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
+            <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
+                {/* 1. Brand Logo & Emblem */}
+                <div className="shrink-0 flex items-center">
+                  <Link href="/" className="flex items-center gap-2.5 group whitespace-nowrap">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-[inset_0_1.5px_0_0_rgba(255,255,255,0.45),0_3px_0_0_#4c1d95,0_8px_16px_-4px_rgba(124,58,237,0.4)] group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0">
+                      <FaYoutube className="w-5 h-5" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-extrabold text-lg sm:text-xl text-slate-900 tracking-tight group-hover:text-purple-600 transition-colors">
+                      <span className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight group-hover:text-purple-700 transition-colors leading-tight">
                         {siteConfig.name}
                       </span>
-                      <span className="hidden sm:inline-block text-[10px] font-bold text-purple-700 tracking-wider uppercase -mt-0.5">
+                      <span className="hidden sm:inline-block text-[9px] font-extrabold text-purple-700 tracking-[0.14em] uppercase leading-tight">
                         4K Creator Suite • 44 Tools
                       </span>
                     </div>
                   </Link>
                 </div>
 
-                {/* Desktop Navigation Links */}
-                <div className="hidden lg:flex items-center h-full gap-1 xl:gap-2">
-                  {/* Tools Mega-Menu Trigger */}
+                {/* 2. Center 3D Glass Pill Navigation Dock (Desktop) */}
+                <div className="hidden lg:flex items-center bg-slate-100/90 p-1 rounded-full border border-slate-200/85 shadow-[inset_0_1px_2px_rgba(15,23,42,0.05)] gap-0.5 shrink-0">
                   <div
-                    className="relative h-full flex items-center"
+                    className="relative flex items-center"
                     onMouseEnter={handleMegaMenuAreaEnter}
                     onMouseLeave={handleMegaMenuAreaLeave}
                   >
                     <button
                       type="button"
                       onClick={() => setIsMegaMenuOpen((prev) => !prev)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-bold transition-all ${
-                        isMegaMenuOpen || pathname?.startsWith("/tools")
-                          ? "text-purple-600 bg-purple-50"
-                          : "text-slate-700 hover:text-purple-600 hover:bg-slate-50"
+                      className={`h-8 inline-flex items-center gap-1.5 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                        isMegaMenuOpen || pathname === "/tools"
+                          ? "bg-white text-purple-700 shadow-xs border border-slate-200/80"
+                          : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
                       }`}
                       aria-expanded={isMegaMenuOpen}
                       aria-label="Explore tools catalog"
                     >
                       <span>Tools</span>
-                      <span className="text-[10px] font-black px-1.5 py-0.5 rounded-full bg-purple-600 text-white">
+                      <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-purple-600 text-white leading-none">
                         44
                       </span>
                       <FaChevronDown
@@ -212,93 +209,90 @@ function Header() {
                     </button>
                   </div>
 
-                  {/* Direct High-CTR Links */}
                   <NavLink
                     href="/tools/youtube-earnings-calculator"
                     badge="Tier 1"
-                    className={`px-3 py-2 rounded-xl text-sm font-semibold ${
-                      pathname?.includes("earnings")
-                        ? "text-purple-600 bg-purple-50 font-bold"
-                        : "text-slate-700 hover:text-purple-600 hover:bg-slate-50"
-                    }`}
+                    badgeColor="bg-emerald-600 text-white"
+                    isActive={Boolean(pathname?.includes("earnings"))}
                   >
                     Earnings
                   </NavLink>
 
                   <NavLink
                     href="/resources/youtube-cpm-rates"
-                    badge="2026"
-                    className={`px-3 py-2 rounded-xl text-sm font-semibold ${
-                      pathname?.includes("cpm")
-                        ? "text-purple-600 bg-purple-50 font-bold"
-                        : "text-slate-700 hover:text-purple-600 hover:bg-slate-50"
-                    }`}
+                    badge="52"
+                    badgeColor="bg-purple-100 text-purple-800 border border-purple-200"
+                    isActive={Boolean(pathname?.includes("cpm"))}
                   >
                     CPM Rates
                   </NavLink>
 
                   <NavLink
                     href="/pricing"
-                    className="px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-purple-600 hover:bg-slate-50 transition-colors"
+                    isActive={pathname === "/pricing"}
                   >
                     Pricing
                   </NavLink>
 
                   <NavLink
                     href="/blog"
-                    className="px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-purple-600 hover:bg-slate-50 transition-colors"
+                    isActive={Boolean(pathname?.startsWith("/blog"))}
                   >
-                    Blog
+                    Guides
                   </NavLink>
 
                   <DashboardLink />
                 </div>
 
-                {/* Desktop Search Bar Trigger */}
-                <button
-                  type="button"
-                  onClick={() => setIsCommandOpen(true)}
-                  className="hidden md:flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200 text-slate-500 text-xs font-medium transition-all duration-200 cursor-pointer shadow-2xs max-w-xs xl:max-w-sm w-full group"
-                  aria-label="Search all tools and guides"
-                >
-                  <FaSearch className="w-3.5 h-3.5 text-purple-600 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="truncate text-slate-500">
-                    Search 44+ tools, CPM data...
-                  </span>
-                  <kbd className="ml-auto inline-flex items-center gap-0.5 text-[10px] font-bold text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs flex-shrink-0">
-                    ⌘K
-                  </kbd>
-                </button>
-
-                {/* Right Utilities Section */}
-                <div className="flex items-center gap-2 sm:gap-2.5">
-                  {/* 1. Global Multi-Currency Picker */}
-                  <HeaderCurrencyPicker />
-
-                  {/* 2. Pinned / Saved Tools Star Drawer */}
-                  <HeaderSavedTools />
-
-                  {/* 3. Mobile Search Trigger */}
+                {/* 3. Right Utilities Dock */}
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  {/* Desktop Command Search Trigger */}
                   <button
                     type="button"
                     onClick={() => setIsCommandOpen(true)}
-                    className="md:hidden p-2.5 min-w-10 min-h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200"
-                    aria-label="Open search palette"
+                    className="hidden md:inline-flex h-9 items-center gap-2 px-3 rounded-full bg-slate-100/90 hover:bg-white border border-slate-200/90 hover:border-purple-300 text-slate-500 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-[inset_0_1px_0_0_#fff] w-40 xl:w-52 group shrink-0"
+                    aria-label="Search all tools and guides"
                   >
-                    <FaSearch className="w-4 h-4" />
+                    <FaSearch className="w-3 h-3 text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="truncate text-slate-500 text-left flex-1">
+                      Search 44 tools...
+                    </span>
+                    <kbd className="inline-flex items-center text-[10px] font-bold text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
+                      ⌘K
+                    </kbd>
                   </button>
 
-                  {/* 4. User Account / Login Menu */}
+                  {/* Global Multi-Currency Picker (sm+ in bar, also accessible on desktop/tablet) */}
+                  <div className="hidden sm:block">
+                    <HeaderCurrencyPicker />
+                  </div>
+
+                  {/* Pinned / Saved Tools Drawer */}
+                  <div className="hidden sm:block">
+                    <HeaderSavedTools />
+                  </div>
+
+                  {/* Mobile Search Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => setIsCommandOpen(true)}
+                    className="md:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200/90 shadow-2xs shrink-0"
+                    aria-label="Open search palette"
+                  >
+                    <FaSearch className="w-3.5 h-3.5" />
+                  </button>
+
+                  {/* User Account / Sign In */}
                   <UserMenu />
 
-                  {/* 5. Mobile Hamburger Menu Button */}
+                  {/* Mobile Hamburger Menu Button */}
                   <button
                     onClick={toggleMenu}
-                    className="lg:hidden p-2.5 min-w-10 min-h-10 inline-flex items-center justify-center rounded-xl bg-slate-100 text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200"
+                    className="lg:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200/90 shadow-2xs shrink-0"
                     aria-label="Toggle menu"
                     aria-expanded={isMenuOpen}
                   >
-                    {isMenuOpen ? <FaTimes className="w-4 h-4" /> : <FaBars className="w-4 h-4" />}
+                    {isMenuOpen ? <FaTimes className="w-3.5 h-3.5" /> : <FaBars className="w-3.5 h-3.5" />}
                   </button>
                 </div>
               </div>
@@ -306,19 +300,22 @@ function Header() {
               {/* Mobile Drawer Navigation */}
               {isMenuOpen && (
                 <div className="lg:hidden py-4 border-t border-slate-200/80 animate-fade-in-up">
-                  {/* Quick Search Button in Mobile Menu */}
-                  <div className="mb-3 px-2">
+                  <div className="flex sm:hidden items-center justify-between gap-2 mb-3">
+                    <HeaderCurrencyPicker />
+                    <HeaderSavedTools />
+                  </div>
+                  <div className="mb-3">
                     <button
                       type="button"
                       onClick={() => {
                         closeMenu();
                         setIsCommandOpen(true);
                       }}
-                      className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-500 text-xs font-semibold"
+                      className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 text-xs font-bold"
                     >
                       <span className="flex items-center gap-2">
                         <FaSearch className="text-purple-600" />
-                        Search 44+ creator tools...
+                        Search 44 creator tools &amp; CPM data...
                       </span>
                       <span className="text-[10px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold">
                         ⌘K
@@ -326,7 +323,6 @@ function Header() {
                     </button>
                   </div>
 
-                  {/* Mobile Navigation Links */}
                   <div className="flex flex-col gap-1">
                     <Link
                       href="/tools"
@@ -345,7 +341,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube Earnings Calculator</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500 text-white">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-600 text-white">
                         Tier-1
                       </span>
                     </Link>
@@ -367,8 +363,8 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>4K Thumbnail Downloader</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-500 text-white">
-                        HD
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-600 text-white">
+                        UHD
                       </span>
                     </Link>
 
@@ -378,8 +374,8 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube CPM Rates 2026</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-blue-600 text-white">
-                        Global
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-600 text-white">
+                        52 Markets
                       </span>
                     </Link>
 
@@ -396,7 +392,7 @@ function Header() {
                       onClick={closeMenu}
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-semibold transition-colors text-sm"
                     >
-                      Creator Growth Blog
+                      Creator Growth Guides
                     </Link>
 
                     <DashboardLink onClick={closeMenu} />
@@ -406,7 +402,6 @@ function Header() {
             </nav>
           </div>
 
-          {/* 3. Desktop Interactive Mega Menu Dropdown — inside header for hover bridging */}
           <HeaderMegaMenu
             isOpen={isMegaMenuOpen}
             onClose={closeMegaMenu}
@@ -416,7 +411,6 @@ function Header() {
         </header>
       </div>
 
-      {/* 4. Universal Command Palette Search Modal */}
       <CommandPalette
         isOpen={isCommandOpen}
         onClose={() => setIsCommandOpen(false)}

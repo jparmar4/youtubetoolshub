@@ -288,80 +288,59 @@ export default async function ToolPage({
                               Many tools use useSearchParams() and only stream client HTML —
                               crawlers often never see an H1 if it lives only in ToolPageLayout.
                             */}
-                            <header className="card-3d rounded-3xl p-6 sm:p-8 space-y-5 relative overflow-hidden">
+                            <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500" />
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                                     <div className="flex items-start gap-4 flex-1">
-                                        <div className="icon-cube-3d hidden sm:flex w-15 h-15 rounded-2xl items-center justify-center text-purple-600 text-2xl flex-shrink-0 mt-1">
+                                        <div className="icon-cube-3d hidden sm:flex w-14 h-14 rounded-2xl items-center justify-center text-purple-600 text-2xl shrink-0 mt-0.5">
                                             <tool.icon />
                                         </div>
                                         <div className="flex-1">
-                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider mb-3">
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                                 <span>{tool.isAI ? "AI-Powered 3D Studio" : "Instant UHD Browser Studio"} · Free</span>
                                             </div>
                                             <h1
-                                                className="text-3xl md:text-4xl font-black text-slate-900 mb-3 tracking-tight font-outfit"
+                                                className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit"
                                                 data-speakable
                                             >
                                                 {tool.name}
                                             </h1>
                                             <p
-                                                className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed"
+                                                className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed"
                                                 data-speakable
                                             >
                                                 {tool.seoDescription || tool.description}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="flex-shrink-0 sm:pt-1">
+                                    <div className="shrink-0 sm:pt-1">
                                         <ToolFavoriteButton toolSlug={tool.slug} toolName={tool.name} />
                                         <RecentToolTracker slug={tool.slug} />
                                     </div>
                                 </div>
-
-                                <QuickAnswerCapsule
-                                    question={tool.definitionBlock?.title || `What is ${tool.name}?`}
-                                    answer={
-                                        tool.definitionBlock?.text ||
-                                        `${tool.name} is a free, browser-based YouTube creator tool designed to streamline your content workflow. ${tool.shortDescription}. Works directly online with no signups, installations, or credit card required.`
-                                    }
-                                    keyPoints={[
-                                        "100% Free to use online (no browser extensions needed)",
-                                        tool.isAI ? "AI output is a draft to review before publishing" : "Results depend on the inputs you provide",
-                                        "Read the instructions and limitations before using results",
-                                        "No browser extension or YouTube password required",
-                                    ]}
-                                    badgeText="Tool summary"
-                                />
                             </header>
 
-                            {/* Leaderboard after the tool H1 — lazy={false} for immediate viewability */}
-                            <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                            </div>
-
-                            {/* 3D UHD Interactive Tool Console */}
+                            {/* 3D UHD Interactive Tool Console — Immediately Above the Fold */}
                             <div className="studio-console-3d rounded-3xl overflow-hidden">
                                 <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-                                    <div className="flex items-center gap-2">
-                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                                        <span className="ml-2 text-xs font-bold text-slate-300 truncate">
-                                            {tool.name} — Interactive Workspace
+                                    <div className="flex items-center gap-2 min-w-0">
+                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
+                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
+                                        <span className="ml-2 text-xs font-bold text-slate-200 truncate">
+                                            {tool.name} — Interactive Studio Workspace
                                         </span>
                                     </div>
-                                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                                        Ready
+                                    <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                        Live Engine
                                     </span>
                                 </div>
                                 <div className="p-4 sm:p-6">
                                     <ToolContextProvider value={{ hideHeader: true }}>
                                         <Suspense
                                             fallback={
-                                                <div className="min-h-[400px] flex items-center justify-center">
+                                                <div className="min-h-[360px] flex items-center justify-center">
                                                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" />
                                                 </div>
                                             }
@@ -372,33 +351,64 @@ export default async function ToolPage({
                                 </div>
                             </div>
 
+                            {/* Leaderboard immediately below the interactive tool */}
+                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
+                            </div>
+
+                            {/* AEO Quick Answer Capsule */}
+                            <QuickAnswerCapsule
+                                question={tool.definitionBlock?.title || `What is ${tool.name}?`}
+                                answer={
+                                    tool.definitionBlock?.text ||
+                                    `${tool.name} is a free, browser-based YouTube creator tool designed to streamline your content workflow. ${tool.shortDescription}. Works directly online with no signups, installations, or credit card required.`
+                                }
+                                keyPoints={[
+                                    "100% Free to use online (no browser extensions needed)",
+                                    tool.isAI ? "AI output is a draft to review before publishing" : "Results depend on the inputs you provide",
+                                    "Read the instructions and limitations before using results",
+                                    "No browser extension or YouTube password required",
+                                ]}
+                                badgeText="Tool summary"
+                            />
+
                             {toolExamples[tool.slug] && (
-                                <section className="rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4" aria-labelledby="worked-example-title">
-                                    <h2 id="worked-example-title" className="text-xl font-bold">{toolExamples[tool.slug].title}</h2>
-                                    <dl className="space-y-3">
-                                        <div><dt className="font-semibold">Example input</dt><dd>{toolExamples[tool.slug].input}</dd></div>
-                                        <div><dt className="font-semibold">Example result</dt><dd>{toolExamples[tool.slug].output}</dd></div>
+                                <section className="card-3d rounded-3xl p-6 sm:p-7 space-y-4" aria-labelledby="worked-example-title">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[11px] font-extrabold uppercase tracking-wider">
+                                        Worked Example
+                                    </div>
+                                    <h2 id="worked-example-title" className="text-xl font-black text-slate-900 font-outfit">{toolExamples[tool.slug].title}</h2>
+                                    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4">
+                                            <dt className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Example Input</dt>
+                                            <dd className="text-sm font-semibold text-slate-800">{toolExamples[tool.slug].input}</dd>
+                                        </div>
+                                        <div className="rounded-2xl bg-purple-50/60 border border-purple-200/80 p-4">
+                                            <dt className="text-xs font-extrabold uppercase tracking-wider text-purple-700 mb-1">Example Result</dt>
+                                            <dd className="text-sm font-semibold text-slate-900">{toolExamples[tool.slug].output}</dd>
+                                        </div>
                                     </dl>
-                                    <p className="text-sm text-slate-600 dark:text-slate-300">{toolExamples[tool.slug].explanation}</p>
+                                    <p className="text-sm text-slate-600 leading-relaxed">{toolExamples[tool.slug].explanation}</p>
                                 </section>
                             )}
 
                             {/* Category-Tailored Creator Affiliate Recommendation */}
                             <AffiliateBanner toolId={getAffiliateToolForCategory(tool.category, tool.slug)} variant="compact" />
 
-                            {/* Ad: Below Tool Component */}
-                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[100px]">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
+                            {/* Ad: Below Worked Example */}
+                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2">
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot="3397391628" format="fluid" layout="in-article" />
                             </div>
                             </AdSectionPrioritize>
 
                             {/* Share & Embed This Tool */}
                             <AdSectionIgnore>
-                                <div className="glass-premium rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div className="card-3d rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div>
-                                        <p className="text-slate-800 dark:text-slate-200 font-bold">Found this tool helpful?</p>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">Share with creators or embed directly on your website.</p>
+                                        <p className="text-slate-900 font-extrabold">Found this tool helpful?</p>
+                                        <p className="text-xs text-slate-500">Share with creators or embed directly on your website.</p>
                                     </div>
                                     <div className="flex flex-wrap items-center gap-3">
                                         <EmbedModal slug={tool.slug} toolName={tool.name} />
@@ -423,24 +433,23 @@ export default async function ToolPage({
 
                             {/* Internal Linking for Earnings Calculator (Countries) */}
                             {tool.slug === "youtube-earnings-calculator" && (
-                                <div className="glass-premium rounded-2xl p-8 border border-green-100 dark:border-green-900/30">
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                                        <span className="text-green-500">🌍</span>
-                                        Browse by Country
+                                <div className="card-3d rounded-3xl p-8 border border-emerald-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                        <span>Browse by Country</span>
                                     </h3>
                                     <div className="flex flex-wrap gap-3">
                                         {countryCPMData.slice(0, 12).map((country) => (
                                             <Link
                                                 key={country.slug}
                                                 href={`/tools/youtube-earnings-calculator/${country.slug}`}
-                                                className="px-4 py-2 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:border-green-500 hover:text-green-600 transition-colors"
+                                                className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-semibold hover:border-emerald-500 hover:text-emerald-700 transition-colors"
                                             >
-                                                {country.flag} {country.name}
+                                                {country.name}
                                             </Link>
                                         ))}
                                         <Link
                                             href="/tools/youtube-earnings-calculator"
-                                            className="px-4 py-2 bg-green-50 text-green-700 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors"
+                                            className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors"
                                         >
                                             View All Countries
                                         </Link>
@@ -448,82 +457,41 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* AEO definition + TL;DR for featured snippets / AI citations */}
-                            {tool.definitionBlock && (
-                                <div
-                                    className="summary glass-premium rounded-2xl p-6 border-l-4 border-fuchsia-500"
-                                    data-speakable
-                                >
-                                    <h2 className="text-lg font-bold text-fuchsia-600 mb-2">
-                                        {tool.definitionBlock.title}
-                                    </h2>
-                                    <p className="text-slate-700 text-lg leading-relaxed">
-                                        {tool.definitionBlock.text}
-                                    </p>
-                                </div>
-                            )}
-                            <div
-                                className="summary glass-premium rounded-2xl p-6 border-l-4 border-purple-500"
-                                data-speakable
-                            >
-                                <h2 className="text-lg font-bold text-purple-600 mb-2 flex items-center gap-2">
-                                    ⚡ Quick Summary
+                            {/* Key Facts for AI Extraction */}
+                            <div className="key-facts card-3d rounded-3xl p-6 sm:p-8">
+                                <h2 className="text-xl font-black text-slate-900 mb-4 font-outfit">
+                                    Tool Specifications &amp; Key Facts
                                 </h2>
-                                <p className="text-slate-700 text-lg leading-relaxed">
-                                    {tool.description}
-                                </p>
-                            </div>
-
-                            {/* Key Facts for AI Extraction - Bullet format is optimal for LLMs */}
-                            <div className="key-facts glass-premium rounded-2xl p-8 shadow-sm">
-                                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                                    📊 Key Facts
-                                </h2>
-                                <ul className="space-y-4 text-lg text-slate-600">
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-green-500 font-bold">✓</span>
+                                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700">
+                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                                        <span className="text-emerald-600 font-black">✓</span>
                                         <span><strong>Tool:</strong> {tool.name}</span>
                                     </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-green-500 font-bold">✓</span>
-                                        <span><strong>Price:</strong> Free to use</span>
+                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                                        <span className="text-emerald-600 font-black">✓</span>
+                                        <span><strong>Pricing:</strong> 100% Free (No Signup)</span>
                                     </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-green-500 font-bold">✓</span>
-                                        <span><strong>Category:</strong> YouTube Creator Tools</span>
+                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                                        <span className="text-emerald-600 font-black">✓</span>
+                                        <span><strong>Engine:</strong> {tool.isAI ? "AI-Assisted Studio" : "Instant Browser Utility"}</span>
                                     </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-green-500 font-bold">✓</span>
-                                        <span><strong>AI-Assisted:</strong> {tool.isAI ? "Yes - uses AI-assisted generation" : "No - browser utility tool"}</span>
+                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
+                                        <span className="text-emerald-600 font-black">✓</span>
+                                        <span><strong>Speed:</strong> {tool.howTo?.totalTime === "PT1M" ? "Under 1 minute" : "Instant execution"}</span>
                                     </li>
-                                    {tool.howTo && (
-                                        <li className="flex items-start gap-3">
-                                            <span className="text-green-500 font-bold">✓</span>
-                                            <span><strong>Time Required:</strong> {tool.howTo.totalTime === "PT1M" ? "Under 1 minute" : "2-5 minutes"}</span>
-                                        </li>
-                                    )}
                                 </ul>
                             </div>
 
                             {/* Server-rendered long-form SEO body (crawlable, unique per tool) */}
-                            <article className="space-y-8 animate-fade-in-up delay-100" itemScope itemType="https://schema.org/TechArticle">
+                            <article className="space-y-6 animate-fade-in-up delay-100" itemScope itemType="https://schema.org/TechArticle">
                                 <meta itemProp="headline" content={tool.name} />
-                                <div className="glass-premium rounded-2xl p-6 border border-purple-100">
-                                    <p className="text-sm font-bold uppercase tracking-wide text-purple-600 mb-2">
-                                        Complete guide
-                                    </p>
-                                    <p className="text-slate-700 leading-relaxed summary" data-speakable>
-                                        {tool.seoDescription || tool.description}{" "}
-                                        Free in your browser—no extension and no YouTube password required.
-                                    </p>
-                                </div>
 
                                 {seoSections.map((section, idx) => (
-                                    <section key={`${section.title}-${idx}`} className="glass-premium rounded-2xl p-8 shadow-sm">
-                                        <h2 className="text-2xl font-bold text-gray-900 mb-4" itemProp="articleSection">
+                                    <section key={`${section.title}-${idx}`} className="card-3d rounded-3xl p-6 sm:p-8">
+                                        <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 font-outfit" itemProp="articleSection">
                                             {section.title}
                                         </h2>
-                                        <p className="text-slate-600 leading-relaxed text-lg" itemProp="text">
+                                        <p className="text-slate-600 leading-relaxed text-base sm:text-lg" itemProp="text">
                                             {section.content}
                                         </p>
                                     </section>

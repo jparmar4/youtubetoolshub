@@ -59,43 +59,43 @@ export function ToolCard({ icon, title, description, href, isAI, className }: To
         />
 
         <div>
-          <div className="flex items-start gap-4">
-            {/* 3D Extruded Jewel Icon Cube */}
-            <div className="icon-cube-3d flex-shrink-0 w-13 h-13 rounded-2xl flex items-center justify-center text-purple-600 text-xl">
+          {/* Top Row: 3D Icon Cube + Badges + Favorite Star */}
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <div className="icon-cube-3d shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-purple-600 text-xl">
               {icon}
             </div>
-            <div className="flex-1 min-w-0 pr-8">
-              <div className="flex items-center gap-2 mb-1.5">
-                <h3 className="font-bold text-slate-900 truncate group-hover:text-purple-700 transition-colors tracking-tight">
-                  {title}
-                </h3>
-                {isAI && (
-                  <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-full shadow-sm">
-                    AI
-                  </span>
-                )}
+
+            <div className="flex items-center gap-2">
+              {isAI && (
+                <span className="px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-full shadow-xs">
+                  AI Studio
+                </span>
+              )}
+              <div
+                className="relative z-10"
+                onClick={(e) => e.preventDefault()}
+              >
+                <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
               </div>
-              <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">
-                {description}
-              </p>
             </div>
           </div>
 
-          {/* Quick Star Pin Button — stops propagation so it doesn't navigate */}
-          <div
-            className="absolute top-4 right-4 z-10"
-            onClick={(e) => e.preventDefault()}
-          >
-            <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
-          </div>
+          {/* Full Readable Tool Title + Description */}
+          <h3 className="font-extrabold text-base sm:text-lg text-slate-900 group-hover:text-purple-700 transition-colors tracking-tight leading-snug mb-2 line-clamp-2 font-outfit">
+            {title}
+          </h3>
+          <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">
+            {description}
+          </p>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-slate-200/70 flex items-center justify-between">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-purple-600 transition-colors">
-            Instant Browser Tool
+        <div className="mt-5 pt-3.5 border-t border-slate-200/70 flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-slate-500 group-hover:text-purple-700 transition-colors">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            Free · Instant
           </span>
-          <span className="inline-flex items-center gap-1 text-purple-700 font-bold text-xs px-3 py-1 rounded-full bg-purple-50 border border-purple-200/70 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 transition-all duration-300 shadow-2xs">
-            <span>Launch</span>
+          <span className="inline-flex items-center gap-1 text-purple-700 font-bold text-xs px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 transition-all duration-300 shadow-2xs whitespace-nowrap">
+            <span>Launch Tool</span>
             <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
@@ -153,7 +153,7 @@ export function BlogCard({
               </span>
             )}
             <h3
-              className={`font-bold text-lg mb-2.5 group-hover:text-purple-600 transition-colors line-clamp-2 tracking-tight ${
+              className={`font-bold text-lg mb-2.5 group-hover:text-purple-600 transition-colors line-clamp-2 tracking-tight leading-snug font-outfit ${
                 dark ? "text-white" : "text-slate-900"
               }`}
             >

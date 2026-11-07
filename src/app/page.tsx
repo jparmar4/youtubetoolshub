@@ -118,8 +118,26 @@ const benefits = [
   },
 ];
 
+const FLAGSHIP_TOOL_SLUGS = new Set([
+  "youtube-thumbnail-downloader",
+  "youtube-earnings-calculator",
+  "youtube-tag-generator",
+  "youtube-title-generator",
+  "youtube-watch-hours-calculator",
+  "youtube-sponsorship-calculator",
+  "youtube-channel-valuation-calculator",
+  "youtube-llc-vs-s-corp-tax-savings-calculator",
+  "youtube-transcript-downloader",
+  "youtube-thumbnail-feed-previewer",
+  "youtube-ai-thumbnail-generator",
+  "youtube-channel-audit",
+]);
+
 export default function Home() {
-  const featuredTools = getFeaturedTools();
+  const featuredTools = [
+    ...tools.filter((t) => FLAGSHIP_TOOL_SLUGS.has(t.slug)),
+    ...getFeaturedTools().filter((t) => !FLAGSHIP_TOOL_SLUGS.has(t.slug)),
+  ].slice(0, 12);
 
   // ── AEO/GEO: Generate JSON-LD schemas for AI answer engines ──
   const faqSchema = getFAQSchema(
@@ -165,13 +183,13 @@ export default function Home() {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden py-14 md:py-22 flex items-center justify-center">
+      <section className="relative overflow-hidden py-14 md:py-22">
         <div className="nebula-bg" />
 
         <div className="absolute top-1/4 -right-24 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[120px] animate-pulse delay-700" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+        <div className="relative w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div className="animate-fade-in-up">
             <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
               <FaBrain className="text-pink-600 animate-glow-pulse" />
@@ -348,16 +366,76 @@ export default function Home() {
       {/* Tools Showcase */}
       <section className="py-20 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+          <div className="text-center mb-10">
+            <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
+              Flagship 4K Creator Suite
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
               Popular free YouTube tools
             </h2>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
-              Thumbnails, titles, tags, and earnings — the searches creators actually make.
+            <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
+              Thumbnails, titles, tags, and Tier-1 earnings — the flagship tools creators use daily.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* 4-Category 3D Bento Hub Bar */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mb-10">
+            {[
+              {
+                title: "Thumbnail & 4K Studio",
+                sub: "Downloader, AI & Feed Preview",
+                href: "/tools/thumbnail-tools",
+                accent: "from-pink-500 to-rose-600",
+                badge: "HD / 4K",
+              },
+              {
+                title: "SEO & Metadata Suite",
+                sub: "Titles, Tags, Chapters & Transcripts",
+                href: "/tools/seo-tools",
+                accent: "from-purple-600 to-fuchsia-600",
+                badge: "Rank #1",
+              },
+              {
+                title: "Tier-1 Money & Tax",
+                sub: "AdSense RPM, S-Corp & Valuation",
+                href: "/tools/analytics-tools",
+                accent: "from-emerald-500 to-teal-600",
+                badge: "High RPM",
+              },
+              {
+                title: "All 44 Creator Tools",
+                sub: "Complete Browser Catalog",
+                href: "/tools",
+                accent: "from-sky-500 to-indigo-600",
+                badge: "Full Suite",
+              },
+            ].map((cat) => (
+              <Link
+                key={cat.title}
+                href={cat.href}
+                className="group card-3d rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left"
+              >
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${cat.accent}`}
+                  >
+                    {cat.badge}
+                  </span>
+                  <FaArrowRight className="w-3 h-3 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+                </div>
+                <div>
+                  <div className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-purple-700 transition-colors font-outfit">
+                    {cat.title}
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+                    {cat.sub}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {featuredTools.map((tool) => (
               <ToolCard
                 key={tool.slug}
@@ -370,12 +448,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-16">
+          <div className="text-center mt-14">
             <Link
               href="/tools"
-              className="btn-3d-primary inline-flex items-center gap-3 rounded-2xl px-12 py-5 text-xl font-black group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="btn-3d-primary inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-lg sm:text-xl font-black group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
-              Access All {tools.length} Tools
+              Explore All {tools.length} Free Tools
               <FaArrowRight className="group-hover:translate-x-2 transition-transform" aria-hidden="true" />
             </Link>
           </div>
@@ -385,9 +463,9 @@ export default function Home() {
       {/* Authority & 3D Layered Creator Architecture */}
       <section className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
+          <div className="flex flex-col lg:flex-row gap-14 items-center">
             <div className="lg:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-10 leading-[0.95] font-outfit tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 leading-[1.1] font-outfit tracking-tight">
                 Data Patterns <br />
                 <span className="text-purple-600">Reducing Guesswork.</span>
               </h2>
