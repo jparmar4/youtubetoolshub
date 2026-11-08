@@ -149,7 +149,14 @@ function checkLocal() {
   } else {
     const envText = fs.readFileSync(envPath, "utf8");
     for (const key of ENV_KEYS_RECOMMENDED) {
-      if (key === "DATABASE_URL") {
+      if (key === "AI_API_KEY") {
+        const hasAi =
+          /^GEMINIFREEAI_API_KEY=/m.test(envText) ||
+          /^AI_API_KEY=/m.test(envText) ||
+          /^GEMINI_API_KEY=/m.test(envText);
+        if (hasAi) ok("AI (GEMINIFREEAI_API_KEY / AI_API_KEY)");
+        else info("Neither GEMINIFREEAI_API_KEY nor AI_API_KEY in .env.local (set on server if needed)");
+      } else if (key === "DATABASE_URL") {
         const hasDb =
           /^DATABASE_URL=/m.test(envText) ||
           /^MYSQL_HOST=/m.test(envText) ||

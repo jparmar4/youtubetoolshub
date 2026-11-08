@@ -1,11 +1,134 @@
+
+/**
+ * Call Google Gemini API (uses GEMINIFREEAI_API_KEY)
+ * Tries the official OpenAI-compatible endpoint first, then falls back to native generateContent.
+ */
+async function callGemini(
+    apiKey: string,
+    prompt: string,
+    systemPrompt: string,
+    options: { temperature: number; maxTokens: number; model?: string }
+): Promise<string> {
+    const model = options.model || process.env.GEMINI_MODEL || "gemini-2.0-flash";
+
+    // 1. Try Google Gemini OpenAI-compatible chat endpoint
+    try {
+        const response = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model,
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: prompt }
+                ],
+                temperature: options.temperature,
+                max_tokens: options.maxTokens,
+            }),
+            signal: AbortSignal.timeout(30_000),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const text = data?.choices?.[0]?.message?.content;
+            if (typeof text === "string" && text.trim()) {
+                return text;
+            }
+        }
+    } catch (err) {
+        console.warn("[Gemini OpenAI-compatible endpoint failed, trying native generateContent]:", err);
+    }
+
+    // 2. Native Google Gemini generateContent fallback
+    const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const nativeResp = await fetch(nativeUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            system_instruction: {
+                parts: [{ text: systemPrompt }]
+            },
+            contents: [
+                { role: "user", parts: [{ text: prompt }] }
+            ],
+            generationConfig: {
+                temperature: options.temperature,
+                maxOutputTokens: options.maxTokens,
+            }
+        }),
+        signal: AbortSignal.timeout(30_000),
+    });
+
+    if (!nativeResp.ok) {
+        const errorText = await nativeResp.text().catch(() => "");
+        throw new Error(`Gemini API error ${nativeResp.status}: ${errorText}`);
+    }
+
+    const nativeData = await nativeResp.json();
+    const resultText = nativeData?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!resultText) {
+        throw new Error("Gemini returned an empty or malformed response");
+    }
+    return resultText;
+}
+
+/**
+ * Call OpenAI API (uses AI_API_KEY)
+ */
+async function callOpenAI(
+    apiKey: string,
+    prompt: string,
+    systemPrompt: string,
+    options: { temperature: number; maxTokens: number; model?: string }
+): Promise<string> {
+    const model = options.model || process.env.AI_MODEL || "gpt-4o-mini";
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model,
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: prompt }
+            ],
+            temperature: options.temperature,
+            max_tokens: options.maxTokens,
+        }),
+        signal: AbortSignal.timeout(30_000),
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text().catch(() => "");
+        throw new Error(`OpenAI API error ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    const result = data?.choices?.[0]?.message?.content;
+    if (!result) {
+        throw new Error("OpenAI returned an empty or malformed response");
+    }
+    return result;
+}
+
 /**
  * AI Text Generation Utility
  *
  * Professional-grade AI prompts for YouTube content creation.
- * Configure in your .env.local file:
+ * Configure in your .env.local file or Hostinger environment:
  *
+ * # Free Google Gemini (recommended for Hostinger):
+ * GEMINIFREEAI_API_KEY=your-gemini-api-key-here
+ * GEMINI_MODEL=gemini-2.0-flash  (optional, defaults to gemini-2.0-flash)
+ *
+ * # OpenAI (if using OpenAI):
  * AI_API_KEY=your-openai-api-key-here
- * AI_MODEL=gpt-6-luna  (optional, defaults to gpt-6-luna)
+ * AI_MODEL=gpt-4o-mini  (optional, defaults to gpt-4o-mini)
  */
 
 import { aiCache, hashString } from "./cache";
@@ -47,57 +170,38 @@ export async function generateAIText(
         }
     }
 
-    const apiKey = process.env.AI_API_KEY;
-    const model = process.env.AI_MODEL || "gpt-6-luna";
+    const geminiKey = process.env.GEMINIFREEAI_API_KEY || process.env.GEMINI_API_KEY;
+    const openAiKey = process.env.AI_API_KEY || process.env.OPENAI_API_KEY;
 
-    if (!apiKey) {
+    if (!geminiKey && !openAiKey) {
         // Dev-only mocks so local UI can be exercised without a key.
         // Production must fail closed — never return fake "success" content.
         if (process.env.NODE_ENV === "development") {
-            console.warn("AI_API_KEY not configured. Returning mock response (development only).");
+            console.warn("Neither GEMINIFREEAI_API_KEY nor AI_API_KEY configured. Returning mock response (development only).");
             return getMockResponse(prompt);
         }
         throw new AIConfigurationError(
-            "AI_API_KEY is not configured. Set it in the server environment.",
+            "AI API key is not configured. Set GEMINIFREEAI_API_KEY (for Google Gemini) or AI_API_KEY (for OpenAI) in the server environment.",
         );
     }
 
     try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                model: model,
-                messages: [
-                    {
-                        role: "system",
-                        content: getSystemPrompt()
-                    },
-                    {
-                        role: "user",
-                        content: prompt
-                    }
-                ],
+        let result: string;
+
+        // If GEMINIFREEAI_API_KEY is configured, use Google Gemini (free tier on Hostinger)
+        if (geminiKey) {
+            result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
                 temperature,
-                max_tokens: maxTokens,
-            }),
-            // A hung connection must release the request slot instead of
-            // pinning a worker until the platform timeout.
-            signal: AbortSignal.timeout(30_000),
-        });
-
-        if (!response.ok) {
-            throw new Error(`AI API error: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const result = data?.choices?.[0]?.message?.content;
-
-        if (!result) {
-            throw new Error("AI returned an empty or malformed response");
+                maxTokens,
+                model: process.env.GEMINI_MODEL,
+            });
+        } else {
+            // Otherwise use OpenAI via AI_API_KEY
+            result = await callOpenAI(openAiKey!, prompt, getSystemPrompt(), {
+                temperature,
+                maxTokens,
+                model: process.env.AI_MODEL,
+            });
         }
 
         // Store in cache for future requests
