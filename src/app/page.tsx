@@ -190,7 +190,7 @@ export default function Home() {
         <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[120px] animate-pulse delay-700" />
 
         <div className="relative w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-          <div className="animate-fade-in-up">
+          <div>
             <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
               <FaBrain className="text-pink-600 animate-glow-pulse" />
               {tools.length} free tools · 4K UHD · no signup

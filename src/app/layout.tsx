@@ -154,6 +154,8 @@ export default async function RootLayout({
       <head>
         {/* Edge DNS Preconnects for Global Performance (fonts are self-hosted via next/font) */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://scripts.clarity.ms" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/*
           AdSense Auto ads + manual units. This must remain a native async tag:
@@ -251,6 +253,7 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
 
         {/* Pinterest Business Verification */}
         <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />

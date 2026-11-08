@@ -152,7 +152,7 @@ const nextConfig = {
               "default-src 'self'",
               // unsafe-eval removed (audit): production Next + AdSense do not need eval.
               // If a vendor (Clarity/Razorpay) breaks after deploy, re-add it here.
-              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://checkout.razorpay.com https://*.razorpay.com",
+              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://*.clarity.ms https://scripts.clarity.ms https://checkout.razorpay.com https://*.razorpay.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",
@@ -184,7 +184,7 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms",
+              "script-src 'self' 'unsafe-inline' https://*.googlesyndication.com https://*.googleadservices.com https://*.google.com https://*.googletagmanager.com https://*.google-analytics.com https://*.doubleclick.net https://*.gstatic.com https://adservice.google.com https://www.googletagservices.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://cdn.ampproject.org https://www.clarity.ms https://*.clarity.ms https://scripts.clarity.ms",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.googlesyndication.com",
               "img-src 'self' data: blob: https: http:",
               "font-src 'self' https://fonts.gstatic.com",

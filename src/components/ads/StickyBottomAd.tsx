@@ -61,16 +61,7 @@ export default function StickyBottomAd() {
     return () => window.clearTimeout(timer);
   }, [isEmbed, visible]);
 
-  useEffect(() => {
-    if (isEmbed || !visible || !isReady) {
-      document.body.style.removeProperty("padding-bottom");
-      return;
-    }
-    document.body.style.paddingBottom = "110px";
-    return () => {
-      document.body.style.removeProperty("padding-bottom");
-    };
-  }, [isEmbed, visible, isReady]);
+  
 
   const handleDismiss = () => {
     try {
@@ -88,6 +79,7 @@ export default function StickyBottomAd() {
       role="complementary"
       aria-label="Advertisement"
       className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2 transition-all duration-300"
+      style={{ contain: "layout paint", transform: "translateZ(0)" }}
     >
       <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] sm:min-h-[90px]">
         {/* Ad Tag & Close Button */}
