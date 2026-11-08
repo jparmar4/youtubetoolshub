@@ -12,10 +12,10 @@ import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
     title: "YouTube SEO Tools - Title, Description & Tag Generators 2026",
-    description: "The complete YouTube SEO toolkit for 2026. Generate viral titles, optimized descriptions, high-ranking tags, and trending hashtags. 5 free AI-powered tools.",
+    description: "The complete YouTube SEO toolkit for 2026. Generate viral titles, optimized descriptions, high-ranking tags, and trending hashtags. 9 free AI-powered tools.",
     keywords: ["youtube seo tools", "viral title generator", "seo description maker", "youtube tag generator 2026", "keyword research for youtube", "trending hashtags finder"],
     openGraph: {
-        title: "5 Free YouTube SEO Tools | Titles, Tags, Descriptions & More 2026",
+        title: "9 Free YouTube SEO Tools | Titles, Tags, Descriptions & More 2026",
         description: "AI-powered tools to optimize your YouTube videos for maximum discoverability. Rank higher and get more views with our 2026 SEO suite.",
         type: "website",
         url: `${siteConfig.url}/tools/seo-tools`,

@@ -21,6 +21,13 @@ interface TagResult {
     shortTags?: string[];
 }
 
+const tagPresets = [
+    { label: "📱 iPhone Editing", topic: "How to edit YouTube videos on iPhone for beginners", niche: "Tech & Video" },
+    { label: "🎮 GTA 6 Breakdown", topic: "GTA 6 Trailer secret details, easter eggs and map analysis", niche: "Gaming" },
+    { label: "📈 Index Funds", topic: "How to invest in S&P 500 index funds step by step", niche: "Finance" },
+    { label: "🍕 Homemade Pizza", topic: "Authentic Neapolitan pizza at home in regular oven", niche: "Cooking" },
+];
+
 export default function TagGenerator() {
     const [topic, setTopic] = useState("");
     const [niche, setNiche] = useState("");
@@ -201,6 +208,26 @@ export default function TagGenerator() {
             <div className="space-y-6">
                 <UsageBanner type="ai" toolSlug="youtube-tag-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
+
+                {/* Quick Presets Pills */}
+                <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                        <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
+                    </span>
+                    {tagPresets.map((preset) => (
+                        <button
+                            key={preset.label}
+                            type="button"
+                            onClick={() => {
+                                setTopic(preset.topic);
+                                setNiche(preset.niche);
+                            }}
+                            className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
+                        >
+                            {preset.label}
+                        </button>
+                    ))}
+                </div>
 
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

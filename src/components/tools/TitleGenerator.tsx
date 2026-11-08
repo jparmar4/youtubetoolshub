@@ -107,6 +107,14 @@ interface TitleResult {
     why: string;
 }
 
+const titlePresets = [
+    { label: "🎮 Gaming", topic: "Minecraft 100 Days Hardcore Survival on an Isolated Island", videoType: "challenge", tone: "dramatic" },
+    { label: "💻 Tech", topic: "M4 MacBook Pro Honest Review: 30 Days Later", videoType: "review", tone: "curiosity" },
+    { label: "💰 Finance", topic: "How I Built a $10,000/Month Passive Income Stream from Scratch", videoType: "tutorial", tone: "storytelling" },
+    { label: "🏋️ Fitness", topic: "15-Minute Daily Morning Routine That Fixed My Posture", videoType: "tutorial", tone: "educational" },
+    { label: "🎬 Vlog", topic: "I Traveled Across Japan with Only $50 and a Backpack", videoType: "vlog", tone: "entertaining" },
+];
+
 export default function TitleGenerator() {
     const searchParams = useSearchParams();
 
@@ -269,6 +277,26 @@ export default function TitleGenerator() {
                 <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
+                            {/* Quick Presets Pills */}
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                                <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                                    <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
+                                </span>
+                                {titlePresets.map((preset) => (
+                                    <button
+                                        key={preset.label}
+                                        type="button"
+                                        onClick={() => {
+                                            setTopic(preset.topic);
+                                            setVideoType(preset.videoType);
+                                            setTone(preset.tone);
+                                        }}
+                                        className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
+                                    >
+                                        {preset.label}
+                                    </button>
+                                ))}
+                            </div>
                             <Input
                                 label="Video Topic (Be Specific)"
                                 placeholder="e.g., how to fix a leaky faucet without tools"

@@ -32,6 +32,37 @@ const toneOptions = [
     { value: "educational", label: "Clear & Concise (Best for Tutorials)" },
 ];
 
+const descriptionPresets = [
+    {
+        label: "💻 Tutorial",
+        topic: "How to Build and Deploy Full-Stack Next.js 16 Apps in 2026",
+        videoType: "tutorial",
+        tone: "educational",
+        keywords: "Next.js, React, Full Stack, Web Development",
+    },
+    {
+        label: "📷 Review",
+        topic: "Sony A7 IV Review: 1 Year Later (Is It Still Worth It?)",
+        videoType: "review",
+        tone: "professional",
+        keywords: "Sony A7 IV, Camera Review, Filmmaking gear",
+    },
+    {
+        label: "✈️ Vlog",
+        topic: "48 Hours in Tokyo: Hidden Street Food & Secret Markets",
+        videoType: "vlog",
+        tone: "casual",
+        keywords: "Tokyo travel, Japan street food, Travel vlog",
+    },
+    {
+        label: "🎮 Gaming",
+        topic: "Defeating the Hardest Boss in Elden Ring Without Taking Damage",
+        videoType: "gaming",
+        tone: "excited",
+        keywords: "Elden Ring, Boss fight, Gaming guide, No hit run",
+    },
+];
+
 export default function DescriptionGenerator() {
     return (
         <ToolPageLayout
@@ -133,6 +164,27 @@ function DescriptionGeneratorContent() {
             <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="col-span-1 md:col-span-2">
+                        {/* Quick Presets Pills */}
+                        <div className="flex flex-wrap items-center gap-2 mb-3">
+                            <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                                <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
+                            </span>
+                            {descriptionPresets.map((preset) => (
+                                <button
+                                    key={preset.label}
+                                    type="button"
+                                    onClick={() => {
+                                        setTopic(preset.topic);
+                                        setVideoType(preset.videoType);
+                                        setTone(preset.tone);
+                                        setKeywords(preset.keywords);
+                                    }}
+                                    className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
+                                >
+                                    {preset.label}
+                                </button>
+                            ))}
+                        </div>
                         <Input
                             label="Video Topic / Summary"
                             placeholder="e.g., How to edit videos faster in Premiere Pro"

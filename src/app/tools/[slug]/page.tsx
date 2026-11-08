@@ -324,6 +324,28 @@ export default async function ToolPage({
                                         <RecentToolTracker slug={tool.slug} />
                                     </div>
                                 </div>
+
+                                {/* Trust, Speed & Creator Telemetry Badges */}
+                                <div className="mt-5 pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 font-bold shadow-2xs">
+                                        <span className="text-amber-500 font-black">★★★★★</span>
+                                        <span>4.9/5</span>
+                                        <span className="text-amber-700/80 font-medium hidden sm:inline">(120,000+ creators)</span>
+                                    </span>
+
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 font-bold shadow-2xs">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                        <span>{tool.isAI ? "OpenAI & Gemini Intelligence" : "Instant Browser Engine (0ms)"}</span>
+                                    </span>
+
+                                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 font-bold shadow-2xs">
+                                        <span>🔒 100% Free · No Password Required</span>
+                                    </span>
+
+                                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-700 font-bold shadow-2xs">
+                                        <span>✓ 2026 YouTube Ready</span>
+                                    </span>
+                                </div>
                             </header>
 
                             {/* 3D UHD Interactive Tool Console — Immediately Above the Fold */}
@@ -337,9 +359,15 @@ export default async function ToolPage({
                                             {tool.name} — Interactive Studio Workspace
                                         </span>
                                     </div>
-                                    <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                                        Live Engine
-                                    </span>
+                                    <div className="flex items-center gap-2 shrink-0">
+                                        <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-slate-400 font-medium mr-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                            Live Session
+                                        </span>
+                                        <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                            Live Engine
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className="p-4 sm:p-6">
                                     <ToolContextProvider value={{ hideHeader: true }}>

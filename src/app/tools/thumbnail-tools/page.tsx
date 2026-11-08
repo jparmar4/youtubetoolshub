@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description: "The ultimate YouTube thumbnail toolkit for 2026. Download HD thumbnails, generate AI images, optimize text hooks, and get pro-level prompts for Midjourney & DALL-E. Free tools!",
     keywords: ["youtube thumbnail tools", "thumbnail downloader hd", "ai thumbnail generator", "thumbnail text ideas", "thumbnail psychology 2026", "midjourney prompts for youtube"],
     openGraph: {
-        title: "4 Free YouTube Thumbnail Tools | AI Generators & HD Downloaders",
+        title: "6 Free YouTube Thumbnail Tools | AI Generators & HD Downloaders",
         description: "Everything you need to create, download, and optimize viral YouTube thumbnails in 2026. Boost your click-through rate with AI-powered tools.",
         type: "website",
         url: `${siteConfig.url}/tools/thumbnail-tools`,

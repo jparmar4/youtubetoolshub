@@ -11,6 +11,12 @@ import GoogleAd from "@/components/ads/GoogleAd";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 import Link from "next/link";
 
+const thumbnailPresets = [
+    { label: "Sample 4K Video", url: "https://www.youtube.com/watch?v=Bey4XXJAqS8" },
+    { label: "Sample Popular Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    { label: "Sample Shorts", url: "https://www.youtube.com/shorts/5qap5aO4i9A" },
+];
+
 export default function ThumbnailDownloader() {
     const [url, setUrl] = useState("");
     const [thumbnails, setThumbnails] = useState<ReturnType<typeof getThumbnailUrls> | null>(null);
@@ -55,6 +61,16 @@ export default function ThumbnailDownloader() {
         }
     };
 
+    const handlePresetClick = (sampleUrl: string) => {
+        setUrl(sampleUrl);
+        setError("");
+        const videoId = extractVideoId(sampleUrl);
+        if (videoId) {
+            const thumbs = getThumbnailUrls(videoId);
+            setThumbnails(thumbs);
+        }
+    };
+
     return (
         <ToolPageLayout
             title="YouTube Thumbnail Downloader"
@@ -62,6 +78,23 @@ export default function ThumbnailDownloader() {
             description="Download high-quality thumbnails from any YouTube video in multiple resolutions"
         >
             <div className="space-y-6">
+                {/* Quick Presets Pills */}
+                <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                        <span className="text-amber-500 font-bold">⚡</span> Try sample URL:
+                    </span>
+                    {thumbnailPresets.map((preset) => (
+                        <button
+                            key={preset.label}
+                            type="button"
+                            onClick={() => handlePresetClick(preset.url)}
+                            className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
+                        >
+                            {preset.label}
+                        </button>
+                    ))}
+                </div>
+
                 {/* This browser-only utility is genuinely free and needs no account. */}
                 <form
                     toolname="get_youtube_thumbnail_urls"

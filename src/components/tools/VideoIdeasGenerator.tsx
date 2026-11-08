@@ -35,6 +35,13 @@ const goalOptions = [
     { value: "money", label: "Make Money (Sales/Sponsors)" },
 ];
 
+const ideaPresets = [
+    { label: "🤖 AI & Coding", niche: "AI Tools and Web Development Coding Tutorials", level: "beginner", goal: "views" },
+    { label: "💰 Personal Finance", niche: "Passive Income, Dividend Stocks & Real Estate for Beginners", level: "intermediate", goal: "money" },
+    { label: "🚀 Desk Setup & Tech", niche: "Minimalist Desk Setups and Productivity Gear", level: "intermediate", goal: "search" },
+    { label: "🍕 Food & Cooking", niche: "15-Minute One-Pot Meals for Busy Professionals", level: "beginner", goal: "views" },
+];
+
 interface VideoIdea {
     title: string;
     concept: string;
@@ -198,6 +205,26 @@ export default function VideoIdeasGenerator() {
                 <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
+                            {/* Quick Presets Pills */}
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                                <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+                                    <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
+                                </span>
+                                {ideaPresets.map((preset) => (
+                                    <button
+                                        key={preset.label}
+                                        type="button"
+                                        onClick={() => {
+                                            setNiche(preset.niche);
+                                            setLevel(preset.level);
+                                            setContentGoal(preset.goal);
+                                        }}
+                                        className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
+                                    >
+                                        {preset.label}
+                                    </button>
+                                ))}
+                            </div>
                             <Input
                                 label="Your Niche (Be Specific)"
                                 placeholder="e.g., Sustainable tech reviews, Vegan meal prep for students"
