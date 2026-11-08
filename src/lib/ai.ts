@@ -85,27 +85,55 @@ async function callOpenAI(
     options: { temperature: number; maxTokens: number; model?: string }
 ): Promise<string> {
     const model = options.model || process.env.AI_MODEL || "gpt-4o-mini";
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const isReasoningModel = /^(o1|o3|gpt-6)/i.test(model);
+
+    // Newer OpenAI models (o1, o3, gpt-6-luna) do not allow custom temperature
+    // and require max_completion_tokens instead of legacy max_tokens.
+    const requestBody: Record<string, unknown> = {
+        model,
+        messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: prompt }
+        ],
+        max_completion_tokens: options.maxTokens,
+    };
+
+    if (!isReasoningModel) {
+        requestBody.temperature = options.temperature;
+    }
+
+    let response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-            model,
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: prompt }
-            ],
-            temperature: options.temperature,
-            max_tokens: options.maxTokens,
-        }),
+        body: JSON.stringify(requestBody),
         signal: AbortSignal.timeout(30_000),
     });
 
+    // If a model rejects custom parameters (e.g. temperature), retry cleanly
     if (!response.ok) {
-        const errorText = await response.text().catch(() => "");
-        throw new Error(`OpenAI API error ${response.status}: ${errorText}`);
+        const errorJson = await response.json().catch(() => null);
+        const errorMsg = errorJson?.error?.message || "";
+
+        if (errorMsg.includes("temperature") || errorMsg.includes("max_tokens")) {
+            delete requestBody.temperature;
+            response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`,
+                },
+                body: JSON.stringify(requestBody),
+                signal: AbortSignal.timeout(30_000),
+            });
+        }
+
+        if (!response.ok) {
+            const finalErrorText = errorJson?.error?.message || (await response.text().catch(() => ""));
+            throw new Error(`OpenAI API error ${response.status}: ${finalErrorText}`);
+        }
     }
 
     const data = await response.json();
@@ -188,20 +216,22 @@ export async function generateAIText(
     try {
         let result: string;
 
-        // If GEMINIFREEAI_API_KEY is configured, use Google Gemini (free tier on Hostinger)
-        if (geminiKey) {
+        // User requirement: Tools AI calls are handled by OpenAI API (AI_API_KEY)
+        if (openAiKey) {
+            result = await callOpenAI(openAiKey, prompt, getSystemPrompt(), {
+                temperature,
+                maxTokens,
+                model: process.env.AI_MODEL,
+            });
+        } else if (geminiKey) {
+            // Fallback to Google Gemini if GEMINIFREEAI_API_KEY is configured
             result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
                 temperature,
                 maxTokens,
                 model: process.env.GEMINI_MODEL,
             });
         } else {
-            // Otherwise use OpenAI via AI_API_KEY
-            result = await callOpenAI(openAiKey!, prompt, getSystemPrompt(), {
-                temperature,
-                maxTokens,
-                model: process.env.AI_MODEL,
-            });
+            throw new AIConfigurationError("No AI API key available");
         }
 
         // Store in cache for future requests
