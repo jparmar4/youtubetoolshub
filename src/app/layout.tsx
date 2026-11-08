@@ -15,6 +15,7 @@ import StickyBottomAd from "@/components/ads/StickyBottomAd";
 import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
 import ToastContainer from "@/components/ui/Toast";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
+import WebMCPRegistry from "@/components/agent/WebMCPRegistry";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -324,6 +325,156 @@ export default async function RootLayout({
             `,
           }}
         />
+
+        {/*
+          WebMCP: In-Browser Agent Tool Registration (SEP-1649 / WebMCP)
+          Registers tools on navigator.modelContext on page load for in-browser agents.
+        */}
+        <script
+          id="webmcp-registry-script"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function registerWebMCP() {
+                  if (typeof navigator === "undefined" || !navigator.modelContext || typeof navigator.modelContext.registerTool !== "function") return;
+                  var mc = navigator.modelContext;
+                  try {
+                    mc.registerTool({
+                      name: "estimate_youtube_earnings",
+                      description: "Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country across 52 supported regions.",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          views: { type: "number", description: "Number of monthly or daily video views." },
+                          country: { type: "string", description: "Country slug or code (e.g. 'usa', 'uk', 'canada', 'australia', 'germany', 'india')." }
+                        },
+                        required: ["views"]
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-earnings",
+                            method: "tools/call",
+                            params: { name: "estimate_youtube_earnings", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
+
+                    mc.registerTool({
+                      name: "list_youtube_tools",
+                      description: "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          category: { type: "string", description: "Optional tool category filter." },
+                          query: { type: "string", description: "Optional search keyword." }
+                        }
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-tools",
+                            method: "tools/call",
+                            params: { name: "list_youtube_tools", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
+
+                    mc.registerTool({
+                      name: "get_country_cpm_rates",
+                      description: "Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries.",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          country: { type: "string", description: "Optional country name, code, or slug filter." }
+                        }
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-cpm",
+                            method: "tools/call",
+                            params: { name: "get_country_cpm_rates", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
+
+                    mc.registerTool({
+                      name: "get_youtube_thumbnail_urls",
+                      description: "Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL.",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          videoIdOrUrl: { type: "string", description: "YouTube video URL or 11-character video ID." }
+                        },
+                        required: ["videoIdOrUrl"]
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-thumbs",
+                            method: "tools/call",
+                            params: { name: "get_youtube_thumbnail_urls", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
+                  } catch(err) {
+                    console.warn("WebMCP registration:", err);
+                  }
+                }
+
+                registerWebMCP();
+                if (typeof document !== "undefined") {
+                  if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", registerWebMCP);
+                  }
+                  window.addEventListener("load", registerWebMCP);
+                }
+                if (typeof window !== "undefined") {
+                  window.addEventListener("modelcontextready", registerWebMCP);
+                }
+                if (typeof navigator !== "undefined" && !navigator.modelContext) {
+                  try {
+                    var _mcVal = undefined;
+                    Object.defineProperty(navigator, "modelContext", {
+                      configurable: true,
+                      enumerable: true,
+                      get: function() { return _mcVal; },
+                      set: function(v) {
+                        _mcVal = v;
+                        if (v && typeof v.registerTool === "function") setTimeout(registerWebMCP, 0);
+                      }
+                    });
+                  } catch(e) {}
+                }
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -355,6 +506,7 @@ export default async function RootLayout({
             <PrivacyH1Fix />
             {/* Exit-intent popup for email capture */}
             <ExitIntentPopup />
+            <WebMCPRegistry />
             {/* High-viewability mobile/desktop sticky bottom anchor ad */}
             <StickyBottomAd />
             <PWAInstallPrompt />

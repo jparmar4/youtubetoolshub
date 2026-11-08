@@ -420,7 +420,15 @@ ${sec3Text}
           Paste any YouTube URL or 11-character video ID to extract synchronized text captions, download as TXT/SRT, or inspect spoken SEO keywords.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3">
+        <form
+          toolname="extract_youtube_transcript"
+          tooldescription="Extract complete transcripts, plain text, and SRT subtitles from any YouTube video"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleExtract();
+          }}
+          className="flex flex-col sm:flex-row gap-3"
+        >
           <div className="flex-1">
             <Input
               type="text"
@@ -434,6 +442,7 @@ ${sec3Text}
             />
           </div>
           <Button
+            type="submit"
             onClick={() => handleExtract()}
             disabled={loading}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl flex items-center justify-center gap-2 sm:w-auto w-full"
@@ -450,7 +459,7 @@ ${sec3Text}
               </>
             )}
           </Button>
-        </div>
+        </form>
 
         {error && (
           <div className="mt-4 p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 flex items-start gap-3 text-red-700 dark:text-red-400 text-sm">

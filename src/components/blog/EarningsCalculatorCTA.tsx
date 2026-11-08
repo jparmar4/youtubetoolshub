@@ -81,22 +81,36 @@ export default function EarningsCalculatorCTA({
           Niche CPM context
         </li>
       </ul>
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Link
-          href="/tools/youtube-earnings-calculator"
+      <form
+        toolname="estimate_youtube_earnings"
+        tooldescription="Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country."
+        action="/tools/youtube-earnings-calculator"
+        method="GET"
+        className="flex flex-col sm:flex-row gap-3"
+      >
+        <input
+          type="number"
+          name="views"
+          defaultValue="100000"
+          placeholder="Monthly views (e.g. 100000)"
+          aria-label="Monthly views"
+          className="px-4 py-3 rounded-xl border border-emerald-300 bg-white text-slate-800 text-sm flex-1 focus:outline-emerald-500"
+        />
+        <button
+          type="submit"
           className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-colors shadow-md shadow-emerald-600/20"
         >
           <FaCalculator />
           Calculate earnings free
           <FaArrowRight className="w-3 h-3" />
-        </Link>
+        </button>
         <Link
           href="/resources/youtube-cpm-rates"
           className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-800 font-bold hover:border-emerald-400 transition-colors"
         >
           CPM rates by country
         </Link>
-      </div>
+      </form>
     </aside>
   );
 }

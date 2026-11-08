@@ -291,7 +291,15 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
         )}
 
         {/* Input Controls */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <form
+          toolname="estimate_youtube_earnings"
+          tooldescription="Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country."
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCalculateAds();
+          }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        >
           <div>
             <Input
               label="Monthly Views"
@@ -334,12 +342,12 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
           </div>
 
           <div className="flex items-start md:pt-6">
-            <Button onClick={handleCalculateAds} className="w-full h-[46px] shadow-md shadow-purple-500/20">
+            <Button type="submit" onClick={handleCalculateAds} className="w-full h-[46px] shadow-md shadow-purple-500/20">
               <FaCalculator className="mr-2" />
               Calculate Revenue
             </Button>
           </div>
-        </div>
+        </form>
 
         {/* Quick RPM Presets */}
         <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/80">

@@ -63,7 +63,15 @@ export default function ThumbnailDownloader() {
         >
             <div className="space-y-6">
                 {/* This browser-only utility is genuinely free and needs no account. */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                <form
+                    toolname="get_youtube_thumbnail_urls"
+                    tooldescription="Download high-quality thumbnails from any YouTube video in multiple resolutions"
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        handleFetch();
+                    }}
+                    className="flex flex-col sm:flex-row gap-4"
+                >
                     <div className="flex-1">
                         <Input
                             label="YouTube Video or Shorts URL"
@@ -75,12 +83,12 @@ export default function ThumbnailDownloader() {
                         />
                     </div>
                     <div className="sm:pt-7">
-                        <Button onClick={handleFetch} isLoading={loading}>
+                        <Button type="submit" onClick={handleFetch} isLoading={loading}>
                             <FaImage className="mr-2" />
                             Fetch Thumbnails
                         </Button>
                     </div>
-                </div>
+                </form>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-slate-500">
                     <p>
                         Supports regular videos, Shorts, youtu.be links, and live replays. Downloads
