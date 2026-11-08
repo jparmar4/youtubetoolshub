@@ -8,14 +8,9 @@ import GoogleAd from "@/components/ads/GoogleAd";
 import Link from "next/link";
 import {
   FaMusic,
-  FaCoins,
   FaCheckCircle,
-  FaExclamationTriangle,
   FaExternalLinkAlt,
-  FaChartPie,
-  FaBolt,
-  FaShieldAlt,
-} from "react-icons/fa";
+  FaBolt } from "react-icons/fa";
 import { AFFILIATE_TOOLS } from "@/config/affiliates";
 
 export default function ShortsMusicSplitCalculator() {
@@ -23,7 +18,11 @@ export default function ShortsMusicSplitCalculator() {
   const [baseRpmInput, setBaseRpmInput] = useState<string>("0.08");
   const [zeroTrackPercent, setZeroTrackPercent] = useState<string>("30");
   const [oneTrackPercent, setOneTrackPercent] = useState<string>("50");
-  const [twoTrackPercent, setTwoTrackPercent] = useState<string>("20");
+  const twoTrackPercent = useMemo(() => {
+    const p0 = Number(zeroTrackPercent) || 0;
+    const p1 = Number(oneTrackPercent) || 0;
+    return String(Math.max(0, 100 - p0 - p1));
+  }, [zeroTrackPercent, oneTrackPercent]);
 
   const calculations = useMemo(() => {
     const views = parseCalculatorInput(viewsInput);
@@ -71,8 +70,7 @@ export default function ShortsMusicSplitCalculator() {
       lostPercentage,
       normP0: Math.round(normP0 * 100),
       normP1: Math.round(normP1 * 100),
-      normP2: Math.round(normP2 * 100),
-    };
+      normP2: Math.round(normP2 * 100) };
   }, [viewsInput, baseRpmInput, zeroTrackPercent, oneTrackPercent, twoTrackPercent]);
 
   const epidemicTool = AFFILIATE_TOOLS.epidemic;

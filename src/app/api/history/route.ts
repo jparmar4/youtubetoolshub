@@ -7,7 +7,7 @@ export async function GET() {
     try {
         const session = await auth();
         if (!session || !session.user?.email) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+            return NextResponse.json({ authenticated: false, items: [] }, { status: 200 });
         }
 
         const email = session.user.email;

@@ -50,18 +50,23 @@ export default function StickyBottomAd() {
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isReady, setIsReady] = useState(false);
 
-  // An anchor ad must never compete with a page's first useful render. Waiting
-  // until the reader has had time to see the content improves mobile UX and
-  // avoids a large fixed element distorting the initial viewport for Discover
-  // and search visitors. Consent/dismissal still takes precedence.
+  // Show sticky anchor ad only after the user has begun interacting / scrolling.
+  // This prevents unexpected layout shifts (CLS) on initial paint and adheres
+  // to Google Better Ads Standards for sticky anchor units.
   useEffect(() => {
     if (isEmbed || !visible) return;
 
-    const timer = window.setTimeout(() => setIsReady(true), 5000);
-    return () => window.clearTimeout(timer);
-  }, [isEmbed, visible]);
+    const onScrollOrInteract = () => {
+      if (window.scrollY > 150) {
+        setIsReady(true);
+      }
+    };
 
-  
+    window.addEventListener("scroll", onScrollOrInteract, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScrollOrInteract);
+    };
+  }, [isEmbed, visible]);
 
   const handleDismiss = () => {
     try {
@@ -78,10 +83,10 @@ export default function StickyBottomAd() {
     <div
       role="complementary"
       aria-label="Advertisement"
-      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2 transition-all duration-300"
-      style={{ contain: "layout paint", transform: "translateZ(0)" }}
+      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2"
+      style={{ contain: "layout paint", transform: "translateZ(0)", maxHeight: "105px" }}
     >
-      <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] sm:min-h-[90px]">
+      <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] max-h-[90px] overflow-hidden">
         {/* Ad Tag & Close Button */}
         <div className="absolute -top-6 right-2 flex items-center gap-2">
           <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider bg-white/80 dark:bg-slate-800/80 px-2 py-0.5 rounded-t border border-b-0 border-slate-200 dark:border-slate-700">
@@ -97,14 +102,14 @@ export default function StickyBottomAd() {
         </div>
 
         {/* AdSense Unit */}
-        <div className="w-full flex justify-center overflow-hidden">
+        <div className="w-full flex justify-center overflow-hidden max-h-[90px]">
           <GoogleAd
             slot={AD_SLOTS.BOTTOM_STICKY}
-            format="auto"
+            format="horizontal"
             responsive
             lazy={false}
             className="w-full text-center"
-            style={{ display: "block" }}
+            style={{ display: "inline-block", width: "100%", maxHeight: "90px" }}
           />
         </div>
       </div>

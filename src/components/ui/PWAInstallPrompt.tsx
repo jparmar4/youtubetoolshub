@@ -70,9 +70,9 @@ export default function PWAInstallPrompt() {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+            <p className="text-sm font-bold text-slate-900 dark:text-white">
               Install YouTube Tools Hub
-            </h4>
+            </p>
             <button
               onClick={handleDismiss}
               className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs p-1"

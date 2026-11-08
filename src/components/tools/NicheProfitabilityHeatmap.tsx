@@ -227,6 +227,7 @@ export default function NicheProfitabilityHeatmap() {
           <FaSlidersH className="text-slate-400 text-xs" />
           <span className="text-xs font-semibold text-slate-500">Sort:</span>
           <select
+            aria-label="Sort niches by"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "cpm" | "rpm" | "demand")}
             className="text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border-none rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-emerald-500"

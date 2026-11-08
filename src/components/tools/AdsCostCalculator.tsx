@@ -4,22 +4,15 @@ import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
-import Link from "next/link";
 import {
   FaBullhorn,
-  FaDollarSign,
-  FaChartLine,
-  FaCheckCircle,
   FaGlobe,
-  FaMousePointer,
   FaEye,
   FaLightbulb,
   FaSlidersH,
-  FaShieldAlt,
   FaMagic,
   FaCheck,
-  FaCopy,
-} from "react-icons/fa";
+  FaCopy } from "react-icons/fa";
 
 interface CountryTier {
   id: string;
@@ -54,8 +47,7 @@ const AD_FORMATS: AdFormat[] = [
     baseCpm: 18.0,
     typicalCtr: 1.2,
     viewRate: 35,
-    description: "Plays before or during videos. Viewers can skip after 5 seconds. Billed on CPV (when viewer watches 30s or clicks).",
-  },
+    description: "Plays before or during videos. Viewers can skip after 5 seconds. Billed on CPV (when viewer watches 30s or clicks)." },
   {
     id: "non-skippable",
     name: "Non-Skippable In-Stream (15–20s)",
@@ -63,8 +55,7 @@ const AD_FORMATS: AdFormat[] = [
     baseCpm: 26.0,
     typicalCtr: 0.8,
     viewRate: 98,
-    description: "Viewers must watch entire ad. Billed on Target CPM. Highest brand awareness impact.",
-  },
+    description: "Viewers must watch entire ad. Billed on Target CPM. Highest brand awareness impact." },
   {
     id: "bumper",
     name: "Bumper Ads (6 Seconds)",
@@ -72,8 +63,7 @@ const AD_FORMATS: AdFormat[] = [
     baseCpm: 12.5,
     typicalCtr: 0.6,
     viewRate: 96,
-    description: "Quick 6-second non-skippable mobile ads. Efficient frequency and reach builder.",
-  },
+    description: "Quick 6-second non-skippable mobile ads. Efficient frequency and reach builder." },
   {
     id: "shorts",
     name: "YouTube Shorts Video Ads",
@@ -81,8 +71,7 @@ const AD_FORMATS: AdFormat[] = [
     baseCpm: 14.0,
     typicalCtr: 1.8,
     viewRate: 42,
-    description: "Vertical video ads between Shorts in mobile feed. High click-through rate for app installs and DTC products.",
-  },
+    description: "Vertical video ads between Shorts in mobile feed. High click-through rate for app installs and DTC products." },
   {
     id: "in-feed",
     name: "In-Feed Video Ads (Search & Suggested)",
@@ -90,8 +79,7 @@ const AD_FORMATS: AdFormat[] = [
     baseCpm: 16.5,
     typicalCtr: 2.4,
     viewRate: 100,
-    description: "Appears in search results and related video rail. High intent; user clicks thumbnail to watch.",
-  },
+    description: "Appears in search results and related video rail. High intent; user clicks thumbnail to watch." },
 ];
 
 interface NicheCost {
@@ -188,8 +176,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
       effectiveCpm: effectiveCpm.toFixed(2),
       viewRate: format.viewRate,
       ctr: format.typicalCtr,
-      nicheAvgCpc: niche.avgCpc,
-    };
+      nicheAvgCpc: niche.avgCpc };
   }, [calcMode, budgetInput, viewsInput, selectedRegion, selectedFormat, selectedNiche]);
 
   return (

@@ -15,18 +15,14 @@ import {
   FaListUl,
   FaFileAlt,
   FaExclamationTriangle,
-  FaLightbulb,
   FaPlay,
-  FaExchangeAlt,
-  FaRocket,
   FaBookOpen,
   FaVideo,
   FaMagic,
   FaCrown,
   FaExternalLinkAlt,
   FaTimes,
-  FaCheckCircle,
-} from "react-icons/fa";
+  FaCheckCircle } from "react-icons/fa";
 import Link from "next/link";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 
@@ -63,9 +59,7 @@ const SAMPLE_TRANSCRIPTS: Record<
       { start: "3:20", seconds: 200, text: "Notice that YouTube video transcripts also provide accessibility benefits, ensuring hearing-impaired viewers and multilingual audiences can engage with your message." },
       { start: "3:45", seconds: 225, text: "Always audit your auto-generated subtitles in YouTube Studio to correct technical terms, software names, and brand acronyms before publishing." },
       { start: "4:10", seconds: 250, text: "Finally, pair your high-relevance transcript with a clean 4-tier tag structure and high-contrast thumbnail packaging to maintain an evergreen top-three search ranking." },
-    ],
-  },
-};
+    ] } };
 
 const STOP_WORDS = new Set([
   "a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "aren't",
@@ -132,8 +126,7 @@ export default function TranscriptDownloader() {
           : `YouTube Video Transcript (ID: ${videoId})`,
         channel: targetUrl.includes("demo") ? SAMPLE_TRANSCRIPTS.demo.channel : "Channel Creator",
         duration: targetUrl.includes("demo") ? SAMPLE_TRANSCRIPTS.demo.duration : "10:30",
-        lines: SAMPLE_TRANSCRIPTS.demo.lines,
-      });
+        lines: SAMPLE_TRANSCRIPTS.demo.lines });
       setLoading(false);
     }, 450);
   };
@@ -207,8 +200,7 @@ export default function TranscriptDownloader() {
       totalWords,
       readTimeMinutes,
       estimatedWpm,
-      totalLines: videoData.lines.length,
-    };
+      totalLines: videoData.lines.length };
   }, [videoData, plainText]);
 
   // Intelligent Chapters Generator
@@ -291,40 +283,35 @@ ${sec3Text}
         duration: "0:00 – 0:15",
         badge: "Highest Retention",
         script: "If you want to rank number one in search in 2026, you need to understand how the neural algorithm actually evaluates content. Most creators get this completely backwards.",
-        visualCue: "Fast zoom on face, animated Google search bar typing your exact video topic.",
-      },
+        visualCue: "Fast zoom on face, animated Google search bar typing your exact video topic." },
       {
         id: 2,
         type: "The Contrarian Truth Hook",
         duration: "0:15 – 0:32",
         badge: "Myth Buster",
         script: "Most creators think SEO is about stuffing 30 keywords into your video tags. That strategy died years ago—here is what YouTube's recommendation network actually reads.",
-        visualCue: "Cross out 'Tags' in red on screen, show screenshot of YouTube Studio analytics.",
-      },
+        visualCue: "Cross out 'Tags' in red on screen, show screenshot of YouTube Studio analytics." },
       {
         id: 3,
         type: "The AI Discovery Secret",
         duration: "0:32 – 0:48",
         badge: "Algorithm Hack",
         script: "Google's recommendation network reads your spoken video transcript directly using automated speech recognition. Every word you say is mapped to its search graph.",
-        visualCue: "Pulsing audio spectrogram connecting to Google Knowledge Graph nodes.",
-      },
+        visualCue: "Pulsing audio spectrogram connecting to Google Knowledge Graph nodes." },
       {
         id: 4,
         type: "The 30-Second Golden Rule",
         duration: "0:48 – 1:05",
         badge: "CTR + Retention",
         script: "When you pronounce high-intent keywords and semantic entities in the first 30 seconds of your video, YouTube maps your audio to high-value search queries immediately.",
-        visualCue: "Countdown clock (30s) in top corner with dynamic yellow caption subtitles.",
-      },
+        visualCue: "Countdown clock (30s) in top corner with dynamic yellow caption subtitles." },
       {
         id: 5,
         type: "The Repurposing Multiplier",
         duration: "2:30 – 2:55",
         badge: "Cash Flow Multiplier",
         script: "By turning spoken video dialogue into text, you can repurpose 1 single long-form tutorial into a blog post, a newsletter, and 5 viral LinkedIn carousels in minutes.",
-        visualCue: "1 YouTube thumbnail splitting into 4 icons (Blog, Newsletter, LinkedIn, Shorts).",
-      },
+        visualCue: "1 YouTube thumbnail splitting into 4 icons (Blog, Newsletter, LinkedIn, Shorts)." },
     ];
   }, [videoData]);
 

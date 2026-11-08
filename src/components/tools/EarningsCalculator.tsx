@@ -435,9 +435,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Yearly Projection */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
                       <FaChartLine className="mr-1.5 text-purple-600" /> Yearly AdSense Run Rate
-                    </h4>
+                    </div>
                     <p className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
                       {formatCurrency(adResult.yearly * currentRate, activeCurrency)}
                     </p>
@@ -450,9 +450,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Brand Deal Sponsor Value */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
                       <FaHandshake className="mr-1.5 text-amber-500" /> Sponsor Rate / Video
-                    </h4>
+                    </div>
                     <p className="text-xl sm:text-2xl font-black text-slate-900 mb-1">
                       {formatCurrency(adResult.sponsorEstMin * currentRate, activeCurrency)} – {formatCurrency(adResult.sponsorEstMax * currentRate, activeCurrency)}
                     </p>
@@ -465,9 +465,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Estimated Channel Asset Value */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <h4 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
                       <FaCoins className="mr-1.5 text-rose-500" /> Channel Asset Value
-                    </h4>
+                    </div>
                     <p className="text-xl sm:text-2xl font-black text-slate-900 mb-1">
                       {formatCurrency(adResult.channelValuationMin * currentRate, activeCurrency)} – {formatCurrency(adResult.channelValuationMax * currentRate, activeCurrency)}
                     </p>

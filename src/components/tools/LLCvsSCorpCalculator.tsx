@@ -8,17 +8,9 @@ import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import {
-  FaBalanceScale,
   FaFileInvoiceDollar,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaArrowRight,
-  FaShieldAlt,
-  FaCalculator,
-  FaExternalLinkAlt,
   FaBuilding,
-  FaUserTie,
-} from "react-icons/fa";
+  FaUserTie } from "react-icons/fa";
 
 interface StateTaxRule {
   name: string;
@@ -32,8 +24,7 @@ const US_STATES: Record<string, StateTaxRule> = {
   FL: { name: "Florida", minFranchiseTax: 150, note: "0% personal income tax, $150 annual report fee" },
   NY: { name: "New York", minFranchiseTax: 325, note: "State franchise tax based on gross payroll/capital" },
   WA: { name: "Washington", minFranchiseTax: 0, note: "0% personal income tax, B&O tax applies" },
-  OTHER: { name: "Other States (Standard)", minFranchiseTax: 100, note: "Average state filing/annual fee" },
-};
+  OTHER: { name: "Other States (Standard)", minFranchiseTax: 100, note: "Average state filing/annual fee" } };
 
 export default function LLCvsSCorpCalculator() {
   const [netProfitInput, setNetProfitInput] = useState<string>("120000");
@@ -96,8 +87,7 @@ export default function LLCvsSCorpCalculator() {
       netAnnualSavings,
       breakEvenProfit,
       isProfitable: netAnnualSavings > 0,
-      stateRule,
-    };
+      stateRule };
   }, [netProfitInput, salaryPercent, complianceOverhead, selectedState]);
 
   return (

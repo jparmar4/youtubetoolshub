@@ -13,11 +13,9 @@ import {
   FaGraduationCap,
   FaBookOpen,
   FaMobileAlt,
-  FaLightbulb,
   FaExternalLinkAlt,
   FaRobot,
-  FaShieldAlt,
-} from "react-icons/fa";
+  FaShieldAlt } from "react-icons/fa";
 
 type FrameworkType = "executive" | "study" | "seo-article" | "shorts-script";
 

@@ -6,17 +6,9 @@ import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
 import {
   FaUniversity,
-  FaDollarSign,
-  FaExchangeAlt,
-  FaMoneyBillWave,
-  FaShieldAlt,
   FaCheckCircle,
-  FaExclamationTriangle,
-  FaGlobe,
-  FaLightbulb,
   FaCopy,
-  FaCheck,
-} from "react-icons/fa";
+  FaCheck } from "react-icons/fa";
 
 interface CountryFeeProfile {
   id: string;
@@ -107,8 +99,7 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
       modernNetMonthly: Math.round(modernNetMonthly),
       monthlySavings: Math.round(monthlySavings),
       annualSavings: Math.round(annualSavings),
-      country,
-    };
+      country };
   }, [monthlyEarnings, selectedCountry, usViewerPercent]);
 
   return (

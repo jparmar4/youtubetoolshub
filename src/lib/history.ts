@@ -74,7 +74,15 @@ export const getHistory = async (toolSlug?: string) => {
             throw new Error("Failed to fetch from cloud");
         }
 
-        let cloudHistory = await res.json();
+        const data = await res.json();
+        if (data && data.authenticated === false) {
+            let local = getLocalHistory();
+            if (toolSlug) {
+                local = local.filter(item => item.tool_slug === toolSlug);
+            }
+            return local;
+        }
+        let cloudHistory = Array.isArray(data) ? data : (data.items || []);
 
         if (toolSlug) {
             cloudHistory = cloudHistory.filter((item: HistoryItem) => item.tool_slug === toolSlug);

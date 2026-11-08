@@ -3,7 +3,6 @@
 import { useState, useId } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
 import Link from "next/link";
 import {
   FaMobileAlt,
@@ -19,12 +18,8 @@ import {
   FaThumbsUp,
   FaComment,
   FaUpload,
-  FaImage,
-  FaMagic,
   FaShieldAlt,
-  FaExternalLinkAlt,
-  FaClock,
-} from "react-icons/fa";
+  FaClock } from "react-icons/fa";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 
 interface CompetitorCard {
@@ -44,32 +39,27 @@ const SAMPLE_THUMBNAILS = [
     name: "Tech Review",
     url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop&q=80",
     title: "Why Everyone Is Quitting The M4 MacBook Pro in 2026",
-    niche: "tech",
-  },
+    niche: "tech" },
   {
     name: "Personal Finance",
     url: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop&q=80",
     title: "How I Built a $12,000/Month Passive Income Stream (No Hype)",
-    niche: "finance",
-  },
+    niche: "finance" },
   {
     name: "Gaming Challenge",
     url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=80",
     title: "100 Days in Hardcore Minecraft (I Lost Everything)",
-    niche: "gaming",
-  },
+    niche: "gaming" },
   {
     name: "Creator Tutorial",
     url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
     title: "YouTube SEO Secrets: Rank #1 in Search Within 24 Hours",
-    niche: "tech",
-  },
+    niche: "tech" },
   {
     name: "Vertical Short",
     url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
     title: "3 Camera Hacks That Make Cheap Phones Look Like $5,000 RED Cameras #shorts",
-    niche: "tech",
-  },
+    niche: "tech" },
 ];
 
 const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
@@ -83,8 +73,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "11:42",
       avatarBg: "bg-blue-600",
       thumbBg: "from-blue-900 to-indigo-950",
-      thumbLabel: "APPLE LEAK 2026",
-    },
+      thumbLabel: "APPLE LEAK 2026" },
     {
       id: "c2",
       title: "The $40 AI Hardware Device You Actually Need",
@@ -94,8 +83,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "18:05",
       avatarBg: "bg-purple-600",
       thumbBg: "from-slate-900 to-purple-900",
-      thumbLabel: "CHEAP AI TECH",
-    },
+      thumbLabel: "CHEAP AI TECH" },
     {
       id: "c3",
       title: "Building an AI Startup with $0 in 30 Days",
@@ -105,8 +93,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "14:15",
       avatarBg: "bg-emerald-600",
       thumbBg: "from-emerald-950 to-slate-900",
-      thumbLabel: "$0 TO $10K/MO",
-    },
+      thumbLabel: "$0 TO $10K/MO" },
   ],
   finance: [
     {
@@ -118,8 +105,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "16:30",
       avatarBg: "bg-emerald-600",
       thumbBg: "from-emerald-950 to-slate-950",
-      thumbLabel: "RECESSION WARNING",
-    },
+      thumbLabel: "RECESSION WARNING" },
     {
       id: "f2",
       title: "Where to Invest $10,000 Right Now (High Yield Safe Bets)",
@@ -129,8 +115,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "13:20",
       avatarBg: "bg-amber-600",
       thumbBg: "from-amber-950 to-slate-900",
-      thumbLabel: "$10,000 BLUEPRINT",
-    },
+      thumbLabel: "$10,000 BLUEPRINT" },
   ],
   gaming: [
     {
@@ -142,8 +127,7 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "32:10",
       avatarBg: "bg-rose-600",
       thumbBg: "from-rose-950 to-slate-950",
-      thumbLabel: "DAY 1,000 SURVIVAL",
-    },
+      thumbLabel: "DAY 1,000 SURVIVAL" },
     {
       id: "g2",
       title: "GTA 6 Final Gameplay Trailer Breakdown: 45 Hidden Details",
@@ -153,10 +137,8 @@ const COMPETITORS_BY_NICHE: Record<string, CompetitorCard[]> = {
       duration: "19:45",
       avatarBg: "bg-indigo-600",
       thumbBg: "from-indigo-950 to-slate-900",
-      thumbLabel: "GTA 6 SECRETS",
-    },
-  ],
-};
+      thumbLabel: "GTA 6 SECRETS" },
+  ] };
 
 export default function ThumbnailFeedPreviewer() {
   const thumbnailInputId = useId();
@@ -202,8 +184,7 @@ export default function ThumbnailFeedPreviewer() {
 
   const titleLength = videoTitle.length;
   const isMobileTruncated = titleLength > 48;
-  const isDesktopTruncated = titleLength > 65;
-
+  
   return (
     <ToolPageLayout
       title="YouTube Thumbnail & Feed Safe-Zone Previewer"

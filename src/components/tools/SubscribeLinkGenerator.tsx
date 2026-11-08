@@ -11,11 +11,9 @@ import {
   FaQrcode,
   FaYoutube,
   FaCode,
-  FaExternalLinkAlt,
   FaLightbulb,
   FaDownload,
-  FaUserPlus,
-} from "react-icons/fa";
+  FaUserPlus } from "react-icons/fa";
 
 export default function SubscribeLinkGenerator() {
   const [channelInput, setChannelInput] = useState<string>("@MrBeast");
@@ -67,8 +65,7 @@ export default function SubscribeLinkGenerator() {
       htmlButton,
       markdownLink,
       qrUrl,
-      displayName,
-    };
+      displayName };
   }, [channelInput]);
 
   const handleCopy = (text: string, key: string) => {

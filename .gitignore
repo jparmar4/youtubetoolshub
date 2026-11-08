@@ -52,20 +52,7 @@ lint-results-*.json
 tsconfig.tsbuildinfo
 
 # content audit outputs
-outputs/content-audit.csv
-outputs/content-audit.json
-
-# internal business spreadsheets / outreach data (keep on disk, not in git)
-outputs/**/*.xlsx
-outputs/**/*.csv
-outputs/**/*.docx
-outputs/**/*.ndjson
-outputs/*.xlsx
-outputs/*.csv
+outputs/
 
 # runtime data (subscriber emails — do not commit PII)
 data/subscribers.json
-
-
-outputs/*.xlsx
-outputs/*.csv

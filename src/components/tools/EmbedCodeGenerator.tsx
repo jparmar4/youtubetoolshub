@@ -9,12 +9,8 @@ import {
   FaCopy,
   FaCheckCircle,
   FaShieldAlt,
-  FaPlay,
-  FaSlidersH,
   FaTv,
-  FaMobileAlt,
-  FaLaptopCode,
-} from "react-icons/fa";
+  FaLaptopCode } from "react-icons/fa";
 
 type RatioType = "16:9" | "9:16" | "4:3" | "1:1";
 
@@ -112,8 +108,7 @@ export default function EmbedCodeGenerator() {
       videoId,
       iframeSrc,
       responsiveHtml,
-      reactCode,
-    };
+      reactCode };
   }, [videoUrl, aspectRatio, privacyMode, autoplay, loop, hideControls, mute, startTime, endTime]);
 
   const handleCopy = (text: string, key: string) => {
@@ -230,6 +225,15 @@ export default function EmbedCodeGenerator() {
               <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
                 <input
                   type="checkbox"
+                  checked={mute}
+                  onChange={(e) => setMute(e.target.checked)}
+                  className="rounded text-blue-600 focus:ring-blue-500"
+                />
+                Start Video Muted
+              </label>
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
                   checked={autoplay}
                   onChange={(e) => setAutoplay(e.target.checked)}
                   className="rounded text-blue-600 focus:ring-blue-500"
@@ -274,8 +278,7 @@ export default function EmbedCodeGenerator() {
                       ? "75%"
                       : aspectRatio === "1:1"
                       ? "100%"
-                      : "56.25%",
-                }}
+                      : "56.25%" }}
               >
                 <iframe
                   src={embedData.iframeSrc}

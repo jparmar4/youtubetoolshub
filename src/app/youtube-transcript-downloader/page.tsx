@@ -6,8 +6,7 @@ import {
   getFAQSchema,
   getHowToSchema,
   getBreadcrumbSchema,
-  getGlobalAlternates,
-} from "@/lib/seo";
+  getGlobalAlternates } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
@@ -27,13 +26,8 @@ import { AD_SLOTS } from "@/lib/adsense";
 import {
   FaFileAlt,
   FaSearch,
-  FaTags,
-  FaDownload,
-  FaCheckCircle,
   FaArrowRight,
-  FaRobot,
-  FaUniversalAccess,
-} from "react-icons/fa";
+  FaRobot } from "react-icons/fa";
 
 const pageUrl = `${siteConfig.url}/youtube-transcript-downloader`;
 
@@ -64,17 +58,14 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp`,
         width: 1376,
         height: 768,
-        alt: "YouTube Transcript Downloader and Keyword Extractor Interface",
-      },
-    ],
-  },
+        alt: "YouTube Transcript Downloader and Keyword Extractor Interface" },
+    ] },
   twitter: {
     card: "summary_large_image",
     title: "YouTube Transcript Downloader & Keyword Extractor (Free)",
     description:
       "Extract synchronized subtitles, plain text, and high-frequency SEO keywords from YouTube videos in seconds.",
-    images: [`${siteConfig.url}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp`],
-  },
+    images: [`${siteConfig.url}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp`] },
   robots: {
     index: true,
     follow: true,
@@ -83,56 +74,44 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-};
+      "max-video-preview": -1 } } };
 
 const toolFAQs = [
   {
     question: "How do I download a YouTube transcript for free?",
     answer:
-      "Paste any YouTube video link or 11-character video ID into the search bar above, click 'Extract Transcript', and choose your preferred export format: Plain Text (for copying into LLMs or docs), SRT (for video editors and captions), or CSV (for spreadsheet analysis). The tool is 100% free with no registration required.",
-  },
+      "Paste any YouTube video link or 11-character video ID into the search bar above, click 'Extract Transcript', and choose your preferred export format: Plain Text (for copying into LLMs or docs), SRT (for video editors and captions), or CSV (for spreadsheet analysis). The tool is 100% free with no registration required." },
   {
     question: "Can I extract YouTube subtitles without timestamps?",
     answer:
-      "Yes. Click the 'Plain Text' toggle inside the transcript viewer. This strips out all timecodes and paragraph breaks, giving you a clean, contiguous block of raw video dialogue ready to paste into ChatGPT, Claude, Google Docs, or your blog editor.",
-  },
+      "Yes. Click the 'Plain Text' toggle inside the transcript viewer. This strips out all timecodes and paragraph breaks, giving you a clean, contiguous block of raw video dialogue ready to paste into ChatGPT, Claude, Google Docs, or your blog editor." },
   {
     question: "How does YouTube transcript keyword research work?",
     answer:
-      "YouTube's neural recommendation algorithms transcribe spoken dialogue to index topic relevance. Our tool analyzes word and phrase frequencies across the entire transcript, highlighting the exact semantic entities and secondary keywords top-ranking creators repeatedly speak in their videos.",
-  },
+      "YouTube's neural recommendation algorithms transcribe spoken dialogue to index topic relevance. Our tool analyzes word and phrase frequencies across the entire transcript, highlighting the exact semantic entities and secondary keywords top-ranking creators repeatedly speak in their videos." },
   {
     question: "Does this transcript downloader work on YouTube Shorts?",
     answer:
-      "Yes. You can paste any YouTube Shorts URL (e.g., youtube.com/shorts/VIDEO_ID). If the Short includes spoken dialogue or automatic closed captions, the tool will extract the text accurately.",
-  },
+      "Yes. You can paste any YouTube Shorts URL (e.g., youtube.com/shorts/VIDEO_ID). If the Short includes spoken dialogue or automatic closed captions, the tool will extract the text accurately." },
   {
     question: "Is downloading YouTube transcripts legal?",
     answer:
-      "Yes. Public transcripts are accessible via YouTube's web interface and official player APIs for accessibility purposes. Using transcripts for research, studying competitor topics, generating summaries, or personal study complies with Fair Use principles. Do not republish full copyrighted video scripts without attribution.",
-  },
+      "Yes. Public transcripts are accessible via YouTube's web interface and official player APIs for accessibility purposes. Using transcripts for research, studying competitor topics, generating summaries, or personal study complies with Fair Use principles. Do not republish full copyrighted video scripts without attribution." },
 ];
 
 const howToSteps = [
   {
     name: "Copy the YouTube Video Link",
-    text: "Navigate to the YouTube video or Short you want to analyze and copy the URL from your browser address bar or the YouTube 'Share' button.",
-  },
+    text: "Navigate to the YouTube video or Short you want to analyze and copy the URL from your browser address bar or the YouTube 'Share' button." },
   {
     name: "Paste URL into Transcript Downloader",
-    text: "Paste the URL into the input field above and click 'Extract Transcript'.",
-  },
+    text: "Paste the URL into the input field above and click 'Extract Transcript'." },
   {
     name: "Choose Your Export Format",
-    text: "Toggle between Timestamps, Plain Text, or SRT subtitle format. Use the search bar to locate specific spoken phrases.",
-  },
+    text: "Toggle between Timestamps, Plain Text, or SRT subtitle format. Use the search bar to locate specific spoken phrases." },
   {
     name: "Download or Copy Text",
-    text: "Click 'TXT', 'SRT', or 'CSV' to download the file to your computer, or use the 1-click 'Copy' button to paste the transcript anywhere.",
-  },
+    text: "Click 'TXT', 'SRT', or 'CSV' to download the file to your computer, or use the 1-click 'Copy' button to paste the transcript anywhere." },
 ];
 
 export default function YouTubeTranscriptDownloaderPage() {
@@ -141,16 +120,14 @@ export default function YouTubeTranscriptDownloaderPage() {
     description:
       "Free web-based tool to download YouTube transcripts, extract closed captions as SRT or plain text, and perform spoken keyword frequency analysis.",
     category: "utility-fun",
-    url: pageUrl,
-  });
+    url: pageUrl });
 
   const faqSchema = getFAQSchema(toolFAQs);
   const howToSchema = getHowToSchema({
     name: "How to Download YouTube Transcripts and Extract Subtitles Free",
     description: "Step-by-step guide to exporting YouTube video transcripts with or without timestamps in TXT, SRT, or CSV format.",
     steps: howToSteps,
-    totalTime: "PT1M",
-  });
+    totalTime: "PT1M" });
 
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: siteConfig.url },

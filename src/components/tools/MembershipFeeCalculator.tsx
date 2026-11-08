@@ -8,18 +8,10 @@ import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import {
-  FaBalanceScale,
   FaCheck,
   FaTimes,
-  FaArrowRight,
   FaYoutube,
-  FaStore,
-  FaCoins,
-  FaExternalLinkAlt,
-  FaUsers,
-  FaDollarSign,
-  FaShieldAlt,
-} from "react-icons/fa";
+  FaCoins } from "react-icons/fa";
 
 export default function MembershipFeeCalculator() {
   const [membersInput, setMembersInput] = useState<string>("500");
@@ -75,23 +67,19 @@ export default function MembershipFeeCalculator() {
         fees: Math.round(ytTotalFees),
         netMonthly: Math.round(ytNetMonthly),
         netAnnual: Math.round(ytNetAnnual),
-        effectiveFeeRate: ((ytTotalFees / monthlyTotalGross) * 100).toFixed(1),
-      },
+        effectiveFeeRate: ((ytTotalFees / monthlyTotalGross) * 100).toFixed(1) },
       patreon: {
         fees: Math.round(patreonTotalFees),
         netMonthly: Math.round(patreonNetMonthly),
         netAnnual: Math.round(patreonNetAnnual),
-        effectiveFeeRate: ((patreonTotalFees / monthlyTotalGross) * 100).toFixed(1),
-      },
+        effectiveFeeRate: ((patreonTotalFees / monthlyTotalGross) * 100).toFixed(1) },
       fourthwall: {
         fees: Math.round(fourthwallTotalFees),
         netMonthly: Math.round(fourthwallNetMonthly),
         netAnnual: Math.round(fourthwallNetAnnual),
-        effectiveFeeRate: ((fourthwallTotalFees / monthlyTotalGross) * 100).toFixed(1),
-      },
+        effectiveFeeRate: ((fourthwallTotalFees / monthlyTotalGross) * 100).toFixed(1) },
       ytLostAnnual,
-      patreonLostAnnual,
-    };
+      patreonLostAnnual };
   }, [membersInput, tierPriceInput, merchSalesInput]);
 
   return (

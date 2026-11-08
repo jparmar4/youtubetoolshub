@@ -5,19 +5,8 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import GoogleAd from "@/components/ads/GoogleAd";
 import {
-  FaRocket,
   FaFire,
-  FaChartLine,
-  FaLightbulb,
-  FaCheckCircle,
-  FaBolt,
-  FaCompass,
-  FaExternalLinkAlt,
-  FaEye,
-  FaCopy,
-  FaCheck,
-  FaMagic,
-} from "react-icons/fa";
+  FaBolt, FaCopy, FaCheck } from "react-icons/fa";
 
 export default function OutlierCalculator() {
   const [videoViews, setVideoViews] = useState<string>("250000");
@@ -94,8 +83,7 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
       dailyVelocity,
       tierLabel,
       tierColor,
-      tierDescription,
-    };
+      tierDescription };
   }, [videoViews, channelMedian, daysSinceUpload]);
 
   return (
@@ -131,6 +119,31 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Inputs Panel */}
           <div className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
+            {/* Quick Presets */}
+            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+              <span className="text-xs font-bold text-slate-500">Presets:</span>
+              <button
+                type="button"
+                onClick={() => applyPreset("350000", "25000", "7")}
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+              >
+                14x Viral Breakout
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset("90000", "30000", "14")}
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+              >
+                3x Solid Outlier
+              </button>
+              <button
+                type="button"
+                onClick={() => applyPreset("32000", "30000", "21")}
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+              >
+                1.0x Baseline
+              </button>
+            </div>
             <div>
               <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
                 Target Video Views
@@ -233,6 +246,17 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
                 <FaBolt /> Next Step:
               </span>
               If a competitor video scores <strong>3x+ Outlier</strong>, create your own take on the topic within 14 days to ride YouTube&apos;s active recommendation graph.
+            </div>
+
+            <div className="pt-2 flex justify-end">
+              <button
+                type="button"
+                onClick={handleCopyReport}
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-colors"
+              >
+                {copied ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                {copied ? "Analysis Copied!" : "Copy Report"}
+              </button>
             </div>
           </div>
         </div>

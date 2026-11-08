@@ -42,7 +42,7 @@ function ToolFavoriteButton({
             ? "bg-amber-100/90 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"
             : "bg-white/80 dark:bg-slate-800/80 text-slate-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-slate-700"
         } ${className}`}
-        aria-label={favorited ? `Unpin ${toolName}` : `Pin ${toolName} to quick access`}
+        aria-label={favorited ? `Pinned to Quick Access - Unpin ${toolName}` : `Pin to Quick Access - ${toolName}`}
         title={favorited ? "Pinned to Quick Access" : "Pin to Quick Access"}
       >
         <FaStar className={`w-3.5 h-3.5 ${favorited ? "fill-current" : ""}`} />
@@ -59,7 +59,7 @@ function ToolFavoriteButton({
           ? "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200"
           : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-amber-400 hover:text-amber-600"
       } ${className}`}
-      aria-label={favorited ? `Unpin ${toolName}` : `Pin ${toolName} to quick access`}
+      aria-label={favorited ? `Pinned to Quick Access - Unpin ${toolName}` : `Pin to Quick Access - ${toolName}`}
     >
       <FaStar
         className={`w-3.5 h-3.5 ${
