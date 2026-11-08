@@ -6,7 +6,7 @@ import { noIndexRobots } from "@/lib/seo";
 export const metadata: Metadata = {
   title: { absolute: "Page Not Found (404) | YouTube Tools Hub" },
   description:
-    "The page you're looking for doesn't exist or has been moved. Browse our 27+ free creator tools or return to the homepage.",
+    "The page you're looking for doesn't exist or has been moved. Browse our 44+ free creator tools or return to the homepage.",
   // noindex so 404s never rank; follow so links on the page still pass signals
   robots: noIndexRobots,
 };

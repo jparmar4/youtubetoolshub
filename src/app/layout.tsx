@@ -445,6 +445,58 @@ export default async function RootLayout({
                         });
                       }
                     });
+                                      mc.registerTool({
+                      name: "estimate_sponsorship_rate",
+                      description: "Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          views: { type: "number", description: "Expected video views." },
+                          niche: { type: "string", description: "Creator niche (e.g. 'finance', 'tech', 'gaming')." }
+                        },
+                        required: ["views"]
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-sponsor",
+                            method: "tools/call",
+                            params: { name: "estimate_sponsorship_rate", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
+
+                    mc.registerTool({
+                      name: "estimate_channel_valuation",
+                      description: "Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings).",
+                      inputSchema: {
+                        type: "object",
+                        properties: {
+                          monthlyRevenue: { type: "number", description: "Average monthly net earnings (USD)." }
+                        },
+                        required: ["monthlyRevenue"]
+                      },
+                      execute: function(args) {
+                        return fetch("/api/mcp", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            jsonrpc: "2.0",
+                            id: "webmcp-valuation",
+                            method: "tools/call",
+                            params: { name: "estimate_channel_valuation", arguments: args || {} }
+                          })
+                        }).then(function(r){ return r.json(); }).then(function(d){
+                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
+                        });
+                      }
+                    });
                   } catch(err) {
                     console.warn("WebMCP registration:", err);
                   }

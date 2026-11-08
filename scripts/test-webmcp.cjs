@@ -45,13 +45,15 @@ const scriptCode = layoutContent.slice(start, end);
 
 eval(scriptCode);
 
-assert(registeredTools.length >= 4, `Expected at least 4 WebMCP tools registered, got ${registeredTools.length}`);
+assert(registeredTools.length >= 6, `Expected at least 6 WebMCP tools registered, got ${registeredTools.length}`);
 
 const requiredTools = [
   "estimate_youtube_earnings",
   "list_youtube_tools",
   "get_country_cpm_rates",
   "get_youtube_thumbnail_urls",
+  "estimate_sponsorship_rate",
+  "estimate_channel_valuation",
 ];
 
 for (const name of requiredTools) {

@@ -78,6 +78,51 @@ const MCP_TOOLS = [
       },
       required: ["videoIdOrUrl"],
     },
+  },,
+  {
+    name: "estimate_sponsorship_rate",
+    description:
+      "Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        views: {
+          type: "number",
+          description: "Expected average video views (e.g. 25000).",
+        },
+        niche: {
+          type: "string",
+          description:
+            "Creator niche: 'finance', 'tech', 'business', 'education', 'fitness', 'lifestyle', 'gaming'. Defaults to 'tech'.",
+        },
+        placement: {
+          type: "string",
+          description:
+            "Placement format: 'integration_60s' (60-90s mid-roll), 'mention_30s', 'dedicated' (full video), 'shorts'. Defaults to 'integration_60s'.",
+        },
+      },
+      required: ["views"],
+    },
+  },
+  {
+    name: "estimate_channel_valuation",
+    description:
+      "Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings) based on combined AdSense and sponsor revenue.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        monthlyRevenue: {
+          type: "number",
+          description: "Average total monthly net income from AdSense, sponsors, and affiliates (USD).",
+        },
+        contentStyle: {
+          type: "string",
+          description:
+            "Channel operating style: 'faceless' (higher transferability) or 'personal_brand'. Defaults to 'faceless'.",
+        },
+      },
+      required: ["monthlyRevenue"],
+    },
   },
 ];
 
@@ -363,6 +408,122 @@ export async function POST(request: NextRequest) {
                       mqdefault: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
                     },
                     toolUrl: `${baseUrl}/tools/youtube-thumbnail-downloader`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+        if (toolName === "estimate_sponsorship_rate") {
+      const views = Math.max(100, Number(args.views) || 10000);
+      const niche = String(args.niche || "tech").toLowerCase();
+      const placement = String(args.placement || "integration_60s").toLowerCase();
+
+      const nicheMultipliers: Record<string, { name: string; multiplier: number }> = {
+        finance: { name: "Personal Finance & Investing", multiplier: 2.2 },
+        business: { name: "Business, Career & SaaS", multiplier: 1.8 },
+        tech: { name: "Technology & Software", multiplier: 1.4 },
+        education: { name: "Education & How-To", multiplier: 1.25 },
+        fitness: { name: "Health & Fitness", multiplier: 1.2 },
+        lifestyle: { name: "Lifestyle & Travel", multiplier: 1.1 },
+        gaming: { name: "Gaming & Entertainment", multiplier: 0.85 },
+      };
+
+      const placementMultipliers: Record<string, { name: string; multiplier: number }> = {
+        integration_60s: { name: "60-90s Mid-Roll Integration", multiplier: 1.0 },
+        mention_30s: { name: "30s Preroll / Shoutout", multiplier: 0.55 },
+        dedicated: { name: "Full Dedicated Video", multiplier: 2.8 },
+        shorts: { name: "YouTube Shorts (60s Vertical)", multiplier: 0.35 },
+      };
+
+      const nm = nicheMultipliers[niche] || nicheMultipliers.tech;
+      const pm = placementMultipliers[placement] || placementMultipliers.integration_60s;
+
+      const baseCpmMin = 22;
+      const baseCpmMax = 35;
+      const effectiveCpmMin = +(baseCpmMin * nm.multiplier * pm.multiplier).toFixed(2);
+      const effectiveCpmMax = +(baseCpmMax * nm.multiplier * pm.multiplier).toFixed(2);
+
+      const feeMin = Math.round((views / 1000) * effectiveCpmMin);
+      const feeMax = Math.round((views / 1000) * effectiveCpmMax);
+      const feeMid = Math.round((feeMin + feeMax) / 2);
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    views,
+                    niche: nm.name,
+                    placement: pm.name,
+                    recommendedSponsorFeeUsd: {
+                      low: feeMin,
+                      average: feeMid,
+                      high: feeMax,
+                    },
+                    effectiveCpmRangeUsd: `${effectiveCpmMin} – ${effectiveCpmMax}`,
+                    pricingAdvice:
+                      "Always quote the high end and include 30-day usage rights or a pinned comment link as negotiation concessions.",
+                    toolUrl: `${baseUrl}/tools/youtube-sponsorship-calculator`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "estimate_channel_valuation") {
+      const monthly = Math.max(0, Number(args.monthlyRevenue) || 2500);
+      const style = String(args.contentStyle || "faceless").toLowerCase();
+      const isFaceless = style.includes("faceless");
+
+      const lowMultiple = isFaceless ? 26 : 22;
+      const midMultiple = isFaceless ? 32 : 28;
+      const highMultiple = isFaceless ? 38 : 34;
+
+      const annualRevenue = monthly * 12;
+      const valLow = monthly * lowMultiple;
+      const valMid = monthly * midMultiple;
+      const valHigh = monthly * highMultiple;
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    monthlyNetRevenueUsd: monthly,
+                    annualizedNetRevenueUsd: annualRevenue,
+                    contentStyle: isFaceless ? "Faceless / Systematized (Higher Multiple)" : "Personal Brand (Founder Dependent)",
+                    valuationRangeUsd: {
+                      conservative_24x: valLow,
+                      median_30x: valMid,
+                      premium_36x: valHigh,
+                    },
+                    valuationMultiples: `${lowMultiple}x – ${highMultiple}x monthly net profit`,
+                    brokerBenchmark:
+                      "Faceless channels with diversified traffic trade between 28x and 36x monthly net earnings on marketplaces like Empire Flippers and Flippa.",
+                    toolUrl: `${baseUrl}/tools/youtube-channel-valuation-calculator`,
                   },
                   null,
                   2,

@@ -82,7 +82,7 @@ export default function PWAInstallPrompt() {
             </button>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Access 40+ free creator tools offline and directly from your home screen.
+            Access 44+ free creator tools offline and directly from your home screen.
           </p>
           <div className="mt-3 flex items-center gap-2">
             <button

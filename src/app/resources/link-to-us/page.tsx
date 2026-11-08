@@ -75,7 +75,7 @@ const EMBED_SNIPPETS = [
     id: "badge-medium",
     label: "Medium Badge (300×100 SVG)",
     description: "A medium-sized badge great for resource pages and partner sections.",
-    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – 27+ Free YouTube Creator Tools" target="_blank" rel="noopener noreferrer"><img src="https://www.youtubetoolshub.com/images/badge-medium.svg" alt="YouTube Tools Hub – Free YouTube Creator Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
+    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – 44+ Free YouTube Creator Tools" target="_blank" rel="noopener noreferrer"><img src="https://www.youtubetoolshub.com/images/badge-medium.svg" alt="YouTube Tools Hub – Free YouTube Creator Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
   },
   {
     id: "thumbnail-tool",
@@ -107,7 +107,7 @@ const EMBED_SNIPPETS = [
     description: "A styled recommendation box with description — great for resource roundups.",
     code: `<div style="border:2px solid #a855f7;border-radius:12px;padding:20px;max-width:500px;font-family:system-ui,sans-serif;background:#faf5ff">
   <h3 style="margin:0 0 8px;color:#7e22ce;font-size:18px">YouTube Tools Hub</h3>
-  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">27+ free creator tools for YouTube. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
+  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">44+ free creator tools for YouTube. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
   <a href="https://www.youtubetoolshub.com" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#a855f7;color:#fff;padding:8px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600">Try Free Tools →</a>
 </div>`,
   },
@@ -159,7 +159,7 @@ const BACKLINK_OPPORTUNITIES = [
     icon: FaStar,
     title: "Resource Pages & Roundup Posts",
     description:
-      'If you write "Best YouTube Tools" or "Free Creator Resources" articles, we\'d love to be included. Our 27+ free tools make us a valuable addition to any creator resource list.',
+      'If you write "Best YouTube Tools" or "Free Creator Resources" articles, we\'d love to be included. Our 44+ free tools make us a valuable addition to any creator resource list.',
   },
   {
     icon: FaRocket,
@@ -209,7 +209,7 @@ export default function LinkToUsPage() {
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Help fellow creators discover our{" "}
-              <strong>27+ free creator tools</strong> — and embed our{" "}
+              <strong>44+ free creator tools</strong> — and embed our{" "}
               <strong>YouTube Earnings Calculator</strong> card on your site.
               Copy-paste HTML below. No JavaScript required.
             </p>
@@ -389,7 +389,7 @@ export default function LinkToUsPage() {
             <h2>About YouTube Tools Hub</h2>
             <p>
               <strong>YouTube Tools Hub</strong> is a free suite of AI-powered
-              tools for YouTube content creators. With <strong>27+ creator tools</strong>, we
+              tools for YouTube content creators. With <strong>44+ creator tools</strong>, we
               help creators in the{" "}
               <strong>United States, United Kingdom, Canada, Australia</strong>,
               and 50+ other countries improve planning, SEO, and revenue estimates.

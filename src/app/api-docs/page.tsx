@@ -51,7 +51,7 @@ const endpoints = [
         path: "/api/tools",
         summary: "List all available tools",
         description:
-            "Returns metadata for all 27+ tools including names, descriptions, categories, AI-assisted status and keywords.",
+            "Returns metadata for all 44 free tools including names, descriptions, categories, AI-assisted status and keywords.",
         response: '{ _meta, categories, tools: [{ slug, name, ... }] }',
     },
     {

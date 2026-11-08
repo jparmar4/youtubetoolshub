@@ -146,6 +146,58 @@ export async function GET() {
             },
           },
           required: ["videoIdOrUrl"],
+        },annotations: {
+          readOnlyHint: true,
+          openWorldHint: false,
+        },
+      },
+      {
+        name: "estimate_sponsorship_rate",
+        description:
+          "Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            views: {
+              type: "number",
+              description: "Expected average video views (e.g. 25000).",
+            },
+            niche: {
+              type: "string",
+              description:
+                "Creator niche: 'finance', 'tech', 'business', 'education', 'fitness', 'lifestyle', 'gaming'. Defaults to 'tech'.",
+            },
+            placement: {
+              type: "string",
+              description:
+                "Placement format: 'integration_60s' (60-90s mid-roll), 'mention_30s', 'dedicated' (full video), 'shorts'. Defaults to 'integration_60s'.",
+            },
+          },
+          required: ["views"],
+        },
+        annotations: {
+          readOnlyHint: true,
+          openWorldHint: false,
+        },
+      },
+      {
+        name: "estimate_channel_valuation",
+        description:
+          "Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings) based on combined AdSense and sponsor revenue.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            monthlyRevenue: {
+              type: "number",
+              description: "Average total monthly net income from AdSense, sponsors, and affiliates (USD).",
+            },
+            contentStyle: {
+              type: "string",
+              description:
+                "Channel operating style: 'faceless' (higher transferability) or 'personal_brand'. Defaults to 'faceless'.",
+            },
+          },
+          required: ["monthlyRevenue"],
         },
         annotations: {
           readOnlyHint: true,
