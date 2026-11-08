@@ -37,6 +37,8 @@ const AI_API_ALLOW = [
   "/api/ai-context",
   "/api/tools",
   "/api/faqs",
+  "/api/markdown",
+  "/api/mcp",
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {
@@ -46,8 +48,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],
+        other: {
+          "Content-Signal": "search=yes, ai-input=yes, ai-train=no",
+        },
       },
       {
         userAgent: [
@@ -101,6 +106,9 @@ export default function robots(): MetadataRoute.Robots {
         ],
         allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],
+        other: {
+          "Content-Signal": "search=yes, ai-input=yes, ai-train=no",
+        },
       },
       {
         userAgent: [

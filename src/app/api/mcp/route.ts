@@ -1,0 +1,451 @@
+import { NextRequest, NextResponse } from "next/server";
+import { siteConfig } from "@/config/site";
+import { tools } from "@/config/tools";
+import { countryCPMData } from "@/lib/cpm-data";
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Accept, Mcp-Session-Id",
+};
+
+const MCP_TOOLS = [
+  {
+    name: "list_youtube_tools",
+    description:
+      "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        category: {
+          type: "string",
+          description:
+            "Optional tool category filter (thumbnail-media, seo-metadata, channel-growth, analytics-earnings, utility-fun).",
+        },
+        query: {
+          type: "string",
+          description: "Optional search keyword to filter tools.",
+        },
+      },
+    },
+  },
+  {
+    name: "estimate_youtube_earnings",
+    description:
+      "Estimate YouTube AdSense revenue (RPM and CPM) by views and country (52 countries supported).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        views: {
+          type: "number",
+          description: "Number of video views to calculate earnings for.",
+        },
+        country: {
+          type: "string",
+          description:
+            "Country slug or code (e.g. 'usa', 'uk', 'canada', 'australia', 'germany', 'india'). Defaults to 'usa'.",
+        },
+      },
+      required: ["views"],
+    },
+  },
+  {
+    name: "get_country_cpm_rates",
+    description:
+      "Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        country: {
+          type: "string",
+          description:
+            "Optional country name, code, or slug to filter (e.g. 'US', 'usa', 'United Kingdom').",
+        },
+      },
+    },
+  },
+  {
+    name: "get_youtube_thumbnail_urls",
+    description:
+      "Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        videoIdOrUrl: {
+          type: "string",
+          description: "YouTube video URL or 11-character video ID.",
+        },
+      },
+      required: ["videoIdOrUrl"],
+    },
+  },
+];
+
+function extractYouTubeId(input: string): string | null {
+  const trimmed = input.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const match = trimmed.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+  );
+  return match ? match[1] : null;
+}
+
+export async function GET() {
+  const baseUrl = siteConfig.url;
+  return NextResponse.json(
+    {
+      name: "youtubetoolshub-mcp",
+      title: "YouTube Tools Hub MCP Server",
+      version: "1.0.0",
+      protocolVersion: "2025-03-26",
+      endpoint: `${baseUrl}/api/mcp`,
+      serverCard: `${baseUrl}/.well-known/mcp/server-card.json`,
+      capabilities: {
+        tools: { listChanged: false },
+        resources: { subscribe: false, listChanged: false },
+        prompts: { listChanged: false },
+      },
+      tools: MCP_TOOLS,
+    },
+    { headers: CORS_HEADERS },
+  );
+}
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: CORS_HEADERS });
+}
+
+export async function POST(request: NextRequest) {
+  const baseUrl = siteConfig.url;
+  let body: {
+    jsonrpc?: string;
+    id?: string | number | null;
+    method?: string;
+    params?: Record<string, unknown>;
+  };
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id: null,
+        error: { code: -32700, message: "Parse error: Invalid JSON" },
+      },
+      { status: 400, headers: CORS_HEADERS },
+    );
+  }
+
+  const id = body.id ?? null;
+  const method = body.method || "";
+  const params = body.params || {};
+
+  if (method === "initialize") {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id,
+        result: {
+          protocolVersion: "2025-03-26",
+          capabilities: {
+            tools: { listChanged: false },
+            resources: { subscribe: false, listChanged: false },
+            prompts: { listChanged: false },
+          },
+          serverInfo: {
+            name: "youtubetoolshub-mcp",
+            title: "YouTube Tools Hub MCP Server",
+            version: "1.0.0",
+          },
+        },
+      },
+      { headers: CORS_HEADERS },
+    );
+  }
+
+  if (method === "notifications/initialized") {
+    return new Response(null, { status: 202, headers: CORS_HEADERS });
+  }
+
+  if (method === "ping") {
+    return NextResponse.json(
+      { jsonrpc: "2.0", id, result: {} },
+      { headers: CORS_HEADERS },
+    );
+  }
+
+  if (method === "tools/list") {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id,
+        result: { tools: MCP_TOOLS },
+      },
+      { headers: CORS_HEADERS },
+    );
+  }
+
+  if (method === "tools/call") {
+    const toolName = String(params.name || "");
+    const args = (params.arguments as Record<string, unknown>) || {};
+
+    if (toolName === "list_youtube_tools") {
+      const catFilter = String(args.category || "").toLowerCase();
+      const queryFilter = String(args.query || "").toLowerCase();
+      const filtered = tools
+        .filter((t) => {
+          if (catFilter && t.category.toLowerCase() !== catFilter) return false;
+          if (
+            queryFilter &&
+            !t.name.toLowerCase().includes(queryFilter) &&
+            !t.shortDescription.toLowerCase().includes(queryFilter)
+          ) {
+            return false;
+          }
+          return true;
+        })
+        .map((t) => ({
+          name: t.name,
+          slug: t.slug,
+          category: t.category,
+          isAI: Boolean(t.isAI),
+          description: t.shortDescription,
+          url: `${baseUrl}/tools/${t.slug}`,
+        }));
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  { count: filtered.length, tools: filtered },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "estimate_youtube_earnings") {
+      const views = Math.max(0, Number(args.views || 10000));
+      const countryKey = String(args.country || "usa").toLowerCase();
+      const country =
+        countryCPMData.find(
+          (c) =>
+            c.slug.toLowerCase() === countryKey ||
+            c.code.toLowerCase() === countryKey ||
+            c.name.toLowerCase() === countryKey,
+        ) || countryCPMData[0];
+
+      const minUsd = (views / 1000) * country.rpmRange.min;
+      const avgUsd = (views / 1000) * country.rpmRange.avg;
+      const maxUsd = (views / 1000) * country.rpmRange.max;
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    views,
+                    country: country.name,
+                    countryCode: country.code,
+                    rpmRangeUsd: country.rpmRange,
+                    cpmRangeUsd: country.cpmRange,
+                    estimatedEarningsUsd: {
+                      min: Number(minUsd.toFixed(2)),
+                      avg: Number(avgUsd.toFixed(2)),
+                      max: Number(maxUsd.toFixed(2)),
+                    },
+                    calculatorUrl: `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "get_country_cpm_rates") {
+      const filter = String(args.country || "").toLowerCase();
+      const matches = countryCPMData
+        .filter((c) => {
+          if (!filter) return true;
+          return (
+            c.slug.toLowerCase() === filter ||
+            c.code.toLowerCase() === filter ||
+            c.name.toLowerCase().includes(filter)
+          );
+        })
+        .map((c) => ({
+          name: c.name,
+          code: c.code,
+          slug: c.slug,
+          cpmRangeUsd: c.cpmRange,
+          rpmRangeUsd: c.rpmRange,
+          url: `${baseUrl}/tools/youtube-earnings-calculator/${c.slug}`,
+        }));
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  { count: matches.length, countries: matches },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "get_youtube_thumbnail_urls") {
+      const videoId = extractYouTubeId(String(args.videoIdOrUrl || ""));
+      if (!videoId) {
+        return NextResponse.json(
+          {
+            jsonrpc: "2.0",
+            id,
+            result: {
+              isError: true,
+              content: [
+                {
+                  type: "text",
+                  text: "Invalid YouTube video URL or 11-character video ID.",
+                },
+              ],
+            },
+          },
+          { headers: CORS_HEADERS },
+        );
+      }
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    videoId,
+                    thumbnails: {
+                      maxresdefault_hd: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+                      sddefault: `https://i.ytimg.com/vi/${videoId}/sddefault.jpg`,
+                      hqdefault: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+                      mqdefault: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+                    },
+                    toolUrl: `${baseUrl}/tools/youtube-thumbnail-downloader`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id,
+        error: { code: -32601, message: `Unknown tool: ${toolName}` },
+      },
+      { status: 404, headers: CORS_HEADERS },
+    );
+  }
+
+  if (method === "resources/list") {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id,
+        result: {
+          resources: [
+            {
+              uri: `${baseUrl}/llms.txt`,
+              name: "YouTube Tools Hub LLMs Summary",
+              mimeType: "text/plain",
+            },
+            {
+              uri: `${baseUrl}/api/ai-context`,
+              name: "YouTube Tools Hub AI Context & CPM Dataset",
+              mimeType: "application/json",
+            },
+            {
+              uri: `${baseUrl}/index.md`,
+              name: "YouTube Tools Hub Markdown Homepage",
+              mimeType: "text/markdown",
+            },
+          ],
+        },
+      },
+      { headers: CORS_HEADERS },
+    );
+  }
+
+  if (method === "prompts/list") {
+    return NextResponse.json(
+      {
+        jsonrpc: "2.0",
+        id,
+        result: {
+          prompts: [
+            {
+              name: "youtube-seo-audit",
+              description:
+                "Generate a YouTube video title, tag, and thumbnail optimization plan.",
+              arguments: [
+                {
+                  name: "topic",
+                  description: "The video topic or working title.",
+                  required: true,
+                },
+              ],
+            },
+          ],
+        },
+      },
+      { headers: CORS_HEADERS },
+    );
+  }
+
+  return NextResponse.json(
+    {
+      jsonrpc: "2.0",
+      id,
+      error: { code: -32601, message: `Method not found: ${method}` },
+    },
+    { status: 404, headers: CORS_HEADERS },
+  );
+}

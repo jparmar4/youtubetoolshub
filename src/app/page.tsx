@@ -243,6 +243,9 @@ export default function Home() {
               <Link href="/tools" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
                 All {tools.length} tools
               </Link>
+              <Link href="/about" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
+                About
+              </Link>
             </div>
 
             {/* Interactive 3D UHD Creator Command Studio Showcase */}
@@ -359,6 +362,38 @@ export default function Home() {
                 Available worldwide with no browser extension or private YouTube login required. Use the tools directly in your browser at youtubetoolshub.com.
               </p>
             </div>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-bold text-slate-600">
+            <Link
+              href="/about"
+              className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:text-purple-700 transition-colors"
+            >
+              About YouTube Tools Hub
+            </Link>
+            <Link
+              href="/contact"
+              className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:text-purple-700 transition-colors"
+            >
+              Contact &amp; Support
+            </Link>
+            <Link
+              href="/privacy-policy"
+              className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:text-purple-700 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-of-use"
+              className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:text-purple-700 transition-colors"
+            >
+              Terms of Use
+            </Link>
+            <Link
+              href="/disclaimer"
+              className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 hover:border-purple-300 hover:text-purple-700 transition-colors"
+            >
+              Disclaimer
+            </Link>
           </div>
         </div>
       </section>

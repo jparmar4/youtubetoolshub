@@ -36,11 +36,22 @@ export function getOrganizationSchema() {
     description: siteConfig.description,
     slogan: "Free AI-Powered YouTube Tools for Every Creator",
     foundingDate: "2025",
+    email: siteConfig.contact.email,
+    telephone: siteConfig.contact.telephone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.contact.address.streetAddress,
+      addressLocality: siteConfig.contact.address.addressLocality,
+      addressRegion: siteConfig.contact.address.addressRegion,
+      postalCode: siteConfig.contact.address.postalCode,
+      addressCountry: siteConfig.contact.address.addressCountry,
+    },
     // Contact information
     contactPoint: [
       {
         "@type": "ContactPoint",
         email: siteConfig.contact.email,
+        telephone: siteConfig.contact.telephone,
         contactType: "customer service",
         availableLanguage: ["English"],
         responseTime: "PT24H", // 24 hours
@@ -48,6 +59,7 @@ export function getOrganizationSchema() {
       {
         "@type": "ContactPoint",
         email: siteConfig.contact.email,
+        telephone: siteConfig.contact.telephone,
         contactType: "technical support",
         availableLanguage: ["English"],
         responseTime: "PT24H",

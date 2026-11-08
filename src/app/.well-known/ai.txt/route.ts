@@ -91,9 +91,12 @@ Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /.well-known/ai.txt
 Allow: /.well-known/authors.txt
+Allow: /.well-known/mcp/server-card.json
 Allow: /api/ai-context
 Allow: /api/tools
 Allow: /api/faqs
+Allow: /api/markdown
+Allow: /api/mcp
 Allow: /api-docs
 Disallow: /api/
 Disallow: /sign-in
@@ -101,6 +104,7 @@ Disallow: /dashboard
 Disallow: /history
 Disallow: /upgrade
 Disallow: /auth/
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 # ============================================================
 # CONTENT CLASSIFICATION
@@ -162,6 +166,9 @@ ${blogLines}
 
 LLMs-Txt: ${baseUrl}/llms.txt
 LLMs-Full-Txt: ${baseUrl}/llms-full.txt
+Markdown-Homepage: ${baseUrl}/index.md
+MCP-Server-Card: ${baseUrl}/.well-known/mcp/server-card.json
+MCP-Endpoint: ${baseUrl}/api/mcp
 Knowledge-Graph: ${baseUrl}/knowledge-graph.jsonld
 AI-Context-JSON: ${baseUrl}/api/ai-context
 OpenAPI-Spec: ${baseUrl}/.well-known/openapi.yaml

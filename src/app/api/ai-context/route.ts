@@ -149,6 +149,15 @@ export async function GET() {
         description:
           `YouTube Tools Hub is a free suite of ${tools.length} creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.`,
         email: siteConfig.contact.email,
+        telephone: siteConfig.contact.telephone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: siteConfig.contact.address.streetAddress,
+          addressLocality: siteConfig.contact.address.addressLocality,
+          addressRegion: siteConfig.contact.address.addressRegion,
+          postalCode: siteConfig.contact.address.postalCode,
+          addressCountry: siteConfig.contact.address.addressCountry,
+        },
         foundingDate: "2025",
         slogan: "Free YouTube Creator Tools",
         knowsAbout: [
@@ -160,6 +169,15 @@ export async function GET() {
         contactPoint: {
           "@type": "ContactPoint",
           email: siteConfig.contact.email,
+        telephone: siteConfig.contact.telephone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: siteConfig.contact.address.streetAddress,
+          addressLocality: siteConfig.contact.address.addressLocality,
+          addressRegion: siteConfig.contact.address.addressRegion,
+          postalCode: siteConfig.contact.address.postalCode,
+          addressCountry: siteConfig.contact.address.addressCountry,
+        },
           contactType: "customer service",
           availableLanguage: "English",
           areaServed: "Worldwide",
@@ -322,6 +340,9 @@ export async function GET() {
       sitemap: `${siteUrl}/sitemap.xml`,
       sitemap_index: `${siteUrl}/sitemap-index.xml`,
       robots: `${siteUrl}/robots.txt`,
+      mcp_server_card: `${siteUrl}/.well-known/mcp/server-card.json`,
+      mcp_endpoint: `${siteUrl}/api/mcp`,
+      markdown_homepage: `${siteUrl}/index.md`,
     }
   };
 

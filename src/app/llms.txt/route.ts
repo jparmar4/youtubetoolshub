@@ -74,10 +74,13 @@ YouTube Tools Hub is a free platform providing ${tools.length} creator tools for
 
 **Website:** ${baseUrl}
 **Contact:** ${siteConfig.contact.email}
+**Telephone:** ${siteConfig.contact.telephone}
+**Address:** ${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}
 **Editorial:** ${siteConfig.editorial.name}
 **Category:** YouTube Creator Tools / Web Application
 **Language:** English
 **Availability:** Worldwide
+**Content-Signal:** search=yes, ai-input=yes, ai-train=no
 **Data last reviewed:** ${DATA_LAST_REVIEWED}
 **Last Updated:** ${DATA_LAST_REVIEWED}
 
@@ -216,6 +219,9 @@ AI structured data: ${baseUrl}/api/ai-context
 ## Optional
 
 - [llms-full.txt](${baseUrl}/llms-full.txt): Expanded AI context with tool and article detail
+- [Markdown Homepage](${baseUrl}/index.md): Clean Markdown representation of the homepage
+- [MCP Server Card](${baseUrl}/.well-known/mcp/server-card.json): SEP-1649 Model Context Protocol Server Card
+- [MCP Endpoint](${baseUrl}/api/mcp): Model Context Protocol JSON-RPC 2.0 endpoint
 - [Knowledge graph JSON-LD](${baseUrl}/knowledge-graph.jsonld)
 `;
 

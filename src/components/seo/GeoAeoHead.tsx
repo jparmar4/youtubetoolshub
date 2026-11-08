@@ -76,7 +76,7 @@ export default function GeoAeoHead({
 
   pageSchema.mentions = [
     {
-      "@type": "Organization",
+      "@type": "Thing",
       name: "YouTube",
       sameAs: [
         "https://en.wikipedia.org/wiki/YouTube",
@@ -138,6 +138,22 @@ export default function GeoAeoHead({
   if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
       "@type": mainEntityType ?? "Thing",
+      ...(mainEntityType === "Organization"
+        ? {
+            "@id": `${siteConfig.url}/#organization`,
+            url: siteConfig.url,
+            email: siteConfig.contact.email,
+            telephone: siteConfig.contact.telephone,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: siteConfig.contact.address.streetAddress,
+              addressLocality: siteConfig.contact.address.addressLocality,
+              addressRegion: siteConfig.contact.address.addressRegion,
+              postalCode: siteConfig.contact.address.postalCode,
+              addressCountry: siteConfig.contact.address.addressCountry,
+            },
+          }
+        : {}),
       ...(isTool
         ? {
             "@id": `${pageUrl}#software`,

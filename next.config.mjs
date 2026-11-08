@@ -323,6 +323,71 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: "/api/markdown",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
+          },
+          {
+            key: "Content-Type",
+            value: "text/markdown; charset=utf-8",
+          },
+          {
+            key: "Vary",
+            value: "Accept",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, noarchive",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/api/mcp",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=300, stale-while-revalidate=3600",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, noarchive",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
+      {
+        source: "/.well-known/mcp/server-card.json",
+        headers: [
+          {
+            key: "Cache-Control",
+            value:
+              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
+          },
+          {
+            key: "Content-Type",
+            value: "application/json; charset=utf-8",
+          },
+          {
+            key: "X-Robots-Tag",
+            value: "index, follow, noarchive",
+          },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+        ],
+      },
 
       // ─── Sitemap: moderate caching, frequent revalidation ───
       {
@@ -555,11 +620,73 @@ const nextConfig = {
           },
         ],
       },
+
+      // ─── Homepage RFC 8288 Link header & Content Negotiation (Agent Discovery) ───
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Link",
+            value: [
+              '<https://www.youtubetoolshub.com/llms.txt>; rel="llms-txt"; type="text/plain"',
+              '<https://www.youtubetoolshub.com/llms-full.txt>; rel="llms-full-txt"; type="text/plain"',
+              '<https://www.youtubetoolshub.com/index.md>; rel="alternate"; type="text/markdown"',
+              '<https://www.youtubetoolshub.com/.well-known/mcp/server-card.json>; rel="mcp-server-card"; type="application/json"',
+              '<https://www.youtubetoolshub.com/api/ai-context>; rel="describedby"; type="application/json"',
+            ].join(", "),
+          },
+          {
+            key: "Vary",
+            value: "Accept",
+          },
+          {
+            key: "Content-Signal",
+            value: "search=yes, ai-input=yes, ai-train=no",
+          },
+        ],
+      },
     ];
   },
 
   // Powered by header removal for security
   poweredByHeader: false,
+
+  /**
+   * Content negotiation rewrites for AI agents requesting Markdown (Accept: text/markdown)
+   * or explicit /index.md alternate representation.
+   */
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/",
+          has: [
+            {
+              type: "header",
+              key: "accept",
+              value: ".*text/markdown.*",
+            },
+          ],
+          destination: "/api/markdown?path=/",
+        },
+        {
+          source: "/index.md",
+          destination: "/api/markdown?path=/",
+        },
+        {
+          source: "/:path((?!api/|_next/|\\.well-known/).*)",
+          has: [
+            {
+              type: "header",
+              key: "accept",
+              value: ".*text/markdown.*",
+            },
+          ],
+          destination: "/api/markdown?path=/:path",
+        },
+      ],
+    };
+  },
 
   /**
    * Permanent redirects for pruned/merged blog URLs (SEO + Helpful Content cleanup).

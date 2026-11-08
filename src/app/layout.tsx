@@ -181,6 +181,18 @@ export default async function RootLayout({
         {/* AI Crawler Discovery Links */}
         <link
           rel="alternate"
+          type="text/markdown"
+          title="Markdown Representation"
+          href={`${siteConfig.url}/index.md`}
+        />
+        <link
+          rel="mcp-server-card"
+          type="application/json"
+          title="MCP Server Card"
+          href={`${siteConfig.url}/.well-known/mcp/server-card.json`}
+        />
+        <link
+          rel="alternate"
           type="text/plain"
           title="LLMs.txt"
           href={`${siteConfig.url}/llms.txt`}

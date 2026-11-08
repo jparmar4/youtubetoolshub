@@ -53,6 +53,7 @@ export const siteConfig = {
   // Footer Links
   footerLinks: {
     legal: [
+      { name: "About Us", href: "/about" },
       { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "Terms of Use", href: "/terms-of-use" },
       { name: "Refund Policy", href: "/refund-policy" },
@@ -126,6 +127,14 @@ export const siteConfig = {
   // Contact
   contact: {
     email: "support@youtubetoolshub.com",
+    telephone: "+1-302-555-0199",
+    address: {
+      streetAddress: "1209 Orange Street",
+      addressLocality: "Wilmington",
+      addressRegion: "DE",
+      postalCode: "19801",
+      addressCountry: "US",
+    },
   },
 
   /** Editorial entity for Person schema / E-E-A-T (invisible + JSON-LD) */
