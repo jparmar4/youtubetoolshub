@@ -124,6 +124,56 @@ const MCP_TOOLS = [
       required: ["monthlyRevenue"],
     },
   },
+  {
+    name: "estimate_shorts_earnings",
+    description:
+      "Calculate YouTube Shorts AdSense revenue based on views and 2026 Shorts RPM benchmarks ($0.03 - $0.07 per 1,000 views).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        views: {
+          type: "number",
+          description: "Number of YouTube Shorts views.",
+        },
+        rpm: {
+          type: "number",
+          description: "Optional custom Shorts RPM in USD (defaults to $0.05).",
+        },
+      },
+      required: ["views"],
+    },
+  },
+  {
+    name: "calculate_youtube_tax_deductions",
+    description:
+      "Calculate estimated eligible business tax write-offs, taxable income reduction, and tax savings for YouTube creators.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        annualRevenue: {
+          type: "number",
+          description: "Gross annual creator revenue from YouTube and sponsors (USD).",
+        },
+        equipmentAndGear: {
+          type: "number",
+          description: "Annual spending on cameras, lighting, audio, PCs, and gear (USD).",
+        },
+        softwareAndSubscriptions: {
+          type: "number",
+          description: "Annual spending on Adobe, Canva, hosting, music, plugins, and AI tools (USD).",
+        },
+        homeStudioRent: {
+          type: "number",
+          description: "Estimated annual home office / studio deduction (USD).",
+        },
+        contractorsAndEditors: {
+          type: "number",
+          description: "Annual spending on video editors, thumbnail designers, and contractors (USD).",
+        },
+      },
+      required: ["annualRevenue"],
+    },
+  },
 ];
 
 function extractYouTubeId(input: string): string | null {
@@ -524,6 +574,100 @@ export async function POST(request: NextRequest) {
                     brokerBenchmark:
                       "Faceless channels with diversified traffic trade between 28x and 36x monthly net earnings on marketplaces like Empire Flippers and Flippa.",
                     toolUrl: `${baseUrl}/tools/youtube-channel-valuation-calculator`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "estimate_shorts_earnings") {
+      const views = Math.max(1, Number(args.views) || 100000);
+      const rpmCustom = args.rpm !== undefined ? Number(args.rpm) : null;
+      const rpmAvg = rpmCustom !== null && !isNaN(rpmCustom) ? rpmCustom : 0.05;
+      const rpmMin = 0.03;
+      const rpmMax = 0.07;
+
+      const estMin = +( (views / 1000) * rpmMin ).toFixed(2);
+      const estAvg = +( (views / 1000) * rpmAvg ).toFixed(2);
+      const estMax = +( (views / 1000) * rpmMax ).toFixed(2);
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    views,
+                    shortsRpmBenchmarkUsd: {
+                      lowTier: rpmMin,
+                      average: rpmAvg,
+                      highTier: rpmMax,
+                    },
+                    estimatedAdSenseRevenueUsd: {
+                      minimum: estMin,
+                      expected: estAvg,
+                      maximum: estMax,
+                    },
+                    monetizationBenchmark:
+                      "YouTube Shorts revenue pool pays between $0.03 and $0.07 per 1,000 views. 1,000,000 Shorts views generates approximately $30 to $70 in AdSense earnings.",
+                    toolUrl: `${baseUrl}/tools/youtube-shorts-monetization-calculator`,
+                  },
+                  null,
+                  2,
+                ),
+              },
+            ],
+          },
+        },
+        { headers: CORS_HEADERS },
+      );
+    }
+
+    if (toolName === "calculate_youtube_tax_deductions") {
+      const annualRev = Math.max(0, Number(args.annualRevenue) || 50000);
+      const gear = Math.max(0, Number(args.equipmentAndGear) || 0);
+      const software = Math.max(0, Number(args.softwareAndSubscriptions) || 0);
+      const homeStudio = Math.max(0, Number(args.homeStudioRent) || 0);
+      const contractors = Math.max(0, Number(args.contractorsAndEditors) || 0);
+
+      const totalDeductions = gear + software + homeStudio + contractors;
+      const taxableNetProfit = Math.max(0, annualRev - totalDeductions);
+      const estimatedTaxSavingsUsd = +(totalDeductions * 0.30).toFixed(2);
+
+      return NextResponse.json(
+        {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify(
+                  {
+                    grossAnnualRevenueUsd: annualRev,
+                    deductionsBreakdownUsd: {
+                      gearAndEquipment: gear,
+                      softwareAndSubscriptions: software,
+                      homeStudioAndUtilities: homeStudio,
+                      contractorsAndEditors: contractors,
+                      totalDeductions,
+                    },
+                    adjustedTaxableNetProfitUsd: taxableNetProfit,
+                    estimatedTaxSavingsUsd,
+                    effectiveTaxBracketUsed: "30% (15.3% SE tax + ~15% federal/state bracket)",
+                    advisoryNote:
+                      "Legitimate creator write-offs must be ordinary and necessary business expenses per IRS Section 162. Keep digital receipts for all gear and subscription purchases.",
+                    toolUrl: `${baseUrl}/tools/youtube-tax-deduction-calculator`,
                   },
                   null,
                   2,

@@ -362,7 +362,7 @@ export default function NicheProfitabilityHeatmap() {
                   className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 group"
                 >
                   <span>Model Earnings</span>
-                  <FaArrowRight className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
+                  <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform text-xs font-bold leading-none">→</span>
                 </Link>
               </div>
             </div>

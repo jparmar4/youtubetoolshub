@@ -252,6 +252,23 @@ export default async function BlogPostPage({
         contentUrl: `https://www.youtube.com/watch?v=${id}`
     }));
 
+    const blogSchemasToCombine: Record<string, unknown>[] = [
+        articleSchema,
+        breadcrumbSchema,
+        authorSchema,
+    ];
+    if (faqSchema) blogSchemasToCombine.push(faqSchema);
+    if (howToSchema) blogSchemasToCombine.push(howToSchema);
+    if (videoSchemas.length > 0) blogSchemasToCombine.push(...videoSchemas);
+
+    const combinedBlogGraphSchema = {
+        "@context": "https://schema.org",
+        "@graph": blogSchemasToCombine.map((item) => {
+            const { "@context": _, ...rest } = item;
+            return rest;
+        }),
+    };
+
     return (
         <>
             {/* GEO/AEO Head for AI discoverability */}
@@ -262,50 +279,13 @@ export default async function BlogPostPage({
                 post.authorRole || "Content Strategist",
                 modifiedIso,
             )} pathname={`/blog/${post.slug}`} />
-            {/* JSON-LD Structured Data */}
+            {/* Consolidated JSON-LD Structured Data Graph for AI Answer Engines & Search Crawlers */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(articleSchema),
+                    __html: JSON.stringify(combinedBlogGraphSchema),
                 }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(breadcrumbSchema),
-                }}
-            />
-            {faqSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(faqSchema),
-                    }}
-                />
-            )}
-            {howToSchema && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(howToSchema),
-                    }}
-                />
-            )}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(authorSchema),
-                }}
-            />
-            {videoSchemas.map((schema, i) => (
-                <script
-                    key={`video-schema-${i}`}
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(schema),
-                    }}
-                />
-            ))}
 
             <div className="min-h-screen bg-slate-50">
                 {/* Header */}

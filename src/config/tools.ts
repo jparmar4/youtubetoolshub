@@ -3738,6 +3738,72 @@ export const tools: Tool[] = [
             }
         ]
     },
+
+    // 45. YouTube Thumbnail A/B Test Statistical Significance Calculator
+    {
+        slug: "youtube-thumbnail-ab-test-calculator",
+        name: "YouTube Thumbnail A/B Test Statistical Significance Calculator",
+        seoTitle: "YouTube Thumbnail A/B Test Calculator (Sample Size & Statistical Significance)",
+        seoDescription: "Calculate statistical confidence, p-value, and sample size requirements for YouTube Studio Test & Compare thumbnail experiments.",
+        description: "Determine whether your thumbnail test winner is statistically significant or random variance with two-tailed proportion Z-testing.",
+        shortDescription: "Calculate statistical confidence and winner significance for thumbnail tests",
+        category: "thumbnail-media",
+        icon: FaTrophy,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube thumbnail ab test calculator",
+            "youtube test and compare statistical significance",
+            "youtube thumbnail sample size calculator",
+            "how long to run youtube thumbnail test",
+            "youtube ctr ab test significance p value",
+            "youtube thumbnail test winner confidence",
+        ],
+        definitionBlock: {
+            title: "What is the Thumbnail A/B Test Calculator?",
+            text: "The YouTube Thumbnail A/B Test Statistical Significance Calculator uses two-proportion Z-hypothesis testing to analyze impressions and clicks from YouTube Studio's 'Test & Compare' feature, calculating exact confidence intervals, p-values, and remaining sample sizes needed.",
+        },
+        content: [
+            {
+                title: "The Risk of Calling Thumbnail Winners Too Early",
+                content: "In the first 24 to 48 hours of an upload, click-through rates fluctuate wildly due to subscriber notification bias and uneven impression distribution across homepage browse vs. search. Locking in a thumbnail with only an 80% confidence level carries a 20% risk of choosing an inferior variant."
+            },
+            {
+                title: "How Two-Proportion Hypothesis Testing Works for YouTube CTR",
+                content: "Our calculator measures the pooled standard error between Variant A and Variant B impressions and clicks. When the Z-score exceeds 1.96, the two-tailed p-value drops below 0.05, achieving 95% statistical significance—the gold standard in scientific and digital experimentation."
+            },
+            {
+                title: "Calculating Extra Views from Incremental CTR Lift",
+                content: "A seemingly small +1.2% CTR advantage (e.g., 5.4% vs 6.6%) produces 1,200 additional video views for every 100,000 homepage impressions delivered by the recommendation algorithm. Over the lifetime of an evergreen video, this compounds into tens of thousands of extra views."
+            }
+        ],
+        howTo: {
+            name: "How to Calculate Thumbnail A/B Significance",
+            description: "Input your impressions and clicks from YouTube Studio Test & Compare to calculate statistical confidence.",
+            steps: [
+                { name: "Copy metrics from YouTube Studio", text: "Open your video in YouTube Studio, navigate to Analytics > Reach > Test & Compare, and note impressions and clicks for each thumbnail." },
+                { name: "Input Variant A and Variant B numbers", text: "Paste the impressions and clicks for each variant into the calculator fields." },
+                { name: "Optionally add Variant C", text: "Toggle 3-way support if you tested three thumbnails simultaneously in YouTube's Test & Compare tool." },
+                { name: "Check the statistical verdict", text: "Review the confidence percentage, p-value, and sample size recommendation to decide whether to lock in a winner or keep testing." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How long should I let a YouTube thumbnail test run?",
+                answer: "YouTube allows thumbnail tests to run up to 14 days, but high-velocity channels often reach 95% statistical significance within 3 to 5 days. For videos receiving under 5,000 daily impressions, let the test run for at least 7 to 10 days to capture weekend audience behavior."
+            },
+            {
+                question: "What does 95% statistical confidence mean for a thumbnail?",
+                answer: "95% confidence means there is only a 5% probability that the observed CTR difference was caused by random chance. In practical terms, it guarantees that Variant B genuinely attracts more viewers from the recommendation feed."
+            },
+            {
+                question: "What if my thumbnail test is inconclusive after 14 days?",
+                answer: "If two thumbnails have nearly identical CTRs after 10,000+ impressions, audience interest is indifferent between the two designs. You can safely pick whichever visual aligns better with your channel's branding and video topic."
+            }
+        ]
+    },
+
 ];
 
 export const getToolBySlug = (slug: string): Tool | undefined => {

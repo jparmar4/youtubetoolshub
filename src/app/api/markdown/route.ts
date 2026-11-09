@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { tools, toolCategories, getToolBySlug } from "@/config/tools";
 import { countryCPMData } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED, speakableAnswers, nicheRpmRanking } from "@/lib/seo-data";
+import { getBlogPostBySlug, getIndexableBlogPosts } from "@/config/blog";
 
 function buildHomepageMarkdown(): string {
   const baseUrl = siteConfig.url;
@@ -163,9 +164,177 @@ ${faqs ? `## Frequently Asked Questions\n\n${faqs}\n` : ""}
 `;
 }
 
+function buildBlogPostMarkdown(slug: string): string | null {
+  const post = getBlogPostBySlug(slug);
+  if (!post) return null;
+  const baseUrl = siteConfig.url;
+  const postUrl = `${baseUrl}/blog/${post.slug}`;
+
+  let cleanContent = post.content
+    .replace(/:::\s*QUICK-ANSWER\s*([\s\S]*?):::/gi, "> **Quick Answer**:\n> $1\n")
+    .replace(/:::\s*KEY-TAKEAWAYS\s*([\s\S]*?):::/gi, "> **Key Takeaways**:\n> $1\n");
+
+  const howToSection = post.howTo
+    ? `\n\n## Step-by-Step Guide: ${post.howTo.name}\n\n${post.howTo.description}\n\n` +
+      post.howTo.steps.map((s, idx) => `${idx + 1}. **${s.name}**: ${s.text}`).join("\n")
+    : "";
+
+  const faqSection = post.faq && post.faq.length > 0
+    ? `\n\n## Frequently Asked Questions\n\n` +
+      post.faq.map((f) => `### ${f.question}\n\n${f.answer}`).join("\n\n")
+    : "";
+
+  return `---
+title: "${post.title.replace(/"/g, '\\"')}"
+url: "${postUrl}"
+date: "${post.date}"
+${post.updatedAt ? `updated_at: "${post.updatedAt}"\n` : ""}author: "${post.author}"
+author_role: "${post.authorRole}"
+category: "${post.category}"
+reading_time: "${post.readTime}"
+description: "${post.metaDescription.replace(/"/g, '\\"')}"
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# ${post.title}
+
+> ${post.excerpt}
+
+- **Published**: ${post.date}${post.updatedAt ? ` (Updated: ${post.updatedAt})` : ""}
+- **Author**: ${post.author} (${post.authorRole})
+- **Category**: ${post.category}
+- **Read Time**: ${post.readTime}
+- **Canonical URL**: [${postUrl}](${postUrl})
+
+${cleanContent}
+${howToSection}
+${faqSection}
+
+## About the Author
+**${post.author}** is a ${post.authorRole} at YouTube Tools Hub.
+
+## Related Resources
+- [All ${tools.length} Free YouTube Tools](${baseUrl}/tools)
+- [YouTube CPM & RPM Rates (2026)](${baseUrl}/resources/youtube-cpm-rates)
+- [Creator Blog Directory](${baseUrl}/blog)
+`;
+}
+
+function buildBlogListMarkdown(): string {
+  const baseUrl = siteConfig.url;
+  const posts = getIndexableBlogPosts();
+
+  const list = posts
+    .map(
+      (p) =>
+        `- [${p.title}](${baseUrl}/blog/${p.slug}) (${p.date} • ${p.category} • ${p.readTime}): ${p.excerpt}`,
+    )
+    .join("\n");
+
+  return `---
+title: "YouTube Creator Blog & Growth Guides | YouTube Tools Hub"
+url: "${baseUrl}/blog"
+description: "Data-backed YouTube growth guides, monetization formulas, CPM rate benchmarks, and AI workflows for creators."
+total_posts: ${posts.length}
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# YouTube Creator Blog & Guides
+
+> Data-backed tutorials, revenue benchmarks, algorithm breakdowns, and step-by-step YouTube growth guides.
+
+## All ${posts.length} Published Articles
+
+${list}
+
+## Free Tools
+- [Explore all ${tools.length} Free Creator Tools](${baseUrl}/tools)
+- [2026 YouTube CPM & RPM Benchmarks](${baseUrl}/resources/youtube-cpm-rates)
+`;
+}
+
+function buildCpmRatesMarkdown(): string {
+  const baseUrl = siteConfig.url;
+  const cpmTable = [
+    "| Country | Code | Avg CPM (USD) | Min CPM | Max CPM | Avg RPM (USD) | Calculator Link |",
+    "| --- | --- | --- | --- | --- | --- | --- |",
+    ...countryCPMData.map(
+      (c) =>
+        `| ${c.name} | ${c.code} | $${c.cpmRange.avg.toFixed(2)} | $${c.cpmRange.min.toFixed(2)} | $${c.cpmRange.max.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} | [Calculate](${baseUrl}/tools/youtube-earnings-calculator/${c.slug}) |`,
+    ),
+  ].join("\n");
+
+  return `---
+title: "YouTube CPM & RPM Rates by Country (2026 Benchmark Data)"
+url: "${baseUrl}/resources/youtube-cpm-rates"
+description: "Comprehensive 2026 YouTube CPM and RPM benchmarks across 52 countries. Verified data for creators, marketers, and video publishers."
+last_reviewed: "${DATA_LAST_REVIEWED}"
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# YouTube CPM & RPM Rates by Country (2026 Benchmarks)
+
+> Official monetization benchmarks across 52 countries for YouTube creators and video marketers.
+
+## Key Definitions
+- **CPM (Cost Per Mille)**: The cost advertisers pay per 1,000 ad impressions before YouTube takes its 45% revenue share.
+- **RPM (Revenue Per Mille)**: The net amount creators actually receive per 1,000 total video views after YouTube's cut.
+
+${speakableAnswers.howMuchYoutubePays}
+
+## 2026 YouTube AdSense CPM & RPM Table (52 Countries)
+
+${cpmTable}
+
+## Free Monetization Calculators
+- [YouTube Earnings Calculator](${baseUrl}/tools/youtube-earnings-calculator)
+- [YouTube Sponsorship Rate Calculator](${baseUrl}/tools/youtube-sponsorship-calculator)
+- [YouTube Channel Valuation Calculator](${baseUrl}/tools/youtube-channel-valuation-calculator)
+`;
+}
+
+function buildFaqMarkdown(): string {
+  const baseUrl = siteConfig.url;
+
+  return `---
+title: "Frequently Asked Questions | YouTube Tools Hub"
+url: "${baseUrl}/faq"
+description: "Common questions about YouTube Tools Hub free creator tools, AI thumbnail generators, AdSense calculators, and security."
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# Frequently Asked Questions
+
+> Everything you need to know about YouTube Tools Hub, tool safety, browser-based execution, and monetization calculations.
+
+### Is YouTube Tools Hub free to use?
+Yes. All 44 core creator tools—including the Thumbnail Downloader, Title Generator, Description Generator, Transcript Downloader, and Earnings Calculator—are 100% free with no account or credit card required.
+
+### Do I need to connect or link my YouTube account?
+No. Tools operate on public video, channel, or playlist URLs. You never need to grant OAuth permissions, provide API keys, or enter your YouTube credentials.
+
+### How accurate are the YouTube Earnings and CPM Calculators?
+Calculations use audited 2026 CPM and RPM empirical data across 52 countries and 15+ niches. AdSense revenue is estimated using YouTube's standard 55/45 creator revenue share split.
+
+### How does the YouTube Thumbnail Downloader work?
+It extracts official Google CDN high-resolution thumbnails directly from YouTube's static image servers across maxresdefault (1080p/4K), hqdefault (720p), mqdefault, and standard resolutions.
+
+### Are AI-generated titles and descriptions compliant with YouTube policies?
+Yes. Titles and descriptions are drafted to comply with YouTube's Metadata & Spam Guidelines. We recommend personalizing the above-the-fold hook to reflect your authentic video tone.
+
+## Explore More
+- [Browse All Free Tools](${baseUrl}/tools)
+- [Read Creator Growth Guides](${baseUrl}/blog)
+- [Contact Support](${baseUrl}/contact)
+`;
+}
+
 export async function GET(request: NextRequest) {
   const rawPath = request.nextUrl.searchParams.get("path") || "/";
-  const normalizedPath = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
+  let normalizedPath = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
+  if (normalizedPath.endsWith(".md")) {
+    normalizedPath = normalizedPath.slice(0, -3) || "/";
+  }
 
   let markdown: string | null = null;
 
@@ -174,6 +343,17 @@ export async function GET(request: NextRequest) {
     if (slug) {
       markdown = buildToolMarkdown(slug);
     }
+  } else if (normalizedPath.startsWith("/blog/")) {
+    const slug = normalizedPath.replace(/^\/blog\//, "").split("/")[0];
+    if (slug) {
+      markdown = buildBlogPostMarkdown(slug);
+    }
+  } else if (normalizedPath === "/blog") {
+    markdown = buildBlogListMarkdown();
+  } else if (normalizedPath === "/resources/youtube-cpm-rates") {
+    markdown = buildCpmRatesMarkdown();
+  } else if (normalizedPath === "/faq") {
+    markdown = buildFaqMarkdown();
   }
 
   if (!markdown) {

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import ClientOnly from "@/components/ui/ClientOnly";
 
 interface CardProps {
   children: ReactNode;
@@ -75,7 +76,9 @@ export function ToolCard({ icon, title, description, href, isAI, category, class
                 className="relative z-10"
                 onClick={(e) => e.preventDefault()}
               >
-                <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
+                <ClientOnly>
+                  <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
+                </ClientOnly>
               </div>
             </div>
           </div>
@@ -96,9 +99,7 @@ export function ToolCard({ icon, title, description, href, isAI, category, class
           </span>
           <span className="inline-flex items-center gap-1 text-purple-700 font-bold text-xs px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 transition-all duration-300 shadow-2xs whitespace-nowrap">
             <span>Launch Tool</span>
-            <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-            </svg>
+            <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform text-sm leading-none font-bold">→</span>
           </span>
         </div>
       </Card>

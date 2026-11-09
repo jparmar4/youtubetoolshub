@@ -3,359 +3,355 @@
 import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
-import Link from "next/link";
-import {
-  FaBalanceScale,
-  FaCopy,
-  FaCheck,
-  FaMobileAlt,
-  FaDesktop,
-  FaGlobeAmericas,
-} from "react-icons/fa";
 import { parseCalculatorInput } from "@/lib/calculator-input";
-import { formatCurrency } from "@/lib/utils";
-import { saveHistory } from "@/lib/history";
-import { usePreferredCurrency, SupportedCurrency } from "@/lib/currency";
+import GoogleAd from "@/components/ads/GoogleAd";
+import {
+  FaYoutube,
+  FaChartLine,
+  FaClock,
+  FaUserPlus,
+  FaBalanceScale,
+  FaLightbulb,
+  FaCheckCircle,
+  FaCopy,
+} from "react-icons/fa";
 
-export default function ShortsVsLongFormCalculator() {
-  const { currency, setCurrency, rate, currencies } = usePreferredCurrency("USD");
-  const [revenueTarget, setRevenueTarget] = useState("2000");
-  const [longFormRpm, setLongFormRpm] = useState("7.50");
-  const [shortsRpm, setShortsRpm] = useState("0.05");
-  const [longFormEditHours, setLongFormEditHours] = useState("8");
-  const [shortsEditHours, setShortsEditHours] = useState("1.5");
+interface NicheBenchmark {
+  name: string;
+  longFormRpm: number;
+  shortsRpm: number;
+}
+
+const NICHES: Record<string, NicheBenchmark> = {
+  finance: { name: "Personal Finance & Investing", longFormRpm: 12.5, shortsRpm: 0.065 },
+  tech: { name: "Tech & Software", longFormRpm: 7.8, shortsRpm: 0.055 },
+  business: { name: "Business, Career & SaaS", longFormRpm: 9.2, shortsRpm: 0.06 },
+  education: { name: "Education & How-To", longFormRpm: 5.4, shortsRpm: 0.05 },
+  fitness: { name: "Fitness & Health", longFormRpm: 4.8, shortsRpm: 0.045 },
+  gaming: { name: "Gaming & Streaming", longFormRpm: 2.9, shortsRpm: 0.035 },
+  entertainment: { name: "Comedy & Entertainment", longFormRpm: 3.2, shortsRpm: 0.04 },
+  lifestyle: { name: "Lifestyle & Vlogs", longFormRpm: 3.8, shortsRpm: 0.04 },
+};
+
+export default function ShortsVsLongformCalculator() {
+  const [niche, setNiche] = useState<string>("tech");
+  const [longViewsInput, setLongViewsInput] = useState<string>("50000");
+  const [videoLengthMins, setVideoLengthMins] = useState<number>(10);
+  const [retentionPercent, setRetentionPercent] = useState<number>(45);
+
+  const [shortsCount, setShortsCount] = useState<number>(3);
+  const [shortsViewsInput, setShortsViewsInput] = useState<string>("80000");
   const [copied, setCopied] = useState(false);
 
+  const activeNiche = NICHES[niche] || NICHES.tech;
+
   const calculations = useMemo(() => {
-    const target = parseCalculatorInput(revenueTarget);
-    const lfRpm = parseCalculatorInput(longFormRpm);
-    const shRpm = parseCalculatorInput(shortsRpm);
-    const lfHours = parseCalculatorInput(longFormEditHours);
-    const shHours = parseCalculatorInput(shortsEditHours);
+    const longViews = parseCalculatorInput(longViewsInput);
+    const shortViewsPerClip = parseCalculatorInput(shortsViewsInput);
+    const totalShortViews = shortViewsPerClip * shortsCount;
 
-    if (
-      !Number.isFinite(target) || target <= 0 ||
-      !Number.isFinite(lfRpm) || lfRpm <= 0 ||
-      !Number.isFinite(shRpm) || shRpm <= 0 ||
-      !Number.isFinite(lfHours) || lfHours <= 0 ||
-      !Number.isFinite(shHours) || shHours <= 0
-    ) {
-      return null;
-    }
+    if (longViews <= 0 && totalShortViews <= 0) return null;
 
-    // Views required to hit target
-    const longFormViewsNeeded = Math.ceil((target / lfRpm) * 1000);
-    const shortsViewsNeeded = Math.ceil((target / shRpm) * 1000);
+    // Long-Form Calculations
+    const longRevenue = +((longViews / 1000) * activeNiche.longFormRpm).toFixed(2);
+    const longAvgWatchSecs = (videoLengthMins * 60) * (retentionPercent / 100);
+    const longWatchHours = Math.round((longViews * longAvgWatchSecs) / 3600);
+    const longSubscribers = Math.round(longViews * 0.0035); // 0.35% sub rate
 
-    // Multiplier: how many shorts views equal 1 long-form view
-    const viewMultiplier = Math.round(lfRpm / shRpm);
+    // Shorts Calculations (40s average, 80% retention)
+    const shortsRevenue = +((totalShortViews / 1000) * activeNiche.shortsRpm).toFixed(2);
+    const shortsAvgWatchSecs = 40 * 0.8;
+    const shortsWatchHours = Math.round((totalShortViews * shortsAvgWatchSecs) / 3600);
+    const shortsSubscribers = Math.round(totalShortViews * 0.0014); // 0.14% sub rate
 
-    // Monthly video outputs assumed for steady income
-    // E.g. 4 long-form videos/mo (weekly) vs 20 shorts/mo (5x/week)
-    const longFormVideosPerMonth = 4;
-    const shortsVideosPerMonth = 20;
-
-    const totalLfHoursSpent = longFormVideosPerMonth * lfHours;
-    const totalShHoursSpent = shortsVideosPerMonth * shHours;
-
-    // Hourly earnings rate
-    const lfHourlyRate = Math.round(target / totalLfHoursSpent);
-    const shHourlyRate = Math.round(target / totalShHoursSpent);
+    // Combined Totals
+    const totalRevenue = +(longRevenue + shortsRevenue).toFixed(2);
+    const revenueMultiple = shortsRevenue > 0 ? (longRevenue / shortsRevenue).toFixed(1) : "N/A";
+    const totalWatchHours = longWatchHours + shortsWatchHours;
+    const totalSubscribers = longSubscribers + shortsSubscribers;
 
     return {
-      target,
-      lfRpm,
-      shRpm,
-      longFormViewsNeeded,
-      shortsViewsNeeded,
-      viewMultiplier,
-      totalLfHoursSpent,
-      totalShHoursSpent,
-      lfHourlyRate,
-      shHourlyRate,
+      longViews,
+      totalShortViews,
+      longRevenue,
+      shortsRevenue,
+      totalRevenue,
+      revenueMultiple,
+      longWatchHours,
+      shortsWatchHours,
+      totalWatchHours,
+      longSubscribers,
+      shortsSubscribers,
+      totalSubscribers,
     };
-  }, [revenueTarget, longFormRpm, shortsRpm, longFormEditHours, shortsEditHours]);
+  }, [longViewsInput, videoLengthMins, retentionPercent, shortsCount, shortsViewsInput, activeNiche]);
 
-  const handleCopy = async () => {
+  const handleCopySummary = () => {
     if (!calculations) return;
-    const text = `⚖️ YouTube Shorts vs Long-Form Revenue Comparison:
-• Monthly Revenue Goal: ${formatCurrency(calculations.target * rate, currency)}
-• Long-Form Views Needed: ${calculations.longFormViewsNeeded.toLocaleString()} (at ${formatCurrency(calculations.lfRpm * rate, currency)} RPM)
-• Shorts Views Needed: ${calculations.shortsViewsNeeded.toLocaleString()} (at ${formatCurrency(calculations.shRpm * rate, currency)} RPM)
-• Revenue Multiplier: 1 Long-Form view = ${calculations.viewMultiplier} Shorts views
-• Effective Hourly Rate: ${formatCurrency(calculations.lfHourlyRate * rate, currency)}/hr (Long-form) vs ${formatCurrency(calculations.shHourlyRate * rate, currency)}/hr (Shorts)
-Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-shorts-vs-long-form-calculator`;
+    const summary = `📊 YouTube Strategy Splitter (${activeNiche.name}):
+- Long-Form (${calculations.longViews.toLocaleString()} views): $${calculations.longRevenue.toLocaleString()} AdSense | ${calculations.longWatchHours.toLocaleString()} Watch Hrs | +${calculations.longSubscribers.toLocaleString()} Subs
+- Repurposed Shorts (${calculations.totalShortViews.toLocaleString()} views): $${calculations.shortsRevenue.toLocaleString()} AdSense | ${calculations.shortsWatchHours.toLocaleString()} Watch Hrs | +${calculations.shortsSubscribers.toLocaleString()} Subs
+- Total Combined: $${calculations.totalRevenue.toLocaleString()} & +${calculations.totalSubscribers.toLocaleString()} New Subscribers
+Generated on youtubetoolshub.com`;
 
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-      saveHistory("youtube-shorts-vs-long-form-calculator", {
-        target: calculations.target,
-        longFormViews: calculations.longFormViewsNeeded,
-        shortsViews: calculations.shortsViewsNeeded,
-      });
-    } catch {
-      /* ignore */
-    }
+    navigator.clipboard.writeText(summary);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
     <ToolPageLayout
-      title="YouTube Shorts vs. Long-Form Profitability & Effort Calculator"
-      slug="youtube-shorts-vs-long-form-calculator"
-      description="Compare the real AdSense earnings, required view volume, editing effort, and hourly wage between YouTube Shorts and long-form videos in 2026."
+      title="YouTube Shorts vs. Long-Form Revenue Splitter & Strategy Calculator"
+      description="Compare projected AdSense earnings, watch hours, and subscriber velocity between long-form videos and repurposed Shorts for any niche."
     >
-      <div className="space-y-8">
-        {!calculations && (
-          <p role="status" className="text-sm text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
-            Enter valid positive numbers for revenue target, RPMs, and editing hours.
-          </p>
-        )}
+      <form
+        toolname="estimate_shorts_vs_longform"
+        tooldescription="Compare projected revenue and subscriber reach between long-form videos and Shorts"
+        className="space-y-8"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        {/* Controls Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+          {/* Column 1: Long-Form Settings */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <span className="p-2 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-600">
+                <FaYoutube className="w-5 h-5" />
+              </span>
+              <div>
+                <h3 className="font-bold text-slate-900 dark:text-slate-100">Long-Form Video Parameters</h3>
+                <p className="text-xs text-slate-500">Full 16:9 hero video performance</p>
+              </div>
+            </div>
 
-        {/* Global Currency Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/90 dark:border-slate-700">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200">
-            <FaGlobeAmericas className="text-purple-600 dark:text-purple-400" />
-            <span>Display Currency:</span>
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {Object.entries(currencies).map(([code, conf]) => (
-              <button
-                key={code}
-                type="button"
-                onClick={() => setCurrency(code as SupportedCurrency)}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
-                  currency === code
-                    ? "bg-purple-600 text-white shadow-xs"
-                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700"
-                }`}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Target Niche & RPM Benchmark
+              </label>
+              <select
+                value={niche}
+                onChange={(e) => setNiche(e.target.value)}
+                className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-medium focus:ring-2 focus:ring-purple-500 outline-none"
               >
-                {conf.label}
-              </button>
-            ))}
+                {Object.entries(NICHES).map(([key, val]) => (
+                  <option key={key} value={key}>
+                    {val.name} (Long RPM: ${val.longFormRpm} | Shorts: ${val.shortsRpm})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                Expected Long-Form Views
+              </label>
+              <Input
+                value={longViewsInput}
+                onChange={(e) => setLongViewsInput(e.target.value)}
+                placeholder="e.g. 50000 or 50k"
+                className="font-semibold text-slate-900 dark:text-slate-100"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  Video Duration (Mins)
+                </label>
+                <input
+                  type="number"
+                  min="2"
+                  max="60"
+                  value={videoLengthMins}
+                  onChange={(e) => setVideoLengthMins(Math.max(1, Number(e.target.value) || 10))}
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  Avg Retention ({retentionPercent}%)
+                </label>
+                <input
+                  type="range"
+                  min="20"
+                  max="80"
+                  value={retentionPercent}
+                  onChange={(e) => setRetentionPercent(Number(e.target.value))}
+                  className="w-full accent-purple-600 mt-2"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Column 2: Repurposed Shorts Settings */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
+              <span className="p-2 rounded-lg bg-purple-100 dark:bg-purple-950/60 text-purple-600">
+                <FaChartLine className="w-5 h-5" />
+              </span>
+              <div>
+                <h3 className="font-bold text-slate-900 dark:text-slate-100">Repurposed Shorts Funnel</h3>
+                <p className="text-xs text-slate-500">Vertical clips cut from the same topic</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  Shorts Produced
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  value={shortsCount}
+                  onChange={(e) => setShortsCount(Math.max(1, Number(e.target.value) || 1))}
+                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-slate-100"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">
+                  Avg Views Per Short
+                </label>
+                <Input
+                  value={shortsViewsInput}
+                  onChange={(e) => setShortsViewsInput(e.target.value)}
+                  placeholder="e.g. 80000 or 80k"
+                  className="font-semibold text-slate-900 dark:text-slate-100"
+                />
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-900/60 text-xs text-purple-900 dark:text-purple-200 space-y-1">
+              <p className="font-bold flex items-center gap-1.5">
+                <FaLightbulb className="text-purple-600 shrink-0" />
+                Shorts Algorithm Multiplier
+              </p>
+              <p>
+                {shortsCount} Shorts totaling {(calculations?.totalShortViews || 0).toLocaleString()} projected views
+                will serve as high-velocity top-of-funnel discovery for your long-form video.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Form Inputs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-6 bg-slate-50/70 dark:bg-slate-800/40 rounded-3xl border border-slate-200/80 dark:border-slate-700">
-          <div>
-            <Input
-              label={`Monthly Revenue Target (${currency})`}
-              type="text"
-              inputMode="decimal"
-              value={revenueTarget}
-              onChange={(e) => setRevenueTarget(e.target.value)}
-              placeholder="e.g. 2000"
-            />
-            <span className="text-[11px] text-slate-500 mt-1 block">
-              Desired monthly take-home AdSense revenue
-            </span>
-          </div>
-
-          <div>
-            <Input
-              label="Long-Form Video RPM ($)"
-              type="text"
-              inputMode="decimal"
-              value={longFormRpm}
-              onChange={(e) => setLongFormRpm(e.target.value)}
-              placeholder="7.50"
-            />
-            <span className="text-[11px] text-slate-500 mt-1 block">
-              US average: $4.00–$15.00+ per 1,000 views
-            </span>
-          </div>
-
-          <div>
-            <Input
-              label="YouTube Shorts RPM ($)"
-              type="text"
-              inputMode="decimal"
-              value={shortsRpm}
-              onChange={(e) => setShortsRpm(e.target.value)}
-              placeholder="0.05"
-            />
-            <span className="text-[11px] text-slate-500 mt-1 block">
-              Global average: $0.03–$0.07 per 1,000 views
-            </span>
-          </div>
-
-          <div>
-            <Input
-              label="Hours to Edit 1 Long-Form Video"
-              type="text"
-              inputMode="decimal"
-              value={longFormEditHours}
-              onChange={(e) => setLongFormEditHours(e.target.value)}
-              placeholder="8"
-            />
-            <span className="text-[11px] text-slate-500 mt-1 block">
-              Scripting, filming, editing, and thumbnail design
-            </span>
-          </div>
-
-          <div>
-            <Input
-              label="Hours to Edit 1 Short"
-              type="text"
-              inputMode="decimal"
-              value={shortsEditHours}
-              onChange={(e) => setShortsEditHours(e.target.value)}
-              placeholder="1.5"
-            />
-            <span className="text-[11px] text-slate-500 mt-1 block">
-              Quick filming, captions, cuts, and sound effects
-            </span>
-          </div>
-
-          <div className="flex items-end">
-            <Button
-              onClick={() => {
-                setLongFormRpm("12.00");
-                setShortsRpm("0.06");
-                setRevenueTarget("5000");
-              }}
-              variant="outline"
-              className="w-full text-xs font-bold h-[42px]"
-            >
-              US Finance Preset ($5K Goal)
-            </Button>
-          </div>
-        </div>
-
-        {/* Results Presentation */}
+        {/* Results Showcase */}
         {calculations && (
-          <div className="space-y-6 pt-2 animate-fade-in">
-            {/* The Equivalence Banner */}
-            <div className="p-6 bg-gradient-to-r from-purple-900 to-indigo-950 text-white rounded-3xl shadow-xl text-center relative overflow-hidden">
-              <div className="relative z-10 max-w-2xl mx-auto space-y-2">
-                <span className="text-xs font-black tracking-widest uppercase bg-purple-500/30 text-purple-200 px-3 py-1 rounded-full border border-purple-400/30">
-                  The Revenue Equivalence Multiplier
-                </span>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit tracking-tight">
-                  1 Long-Form View = {calculations.viewMultiplier} Shorts Views
-                </h3>
-                <p className="text-sm text-purple-200 opacity-90 leading-relaxed">
-                  Because long-form videos serve dedicated pre-roll, mid-roll, and post-roll ads, single long-form viewers generate the same revenue as {calculations.viewMultiplier} viewers flipping through the Shorts feed.
-                </p>
-              </div>
-            </div>
-
-            {/* Head-to-Head Comparison Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Long-Form Column */}
-              <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border-2 border-emerald-500/80 shadow-lg space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-2 text-emerald-600 font-black text-lg">
-                    <FaDesktop />
-                    <span>Long-Form Video</span>
-                  </div>
-                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-                    High AdSense Yield
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Card 1: Revenue Comparison */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 border border-emerald-200 dark:border-emerald-800 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <FaBalanceScale className="w-3.5 h-3.5" /> Total AdSense
+                  </span>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-200/80 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                    {calculations.revenueMultiple}x Ratio
                   </span>
                 </div>
-
-                <div className="space-y-3">
-                  <div>
-                    <span className="text-xs text-slate-400 font-bold uppercase block">Views Needed for {formatCurrency(calculations.target * rate, currency)}</span>
-                    <span className="text-3xl font-black text-slate-900 dark:text-white font-outfit">
-                      {calculations.longFormViewsNeeded.toLocaleString()} views
-                    </span>
+                <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-1">
+                  ${calculations.totalRevenue.toLocaleString()}
+                </div>
+                <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1 mt-3 pt-3 border-t border-emerald-200/60 dark:border-emerald-800/60">
+                  <div className="flex justify-between">
+                    <span>Long-Form:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">${calculations.longRevenue.toLocaleString()}</span>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
-                    <div>
-                      <span className="text-slate-400 font-semibold block">Monthly Edit Time</span>
-                      <span className="font-black text-slate-800 dark:text-slate-200">{calculations.totalLfHoursSpent} hours</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 font-semibold block">Effective Wage</span>
-                      <span className="font-black text-emerald-600">{formatCurrency(calculations.lfHourlyRate * rate, currency)} / hr</span>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>{shortsCount} Shorts:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">${calculations.shortsRevenue.toLocaleString()}</span>
                   </div>
-
-                  <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">✓ <strong>Evergreen Traffic:</strong> Continues earning 2–5 years via search</li>
-                    <li className="flex items-center gap-2">✓ <strong>High Sponsor CPMs:</strong> Brands pay $15–$45 CPM for 60s mid-rolls</li>
-                    <li className="flex items-center gap-2">✓ <strong>Strong Community:</strong> Higher conversion to Patreon &amp; merch</li>
-                  </ul>
                 </div>
               </div>
 
-              {/* Shorts Column */}
-              <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-                  <div className="flex items-center gap-2 text-purple-600 font-black text-lg">
-                    <FaMobileAlt />
-                    <span>YouTube Shorts</span>
-                  </div>
-                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-950/60 dark:text-purple-300">
-                    High Viral Reach
+              {/* Card 2: Watch Hours */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-sky-50 to-indigo-50 dark:from-sky-950/40 dark:to-indigo-950/30 border border-sky-200 dark:border-sky-800 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-sky-800 dark:text-sky-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <FaClock className="w-3.5 h-3.5" /> Watch Hours
+                  </span>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-200/80 dark:bg-sky-900 text-sky-800 dark:text-sky-200">
+                    YPP Fuel
                   </span>
                 </div>
-
-                <div className="space-y-3">
-                  <div>
-                    <span className="text-xs text-slate-400 font-bold uppercase block">Views Needed for {formatCurrency(calculations.target * rate, currency)}</span>
-                    <span className="text-3xl font-black text-slate-900 dark:text-white font-outfit">
-                      {calculations.shortsViewsNeeded.toLocaleString()} views
-                    </span>
+                <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-1">
+                  {calculations.totalWatchHours.toLocaleString()} hrs
+                </div>
+                <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1 mt-3 pt-3 border-t border-sky-200/60 dark:border-sky-800/60">
+                  <div className="flex justify-between">
+                    <span>Long-Form:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">{calculations.longWatchHours.toLocaleString()} hrs</span>
                   </div>
-
-                  <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-xs">
-                    <div>
-                      <span className="text-slate-400 font-semibold block">Monthly Edit Time</span>
-                      <span className="font-black text-slate-800 dark:text-slate-200">{calculations.totalShHoursSpent} hours</span>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 font-semibold block">Effective Wage</span>
-                      <span className="font-black text-purple-600">{formatCurrency(calculations.shHourlyRate * rate, currency)} / hr</span>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>Shorts:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">{calculations.shortsWatchHours.toLocaleString()} hrs</span>
                   </div>
+                </div>
+              </div>
 
-                  <ul className="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">• <strong>Fast Discovery:</strong> Best format for rapid sub acquisition</li>
-                    <li className="flex items-center gap-2">• <strong>Short Shelf-Life:</strong> 85% of views occur in first 72 hours</li>
-                    <li className="flex items-center gap-2">• <strong>Lower Sponsor Spend:</strong> Dedicated Shorts brand deals pay ~1/5th of long-form</li>
-                  </ul>
+              {/* Card 3: Subscribers */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/40 dark:to-pink-950/30 border border-purple-200 dark:border-purple-800 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-purple-800 dark:text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
+                    <FaUserPlus className="w-3.5 h-3.5" /> Subscribers
+                  </span>
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-purple-200/80 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
+                    Audience Growth
+                  </span>
+                </div>
+                <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-1">
+                  +{calculations.totalSubscribers.toLocaleString()}
+                </div>
+                <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1 mt-3 pt-3 border-t border-purple-200/60 dark:border-purple-800/60">
+                  <div className="flex justify-between">
+                    <span>Long-Form:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">+{calculations.longSubscribers.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Shorts:</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-200">+{calculations.shortsSubscribers.toLocaleString()}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Strategic Recommendation */}
-            <div className="p-6 bg-slate-50 dark:bg-slate-800/60 rounded-3xl border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <span className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                  <FaBalanceScale className="text-purple-600" />
-                  Recommended 2026 Strategy: The 80/20 Hybrid Funnel
-                </span>
-                <p className="text-xs text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-                  Do not rely on Shorts for primary AdSense revenue. Use Shorts as an organic top-of-funnel discovery engine (1–2 clips per long-form video) to channel viewers toward your high-RPM long-form videos and sponsorship deals.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
+            {/* Strategy Roadmap Capsule */}
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <h4 className="font-bold text-slate-900 dark:text-slate-100 text-base flex items-center gap-2">
+                  <FaCheckCircle className="text-emerald-500" />
+                  Recommended 2026 Hybrid Publishing Strategy
+                </h4>
                 <button
                   type="button"
-                  onClick={handleCopy}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs"
+                  onClick={handleCopySummary}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-xs font-bold hover:bg-purple-100 transition-colors self-start sm:self-auto"
                 >
-                  {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
-                  <span>{copied ? "Copied!" : "Copy Comparison"}</span>
+                  <FaCopy className="w-3 h-3" />
+                  {copied ? "Copied Summary!" : "Copy Strategy Report"}
                 </button>
-                <Link
-                  href="/tools/youtube-earnings-calculator"
-                  className="inline-flex items-center gap-1 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-purple-600 text-xs font-bold transition-colors"
-                >
-                  <span>Full Earnings Calculator →</span>
-                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs text-slate-600 dark:text-slate-400">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 block mb-1">Day 0: Long-Form Launch</span>
+                  Publish the 10-minute long-form hero video first to capitalize on subscriber browse notification velocity.
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 block mb-1">Day 2: Short #1 Hook</span>
+                  Release Short #1 linking directly to the full video via YouTube Studio&apos;s &quot;Related video&quot; feature.
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800">
+                  <span className="font-bold text-slate-800 dark:text-slate-200 block mb-1">Day 5: Short #2 & #3</span>
+                  Extract key counter-intuitive moments to trigger feed recommendations and reactivate browse traffic.
+                </div>
               </div>
             </div>
           </div>
         )}
-      </div>
+
+        <GoogleAd slot="4112285121" />
+      </form>
     </ToolPageLayout>
   );
 }

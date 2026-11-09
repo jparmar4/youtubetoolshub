@@ -15,12 +15,12 @@ export function AdSectionPrioritize({ children }: { children: React.ReactNode })
   return (
     <>
       <div
-        style={{ display: "contents" }}
+        className="contents"
         dangerouslySetInnerHTML={{ __html: "<!-- google_ad_section_start -->" }}
       />
       {children}
       <div
-        style={{ display: "contents" }}
+        className="contents"
         dangerouslySetInnerHTML={{ __html: "<!-- google_ad_section_end -->" }}
       />
     </>
@@ -31,12 +31,12 @@ export function AdSectionIgnore({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div
-        style={{ display: "contents" }}
+        className="contents"
         dangerouslySetInnerHTML={{ __html: "<!-- google_ad_section_start(weight=ignore) -->" }}
       />
       {children}
       <div
-        style={{ display: "contents" }}
+        className="contents"
         dangerouslySetInnerHTML={{ __html: "<!-- google_ad_section_end -->" }}
       />
     </>

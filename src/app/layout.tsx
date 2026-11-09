@@ -16,6 +16,7 @@ import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
 import ToastContainer from "@/components/ui/Toast";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import WebMCPRegistry from "@/components/agent/WebMCPRegistry";
+import ClientOnly from "@/components/ui/ClientOnly";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -130,14 +131,14 @@ export const metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const lang = "en";
 
-  // Generate JSON-LD structured data
+  // Generate JSON-LD structured data graph
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebsiteSchema();
   const editorialSchema = getPersonSchema({
@@ -148,6 +149,14 @@ export default async function RootLayout({
     description: siteConfig.editorial.description,
     sameAs: siteConfig.footerLinks.social.map((s) => s.href),
   });
+
+  const siteGraphSchema = {
+    "@context": "https://schema.org",
+    "@graph": [organizationSchema, websiteSchema, editorialSchema].map((item) => {
+      const { "@context": _, ...rest } = item as Record<string, unknown>;
+      return rest;
+    }),
+  };
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -276,23 +285,11 @@ export default async function RootLayout({
 
         {/* Favicons handled by app/icon.tsx */}
 
-        {/* JSON-LD Structured Data for SEO */}
+        {/* JSON-LD Consolidated Structured Data Graph for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(editorialSchema),
+            __html: JSON.stringify(siteGraphSchema),
           }}
         />
         
@@ -304,232 +301,21 @@ export default async function RootLayout({
         <script
           id="google-consent-mode"
           dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('consent', 'default', {
-                'ad_storage': 'granted',
-                'ad_user_data': 'granted',
-                'ad_personalization': 'granted',
-                'analytics_storage': 'granted'
-              });
-              gtag('consent', 'default', {
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'analytics_storage': 'denied',
-                'wait_for_update': 500,
-                'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']
-              });
-              gtag('js', new Date());
-              gtag('config', 'G-14MEY3M1CN', {
-                page_path: window.location.pathname,
-              });
-            `,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','wait_for_update':500,'region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});gtag('js',new Date());gtag('config','G-14MEY3M1CN',{page_path:window.location.pathname});`,
           }}
         />
 
         {/*
           WebMCP: In-Browser Agent Tool Registration (SEP-1649 / WebMCP)
-          Registers tools on navigator.modelContext on page load for in-browser agents.
+          Exposes tools via navigator.modelContext.provideContext and registerTool for AI agents.
         */}
         <script
           id="webmcp-registry-script"
           dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                function registerWebMCP() {
-                  if (typeof navigator === "undefined" || !navigator.modelContext || typeof navigator.modelContext.registerTool !== "function") return;
-                  var mc = navigator.modelContext;
-                  try {
-                    mc.registerTool({
-                      name: "estimate_youtube_earnings",
-                      description: "Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country across 52 supported regions.",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          views: { type: "number", description: "Number of monthly or daily video views." },
-                          country: { type: "string", description: "Country slug or code (e.g. 'usa', 'uk', 'canada', 'australia', 'germany', 'india')." }
-                        },
-                        required: ["views"]
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-earnings",
-                            method: "tools/call",
-                            params: { name: "estimate_youtube_earnings", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-
-                    mc.registerTool({
-                      name: "list_youtube_tools",
-                      description: "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          category: { type: "string", description: "Optional tool category filter." },
-                          query: { type: "string", description: "Optional search keyword." }
-                        }
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-tools",
-                            method: "tools/call",
-                            params: { name: "list_youtube_tools", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-
-                    mc.registerTool({
-                      name: "get_country_cpm_rates",
-                      description: "Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries.",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          country: { type: "string", description: "Optional country name, code, or slug filter." }
-                        }
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-cpm",
-                            method: "tools/call",
-                            params: { name: "get_country_cpm_rates", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-
-                    mc.registerTool({
-                      name: "get_youtube_thumbnail_urls",
-                      description: "Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL.",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          videoIdOrUrl: { type: "string", description: "YouTube video URL or 11-character video ID." }
-                        },
-                        required: ["videoIdOrUrl"]
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-thumbs",
-                            method: "tools/call",
-                            params: { name: "get_youtube_thumbnail_urls", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-                                      mc.registerTool({
-                      name: "estimate_sponsorship_rate",
-                      description: "Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          views: { type: "number", description: "Expected video views." },
-                          niche: { type: "string", description: "Creator niche (e.g. 'finance', 'tech', 'gaming')." }
-                        },
-                        required: ["views"]
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-sponsor",
-                            method: "tools/call",
-                            params: { name: "estimate_sponsorship_rate", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-
-                    mc.registerTool({
-                      name: "estimate_channel_valuation",
-                      description: "Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings).",
-                      inputSchema: {
-                        type: "object",
-                        properties: {
-                          monthlyRevenue: { type: "number", description: "Average monthly net earnings (USD)." }
-                        },
-                        required: ["monthlyRevenue"]
-                      },
-                      execute: function(args) {
-                        return fetch("/api/mcp", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({
-                            jsonrpc: "2.0",
-                            id: "webmcp-valuation",
-                            method: "tools/call",
-                            params: { name: "estimate_channel_valuation", arguments: args || {} }
-                          })
-                        }).then(function(r){ return r.json(); }).then(function(d){
-                          try { return d.result && d.result.content && d.result.content[0] && d.result.content[0].text ? JSON.parse(d.result.content[0].text) : d; } catch(e){ return d; }
-                        });
-                      }
-                    });
-                  } catch(err) {
-                    console.warn("WebMCP registration:", err);
-                  }
-                }
-
-                registerWebMCP();
-                if (typeof document !== "undefined") {
-                  if (document.readyState === "loading") {
-                    document.addEventListener("DOMContentLoaded", registerWebMCP);
-                  }
-                  window.addEventListener("load", registerWebMCP);
-                }
-                if (typeof window !== "undefined") {
-                  window.addEventListener("modelcontextready", registerWebMCP);
-                }
-                if (typeof navigator !== "undefined" && !navigator.modelContext) {
-                  try {
-                    var _mcVal = undefined;
-                    Object.defineProperty(navigator, "modelContext", {
-                      configurable: true,
-                      enumerable: true,
-                      get: function() { return _mcVal; },
-                      set: function(v) {
-                        _mcVal = v;
-                        if (v && typeof v.registerTool === "function") setTimeout(registerWebMCP, 0);
-                      }
-                    });
-                  } catch(e) {}
-                }
-              })();
-            `,
+            __html: `(function(){function callMcp(n,a){return fetch("/api/mcp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:"webmcp-"+n,method:"tools/call",params:{name:n,arguments:a||{}}})}).then(function(r){return r.json();}).then(function(d){try{return d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text?JSON.parse(d.result.content[0].text):d;}catch(e){return d;}});}function registerWebMCP(){if(typeof navigator==="undefined"||!navigator.modelContext)return;var mc=navigator.modelContext;if(typeof mc.provideContext==="function"){try{mc.provideContext({tools:[{name:"estimate_youtube_earnings"},{name:"list_youtube_tools"},{name:"get_country_cpm_rates"},{name:"get_youtube_thumbnail_urls"},{name:"estimate_sponsorship_rate"},{name:"estimate_channel_valuation"},{name:"estimate_shorts_earnings"},{name:"calculate_youtube_tax_deductions"}]});}catch(e){}}if(typeof navigator.modelContext.registerTool==="function"){var tools=[{name:"estimate_youtube_earnings",description:"Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country across 52 supported regions.",inputSchema:{type:"object",properties:{views:{type:"number",description:"Number of video views."},country:{type:"string",description:"Country slug or code."}},required:["views"]},execute:function(a){return callMcp("estimate_youtube_earnings",a);}},{name:"list_youtube_tools",description:"List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",inputSchema:{type:"object",properties:{category:{type:"string"},query:{type:"string"}}},execute:function(a){return callMcp("list_youtube_tools",a);}},{name:"get_country_cpm_rates",description:"Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries.",inputSchema:{type:"object",properties:{country:{type:"string"}}},execute:function(a){return callMcp("get_country_cpm_rates",a);}},{name:"get_youtube_thumbnail_urls",description:"Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL.",inputSchema:{type:"object",properties:{videoIdOrUrl:{type:"string"}},required:["videoIdOrUrl"]},execute:function(a){return callMcp("get_youtube_thumbnail_urls",a);}},{name:"estimate_sponsorship_rate",description:"Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",inputSchema:{type:"object",properties:{views:{type:"number"},niche:{type:"string"}},required:["views"]},execute:function(a){return callMcp("estimate_sponsorship_rate",a);}},{name:"estimate_channel_valuation",description:"Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings).",inputSchema:{type:"object",properties:{monthlyRevenue:{type:"number"}},required:["monthlyRevenue"]},execute:function(a){return callMcp("estimate_channel_valuation",a);}},{name:"estimate_shorts_earnings",description:"Calculate YouTube Shorts AdSense revenue based on views and 2026 Shorts RPM benchmarks.",inputSchema:{type:"object",properties:{views:{type:"number"}},required:["views"]},execute:function(a){return callMcp("estimate_shorts_earnings",a);}},{name:"calculate_youtube_tax_deductions",description:"Calculate estimated business tax write-offs and tax savings for YouTube creators.",inputSchema:{type:"object",properties:{annualRevenue:{type:"number"}},required:["annualRevenue"]},execute:function(a){return callMcp("calculate_youtube_tax_deductions",a);}}];tools.forEach(function(t){try{mc.registerTool(t);}catch(e){}});}}registerWebMCP();if(typeof document!=="undefined"){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",registerWebMCP);}window.addEventListener("load",registerWebMCP);}if(typeof window!=="undefined"){window.addEventListener("modelcontextready",registerWebMCP);}})();`,
           }}
         />
+        <script defer src="/webmcp-registry.js" />
       </head>
       <body
         className={`${outfit.variable} ${jakarta.variable} antialiased min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]`}
@@ -554,17 +340,19 @@ export default async function RootLayout({
             <AdSectionIgnore>
               <Footer />
             </AdSectionIgnore>
-            <ScrollToTop />
-            <ToastContainer />
-            <CookieConsent />
-            <ConsentAnalytics />
-            <PrivacyH1Fix />
-            {/* Exit-intent popup for email capture */}
-            <ExitIntentPopup />
-            <WebMCPRegistry />
-            {/* High-viewability mobile/desktop sticky bottom anchor ad */}
-            <StickyBottomAd />
-            <PWAInstallPrompt />
+            <ClientOnly>
+              <ScrollToTop />
+              <ToastContainer />
+              <CookieConsent />
+              <ConsentAnalytics />
+              <PrivacyH1Fix />
+              {/* Exit-intent popup for email capture */}
+              <ExitIntentPopup />
+              <WebMCPRegistry />
+              {/* High-viewability mobile/desktop sticky bottom anchor ad */}
+              <StickyBottomAd />
+              <PWAInstallPrompt />
+            </ClientOnly>
             </MotionConfig>
           </UsageProvider>
         </AuthProvider>

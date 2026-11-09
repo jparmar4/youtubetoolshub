@@ -45,7 +45,7 @@ const scriptCode = layoutContent.slice(start, end);
 
 eval(scriptCode);
 
-assert(registeredTools.length >= 6, `Expected at least 6 WebMCP tools registered, got ${registeredTools.length}`);
+assert(registeredTools.length >= 8, `Expected at least 8 WebMCP tools registered, got ${registeredTools.length}`);
 
 const requiredTools = [
   "estimate_youtube_earnings",
@@ -54,6 +54,8 @@ const requiredTools = [
   "get_youtube_thumbnail_urls",
   "estimate_sponsorship_rate",
   "estimate_channel_valuation",
+  "estimate_shorts_earnings",
+  "calculate_youtube_tax_deductions",
 ];
 
 for (const name of requiredTools) {

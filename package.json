@@ -9,7 +9,7 @@
     "start": "node server.js",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/test-commercial-calculators.cjs && node scripts/test-discovery.cjs && node scripts/test-webmcp.cjs",
+    "test": "node scripts/test-commercial-calculators.cjs && node scripts/test-discovery.cjs && node scripts/test-webmcp.cjs && node scripts/test-agent-readiness.cjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "seo:indexnow:priority": "node scripts/submit-indexnow.mjs --priority",
     "seo:check": "node scripts/check-seo.mjs",

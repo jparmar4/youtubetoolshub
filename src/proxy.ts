@@ -153,6 +153,37 @@ export default async function middleware(request: NextRequest) {
     return NextResponse.redirect(dest, 308);
   }
 
+  // 0.3 Content Negotiation for AI Agents (Markdown for Agents / Token-budget efficiency)
+  const acceptHeader = (request.headers.get("accept") || "").toLowerCase();
+  const wantsMarkdown =
+    acceptHeader.includes("text/markdown") ||
+    acceptHeader.includes("text/x-markdown");
+
+  if (pathname.endsWith(".md")) {
+    const cleanPath = pathname === "/index.md" ? "/" : pathname.slice(0, -3);
+    const dest = new URL(
+      `/api/markdown?path=${encodeURIComponent(cleanPath)}`,
+      request.url,
+    );
+    return NextResponse.rewrite(dest);
+  }
+
+  if (
+    wantsMarkdown &&
+    (pathname === "/" ||
+      pathname.startsWith("/tools") ||
+      pathname.startsWith("/blog") ||
+      pathname.startsWith("/resources") ||
+      pathname === "/faq" ||
+      pathname === "/about")
+  ) {
+    const dest = new URL(
+      `/api/markdown?path=${encodeURIComponent(pathname)}`,
+      request.url,
+    );
+    return NextResponse.rewrite(dest);
+  }
+
   // 1. Allow search bots unrestricted access (SEO) — still attach noindex on private paths
   if (isSearchBot(userAgent)) {
     return withOptionalNoIndex(NextResponse.next(), pathname);

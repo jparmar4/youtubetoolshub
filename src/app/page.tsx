@@ -14,8 +14,6 @@ import { ToolCard, BlogCard } from "@/components/ui/Card";
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts } from "@/config/blog";
-import SmartWorkflow from "@/components/home/SmartWorkflow";
-import Hero3DShowcase from "@/components/home/Hero3DShowcase";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { Metadata } from "next";
 import { getFAQSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
@@ -23,8 +21,11 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
+import Hero3DShowcase from "@/components/home/Hero3DShowcase";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
+import SmartWorkflow from "@/components/home/SmartWorkflow";
+import ClientOnly from "@/components/ui/ClientOnly";
 
 export const metadata: Metadata = {
   title: {
@@ -139,7 +140,7 @@ export default function Home() {
     ...getFeaturedTools().filter((t) => !FLAGSHIP_TOOL_SLUGS.has(t.slug)),
   ].slice(0, 12);
 
-  // ── AEO/GEO: Generate JSON-LD schemas for AI answer engines ──
+  // ── AEO/GEO: Combine JSON-LD schemas into a single @graph script to trim markup & flight tokens ──
   const faqSchema = getFAQSchema(
     homeFAQs.map((faq) => ({
       question: faq.question,
@@ -148,7 +149,7 @@ export default function Home() {
   );
 
   const toolListSchema = getToolListSchema(
-    tools.map((tool) => ({
+    featuredTools.map((tool) => ({
       name: tool.name,
       url: `${siteConfig.url}/tools/${tool.slug}`,
       description: tool.shortDescription,
@@ -160,26 +161,27 @@ export default function Home() {
   ]);
   const mainEntitySchema = getMainEntitySchema();
 
+  const combinedSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      faqSchema,
+      toolListSchema,
+      mainEntitySchema,
+      breadcrumbSchema,
+    ].map((item) => {
+      const { "@context": _, ...rest } = item as Record<string, unknown>;
+      return rest;
+    }),
+  };
+
   return (
     <div className="min-h-screen">
       {/* ── GEO/AEO: Knowledge Graph, WebApplication, ProfilePage, Service ── */}
       <GeoAeoHead {...GEO_AEO_PRESETS.homepage} pathname="/" />
-      {/* ── AEO/GEO: JSON-LD Structured Data for AI Answer Engines ── */}
+      {/* ── Single consolidated JSON-LD @graph for AI answer engines & search crawlers ── */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolListSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(mainEntitySchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(combinedSchema) }}
       />
 
       {/* Hero */}
@@ -249,7 +251,9 @@ export default function Home() {
             </div>
 
             {/* Interactive 3D UHD Creator Command Studio Showcase */}
-            <Hero3DShowcase />
+            <ClientOnly fallback={<div className="min-h-[140px] flex items-center justify-center"><div className="h-6 w-6 rounded-full border-2 border-purple-200 border-t-purple-600 animate-spin" /></div>}>
+              <Hero3DShowcase />
+            </ClientOnly>
 
             {/* Above-the-fold Ad immediately below 3D Hero Showcase */}
             <div className="mt-8 max-w-4xl mx-auto w-full">

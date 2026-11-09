@@ -84,6 +84,7 @@ const toolComponents: Record<string, React.ComponentType> = {
     "youtube-watch-hours-calculator": dynamic(() => import("@/components/tools/WatchHoursCalculator")),
     "youtube-shorts-vs-long-form-calculator": dynamic(() => import("@/components/tools/ShortsVsLongFormCalculator")),
     "youtube-milestone-countdown-calculator": dynamic(() => import("@/components/tools/MilestoneCountdownCalculator")),
+    "youtube-thumbnail-ab-test-calculator": dynamic(() => import("@/components/tools/ThumbnailABTestCalculator")),
 };
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
@@ -221,6 +222,22 @@ export default async function ToolPage({
         { name: tool.name, url: `${siteConfig.url}/tools/${tool.slug}` },
     ]);
 
+    const schemasToCombine: Record<string, unknown>[] = [toolSchema, breadcrumbSchema];
+    if (seoFaqs.length > 0) {
+        schemasToCombine.push(getFAQSchema(seoFaqs));
+    }
+    if (tool.howTo) {
+        schemasToCombine.push(getHowToSchema(tool.howTo));
+    }
+
+    const combinedToolGraphSchema = {
+        "@context": "https://schema.org",
+        "@graph": schemasToCombine.map((item) => {
+            const { "@context": _, ...rest } = item;
+            return rest;
+        }),
+    };
+
     return (
         <>
             {/* AI Search & GEO/AEO Optimization Signals */}
@@ -233,35 +250,13 @@ export default async function ToolPage({
                 pathname={`/tools/${tool.slug}`}
             />
 
-            {/* JSON-LD Structured Data */}
+            {/* Consolidated JSON-LD Structured Data Graph for AI Answer Engines & Search Bots */}
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(toolSchema),
+                    __html: JSON.stringify(combinedToolGraphSchema),
                 }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(breadcrumbSchema),
-                }}
-            />
-            {seoFaqs.length > 0 && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(getFAQSchema(seoFaqs)),
-                    }}
-                />
-            )}
-            {tool.howTo && (
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(getHowToSchema(tool.howTo)),
-                    }}
-                />
-            )}
 
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />

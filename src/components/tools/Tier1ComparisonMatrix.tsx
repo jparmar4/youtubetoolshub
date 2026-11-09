@@ -382,7 +382,7 @@ export default function Tier1ComparisonMatrix() {
                 className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:underline mt-2"
               >
                 <span>Calculate your tax deductions</span>
-                <FaArrowRight className="w-2.5 h-2.5" />
+                <span aria-hidden="true" className="text-xs font-bold leading-none">→</span>
               </Link>
             </div>
           </div>
