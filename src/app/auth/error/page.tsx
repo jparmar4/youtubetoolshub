@@ -47,35 +47,35 @@ function AuthErrorContent() {
     const errorInfo = errorMessages[error || ""] || errorMessages.Default;
 
     return (
-        <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
             <div className="max-w-md w-full mx-auto px-4">
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-emerald-500 mb-6"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-emerald-500 mb-6"
                 >
                     <FaArrowLeft className="w-4 h-4" />
                     Back to Home
                 </Link>
 
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl mb-4">
+                <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-2xl mb-4">
                         <FaExclamationTriangle className="w-8 h-8 text-emerald-500" />
                     </div>
 
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">
                         {errorInfo.title}
                     </h1>
 
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    <p className="text-gray-600 mb-6">
                         {errorInfo.message}
                     </p>
 
                     {error === "Configuration" && (
-                        <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-4 mb-6 text-left">
-                            <p className="text-sm text-yellow-700 dark:text-yellow-300 font-medium mb-2">
+                        <div className="bg-yellow-50 rounded-xl p-4 mb-6 text-left">
+                            <p className="text-sm text-yellow-700 font-medium mb-2">
                                 Check these environment variables:
                             </p>
-                            <ul className="text-xs text-yellow-600 dark:text-yellow-400 space-y-1">
+                            <ul className="text-xs text-yellow-600 space-y-1">
                                 <li>• GOOGLE_CLIENT_ID</li>
                                 <li>• GOOGLE_CLIENT_SECRET</li>
                                 <li>• NEXTAUTH_SECRET</li>
@@ -93,7 +93,7 @@ function AuthErrorContent() {
                         </Link>
                         <Link
                             href="/"
-                            className="w-full py-3 px-4 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                            className="w-full py-3 px-4 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
                         >
                             Go to Homepage
                         </Link>
@@ -107,7 +107,7 @@ function AuthErrorContent() {
 export default function AuthErrorPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
                 <div className="animate-pulse">Loading...</div>
             </div>
         }>

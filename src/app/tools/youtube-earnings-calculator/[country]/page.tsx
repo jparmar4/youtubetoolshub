@@ -14,6 +14,7 @@ import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import {
+    combineSchemasToGraph,
     getFAQSchema,
     getBreadcrumbSchema,
     getDatasetSchema,
@@ -177,9 +178,14 @@ export default async function CountryEarningsPage({
                 )}
                 pathname={`/tools/youtube-earnings-calculator/${country}`}
             />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(
+                        combineSchemasToGraph(faqSchema, breadcrumbSchema, datasetSchema),
+                    ),
+                }}
+            />
             <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
@@ -207,7 +213,6 @@ export default async function CountryEarningsPage({
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
                                 <div className="flex items-start gap-4 sm:gap-5">
                                     <ToolIcon3D
-                                        icon={<FaDollarSign />}
                                         slug="youtube-earnings-calculator"
                                         category="analytics-earnings"
                                         size="lg"
@@ -316,7 +321,7 @@ export default async function CountryEarningsPage({
 
                             {/* Ad placement */}
                             <div className="my-8" aria-hidden="true">
-                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
+                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="text-center" />
                             </div>
 
                             {/* Content Section */}
@@ -508,7 +513,6 @@ export default async function CountryEarningsPage({
                                         format="auto"
                                         responsive
                                         lazy={false}
-                                        style={{ display: "block" }}
                                         className="w-full"
                                     />
                                 </div>

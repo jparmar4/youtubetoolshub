@@ -55,23 +55,23 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
 
     if (multiplier >= 10) {
       tierLabel = "🚀 Mega Viral Outlier (Top 1%)";
-      tierColor = "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/60 border-purple-200 dark:border-purple-800";
+      tierColor ="text-purple-600 bg-purple-50 border-purple-200";
       tierDescription = "This video broke out of your core subscriber bubble and triggered mass Browse Features (YouTube Homepage recommendations).";
     } else if (multiplier >= 5) {
       tierLabel = "🔥 Major Outlier (Top 5%)";
-      tierColor = "text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800";
+      tierColor ="text-rose-600 bg-rose-50 border-rose-200";
       tierDescription = "Strong packaging (CTR) and above-average retention. YouTube is pushing this heavily to Suggested video sidebars.";
     } else if (multiplier >= 2) {
       tierLabel = "📈 Solid Performer (Top 20%)";
-      tierColor = "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800";
+      tierColor ="text-emerald-600 bg-emerald-50 border-emerald-200";
       tierDescription = "Outperformed your channel median. Indicates your audience resonated with this specific angle or title hook.";
     } else if (multiplier >= 0.8) {
       tierLabel = "⚖️ Baseline Video (Core Audience)";
-      tierColor = "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800";
+      tierColor ="text-blue-600 bg-blue-50 border-blue-200";
       tierDescription = "Normal performance. Watched primarily by your loyal existing subscriber base.";
     } else {
       tierLabel = "📉 Packaging Underperformer";
-      tierColor = "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800";
+      tierColor ="text-amber-600 bg-amber-50 border-amber-200";
       tierDescription = "Underperformed your channel average. Typically caused by low thumbnail CTR or a weak 15-second opening hook.";
     }
 
@@ -94,21 +94,21 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-r from-rose-50/80 via-white to-amber-50/60 p-5 sm:p-6 dark:border-rose-900/40 dark:from-slate-900 dark:via-rose-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-r from-rose-50/80 via-white to-amber-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-100 px-3 py-1 text-xs font-black text-rose-700 dark:bg-rose-950/80 dark:text-rose-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-100 px-3 py-1 text-xs font-black text-rose-700">
                 <FaFire /> Algorithm Intelligence Formula
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 YouTube Outlier Video & Viral Ratio Finder
               </h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-1 text-sm text-slate-600">
                 Identify whether a video is a true statistical viral outlier or standard channel volume. Free alternative to 1of10 and VidIQ outlier finders.
               </p>
             </div>
             <div className="flex items-center gap-2 self-start sm:self-center">
-              <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 rounded-lg">
+              <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-lg">
                 100% Free
               </span>
             </div>
@@ -118,34 +118,34 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
         {/* Calculator Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Inputs Panel */}
-          <div className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
+          <div className="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
             {/* Quick Presets */}
-            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-100">
               <span className="text-xs font-bold text-slate-500">Presets:</span>
               <button
                 type="button"
                 onClick={() => applyPreset("350000", "25000", "7")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
               >
                 14x Viral Breakout
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset("90000", "30000", "14")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
               >
                 3x Solid Outlier
               </button>
               <button
                 type="button"
                 onClick={() => applyPreset("32000", "30000", "21")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
+                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
               >
                 1.0x Baseline
               </button>
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Target Video Views
               </label>
               <Input
@@ -161,7 +161,7 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Channel Median View Count (Baseline)
               </label>
               <Input
@@ -179,7 +179,7 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Days Since Upload
               </label>
               <Input
@@ -262,14 +262,14 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
         </div>
 
         {/* Educational Content for SEO/AEO */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-4">
-          <h3 className="text-xl font-black text-slate-900 dark:text-white">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-4">
+          <h3 className="text-xl font-black text-slate-900">
             What Is an Outlier Video on YouTube? (And Why Paid SaaS Tools Charge $79/mo for It)
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-600 leading-relaxed">
             In YouTube analytics, an <strong>Outlier Video</strong> is an upload that garners significantly more views than the channel’s median performance. For instance, if a creator with 50,000 subscribers averages 10,000 views per video, but one specific video hits 150,000 views, that video has an <strong>Outlier Score of 15.0x</strong>.
           </p>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-600 leading-relaxed">
             Studying outliers is the secret weapon used by top YouTube producers (including MrBeast, Colin &amp; Samir, and Ali Abdaal). When a video becomes an outlier, it proves that the <strong>Topic + Title + Thumbnail packaging</strong> broke out of the creator&apos;s existing subscriber circle and appealed to broad casual viewers on YouTube&apos;s home feed.
           </p>
         </div>

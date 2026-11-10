@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import {
+  combineSchemasToGraph,
   getSoftwareApplicationSchema,
   getFAQSchema,
   getHowToSchema,
@@ -148,22 +149,14 @@ export default function YouTubeTranscriptDownloaderPage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            combineSchemasToGraph(softwareSchema, faqSchema, howToSchema, breadcrumbSchema),
+          ),
+        }}
       />
 
-      <main className="min-h-screen bg-slate-50 text-slate-900 py-10 lg:py-16 relative overflow-hidden">
+      <div className="min-h-screen bg-slate-50 text-slate-900 py-10 lg:py-16 relative overflow-hidden">
         <div className="nebula-bg" />
         {/* Hero Header + 3D Studio Console */}
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,7 +177,7 @@ export default function YouTubeTranscriptDownloaderPage() {
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="flex items-start gap-4 sm:gap-5 flex-1">
                   <ToolIcon3D
-                    icon={<FaFileAlt />}
+                    iconKey="transcript-downloader-hero"
                     slug="youtube-transcript-downloader"
                     category="utility-fun"
                     size="lg"
@@ -265,38 +258,38 @@ export default function YouTubeTranscriptDownloaderPage() {
           <div className="mt-16 space-y-12">
             {/* 3 Core Value Props */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-                <div className="p-3 w-fit rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 mb-4">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                <div className="p-3 w-fit rounded-xl bg-purple-100 text-purple-600 mb-4">
                   <FaFileAlt className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
                   Repurpose Video into Articles
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 leading-relaxed">
                   Turn hours of spoken dialogue into published blog posts, newsletters, and social media threads in minutes. Clean text mode eliminates tedious manual transcript editing.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-                <div className="p-3 w-fit rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 mb-4">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                <div className="p-3 w-fit rounded-xl bg-purple-100 text-purple-600 mb-4">
                   <FaSearch className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
                   Transcript Keyword Mining
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 leading-relaxed">
                   Analyze competitor video transcripts to discover the exact conversational phrases and semantic entities that Google and YouTube reward with top search rankings.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-                <div className="p-3 w-fit rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 mb-4">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                <div className="p-3 w-fit rounded-xl bg-purple-100 text-purple-600 mb-4">
                   <FaRobot className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                <h3 className="text-lg font-bold text-slate-900 mb-2">
                   AI Summaries &amp; Prompting
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 leading-relaxed">
                   Feed clean video text straight into ChatGPT, Claude, or Perplexity to generate chapter timestamps, action checklists, study guides, and executive summaries.
                 </p>
               </div>
@@ -324,27 +317,27 @@ export default function YouTubeTranscriptDownloaderPage() {
             </div>
 
             {/* In-Article Ad Unit */}
-            <div className="my-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-center">
+            <div className="my-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200 bg-white p-2 text-center">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
               <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" lazy responsive className="w-full text-center" />
             </div>
 
             {/* Step-by-Step How To Guide */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-xs space-y-6">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
+              <h2 className="text-2xl font-bold text-slate-900">
                 How to Download YouTube Subtitles in 4 Quick Steps
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {howToSteps.map((step, idx) => (
                   <div key={idx} className="flex gap-4 items-start">
-                    <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 font-bold text-sm flex-shrink-0">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-purple-100 text-purple-700 font-bold text-sm flex-shrink-0">
                       {idx + 1}
                     </span>
                     <div>
-                      <h4 className="font-bold text-base text-slate-900 dark:text-white mb-1">
+                      <h4 className="font-bold text-base text-slate-900 mb-1">
                         {step.name}
                       </h4>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      <p className="text-sm text-slate-600 leading-relaxed">
                         {step.text}
                       </p>
                     </div>
@@ -354,20 +347,20 @@ export default function YouTubeTranscriptDownloaderPage() {
             </div>
 
             {/* FAQ Accordion */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-xs space-y-6">
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
+              <h2 className="text-2xl font-bold text-slate-900">
                 Frequently Asked Questions
               </h2>
               <div className="space-y-4">
                 {toolFAQs.map((faq, idx) => (
                   <div
                     key={idx}
-                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50"
+                    className="p-4 rounded-xl border border-slate-200 bg-slate-50/50"
                   >
-                    <h3 className="font-bold text-base text-slate-900 dark:text-white mb-2">
+                    <h3 className="font-bold text-base text-slate-900 mb-2">
                       {faq.question}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-600 leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
@@ -377,42 +370,42 @@ export default function YouTubeTranscriptDownloaderPage() {
 
             {/* Related Creator Tools */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+              <h3 className="text-xl font-bold text-slate-900">
                 Related YouTube Creator Utilities
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <Link
                   href="/tools/youtube-tag-extractor"
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 transition-colors group shadow-xs"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
                 >
-                  <p className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-purple-600">
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
                     Tag Extractor →
                   </p>
                   <p className="text-xs text-slate-500 mt-1">Extract backend tags from any video</p>
                 </Link>
                 <Link
                   href="/tools/youtube-timestamp-generator"
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 transition-colors group shadow-xs"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
                 >
-                  <p className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-purple-600">
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
                     Timestamp Generator →
                   </p>
                   <p className="text-xs text-slate-500 mt-1">Format chapters for Google Key Moments</p>
                 </Link>
                 <Link
                   href="/tools/youtube-title-generator"
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 transition-colors group shadow-xs"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
                 >
-                  <p className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-purple-600">
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
                     Title Generator →
                   </p>
                   <p className="text-xs text-slate-500 mt-1">Generate high-CTR clickable titles</p>
                 </Link>
                 <Link
                   href="/tools/youtube-description-generator"
-                  className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 transition-colors group shadow-xs"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
                 >
-                  <p className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-purple-600">
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
                     Description Generator →
                   </p>
                   <p className="text-xs text-slate-500 mt-1">Structure 5-zone SEO descriptions</p>
@@ -421,14 +414,14 @@ export default function YouTubeTranscriptDownloaderPage() {
             </div>
 
             {/* Multiplex Ad Unit */}
-            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-xs">
+            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-xs">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Recommended For Creators</p>
               <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
             </div>
 
             {/* Newsletter & Social Share */}
             <AdSectionIgnore>
-              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-8">
+              <div className="pt-6 border-t border-slate-200 space-y-8">
                 <NewsletterSignup />
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                   <p className="text-xs text-slate-500">
@@ -440,7 +433,7 @@ export default function YouTubeTranscriptDownloaderPage() {
             </AdSectionIgnore>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@
 import { useSyncExternalStore, memo, useCallback } from "react";
 import Link from "next/link";
 import { FaTimes, FaArrowRight } from "react-icons/fa";
+import { toolMeta } from "@/config/tool-meta";
 
 const DISMISS_KEY = "yt_announcement_2026_dismissed";
 const DISMISS_EVENT = "yt_announcement_dismissed";
@@ -53,10 +54,10 @@ function AnnouncementBar() {
           </span>
 
           <span className="hidden md:inline font-medium text-slate-200 truncate">
-            44 Free YouTube Creator Tools • 4K Thumbnail Studio, 4,000 Watch Hours &amp; 52-Country CPM Data
+            {toolMeta.length} Free YouTube Creator Tools • 4K Thumbnail Studio, 4,000 Watch Hours &amp; 52-Country CPM Data
           </span>
           <span className="md:hidden font-medium text-slate-200 truncate text-[11px]">
-            44 Free YouTube Tools • 2026 Suite
+            {toolMeta.length} Free YouTube Tools • 2026 Suite
           </span>
 
           <Link

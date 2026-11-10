@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import {
+  combineSchemasToGraph,
   getFAQSchema,
   getBreadcrumbSchema,
   getDatasetSchema,
@@ -109,15 +110,11 @@ export default function YouTubeStatistics() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            combineSchemasToGraph(faqSchema, breadcrumbSchema, datasetSchema),
+          ),
+        }}
       />
 
       <div className="min-h-screen py-20 relative overflow-hidden">
@@ -180,7 +177,7 @@ export default function YouTubeStatistics() {
 
           {/* Ad placement */}
           <div className="my-8" aria-hidden="true">
-            <GoogleAd layout="in-article" format="fluid" slot="2084309959" style={{ display: "block", textAlign: "center" }} />
+            <GoogleAd layout="in-article" format="fluid" slot="2084309959" className="text-center" />
           </div>
 
           <div className="glass-premium rounded-2xl p-8 mb-12">

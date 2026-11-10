@@ -193,16 +193,16 @@ export default function ThumbnailFeedPreviewer() {
     >
       <div className="space-y-8">
         {/* Intro Banner */}
-        <div className="rounded-2xl border border-red-200/80 bg-gradient-to-r from-red-50/80 via-white to-orange-50/60 p-5 dark:border-red-900/40 dark:from-slate-900 dark:via-red-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-red-200/80 bg-gradient-to-r from-red-50/80 via-white to-orange-50/60 p-5 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-100 px-3 py-1 text-xs font-black text-red-700 dark:bg-red-950/80 dark:text-red-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-100 px-3 py-1 text-xs font-black text-red-700">
                 <FaShieldAlt /> 2026 YouTube UI Guidelines
               </span>
-              <h2 className="mt-2 text-xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl font-black text-slate-900">
                 Never Let the Timestamp Block Your Thumbnail Text Again
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600">
                 Over 38% of amateur thumbnails place essential words in the bottom-right corner where the video length badge (14:22) completely blocks them. Test in real feeds before you publish.
               </p>
             </div>
@@ -216,8 +216,8 @@ export default function ThumbnailFeedPreviewer() {
         </div>
 
         {/* Inputs & Studio Controls */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-white mb-4">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
+          <h3 className="flex items-center gap-2 text-sm font-bold text-slate-900 mb-4">
             <FaSlidersH className="text-red-500" />
             <span>Customize Video Packaging &amp; Metadata</span>
           </h3>
@@ -227,12 +227,12 @@ export default function ThumbnailFeedPreviewer() {
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-200">
+                  <label className="text-xs font-bold text-slate-700">
                     Video Title
                   </label>
                   <span
                     className={`text-[11px] font-bold ${
-                      isMobileTruncated ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"
+                      isMobileTruncated ?"text-amber-600":"text-emerald-600"
                     }`}
                   >
                     {titleLength} characters {isMobileTruncated && "(Mobile Cutoff Warning)"}
@@ -248,7 +248,7 @@ export default function ThumbnailFeedPreviewer() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Channel Name
                   </label>
                   <Input
@@ -258,7 +258,7 @@ export default function ThumbnailFeedPreviewer() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Timestamp Duration
                   </label>
                   <Input
@@ -271,7 +271,7 @@ export default function ThumbnailFeedPreviewer() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Views Display
                   </label>
                   <Input
@@ -281,7 +281,7 @@ export default function ThumbnailFeedPreviewer() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Upload Time
                   </label>
                   <Input
@@ -293,7 +293,7 @@ export default function ThumbnailFeedPreviewer() {
               </div>
 
               <div className="flex items-center gap-4 pt-1">
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700 dark:text-slate-300 select-none">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-medium text-slate-700 select-none">
                   <input
                     type="checkbox"
                     checked={verifiedBadge}
@@ -308,11 +308,11 @@ export default function ThumbnailFeedPreviewer() {
             {/* Right: Thumbnail Upload & Presets */}
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Upload Draft Thumbnail (16:9 or 9:16)
                 </label>
                 <div className="flex items-center gap-3">
-                  <label htmlFor={thumbnailInputId} className="flex-1 flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-xs font-bold text-slate-700 cursor-pointer hover:border-red-400 hover:bg-red-50/40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-all">
+                  <label htmlFor={thumbnailInputId} className="flex-1 flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-3 text-xs font-bold text-slate-700 cursor-pointer hover:border-red-400 hover:bg-red-50/40 transition-all">
                     <FaUpload className="text-red-500" />
                     <span>Upload Local Image</span>
                     <input
@@ -333,7 +333,7 @@ export default function ThumbnailFeedPreviewer() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">
                   Quick Sample Thumbnails:
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -348,8 +348,8 @@ export default function ThumbnailFeedPreviewer() {
                       }}
                       className={`rounded-lg px-2.5 py-1 text-xs font-semibold border transition-all ${
                         thumbnailUrl === sample.url
-                          ? "border-red-600 bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300"
-                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                          ?"border-red-600 bg-red-50 text-red-700"
+                          :"border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                       }`}
                     >
                       {sample.name}
@@ -359,13 +359,13 @@ export default function ThumbnailFeedPreviewer() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">
                   Competitor Niche Feed:
                 </label>
                 <select
                   value={selectedNiche}
                   onChange={(e) => setSelectedNiche(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-800"
                 >
                   <option value="tech">Tech &amp; AI Software</option>
                   <option value="finance">Finance &amp; Investing</option>
@@ -864,12 +864,12 @@ export default function ThumbnailFeedPreviewer() {
 
         {/* Diagnostic Scorecard */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
               <FaClock />
               <span>Timestamp Collision Check</span>
             </div>
-            <div className="text-sm font-black text-slate-900 dark:text-white">
+            <div className="text-sm font-black text-slate-900">
               {showTimestampOverlay ? "Inspection Active" : "Overlay Hidden"}
             </div>
             <p className="mt-1 text-xs text-slate-500">
@@ -877,14 +877,14 @@ export default function ThumbnailFeedPreviewer() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
               <FaEye />
               <span>Mobile Truncation Score</span>
             </div>
             <div
               className={`text-sm font-black ${
-                isMobileTruncated ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"
+                isMobileTruncated ?"text-amber-600":"text-emerald-600"
               }`}
             >
               {isMobileTruncated ? "Truncated after 2 Lines" : "100% Fully Visible"}
@@ -894,12 +894,12 @@ export default function ThumbnailFeedPreviewer() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
               <FaSlidersH />
               <span>Visual Contrast Rating</span>
             </div>
-            <div className="text-sm font-black text-purple-600 dark:text-purple-400">
+            <div className="text-sm font-black text-purple-600">
               High Separation
             </div>
             <p className="mt-1 text-xs text-slate-500">

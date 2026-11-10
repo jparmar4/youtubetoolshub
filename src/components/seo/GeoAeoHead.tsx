@@ -45,7 +45,7 @@ export default function GeoAeoHead({
 
   const pageSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
+    "@type": entityType === "CollectionPage" ? ["WebPage", "CollectionPage"] : "WebPage",
     "@id": `${pageUrl}#webpage`,
     name: title || siteConfig.name,
     url: pageUrl,
@@ -55,14 +55,7 @@ export default function GeoAeoHead({
     isAccessibleForFree: true,
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: [
-        "h1",
-        "[data-speakable]",
-        ".summary",
-        ".quick-answer",
-        ".key-takeaways",
-        ".key-facts",
-      ],
+      cssSelector: ["h1", "[data-speakable]"],
     },
   };
 
@@ -70,29 +63,9 @@ export default function GeoAeoHead({
     pageSchema.about = {
       "@type": "Thing",
       name: primaryTopic || toolName,
-      ...(toolCategory ? { description: `Category: ${toolCategory}` } : {}),
+      ...(toolCategory ? { description: toolCategory } : {}),
     };
   }
-
-  pageSchema.mentions = [
-    {
-      "@type": "Thing",
-      name: "YouTube",
-      sameAs: [
-        "https://en.wikipedia.org/wiki/YouTube",
-        "https://www.wikidata.org/wiki/Q866",
-        "https://www.youtube.com",
-      ],
-    },
-    {
-      "@type": "Thing",
-      name: "YouTube Monetization",
-      sameAs: [
-        "https://en.wikipedia.org/wiki/YouTube_monetization",
-        "https://support.google.com/youtube/answer/72851",
-      ],
-    },
-  ];
 
   if (dateModified) {
     pageSchema.dateModified = dateModified;
@@ -106,25 +79,13 @@ export default function GeoAeoHead({
     };
   }
 
-  // GEO: country targeting for global traffic. Emits areaServed so search +
-  // AI engines associate this URL with a specific market (e.g. IN, BR).
   if (geoTargets && geoTargets.length > 0) {
     pageSchema.areaServed = geoTargets.map((code) => ({
       "@type": "Country",
       identifier: code,
     }));
-    pageSchema.spatialCoverage = geoTargets.map((code) => ({
-      "@type": "Country",
-      identifier: code,
-    }));
   }
 
-  if (entityType === "CollectionPage") {
-    pageSchema["@type"] = ["WebPage", "CollectionPage"];
-  }
-
-  // What the page is primarily about. `conciseAnswer` is the AEO citation
-  // snippet answer engines can lift; the type comes from entityType/isTool.
   const mainEntityType =
     entityType && entityType !== "WebPage" && entityType !== "CollectionPage"
       ? entityType
@@ -135,40 +96,15 @@ export default function GeoAeoHead({
   if (conciseAnswer) {
     pageSchema.abstract = conciseAnswer;
   }
-  if (mainEntityType || conciseAnswer) {
+  if (mainEntityType === "Organization") {
+    pageSchema.mainEntity = { "@id": `${siteConfig.url}/#organization` };
+  } else if (isTool) {
+    pageSchema.mainEntity = { "@id": `${pageUrl}#software` };
+  } else if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
       "@type": mainEntityType ?? "Thing",
-      ...(mainEntityType === "Organization"
-        ? {
-            "@id": `${siteConfig.url}/#organization`,
-            url: siteConfig.url,
-            email: siteConfig.contact.email,
-            telephone: siteConfig.contact.telephone,
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: siteConfig.contact.address.streetAddress,
-              addressLocality: siteConfig.contact.address.addressLocality,
-              addressRegion: siteConfig.contact.address.addressRegion,
-              postalCode: siteConfig.contact.address.postalCode,
-              addressCountry: siteConfig.contact.address.addressCountry,
-            },
-          }
-        : {}),
-      ...(isTool
-        ? {
-            "@id": `${pageUrl}#software`,
-            applicationCategory: "MultimediaApplication",
-            operatingSystem: "All (Web Browser)",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-              availability: "https://schema.org/InStock",
-            },
-          }
-        : {}),
       name: toolName || primaryTopic || title || siteConfig.name,
-      ...(conciseAnswer ? { description: conciseAnswer } : {}),
+      ...(!conciseAnswer ? {} : { description: conciseAnswer }),
     };
   }
 

@@ -11,7 +11,7 @@ export default function KeyTakeaways({ points }: KeyTakeawaysProps) {
 
     return (
         <div
-            className="key-takeaways key-facts my-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm"
+            className="not-prose key-takeaways key-facts my-10 bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm"
             data-speakable
         >
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">

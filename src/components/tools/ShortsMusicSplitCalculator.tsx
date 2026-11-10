@@ -83,16 +83,16 @@ export default function ShortsMusicSplitCalculator() {
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-r from-rose-50/80 via-white to-orange-50/60 p-5 sm:p-6 dark:border-rose-900/40 dark:from-slate-900 dark:via-rose-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-r from-rose-50/80 via-white to-orange-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-100 px-3 py-1 text-xs font-black text-rose-700 dark:bg-rose-950/80 dark:text-rose-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-100 px-3 py-1 text-xs font-black text-rose-700">
                 <FaMusic /> Official YouTube Shorts Monetization Model
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 The Hidden Cost of Using Trending Music in YouTube Shorts
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600">
                 When you add a commercial song from the YouTube Shorts audio picker, up to 66% of that video&apos;s allocated Creator Pool goes straight to record labels and publishers before you get paid.
               </p>
             </div>
@@ -106,10 +106,10 @@ export default function ShortsMusicSplitCalculator() {
         </div>
 
         {/* Inputs */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div className="lg:col-span-2">
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Monthly Shorts Views
               </label>
               <Input
@@ -125,7 +125,7 @@ export default function ShortsMusicSplitCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Baseline Shorts RPM ($)
               </label>
               <Input
@@ -141,7 +141,7 @@ export default function ShortsMusicSplitCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 0 Tracks (% of views)
               </label>
               <Input
@@ -151,13 +151,13 @@ export default function ShortsMusicSplitCalculator() {
                 onChange={(e) => setZeroTrackPercent(e.target.value)}
                 placeholder="30"
               />
-              <p className="mt-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+              <p className="mt-1 text-[11px] text-emerald-600 font-semibold">
                 Original Voice / SFX (100% pool)
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 1 Track (% of views)
               </label>
               <Input
@@ -167,7 +167,7 @@ export default function ShortsMusicSplitCalculator() {
                 onChange={(e) => setOneTrackPercent(e.target.value)}
                 placeholder="50"
               />
-              <p className="mt-1 text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
+              <p className="mt-1 text-[11px] text-amber-600 font-semibold">
                 1 Song (50% to music labels)
               </p>
             </div>
@@ -178,25 +178,25 @@ export default function ShortsMusicSplitCalculator() {
         {calculations && (
           <div className="space-y-6">
             {/* Big Headline Stat */}
-            <div className="rounded-2xl border border-rose-300 bg-gradient-to-br from-rose-50 via-white to-orange-50 p-6 text-center dark:border-rose-900/60 dark:from-slate-900 dark:via-rose-950/20 dark:to-slate-900 shadow-md">
+            <div className="rounded-2xl border border-rose-300 bg-gradient-to-br from-rose-50 via-white to-orange-50 p-6 text-center shadow-md">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 The YouTube Shorts &ldquo;Music Tax&rdquo;
               </span>
-              <div className="mt-2 text-4xl sm:text-5xl font-black text-rose-600 dark:text-rose-400 font-outfit">
+              <div className="mt-2 text-4xl sm:text-5xl font-black text-rose-600 font-outfit">
                 -${calculations.musicPublisherCut.toLocaleString()}/month
               </div>
-              <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 max-w-lg mx-auto">
+              <p className="mt-2 text-sm text-slate-700 max-w-lg mx-auto">
                 You are giving away <strong>{calculations.lostPercentage}%</strong> of your potential Shorts earnings (<strong>${calculations.annualLostToMusic.toLocaleString()}/year</strong>) to music publishing partners because of licensed songs.
               </p>
             </div>
 
             {/* Breakdown Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <span className="text-xs font-bold uppercase text-slate-500 block mb-1">
                   100% Original Audio Potential
                 </span>
-                <div className="text-3xl font-black text-slate-800 dark:text-slate-100 font-outfit">
+                <div className="text-3xl font-black text-slate-800 font-outfit">
                   ${calculations.grossPotential.toLocaleString()}
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
@@ -204,11 +204,11 @@ export default function ShortsMusicSplitCalculator() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-rose-200 bg-white p-5 shadow-sm dark:border-rose-900/40 dark:bg-slate-900">
+              <div className="rounded-2xl border border-rose-200 bg-white p-5 shadow-sm">
                 <span className="text-xs font-bold uppercase text-rose-600 block mb-1">
                   Music Publisher Deductions
                 </span>
-                <div className="text-3xl font-black text-rose-600 dark:text-rose-400 font-outfit">
+                <div className="text-3xl font-black text-rose-600 font-outfit">
                   -${calculations.musicPublisherCut.toLocaleString()}
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
@@ -216,11 +216,11 @@ export default function ShortsMusicSplitCalculator() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border-2 border-emerald-500 bg-white p-5 shadow-md dark:border-emerald-600 dark:bg-slate-900">
+              <div className="rounded-2xl border-2 border-emerald-500 bg-white p-5 shadow-md">
                 <span className="text-xs font-bold uppercase text-emerald-600 block mb-1">
                   Your Net Creator Payout
                 </span>
-                <div className="text-3xl font-black text-emerald-600 dark:text-emerald-400 font-outfit">
+                <div className="text-3xl font-black text-emerald-600 font-outfit">
                   ${calculations.netCreatorPayout.toLocaleString()}
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
@@ -230,13 +230,13 @@ export default function ShortsMusicSplitCalculator() {
             </div>
 
             {/* Strategic Advice Card */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 mb-3">
                 When Should You Use Trending Music vs. Original Audio?
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                <div className="rounded-xl border border-slate-100 p-4 bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60">
-                  <h4 className="font-bold text-slate-900 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600 leading-relaxed">
+                <div className="rounded-xl border border-slate-100 p-4 bg-slate-50">
+                  <h4 className="font-bold text-slate-900 mb-1 flex items-center gap-1.5">
                     <FaBolt className="text-amber-500" /> Use Trending Commercial Songs For:
                   </h4>
                   <ul className="list-disc pl-4 space-y-1">
@@ -246,11 +246,11 @@ export default function ShortsMusicSplitCalculator() {
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-emerald-100 p-4 bg-emerald-50/50 dark:border-emerald-900/40 dark:bg-emerald-950/20">
-                  <h4 className="font-bold text-emerald-900 dark:text-emerald-300 mb-1 flex items-center gap-1.5">
+                <div className="rounded-xl border border-emerald-100 p-4 bg-emerald-50/50">
+                  <h4 className="font-bold text-emerald-900 mb-1 flex items-center gap-1.5">
                     <FaCheckCircle className="text-emerald-600" /> Use Royalty-Free Audio (Epidemic) For:
                   </h4>
-                  <ul className="list-disc pl-4 space-y-1 text-slate-700 dark:text-slate-300">
+                  <ul className="list-disc pl-4 space-y-1 text-slate-700">
                     <li>Educational, commentary, finance, and storytelling videos.</li>
                     <li>High-view channels looking to maximize monthly AdSense payout.</li>
                     <li>Shorts that are also syndicated to Facebook Reels, TikTok &amp; LinkedIn.</li>
@@ -260,16 +260,16 @@ export default function ShortsMusicSplitCalculator() {
             </div>
 
             {/* Contextual Epidemic Sound Affiliate Banner */}
-            <div className="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-500/10 via-emerald-500/10 to-teal-500/10 p-5 sm:p-6 dark:border-teal-900/50">
+            <div className="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-500/10 via-emerald-500/10 to-teal-500/10 p-5 sm:p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-black uppercase text-teal-700 dark:text-teal-400">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase text-teal-700">
                     <FaMusic /> Keep 100% of Your Shorts Revenue
                   </div>
-                  <h4 className="mt-1 text-lg font-black text-slate-900 dark:text-white">
+                  <h4 className="mt-1 text-lg font-black text-slate-900">
                     Protect Your Shorts RPM with Epidemic Sound
                   </h4>
-                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-300 max-w-xl">
+                  <p className="mt-1 text-xs text-slate-600 max-w-xl">
                     By adding copyright-cleared background music instead of YouTube commercial tracks, you maintain 100% of the Creator Pool allocation on every view.
                   </p>
                 </div>

@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/Input";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import GoogleAd from "@/components/ads/GoogleAd";
 import {
-  FaCheckCircle,
   FaExclamationTriangle,
   FaQuestionCircle,
   FaCopy,
@@ -159,9 +158,9 @@ Calculated on youtubetoolshub.com`;
         onSubmit={(e) => e.preventDefault()}
       >
         {/* Toggle 3rd Variant */}
-        <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-900/60 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+            <h3 className="text-sm font-bold text-slate-900">
               YouTube 3-Way &quot;Test & Compare&quot; Support
             </h3>
             <p className="text-xs text-slate-500">Enable if testing 3 thumbnail variants simultaneously</p>
@@ -172,7 +171,7 @@ Calculated on youtubetoolshub.com`;
             className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
               includeVariantC
                 ? "bg-purple-600 text-white"
-                : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+                :"bg-slate-200 text-slate-700"
             }`}
           >
             {includeVariantC ? "3 Variants Active" : "+ Add Variant C"}
@@ -182,13 +181,13 @@ Calculated on youtubetoolshub.com`;
         {/* Input Cards Grid */}
         <div className={`grid grid-cols-1 ${includeVariantC ? "md:grid-cols-3" : "md:grid-cols-2"} gap-5`}>
           {/* Variant A */}
-          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3.5">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3.5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
               <span className="text-xs font-extrabold uppercase tracking-wider text-purple-600">Variant A</span>
               <span className="text-xs font-bold text-slate-500">{results ? `${results.ctrA}% CTR` : "--"}</span>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Variant Name</label>
+              <label className="block text-xs font-medium text-slate-600 mb-1">Variant Name</label>
               <Input
                 value={nameA}
                 onChange={(e) => setNameA(e.target.value)}
@@ -197,34 +196,34 @@ Calculated on youtubetoolshub.com`;
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Impressions</label>
+                <label className="block text-xs font-medium text-slate-600 mb-1">Impressions</label>
                 <Input
                   value={impAInput}
                   onChange={(e) => setImpAInput(e.target.value)}
                   placeholder="24500"
-                  className="font-bold text-slate-900 dark:text-slate-100"
+                  className="font-bold text-slate-900"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Clicks</label>
+                <label className="block text-xs font-medium text-slate-600 mb-1">Clicks</label>
                 <Input
                   value={clicksAInput}
                   onChange={(e) => setClicksAInput(e.target.value)}
                   placeholder="1180"
-                  className="font-bold text-slate-900 dark:text-slate-100"
+                  className="font-bold text-slate-900"
                 />
               </div>
             </div>
           </div>
 
           {/* Variant B */}
-          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3.5">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+          <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3.5">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
               <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-600">Variant B</span>
               <span className="text-xs font-bold text-slate-500">{results ? `${results.ctrB}% CTR` : "--"}</span>
             </div>
             <div>
-              <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Variant Name</label>
+              <label className="block text-xs font-medium text-slate-600 mb-1">Variant Name</label>
               <Input
                 value={nameB}
                 onChange={(e) => setNameB(e.target.value)}
@@ -233,21 +232,21 @@ Calculated on youtubetoolshub.com`;
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Impressions</label>
+                <label className="block text-xs font-medium text-slate-600 mb-1">Impressions</label>
                 <Input
                   value={impBInput}
                   onChange={(e) => setImpBInput(e.target.value)}
                   placeholder="24200"
-                  className="font-bold text-slate-900 dark:text-slate-100"
+                  className="font-bold text-slate-900"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Clicks</label>
+                <label className="block text-xs font-medium text-slate-600 mb-1">Clicks</label>
                 <Input
                   value={clicksBInput}
                   onChange={(e) => setClicksBInput(e.target.value)}
                   placeholder="1510"
-                  className="font-bold text-slate-900 dark:text-slate-100"
+                  className="font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -255,13 +254,13 @@ Calculated on youtubetoolshub.com`;
 
           {/* Optional Variant C */}
           {includeVariantC && (
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3.5">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2.5">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3.5">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                 <span className="text-xs font-extrabold uppercase tracking-wider text-sky-600">Variant C</span>
                 <span className="text-xs font-bold text-slate-500">{results ? `${results.ctrC}% CTR` : "--"}</span>
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Variant Name</label>
+                <label className="block text-xs font-medium text-slate-600 mb-1">Variant Name</label>
                 <Input
                   value={nameC}
                   onChange={(e) => setNameC(e.target.value)}
@@ -270,21 +269,21 @@ Calculated on youtubetoolshub.com`;
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Impressions</label>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Impressions</label>
                   <Input
                     value={impCInput}
                     onChange={(e) => setImpCInput(e.target.value)}
                     placeholder="23800"
-                    className="font-bold text-slate-900 dark:text-slate-100"
+                    className="font-bold text-slate-900"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Clicks</label>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Clicks</label>
                   <Input
                     value={clicksCInput}
                     onChange={(e) => setClicksCInput(e.target.value)}
                     placeholder="1210"
-                    className="font-bold text-slate-900 dark:text-slate-100"
+                    className="font-bold text-slate-900"
                   />
                 </div>
               </div>
@@ -299,15 +298,15 @@ Calculated on youtubetoolshub.com`;
             <div
               className={`p-6 rounded-2xl border shadow-sm ${
                 results.verdict === "WINNER"
-                  ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800"
+                  ?"bg-emerald-50 border-emerald-300"
                   : results.verdict === "TRENDING"
-                  ? "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800"
-                  : "bg-slate-50 dark:bg-slate-900 border-slate-300 dark:border-slate-800"
+                  ?"bg-amber-50 border-amber-300"
+                  :"bg-slate-50 border-slate-300"
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-start gap-3.5">
-                  <span className="p-3 rounded-xl bg-white dark:bg-slate-800 shadow-2xs shrink-0 mt-0.5">
+                  <span className="p-3 rounded-xl bg-white shadow-2xs shrink-0 mt-0.5">
                     {results.verdict === "WINNER" ? (
                       <FaTrophy className="w-6 h-6 text-emerald-600" />
                     ) : results.verdict === "TRENDING" ? (
@@ -333,11 +332,11 @@ Calculated on youtubetoolshub.com`;
                           ? "Trending Result (Need More Views)"
                           : "Inconclusive Difference"}
                       </span>
-                      <span className="text-xs font-bold text-slate-600 dark:text-slate-400">
+                      <span className="text-xs font-bold text-slate-600">
                         {results.confidence}% Statistical Confidence
                       </span>
                     </div>
-                    <h3 className="text-lg font-extrabold text-slate-900 dark:text-slate-100">
+                    <h3 className="text-lg font-extrabold text-slate-900">
                       {results.verdict === "WINNER"
                         ? `${results.winnerName} wins with +${results.relativeLift}% higher CTR`
                         : results.verdict === "TRENDING"
@@ -350,7 +349,7 @@ Calculated on youtubetoolshub.com`;
                 <button
                   type="button"
                   onClick={handleCopySummary}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold hover:bg-slate-50 transition-colors shadow-2xs self-start sm:self-center shrink-0"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold hover:bg-slate-50 transition-colors shadow-2xs self-start sm:self-center shrink-0"
                 >
                   <FaCopy className="w-3.5 h-3.5" />
                   {copied ? "Copied Verdict!" : "Copy Report"}
@@ -360,7 +359,7 @@ Calculated on youtubetoolshub.com`;
 
             {/* Metrics Breakdown Grid */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
                 <span className="text-xs font-medium text-slate-500 block mb-1">Relative CTR Lift</span>
                 <span className="text-2xl font-extrabold text-purple-600">
                   {results.relativeLift > 0 ? `+${results.relativeLift}%` : `${results.relativeLift}%`}
@@ -370,7 +369,7 @@ Calculated on youtubetoolshub.com`;
                 </span>
               </div>
 
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
                 <span className="text-xs font-medium text-slate-500 block mb-1">Extra Views / 100k</span>
                 <span className="text-2xl font-extrabold text-emerald-600">
                   +{results.extraViewsPer100k.toLocaleString()}
@@ -380,9 +379,9 @@ Calculated on youtubetoolshub.com`;
                 </span>
               </div>
 
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
                 <span className="text-xs font-medium text-slate-500 block mb-1">P-Value</span>
-                <span className="text-2xl font-extrabold text-slate-900 dark:text-slate-100">
+                <span className="text-2xl font-extrabold text-slate-900">
                   {results.pValue}
                 </span>
                 <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -390,7 +389,7 @@ Calculated on youtubetoolshub.com`;
                 </span>
               </div>
 
-              <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <div className="p-4 rounded-xl bg-white border border-slate-200">
                 <span className="text-xs font-medium text-slate-500 block mb-1">Sample Size Required</span>
                 <span className="text-2xl font-extrabold text-sky-600">
                   {results.sampleSizeNeededPerVariant.toLocaleString()}
@@ -402,8 +401,8 @@ Calculated on youtubetoolshub.com`;
             </div>
 
             {/* Recommendations Advice */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1.5">
-              <p className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1.5">
+              <p className="font-bold text-slate-800 flex items-center gap-1.5">
                 <FaLightbulb className="text-amber-500 shrink-0" />
                 Actionable Recommendation
               </p>

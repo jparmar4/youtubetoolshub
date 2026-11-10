@@ -107,13 +107,13 @@ export default function TaxDeductionCalculator() {
             description="Explore an expense planning scenario using your own assumed tax rate. This tool does not determine deduction eligibility or tax owed."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Region Selector */}
-                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex items-center gap-2">
                         <FaExchangeAlt className="text-emerald-600" />
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Tax Jurisdiction:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900">
+                        <span className="text-sm font-semibold text-slate-700">Tax Jurisdiction:</span>
+                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
                             {(Object.keys(REGION_CONFIGS) as TaxRegion[]).map((r) => (
                                 <button
                                     key={r}
@@ -122,7 +122,7 @@ export default function TaxDeductionCalculator() {
                                     className={`px-3 py-1.5 text-xs font-bold transition-all ${
                                         region === r
                                             ? "bg-emerald-600 text-white"
-                                            : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            :"text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {r} ({REGION_CONFIGS[r].symbol})
@@ -230,7 +230,7 @@ export default function TaxDeductionCalculator() {
                     <p className="text-sm text-slate-500">Illustrative marginal rate assumption. Enter a rate from 0 to 100 for your scenario. Enter only the business portion you expect to deduct this year, including applicable depreciation rather than the full asset price.</p>
                 </div>
                 {/* Gross Creator Income Input */}
-                <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">
+                <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200">
                     <div className="max-w-md">
                         <Input
                             label={`Gross Annual Creator Revenue (${currentRegion.symbol})`}
@@ -240,7 +240,7 @@ export default function TaxDeductionCalculator() {
                             value={grossIncome}
                             onChange={(e) => setGrossIncome(e.target.value)}
                         />
-                        <p className="text-xs text-slate-600 dark:text-slate-400 mt-2">
+                        <p className="text-xs text-slate-600 mt-2">
                             Total revenue from AdSense, sponsorships, affiliate commissions, and merchandise before expenses.
                         </p>
                     </div>
@@ -248,7 +248,7 @@ export default function TaxDeductionCalculator() {
 
                 {/* Itemized Creator Expenses Form */}
                 <div className="space-y-4">
-                    <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-slate-800 flex items-center gap-2">
                         <FaFileInvoiceDollar className="text-emerald-600" />
                         Potential Creator Business Expenses (Annual Totals in {currentRegion.symbol})
                     </h3>
@@ -354,12 +354,12 @@ export default function TaxDeductionCalculator() {
 
                 {/* Calculation Results Card */}
                 {calculations && (
-                    <div className="space-y-6 pt-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
+                    <div className="space-y-6 pt-4 border-t border-slate-200 animate-fade-in">
                         <div className="text-center">
-                            <span className="inline-block text-xs font-black tracking-widest text-emerald-600 uppercase bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 rounded-full mb-2">
+                            <span className="inline-block text-xs font-black tracking-widest text-emerald-600 uppercase bg-emerald-100 px-3 py-1 rounded-full mb-2">
                                 2026 Tax Deduction Summary
                             </span>
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                            <h3 className="text-2xl font-black text-slate-900 font-outfit">
                                 Estimated Tax Savings Breakdown
                             </h3>
                         </div>
@@ -367,11 +367,11 @@ export default function TaxDeductionCalculator() {
                         {/* Top Highlights */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Total Write-Offs */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
                                     Expenses Entered
                                 </div>
-                                <div className="text-3xl font-black text-slate-800 dark:text-slate-100 font-outfit">
+                                <div className="text-3xl font-black text-slate-800 font-outfit">
                                     {currentRegion.symbol}{calculations.totalDeductions.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -380,27 +380,27 @@ export default function TaxDeductionCalculator() {
                             </div>
 
                             {/* Estimated Tax Savings */}
-                            <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-50 to-white dark:from-emerald-950/40 dark:to-slate-900 border-2 border-emerald-500 shadow-xl text-center relative overflow-hidden">
+                            <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-50 to-white border-2 border-emerald-500 shadow-xl text-center relative overflow-hidden">
                                 <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
                                     Estimated Savings
                                 </div>
-                                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+                                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">
                                     Illustrative Tax Reduction
                                 </div>
-                                <div className="text-4xl font-black text-emerald-700 dark:text-emerald-300 font-outfit">
+                                <div className="text-4xl font-black text-emerald-700 font-outfit">
                                     {currentRegion.symbol}{calculations.estimatedTaxSavings.toLocaleString()}
                                 </div>
-                                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                                <p className="text-xs text-slate-600 mt-2 font-medium">
                                     Using your {calculations.marginalRatePercent}% rate assumption. Capped at revenue × rate; losses and carryovers are not modeled.
                                 </p>
                             </div>
 
                             {/* Taxable Net Income */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">
                                     Revenue Less Expenses (Floor 0)
                                 </div>
-                                <div className="text-3xl font-black text-purple-600 dark:text-purple-400 font-outfit">
+                                <div className="text-3xl font-black text-purple-600 font-outfit">
                                     {currentRegion.symbol}{calculations.taxableNetIncome.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -410,12 +410,12 @@ export default function TaxDeductionCalculator() {
                         </div>
 
                         {/* Practical Write-Off Rules & Pitfalls */}
-                        <div className="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
-                            <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <div className="p-6 bg-white rounded-2xl border border-slate-200 space-y-4">
+                            <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
                                 <FaRegLightbulb className="text-emerald-600" />
                                 Expense Planning Checks
                             </h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-300">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600">
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
                                     <span><strong>Ordinary & Necessary Test:</strong> Business use alone does not establish deductibility. Check the rules for your jurisdiction and expense type.</span>
@@ -436,7 +436,7 @@ export default function TaxDeductionCalculator() {
                         </div>
 
                         {/* Legal Disclaimer Box */}
-                        <div className="p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl flex items-start gap-3 text-xs text-amber-800 dark:text-amber-200">
+                        <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3 text-xs text-amber-800">
                             <FaExclamationTriangle className="shrink-0 text-amber-500 mt-0.5 text-base" />
                             <div>
                                 <strong>Important Disclaimer:</strong> This calculator is an educational planning estimator using your entered expenses and rate assumption for {currentRegion.name}. It does not constitute certified legal or tax advice. Tax regulations change frequently; always verify your specific business situation with a licensed CPA, Enrolled Agent, or chartered tax accountant.
@@ -447,24 +447,24 @@ export default function TaxDeductionCalculator() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Link
                                 href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
-                                className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 hover:border-blue-400 dark:border-blue-900/60 dark:bg-slate-900 transition-all text-xs"
+                                className="p-4 rounded-xl border border-blue-200 bg-blue-50/40 hover:border-blue-400 transition-all text-xs"
                             >
-                                <span className="font-bold text-blue-900 dark:text-blue-300 block mb-1">
+                                <span className="font-bold text-blue-900 block mb-1">
                                     LLC vs. S-Corp Tax Savings Calculator →
                                 </span>
-                                <span className="text-slate-600 dark:text-slate-400">
+                                <span className="text-slate-600">
                                     Full-time creator? Calculate how an S-Corp election can save you $5,000–$15,000 in self-employment taxes.
                                 </span>
                             </Link>
 
                             <Link
                                 href="/tools/patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator"
-                                className="p-4 rounded-xl border border-purple-200 bg-purple-50/40 hover:border-purple-400 dark:border-purple-900/60 dark:bg-slate-900 transition-all text-xs"
+                                className="p-4 rounded-xl border border-purple-200 bg-purple-50/40 hover:border-purple-400 transition-all text-xs"
                             >
-                                <span className="font-bold text-purple-900 dark:text-purple-300 block mb-1">
+                                <span className="font-bold text-purple-900 block mb-1">
                                     Patreon vs YouTube vs Fourthwall Fees →
                                 </span>
-                                <span className="text-slate-600 dark:text-slate-400">
+                                <span className="text-slate-600">
                                     Compare platform cuts and Stripe processing fees to maximize your recurring monthly take-home pay.
                                 </span>
                             </Link>

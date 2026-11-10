@@ -98,7 +98,7 @@ export default function ExitIntentPopup() {
                 aria-label="2026 YouTube SEO and High-CPM Niche Matrix signup"
             >
                 <div
-                    className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden"
+                    className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Close button */}
@@ -130,27 +130,27 @@ export default function ExitIntentPopup() {
                     <div className="px-8 py-8">
                         {status === "success" ? (
                             <div className="text-center py-6">
-                                <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                                <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-emerald-100 flex items-center justify-center">
                                     <FaCheck className="w-7 h-7 text-emerald-600" />
                                 </div>
-                                <p className="text-xl font-bold text-slate-900 dark:text-white">You&apos;re all set!</p>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                                <p className="text-xl font-bold text-slate-900">You&apos;re all set!</p>
+                                <p className="text-slate-500 text-sm mt-1">
                                     Check your inbox for your 2026 Creator Growth Matrix & weekly SEO insights.
                                 </p>
                             </div>
                         ) : (
                             <>
                                 <div className="space-y-3 mb-6">
-                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
-                                        <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
+                                    <div className="flex items-center gap-3 text-sm text-slate-700">
+                                        <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
                                         <span><strong>Top 15 High-CPM Niches</strong> ($20–$50 per 1,000 views)</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
-                                        <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
+                                    <div className="flex items-center gap-3 text-sm text-slate-700">
+                                        <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
                                         <span><strong>7 Psychological Title Formulas</strong> to double your CTR</span>
                                     </div>
-                                    <div className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-200">
-                                        <span className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
+                                    <div className="flex items-center gap-3 text-sm text-slate-700">
+                                        <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold flex-shrink-0">✓</span>
                                         <span><strong>0:00 Chapter & Tag Matrix</strong> for Google Key Moments</span>
                                     </div>
                                 </div>
@@ -167,13 +167,13 @@ export default function ExitIntentPopup() {
                                             }}
                                             placeholder="Enter your creator email"
                                             aria-label="Email address"
-                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 text-slate-900 dark:text-white placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
                                             required
                                             disabled={status === "loading"}
                                         />
                                     </div>
                                     {status === "error" && (
-                                        <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+                                        <p className="text-sm text-red-600" role="alert">
                                             Couldn&apos;t save your email. Please try again or contact us.
                                         </p>
                                     )}
@@ -193,7 +193,7 @@ export default function ExitIntentPopup() {
                                 <div className="mt-4 text-center">
                                     <Link
                                         href="/tools"
-                                        className="text-sm text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 font-medium transition-colors"
+                                        className="text-sm text-purple-600 hover:text-purple-700 font-medium transition-colors"
                                         onClick={handleClose}
                                     >
                                         Or explore our free tools →

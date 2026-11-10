@@ -151,15 +151,15 @@ export default function HashtagGenerator() {
         if (!items || items.length === 0) return null;
 
         const colorClasses: Record<string, string> = {
-            purple: "bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-900/40",
-            blue: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900/40",
-            orange: "bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/40",
+            purple:"bg-purple-50 text-purple-700 border border-purple-200",
+            blue:"bg-blue-50 text-blue-700 border border-blue-200",
+            orange:"bg-orange-50 text-orange-700 border border-orange-200",
         };
 
         const iconBg: Record<string, string> = {
-            purple: "bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300",
-            blue: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300",
-            orange: "bg-orange-100 text-orange-700 dark:bg-orange-950/60 dark:text-orange-300",
+            purple:"bg-purple-100 text-purple-700",
+            blue:"bg-blue-100 text-blue-700",
+            orange:"bg-orange-100 text-orange-700",
         };
 
         return (
@@ -167,8 +167,8 @@ export default function HashtagGenerator() {
                 <div className="flex items-center gap-2">
                     <span className={`p-2 rounded-lg ${iconBg[color]}`}>{icon}</span>
                     <div>
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">{title}</h3>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">{desc}</p>
+                        <h3 className="text-lg font-bold text-slate-900">{title}</h3>
+                        <p className="text-xs text-slate-500">{desc}</p>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -204,7 +204,7 @@ export default function HashtagGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
-                <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-md border border-slate-200 dark:border-slate-800">
+                <div className="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-slate-200">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <Input
                             label="Video Topic"
@@ -226,7 +226,7 @@ export default function HashtagGenerator() {
                         Generate Hashtag Strategy
                     </Button>
                     {error && (
-                        <p className="mt-4 text-sm text-red-600 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/40 rounded-xl px-4 py-3 font-medium">
+                        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 font-medium">
                             {error}
                         </p>
                     )}
@@ -240,12 +240,12 @@ export default function HashtagGenerator() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm">
                             <div>
-                                <h3 className="font-bold text-slate-900 dark:text-white text-base">
-                                    Generated <span className="text-purple-600 dark:text-purple-400">{allHashtags.length} Hashtags</span>
+                                <h3 className="font-bold text-slate-900 text-base">
+                                    Generated <span className="text-purple-600">{allHashtags.length} Hashtags</span>
                                 </h3>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                <p className="text-xs text-slate-500 mt-0.5">
                                     Grouped by high volume, niche specific, and trending signals
                                 </p>
                             </div>
@@ -254,7 +254,7 @@ export default function HashtagGenerator() {
                                 <CopyButton text={commaFormat} variant="button" label="Copy (CSV)" />
                                 <button
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download hashtags as CSV"
                                 >
                                     <FaDownload className="text-[10px]" />
@@ -262,7 +262,7 @@ export default function HashtagGenerator() {
                                 </button>
                                 <button
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download hashtags as Plain Text"
                                 >
                                     <FaFileAlt className="text-[10px]" />
@@ -272,8 +272,8 @@ export default function HashtagGenerator() {
                                     onClick={handleSave}
                                     disabled={saved}
                                     className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-lg font-semibold transition-colors ${saved
-                                        ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300 cursor-default"
-                                        : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 shadow-sm"
+                                        ?"bg-green-100 text-green-700 cursor-default"
+                                        :"bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 shadow-sm"
                                         }`}
                                 >
                                     {saved ? <FaCheckCircle className="text-xs" /> : <FaBookmark className="text-xs" />}

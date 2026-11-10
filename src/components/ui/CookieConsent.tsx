@@ -47,7 +47,7 @@ export default function CookieConsent() {
         <div
             role="region"
             aria-label="Cookie consent"
-            className="fixed bottom-0 left-0 right-0 z-[60] p-4 md:p-6 glass-premium border-t border-slate-200 dark:border-slate-800 shadow-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md"
+            className="fixed bottom-0 left-0 right-0 z-[60] p-4 md:p-6 glass-premium border-t border-slate-200 shadow-2xl bg-white/95 backdrop-blur-md"
         >
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-start gap-4">

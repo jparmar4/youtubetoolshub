@@ -372,15 +372,15 @@ export default function TitleGenerator() {
                 {/* Results Section - List Layout */}
                 <div className="space-y-4">
                     {titles.length > 0 && !loading && (
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-                            <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 bg-slate-50 border border-slate-200 rounded-2xl shadow-sm">
+                            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                                 <FaFire className="text-orange-500" /> Generated Titles ({titles.length})
                             </h3>
                             <div className="flex flex-wrap items-center gap-2">
                                 <CopyButton text={allTitlesText} variant="button" label="Copy All" />
                                 <button
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as CSV"
                                 >
                                     <FaDownload className="text-[10px]" />
@@ -388,7 +388,7 @@ export default function TitleGenerator() {
                                 </button>
                                 <button
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as Plain Text"
                                 >
                                     <FaFileAlt className="text-[10px]" />
@@ -408,12 +408,12 @@ export default function TitleGenerator() {
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.05 }}
-                                    className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 hover:shadow-lg hover:border-purple-200 dark:hover:border-purple-800 transition-all group relative overflow-hidden"
+                                    className="bg-white rounded-2xl p-5 border border-slate-200 hover:shadow-lg hover:border-purple-200 transition-all group relative overflow-hidden"
                                 >
                                     <div className="flex flex-col md:flex-row gap-5 items-start">
 
                                         {/* Score Badge */}
-                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-850 border border-slate-200 dark:border-slate-700">
+                                        <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
                                             <span className={`text-xl font-black ${item.score >= 90 ? "text-green-500" :
                                                 item.score >= 80 ? "text-blue-500" : "text-yellow-500"
                                                 }`}>
@@ -424,19 +424,19 @@ export default function TitleGenerator() {
 
                                         <div className="flex-1 space-y-2">
                                             <div className="flex items-start justify-between gap-3">
-                                                <h4 className="text-lg font-bold text-slate-900 dark:text-white pr-8 leading-snug">
+                                                <h4 className="text-lg font-bold text-slate-900 pr-8 leading-snug">
                                                     {item.title}
                                                 </h4>
                                             </div>
 
                                             <div className="flex flex-wrap items-center gap-2 text-xs">
-                                                <span className="px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 font-medium flex items-center gap-1.5 border border-purple-200 dark:border-purple-900/30">
+                                                <span className="px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 font-medium flex items-center gap-1.5 border border-purple-200">
                                                     <FaBullseye className="text-xs" /> {item.method}
                                                 </span>
-                                                <span className={`px-2.5 py-1 rounded-md font-semibold ${titleLen <= 60 ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-300 border border-green-200 dark:border-green-900/30' : 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200 dark:border-amber-900/30'}`}>
+                                                <span className={`px-2.5 py-1 rounded-md font-semibold ${titleLen <= 60 ?'bg-green-50 text-green-700 border border-green-200':'bg-amber-50 text-amber-700 border border-amber-200'}`}>
                                                     {titleLen} chars {titleLen <= 60 ? '✓ Mobile Safe' : '⚠ Truncates on Mobile'}
                                                 </span>
-                                                <span className="text-slate-500 dark:text-slate-400 border-l border-slate-200 dark:border-slate-700 pl-2">
+                                                <span className="text-slate-500 border-l border-slate-200 pl-2">
                                                     {item.why}
                                                 </span>
                                             </div>

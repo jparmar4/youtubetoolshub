@@ -110,21 +110,21 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50/80 via-white to-teal-50/60 p-5 sm:p-6 dark:border-emerald-900/40 dark:from-slate-900 dark:via-emerald-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50/80 via-white to-teal-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-800">
                 <FaUniversity /> International Creator Payout Audit
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 YouTube AdSense Wire Fee &amp; FX Spread Calculator
               </h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-1 text-sm text-slate-600">
                 Uncover the hidden 3% to 5% foreign exchange spread and intermediary SWIFT wire deductions your bank charges on Google AdSense payouts.
               </p>
             </div>
             <div className="flex items-center gap-2 self-start sm:self-center">
-              <span className="text-xs font-semibold px-2.5 py-1 bg-indigo-100 text-indigo-800 dark:bg-indigo-950/80 dark:text-indigo-300 rounded-lg">
+              <span className="text-xs font-semibold px-2.5 py-1 bg-indigo-100 text-indigo-800 rounded-lg">
                 High-CPC Fintech Model
               </span>
             </div>
@@ -134,9 +134,9 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
         {/* Inputs & Calculation Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
-          <div className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
+          <div className="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Monthly YouTube AdSense Payout (USD)
               </label>
               <div className="relative">
@@ -154,13 +154,13 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Your Payout Receiving Country
               </label>
               <select
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               >
                 {COUNTRY_PROFILES.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -171,7 +171,7 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Estimated % of Views from United States
               </label>
               <div className="relative">

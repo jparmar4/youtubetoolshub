@@ -161,7 +161,7 @@ function DescriptionGeneratorContent() {
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
             {/* Input Section */}
-            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100 dark:border-gray-700">
+            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="col-span-1 md:col-span-2">
                         {/* Quick Presets Pills */}
@@ -229,17 +229,17 @@ function DescriptionGeneratorContent() {
             </div>
 
             {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800 text-emerald-600 dark:text-emerald-400">
+                <div className="bg-red-50 rounded-xl p-4 border border-red-200 text-emerald-600">
                     {error}
                 </div>
             )}
 
             {loading && (
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 text-center">
+                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center animate-pulse">
                         <FaMagic className="w-8 h-8 text-white" />
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600">
                         Writing a human-sounding description optimized for SEO...
                     </p>
                 </div>
@@ -249,15 +249,15 @@ function DescriptionGeneratorContent() {
             {description && !loading && (
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
                             <FaAlignLeft className="text-blue-500" /> Result
                         </h3>
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setViewMode("preview")}
                                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${viewMode === "preview"
-                                    ? "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
-                                    : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                                    ?"bg-gray-100 text-gray-900"
+                                    :"text-gray-500 hover:text-gray-900"
                                     }`}
                             >
                                 <FaEye /> Preview
@@ -265,15 +265,15 @@ function DescriptionGeneratorContent() {
                             <button
                                 onClick={() => setViewMode("edit")}
                                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${viewMode === "edit"
-                                    ? "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
-                                    : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
+                                    ?"bg-gray-100 text-gray-900"
+                                    :"text-gray-500 hover:text-gray-900"
                                     }`}
                             >
                                 <FaPen /> Edit
                             </button>
                             <Link
                                 href={`/tools/youtube-ai-thumbnail-prompt?topic=${encodeURIComponent(topic)}`}
-                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-emerald-600 hover:bg-pink-50 dark:text-emerald-400 dark:hover:bg-pink-900/20"
+                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-emerald-600 hover:bg-pink-50"
                             >
                                 <FaImage /> Thumbnail
                             </Link>
@@ -282,44 +282,44 @@ function DescriptionGeneratorContent() {
                     </div>
 
                     {viewMode === "preview" ? (
-                        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-                            <div className="bg-gray-50 dark:bg-gray-900/50 px-4 py-2 border-b border-gray-200 dark:border-gray-700 flex items-center gap-2">
+                        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                            <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center gap-2">
                                 <FaYoutube className="text-emerald-500" />
                                 <span className="text-xs font-bold text-gray-500 uppercase">YouTube Player View</span>
                             </div>
                             <div className="p-6">
                                 <div className="space-y-2">
-                                    <div className="h-6 w-3/4 bg-gray-100 dark:bg-gray-700 rounded mb-4"></div>
+                                    <div className="h-6 w-3/4 bg-gray-100 rounded mb-4"></div>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600"></div>
+                                        <div className="w-10 h-10 rounded-full bg-gray-200"></div>
                                         <div className="space-y-1">
-                                            <div className="h-3 w-32 bg-gray-100 dark:bg-gray-700 rounded"></div>
-                                            <div className="h-3 w-20 bg-gray-100 dark:bg-gray-700 rounded"></div>
+                                            <div className="h-3 w-32 bg-gray-100 rounded"></div>
+                                            <div className="h-3 w-20 bg-gray-100 rounded"></div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-100 dark:bg-gray-700/50 p-4 rounded-xl text-sm leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap font-sans">
+                                    <div className="bg-gray-100 p-4 rounded-xl text-sm leading-relaxed text-gray-800 whitespace-pre-wrap font-sans">
                                         {description}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
                             <Textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 rows={15}
-                                className="border-0 focus:ring-0 p-6 font-mono text-sm leading-relaxed text-gray-800 dark:text-gray-200"
+                                className="border-0 focus:ring-0 p-6 font-mono text-sm leading-relaxed text-gray-800"
                             />
                         </div>
                     )}
 
-                    <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center flex-shrink-0">
-                            <FaHashtag className="text-green-600 dark:text-green-400 text-sm" />
+                    <div className="bg-green-50 rounded-xl p-4 flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                            <FaHashtag className="text-green-600 text-sm"/>
                         </div>
-                        <p className="text-sm text-green-700 dark:text-green-300">
+                        <p className="text-sm text-green-700">
                             <strong>Pro Tip:</strong> Paste this into your default upload settings on YouTube if you use a consistent template!
                         </p>
                     </div>

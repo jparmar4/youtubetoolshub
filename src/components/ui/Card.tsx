@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
-import ClientOnly from "@/components/ui/ClientOnly";
 
 interface CardProps {
   children: ReactNode;
@@ -14,7 +13,7 @@ interface CardProps {
 }
 
 interface ToolCardProps {
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   description: string;
   href: string;
@@ -42,25 +41,13 @@ export function ToolCard({ icon, title, description, href, isAI, category, class
   const slug = href.replace(/^\/tools\//, "").replace(/^\//, "");
 
   return (
-    <Link href={href} className="block h-full group" prefetch={true}>
+    <Link href={href} className="block h-full group" prefetch={false}>
       <Card
         hover={false}
-        className={`p-6 h-full cursor-pointer relative overflow-hidden flex flex-col justify-between ${
+        className={`t-card p-6 h-full cursor-pointer relative overflow-hidden flex flex-col justify-between ${
           className || ""
         }`}
       >
-        {/* Top Specular Gradient Rim on Hover */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
-
-        {/* Subtle Corner Ambient Glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-purple-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        />
-
         <div>
           {/* Top Row: Bespoke 3D Jewel Icon Cube + Badges + Favorite Star */}
           <div className="flex items-center justify-between gap-3 mb-4">
@@ -76,9 +63,7 @@ export function ToolCard({ icon, title, description, href, isAI, category, class
                 className="relative z-10"
                 onClick={(e) => e.preventDefault()}
               >
-                <ClientOnly>
-                  <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
-                </ClientOnly>
+                <ToolFavoriteButton toolSlug={slug} toolName={title} compact={true} />
               </div>
             </div>
           </div>
@@ -129,7 +114,7 @@ export function BlogCard({
   dark?: boolean;
 }) {
   return (
-    <Link href={`/blog/${slug}`} className="block h-full group">
+    <Link href={`/blog/${slug}`} className="block h-full group" prefetch={false}>
       <Card className={`overflow-hidden cursor-pointer h-full flex flex-col justify-between ${className || ""}`}>
         <div>
           {coverImage && (
@@ -142,7 +127,7 @@ export function BlogCard({
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-              <span className="absolute top-3 left-3 px-3 py-1 text-[11px] font-bold bg-white/95 backdrop-blur-md text-purple-700 rounded-full shadow-md border border-white/60">
+              <span className="absolute top-3 left-3 px-3 py-1 text-[11px] font-bold bg-white/95 text-purple-700 rounded-full shadow-md border border-white/60">
                 {category}
               </span>
             </div>

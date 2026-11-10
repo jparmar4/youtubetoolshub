@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { getToolBySlug, tools } from "@/config/tools";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
 import {
+  combineSchemasToGraph,
   getSoftwareApplicationSchema,
   getFAQSchema,
   getHowToSchema,
@@ -32,7 +33,6 @@ import { RecentToolTracker } from "@/lib/recent-tools";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
 import {
-  FaCalculator,
   FaGlobeAmericas,
   FaChartLine,
   FaLightbulb,
@@ -228,23 +228,17 @@ export default function YouTubeEarningsCalculatorPage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            combineSchemasToGraph(
+              softwareSchema,
+              faqSchema,
+              howToSchema,
+              breadcrumbSchema,
+              datasetSchema,
+            ),
+          ),
+        }}
       />
 
       <div className="min-h-screen py-10 lg:py-16 relative overflow-hidden">
@@ -271,7 +265,7 @@ export default function YouTubeEarningsCalculatorPage() {
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex items-start gap-4 sm:gap-5 flex-1">
                     <ToolIcon3D
-                      icon={<FaCalculator />}
+                      iconKey="earnings-calculator-hero"
                       slug="youtube-earnings-calculator"
                       category="analytics-earnings"
                       size="lg"
@@ -336,8 +330,8 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Leaderboard Ad immediately below the Calculator */}
-              <div className="rounded-2xl overflow-hidden shadow-xs border border-emerald-100 bg-white p-2 flex flex-col items-center justify-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+              <div className="rounded-2xl overflow-hidden shadow-xs border border-emerald-100 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
               </div>
 
@@ -355,7 +349,7 @@ export default function YouTubeEarningsCalculatorPage() {
 
               {/* Ad immediately below the Calculator */}
               <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
                 <GoogleAd slot="8649718301" format="fluid" layout="in-article" responsive className="w-full text-center" />
               </div>
 
@@ -461,7 +455,7 @@ export default function YouTubeEarningsCalculatorPage() {
 
               {/* Ad placement */}
               <div className="my-8" aria-hidden="true">
-                <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
+                <GoogleAd layout="in-article" format="fluid" slot="6023554962" className="text-center" />
               </div>
 
               {/* Countries — full 52-market index grouped by tier for global crawl + UX */}
@@ -612,7 +606,7 @@ export default function YouTubeEarningsCalculatorPage() {
 
               {/* Recommended Content / Multiplex Ad Unit */}
               <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm" aria-hidden="true">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                 <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
               </div>
 

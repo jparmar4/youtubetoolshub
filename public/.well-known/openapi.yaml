@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: YouTube Tools Hub API
   description: |
-    Free YouTube tools for creators. This API provides access to 44 tools
+    Free YouTube tools for creators. This API provides access to 45 tools
     including thumbnail downloader, title generator, tag generator, earnings calculator,
     sponsorship rate calculator, channel valuation calculator, creator tax calculators,
     transcript downloader, AI video summary generator, and channel audit tools.
@@ -52,7 +52,7 @@ paths:
       operationId: listTools
       summary: List all available tools
       description: |
-        Returns the complete list of 44 YouTube tools available on
+        Returns the complete list of 45 YouTube tools available on
         YouTube Tools Hub. Each tool includes metadata, description, and direct URL.
       responses:
         '200':

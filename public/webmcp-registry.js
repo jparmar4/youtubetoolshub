@@ -20,7 +20,7 @@
           return d.result && d.result.content && d.result.content[0] && d.result.content[0].text
             ? JSON.parse(d.result.content[0].text)
             : d;
-        } catch (e) {
+        } catch {
           return d;
         }
       });
@@ -35,7 +35,7 @@
         mc.provideContext({
           tools: [
             { name: "estimate_youtube_earnings", description: "Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country across 52 supported regions." },
-            { name: "list_youtube_tools", description: "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword." },
+            { name: "list_youtube_tools", description: "List or search all 45 free YouTube creator tools on YouTube Tools Hub by category or keyword." },
             { name: "get_country_cpm_rates", description: "Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries." },
             { name: "get_youtube_thumbnail_urls", description: "Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL." },
             { name: "estimate_sponsorship_rate", description: "Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche." },
@@ -44,7 +44,7 @@
             { name: "calculate_youtube_tax_deductions", description: "Calculate estimated eligible business tax write-offs, taxable income reduction, and tax savings for YouTube creators." }
           ]
         });
-      } catch (e) {}
+      } catch {}
     }
 
     if (typeof mc.registerTool === "function") {
@@ -66,7 +66,7 @@
         },
         {
           name: "list_youtube_tools",
-          description: "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
+          description: "List or search all 45 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
           inputSchema: {
             type: "object",
             properties: {
@@ -170,7 +170,7 @@
       tools.forEach(function (t) {
         try {
           mc.registerTool(t);
-        } catch (e) {}
+        } catch {}
       });
     }
   }

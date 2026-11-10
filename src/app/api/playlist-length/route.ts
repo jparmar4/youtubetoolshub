@@ -17,7 +17,8 @@ export async function POST(req: Request) {
         if (!parsedBody) {
             return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
         }
-        const { query } = parsedBody;
+        const rawQuery = parsedBody.query ?? parsedBody.url;
+        const query = typeof rawQuery === "string" ? rawQuery.trim() : "";
 
         if (!query) {
             return NextResponse.json(
@@ -73,6 +74,13 @@ export async function POST(req: Request) {
         );
         const playlistData = await playlistResponse.json();
 
+        if (!playlistResponse.ok || playlistData.error) {
+            return NextResponse.json(
+                { error: playlistData.error?.message || "YouTube API error" },
+                { status: playlistResponse.ok ? 400 : playlistResponse.status }
+            );
+        }
+
         if (!playlistData.items || playlistData.items.length === 0) {
             return NextResponse.json(
                 { error: "Playlist not found or private" },
@@ -92,15 +100,17 @@ export async function POST(req: Request) {
             const itemsResponse = await fetch(itemsUrl);
             const itemsData = await itemsResponse.json();
 
-            if (itemsData.error) {
+            if (!itemsResponse.ok || itemsData.error) {
                 return NextResponse.json(
-                    { error: itemsData.error.message },
-                    { status: 400 }
+                    { error: itemsData.error?.message || "YouTube API error" },
+                    { status: itemsResponse.ok ? 400 : itemsResponse.status }
                 );
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const videoIds = itemsData.items.map((item: any) => item.contentDetails.videoId);
+            const videoIds = (itemsData.items || [])
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                .map((item: any) => item.contentDetails?.videoId)
+                .filter(Boolean);
             if (videoIds.length === 0) break;
 
             // Fetch video durations
@@ -108,10 +118,20 @@ export async function POST(req: Request) {
             const videosResponse = await fetch(videosUrl);
             const videosData = await videosResponse.json();
 
-            if (videosData.items) {
+            if (!videosResponse.ok || videosData.error) {
+                return NextResponse.json(
+                    { error: videosData.error?.message || "YouTube API error" },
+                    { status: videosResponse.ok ? 400 : videosResponse.status }
+                );
+            }
+
+            if (Array.isArray(videosData.items)) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 videosData.items.forEach((video: any) => {
-                    totalSeconds += parseDuration(video.contentDetails.duration);
+                    const duration = video.contentDetails?.duration;
+                    if (duration) {
+                        totalSeconds += parseDuration(duration);
+                    }
                     videoCount++;
                 });
             }

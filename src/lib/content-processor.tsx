@@ -150,6 +150,93 @@ const manualKeywords: Record<string, string> = {
 // Manual keywords win on conflicts (registered first)
 Object.assign(keywordMap, getClusterKeywordMap(), manualKeywords);
 
+// Precompute longest-first keyword entries once at module load
+const sortedKeywordEntries = Object.keys(keywordMap)
+    .sort((a, b) => b.length - a.length)
+    .map((keyword) => ({
+        keyword,
+        lowerKeyword: keyword.toLowerCase(),
+        url: keywordMap[keyword],
+    }));
+
+/**
+ * Strips inline markdown syntax so heading IDs and Table of Contents labels
+ * stay clean and consistent.
+ */
+export function cleanHeadingText(raw: string): string {
+    return raw
+        .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1')
+        .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
+        .replace(/`([^`\n]+)`/g, '$1')
+        .replace(/[*_]/g, '')
+        .trim();
+}
+
+export function slugifyHeading(raw: string): string {
+    return cleanHeadingText(raw)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+}
+
+/**
+ * Allocates unique heading anchor IDs in document order so duplicate headings
+ * (e.g. repeated H2s/H3s) never produce duplicate DOM IDs or TOC keys.
+ */
+export function createHeadingIdGenerator(): (raw: string) => string {
+    const counts = new Map<string, number>();
+    return (raw: string) => {
+        const base = slugifyHeading(raw) || 'section';
+        const prev = counts.get(base) ?? 0;
+        const next = prev + 1;
+        counts.set(base, next);
+        return next === 1 ? base : `${base}-${next}`;
+    };
+}
+
+/**
+ * Extracts Table of Contents H2 headings using the exact same code-fence skip
+ * rules and deduplicated heading ID sequence as `processContent`.
+ */
+export function extractTocHeadings(content: string): { id: string; text: string }[] {
+    const headings: { id: string; text: string }[] = [];
+    const nextHeadingId = createHeadingIdGenerator();
+    let inCodeBlock = false;
+
+    for (const line of content.split('\n')) {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('```')) {
+            inCodeBlock = !inCodeBlock;
+            continue;
+        }
+        if (inCodeBlock) continue;
+
+        const match = trimmed.match(/^(#{2,4})\s+(.+)$/);
+        if (!match) continue;
+
+        const level = match[1].length;
+        const rawText = match[2];
+        const id = nextHeadingId(rawText);
+        if (level === 2) {
+            const text = cleanHeadingText(rawText);
+            if (text && id) {
+                headings.push({ text, id });
+            }
+        }
+    }
+
+    return headings;
+}
+
+function normalizeImageSrc(rawSrc: string): string {
+    // Normalize accidental spaces in markdown paths: "/images/blog / foo - bar.png"
+    return rawSrc
+        .trim()
+        .replace(/\s*\/\s*/g, '/')
+        .replace(/\s*-\s*/g, '-')
+        .replace(/\s+/g, '');
+}
+
 type AlertType = 'NOTE' | 'TIP' | 'IMPORTANT' | 'WARNING' | 'CAUTION' | 'QUOTE';
 type AeoType = 'QUICK_ANSWER' | 'KEY_TAKEAWAYS' | 'PROS_CONS' | 'EXPERT_QUOTE';
 
@@ -166,6 +253,7 @@ export function processContent(
     const elements: React.ReactNode[] = [];
     const earningsAfterH2 = options.injectEarningsCtaAfterH2 ?? 0;
     let earningsCtaInserted = false;
+    const nextHeadingId = createHeadingIdGenerator();
 
     /**
      * In-article ad placement, scaled to article length.
@@ -227,7 +315,7 @@ export function processContent(
         inArticleAdCount++;
         elements.push(
             <div key={`mid-ad-${index}`} className="my-8 not-prose" aria-hidden="true">
-                <GoogleAd layout="in-article" format="fluid" slot={slot} style={{ display: "block", textAlign: "center" }} />
+                <GoogleAd layout="in-article" format="fluid" slot={slot} className="text-center" />
             </div>,
         );
     };
@@ -250,10 +338,30 @@ export function processContent(
         if (listItems.length > 0) {
             const ListTag = listType === 'ol' ? 'ol' : 'ul';
             elements.push(
-                <ListTag key={key} className={`space-y-2 my-6 ${listType === 'ol' ? 'list-decimal' : 'list-disc'} pl-6 text-slate-700 dark:text-slate-300`}>
-                    {listItems.map((item, i) => (
-                        <li key={i} className="leading-relaxed pl-2">{parseInlineMarkdown(item, `li-${key}-${i}`, true)}</li>
-                    ))}
+                <ListTag key={key}>
+                    {listItems.map((item, i) => {
+                        if (listType === 'ul') {
+                            const checkboxMatch = item.match(/^\[([ xX])\]\s+(.*)$/);
+                            if (checkboxMatch) {
+                                const isChecked = checkboxMatch[1].toLowerCase() === 'x';
+                                const body = checkboxMatch[2];
+                                return (
+                                    <li key={i} className="list-none flex items-start gap-2.5 -ml-4">
+                                        <input
+                                            type="checkbox"
+                                            checked={isChecked}
+                                            readOnly
+                                            tabIndex={-1}
+                                            aria-label={isChecked ? "Completed checklist item" : "Checklist item"}
+                                            className="mt-1.5 h-4 w-4 rounded border-slate-300 text-purple-600 accent-purple-600 shrink-0 pointer-events-none"
+                                        />
+                                        <span>{parseInlineMarkdown(body, `li-${key}-${i}`, true)}</span>
+                                    </li>
+                                );
+                            }
+                        }
+                        return <li key={i}>{parseInlineMarkdown(item, `li-${key}-${i}`, true)}</li>;
+                    })}
                 </ListTag>
             );
             listItems = [];
@@ -263,15 +371,41 @@ export function processContent(
 
     const flushBlockquote = (key: string) => {
         if (blockquoteItems.length > 0 && blockquoteType) {
-            const content = blockquoteItems.map((item, i) => (
-                <p key={i} className={`leading-relaxed ${i > 0 ? 'mt-3' : ''}`}>
-                    {parseInlineMarkdown(item, `bq-${key}-${i}`, true)}
-                </p>
-            ));
+            const content: React.ReactNode[] = [];
+            let bqBullets: string[] = [];
+            let blockIdx = 0;
+
+            const flushBqBullets = () => {
+                if (bqBullets.length === 0) return;
+                const ulIdx = blockIdx++;
+                content.push(
+                    <ul key={`bq-ul-${ulIdx}`} className="list-disc pl-5 space-y-1.5 my-2">
+                        {bqBullets.map((b, bi) => (
+                            <li key={bi}>{parseInlineMarkdown(b, `bq-${key}-${ulIdx}-${bi}`, true)}</li>
+                        ))}
+                    </ul>
+                );
+                bqBullets = [];
+            };
+
+            blockquoteItems.forEach((item) => {
+                if (/^(?:[-*]\s+|-(?=\*\*|\[))/.test(item)) {
+                    bqBullets.push(item.replace(/^(?:[-*]\s+|-(?=\*\*|\[))/, ''));
+                } else {
+                    flushBqBullets();
+                    const pIdx = blockIdx++;
+                    content.push(
+                        <p key={`bq-p-${pIdx}`} className={pIdx > 0 ? 'mt-3' : undefined}>
+                            {parseInlineMarkdown(item, `bq-${key}-${pIdx}`, true)}
+                        </p>
+                    );
+                }
+            });
+            flushBqBullets();
 
             if (blockquoteType === 'QUOTE') {
                 elements.push(
-                    <blockquote key={key} className="border-l-4 border-purple-500 bg-purple-50 p-6 my-8 rounded-r-xl text-slate-700 italic shadow-sm">
+                    <blockquote key={key}>
                         {content}
                     </blockquote>
                 );
@@ -310,13 +444,13 @@ export function processContent(
                 }
 
                 elements.push(
-                    <div key={key} className={`flex gap-4 p-6 my-8 rounded-xl border ${styles} shadow-sm items-start`}>
+                    <div key={key} className={`not-prose flex gap-4 p-6 my-8 rounded-xl border ${styles} shadow-sm items-start`}>
                         {icon}
                         <div className="flex-1">
                             <h4 className="font-bold text-sm uppercase tracking-wider opacity-90 mb-2 select-none">
                                 {title}
                             </h4>
-                            <div className="text-base">
+                            <div className="text-base leading-relaxed">
                                 {content}
                             </div>
                         </div>
@@ -405,9 +539,9 @@ export function processContent(
     const linkedKeywords = new Set<string>();
 
     const parseInlineMarkdown = (text: string, keyPrefix: string, autoLink: boolean = false): React.ReactNode[] => {
-        // First, handle existing markdown links [label](url) and bold **text**
-        // We'll split by these patterns first to preserve them
-        const pattern = /(\*\*[^*]+\*\*)|(\[[^\]]+\]\([^\)]+\))|(!\[[^\]]*\]\([^\)]+\))/g;
+        // Parse inline code, images, links, ***bold italic***, **bold**, and *italic*
+        // All inner groups use non-capturing syntax so split() only emits top-level tokens
+        const pattern = /(`[^`\n]+`)|(!\[[^\]]*\]\([^\)]+\))|(\[[^\]]+\]\([^\)]+\))|(\*\*\*[^*\n]+?\*\*\*)|(\*\*(?:\\.|(?!\*\*)[^\n])+?\*\*)|(\*(?!\*)(?:\\.|[^*\n])+?\*)/g;
         const parts = text.split(pattern).filter((p) => p !== undefined && p !== '');
 
         const nodes: React.ReactNode[] = [];
@@ -415,19 +549,24 @@ export function processContent(
         parts.forEach((part, i) => {
             const key = `${keyPrefix}-${i}`;
 
-            // Image: ![alt](url)
+            // Inline Code: `code`
+            if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+                nodes.push(
+                    <code key={key}>
+                        {part.slice(1, -1)}
+                    </code>
+                );
+                return;
+            }
+
+            // Inline Image fallback: ![alt](url) -> use phrasing-safe <span> elements inside <p>/<li>
             if (part.startsWith('![') && part.includes('](') && part.endsWith(')')) {
                 const match = part.match(/^!\[([^\]]*)\]\(([^\)]+)\)$/);
                 if (match) {
                     const alt = match[1];
-                    // Normalize accidental spaces in markdown paths: "/images/blog / foo - bar.png"
-                    const src = match[2]
-                        .trim()
-                        .replace(/\s*\/\s*/g, "/")
-                        .replace(/\s*-\s*/g, "-")
-                        .replace(/\s+/g, "");
+                    const src = normalizeImageSrc(match[2]);
                     nodes.push(
-                        <div key={key} className="my-10 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
+                        <span key={key} className="not-prose block my-6 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
                             <NextImage
                                 src={src}
                                 alt={alt}
@@ -435,20 +574,42 @@ export function processContent(
                                 height={450}
                                 className="w-full h-auto object-cover"
                             />
-                            {alt && <p className="text-center text-sm text-slate-500 mt-3 italic">{alt}</p>}
-                        </div>
+                            {alt && <span className="block text-center text-sm text-slate-500 mt-3 italic">{alt}</span>}
+                        </span>
                     );
                     return;
                 }
             }
 
+            // Bold Italic: ***text***
+            if (part.startsWith('***') && part.endsWith('***') && part.length > 6) {
+                const innerText = part.slice(3, -3);
+                nodes.push(
+                    <strong key={key}>
+                        <em>{parseInlineMarkdown(innerText, `${key}-bi`, false)}</em>
+                    </strong>
+                );
+                return;
+            }
+
             // Bold: **text**
-            if (part.startsWith('**') && part.endsWith('**')) {
+            if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
                 const innerText = part.slice(2, -2);
                 nodes.push(
-                    <strong key={key} className="font-bold text-slate-900 dark:text-white">
+                    <strong key={key}>
                         {parseInlineMarkdown(innerText, `${key}-bold`, false)}
                     </strong>
+                );
+                return;
+            }
+
+            // Italic: *text*
+            if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**') && part.length > 2) {
+                const innerText = part.slice(1, -1);
+                nodes.push(
+                    <em key={key}>
+                        {parseInlineMarkdown(innerText, `${key}-em`, false)}
+                    </em>
                 );
                 return;
             }
@@ -460,15 +621,12 @@ export function processContent(
                     const label = match[1];
                     const url = match[2];
                     const isInternal = url.startsWith('/');
+                    const renderedLabel = parseInlineMarkdown(label, `${key}-lbl`, false);
 
                     if (isInternal) {
                         nodes.push(
-                            <Link
-                                key={key}
-                                href={url}
-                                className="text-purple-600 hover:text-purple-700 font-medium underline underline-offset-2 transition-colors"
-                            >
-                                {label}
+                            <Link key={key} href={url}>
+                                {renderedLabel}
                             </Link>
                         );
                         return;
@@ -480,26 +638,23 @@ export function processContent(
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-purple-600 hover:text-purple-700 font-medium underline underline-offset-2 transition-colors"
                         >
-                            {label}
+                            {renderedLabel}
                         </a>
                     );
                     return;
                 }
             }
 
+            // Unescape markdown-escaped asterisks (\* -> *) in rendered prose
+            const cleanPart = part.replace(/\\\*/g, '*');
+
             // Plain text - apply auto-linking if enabled
             if (autoLink) {
-                // simple auto-linking implementation
-                let textSegments: (string | React.ReactNode)[] = [part];
+                let textSegments: (string | React.ReactNode)[] = [cleanPart];
 
-                // Sort keywords by length in descending order to avoid greedy shorter matches
-                const sortedKeywords = Object.keys(keywordMap).sort((a, b) => b.length - a.length);
-
-                // For each keyword in our map
-                for (const keyword of sortedKeywords) {
-                    const url = keywordMap[keyword];
+                // For each keyword in our longest-first map
+                for (const { keyword, lowerKeyword, url } of sortedKeywordEntries) {
                     // Skip if we've already linked this keyword globally
                     if (linkedKeywords.has(keyword)) continue;
 
@@ -514,7 +669,7 @@ export function processContent(
 
                         // Case-insensitive search
                         const lowerSegment = segment.toLowerCase();
-                        const idx = lowerSegment.indexOf(keyword.toLowerCase());
+                        const idx = lowerSegment.indexOf(lowerKeyword);
 
                         if (idx !== -1 && !foundInThisBlock) {
                             // Split and link
@@ -527,7 +682,7 @@ export function processContent(
                                 <Link
                                     key={`${key}-${keyword}`}
                                     href={url}
-                                    className="text-purple-600 hover:text-purple-700 font-medium border-b border-dotted border-purple-400 hover:border-solid transition-all"
+                                    className="a-auto"
                                     title={`Try our ${keyword} tool`}
                                 >
                                     {match}
@@ -545,7 +700,7 @@ export function processContent(
                 }
                 nodes.push(...textSegments);
             } else {
-                nodes.push(part);
+                nodes.push(cleanPart);
             }
         });
 
@@ -590,7 +745,7 @@ export function processContent(
                 // Not a valid table structure (needs at least header and separator)
                 tableLines.forEach((line, i) => {
                     elements.push(
-                        <p key={`${key}-fallback-${i}`} className="text-slate-600 my-5 leading-8 text-[1.1rem]">
+                        <p key={`${key}-fallback-${i}`}>
                             {parseInlineMarkdown(line, `${key}-p-${i}`, true)}
                         </p>
                     );
@@ -602,24 +757,24 @@ export function processContent(
                 const headers = headerLine.split('|').filter((_, i, arr) => i > 0 && i < arr.length - 1).map(h => h.trim());
 
                 elements.push(
-                    <div key={key} className="my-10 overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
-                        <table className="w-full text-left border-collapse">
+                    <div key={key} className="art-tbl not-prose">
+                        <table>
                             <thead>
-                                <tr className="bg-slate-50 border-b border-slate-200">
+                                <tr>
                                     {headers.map((header, i) => (
-                                        <th scope="col" key={i} className="px-6 py-4 text-sm font-bold text-slate-900 uppercase tracking-wider">
+                                        <th scope="col" key={i}>
                                             {parseInlineMarkdown(header, `th-${key}-${i}`, false)}
                                         </th>
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-200">
+                            <tbody>
                                 {rowLines.map((row, i) => {
                                     const cells = row.split('|').filter((_, idx, arr) => idx > 0 && idx < arr.length - 1).map(c => c.trim());
                                     return (
-                                        <tr key={i} className="hover:bg-slate-50 transition-colors">
+                                        <tr key={i}>
                                             {cells.map((cell, j) => (
-                                                <td key={j} className="px-6 py-4 text-slate-600 text-sm leading-relaxed">
+                                                <td key={j}>
                                                     {parseInlineMarkdown(cell, `td-${key}-${i}-${j}`, true)}
                                                 </td>
                                             ))}
@@ -759,18 +914,34 @@ export function processContent(
         // If line does not start with >, flush any active blockquote
         flushBlockquote(`quote-${index}`);
 
+        // Horizontal rule: ---, ***, ___
+        if (/^([-*_])(?:\s*\1){2,}$/.test(trimmedLine)) {
+            flushList(`list-${index}`);
+            elements.push(<hr key={index} className="my-10 border-t border-slate-200" />);
+            return;
+        }
+
+        // H4 heading (must be checked before H3 and H2)
+        if (trimmedLine.startsWith('#### ')) {
+            flushList(`list-${index}`);
+            const headingText = trimmedLine.replace(/^####\s+/, '');
+            const headingId = nextHeadingId(headingText);
+            elements.push(
+                <h4 key={index} id={headingId}>
+                    {parseInlineMarkdown(headingText, `h4-${index}`, false)}
+                </h4>
+            );
+            return;
+        }
+
         // H2 heading
         if (trimmedLine.startsWith('## ')) {
             flushList(`list-${index}`);
-            const headingText = trimmedLine.replace('## ', '');
-            const headingId = headingText
-                .toLowerCase()
-                .replace(/[*_`]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)/g, '');
+            const headingText = trimmedLine.replace(/^##\s+/, '');
+            const headingId = nextHeadingId(headingText);
             elements.push(
-                <h2 key={index} id={headingId} className="text-3xl font-bold text-slate-900 mt-16 mb-6 tracking-tight leading-tight scroll-mt-24">
-                    {headingText}
+                <h2 key={index} id={headingId}>
+                    {parseInlineMarkdown(headingText, `h2-${index}`, false)}
                 </h2>
             );
             // Insert an in-article ad at the pre-computed section boundaries.
@@ -796,44 +967,71 @@ export function processContent(
         // H3 heading
         if (trimmedLine.startsWith('### ')) {
             flushList(`list-${index}`);
-            const headingText = trimmedLine.replace('### ', '');
-            const headingId = headingText
-                .toLowerCase()
-                .replace(/[*_`]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)/g, '');
+            const headingText = trimmedLine.replace(/^###\s+/, '');
+            const headingId = nextHeadingId(headingText);
             elements.push(
-                <h3 key={index} id={headingId} className="text-2xl font-bold text-slate-900 mt-10 mb-5 tracking-tight scroll-mt-24">
-                    {headingText}
+                <h3 key={index} id={headingId}>
+                    {parseInlineMarkdown(headingText, `h3-${index}`, false)}
                 </h3>
             );
             if (countH3AsBoundary) injectAdIfDue(index);
             return;
         }
 
-        // Unordered list item
-        if (trimmedLine.startsWith('- ')) {
+        // Unordered list item (- item, -**bold**/-[link] item, or * item excluding single-line italics wrapped in * ... *)
+        if (/^-(?:\s+|(?=\*\*|\[))/.test(trimmedLine) || (/^\*\s+/.test(trimmedLine) && !/^\*\s+[^*]+\*$/.test(trimmedLine))) {
+            if (listType && listType !== 'ul') {
+                flushList(`list-switch-${index}`);
+            }
             listType = 'ul';
-            listItems.push(trimmedLine.replace('- ', ''));
+            listItems.push(trimmedLine.replace(/^(?:[-*]\s+|-(?=\*\*|\[))/, ''));
             return;
         }
 
         // Ordered list item
         if (/^\d+\.\s/.test(trimmedLine)) {
+            if (listType && listType !== 'ol') {
+                flushList(`list-switch-${index}`);
+            }
             listType = 'ol';
             listItems.push(trimmedLine.replace(/^\d+\.\s/, ''));
+            return;
+        }
+
+        // Standalone Image line: ![alt](url) — rendered as block <figure> outside <p>
+        const standaloneImgMatch = trimmedLine.match(/^!\[([^\]]*)\]\(([^\)]+)\)$/);
+        if (standaloneImgMatch) {
+            flushList(`list-${index}`);
+            const alt = standaloneImgMatch[1];
+            const src = normalizeImageSrc(standaloneImgMatch[2]);
+            elements.push(
+                <figure key={index} className="not-prose my-10 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
+                    <NextImage
+                        src={src}
+                        alt={alt}
+                        width={800}
+                        height={450}
+                        className="w-full h-auto object-cover"
+                    />
+                    {alt && (
+                        <figcaption className="text-center text-sm text-slate-500 mt-3 italic">
+                            {alt}
+                        </figcaption>
+                    )}
+                </figure>
+            );
             return;
         }
 
         // Only auto-link in regular paragraphs and list items to avoid messy links in headers/bold
         const shouldAutoLink = true;
 
-        // Bold paragraph (standalone bold)
-        if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**')) {
+        // Bold paragraph (entire line wrapped in a single **...** span)
+        if (trimmedLine.startsWith('**') && trimmedLine.endsWith('**') && trimmedLine.length > 4 && !/\*\*/.test(trimmedLine.slice(2, -2))) {
             flushList(`list-${index}`);
             elements.push(
-                <p key={index} className="font-bold text-slate-900 text-lg my-6">
-                    {parseInlineMarkdown(trimmedLine.replace(/\*\*/g, ''), `p-${index}`, false)}
+                <p key={index} className="p-strong">
+                    {parseInlineMarkdown(trimmedLine.slice(2, -2), `p-${index}`, false)}
                 </p>
             );
 
@@ -843,7 +1041,7 @@ export function processContent(
         // Regular paragraph
         flushList(`list-${index}`);
         elements.push(
-            <p key={index} className="text-slate-600 outline-none my-5 leading-8 text-[1.1rem]">
+            <p key={index}>
                 {parseInlineMarkdown(trimmedLine, `p-${index}`, shouldAutoLink)}
             </p>
         );

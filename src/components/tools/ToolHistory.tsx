@@ -235,16 +235,16 @@ function HistoryDetailModal({
     const renderContent = () => {
         if (typeof content === 'string') {
             return (
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                    <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{content}</p>
+                <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-gray-800 whitespace-pre-wrap">{content}</p>
                 </div>
             );
         }
 
         if (!isRecord(content)) {
             return (
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                    <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{JSON.stringify(content, null, 2)}</p>
+                <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-gray-800 whitespace-pre-wrap">{JSON.stringify(content, null, 2)}</p>
                 </div>
             );
         }
@@ -332,7 +332,7 @@ function HistoryDetailModal({
                 {Number.isFinite(score) && score > 0 && (
                     <div className="flex items-center gap-4">
                         <div>
-                            <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Score</span>
+                            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Score</span>
                             <p className={`text-2xl font-black mt-1 ${score >= 90 ? "text-green-500" :
                                 score >= 80 ? "text-blue-500" : "text-yellow-500"
                                 }`}>
@@ -341,14 +341,14 @@ function HistoryDetailModal({
                         </div>
                         {difficulty && (
                             <div>
-                                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Difficulty</span>
-                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{difficulty}</p>
+                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Difficulty</span>
+                                <p className="text-sm font-medium mt-1 text-gray-700">{difficulty}</p>
                             </div>
                         )}
                         {angle && (
                             <div>
-                                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Angle</span>
-                                <p className="text-sm font-medium mt-1 text-gray-700 dark:text-gray-300">{angle}</p>
+                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Angle</span>
+                                <p className="text-sm font-medium mt-1 text-gray-700">{angle}</p>
                             </div>
                         )}
                     </div>
@@ -356,7 +356,7 @@ function HistoryDetailModal({
 
                 {images.length > 0 && (
                     <div>
-                        <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Images</span>
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Images</span>
                         <div className="mt-2 grid grid-cols-2 gap-2">
                             {images.map((img: string, i: number) => (
                                 <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-slate-100">
@@ -443,11 +443,11 @@ function HistoryDetailModal({
 
 function ToolHistorySkeleton() {
     return (
-        <div className="mt-12 border-t border-gray-100 dark:border-gray-800 pt-10">
-            <div className="h-6 w-48 bg-gray-200 dark:bg-gray-800 rounded mb-6 animate-pulse" />
+        <div className="mt-12 border-t border-gray-100 pt-10">
+            <div className="h-6 w-48 bg-gray-200 rounded mb-6 animate-pulse" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-40 bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse" />
+                    <div key={i} className="h-40 bg-gray-100 rounded-xl animate-pulse" />
                 ))}
             </div>
         </div>

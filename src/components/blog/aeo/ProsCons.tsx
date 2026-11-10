@@ -8,7 +8,7 @@ interface ProsConsProps {
 
 export default function ProsCons({ pros, cons }: ProsConsProps) {
     return (
-        <div className="pros-cons my-10 grid md:grid-cols-2 gap-6">
+        <div className="not-prose pros-cons my-10 grid md:grid-cols-2 gap-6">
             {/* Pros */}
             <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-6">
                 <h3 className="font-bold text-lg text-emerald-800 mb-4 flex items-center gap-2">

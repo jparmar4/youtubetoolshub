@@ -88,7 +88,7 @@ function SignInContent() {
 export default function SignInPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
                 <div className="animate-pulse">Loading...</div>
             </div>
         }>

@@ -38,19 +38,19 @@ function UpgradeContent() {
     ];
 
     return (
-        <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen py-12 bg-gray-50">
             <div className="max-w-lg mx-auto px-4">
                 {/* Back Link */}
                 <Link
                     href="/pricing"
-                    className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-red-500 mb-6"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-red-500 mb-6"
                 >
                     <FaArrowLeft className="w-4 h-4" />
                     Back to Pricing
                 </Link>
 
                 {/* Upgrade Card */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                     {/* Header */}
                     <div className="bg-gradient-to-r from-red-600 to-orange-500 p-6 text-white text-center">
                         <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl mb-4">
@@ -70,13 +70,13 @@ function UpgradeContent() {
                     </div>
 
                     {/* Plan Toggle */}
-                    <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <div className="flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 rounded-xl p-1">
+                    <div className="p-6 border-b border-gray-200">
+                        <div className="flex items-center justify-center gap-2 bg-gray-100 rounded-xl p-1">
                             <Link
                                 href="/upgrade?plan=monthly"
                                 className={`flex-1 py-2 px-4 rounded-lg text-center font-medium transition-all ${plan === "monthly"
-                                    ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
-                                    : "text-gray-600 dark:text-gray-400"
+                                    ? "bg-white text-gray-900 shadow"
+                                    : "text-gray-600"
                                     }`}
                             >
                                 Monthly
@@ -84,8 +84,8 @@ function UpgradeContent() {
                             <Link
                                 href="/upgrade?plan=yearly"
                                 className={`flex-1 py-2 px-4 rounded-lg text-center font-medium transition-all ${plan === "yearly"
-                                    ? "bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow"
-                                    : "text-gray-600 dark:text-gray-400"
+                                    ? "bg-white text-gray-900 shadow"
+                                    : "text-gray-600"
                                     }`}
                             >
                                 Yearly
@@ -96,7 +96,7 @@ function UpgradeContent() {
 
                     {/* Features */}
                     <div className="p-6">
-                        <h2 className="font-semibold text-gray-900 dark:text-white mb-4">
+                        <h2 className="font-semibold text-gray-900 mb-4">
                             What&apos;s included:
                         </h2>
                         <ul className="space-y-3 mb-6">
@@ -105,7 +105,7 @@ function UpgradeContent() {
                                     <span className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
                                         <FaCheck className="w-3 h-3 text-white" />
                                     </span>
-                                    <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                                    <span className="text-gray-700">{feature}</span>
                                 </li>
                             ))}
                         </ul>
@@ -114,7 +114,7 @@ function UpgradeContent() {
                         <PaymentButton plan={plan} className="w-full text-lg py-4" />
 
                         {/* Security Badge */}
-                        <div className="flex items-center justify-center gap-4 mt-6 text-gray-500 dark:text-gray-400 text-sm">
+                        <div className="flex items-center justify-center gap-4 mt-6 text-gray-500 text-sm">
                             <div className="flex items-center gap-1">
                                 <FaShieldAlt className="w-4 h-4" />
                                 <span>Secure Payment</span>
@@ -129,7 +129,7 @@ function UpgradeContent() {
 
                 {/* Payment Methods */}
                 <div className="mt-6 text-center">
-                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">
+                    <p className="text-gray-500 text-sm mb-3">
                         We accept all major payment methods
                     </p>
                     <div className="flex items-center justify-center gap-4 text-gray-400">
@@ -143,8 +143,8 @@ function UpgradeContent() {
                 </div>
 
                 {/* Guarantee */}
-                <div className="mt-6 bg-green-50 dark:bg-green-900/20 rounded-xl p-4 text-center">
-                    <p className="text-green-700 dark:text-green-400 text-sm">
+                <div className="mt-6 bg-green-50 rounded-xl p-4 text-center">
+                    <p className="text-green-700 text-sm">
                         <strong>7-Day Money-Back Guarantee</strong> — Not satisfied? Get a full refund, no questions asked.
                     </p>
                 </div>
@@ -156,7 +156,7 @@ function UpgradeContent() {
 export default function UpgradePage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
                 <div className="animate-pulse">Loading...</div>
             </div>
         }>

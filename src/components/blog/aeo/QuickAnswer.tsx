@@ -8,7 +8,7 @@ interface QuickAnswerProps {
 export default function QuickAnswer({ children }: QuickAnswerProps) {
     return (
         <div
-            className="quick-answer my-8 border-l-4 border-purple-600 bg-purple-50 rounded-r-xl p-6 shadow-sm"
+            className="not-prose quick-answer my-8 border-l-4 border-purple-600 bg-purple-50 rounded-r-xl p-6 shadow-sm"
             data-speakable
         >
             <div className="flex items-center gap-3 mb-3">

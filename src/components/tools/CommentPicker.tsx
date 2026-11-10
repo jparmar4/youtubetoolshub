@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
@@ -36,6 +36,15 @@ export default function CommentPicker() {
     // Settings
     const [filterDuplicates, setFilterDuplicates] = useState(true);
     const [filterText, setFilterText] = useState("");
+    const pickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        return () => {
+            if (pickTimerRef.current) {
+                clearTimeout(pickTimerRef.current);
+            }
+        };
+    }, []);
 
     const handleLoadComments = async () => {
         setError("");
@@ -131,9 +140,14 @@ export default function CommentPicker() {
     const pickWinner = () => {
         if (filteredComments.length === 0) return;
 
+        if (pickTimerRef.current) {
+            clearTimeout(pickTimerRef.current);
+        }
+
         setLoading(true);
         // Simulate "rolling" effect
-        setTimeout(async () => {
+        pickTimerRef.current = setTimeout(async () => {
+            pickTimerRef.current = null;
             const randomIndex = getSecureRandomIndex(filteredComments.length);
             const luckyWinner = filteredComments[randomIndex];
             setWinner(luckyWinner);

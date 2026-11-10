@@ -13,6 +13,7 @@ import {
 import { getToolMetaBySlug } from "@/config/tool-meta";
 import { siteConfig } from "@/config/site";
 import {
+  combineSchemasToGraph,
   getCollectionPageSchema,
   getBreadcrumbSchema,
   getFAQSchema,
@@ -140,15 +141,11 @@ export default async function BlogCategoryPage({
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            combineSchemasToGraph(collectionSchema, breadcrumbSchema, faqSchema)
+          ),
+        }}
       />
 
       <div className="min-h-screen bg-slate-50 relative overflow-hidden">

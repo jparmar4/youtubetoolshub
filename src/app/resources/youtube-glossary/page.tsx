@@ -4,6 +4,7 @@ import Link from "next/link";
 import { glossaryTerms, type GlossaryTerm } from "@/config/glossary";
 import { siteConfig } from "@/config/site";
 import {
+  combineSchemasToGraph,
   getBreadcrumbSchema,
   getDefinedTermSetSchema,
   getFAQSchema,
@@ -149,15 +150,11 @@ export default function GlossaryPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termSetSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            combineSchemasToGraph(termSetSchema, faqSchema, breadcrumbSchema),
+          ),
+        }}
       />
 
       <div className="min-h-screen bg-slate-50">

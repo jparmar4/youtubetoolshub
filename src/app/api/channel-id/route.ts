@@ -2,116 +2,113 @@ import { NextResponse } from "next/server";
 import { extractVideoId } from "@/lib/utils";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
-export async function POST(req: Request) {
+async function resolveChannelByQuery(rawQuery: unknown, headers: Headers) {
+    const ip = getRequestIp(headers);
+    const rl = enforceRateLimit(`channel-id:${ip}`, 30, 60 * 60 * 1000);
+    if (!rl.allowed) {
+        return NextResponse.json(
+            { error: "Too many requests. Please try again later." },
+            { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } },
+        );
+    }
+
+    const query = typeof rawQuery === "string" ? rawQuery.trim() : "";
+    if (!query) {
+        return NextResponse.json(
+            { error: "Please enter a channel URL or handle" },
+            { status: 400 }
+        );
+    }
+
+    const apiKey = process.env.YOUTUBE_API_KEY;
+    if (!apiKey) {
+        return NextResponse.json(
+            { error: "Server configuration error: API key missing" },
+            { status: 500 }
+        );
+    }
+
+    const searchPart = "snippet";
+    const channelPart = "snippet,statistics,contentDetails";
+    const searchType = "channel";
+    let usedSearch = true;
+    let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(query)}&type=${searchType}&key=${apiKey}`;
+
+    // Resolve channel ID / handle / custom URL into direct channels lookup where possible
     try {
-        const ip = getRequestIp(req.headers);
-        const rl = enforceRateLimit(`channel-id:${ip}`, 30, 60 * 60 * 1000);
-        if (!rl.allowed) {
-            return NextResponse.json(
-                { error: "Too many requests. Please try again later." },
-                { status: 429, headers: { "Retry-After": String(rl.retryAfterSeconds) } },
-            );
-        }
-
-        const parsedBody = await req.json().catch(() => null);
-        if (!parsedBody) {
-            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
-        }
-        const { query } = parsedBody;
-
-        if (!query) {
-            return NextResponse.json(
-                { error: "Please enter a channel URL or handle" },
-                { status: 400 }
-            );
-        }
-
-        const apiKey = process.env.YOUTUBE_API_KEY;
-
-        if (!apiKey) {
-            return NextResponse.json(
-                { error: "Server configuration error: API key missing" },
-                { status: 500 }
-            );
-        }
-
-        // 1. Try to find by handle (if starts with @)
-        // 1. Try to find by handle (if starts with @)
-        const searchPart = "snippet,id";
-        const searchType = "channel";
-        let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(query)}&type=${searchType}&key=${apiKey}`;
-
-        // If it looks like a channel ID (UC...) we can use channels endpoint directly?
-        // Actually search is safer as it handles handles, names, etc.
-        // But for exact channel ID lookup, channels endpoint is better.
-        // Let's stick to search for flexibility, as it handles handles well.
-
-        // Resolve channel ID / handle / custom URL into the best API call
-        try {
-            const normalized = query.trim();
-            // Bare @handle
-            if (/^@[\w.-]+$/.test(normalized)) {
-                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&forHandle=${encodeURIComponent(normalized)}&key=${apiKey}`;
-            } else if (/^UC[\w-]{20,}$/.test(normalized)) {
-                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&id=${encodeURIComponent(normalized)}&key=${apiKey}`;
-            } else if (normalized.includes("youtube.com") || normalized.includes("youtu.be")) {
-                const withProtocol = /^https?:\/\//i.test(normalized)
-                    ? normalized
-                    : `https://${normalized}`;
-                const urlObj = new URL(withProtocol);
-                const pathSegments = urlObj.pathname.split("/").filter(Boolean);
-                if (pathSegments[0] === "channel" && pathSegments[1]) {
-                    apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&id=${encodeURIComponent(pathSegments[1])}&key=${apiKey}`;
-                } else if (pathSegments[0]?.startsWith("@")) {
-                    apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart},statistics&forHandle=${encodeURIComponent(pathSegments[0])}&key=${apiKey}`;
-                } else if (pathSegments[0] === "c" || pathSegments[0] === "user") {
-                    const q = pathSegments[1] || normalized;
-                    apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(q)}&type=${searchType}&key=${apiKey}`;
-                }
-            }
-        } catch {
-            // ignore invalid url and treat as string
-        }
-
-        // 2. Check if it's a video URL (e.g. youtu.be/VIDEO_ID)
-        const videoId = extractVideoId(query);
-        if (videoId) {
-            const videoResponse = await fetch(
-                `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${apiKey}`
-            );
-            const videoData = await videoResponse.json();
-
-            if (videoData.items && videoData.items.length > 0) {
-                // Found the video, use its channel ID
-                const channelId = videoData.items[0].snippet.channelId;
-                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${searchPart}&id=${channelId}&key=${apiKey}`;
+        if (/^@[\w.-]+$/.test(query)) {
+            apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&forHandle=${encodeURIComponent(query)}&key=${apiKey}`;
+            usedSearch = false;
+        } else if (/^UC[\w-]{20,}$/.test(query)) {
+            apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&id=${encodeURIComponent(query)}&key=${apiKey}`;
+            usedSearch = false;
+        } else if (query.includes("youtube.com") || query.includes("youtu.be")) {
+            const withProtocol = /^https?:\/\//i.test(query) ? query : `https://${query}`;
+            const urlObj = new URL(withProtocol);
+            const pathSegments = urlObj.pathname.split("/").filter(Boolean);
+            if (pathSegments[0] === "channel" && pathSegments[1]) {
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&id=${encodeURIComponent(pathSegments[1])}&key=${apiKey}`;
+                usedSearch = false;
+            } else if (pathSegments[0]?.startsWith("@")) {
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&forHandle=${encodeURIComponent(pathSegments[0])}&key=${apiKey}`;
+                usedSearch = false;
+            } else if (pathSegments[0] === "c" || pathSegments[0] === "user") {
+                const q = pathSegments[1] || query;
+                apiUrl = `https://www.googleapis.com/youtube/v3/search?part=${searchPart}&q=${encodeURIComponent(q)}&type=${searchType}&key=${apiKey}`;
+                usedSearch = true;
             }
         }
+    } catch {
+        // ignore invalid url and treat as search string
+    }
 
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+    // Check if input is a video URL (e.g. youtu.be/VIDEO_ID or youtube.com/watch?v=...)
+    const videoId = extractVideoId(query);
+    if (videoId) {
+        const videoResponse = await fetch(
+            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${encodeURIComponent(videoId)}&key=${apiKey}`
+        );
+        const videoData = await videoResponse.json();
 
-        if (!response.ok) {
+        if (!videoResponse.ok || videoData.error) {
             return NextResponse.json(
-                { error: data.error?.message || "YouTube API error" },
-                { status: response.status }
+                { error: videoData.error?.message || "YouTube API error" },
+                { status: videoResponse.ok ? 400 : videoResponse.status }
             );
         }
 
-        if (!data.items || data.items.length === 0) {
-            return NextResponse.json(
-                { error: "No channel found" },
-                { status: 404 }
-            );
+        if (videoData.items && videoData.items.length > 0) {
+            const channelId = videoData.items[0].snippet?.channelId;
+            if (channelId) {
+                apiUrl = `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&id=${encodeURIComponent(channelId)}&key=${apiKey}`;
+                usedSearch = false;
+            }
         }
+    }
 
-        const item = data.items[0];
+    const response = await fetch(apiUrl);
+    const data = await response.json();
 
-        // If we used search, we only get basic info. We might want to fetch full channel details with the ID we found
-        // to get proper statistics or high res snippet.
-        const channelId = item.id?.channelId || item.id; // search returns id object, channels returns string id (actually inside id property for both usually? let's check) -- search: id: { kind: "youtube#channel", channelId: "UC..." }, channels: id: "UC..."
+    if (!response.ok || data.error) {
+        return NextResponse.json(
+            { error: data.error?.message || "YouTube API error" },
+            { status: response.ok ? 400 : response.status }
+        );
+    }
 
-        const finalId = typeof channelId === 'string' ? channelId : channelId.channelId;
+    if (!data.items || data.items.length === 0) {
+        return NextResponse.json(
+            { error: "No channel found" },
+            { status: 404 }
+        );
+    }
+
+    let channelDetails = data.items[0];
+
+    // If /search was used, fetch full channel snippet + statistics + contentDetails by resolved channel ID
+    if (usedSearch || !channelDetails.statistics) {
+        const rawId = channelDetails.id?.channelId || channelDetails.id;
+        const finalId = typeof rawId === "string" ? rawId : rawId?.channelId;
 
         if (!finalId) {
             return NextResponse.json(
@@ -121,9 +118,16 @@ export async function POST(req: Request) {
         }
 
         const detailsResponse = await fetch(
-            `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${finalId}&key=${apiKey}`
+            `https://www.googleapis.com/youtube/v3/channels?part=${channelPart}&id=${encodeURIComponent(finalId)}&key=${apiKey}`
         );
         const detailsData = await detailsResponse.json();
+
+        if (!detailsResponse.ok || detailsData.error) {
+            return NextResponse.json(
+                { error: detailsData.error?.message || "YouTube API error" },
+                { status: detailsResponse.ok ? 400 : detailsResponse.status }
+            );
+        }
 
         if (!detailsData.items || detailsData.items.length === 0) {
             return NextResponse.json(
@@ -132,25 +136,49 @@ export async function POST(req: Request) {
             );
         }
 
-        const channelDetails = detailsData.items[0];
+        channelDetails = detailsData.items[0];
+    }
 
-        return NextResponse.json(
-            {
-                id: channelDetails.id,
-                title: channelDetails.snippet.title,
-                description: channelDetails.snippet.description,
-                customUrl: channelDetails.snippet.customUrl,
-                publishedAt: channelDetails.snippet.publishedAt,
-                thumbnails: channelDetails.snippet.thumbnails,
-                statistics: channelDetails.statistics,
+    return NextResponse.json(
+        {
+            id: channelDetails.id,
+            title: channelDetails.snippet?.title || "",
+            description: channelDetails.snippet?.description || "",
+            customUrl: channelDetails.snippet?.customUrl || "",
+            publishedAt: channelDetails.snippet?.publishedAt || "",
+            thumbnails: channelDetails.snippet?.thumbnails || {},
+            statistics: channelDetails.statistics || {},
+        },
+        {
+            headers: {
+                "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
             },
-            {
-                headers: {
-                    "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
-                },
-            }
-        );
+        }
+    );
+}
 
+export async function GET(req: Request) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const rawQuery = searchParams.get("query") ?? searchParams.get("url");
+        return await resolveChannelByQuery(rawQuery, req.headers);
+    } catch (error) {
+        console.error("Channel ID API error:", error);
+        return NextResponse.json(
+            { error: "Internal server error" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function POST(req: Request) {
+    try {
+        const parsedBody = await req.json().catch(() => null);
+        if (!parsedBody) {
+            return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+        }
+        const rawQuery = parsedBody.query ?? parsedBody.url;
+        return await resolveChannelByQuery(rawQuery, req.headers);
     } catch (error) {
         console.error("Channel ID API error:", error);
         return NextResponse.json(

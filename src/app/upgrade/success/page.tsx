@@ -21,18 +21,18 @@ function SuccessContent() {
     }, []);
 
     return (
-        <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
             <div className="max-w-md w-full mx-auto px-4 text-center">
                 {/* Success Icon */}
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full mb-6 shadow-lg shadow-green-500/30">
                     <FaCheck className="w-10 h-10 text-white" />
                 </div>
 
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">
                     Welcome to Pro! 🎉
                 </h1>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-8">
+                <p className="text-gray-600 mb-8">
                     Your payment was successful. You now have unlimited access to all YouTube tools!
                 </p>
 
@@ -43,8 +43,8 @@ function SuccessContent() {
                 </div>
 
                 {/* What's Unlocked */}
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8 text-left">
-                    <h2 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 text-left">
+                    <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                         <FaRocket className="text-red-500" />
                         What&apos;s now unlocked:
                     </h2>
@@ -60,7 +60,7 @@ function SuccessContent() {
                                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center">
                                     <FaCheck className="w-3 h-3 text-white" />
                                 </span>
-                                <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                                <span className="text-gray-700">{feature}</span>
                             </li>
                         ))}
                     </ul>
@@ -81,7 +81,7 @@ function SuccessContent() {
                     Start Using Pro Tools
                 </Link>
 
-                <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-4 text-sm text-gray-500">
                     Your Pro subscription is now active on your account.
                 </p>
             </div>
@@ -92,7 +92,7 @@ function SuccessContent() {
 export default function UpgradeSuccessPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="min-h-screen py-12 bg-gray-50 flex items-center justify-center">
                 <div className="animate-pulse">Loading...</div>
             </div>
         }>

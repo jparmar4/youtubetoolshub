@@ -1,5 +1,4 @@
 import { toolExamples } from "@/lib/tool-examples";
-import { Suspense } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -31,61 +30,9 @@ import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import ToolComponentRenderer from "@/components/tools/ToolComponentRenderer";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
-
-
-// Import all tool components dynamically so each tool's UI ships as its own
-// chunk instead of one mega-bundle on every /tools/* page.
-import dynamic from "next/dynamic";
-
-const toolComponents: Record<string, React.ComponentType> = {
-    "youtube-thumbnail-downloader": dynamic(() => import("@/components/tools/ThumbnailDownloader")),
-    "youtube-thumbnail-generator": dynamic(() => import("@/components/tools/ThumbnailGenerator")),
-    "youtube-ai-thumbnail-generator": dynamic(() => import("@/components/tools/AIThumbnailGenerator")),
-    "youtube-ai-thumbnail-prompt": dynamic(() => import("@/components/tools/AIThumbnailPromptGenerator")),
-    "youtube-title-generator": dynamic(() => import("@/components/tools/TitleGenerator")),
-    "youtube-description-generator": dynamic(() => import("@/components/tools/DescriptionGenerator")),
-    "youtube-tag-generator": dynamic(() => import("@/components/tools/TagGenerator")),
-    "youtube-tag-extractor": dynamic(() => import("@/components/tools/TagExtractor")),
-    "youtube-video-ideas-generator": dynamic(() => import("@/components/tools/VideoIdeasGenerator")),
-    "youtube-trend-helper": dynamic(() => import("@/components/tools/TrendHelper")),
-    "youtube-content-calendar-generator": dynamic(() => import("@/components/tools/ContentCalendarGenerator")),
-    "youtube-earnings-calculator": dynamic(() => import("@/components/tools/EarningsCalculator")),
-    "youtube-engagement-rate-calculator": dynamic(() => import("@/components/tools/EngagementCalculator")),
-    "youtube-title-ab-tester": dynamic(() => import("@/components/tools/TitleABTester")),
-    "youtube-channel-name-generator": dynamic(() => import("@/components/tools/ChannelNameGenerator")),
-    "youtube-hashtag-generator": dynamic(() => import("@/components/tools/HashtagGenerator")),
-    "youtube-intro-script-generator": dynamic(() => import("@/components/tools/IntroScriptGenerator")),
-    "youtube-channel-id-finder": dynamic(() => import("@/components/tools/ChannelIdFinder")),
-    "youtube-playlist-length-calculator": dynamic(() => import("@/components/tools/PlaylistLengthCalculator")),
-    "youtube-comment-picker": dynamic(() => import("@/components/tools/CommentPicker")),
-    "youtube-channel-audit": dynamic(() => import("@/components/tools/ChannelAudit")),
-    "youtube-subscriber-count-checker": dynamic(() => import("@/components/tools/SubscriberCountChecker")),
-    "youtube-video-download-options": dynamic(() => import("@/components/tools/VideoDownloadOptionsGuide")),
-    "youtube-timestamp-generator": dynamic(() => import("@/components/tools/TimestampGenerator")),
-    "youtube-shorts-script-planner": dynamic(() => import("@/components/tools/ShortsScriptPlanner")),
-    "youtube-banner-logo-maker": dynamic(() => import("@/components/tools/BannerLogoMaker")),
-    "youtube-niche-finder-quiz": dynamic(() => import("@/components/tools/NicheFinderQuiz")),
-    "youtube-sponsorship-calculator": dynamic(() => import("@/components/tools/SponsorshipCalculator")),
-    "youtube-channel-valuation-calculator": dynamic(() => import("@/components/tools/ChannelValuationCalculator")),
-    "youtube-tax-deduction-calculator": dynamic(() => import("@/components/tools/TaxDeductionCalculator")),
-    "youtube-transcript-downloader": dynamic(() => import("@/components/tools/TranscriptDownloader")),
-    "youtube-thumbnail-feed-previewer": dynamic(() => import("@/components/tools/ThumbnailFeedPreviewer")),
-    "youtube-llc-vs-s-corp-tax-savings-calculator": dynamic(() => import("@/components/tools/LLCvsSCorpCalculator")),
-    "patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator": dynamic(() => import("@/components/tools/MembershipFeeCalculator")),
-    "youtube-shorts-music-royalty-split-calculator": dynamic(() => import("@/components/tools/ShortsMusicSplitCalculator")),
-    "youtube-ads-cost-calculator": dynamic(() => import("@/components/tools/AdsCostCalculator")),
-    "youtube-subscribe-link-generator": dynamic(() => import("@/components/tools/SubscribeLinkGenerator")),
-    "youtube-video-summary-generator": dynamic(() => import("@/components/tools/VideoSummaryGenerator")),
-    "youtube-outlier-calculator": dynamic(() => import("@/components/tools/OutlierCalculator")),
-    "youtube-embed-code-generator": dynamic(() => import("@/components/tools/EmbedCodeGenerator")),
-    "youtube-adsense-fee-calculator": dynamic(() => import("@/components/tools/AdSenseFeeCalculator")),
-    "youtube-watch-hours-calculator": dynamic(() => import("@/components/tools/WatchHoursCalculator")),
-    "youtube-shorts-vs-long-form-calculator": dynamic(() => import("@/components/tools/ShortsVsLongFormCalculator")),
-    "youtube-milestone-countdown-calculator": dynamic(() => import("@/components/tools/MilestoneCountdownCalculator")),
-    "youtube-thumbnail-ab-test-calculator": dynamic(() => import("@/components/tools/ThumbnailABTestCalculator")),
-};
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
@@ -176,12 +123,6 @@ export default async function ToolPage({
         notFound();
     }
 
-    const ToolComponent = toolComponents[slug];
-
-    if (!ToolComponent) {
-        notFound();
-    }
-
     // Server-side unique SEO body (ensures 350+ words + FAQs even if tool config is thin)
     const seoSections = getToolSeoSections(tool);
     const seoFaqs = getToolSeoFaqs(tool);
@@ -232,10 +173,9 @@ export default async function ToolPage({
 
     const combinedToolGraphSchema = {
         "@context": "https://schema.org",
-        "@graph": schemasToCombine.map((item) => {
-            const { "@context": _, ...rest } = item;
-            return rest;
-        }),
+        "@graph": schemasToCombine.map((item) =>
+            Object.fromEntries(Object.entries(item).filter(([k]) => k !== "@context")),
+        ),
     };
 
     return (
@@ -289,7 +229,6 @@ export default async function ToolPage({
                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                                     <div className="flex items-start gap-4 sm:gap-5 flex-1">
                                         <ToolIcon3D
-                                            icon={<tool.icon />}
                                             slug={tool.slug}
                                             category={tool.category}
                                             size="lg"
@@ -355,8 +294,8 @@ export default async function ToolPage({
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
-                                        <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-slate-400 font-medium mr-1">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                                        <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-slate-300 font-medium mr-1">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                                             Live Session
                                         </span>
                                         <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
@@ -366,22 +305,14 @@ export default async function ToolPage({
                                 </div>
                                 <div className="p-4 sm:p-6">
                                     <ToolContextProvider value={{ hideHeader: true }}>
-                                        <Suspense
-                                            fallback={
-                                                <div className="min-h-[360px] flex items-center justify-center">
-                                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500" />
-                                                </div>
-                                            }
-                                        >
-                                            <ToolComponent />
-                                        </Suspense>
+                                        <ToolComponentRenderer slug={slug} />
                                     </ToolContextProvider>
                                 </div>
                             </div>
 
                             {/* Leaderboard immediately below the interactive tool */}
-                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
@@ -426,7 +357,7 @@ export default async function ToolPage({
 
                             {/* Ad: Below Worked Example */}
                             <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot="3397391628" format="fluid" layout="in-article" />
                             </div>
                             </AdSectionPrioritize>
@@ -642,31 +573,27 @@ export default async function ToolPage({
                                         </Link>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                                        {relatedTools.map((t) => {
-                                            const Icon = t.icon;
-                                            return (
-                                                <Link
-                                                    key={t.slug}
-                                                    href={`/tools/${t.slug}`}
-                                                    className="group flex items-center gap-3.5 p-3 rounded-2xl border border-slate-200/80 bg-slate-50/60 hover:bg-white hover:border-purple-300 hover:shadow-md transition-all"
-                                                >
-                                                    <ToolIcon3D
-                                                        icon={<Icon />}
-                                                        slug={t.slug}
-                                                        category={t.category}
-                                                        size="sm"
-                                                    />
-                                                    <div className="min-w-0 flex-1">
-                                                        <span className="block font-bold text-sm text-slate-900 group-hover:text-purple-700 transition-colors leading-snug">
-                                                            {t.name}
-                                                        </span>
-                                                        <span className="block text-xs text-slate-500 truncate mt-0.5">
-                                                            {t.shortDescription}
-                                                        </span>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })}
+                                        {relatedTools.map((t) => (
+                                            <Link
+                                                key={t.slug}
+                                                href={`/tools/${t.slug}`}
+                                                className="group flex items-center gap-3.5 p-3 rounded-2xl border border-slate-200/80 bg-slate-50/60 hover:bg-white hover:border-purple-300 hover:shadow-md transition-all"
+                                            >
+                                                <ToolIcon3D
+                                                    slug={t.slug}
+                                                    category={t.category}
+                                                    size="sm"
+                                                />
+                                                <div className="min-w-0 flex-1">
+                                                    <span className="block font-bold text-sm text-slate-900 group-hover:text-purple-700 transition-colors leading-snug">
+                                                        {t.name}
+                                                    </span>
+                                                    <span className="block text-xs text-slate-500 truncate mt-0.5">
+                                                        {t.shortDescription}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        ))}
                                     </div>
                                 </div>
                             </AdSectionIgnore>
@@ -678,8 +605,8 @@ export default async function ToolPage({
                         </div>
                     </div>
                     {/* Recommended Content / Multiplex Ad Unit */}
-                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm" aria-hidden="true">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm" aria-hidden="true">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                         <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
                     </div>
 

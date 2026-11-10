@@ -129,7 +129,7 @@ export default function ThumbnailDownloader() {
                     </p>
                     <Link
                         href="/tools/youtube-thumbnail-feed-previewer"
-                        className="inline-flex shrink-0 items-center gap-1.5 font-bold text-red-600 hover:text-red-700 dark:text-red-400"
+                        className="inline-flex shrink-0 items-center gap-1.5 font-bold text-red-600 hover:text-red-700"
                     >
                         <FaEye />
                         <span>Preview in YouTube Feed →</span>

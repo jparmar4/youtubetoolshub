@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FaStar, FaTimes, FaExternalLinkAlt, FaClock, FaTrashAlt } from "react-icons/fa";
 import { useFavoriteTools } from "@/lib/favorites";
 import { useRecentTools } from "@/lib/recent-tools";
-import { getToolBySlug } from "@/config/tools";
+import { getToolMetaBySlug, toolMeta } from "@/config/tool-meta";
 import { toast } from "@/components/ui/Toast";
 
 function HeaderSavedTools() {
@@ -44,11 +44,11 @@ function HeaderSavedTools() {
   }, [isOpen]);
 
   const savedToolObjects = favorites
-    .map((slug) => getToolBySlug(slug))
+    .map((slug) => getToolMetaBySlug(slug))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   const recentToolObjects = recentSlugs
-    .map((slug) => getToolBySlug(slug))
+    .map((slug) => getToolMetaBySlug(slug))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
   return (
@@ -61,13 +61,13 @@ function HeaderSavedTools() {
             ? "bg-amber-50/90 border-amber-200/90 text-amber-900 hover:bg-amber-100/90"
             : "bg-white border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:border-purple-300"
         }`}
-        aria-label="View saved and recently visited tools"
         aria-expanded={isOpen}
       >
-        <FaStar className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-        <span className="hidden xl:inline">Saved</span>
+        <FaStar className="w-3.5 h-3.5 text-amber-500 shrink-0" aria-hidden="true" />
+        <span className="sr-only xl:not-sr-only">Saved</span>
+        <span className="sr-only"> tools and recents</span>
         {favorites.length > 0 && (
-          <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-black leading-none">
+          <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[10px] font-black leading-none">
             {favorites.length}
           </span>
         )}
@@ -252,7 +252,7 @@ function HeaderSavedTools() {
               onClick={() => setIsOpen(false)}
               className="text-purple-600 font-bold hover:underline flex items-center gap-1"
             >
-              <span>Browse All 44</span>
+              <span>Browse All {toolMeta.length}</span>
               <FaExternalLinkAlt className="w-2.5 h-2.5" />
             </Link>
           </div>

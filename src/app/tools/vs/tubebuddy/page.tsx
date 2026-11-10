@@ -6,6 +6,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { siteConfig } from "@/config/site";
 import {
+    combineSchemasToGraph,
     getBreadcrumbSchema,
     getFAQSchema,
     getGlobalAlternates,
@@ -49,31 +50,29 @@ export default function TubeBuddyComparisonPage() {
             <GeoAeoHead {...GEO_AEO_PRESETS.comparisonPage("TubeBuddy")} pathname="/tools/vs/tubebuddy" />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(combineSchemasToGraph(breadcrumbSchema, faqSchema)),
+                }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
-            <div className="min-h-screen bg-white dark:bg-slate-950 pt-28 pb-20">
+            <div className="min-h-screen bg-white pt-28 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     {/* Header */}
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
                             YouTube Tools Hub vs TubeBuddy
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400">
+                        <p className="text-xl text-slate-600">
                             Compare workflow focus and setup. TubeBuddy features and pricing can change, so confirm its current plan details before choosing.
                         </p>
                     </div>
 
                     {/* Comparison Table */}
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl mb-12">
-                        <div className="grid grid-cols-3 bg-slate-100 dark:bg-slate-800/50 p-6 border-b border-slate-200 dark:border-slate-800">
+                    <div className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-xl mb-12">
+                        <div className="grid grid-cols-3 bg-slate-100 p-6 border-b border-slate-200">
                             <div className="col-span-1 font-bold text-slate-500">Feature</div>
-                            <div className="col-span-1 text-center font-bold text-xl text-purple-600 dark:text-purple-400">YouTube Tools Hub</div>
-                            <div className="col-span-1 text-center font-bold text-xl text-slate-700 dark:text-slate-300">TubeBuddy</div>
+                            <div className="col-span-1 text-center font-bold text-xl text-purple-600">YouTube Tools Hub</div>
+                            <div className="col-span-1 text-center font-bold text-xl text-slate-700">TubeBuddy</div>
                         </div>
 
                         {[
@@ -84,12 +83,12 @@ export default function TubeBuddyComparisonPage() {
                             { feature: "Channel workflow checklist", us: true, them: "Check current plan" },
                             { feature: "Pricing", us: "Core tools free", them: "Check current pricing" },
                         ].map((row, idx) => (
-                            <div key={idx} className="grid grid-cols-3 p-6 border-b border-slate-200 dark:border-slate-800 last:border-0 hover:bg-slate-100 dark:hover:bg-slate-800/30 transition-colors">
-                                <div className="col-span-1 font-medium text-slate-900 dark:text-white flex flex-col justify-center">
+                            <div key={idx} className="grid grid-cols-3 p-6 border-b border-slate-200 last:border-0 hover:bg-slate-100 transition-colors">
+                                <div className="col-span-1 font-medium text-slate-900 flex flex-col justify-center">
                                     {row.feature}
                                 </div>
                                 <div className="col-span-1 flex items-center justify-center">
-                                    {row.us === true ? <FaCheck className="text-green-500 text-xl" /> : <span className="font-bold text-slate-900 dark:text-white">{row.us}</span>}
+                                    {row.us === true ? <FaCheck className="text-green-500 text-xl" /> : <span className="font-bold text-slate-900">{row.us}</span>}
                                 </div>
                                 <div className="col-span-1 flex items-center justify-center">
                                     <span className="text-center font-bold text-slate-500">{row.them}</span>
@@ -109,10 +108,10 @@ export default function TubeBuddyComparisonPage() {
                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-purple-100 text-purple-600 mb-6">
                                 <FaRobot className="text-2xl" />
                             </div>
-                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-4">
                                 Browser-Based Creator Workflows
                             </h2>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            <p className="text-slate-600 leading-relaxed">
                                 YouTube Tools Hub focuses on small, task-specific utilities that work directly in the browser. Use the tool directory for title ideas, descriptions, thumbnails, earnings estimates, timestamps, and creator planning workflows.
                             </p>
                         </div>
@@ -120,10 +119,10 @@ export default function TubeBuddyComparisonPage() {
                             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-green-100 text-green-600 mb-6">
                                 <FaDollarSign className="text-2xl" />
                             </div>
-                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-4">
                                 Compare Current Plan Details
                             </h2>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            <p className="text-slate-600 leading-relaxed">
                                 Core YouTube Tools Hub utilities can be used free. TubeBuddy features and pricing are controlled by TubeBuddy and may change, so check its current product pages before deciding which workflow fits your needs.
                             </p>
                         </div>
@@ -131,14 +130,14 @@ export default function TubeBuddyComparisonPage() {
 
                     {/* FAQ */}
                     <div className="max-w-4xl mx-auto mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
                             TubeBuddy Alternative — FAQ
                         </h2>
                         <div className="space-y-6">
                             {comparisonFaqs.map((item) => (
-                                <div key={item.question} className="bg-slate-50 dark:bg-slate-900 rounded-xl p-6 border border-slate-100 dark:border-slate-800">
-                                    <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-3">{item.question}</h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.answer}</p>
+                                <div key={item.question} className="bg-slate-50 rounded-xl p-6 border border-slate-100">
+                                    <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
+                                    <p className="text-slate-600 leading-relaxed">{item.answer}</p>
                                 </div>
                             ))}
                         </div>
@@ -151,7 +150,7 @@ export default function TubeBuddyComparisonPage() {
                             Explore the browser-based tools and decide whether they fit your creator workflow.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/dashboard" className="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg">
+                            <Link href="/tools" className="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg">
                                 Get Started for Free
                             </Link>
                             <Link href="/pricing" className="px-8 py-4 bg-purple-700 text-white rounded-xl font-bold hover:bg-purple-800 transition-colors border border-purple-500">

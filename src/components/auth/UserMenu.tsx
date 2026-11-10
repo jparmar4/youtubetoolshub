@@ -41,7 +41,7 @@ export default function UserMenu() {
 
     if (status === "loading") {
         return (
-            <div className="w-9 h-9 rounded-full bg-slate-200 animate-pulse shrink-0" />
+            <div className="w-[74px] h-9 rounded-full bg-slate-200 animate-pulse shrink-0" />
         );
     }
 

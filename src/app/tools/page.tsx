@@ -4,6 +4,7 @@ import { ToolCard } from "@/components/ui/Card";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import {
+  combineSchemasToGraph,
   getToolListSchema,
   getBreadcrumbSchema,
   getFAQSchema,
@@ -11,21 +12,11 @@ import {
 } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 import {
-  FaCalculator,
-  FaHandshake,
-  FaFileInvoiceDollar,
-  FaBuilding,
-  FaCoins,
-  FaChartLine,
   FaArrowRight,
   FaBolt,
-  FaClock,
-  FaBalanceScale,
-  FaAward,
 } from "react-icons/fa";
 
 const toolsPageFaqs = [
@@ -124,18 +115,10 @@ export default function ToolsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(toolListSchema),
+          __html: JSON.stringify(
+            combineSchemasToGraph(toolListSchema, breadcrumbSchema, faqSchema),
+          ),
         }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div className="min-h-screen py-16 sm:py-20 relative overflow-hidden bg-slate-50">
@@ -223,72 +206,57 @@ export default function ToolsPage() {
                       href: "/tools/youtube-earnings-calculator",
                       desc: "Estimate monthly and yearly AdSense by country and RPM.",
                       badge: "50+ Markets",
-                      icon: FaCalculator,
-                      color: "text-emerald-400 bg-emerald-950/60 border-emerald-800/60",
+                      iconKey: "earnings-calculator-hero",
                     },
                     {
                       name: "Sponsorship Rate Calculator",
                       href: "/tools/youtube-sponsorship-calculator",
                       desc: "Calculate 60s integrations, 30s shoutouts, and pitch templates.",
                       badge: "Media Kit",
-                      icon: FaHandshake,
-                      color: "text-amber-400 bg-amber-950/60 border-amber-800/60",
                     },
                     {
                       name: "US Tax Deduction Estimator",
                       href: "/tools/youtube-tax-deduction-calculator",
                       desc: "Model IRS Schedule C & 1099 write-offs on cameras, studio & tech.",
                       badge: "IRS & HMRC",
-                      icon: FaFileInvoiceDollar,
-                      color: "text-blue-400 bg-blue-950/60 border-blue-800/60",
                     },
                     {
                       name: "LLC vs S-Corp Tax Savings",
                       href: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator",
                       desc: "Discover how S-Corp saves $4k–$12k in self-employment tax.",
                       badge: "Tax Strategy",
-                      icon: FaBuilding,
-                      color: "text-purple-400 bg-purple-950/60 border-purple-800/60",
                     },
                     {
                       name: "Channel Valuation Calculator",
                       href: "/tools/youtube-channel-valuation-calculator",
                       desc: "Estimate channel exit value based on 24x–36x net profit multiples.",
                       badge: "Asset Exit",
-                      icon: FaCoins,
-                      color: "text-rose-400 bg-rose-950/60 border-rose-800/60",
                     },
                     {
                       name: "YouTube Ads Cost Calculator",
                       href: "/tools/youtube-ads-cost-calculator",
                       desc: "Model CPV and budget requirements to promote YouTube videos.",
                       badge: "Google Ads",
-                      icon: FaChartLine,
-                      color: "text-teal-400 bg-teal-950/60 border-teal-800/60",
                     },
                     {
                       name: "4,000 Watch Hours Planner",
                       href: "/tools/youtube-watch-hours-calculator",
                       desc: "Calculate views and pace needed to unlock YPP monetization.",
                       badge: "YPP Monetization",
-                      icon: FaClock,
-                      color: "text-emerald-400 bg-emerald-950/60 border-emerald-800/60",
+                      iconKey: "watch-hours-tier-hero",
                     },
                     {
                       name: "Shorts vs. Long-Form Profitability",
                       href: "/tools/youtube-shorts-vs-long-form-calculator",
                       desc: "Compare AdSense yield, editing effort, and hourly creator wage.",
                       badge: "RPM Arbitrage",
-                      icon: FaBalanceScale,
-                      color: "text-amber-400 bg-amber-950/60 border-amber-800/60",
+                      iconKey: "shorts-comparison-tier-hero",
                     },
                     {
                       name: "Play Button Milestone Tracker",
                       href: "/tools/youtube-milestone-countdown-calculator",
                       desc: "Track velocity and project exact dates for Silver (100K) and Gold (1M).",
                       badge: "Creator Awards",
-                      icon: FaAward,
-                      color: "text-purple-400 bg-purple-950/60 border-purple-800/60",
                     },
                   ].map((item) => (
                     <Link
@@ -299,7 +267,7 @@ export default function ToolsPage() {
                       <div>
                         <div className="flex items-center justify-between mb-3.5">
                           <ToolIcon3D
-                            icon={<item.icon className="w-4 h-4" />}
+                            iconKey={item.iconKey}
                             slug={item.href.replace("/tools/", "")}
                             category="analytics-earnings"
                             size="sm"
@@ -365,16 +333,14 @@ export default function ToolsPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                       {categoryTools.map((tool) => (
-                        <Fragment key={tool.slug}>
-                          <ToolCard
-                            icon={<tool.icon />}
-                            title={tool.name}
-                            description={tool.shortDescription}
-                            href={`/tools/${tool.slug}`}
-                            isAI={tool.isAI}
-                            category={tool.category}
-                          />
-                        </Fragment>
+                        <ToolCard
+                          key={tool.slug}
+                          title={tool.name}
+                          description={tool.shortDescription}
+                          href={`/tools/${tool.slug}`}
+                          isAI={tool.isAI}
+                          category={tool.category}
+                        />
                       ))}
                     </div>
 

@@ -1,7 +1,7 @@
 ---
 title: "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator"
 url: "https://www.youtubetoolshub.com"
-description: "Free online suite of 44 YouTube creator tools: download HD thumbnails, generate viral titles and tags, and estimate Tier-1 AdSense RPM/CPM earnings across 52 countries. No signup or extension required."
+description: "Free online suite of 45 YouTube creator tools: download HD thumbnails, generate viral titles and tags, and estimate Tier-1 AdSense RPM/CPM earnings across 52 countries. No signup or extension required."
 organization: "YouTube Tools Hub"
 email: "support@youtubetoolshub.com"
 llms_txt: "https://www.youtubetoolshub.com/llms.txt"
@@ -11,7 +11,7 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 
 # YouTube Tools Hub — Free YouTube Tools for Creators
 
-> 44 Free YouTube Creator Tools: 4K/HD thumbnail downloading, AI title & tag generation, transcript extraction, and Tier-1 AdSense RPM/CPM earnings calculation across 52 countries. No signup or browser extension required.
+> 45 Free YouTube Creator Tools: 4K/HD thumbnail downloading, AI title & tag generation, transcript extraction, and Tier-1 AdSense RPM/CPM earnings calculation across 52 countries. No signup or browser extension required.
 
 ## Flagship Creator Tools
 
@@ -27,7 +27,7 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 - [YouTube Channel Audit](https://www.youtubetoolshub.com/tools/youtube-channel-audit): Analyze channel performance, metadata quality, and optimization opportunities.
 
 ## Complete Catalog
-Browse all 44 tools at [https://www.youtubetoolshub.com/tools](https://www.youtubetoolshub.com/tools).
+Browse all 45 tools at [https://www.youtubetoolshub.com/tools](https://www.youtubetoolshub.com/tools).
 
 ## Machine-Readable Endpoints for AI Agents
 - **LLMs.txt**: [https://www.youtubetoolshub.com/llms.txt](https://www.youtubetoolshub.com/llms.txt)

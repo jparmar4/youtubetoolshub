@@ -67,7 +67,6 @@ export const GEO_AEO_PRESETS = {
             "A free suite of creator tools, including AI-assisted generators. Download thumbnails, generate title ideas, calculate earnings, and improve creator workflows.",
         entityType: "WebApplication" as const,
         primaryTopic: "YouTube Creator Tools",
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer:
             `YouTube Tools Hub is a free online platform with ${tools.length} creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, sponsorship rate calculator, and channel valuation calculator. No signup required.`,
         keyFacts: [
@@ -76,7 +75,6 @@ export const GEO_AEO_PRESETS = {
             "Country-specific CPM data for 52+ regions",
             "Tier-1 creator tax, S-Corp, sponsorship, and valuation calculators",
             "Free alternative to TubeBuddy and VidIQ",
-            "Works directly in the browser",
         ],
     },
     toolPage: (
@@ -91,7 +89,6 @@ export const GEO_AEO_PRESETS = {
         isTool: true,
         toolName,
         toolCategory,
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer: `${toolName} is a free online tool by YouTube Tools Hub. ${toolDescription}`,
         keyFacts: [
             `${toolName} is 100% free to use`,
@@ -114,7 +111,6 @@ export const GEO_AEO_PRESETS = {
         author,
         authorRole,
         dateModified,
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer: description,
     }),
     faqPage: {
@@ -123,7 +119,6 @@ export const GEO_AEO_PRESETS = {
             "Get expert answers to common questions about our free YouTube tools, AI features, monetization calculators, and growth strategies.",
         entityType: "WebPage" as const,
         primaryTopic: "YouTube Tools FAQ",
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer:
             `YouTube Tools Hub FAQ covers questions about our ${tools.length} free creator tools, including thumbnail downloader, title generator, tag generator, and earnings calculator.`,
         keyFacts: [
@@ -138,7 +133,6 @@ export const GEO_AEO_PRESETS = {
             `Learn about YouTube Tools Hub, a free suite of ${tools.length} creator tools for YouTube content creators.`,
         entityType: "Organization" as const,
         primaryTopic: "YouTube Tools Hub",
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer:
             `YouTube Tools Hub is a free platform with ${tools.length} creator tools for YouTube creators including thumbnail downloader, title generator, tag generator, earnings calculator, and a channel workflow checklist.`,
         keyFacts: [
@@ -154,7 +148,6 @@ export const GEO_AEO_PRESETS = {
             "Contact YouTube Tools Hub for support, guest post inquiries, partnerships, or feedback. We typically respond within 24 hours.",
         entityType: "WebPage" as const,
         primaryTopic: "Contact YouTube Tools Hub",
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer:
             "Contact YouTube Tools Hub at support@youtubetoolshub.com for support, partnerships, or guest post inquiries.",
     },
@@ -164,14 +157,12 @@ export const GEO_AEO_PRESETS = {
             `YouTube Tools Hub pricing: ${tools.length} core tools are 100% free. Pro tier offers higher daily limits and priority access for power users.`,
         entityType: "WebPage" as const,
         primaryTopic: "YouTube Tools Hub Pricing",
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer:
             `YouTube Tools Hub's core suite of ${tools.length} tools is 100% free with no hidden costs. A Pro tier with higher limits is available for power users.`,
         keyFacts: [
             "Core tools: 100% free forever",
             "No signup required for free tier",
             "Pro tier for higher daily usage limits",
-            "No credit card needed to start",
         ],
     },
     comparisonPage: (competitorName: string) => ({
@@ -179,13 +170,11 @@ export const GEO_AEO_PRESETS = {
         description: `Compare YouTube Tools Hub AI features and pricing with ${competitorName}. Discover why YouTube Tools Hub is the free creator-tool alternative for creators.`,
         entityType: "WebPage" as const,
         primaryTopic: `${competitorName} Alternative`,
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer: `YouTube Tools Hub is a free creator-tool alternative to ${competitorName}, offering ${tools.length} tools including AI-assisted thumbnail generation and a channel workflow checklist with no browser extension required.`,
         keyFacts: [
             `100% free alternative to ${competitorName}`,
             "No browser extension or login required",
             `${tools.length} creator tools included free`,
-            "Advanced AI thumbnail and title generation",
         ],
     }),
     resourcePage: (
@@ -203,7 +192,6 @@ export const GEO_AEO_PRESETS = {
         conciseAnswer,
         keyFacts,
         dateModified,
-        geoTargets: TIER1_GEO_TARGETS,
         author: "YouTube Tools Hub Editorial Team",
         authorRole: "Creator Tools & YouTube Growth Research",
     }),
@@ -212,13 +200,11 @@ export const GEO_AEO_PRESETS = {
         description: description,
         entityType: "SoftwareApplication" as const,
         primaryTopic: `${toolName} for ${nicheName}`,
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer: `This is a specialized version of the ${toolName} specifically optimized for ${nicheName} YouTube channels. ${description}`,
         keyFacts: [
             `Optimized for ${nicheName} specific keywords`,
             "100% free with no signup required",
             "Part of YouTube Tools Hub's creator tool suite",
-            "Designed for practical creator workflows",
         ],
     }),
     countryPage: (
@@ -237,9 +223,8 @@ export const GEO_AEO_PRESETS = {
             `Real 2026 ${countryName} CPM data`,
             `Supports localized currency: ${currency}`,
             `Average RPM: $${avgRPM}`,
-            "Niche-specific earning projections",
         ],
-        geoTargets: countryCode ? [countryCode] : TIER1_GEO_TARGETS,
+        geoTargets: countryCode ? [countryCode] : undefined,
         dateModified,
         author: "YouTube Tools Hub Editorial Team",
         authorRole: "Creator Tools & YouTube Growth Research",
@@ -254,13 +239,10 @@ export const GEO_AEO_PRESETS = {
         description: categoryDescription,
         entityType: "CollectionPage" as const,
         primaryTopic: categoryName,
-        geoTargets: TIER1_GEO_TARGETS,
         conciseAnswer: `${categoryName} suite by YouTube Tools Hub provides ${toolCount} free tools for content creators: ${categoryDescription}. 100% free with no browser extension or signup required.`,
         keyFacts: [
             `${toolCount} free creator tools in ${categoryName}`,
             "No browser extension or login required",
-            "Runs directly in any web browser",
-            "Designed for practical creator workflows",
             ...keyFacts,
         ],
     }),

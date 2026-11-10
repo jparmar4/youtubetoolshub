@@ -90,16 +90,16 @@ export default function MembershipFeeCalculator() {
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-pink-50/60 p-5 sm:p-6 dark:border-purple-900/40 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-pink-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700 dark:bg-purple-950/80 dark:text-purple-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700">
                 <FaCoins /> Creator Monetization Economics
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 How Much Money Are Platform Cuts Costing You?
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600">
                 YouTube takes a staggering 30% cut of every channel membership. Patreon takes 8% to 12% plus processing. Newer platforms like Fourthwall take 0% on memberships.
               </p>
             </div>
@@ -113,10 +113,10 @@ export default function MembershipFeeCalculator() {
         </div>
 
         {/* Inputs */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Active Monthly Members / Patrons
               </label>
               <Input
@@ -132,7 +132,7 @@ export default function MembershipFeeCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Average Membership Tier Price ($/mo)
               </label>
               <Input
@@ -148,7 +148,7 @@ export default function MembershipFeeCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Monthly Digital &amp; Merch Sales ($)
               </label>
               <Input
@@ -169,14 +169,14 @@ export default function MembershipFeeCalculator() {
         {calculations && (
           <div className="space-y-6">
             {/* Top Callout */}
-            <div className="rounded-2xl border border-emerald-300 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 text-center dark:border-emerald-800 dark:from-slate-900 dark:via-emerald-950/20 dark:to-slate-900 shadow-md">
+            <div className="rounded-2xl border border-emerald-300 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 text-center shadow-md">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Annual Creator Take-Home Difference
               </span>
-              <div className="mt-2 text-3xl sm:text-4xl font-black text-emerald-700 dark:text-emerald-400 font-outfit">
+              <div className="mt-2 text-3xl sm:text-4xl font-black text-emerald-700 font-outfit">
                 +${calculations.ytLostAnnual.toLocaleString()}/year Extra with Fourthwall
               </div>
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
+              <p className="mt-2 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
                 YouTube Channel Memberships takes an extra <strong>${calculations.ytLostAnnual.toLocaleString()}</strong> of your money every single year compared to Fourthwall&apos;s 0% platform fee model.
               </p>
             </div>
@@ -184,14 +184,14 @@ export default function MembershipFeeCalculator() {
             {/* 3-Platform Comparison Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* YouTube Memberships */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 flex flex-col justify-between">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-600 text-white font-bold text-sm">
                       <FaYoutube />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                      <h4 className="font-bold text-slate-900 text-base">
                         YouTube Memberships
                       </h4>
                       <span className="text-[11px] text-rose-600 font-semibold">
@@ -201,41 +201,41 @@ export default function MembershipFeeCalculator() {
                   </div>
 
                   <div className="mt-4 space-y-2.5 text-xs">
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Monthly Fees Deducted</span>
-                      <span className="font-bold text-rose-600 dark:text-rose-400">
+                      <span className="font-bold text-rose-600">
                         -${calculations.yt.fees.toLocaleString()}/mo
                       </span>
                     </div>
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Effective Fee Rate</span>
-                      <span className="font-bold text-slate-900 dark:text-white">
+                      <span className="font-bold text-slate-900">
                         {calculations.yt.effectiveFeeRate}%
                       </span>
                     </div>
                     <div className="flex justify-between pt-1">
                       <span className="text-slate-500 font-semibold">Net Annual Take-Home</span>
-                      <span className="font-black text-slate-900 dark:text-white text-sm">
+                      <span className="font-black text-slate-900 text-sm">
                         ${calculations.yt.netAnnual.toLocaleString()}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                <div className="mt-6 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600">
                   ⚠️ YouTube does not give you member email addresses. If your channel is suspended, you lose your entire community.
                 </div>
               </div>
 
               {/* Patreon */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 flex flex-col justify-between">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500 text-white font-black text-sm">
                       P
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                      <h4 className="font-bold text-slate-900 text-base">
                         Patreon (Pro Plan)
                       </h4>
                       <span className="text-[11px] text-amber-600 font-semibold">
@@ -245,34 +245,34 @@ export default function MembershipFeeCalculator() {
                   </div>
 
                   <div className="mt-4 space-y-2.5 text-xs">
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Monthly Fees Deducted</span>
-                      <span className="font-bold text-amber-600 dark:text-amber-400">
+                      <span className="font-bold text-amber-600">
                         -${calculations.patreon.fees.toLocaleString()}/mo
                       </span>
                     </div>
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Effective Fee Rate</span>
-                      <span className="font-bold text-slate-900 dark:text-white">
+                      <span className="font-bold text-slate-900">
                         {calculations.patreon.effectiveFeeRate}%
                       </span>
                     </div>
                     <div className="flex justify-between pt-1">
                       <span className="text-slate-500 font-semibold">Net Annual Take-Home</span>
-                      <span className="font-black text-slate-900 dark:text-white text-sm">
+                      <span className="font-black text-slate-900 text-sm">
                         ${calculations.patreon.netAnnual.toLocaleString()}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                <div className="mt-6 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600">
                   ℹ️ Patreon gives you member emails and Discord sync, but charges 8%–12% platform fee + currency conversion charges.
                 </div>
               </div>
 
               {/* Fourthwall */}
-              <div className="rounded-2xl border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/40 to-white p-6 shadow-md dark:from-slate-900 dark:to-slate-900 flex flex-col justify-between">
+              <div className="rounded-2xl border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/40 to-white p-6 shadow-md flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
@@ -280,7 +280,7 @@ export default function MembershipFeeCalculator() {
                         4
                       </div>
                       <div>
-                        <h4 className="font-bold text-emerald-900 dark:text-emerald-300 text-base">
+                        <h4 className="font-bold text-emerald-900 text-base">
                           Fourthwall
                         </h4>
                         <span className="text-[11px] text-emerald-600 font-semibold">
@@ -294,43 +294,43 @@ export default function MembershipFeeCalculator() {
                   </div>
 
                   <div className="mt-4 space-y-2.5 text-xs">
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Monthly Fees Deducted</span>
-                      <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                      <span className="font-bold text-emerald-600">
                         -${calculations.fourthwall.fees.toLocaleString()}/mo
                       </span>
                     </div>
-                    <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                    <div className="flex justify-between border-b pb-2">
                       <span className="text-slate-500">Effective Fee Rate</span>
-                      <span className="font-bold text-slate-900 dark:text-white">
+                      <span className="font-bold text-slate-900">
                         {calculations.fourthwall.effectiveFeeRate}%
                       </span>
                     </div>
                     <div className="flex justify-between pt-1">
                       <span className="text-slate-500 font-semibold">Net Annual Take-Home</span>
-                      <span className="font-black text-emerald-700 dark:text-emerald-400 text-base">
+                      <span className="font-black text-emerald-700 text-base">
                         ${calculations.fourthwall.netAnnual.toLocaleString()}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-xl bg-emerald-100/60 p-3 text-[11px] text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200">
+                <div className="mt-6 rounded-xl bg-emerald-100/60 p-3 text-[11px] text-emerald-900">
                   🎉 100% email list ownership, custom domain website, native merch shop, and you keep ~95% of every dollar.
                 </div>
               </div>
             </div>
 
             {/* Feature Comparison Table */}
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <div className="p-4 border-b border-slate-100 dark:border-slate-800">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div className="p-4 border-b border-slate-100">
+                <h3 className="text-sm font-bold text-slate-900">
                   Creator Freedom &amp; Feature Comparison
                 </h3>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-50 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                  <thead className="bg-slate-50 text-slate-600">
                     <tr>
                       <th className="p-3">Feature</th>
                       <th className="p-3">YouTube Memberships</th>
@@ -338,7 +338,7 @@ export default function MembershipFeeCalculator() {
                       <th className="p-3">Fourthwall</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+                  <tbody className="divide-y divide-slate-100 text-slate-700">
                     <tr>
                       <td className="p-3 font-semibold">Platform Cut on Memberships</td>
                       <td className="p-3 text-rose-600 font-bold">30% Flat</td>

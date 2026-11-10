@@ -223,7 +223,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
         )}
 
         {/* Input Form Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-6 bg-slate-50/70 dark:bg-slate-800/40 rounded-3xl border border-slate-200/80 dark:border-slate-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-6 bg-slate-50/70 rounded-3xl border border-slate-200/80">
           <div>
             <Input
               label="Current Public Watch Hours"
@@ -312,19 +312,19 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
         {calculations && (
           <div className="space-y-6 pt-2 animate-fade-in">
             {/* Overall Progress Bar */}
-            <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800">
+            <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div>
-                  <span className="text-xs font-black tracking-widest text-emerald-700 uppercase bg-emerald-100 dark:bg-emerald-900/60 px-2.5 py-0.5 rounded-full">
+                  <span className="text-xs font-black tracking-widest text-emerald-700 uppercase bg-emerald-100 px-2.5 py-0.5 rounded-full">
                     YPP Monetization Progress
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-outfit mt-1">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-outfit mt-1">
                     {calculations.overallProgress}% Overall Eligibility Complete
                   </h3>
                 </div>
                 <div className="text-right">
                   <span className="text-xs text-slate-500 block">Projected Monetization</span>
-                  <span className="text-lg font-black text-emerald-700 dark:text-emerald-400">
+                  <span className="text-lg font-black text-emerald-700">
                     {calculations.estimatedCompletionDate}
                   </span>
                 </div>
@@ -333,11 +333,11 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               {/* Multi-Progress Meters */}
               <div className="space-y-3 pt-2">
                 <div>
-                  <div className="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <div className="flex justify-between text-xs font-bold text-slate-700 mb-1">
                     <span>Watch Hours: {calculations.hours.toLocaleString()} / 4,000 hrs</span>
                     <span className="text-emerald-700 font-extrabold">{calculations.hoursProgress}%</span>
                   </div>
-                  <div className="w-full h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-emerald-600 rounded-full transition-all duration-500"
                       style={{ width: `${calculations.hoursProgress}%` }}
@@ -346,11 +346,11 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 </div>
 
                 <div>
-                  <div className="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <div className="flex justify-between text-xs font-bold text-slate-700 mb-1">
                     <span>Subscribers: {calculations.subs.toLocaleString()} / 1,000 subs</span>
                     <span className="text-purple-700 font-extrabold">{calculations.subsProgress}%</span>
                   </div>
-                  <div className="w-full h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-purple-600 rounded-full transition-all duration-500"
                       style={{ width: `${calculations.subsProgress}%` }}
@@ -363,12 +363,12 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             {/* 4-Card Strategic Output Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Remaining Watch Hours */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
                     <FaClock className="mr-1.5 text-emerald-600" /> Remaining Hours
                   </div>
-                  <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-outfit">
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
                     {calculations.remainingHours.toLocaleString()} hrs
                   </div>
                 </div>
@@ -378,12 +378,12 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               </div>
 
               {/* Total Views Needed */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
                     <FaVideo className="mr-1.5 text-blue-600" /> Total Views Needed
                   </div>
-                  <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-outfit">
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
                     ~{calculations.totalViewsNeeded.toLocaleString()}
                   </div>
                 </div>
@@ -393,12 +393,12 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               </div>
 
               {/* Views per Upload Target */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
                     <FaRocket className="mr-1.5 text-purple-600" /> 6-Month Per-Video Target
                   </div>
-                  <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-outfit">
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
                     ~{calculations.viewsPerVideoFor6Months.toLocaleString()} views
                   </div>
                 </div>
@@ -408,12 +408,12 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               </div>
 
               {/* Subscribers Remaining */}
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
                     <FaUsers className="mr-1.5 text-pink-600" /> Subscribers Needed
                   </div>
-                  <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-outfit">
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
                     {calculations.remainingSubs.toLocaleString()} more
                   </div>
                 </div>
@@ -429,10 +429,10 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             <div
               className={`p-5 rounded-2xl border flex items-start gap-3.5 text-xs ${
                 calculations.riskLevel === "high"
-                  ? "bg-red-50 border-red-200 text-red-900 dark:bg-red-950/30 dark:border-red-800 dark:text-red-200"
+                  ?"bg-red-50 border-red-200 text-red-900"
                   : calculations.riskLevel === "moderate"
-                  ? "bg-amber-50 border-amber-200 text-amber-900 dark:bg-amber-950/30 dark:border-amber-800 dark:text-amber-200"
-                  : "bg-emerald-50 border-emerald-200 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-800 dark:text-emerald-200"
+                  ?"bg-amber-50 border-amber-200 text-amber-900"
+                  :"bg-emerald-50 border-emerald-200 text-emerald-900"
               }`}
             >
               {calculations.riskLevel === "high" ? (
@@ -449,8 +449,8 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             </div>
 
             {/* Action Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-emerald-50/70 dark:bg-slate-800 border border-emerald-200 dark:border-slate-700 rounded-2xl">
-              <div className="text-xs font-semibold text-emerald-950 dark:text-slate-200">
+            <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-emerald-50/70 border border-emerald-200 rounded-2xl">
+              <div className="text-xs font-semibold text-emerald-950">
                 Formula: ({calculations.remainingHours.toLocaleString()} hrs × 60) ÷ ({calculations.minutesPerView.toFixed(1)} mins/view) = {calculations.totalViewsNeeded.toLocaleString()} views
               </div>
               <div className="flex items-center gap-2">
@@ -465,14 +465,14 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   type="button"
                   onClick={handlePrintPlan}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 text-xs font-bold transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-colors"
                 >
                   <FaPrint className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Print Blueprint</span>
                 </button>
                 <Link
                   href="/tools/youtube-earnings-calculator"
-                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-emerald-600 text-xs font-bold transition-colors"
+                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-emerald-600 text-xs font-bold transition-colors"
                 >
                   <span>Estimate Earnings →</span>
                 </Link>

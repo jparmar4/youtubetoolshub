@@ -179,9 +179,11 @@ export default function ChannelIdFinder() {
                                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                                         {channelData.title}
                                     </h2>
-                                    <div className="text-slate-500 font-medium">
-                                        {channelData.customUrl}
-                                    </div>
+                                    {channelData.customUrl && (
+                                        <div className="text-slate-500 font-medium">
+                                            {channelData.customUrl}
+                                        </div>
+                                    )}
                                     <div className="flex flex-wrap justify-center sm:justify-start gap-4 mt-2">
                                         <div className="bg-slate-50 px-3 py-1 rounded-lg text-sm text-slate-600">
                                             <span className="font-bold text-slate-900">{formatNumber(channelData.statistics.subscriberCount)}</span> Subscribers
@@ -225,9 +227,9 @@ export default function ChannelIdFinder() {
                                 </div>
                                 <div className="bg-white rounded-xl p-4 flex items-center justify-between gap-4 shadow-sm">
                                     <code className="text-lg font-mono text-purple-600 break-all">
-                                        {channelData.customUrl}
+                                        {channelData.customUrl || "Not set"}
                                     </code>
-                                    <CopyButton text={channelData.customUrl} variant="icon" />
+                                    {channelData.customUrl && <CopyButton text={channelData.customUrl} variant="icon" />}
                                 </div>
                                 <p className="mt-3 text-sm text-purple-700 opacity-80">
                                     This is the custom handle for the channel.

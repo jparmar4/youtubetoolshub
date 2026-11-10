@@ -171,15 +171,23 @@ export function watchAdFill(
 
   const check = (): boolean => {
     const status = insElement.getAttribute("data-adsbygoogle-status");
-    const rect = insElement.getBoundingClientRect();
-    const hasIframe = !!insElement.querySelector("iframe");
-    const content = (insElement as HTMLElement).innerHTML?.trim() ?? "";
-
     if (status === "unfilled") {
       settle("unfilled");
       return true;
     }
 
+    const hasIframe = !!insElement.querySelector("iframe");
+    if (hasIframe && (status === "done" || status === "loaded")) {
+      settle("filled");
+      return true;
+    }
+
+    const content = (insElement as HTMLElement).innerHTML?.trim() ?? "";
+    if (!hasIframe && status !== "done" && status !== "loaded" && content.length === 0) {
+      return false;
+    }
+
+    const rect = insElement.getBoundingClientRect();
     const tallEnough = rect.height >= minHeight || hasIframe;
     if (
       tallEnough &&
@@ -241,6 +249,7 @@ export function watchAdFill(
  * AdSense will not serve to zero-width nodes.
  */
 function hasUsableWidth(el: Element): boolean {
+  if ((el as HTMLElement).offsetWidth > 0) return true;
   const rect = el.getBoundingClientRect();
   if (rect.width > 0) return true;
   // Fallback for off-screen measurement containers (fixed left:-9999px etc.)

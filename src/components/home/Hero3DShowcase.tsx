@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
+import { toolMeta } from "@/config/tool-meta";
 import {
   FaChartLine,
   FaDownload,
@@ -41,7 +42,7 @@ export default function Hero3DShowcase() {
       {/* Ambient UHD 4K Backlight Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-4 bg-gradient-to-r from-purple-600/20 via-fuchsia-500/20 to-emerald-500/20 rounded-[2.5rem] blur-3xl opacity-85"
+        className="pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-[radial-gradient(ellipse_at_center,rgba(147,51,234,0.16),rgba(217,70,239,0.12)_50%,transparent_75%)] opacity-85"
       />
 
       {/* Top 3D Floating Telemetry Pods (No overlap with console header!) */}
@@ -52,7 +53,7 @@ export default function Hero3DShowcase() {
           transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
-        <div className="flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-purple-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(124,58,237,0.22),inset_0_1px_0_0_#fff]">
+        <div className="flex items-center gap-3 bg-white/95 border border-purple-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(124,58,237,0.22),inset_0_1px_0_0_#fff]">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center shadow-md shadow-purple-500/30 shrink-0">
             <FaMagic className="w-4 h-4" />
           </div>
@@ -66,7 +67,7 @@ export default function Hero3DShowcase() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-emerald-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(16,185,129,0.2),inset_0_1px_0_0_#fff]">
+        <div className="flex items-center gap-3 bg-white/95 border border-emerald-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(16,185,129,0.2),inset_0_1px_0_0_#fff]">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-md shadow-emerald-500/30 shrink-0">
             <FaGlobeAmericas className="w-4 h-4" />
           </div>
@@ -80,7 +81,7 @@ export default function Hero3DShowcase() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 bg-white/95 backdrop-blur-xl border border-sky-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(14,165,233,0.2),inset_0_1px_0_0_#fff]">
+        <div className="flex items-center gap-3 bg-white/95 border border-sky-200/90 rounded-2xl px-4 py-2.5 shadow-[0_14px_30px_-8px_rgba(14,165,233,0.2),inset_0_1px_0_0_#fff]">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-md shadow-sky-500/30 shrink-0">
             <FaShieldAlt className="w-4 h-4" />
           </div>
@@ -121,12 +122,12 @@ export default function Hero3DShowcase() {
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-[11px] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
                 4K UHD Engine
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
                 <FaCheckCircle className="w-2.5 h-2.5" />
-                44 Instant Tools
+                {toolMeta.length} Instant Tools
               </span>
             </div>
           </div>
@@ -150,7 +151,7 @@ export default function Hero3DShowcase() {
                 <div className="relative aspect-video rounded-xl overflow-hidden border border-white/15 bg-gradient-to-tr from-purple-950 via-indigo-900 to-fuchsia-900 p-4 flex flex-col justify-between shadow-lg">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(236,72,153,0.4),transparent_60%)]" />
                   <div className="relative z-10 flex items-center justify-between">
-                    <span className="px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-[10px] font-bold text-white border border-white/15">
+                    <span className="px-2 py-0.5 rounded bg-black/75 text-[10px] font-bold text-white border border-white/15">
                       16:9 UHD CANVAS
                     </span>
                     <span className="px-2 py-0.5 rounded bg-emerald-400 text-slate-950 text-[10px] font-black shadow">
@@ -160,7 +161,7 @@ export default function Hero3DShowcase() {
 
                   {/* Center Play Emblem */}
                   <div className="relative z-10 my-auto flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shadow-lg shrink-0">
+                    <div className="w-11 h-11 rounded-xl bg-white/20 border border-white/30 flex items-center justify-center text-white shadow-lg shrink-0">
                       <FaPlay className="w-4 h-4 ml-0.5 text-pink-300" />
                     </div>
                     <div>

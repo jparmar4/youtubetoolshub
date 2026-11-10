@@ -18,7 +18,7 @@ export default function AffiliateBanner({
 
   if (variant === "compact") {
     return (
-      <div className="my-4 rounded-xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-pink-50/80 p-4 dark:border-purple-900/50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-sm">
+      <div className="my-4 rounded-xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-pink-50/80 p-4 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div
@@ -28,7 +28,7 @@ export default function AffiliateBanner({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-900 dark:text-white text-sm">
+                <span className="font-bold text-slate-900 text-sm">
                   {tool.name}
                 </span>
                 <span
@@ -37,7 +37,7 @@ export default function AffiliateBanner({
                   {tool.badge}
                 </span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+              <p className="text-xs text-slate-600 font-medium">
                 {tool.tagline}
               </p>
             </div>
@@ -58,15 +58,15 @@ export default function AffiliateBanner({
 
   if (variant === "inArticle") {
     return (
-      <div className="my-8 rounded-2xl border border-amber-200/70 bg-amber-50/40 p-6 dark:border-amber-900/40 dark:bg-amber-950/10 shadow-sm">
-        <div className="flex items-center gap-2 text-amber-800 dark:text-amber-400 font-bold text-xs uppercase tracking-wider mb-2">
+      <div className="my-8 rounded-2xl border border-amber-200/70 bg-amber-50/40 p-6 shadow-sm">
+        <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider mb-2">
           <FaStar className="text-amber-500" />
           <span>Recommended Creator Tool</span>
         </div>
-        <h3 className="text-lg font-black text-slate-900 dark:text-white mb-1">
+        <h3 className="text-lg font-black text-slate-900 mb-1">
           {tool.name} — {tool.tagline}
         </h3>
-        <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+        <p className="text-sm text-slate-600 mb-4 leading-relaxed">
           {tool.description}
         </p>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -79,7 +79,7 @@ export default function AffiliateBanner({
             <FaRocket className="text-amber-300" />
             <span>{tool.ctaText}</span>
           </a>
-          <span className="text-[11px] text-slate-400 dark:text-slate-500 italic text-center sm:text-right">
+          <span className="text-[11px] text-slate-400 italic text-center sm:text-right">
             {DEFAULT_AFFILIATE_DISCLOSURE}
           </span>
         </div>
@@ -89,7 +89,7 @@ export default function AffiliateBanner({
 
   // Default card variant
   return (
-    <div className="my-6 rounded-2xl border border-purple-100 bg-gradient-to-br from-white via-purple-50/30 to-indigo-50/30 p-6 dark:border-slate-800 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-md">
+    <div className="my-6 rounded-2xl border border-purple-100 bg-gradient-to-br from-white via-purple-50/30 to-indigo-50/30 p-6 shadow-md">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div
@@ -98,7 +98,7 @@ export default function AffiliateBanner({
             {tool.name.charAt(0)}
           </div>
           <div>
-            <h4 className="font-extrabold text-slate-900 dark:text-white text-base">
+            <h4 className="font-extrabold text-slate-900 text-base">
               {tool.name}
             </h4>
             <span
@@ -110,10 +110,10 @@ export default function AffiliateBanner({
         </div>
       </div>
 
-      <p className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
+      <p className="text-sm font-semibold text-slate-800 mb-1">
         {tool.tagline}
       </p>
-      <p className="text-xs text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+      <p className="text-xs text-slate-600 mb-4 leading-relaxed">
         {tool.description}
       </p>
 
@@ -127,7 +127,7 @@ export default function AffiliateBanner({
           <span>{tool.ctaText}</span>
           <FaExternalLinkAlt className="text-xs" />
         </a>
-        <p className="text-[10px] text-slate-400 dark:text-slate-500 text-center italic mt-1">
+        <p className="text-[10px] text-slate-400 text-center italic mt-1">
           {DEFAULT_AFFILIATE_DISCLOSURE}
         </p>
       </div>

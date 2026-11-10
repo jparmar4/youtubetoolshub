@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
-import { getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
+import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
 import GoogleAd from "@/components/ads/GoogleAd";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
@@ -85,19 +85,9 @@ export default function AnalyticsToolsHub() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(toolListSchema),
-                }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(breadcrumbSchema),
-                }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify(faqSchema),
+                    __html: JSON.stringify(
+                        combineSchemasToGraph(toolListSchema, breadcrumbSchema, faqSchema),
+                    ),
                 }}
             />
 
@@ -131,7 +121,7 @@ export default function AnalyticsToolsHub() {
                     </div>
 
                     {/* Top Leaderboard Ad */}
-                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 min-h-[90px] flex flex-col items-center justify-center">
+                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                         <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                     </div>
@@ -170,7 +160,6 @@ export default function AnalyticsToolsHub() {
                         {analyticsTools.map((tool) => (
                             <ToolCard
                                 key={tool.slug}
-                                icon={<tool.icon />}
                                 title={tool.name}
                                 description={tool.description}
                                 href={`/tools/${tool.slug}`}
@@ -207,7 +196,7 @@ export default function AnalyticsToolsHub() {
                                 <h2 className="text-3xl font-bold text-slate-900 mb-6 font-outfit">
                                     Why Data Trumps Luck in 2026
                                 </h2>
-                                <div className="prose prose-lg max-w-none text-slate-600">
+                                <div className="article-prose max-w-none text-slate-600">
                                     <p className="mb-4">
                                         The 2026 YouTube landscape is no longer about guessing. It&apos;s about <strong>mathematical predictability</strong>. Our analytics tools provide you with the raw data needed to treat your channel like a high-growth startup:
                                     </p>

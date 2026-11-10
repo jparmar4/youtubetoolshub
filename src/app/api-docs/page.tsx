@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
+import { tools } from "@/config/tools";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import Link from "next/link";
 import {
     FaCode,
@@ -51,7 +53,7 @@ const endpoints = [
         path: "/api/tools",
         summary: "List all available tools",
         description:
-            "Returns metadata for all 44 free tools including names, descriptions, categories, AI-assisted status and keywords.",
+            `Returns metadata for all ${tools.length} free tools including names, descriptions, categories, AI-assisted status and keywords.`,
         response: '{ _meta, categories, tools: [{ slug, name, ... }] }',
     },
     {
@@ -137,15 +139,9 @@ export default function APIDocsPage() {
         description:
             "Complete API reference for YouTube Tools Hub public endpoints, OpenAPI spec, and AI plugin integration.",
         url: `${baseUrl}/api-docs`,
-        author: {
-            "@type": "Organization",
-            name: siteConfig.name,
-        },
-        publisher: {
-            "@type": "Organization",
-            name: siteConfig.name,
-        },
-        dateModified: new Date().toISOString(),
+        author: { "@id": `${baseUrl}/#organization` },
+        publisher: { "@id": `${baseUrl}/#organization` },
+        dateModified: DATA_LAST_REVIEWED,
         inLanguage: "en",
     };
 

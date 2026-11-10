@@ -69,7 +69,7 @@ export default function DashboardPage() {
 
     if (status === "loading" || usageLoading) {
         return (
-            <div className="min-h-screen pt-24 flex justify-center items-center bg-slate-50 dark:bg-slate-900">
+            <div className="min-h-screen pt-24 flex justify-center items-center bg-slate-50">
                 <div className="flex flex-col items-center gap-4">
                     <div className="animate-spin text-4xl text-purple-600"><FaRocket /></div>
                     <div className="animate-pulse text-slate-500">Loading Dashboard...</div>
@@ -88,11 +88,11 @@ export default function DashboardPage() {
     const getToolBySlug = (slug: string): ToolMeta | undefined => getToolMetaBySlug(slug);
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-28 pb-12">
+        <div className="min-h-screen bg-slate-50 pt-28 pb-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Header Section */}
-                <div className="glass-premium rounded-3xl p-8 mb-10 border border-slate-200/50 dark:border-slate-800 shadow-sm relative overflow-hidden">
+                <div className="glass-premium rounded-3xl p-8 mb-10 border border-slate-200/50 shadow-sm relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -103,24 +103,24 @@ export default function DashboardPage() {
                                     alt={session.user.name || "User"}
                                     width={80}
                                     height={80}
-                                    className="rounded-2xl border-4 border-white dark:border-slate-800 shadow-lg"
+                                    className="rounded-2xl border-4 border-white shadow-lg"
                                 />
                             ) : (
-                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center text-white text-3xl font-bold border-4 border-white dark:border-slate-800 shadow-lg">
+                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center text-white text-3xl font-bold border-4 border-white shadow-lg">
                                     {session?.user?.name?.[0] || "U"}
                                 </div>
                             )}
                             <div>
-                                <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                                <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
                                     Welcome back, <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">{session?.user?.name?.split(" ")[0]}</span>!
                                 </h1>
                                 <div className="flex items-center gap-3">
-                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold shadow-sm ${usage?.isPro ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}`}>
+                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold shadow-sm ${usage?.isPro ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 text-slate-700'}`}>
                                         {usage?.isPro ? <FaCrown /> : null}
                                         {usage?.isPro ? 'PRO Plan' : 'Free Plan'}
                                     </span>
                                     <span className="text-slate-300">•</span>
-                                    <span className="text-slate-500 dark:text-slate-400 text-sm">Member since 2025</span>
+                                    <span className="text-slate-500 text-sm">Member since 2025</span>
                                 </div>
                             </div>
                         </div>
@@ -132,8 +132,8 @@ export default function DashboardPage() {
                     {/* Left Column - Stats & History */}
                     <div className="lg:col-span-1 space-y-8">
                         {/* Usage Stats Card */}
-                        <Card className="p-6 bg-white dark:bg-slate-900">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <Card className="p-6 bg-white">
+                            <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                                 <span className="p-2 rounded-lg bg-blue-50 text-blue-600"><FaChartBar /></span>
                                 Monthly Usage
                             </h2>
@@ -141,10 +141,10 @@ export default function DashboardPage() {
                             <div className="space-y-6">
                                 <div>
                                     <div className="flex justify-between text-sm mb-2 font-medium">
-                                        <span className="text-slate-600 dark:text-slate-400">AI Text Credits</span>
-                                        <span className="text-slate-900 dark:text-white">{usage?.aiUsed} / {usage?.aiLimit}</span>
+                                        <span className="text-slate-600">AI Text Credits</span>
+                                        <span className="text-slate-900">{usage?.aiUsed} / {usage?.aiLimit}</span>
                                     </div>
-                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
                                         <div
                                             className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-1000 ease-out"
                                             style={{ width: `${usagePercent(usage?.aiUsed || 0, usage?.aiLimit || 1)}%` }}
@@ -154,10 +154,10 @@ export default function DashboardPage() {
 
                                 <div>
                                     <div className="flex justify-between text-sm mb-2 font-medium">
-                                        <span className="text-slate-600 dark:text-slate-400">Image Generations</span>
-                                        <span className="text-slate-900 dark:text-white">{usage?.imageUsed} / {usage?.imageLimit}</span>
+                                        <span className="text-slate-600">Image Generations</span>
+                                        <span className="text-slate-900">{usage?.imageUsed} / {usage?.imageLimit}</span>
                                     </div>
-                                    <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
                                         <div
                                             className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-1000 ease-out"
                                             style={{ width: `${usagePercent(usage?.imageUsed || 0, usage?.imageLimit || 1)}%` }}
@@ -169,7 +169,7 @@ export default function DashboardPage() {
                             {!usage?.isPro && (
                                 <Link
                                     href="/pricing"
-                                    className="mt-8 block w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-xl text-center hover:scale-[1.02] transition-transform shadow-lg"
+                                    className="mt-8 block w-full py-3 bg-slate-900 text-white font-bold rounded-xl text-center hover:scale-[1.02] transition-transform shadow-lg"
                                 >
                                     Upgrade to PRO
                                 </Link>
@@ -177,8 +177,8 @@ export default function DashboardPage() {
                         </Card>
 
                         {/* Recent Activity */}
-                        <Card className="p-6 bg-white dark:bg-slate-900">
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                        <Card className="p-6 bg-white">
+                            <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                                 <span className="p-2 rounded-lg bg-green-50 text-green-600"><FaHistory /></span>
                                 Recent Activity
                             </h2>
@@ -192,12 +192,12 @@ export default function DashboardPage() {
                                     {history.map((item) => {
                                         const tool = getToolBySlug(item.toolSlug);
                                         return (
-                                            <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border border-transparent hover:border-slate-100">
+                                            <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
                                                 <div className="flex-shrink-0 text-slate-400">
                                                     {tool ? <tool.icon /> : <FaCheckCircle />}
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <div className="text-sm font-medium text-slate-900 dark:text-white truncate">
+                                                    <div className="text-sm font-medium text-slate-900 truncate">
                                                         {tool?.name || "Generated Content"}
                                                     </div>
                                                     <div className="text-xs text-slate-500 flex items-center gap-1">
@@ -265,7 +265,7 @@ export default function DashboardPage() {
 
                         {/* Quick Access Tools Grid */}
                         <div>
-                            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                                 <FaRocket className="text-purple-500" />
                                 Popular Tools
                             </h2>
@@ -273,7 +273,6 @@ export default function DashboardPage() {
                                 {toolMeta.filter(t => ['youtube-title-generator', 'youtube-thumbnail-generator', 'youtube-video-ideas-generator', 'youtube-channel-audit'].includes(t.slug)).map(tool => (
                                     <ToolCard
                                         key={tool.slug}
-                                        icon={<tool.icon />}
                                         title={tool.name}
                                         description={tool.shortDescription}
                                         href={`/tools/${tool.slug}`}
@@ -289,23 +288,23 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Trending Section */}
-                        <Card className="p-8 bg-white dark:bg-slate-900">
+                        <Card className="p-8 bg-white">
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                                     <span className="p-2 rounded-lg bg-orange-50 text-orange-500"><FaFire /></span>
                                     Trending Now (US)
                                 </h2>
-                                <span className="text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">Live Data</span>
+                                <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded">Live Data</span>
                             </div>
 
                             {trendingLoading ? (
                                 <div className="space-y-4">
                                     {[1, 2, 3].map(i => (
                                         <div key={i} className="animate-pulse flex items-start gap-4">
-                                            <div className="w-16 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
+                                            <div className="w-16 h-10 bg-slate-200 rounded-lg"></div>
                                             <div className="flex-1 space-y-2">
-                                                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4"></div>
-                                                <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/2"></div>
+                                                <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                                                <div className="h-3 bg-slate-200 rounded w-1/2"></div>
                                             </div>
                                         </div>
                                     ))}
@@ -316,22 +315,22 @@ export default function DashboardPage() {
                                         <Link
                                             key={video.id}
                                             href={`/tools/youtube-video-ideas-generator?topic=${encodeURIComponent(video.title)}`}
-                                            className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
+                                            className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
                                         >
-                                            <div className="flex-shrink-0 font-mono text-2xl font-bold text-slate-300 dark:text-slate-600 group-hover:text-orange-500 transition-colors w-8">
+                                            <div className="flex-shrink-0 font-mono text-2xl font-bold text-slate-300 group-hover:text-orange-500 transition-colors w-8">
                                                 {index + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="font-semibold text-slate-900 dark:text-white line-clamp-1 group-hover:text-orange-600 transition-colors">
+                                                <h3 className="font-semibold text-slate-900 line-clamp-1 group-hover:text-orange-600 transition-colors">
                                                     {video.title}
                                                 </h3>
-                                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                                <p className="text-sm text-slate-500 mt-1">
                                                     {video.channel} • {parseInt(video.views).toLocaleString()} views
                                                 </p>
                                                 {video.tags && video.tags.length > 0 && (
                                                     <div className="flex flex-wrap gap-2 mt-2">
                                                         {video.tags.slice(0, 3).map(tag => (
-                                                            <span key={tag} className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded">
+                                                            <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
                                                                 #{tag}
                                                             </span>
                                                         ))}

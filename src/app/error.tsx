@@ -18,7 +18,7 @@ export default function Error({
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
             <div className="text-center max-w-md">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
                     <svg
                         className="w-10 h-10 text-red-500"
                         fill="none"
@@ -33,10 +33,10 @@ export default function Error({
                         />
                     </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">
                     Something went wrong!
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-gray-600 mb-6">
                     We apologize for the inconvenience. Please try again or go back to the homepage.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -48,7 +48,7 @@ export default function Error({
                     </button>
                     <Link
                         href="/"
-                        className="px-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-medium rounded-xl transition-colors"
+                        className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium rounded-xl transition-colors"
                     >
                         Go Home
                     </Link>

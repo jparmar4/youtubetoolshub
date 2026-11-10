@@ -34,19 +34,19 @@ export default function QuickAnswerCapsule({
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500" />
 
       <div className="flex items-center gap-2 mb-3">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-700 text-xs font-bold uppercase tracking-wider">
           <FaBolt className="text-emerald-500 animate-pulse" />
           {badgeText}
         </span>
       </div>
 
       {question && (
-        <h2 className="text-lg md:text-xl font-black text-slate-900 dark:text-white mb-2.5 tracking-tight">
+        <h2 className="text-lg md:text-xl font-black text-slate-900 mb-2.5 tracking-tight">
           {question}
         </h2>
       )}
 
-      <p className="text-slate-800 dark:text-slate-200 text-base md:text-lg leading-relaxed font-medium summary mb-4">
+      <p className="text-slate-800 text-base md:text-lg leading-relaxed font-medium summary mb-4">
         {answer}
       </p>
 
@@ -55,9 +55,9 @@ export default function QuickAnswerCapsule({
           {keyPoints.map((point, i) => (
             <li
               key={i}
-              className="flex items-start gap-2 text-xs md:text-sm text-slate-700 dark:text-slate-300 font-medium"
+              className="flex items-start gap-2 text-xs md:text-sm text-slate-700 font-medium"
             >
-              <FaCheckCircle className="text-emerald-700 dark:text-emerald-400 mt-0.5 shrink-0 text-xs" />
+              <FaCheckCircle className="text-emerald-700 mt-0.5 shrink-0 text-xs" />
               <span>{point}</span>
             </li>
           ))}
@@ -65,7 +65,7 @@ export default function QuickAnswerCapsule({
       )}
 
       {verifiedNote && (
-        <p className="mt-3.5 text-[11px] text-slate-500 dark:text-slate-400 italic">
+        <p className="mt-3.5 text-[11px] text-slate-500 italic">
           ✓ {verifiedNote}
         </p>
       )}

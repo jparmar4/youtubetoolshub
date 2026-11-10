@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
+import { toolMeta } from "@/config/tool-meta";
 
 const QUICK_LAUNCH_TOOLS = [
   {
@@ -81,7 +82,7 @@ export default function BlogSidebar() {
             href="/tools"
             className="text-[11px] font-bold text-purple-700 hover:underline flex items-center gap-1"
           >
-            <span>All 44</span>
+            <span>All {toolMeta.length}</span>
             <FaArrowRight className="w-2.5 h-2.5" />
           </Link>
         </div>
@@ -170,7 +171,6 @@ export default function BlogSidebar() {
             format="auto"
             responsive
             lazy={false}
-            style={{ display: "block" }}
             className="w-full"
           />
         ) : (

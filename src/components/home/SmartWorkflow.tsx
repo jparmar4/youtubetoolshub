@@ -83,7 +83,7 @@ const colorClasses: Record<
 
 export default function SmartWorkflow() {
   return (
-    <section className="py-20 relative overflow-hidden bg-slate-50">
+    <section className="py-20 relative overflow-hidden bg-slate-50 cv-auto">
       <div className="nebula-bg opacity-70" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

@@ -99,13 +99,13 @@ export default function ChannelValuationCalculator() {
             description="Estimate the market value, acquisition price, and net worth of any YouTube channel based on monthly net profit and creator multiples."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Currency Selector Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex items-center gap-2">
                         <FaExchangeAlt className="text-emerald-600" />
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Valuation Currency:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900">
+                        <span className="text-sm font-semibold text-slate-700">Valuation Currency:</span>
+                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
                             {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
                                 <button
                                     key={c}
@@ -114,7 +114,7 @@ export default function ChannelValuationCalculator() {
                                     className={`px-3 py-1.5 text-xs font-bold transition-all ${
                                         currency === c
                                             ? "bg-emerald-600 text-white"
-                                            : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            :"text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {c}
@@ -130,7 +130,7 @@ export default function ChannelValuationCalculator() {
                 <p className="text-sm text-slate-500">Enter monthly profit after allocating operating costs across each income stream. All amounts use the selected currency; changing currency relabels amounts without converting them. This model supports profitable channels only.</p>
                 {/* Financial Inputs */}
                 <div>
-                    <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
                         <FaCoins className="text-emerald-600" />
                         1. Monthly Net Cash Flow Breakdown
                     </h3>
@@ -165,13 +165,13 @@ export default function ChannelValuationCalculator() {
                 {/* Qualitative Drivers: Growth & Model */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">
+                        <label className="block text-sm font-bold text-slate-800 mb-2">
                             Year-Over-Year Channel Trajectory
                         </label>
                         <select
                             value={growth}
                             onChange={(e) => setGrowth(e.target.value)}
-                            className="w-full px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         >
                             {GROWTH_TIERS.map((g) => (
                                 <option key={g.id} value={g.id}>
@@ -183,13 +183,13 @@ export default function ChannelValuationCalculator() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">
+                        <label className="block text-sm font-bold text-slate-800 mb-2">
                             Channel Model & Operational Transferability
                         </label>
                         <select
                             value={model}
                             onChange={(e) => setModel(e.target.value)}
-                            className="w-full px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         >
                             {CHANNEL_MODELS.map((m) => (
                                 <option key={m.id} value={m.id}>
@@ -203,12 +203,12 @@ export default function ChannelValuationCalculator() {
 
                 {/* Results Section */}
                 {calculations && (
-                    <div className="space-y-8 pt-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
+                    <div className="space-y-8 pt-4 border-t border-slate-200 animate-fade-in">
                         <div className="text-center">
-                            <span className="inline-block text-xs font-black tracking-widest text-emerald-600 uppercase bg-emerald-100 dark:bg-emerald-900/40 px-3 py-1 rounded-full mb-2">
+                            <span className="inline-block text-xs font-black tracking-widest text-emerald-600 uppercase bg-emerald-100 px-3 py-1 rounded-full mb-2">
                                 2026 Asset Valuation Estimate
                             </span>
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                            <h3 className="text-2xl font-black text-slate-900 font-outfit">
                                 Estimated Channel Enterprise Value
                             </h3>
                         </div>
@@ -216,11 +216,11 @@ export default function ChannelValuationCalculator() {
                         {/* Valuation Tiers Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Conservative */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
                                     Liquidation / Quick Sale
                                 </div>
-                                <div className="text-3xl font-black text-slate-700 dark:text-slate-200 font-outfit">
+                                <div className="text-3xl font-black text-slate-700 font-outfit">
                                     {activeCurrency.symbol}{calculations.conservativeValue.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -229,27 +229,27 @@ export default function ChannelValuationCalculator() {
                             </div>
 
                             {/* Fair Market */}
-                            <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-50 to-white dark:from-emerald-950/40 dark:to-slate-900 border-2 border-emerald-500 shadow-xl text-center relative overflow-hidden">
+                            <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-50 to-white border-2 border-emerald-500 shadow-xl text-center relative overflow-hidden">
                                 <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
                                     Fair Market Value
                                 </div>
-                                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+                                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">
                                     Estimated Broker Price
                                 </div>
-                                <div className="text-4xl font-black text-emerald-700 dark:text-emerald-300 font-outfit">
+                                <div className="text-4xl font-black text-emerald-700 font-outfit">
                                     {activeCurrency.symbol}{calculations.fairMarketValue.toLocaleString()}
                                 </div>
-                                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                                <p className="text-xs text-slate-600 mt-2 font-medium">
                                     Standard list price on digital asset marketplaces (e.g. Empire Flippers).
                                 </p>
                             </div>
 
                             {/* Strategic */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">
                                     Strategic Buyer / M&A
                                 </div>
-                                <div className="text-3xl font-black text-purple-600 dark:text-purple-400 font-outfit">
+                                <div className="text-3xl font-black text-purple-600 font-outfit">
                                     {activeCurrency.symbol}{calculations.strategicValue.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -259,12 +259,12 @@ export default function ChannelValuationCalculator() {
                         </div>
 
                         {/* Revenue Diversification Bar & Metrics */}
-                        <div className="p-6 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4">
+                        <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
                             <div className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold">
-                                <span className="text-slate-700 dark:text-slate-200">
+                                <span className="text-slate-700">
                                     Monthly Net Cash Flow: <strong>{activeCurrency.symbol}{calculations.totalMonthlyNet.toLocaleString()}</strong> ({activeCurrency.symbol}{calculations.annualRunRate.toLocaleString()}/yr)
                                 </span>
-                                <span className="text-emerald-600 dark:text-emerald-400">
+                                <span className="text-emerald-600">
                                     Valuation Multiple: <strong>{calculations.monthlyMultiple}x Monthly</strong> ({calculations.annualMultiple}x Annual SDE)
                                 </span>
                             </div>
@@ -275,7 +275,7 @@ export default function ChannelValuationCalculator() {
                                     <span>Revenue Stream Mix</span>
                                     <span>{calculations.adsensePct}% AdSense · {calculations.sponsorPct}% Sponsors · {calculations.affiliatePct}% Affiliates</span>
                                 </div>
-                                <div className="h-3 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                                <div className="h-3 w-full bg-slate-200 rounded-full overflow-hidden flex">
                                     <div style={{ width: `${calculations.adsensePct}%` }} className="bg-red-500 h-full" title="AdSense" />
                                     <div style={{ width: `${calculations.sponsorPct}%` }} className="bg-purple-600 h-full" title="Sponsorships" />
                                     <div style={{ width: `${calculations.affiliatePct}%` }} className="bg-emerald-500 h-full" title="Affiliates" />
@@ -284,12 +284,12 @@ export default function ChannelValuationCalculator() {
                         </div>
 
                         {/* Value Drivers Checklist */}
-                        <div className="p-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
-                            <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                        <div className="p-6 bg-white rounded-2xl border border-slate-200 space-y-3">
+                            <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
                                 <FaLightbulb className="text-amber-500" />
                                 How to Increase Your Channel’s Selling Multiple
                             </h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-300">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600">
                                 <div className="flex items-start gap-2">
                                     <FaCheckCircle className="text-emerald-500 shrink-0 mt-0.5" />
                                     <span><strong>Evergreen Backlog:</strong> Videos continuing to generate views 12+ months post-upload demand the highest multiples.</span>

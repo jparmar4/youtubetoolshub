@@ -201,18 +201,16 @@ export default function Tier1ComparisonMatrix() {
                     key={c.code}
                     type="button"
                     onClick={() => setSelectedCountryCode(c.code)}
-                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                      isSelected
+                    className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${isSelected
                         ? "bg-purple-50 border-purple-500 text-purple-950 font-bold shadow-xs ring-1 ring-purple-500"
                         : "bg-slate-50/80 border-slate-200 text-slate-700 hover:bg-white hover:border-purple-300"
-                    }`}
+                      }`}
                   >
                     <span
-                      className={`w-8 h-8 rounded-lg font-mono text-xs font-black flex items-center justify-center shrink-0 shadow-2xs ${
-                        isSelected
+                      className={`w-8 h-8 rounded-lg font-mono text-xs font-black flex items-center justify-center shrink-0 shadow-2xs ${isSelected
                           ? "bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white"
                           : "bg-white border border-slate-200 text-slate-700"
-                      }`}
+                        }`}
                     >
                       {c.code}
                     </span>
@@ -241,14 +239,13 @@ export default function Tier1ComparisonMatrix() {
                     key={p.views}
                     type="button"
                     onClick={() => setSelectedViews(p.views)}
-                    className={`p-3 rounded-xl border text-center transition-all ${
-                      isSelected
+                    className={`p-3 rounded-xl border text-center transition-all ${isSelected
                         ? "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold shadow-xs ring-1 ring-emerald-500"
                         : "bg-slate-50/70 border-slate-200 text-slate-700 hover:bg-slate-100"
-                    }`}
+                      }`}
                   >
                     <div className="text-sm font-bold">{p.label}</div>
-                    <div className="text-[10px] text-slate-400">/ month</div>
+                    <div className="text-[10px] text-slate-600">/ month</div>
                   </button>
                 );
               })}
@@ -259,65 +256,65 @@ export default function Tier1ComparisonMatrix() {
         {/* Calculated Revenue Result Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Monthly AdSense */}
-          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
-            <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
+          <div className="bg-gradient-to-br from-purple-700 to-indigo-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <div className="text-xs font-bold uppercase tracking-wider text-white/95 mb-1">
               Estimated Monthly AdSense
             </div>
             <div className="text-3xl font-black tracking-tight">
               ${stats.monthlyAdSenseAvg.toLocaleString()}
             </div>
-            <div className="text-xs opacity-80 mt-1">
+            <div className="text-xs text-white/95 mt-1">
               Range: ${stats.monthlyAdSenseMin.toLocaleString()} – ${stats.monthlyAdSenseMax.toLocaleString()}
             </div>
-            <div className="text-[10px] opacity-70 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Based on ${activeCountry.rpmAvg.toFixed(2)} average RPM
             </div>
           </div>
 
           {/* Annualized Run Rate */}
-          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
-            <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
+          <div className="bg-gradient-to-br from-emerald-700 to-teal-800 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <div className="text-xs font-bold uppercase tracking-wider text-white/95 mb-1">
               Annualized Run Rate
             </div>
             <div className="text-3xl font-black tracking-tight">
               ${stats.annualAdSenseAvg.toLocaleString()}
             </div>
-            <div className="text-xs opacity-80 mt-1">
+            <div className="text-xs text-white/95 mt-1">
               12-Month Ad Revenue
             </div>
-            <div className="text-[10px] opacity-70 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Excluding seasonal Q4 spikes (+20–50%)
             </div>
           </div>
 
           {/* Sponsor Value Per Video */}
-          <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
-            <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
+          <div className="bg-gradient-to-br from-amber-700 to-orange-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <div className="text-xs font-bold uppercase tracking-wider text-white/95 mb-1">
               Brand Deal / Sponsor Rate
             </div>
             <div className="text-2xl sm:text-3xl font-black tracking-tight">
               ${stats.sponsorPerVideoMin.toLocaleString()} – ${stats.sponsorPerVideoMax.toLocaleString()}
             </div>
-            <div className="text-xs opacity-80 mt-1">
+            <div className="text-xs text-white/95 mt-1">
               Per 60s Video Integration
             </div>
-            <div className="text-[10px] opacity-70 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Tier 1 Brand Direct Placement
             </div>
           </div>
 
           {/* Estimated Asset Value */}
-          <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
-            <div className="text-xs font-bold uppercase tracking-wider opacity-80 mb-1">
+          <div className="bg-gradient-to-br from-rose-700 to-pink-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <div className="text-xs font-bold uppercase tracking-wider text-white/95 mb-1">
               Channel Sale Valuation
             </div>
             <div className="text-2xl sm:text-3xl font-black tracking-tight">
               ${stats.channelValueMin.toLocaleString()} – ${stats.channelValueMax.toLocaleString()}
             </div>
-            <div className="text-xs opacity-80 mt-1">
+            <div className="text-xs text-white/95 mt-1">
               24x–36x Monthly Net Multiple
             </div>
-            <div className="text-[10px] opacity-70 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Broker standard (Flippa / Empire Flippers)
             </div>
           </div>

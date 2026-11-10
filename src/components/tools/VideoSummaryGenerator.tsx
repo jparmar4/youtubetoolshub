@@ -90,22 +90,22 @@ TRANSCRIPT:
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-indigo-50/60 p-5 sm:p-6 dark:border-purple-900/40 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-indigo-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700 dark:bg-purple-950/80 dark:text-purple-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700">
                 <FaMagic /> Zero-Hallucination AI Framework
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 YouTube Video Summary & Content Repurposing Generator
               </h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-1 text-sm text-slate-600">
                 Turn any long-form video, lecture, or podcast into structured executive summaries, blog posts, and scripts without paying $20/month for browser extensions.
               </p>
             </div>
             <Link
               href="/blog/youtube-video-summary-generator-ai-free"
-              className="text-xs font-bold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 self-start sm:self-center bg-white dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-purple-200 dark:border-purple-800"
+              className="text-xs font-bold text-purple-600 hover:underline flex items-center gap-1 self-start sm:self-center bg-white px-3 py-1.5 rounded-lg border border-purple-200"
             >
               Read Full 50-Video Study <FaExternalLinkAlt className="text-[10px]" />
             </Link>
@@ -113,8 +113,8 @@ TRANSCRIPT:
         </div>
 
         {/* Step 1: Video Input & Transcript Connection */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4">
-          <label className="block text-sm font-bold text-slate-800 dark:text-slate-200">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <label className="block text-sm font-bold text-slate-800">
             Step 1: Enter Target YouTube Video URL
           </label>
           <div className="flex flex-col sm:flex-row gap-3">
@@ -132,13 +132,13 @@ TRANSCRIPT:
               <FaFileAlt /> Extract Clean Transcript Free
             </Link>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500">
             💡 <strong>Why extract transcript first?</strong> Feeding verbatim transcripts into your AI eliminates 99% of hallucinations and phantom quotes caused by generic &quot;browse URL&quot; bots.
           </p>
         </div>
 
         {/* Step 2: Choose Synthesis Framework */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
               Step 2: Select Summary Output Framework
@@ -149,8 +149,8 @@ TRANSCRIPT:
                 onClick={() => setActiveFramework("executive")}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "executive"
-                    ? "border-purple-500 bg-purple-50/50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 shadow-sm"
-                    : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
@@ -164,8 +164,8 @@ TRANSCRIPT:
                 onClick={() => setActiveFramework("study")}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "study"
-                    ? "border-purple-500 bg-purple-50/50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 shadow-sm"
-                    : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
@@ -179,8 +179,8 @@ TRANSCRIPT:
                 onClick={() => setActiveFramework("seo-article")}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "seo-article"
-                    ? "border-purple-500 bg-purple-50/50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 shadow-sm"
-                    : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
@@ -194,8 +194,8 @@ TRANSCRIPT:
                 onClick={() => setActiveFramework("shorts-script")}
                 className={`p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "shorts-script"
-                    ? "border-purple-500 bg-purple-50/50 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 shadow-sm"
-                    : "border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300"
+                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
@@ -207,8 +207,8 @@ TRANSCRIPT:
           </div>
 
           {/* Prompt Modifiers */}
-          <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
-            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+          <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-slate-100">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
               <input
                 type="checkbox"
                 checked={includeTimestamps}
@@ -217,7 +217,7 @@ TRANSCRIPT:
               />
               Require Exact Timestamps
             </label>
-            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
               <input
                 type="checkbox"
                 checked={includeMetrics}
@@ -226,7 +226,7 @@ TRANSCRIPT:
               />
               Extract Numbers & Financial Metrics
             </label>
-            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1 ml-auto">
+            <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1 ml-auto">
               <FaShieldAlt /> Anti-Hallucination Grounding Locked
             </span>
           </div>
@@ -255,36 +255,36 @@ TRANSCRIPT:
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             href="/tools/youtube-transcript-downloader"
-            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-purple-300 dark:hover:border-purple-800 transition-all shadow-sm block"
+            className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all shadow-sm block"
           >
-            <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+            <h4 className="font-bold text-sm text-slate-900 flex items-center gap-1.5 mb-1">
               <FaFileAlt className="text-indigo-500" /> Step 1: Get Transcript
             </h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600">
               Download clean subtitles in plain text or SRT without paying for software.
             </p>
           </Link>
 
           <Link
             href="/tools/youtube-title-generator"
-            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-purple-300 dark:hover:border-purple-800 transition-all shadow-sm block"
+            className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all shadow-sm block"
           >
-            <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+            <h4 className="font-bold text-sm text-slate-900 flex items-center gap-1.5 mb-1">
               <FaMagic className="text-purple-500" /> Step 2: Repurpose Titles
             </h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600">
               Generate 20+ clickable titles based on the synthesized core takeaway.
             </p>
           </Link>
 
           <Link
             href="/tools/youtube-shorts-script-planner"
-            className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-purple-300 dark:hover:border-purple-800 transition-all shadow-sm block"
+            className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all shadow-sm block"
           >
-            <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5 mb-1">
+            <h4 className="font-bold text-sm text-slate-900 flex items-center gap-1.5 mb-1">
               <FaMobileAlt className="text-rose-500" /> Step 3: Script Shorts
             </h4>
-            <p className="text-xs text-slate-600 dark:text-slate-400">
+            <p className="text-xs text-slate-600">
               Pace your 60-second summary clips for maximum audience retention.
             </p>
           </Link>

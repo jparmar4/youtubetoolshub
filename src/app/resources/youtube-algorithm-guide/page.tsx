@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import {
+    combineSchemasToGraph,
     getFAQSchema,
     getHowToSchema,
     getBreadcrumbSchema,
@@ -164,8 +165,8 @@ const articleSchema = {
         "Complete guide to the YouTube algorithm in 2026: 7 key ranking factors, recommendation system breakdown, Shorts vs long-form differences, and proven SEO optimization strategies.",
     url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
     image: `${siteConfig.url}/og-image.png`,
-    author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-    publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+    author: { "@id": `${siteConfig.url}/#organization` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
     dateModified: "2026-07-19",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-algorithm-guide` },
@@ -257,10 +258,14 @@ export default function YouTubeAlgorithmGuidePage() {
                 pathname="/resources/youtube-algorithm-guide"
             />
             {/* Structured Data */}
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(
+                        combineSchemasToGraph(faqSchema, howToSchema, breadcrumbSchema, articleSchema),
+                    ),
+                }}
+            />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
@@ -412,7 +417,7 @@ export default function YouTubeAlgorithmGuidePage() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd layout="in-article" format="fluid" slot="6023554962" style={{ display: "block", textAlign: "center" }} />
+                        <GoogleAd layout="in-article" format="fluid" slot="6023554962" className="text-center" />
                     </div>
 
                     {/* Section 3: How YouTube Recommends Videos */}
@@ -876,11 +881,6 @@ export default function YouTubeAlgorithmGuidePage() {
                             ))}
                         </div>
                     </section>
-
-                    {/* Ad placement */}
-                    <div className="my-8" aria-hidden="true">
-                        {/* Multiplex removed — fewer, better-viewed units raise RPM */}
-                    </div>
 
                     {/* Final CTA */}
                     <section className="text-center glass-premium rounded-3xl p-10 border border-purple-100 shadow-sm">

@@ -27,28 +27,28 @@ export default function CreatorSoftwareCard({
 
   return (
     <div
-      className={`my-8 overflow-hidden rounded-2xl border border-purple-200/90 bg-gradient-to-br from-purple-50/50 via-white to-indigo-50/40 p-5 sm:p-6 dark:border-purple-900/50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-md ${className}`}
+      className={`my-8 overflow-hidden rounded-2xl border border-purple-200/90 bg-gradient-to-br from-purple-50/50 via-white to-indigo-50/40 p-5 sm:p-6 shadow-md ${className}`}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-purple-100 pb-4 dark:border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-purple-100 pb-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-purple-700 dark:text-purple-400">
+          <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-purple-700">
             <FaCrown className="text-amber-500" />
             <span>Essential Creator Stack (2026 Tested)</span>
           </div>
-          <h3 className="mt-1 text-base sm:text-lg font-black text-slate-900 dark:text-white">
+          <h3 className="mt-1 text-base sm:text-lg font-black text-slate-900">
             High-ROI Creator Tools to Speed Up Your Production
           </h3>
         </div>
 
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 rounded-xl bg-purple-100/60 p-1 dark:bg-slate-800">
+        <div className="flex items-center gap-1.5 rounded-xl bg-purple-100/60 p-1">
           <button
             type="button"
             onClick={() => setActiveCategory("video")}
             className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
               activeCategory === "video"
                 ? "bg-purple-600 text-white shadow-sm"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-400"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             Video &amp; Shorts
@@ -59,7 +59,7 @@ export default function CreatorSoftwareCard({
             className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
               activeCategory === "audio"
                 ? "bg-purple-600 text-white shadow-sm"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-400"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             Audio &amp; Voice
@@ -70,7 +70,7 @@ export default function CreatorSoftwareCard({
             className={`rounded-lg px-3 py-1 text-xs font-bold transition-all ${
               activeCategory === "seo"
                 ? "bg-purple-600 text-white shadow-sm"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-400"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             SEO &amp; CTR
@@ -82,7 +82,7 @@ export default function CreatorSoftwareCard({
         {toolsForCategory.map((tool) => (
           <div
             key={tool.id}
-            className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-purple-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-800/80"
+            className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all hover:border-purple-300 hover:shadow-md"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2.5">
@@ -92,7 +92,7 @@ export default function CreatorSoftwareCard({
                   >
                     {tool.name.charAt(0)}
                   </div>
-                  <span className="font-black text-slate-900 dark:text-white text-sm">
+                  <span className="font-black text-slate-900 text-sm">
                     {tool.name}
                   </span>
                 </div>
@@ -102,15 +102,15 @@ export default function CreatorSoftwareCard({
                   {tool.badge}
                 </span>
               </div>
-              <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <p className="text-xs font-semibold text-slate-700">
                 {tool.tagline}
               </p>
-              <p className="mt-1.5 text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="mt-1.5 text-[11px] text-slate-500 leading-relaxed">
                 {tool.description}
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+            <div className="mt-4 pt-3 border-t border-slate-100">
               <a
                 href={tool.link}
                 target="_blank"
@@ -125,7 +125,7 @@ export default function CreatorSoftwareCard({
         ))}
       </div>
 
-      <p className="mt-4 text-center text-[11px] text-slate-400 dark:text-slate-500 italic">
+      <p className="mt-4 text-center text-[11px] text-slate-400 italic">
         {DEFAULT_AFFILIATE_DISCLOSURE}
       </p>
     </div>

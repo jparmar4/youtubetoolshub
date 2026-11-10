@@ -187,21 +187,21 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-indigo-200/80 bg-gradient-to-r from-indigo-50/80 via-white to-blue-50/60 p-5 sm:p-6 dark:border-indigo-900/40 dark:from-slate-900 dark:via-indigo-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-indigo-200/80 bg-gradient-to-r from-indigo-50/80 via-white to-blue-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 px-3 py-1 text-xs font-black text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 px-3 py-1 text-xs font-black text-indigo-700">
                 <FaBullhorn /> 2026 Google Ads for YouTube Benchmark
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 YouTube Ads Budget & CPV/CPM Calculator
               </h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+              <p className="mt-1 text-sm text-slate-600">
                 Calculate expected views, required spend, and impressions based on current auction bids across US, European, and global audiences.
               </p>
             </div>
             <div className="flex items-center gap-2 self-start sm:self-center">
-              <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300 rounded-lg">
+              <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-lg">
                 Updated for 2026
               </span>
             </div>
@@ -211,7 +211,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
         {/* Calculator Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
-          <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6">
+          <div className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
             {/* Quick Industry Presets */}
             <div>
               <div className="flex items-center justify-between mb-2">
@@ -236,7 +236,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
                       selectedNiche === preset.niche && budgetInput === preset.budget
                         ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                        : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-400"
+                        :"bg-slate-50 text-slate-700 border-slate-200 hover:border-indigo-400"
                     }`}
                   >
                     {preset.label}
@@ -250,14 +250,14 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                 Calculation Goal
               </label>
-              <div className="grid grid-cols-2 gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl">
+              <div className="grid grid-cols-2 gap-2 bg-slate-100 p-1.5 rounded-xl">
                 <button
                   type="button"
                   onClick={() => setCalcMode("budget")}
                   className={`py-2 px-4 rounded-lg font-bold text-sm transition-all ${
                     calcMode === "budget"
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                      ?"bg-white text-indigo-600 shadow-sm"
+                      :"text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   Calculate Views from Budget
@@ -267,8 +267,8 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                   onClick={() => setCalcMode("views")}
                   className={`py-2 px-4 rounded-lg font-bold text-sm transition-all ${
                     calcMode === "views"
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                      ?"bg-white text-indigo-600 shadow-sm"
+                      :"text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   Calculate Budget for Target Views
@@ -280,7 +280,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
             <div>
               {calcMode === "budget" ? (
                 <div>
-                  <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  <label className="block text-sm font-bold text-slate-800 mb-1">
                     Total Ad Budget (USD)
                   </label>
                   <div className="relative">
@@ -299,7 +299,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                 </div>
               ) : (
                 <div>
-                  <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  <label className="block text-sm font-bold text-slate-800 mb-1">
                     Target Video Views
                   </label>
                   <Input
@@ -318,13 +318,13 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
 
             {/* Target Region Dropdown */}
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Target Audience Region
               </label>
               <select
                 value={selectedRegion}
                 onChange={(e) => setSelectedRegion(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {REGION_TIERS.map((tier) => (
                   <option key={tier.id} value={tier.id}>
@@ -336,13 +336,13 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
 
             {/* Ad Format Dropdown */}
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 YouTube Ad Format
               </label>
               <select
                 value={selectedFormat}
                 onChange={(e) => setSelectedFormat(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {AD_FORMATS.map((format) => (
                   <option key={format.id} value={format.id}>
@@ -350,20 +350,20 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                   </option>
                 ))}
               </select>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
+              <p className="text-xs text-slate-500 mt-1.5">
                 {AD_FORMATS.find((f) => f.id === selectedFormat)?.description}
               </p>
             </div>
 
             {/* Industry / Niche Dropdown */}
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 Channel / Campaign Niche
               </label>
               <select
                 value={selectedNiche}
                 onChange={(e) => setSelectedNiche(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 {NICHES.map((niche) => (
                   <option key={niche.id} value={niche.id}>
@@ -454,36 +454,36 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
         </div>
 
         {/* High-Value Educational Content for SEO & AEO */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 space-y-6">
-          <h3 className="text-xl font-black text-slate-900 dark:text-white">
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6">
+          <h3 className="text-xl font-black text-slate-900">
             How YouTube Video Advertising Costs Are Calculated in 2026
           </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-600 leading-relaxed">
             YouTube ads operate on an automated real-time bidding auction through Google Ads. Unlike traditional TV advertising with fixed rate cards, your actual <strong>Cost Per View (CPV)</strong> and <strong>Cost Per Mille (CPM)</strong> vary based on audience demographics, niche competition, video ad format, and viewer engagement.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+              <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
                 <FaGlobe className="text-indigo-500" /> Geographic Tiers
               </h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-slate-600 mt-1">
                 Tier-1 US audiences command average CPVs of $0.03 to $0.06 due to high purchasing power. Emerging markets average $0.005 to $0.015.
               </p>
             </div>
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+              <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
                 <FaEye className="text-indigo-500" /> The 30-Second Rule
               </h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-slate-600 mt-1">
                 For skippable in-stream ads, you are only charged if the viewer watches at least 30 seconds (or the entire ad if shorter) or clicks an on-screen element.
               </p>
             </div>
-            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-              <h4 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50">
+              <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
                 <FaSlidersH className="text-indigo-500" /> Bidding Strategies
               </h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+              <p className="text-xs text-slate-600 mt-1">
                 Use <em>Maximum CPV</em> for organic view velocity and channel subscriber acquisition; use <em>Target CPM</em> for brand awareness campaigns.
               </p>
             </div>

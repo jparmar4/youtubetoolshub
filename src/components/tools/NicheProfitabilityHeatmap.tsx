@@ -6,7 +6,6 @@ import {
   FaChartLine,
   FaFire,
   FaSearch,
-  FaArrowRight,
   FaAward,
   FaSlidersH,
 } from "react-icons/fa";
@@ -171,6 +170,21 @@ const NICHE_METRICS: NicheMetric[] = [
   },
 ];
 
+const DEMAND_WIDTH_CLASS: Record<number, string> = {
+  99: "w-[99%]",
+  95: "w-[95%]",
+  92: "w-[92%]",
+  90: "w-[90%]",
+  86: "w-[86%]",
+  78: "w-[78%]",
+  75: "w-[75%]",
+  72: "w-[72%]",
+  68: "w-[68%]",
+  64: "w-[64%]",
+  55: "w-[55%]",
+  50: "w-[50%]",
+};
+
 export default function NicheProfitabilityHeatmap() {
   const [filter, setFilter] = useState<"all" | "high-cpm" | "business" | "lifestyle">("all");
   const [search, setSearch] = useState("");
@@ -207,17 +221,17 @@ export default function NicheProfitabilityHeatmap() {
   }, [filter, search, sortBy]);
 
   return (
-    <div className="rounded-3xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-xl shadow-slate-900/5 dark:bg-slate-900 dark:border-slate-800">
+    <div className="rounded-3xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-xl shadow-slate-900/5">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-100">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
-            <FaFire className="text-emerald-600 dark:text-emerald-400" /> 2026 Niche Profitability Heatmap
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
+            <FaFire className="text-emerald-600" /> 2026 Niche Profitability Heatmap
           </div>
-          <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white font-outfit tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-900 font-outfit tracking-tight">
             Top Paying YouTube Niches &amp; Advertiser Bids
           </h2>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
+          <p className="text-sm text-slate-600 mt-1 max-w-2xl">
             Real advertiser CPM benchmarks across primary categories. Finance, SaaS, and B2B command up to <strong>12x higher payouts</strong> than entertainment.
           </p>
         </div>
@@ -230,7 +244,7 @@ export default function NicheProfitabilityHeatmap() {
             aria-label="Sort niches by"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as "cpm" | "rpm" | "demand")}
-            className="text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border-none rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-emerald-500"
+            className="text-xs font-bold text-slate-700 bg-slate-100 border-none rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-emerald-500"
           >
             <option value="cpm">Highest CPM</option>
             <option value="rpm">Highest RPM</option>
@@ -251,11 +265,10 @@ export default function NicheProfitabilityHeatmap() {
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id as typeof filter)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                filter === tab.id
-                  ? "bg-slate-900 text-white dark:bg-emerald-600 shadow-sm"
-                  : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 hover:bg-slate-200"
-              }`}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${filter === tab.id
+                  ? "bg-slate-900 text-white shadow-sm"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
             >
               {tab.label}
             </button>
@@ -269,7 +282,7 @@ export default function NicheProfitabilityHeatmap() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search niche or sponsors..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
           />
         </div>
       </div>
@@ -281,41 +294,40 @@ export default function NicheProfitabilityHeatmap() {
           return (
             <div
               key={niche.id}
-              className={`rounded-2xl p-4 sm:p-5 border transition-all duration-200 flex flex-col justify-between ${
-                isTopTier
-                  ? "bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 border-emerald-200 dark:from-emerald-950/20 dark:via-slate-900 dark:to-teal-950/20 dark:border-emerald-800/60 shadow-sm"
-                  : "bg-white border-slate-200/80 dark:bg-slate-900/60 dark:border-slate-800"
-              }`}
+              className={`rounded-2xl p-4 sm:p-5 border transition-all duration-200 flex flex-col justify-between ${isTopTier
+                  ? "bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/30 border-emerald-200 shadow-sm"
+                  : "bg-white border-slate-200/80"
+                }`}
             >
               <div>
                 {/* Header row */}
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-black w-5 h-5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center">
+                    <span className="text-[11px] font-black w-5 h-5 rounded-md bg-slate-100 text-slate-600 flex items-center justify-center">
                       #{index + 1}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
+                    <h3 className="text-sm font-bold text-slate-900 leading-snug">
                       {niche.name}
                     </h3>
                   </div>
                   {isTopTier && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 shrink-0">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
                       <FaAward /> Top Payout
                     </span>
                   )}
                 </div>
 
                 {/* Primary Metric Badges */}
-                <div className="grid grid-cols-2 gap-2 my-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <div className="grid grid-cols-2 gap-2 my-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">US CPM Range</span>
-                    <span className="text-base font-black text-slate-900 dark:text-slate-100">
+                    <span className="text-[10px] uppercase font-bold text-slate-600 block">US CPM Range</span>
+                    <span className="text-base font-black text-slate-900">
                       ${niche.usCpmRange[0]} – ${niche.usCpmRange[1]}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Avg Creator RPM</span>
-                    <span className="text-base font-black text-emerald-600 dark:text-emerald-400">
+                    <span className="text-[10px] uppercase font-bold text-slate-600 block">Avg Creator RPM</span>
+                    <span className="text-base font-black text-emerald-700">
                       ~${niche.rpmAvg.toFixed(2)}
                     </span>
                   </div>
@@ -323,43 +335,42 @@ export default function NicheProfitabilityHeatmap() {
 
                 {/* Demand Bar */}
                 <div className="space-y-1 mb-3">
-                  <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                  <div className="flex justify-between text-[11px] text-slate-500 font-medium">
                     <span>Advertiser Demand</span>
-                    <span className="font-bold text-slate-800 dark:text-slate-200">{niche.demandScore}/100</span>
+                    <span className="font-bold text-slate-800">{niche.demandScore}/100</span>
                   </div>
-                  <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                  <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full transition-all duration-500 ${
-                        niche.demandScore > 90
+                      className={`h-full rounded-full transition-all duration-500 ${DEMAND_WIDTH_CLASS[niche.demandScore] || "w-3/4"
+                        } ${niche.demandScore > 90
                           ? "bg-emerald-500"
                           : niche.demandScore > 75
-                          ? "bg-teal-500"
-                          : niche.demandScore > 65
-                          ? "bg-blue-500"
-                          : "bg-slate-400"
-                      }`}
-                      style={{ width: `${niche.demandScore}%` }}
+                            ? "bg-teal-500"
+                            : niche.demandScore > 65
+                              ? "bg-blue-500"
+                              : "bg-slate-400"
+                        }`}
                     />
                   </div>
                 </div>
 
                 {/* Key Bidders */}
-                <div className="text-[11px] text-slate-600 dark:text-slate-400 mb-2">
-                  <span className="font-semibold text-slate-700 dark:text-slate-300">Top Bidders: </span>
+                <div className="text-[11px] text-slate-600 mb-2">
+                  <span className="font-semibold text-slate-700">Top Bidders: </span>
                   {niche.topSponsors.join(", ")}
                 </div>
 
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-slate-500 leading-relaxed mb-4">
                   {niche.notes}
                 </p>
               </div>
 
               {/* Card Footer Link */}
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold">
-                <span className="text-slate-400">100k views ≈ ${(niche.rpmAvg * 100).toFixed(0)}</span>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
+                <span className="text-slate-600">100k views ≈ ${(niche.rpmAvg * 100).toFixed(0)}</span>
                 <Link
                   href="/tools/youtube-earnings-calculator"
-                  className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 group"
+                  className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 group"
                 >
                   <span>Model Earnings</span>
                   <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform text-xs font-bold leading-none">→</span>
@@ -371,8 +382,8 @@ export default function NicheProfitabilityHeatmap() {
       </div>
 
       {/* Bottom Context Callout */}
-      <div className="mt-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-        <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+      <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-2 text-slate-600">
           <FaChartLine className="text-emerald-600 w-4 h-4 shrink-0" />
           <span>
             Advertiser CPM represents gross bids before YouTube&apos;s 45% revenue cut. RPM reflects net creator payout.
@@ -380,7 +391,7 @@ export default function NicheProfitabilityHeatmap() {
         </div>
         <Link
           href="/resources/youtube-cpm-rates"
-          className="font-bold text-emerald-700 dark:text-emerald-400 hover:underline shrink-0"
+          className="font-bold text-emerald-700 hover:underline shrink-0"
         >
           View Full 50-Country CPM Table →
         </Link>

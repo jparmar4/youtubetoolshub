@@ -25,7 +25,7 @@ export default function EarningsCalculatorCTA({
       >
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
           <div className="flex gap-3 items-start">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center shrink-0">
               <FaCalculator className="w-5 h-5" />
             </div>
             <div>
@@ -42,7 +42,7 @@ export default function EarningsCalculatorCTA({
           </div>
           <Link
             href="/tools/youtube-earnings-calculator"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shrink-0 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-sm font-bold shrink-0 transition-colors"
           >
             Open calculator
             <FaArrowRight className="w-3 h-3" />
@@ -98,7 +98,7 @@ export default function EarningsCalculatorCTA({
         />
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition-colors shadow-md shadow-emerald-600/20"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition-colors shadow-md shadow-emerald-600/20"
         >
           <FaCalculator />
           Calculate earnings free

@@ -174,6 +174,9 @@ export default async function middleware(request: NextRequest) {
       pathname.startsWith("/tools") ||
       pathname.startsWith("/blog") ||
       pathname.startsWith("/resources") ||
+      pathname === "/youtube-transcript-downloader" ||
+      pathname === "/pricing" ||
+      pathname === "/contact" ||
       pathname === "/faq" ||
       pathname === "/about")
   ) {

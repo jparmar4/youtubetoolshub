@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from "react";
+import { useSession } from "next-auth/react";
 import {
     fetchUserUsage,
     incrementUserUsage,
@@ -40,6 +41,7 @@ interface UsageContextType {
 const UsageContext = createContext<UsageContextType | undefined>(undefined);
 
 export function UsageProvider({ children }: { children: React.ReactNode }) {
+    const { status } = useSession();
     const [usageMap, setUsageMap] = useState<Record<string, number>>({});
     const [isPro, setIsPro] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -67,10 +69,19 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
         }
     }, []);
 
-    // Initial Load
+    // Only hit server usage/subscription endpoints for authenticated users
     useEffect(() => {
+        if (status === "loading") return;
+
+        if (status !== "authenticated") {
+            setUsageMap(getLocalUsage());
+            setIsPro(false);
+            setLoading(false);
+            return;
+        }
+
         loadData();
-    }, [loadData]);
+    }, [status, loadData]);
 
     // Check limit
     const checkLimit = useCallback((slug: string): boolean => {

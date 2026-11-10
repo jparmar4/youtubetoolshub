@@ -98,16 +98,16 @@ export default function LLCvsSCorpCalculator() {
     >
       <div className="space-y-8">
         {/* Top Header Card */}
-        <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/60 p-5 sm:p-6 dark:border-blue-900/40 dark:from-slate-900 dark:via-blue-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700 dark:bg-blue-950/80 dark:text-blue-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
                 <FaFileInvoiceDollar /> Full-Time Creator FinTech Guide (IRS Form 2553)
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 Should You Elect S-Corp Status for Your YouTube Business?
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-1 text-xs sm:text-sm text-slate-600">
                 As a sole-proprietor LLC, you pay a steep 15.3% Self-Employment tax on 100% of your AdSense, sponsorship, and affiliate profits. With an S-Corp, you only pay FICA on your salary.
               </p>
             </div>
@@ -121,10 +121,10 @@ export default function LLCvsSCorpCalculator() {
         </div>
 
         {/* Input Parameters */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Annual Creator Net Profit ($)
               </label>
               <Input
@@ -140,7 +140,7 @@ export default function LLCvsSCorpCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 W-2 Reasonable Salary Ratio (%)
               </label>
               <Input
@@ -156,7 +156,7 @@ export default function LLCvsSCorpCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 Annual S-Corp CPA &amp; Payroll Cost
               </label>
               <Input
@@ -172,13 +172,13 @@ export default function LLCvsSCorpCalculator() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1">
+              <label className="block text-xs font-bold text-slate-700 mb-1">
                 State of Residence
               </label>
               <select
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-medium text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs font-medium text-slate-800"
               >
                 {Object.entries(US_STATES).map(([code, s]) => (
                   <option key={code} value={code}>
@@ -200,8 +200,8 @@ export default function LLCvsSCorpCalculator() {
             <div
               className={`rounded-2xl border p-6 text-center shadow-lg transition-all ${
                 calculations.isProfitable
-                  ? "border-emerald-300 bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:border-emerald-800 dark:from-slate-900 dark:via-emerald-950/20 dark:to-slate-900"
-                  : "border-amber-300 bg-gradient-to-br from-amber-50 via-white to-yellow-50 dark:border-amber-800 dark:from-slate-900 dark:via-amber-950/20 dark:to-slate-900"
+                  ?"border-emerald-300 bg-gradient-to-br from-emerald-50 via-white to-teal-50"
+                  :"border-amber-300 bg-gradient-to-br from-amber-50 via-white to-yellow-50"
               }`}
             >
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -210,15 +210,15 @@ export default function LLCvsSCorpCalculator() {
               <div
                 className={`mt-2 text-4xl sm:text-5xl font-black font-outfit ${
                   calculations.isProfitable
-                    ? "text-emerald-700 dark:text-emerald-400"
-                    : "text-amber-700 dark:text-amber-400"
+                    ?"text-emerald-700"
+                    :"text-amber-700"
                 }`}
               >
                 {calculations.isProfitable
                   ? `+$${calculations.netAnnualSavings.toLocaleString()}/yr Saved`
                   : `Stay Default LLC (Save $${Math.abs(calculations.netAnnualSavings).toLocaleString()})`}
               </div>
-              <p className="mt-2 text-sm text-slate-700 dark:text-slate-300 max-w-xl mx-auto">
+              <p className="mt-2 text-sm text-slate-700 max-w-xl mx-auto">
                 {calculations.isProfitable
                   ? `By electing S-Corporation tax status with IRS Form 2553, you pocket an estimated $${calculations.netAnnualSavings.toLocaleString()} extra in cash after paying for Gusto payroll and CPA tax filing.`
                   : `At your current profit of $${calculations.profit.toLocaleString()}, S-Corporation overhead ($${calculations.totalSCorpOverhead.toLocaleString()}) exceeds the self-employment tax savings. We recommend waiting until you reach $${calculations.breakEvenProfit.toLocaleString()}/year in profit.`}
@@ -228,28 +228,28 @@ export default function LLCvsSCorpCalculator() {
             {/* Side-by-Side Comparison Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Option 1: Standard LLC Sole Proprietorship */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <div className="flex items-center gap-2 text-slate-800 dark:text-slate-100 font-black text-lg mb-4">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="flex items-center gap-2 text-slate-800 font-black text-lg mb-4">
                   <FaBuilding className="text-slate-500" />
                   <span>Standard LLC (Disregarded Entity)</span>
                 </div>
 
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">Net Business Profit</span>
-                    <span className="font-bold text-slate-900 dark:text-white">
+                    <span className="font-bold text-slate-900">
                       ${calculations.profit.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">Profit Subject to 15.3% SE Tax</span>
-                    <span className="font-bold text-rose-600 dark:text-rose-400">
+                    <span className="font-bold text-rose-600">
                       100% (${Math.round(calculations.profit * 0.9235).toLocaleString()})
                     </span>
                   </div>
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">Total Self-Employment Tax</span>
-                    <span className="font-bold text-rose-600 dark:text-rose-400">
+                    <span className="font-bold text-rose-600">
                       ${calculations.llcTotalSeTax.toLocaleString()}
                     </span>
                   </div>
@@ -259,15 +259,15 @@ export default function LLCvsSCorpCalculator() {
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-xl bg-slate-50 p-3 text-xs text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                <div className="mt-5 rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
                   ⚠️ <strong>The SE Tax Trap:</strong> Every single dollar from AdSense or brand deals is hit with 15.3% Social Security &amp; Medicare taxes before income taxes even begin.
                 </div>
               </div>
 
               {/* Option 2: S-Corporation Election */}
-              <div className="rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-50/40 to-white p-6 shadow-md dark:from-slate-900 dark:to-slate-900">
+              <div className="rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-50/40 to-white p-6 shadow-md">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2 text-blue-900 dark:text-blue-300 font-black text-lg">
+                  <div className="flex items-center gap-2 text-blue-900 font-black text-lg">
                     <FaUserTie className="text-blue-600" />
                     <span>S-Corp Election (Form 2553)</span>
                   </div>
@@ -277,46 +277,46 @@ export default function LLCvsSCorpCalculator() {
                 </div>
 
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">W-2 Reasonable Salary (FICA)</span>
-                    <span className="font-bold text-slate-900 dark:text-white">
+                    <span className="font-bold text-slate-900">
                       ${calculations.w2Salary.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">Shareholder Distribution (0% SE Tax)</span>
-                    <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                    <span className="font-bold text-emerald-600">
                       ${calculations.shareholderDistribution.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between border-b pb-2 dark:border-slate-800">
+                  <div className="flex justify-between border-b pb-2">
                     <span className="text-slate-500">Total FICA Payroll Tax</span>
-                    <span className="font-bold text-blue-600 dark:text-blue-400">
+                    <span className="font-bold text-blue-600">
                       ${calculations.scorpFicaTax.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between pt-1">
                     <span className="text-slate-500">Gusto &amp; CPA Overhead</span>
-                    <span className="font-bold text-slate-700 dark:text-slate-300">
+                    <span className="font-bold text-slate-700">
                       -${calculations.totalSCorpOverhead.toLocaleString()}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-xl bg-blue-100/60 p-3 text-xs text-blue-900 dark:bg-blue-950/60 dark:text-blue-200">
+                <div className="mt-5 rounded-xl bg-blue-100/60 p-3 text-xs text-blue-900">
                   ✨ <strong>The S-Corp Advantage:</strong> Your ${calculations.shareholderDistribution.toLocaleString()} distribution avoids 15.3% SE tax completely, saving you ${calculations.grossTaxSavings.toLocaleString()} in raw tax liability!
                 </div>
               </div>
             </div>
 
             {/* S-Corp Educational Checklist */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-slate-900 mb-3">
                 IRS Guidelines for Full-Time YouTube Creators
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 leading-relaxed">
                 <div>
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  <h4 className="font-bold text-slate-800 mb-1">
                     1. The Reasonable Salary Rule
                   </h4>
                   <p>
@@ -324,7 +324,7 @@ export default function LLCvsSCorpCalculator() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  <h4 className="font-bold text-slate-800 mb-1">
                     2. Automated Payroll (Gusto)
                   </h4>
                   <p>
@@ -332,7 +332,7 @@ export default function LLCvsSCorpCalculator() {
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-1">
+                  <h4 className="font-bold text-slate-800 mb-1">
                     3. Corporate Tax Return (Form 1120-S)
                   </h4>
                   <p>

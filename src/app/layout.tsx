@@ -1,22 +1,15 @@
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import ScrollToTop from "@/components/ui/ScrollToTop";
-import CookieConsent from "@/components/ui/CookieConsent";
+import HideOnEmbed from "@/components/layout/HideOnEmbed";
+import DeferredLayoutWidgets from "@/components/layout/DeferredLayoutWidgets";
 import { siteConfig } from "@/config/site";
-import { getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
+import { combineSchemasToGraph, getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
-import { MotionConfig } from "framer-motion";
-import PrivacyH1Fix from "@/components/seo/PrivacyH1Fix";
-import ExitIntentPopup from "@/components/ui/ExitIntentPopup";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
-import StickyBottomAd from "@/components/ads/StickyBottomAd";
-import PWAInstallPrompt from "@/components/ui/PWAInstallPrompt";
-import ToastContainer from "@/components/ui/Toast";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import WebMCPRegistry from "@/components/agent/WebMCPRegistry";
-import ClientOnly from "@/components/ui/ClientOnly";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -77,17 +70,7 @@ export const metadata = {
         alt: `${siteConfig.name} - Free AI YouTube Tools for Creators`,
         type: "image/png",
       },
-      {
-        url: `${siteConfig.url}/icon.svg`,
-        width: 512,
-        height: 512,
-        alt: siteConfig.name,
-        type: "image/svg+xml",
-      },
     ],
-    determiner: "the",
-    countryName: "United States",
-    ttl: 86400,
   },
   twitter: {
     card: "summary_large_image",
@@ -150,13 +133,11 @@ export default function RootLayout({
     sameAs: siteConfig.footerLinks.social.map((s) => s.href),
   });
 
-  const siteGraphSchema = {
-    "@context": "https://schema.org",
-    "@graph": [organizationSchema, websiteSchema, editorialSchema].map((item) => {
-      const { "@context": _, ...rest } = item as Record<string, unknown>;
-      return rest;
-    }),
-  };
+  const siteGraphSchema = combineSchemasToGraph(
+    organizationSchema,
+    websiteSchema,
+    editorialSchema,
+  );
 
   return (
     <html lang={lang} suppressHydrationWarning>
@@ -260,24 +241,10 @@ export default function RootLayout({
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
-        <link rel="dns-prefetch" href="https://scripts.clarity.ms" />
-
-        {/* Pinterest Business Verification */}
-        <meta name="p:domain_verify" content="7a89fa765200911761904c63c0b70f34" />
-
-        {/* Global English targeting: one canonical URL serves all English variants.
-            Prevents thin /en-GB, /en-IN duplicates while signaling US/UK/IN/AU/CA relevance. */}
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:locale:alternate" content="en_GB" />
-        <meta property="og:locale:alternate" content="en_IN" />
-        <meta property="og:locale:alternate" content="en_AU" />
-        <meta property="og:locale:alternate" content="en_CA" />
 
         {/* PWA & Mobile SEO Meta Tags */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="YT Tools Hub" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="YouTube Tools Hub" />
@@ -285,7 +252,7 @@ export default function RootLayout({
 
         {/* Favicons handled by app/icon.tsx */}
 
-        {/* JSON-LD Consolidated Structured Data Graph for SEO */}
+        {/* JSON-LD Consolidated @graph Structured Data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -301,7 +268,7 @@ export default function RootLayout({
         <script
           id="google-consent-mode"
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'ad_storage':'granted','ad_user_data':'granted','ad_personalization':'granted','analytics_storage':'granted'});gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','wait_for_update':500,'region':['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});gtag('js',new Date());gtag('config','G-14MEY3M1CN',{page_path:window.location.pathname});`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}function c(v,r){var o={ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v};if(r){o.wait_for_update=500;o.region=r.split(' ');}gtag('consent','default',o);}c('granted');c('denied','AT BE BG HR CY CZ DK EE FI FR DE GR HU IS IE IT LV LI LT LU MT NL NO PL PT RO SK SI ES SE GB CH');gtag('js',new Date());gtag('config','G-14MEY3M1CN',{page_path:location.pathname});`,
           }}
         />
 
@@ -312,7 +279,7 @@ export default function RootLayout({
         <script
           id="webmcp-registry-script"
           dangerouslySetInnerHTML={{
-            __html: `(function(){function callMcp(n,a){return fetch("/api/mcp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:"webmcp-"+n,method:"tools/call",params:{name:n,arguments:a||{}}})}).then(function(r){return r.json();}).then(function(d){try{return d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text?JSON.parse(d.result.content[0].text):d;}catch(e){return d;}});}function registerWebMCP(){if(typeof navigator==="undefined"||!navigator.modelContext)return;var mc=navigator.modelContext;if(typeof mc.provideContext==="function"){try{mc.provideContext({tools:[{name:"estimate_youtube_earnings"},{name:"list_youtube_tools"},{name:"get_country_cpm_rates"},{name:"get_youtube_thumbnail_urls"},{name:"estimate_sponsorship_rate"},{name:"estimate_channel_valuation"},{name:"estimate_shorts_earnings"},{name:"calculate_youtube_tax_deductions"}]});}catch(e){}}if(typeof navigator.modelContext.registerTool==="function"){var tools=[{name:"estimate_youtube_earnings",description:"Calculate estimated YouTube AdSense revenue (RPM and CPM) for any view count and country across 52 supported regions.",inputSchema:{type:"object",properties:{views:{type:"number",description:"Number of video views."},country:{type:"string",description:"Country slug or code."}},required:["views"]},execute:function(a){return callMcp("estimate_youtube_earnings",a);}},{name:"list_youtube_tools",description:"List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",inputSchema:{type:"object",properties:{category:{type:"string"},query:{type:"string"}}},execute:function(a){return callMcp("list_youtube_tools",a);}},{name:"get_country_cpm_rates",description:"Retrieve 2026 YouTube CPM and RPM benchmark ranges across 52 countries.",inputSchema:{type:"object",properties:{country:{type:"string"}}},execute:function(a){return callMcp("get_country_cpm_rates",a);}},{name:"get_youtube_thumbnail_urls",description:"Resolve direct 4K/HD/SD YouTube thumbnail image URLs for any YouTube video ID or URL.",inputSchema:{type:"object",properties:{videoIdOrUrl:{type:"string"}},required:["videoIdOrUrl"]},execute:function(a){return callMcp("get_youtube_thumbnail_urls",a);}},{name:"estimate_sponsorship_rate",description:"Estimate recommended YouTube brand deal / sponsor fee and CPM benchmarks based on expected video views and niche.",inputSchema:{type:"object",properties:{views:{type:"number"},niche:{type:"string"}},required:["views"]},execute:function(a){return callMcp("estimate_sponsorship_rate",a);}},{name:"estimate_channel_valuation",description:"Calculate YouTube channel asset sale valuation multiple (24x-36x monthly net earnings).",inputSchema:{type:"object",properties:{monthlyRevenue:{type:"number"}},required:["monthlyRevenue"]},execute:function(a){return callMcp("estimate_channel_valuation",a);}},{name:"estimate_shorts_earnings",description:"Calculate YouTube Shorts AdSense revenue based on views and 2026 Shorts RPM benchmarks.",inputSchema:{type:"object",properties:{views:{type:"number"}},required:["views"]},execute:function(a){return callMcp("estimate_shorts_earnings",a);}},{name:"calculate_youtube_tax_deductions",description:"Calculate estimated business tax write-offs and tax savings for YouTube creators.",inputSchema:{type:"object",properties:{annualRevenue:{type:"number"}},required:["annualRevenue"]},execute:function(a){return callMcp("calculate_youtube_tax_deductions",a);}}];tools.forEach(function(t){try{mc.registerTool(t);}catch(e){}});}}registerWebMCP();if(typeof document!=="undefined"){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",registerWebMCP);}window.addEventListener("load",registerWebMCP);}if(typeof window!=="undefined"){window.addEventListener("modelcontextready",registerWebMCP);}})();`,
+            __html: `(function(){var u="undefined",f="function";function c(n,a){return fetch("/api/mcp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:"webmcp-"+n,method:"tools/call",params:{name:n,arguments:a||{}}})}).then(function(r){return r.json()}).then(function(d){try{var t=d&&d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text;return t?JSON.parse(t):d}catch(e){return d}})}function r(){if(typeof navigator===u||!navigator.modelContext)return;var m=navigator.modelContext,N={type:"number"},S={type:"string"},d=[["estimate_youtube_earnings","Estimate YouTube AdSense revenue.",{views:N,country:S},["views"]],["list_youtube_tools","List or search 45 free YouTube tools.",{category:S,query:S}],["get_country_cpm_rates","Get 2026 CPM/RPM rates by country.",{country:S}],["get_youtube_thumbnail_urls","Get 4K/HD YouTube thumbnail URLs.",{videoIdOrUrl:S},["videoIdOrUrl"]],["estimate_sponsorship_rate","Estimate sponsorship rate and CPM.",{views:N,niche:S},["views"]],["estimate_channel_valuation","Calculate channel sale valuation.",{monthlyRevenue:N},["monthlyRevenue"]],["estimate_shorts_earnings","Estimate YouTube Shorts revenue.",{views:N},["views"]],["calculate_youtube_tax_deductions","Estimate creator tax deductions.",{annualRevenue:N},["annualRevenue"]]],ts=d.map(function(x){var s={type:"object",properties:x[2]};if(x[3])s.required=x[3];return{name:x[0],description:x[1],inputSchema:s,execute:function(a){return c(x[0],a)}}});if(typeof navigator.modelContext.provideContext===f)try{m.provideContext({tools:ts.map(function(t){return{name:t.name,description:t.description}})})}catch(e){}if(typeof navigator.modelContext.registerTool===f)ts.forEach(function(t){try{m.registerTool(t)}catch(e){}})}r();if(typeof document!==u&&document.readyState==="loading")document.addEventListener("DOMContentLoaded",r);if(typeof window!==u){window.addEventListener("load",r);window.addEventListener("modelcontextready",r)}})();`,
           }}
         />
         <script defer src="/webmcp-registry.js" />
@@ -322,7 +289,6 @@ export default function RootLayout({
       >
         <AuthProvider>
           <UsageProvider>
-            <MotionConfig reducedMotion="user">
             <a
               href="#main-content"
               className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-purple-600"
@@ -337,23 +303,14 @@ export default function RootLayout({
                 {children}
               </AdSectionPrioritize>
             </main>
-            <AdSectionIgnore>
-              <Footer />
-            </AdSectionIgnore>
-            <ClientOnly>
-              <ScrollToTop />
-              <ToastContainer />
-              <CookieConsent />
-              <ConsentAnalytics />
-              <PrivacyH1Fix />
-              {/* Exit-intent popup for email capture */}
-              <ExitIntentPopup />
-              <WebMCPRegistry />
-              {/* High-viewability mobile/desktop sticky bottom anchor ad */}
-              <StickyBottomAd />
-              <PWAInstallPrompt />
-            </ClientOnly>
-            </MotionConfig>
+            <HideOnEmbed>
+              <AdSectionIgnore>
+                <Footer />
+              </AdSectionIgnore>
+            </HideOnEmbed>
+            <ConsentAnalytics />
+            <WebMCPRegistry />
+            <DeferredLayoutWidgets />
           </UsageProvider>
         </AuthProvider>
       </body>

@@ -58,21 +58,21 @@ export async function POST(req: Request) {
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.error) {
+            if (!response.ok || data.error) {
                 // specific check for disabled comments
-                if (data.error.errors?.[0]?.reason === 'commentsDisabled') {
+                if (data.error?.errors?.[0]?.reason === 'commentsDisabled') {
                     return NextResponse.json(
                         { error: "Comments are disabled for this video." },
                         { status: 400 }
                     );
                 }
                 return NextResponse.json(
-                    { error: data.error.message },
-                    { status: 400 }
+                    { error: data.error?.message || "YouTube API error" },
+                    { status: response.ok ? 400 : response.status }
                 );
             }
 
-            if (data.items) {
+            if (Array.isArray(data.items)) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const comments = data.items.map((item: any) => ({
                     id: item.id,

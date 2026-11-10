@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { tools } from "@/config/tools";
+import { toolMeta } from "@/config/tool-meta";
 import {
   FaSearch,
   FaTimes,
@@ -97,7 +97,7 @@ export default function CommandPalette({
 
   // Map all tools into uniform SearchItems
   const allItems = useMemo<SearchItem[]>(() => {
-    const toolItems: SearchItem[] = tools.map((t) => {
+    const toolItems: SearchItem[] = toolMeta.map((t) => {
       let category: SearchItem["category"] = "other";
       let categoryLabel = "Tools";
       const isTier1 =
@@ -256,7 +256,7 @@ export default function CommandPalette({
               setQuery(e.target.value);
               setSelectedIndex(0);
             }}
-            placeholder="Search 43+ free YouTube tools, CPM rates, tax calculators..."
+            placeholder={`Search ${toolMeta.length} free YouTube tools, CPM rates, tax calculators...`}
             className="w-full bg-transparent text-slate-900 text-base sm:text-lg placeholder-slate-400 focus:outline-none"
             aria-autocomplete="list"
           />
@@ -419,7 +419,7 @@ export default function CommandPalette({
             </span>
           </div>
           <div className="text-[11px] text-purple-700 font-semibold">
-            {tools.length} Free Tools & Data Hub
+            {toolMeta.length} Free Tools & Data Hub
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, memo, useRef } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import {
   FaBars,
@@ -11,13 +12,19 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
+import { toolMeta } from "@/config/tool-meta";
 import UserMenu from "@/components/auth/UserMenu";
 import { useSession } from "next-auth/react";
-import CommandPalette from "@/components/layout/CommandPalette";
-import HeaderMegaMenu from "@/components/layout/HeaderMegaMenu";
 import HeaderCurrencyPicker from "@/components/layout/HeaderCurrencyPicker";
 import HeaderSavedTools from "@/components/layout/HeaderSavedTools";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
+
+const CommandPalette = dynamic(() => import("@/components/layout/CommandPalette"), {
+  ssr: false,
+});
+const HeaderMegaMenu = dynamic(() => import("@/components/layout/HeaderMegaMenu"), {
+  ssr: false,
+});
 
 const NavLink = memo(function NavLink({
   href,
@@ -43,7 +50,7 @@ const NavLink = memo(function NavLink({
           ? "bg-white text-purple-700 shadow-xs border border-slate-200/80"
           : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
       }`}
-      prefetch={true}
+      prefetch={false}
     >
       <span>{children}</span>
       {badge && (
@@ -159,7 +166,7 @@ function Header() {
           {/* Specular Top Accent Line */}
           <div className="h-[2px] w-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-emerald-500" />
 
-          <div className="bg-white/92 backdrop-blur-2xl border-b border-slate-200/85 shadow-[0_8px_28px_-10px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
+          <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200/85 shadow-[0_8px_28px_-10px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
             <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
                 {/* 1. Brand Logo & Emblem */}
@@ -173,7 +180,7 @@ function Header() {
                         {siteConfig.name}
                       </span>
                       <span className="hidden sm:inline-block text-[9px] font-extrabold text-purple-700 tracking-[0.14em] uppercase leading-tight">
-                        4K Creator Suite • 44 Tools
+                        4K Creator Suite • {toolMeta.length} Tools
                       </span>
                     </div>
                   </Link>
@@ -195,14 +202,14 @@ function Header() {
                           : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
                       }`}
                       aria-expanded={isMegaMenuOpen}
-                      aria-label="Explore tools catalog"
                     >
                       <span>Tools</span>
-                      <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-purple-600 text-white leading-none">
-                        44
+                      <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-purple-700 text-white leading-none">
+                        {toolMeta.length}
                       </span>
                       <FaChevronDown
-                        className={`w-2.5 h-2.5 text-slate-400 transition-transform duration-200 ${
+                        aria-hidden="true"
+                        className={`w-2.5 h-2.5 text-slate-500 transition-transform duration-200 ${
                           isMegaMenuOpen ? "rotate-180" : ""
                         }`}
                       />
@@ -212,7 +219,7 @@ function Header() {
                   <NavLink
                     href="/tools/youtube-earnings-calculator"
                     badge="Tier 1"
-                    badgeColor="bg-emerald-600 text-white"
+                    badgeColor="bg-emerald-700 text-white"
                     isActive={Boolean(pathname?.includes("earnings"))}
                   >
                     Earnings
@@ -250,14 +257,13 @@ function Header() {
                   <button
                     type="button"
                     onClick={() => setIsCommandOpen(true)}
-                    className="hidden md:inline-flex h-9 items-center gap-2 px-3 rounded-full bg-slate-100/90 hover:bg-white border border-slate-200/90 hover:border-purple-300 text-slate-500 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-[inset_0_1px_0_0_#fff] w-40 xl:w-52 group shrink-0"
-                    aria-label="Search all tools and guides"
+                    className="hidden md:inline-flex h-9 items-center gap-2 px-3 rounded-full bg-slate-100/90 hover:bg-white border border-slate-200/90 hover:border-purple-300 text-slate-600 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-[inset_0_1px_0_0_#fff] w-40 xl:w-52 group shrink-0"
                   >
-                    <FaSearch className="w-3 h-3 text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="truncate text-slate-500 text-left flex-1">
-                      Search 44 tools...
+                    <FaSearch aria-hidden="true" className="w-3 h-3 text-purple-700 shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="truncate text-slate-600 text-left flex-1">
+                      Search {toolMeta.length} tools...
                     </span>
-                    <kbd className="inline-flex items-center text-[10px] font-bold text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
+                    <kbd aria-hidden="true" className="inline-flex items-center text-[10px] font-bold text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
                       ⌘K
                     </kbd>
                   </button>
@@ -315,7 +321,7 @@ function Header() {
                     >
                       <span className="flex items-center gap-2">
                         <FaSearch className="text-purple-600" />
-                        Search 44 creator tools &amp; CPM data...
+                        Search {toolMeta.length} creator tools &amp; CPM data...
                       </span>
                       <span className="text-[10px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold">
                         ⌘K
@@ -329,8 +335,8 @@ function Header() {
                       onClick={closeMenu}
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
-                      <span>All 44 Creator Tools</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-600 text-white">
+                      <span>All {toolMeta.length} Creator Tools</span>
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
                         Catalog
                       </span>
                     </Link>
@@ -341,7 +347,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube Earnings Calculator</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-700 text-white">
                         Tier-1
                       </span>
                     </Link>
@@ -352,7 +358,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>4,000 Watch Hours Countdown</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-600 text-white">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
                         New
                       </span>
                     </Link>
@@ -363,7 +369,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>4K Thumbnail Downloader</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-600 text-white">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-700 text-white">
                         UHD
                       </span>
                     </Link>
@@ -374,7 +380,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube CPM Rates 2026</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-600 text-white">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-700 text-white">
                         52 Markets
                       </span>
                     </Link>
@@ -402,19 +408,23 @@ function Header() {
             </nav>
           </div>
 
-          <HeaderMegaMenu
-            isOpen={isMegaMenuOpen}
-            onClose={closeMegaMenu}
-            onMouseEnter={handleMegaMenuAreaEnter}
-            onMouseLeave={handleMegaMenuAreaLeave}
-          />
+          {isMegaMenuOpen && (
+            <HeaderMegaMenu
+              isOpen={isMegaMenuOpen}
+              onClose={closeMegaMenu}
+              onMouseEnter={handleMegaMenuAreaEnter}
+              onMouseLeave={handleMegaMenuAreaLeave}
+            />
+          )}
         </header>
       </div>
 
-      <CommandPalette
-        isOpen={isCommandOpen}
-        onClose={() => setIsCommandOpen(false)}
-      />
+      {isCommandOpen && (
+        <CommandPalette
+          isOpen={isCommandOpen}
+          onClose={() => setIsCommandOpen(false)}
+        />
+      )}
     </>
   );
 }

@@ -23,14 +23,14 @@ export default function DisclaimerPage() {
     return (
         <div className="min-h-screen">
             {/* Hero Section */}
-            <section className="relative overflow-hidden hero-gradient-light dark:hero-gradient py-16 lg:py-20">
+            <section className="relative overflow-hidden hero-gradient-light py-16 lg:py-20">
                 <div className="absolute inset-0 bg-dots opacity-20" />
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-4xl mx-auto">
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white mb-6 shadow-lg">
                             <FaExclamationTriangle className="w-8 h-8" />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
                             Disclaimer
                         </h1>
                     </div>
@@ -38,17 +38,17 @@ export default function DisclaimerPage() {
             </section>
 
             {/* Highlights */}
-            <section className="py-12 bg-white dark:bg-gray-900">
+            <section className="py-12 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {highlights.map((item, i) => (
-                            <div key={i} className="flex items-start gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
-                                <div className="w-10 h-10 flex-shrink-0 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                            <div key={i} className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl">
+                                <div className="w-10 h-10 flex-shrink-0 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
                                     <item.icon className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm">{item.description}</p>
+                                    <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
+                                    <p className="text-gray-600 text-sm">{item.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -57,15 +57,15 @@ export default function DisclaimerPage() {
             </section>
 
             {/* Content */}
-            <section className="py-12 bg-gray-50 dark:bg-gray-800/50">
+            <section className="py-12 bg-gray-50">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="space-y-12">
                         {/* General Disclaimer */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 General Disclaimer
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     The information and tools provided by {siteConfig.name} (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
                                     on our website are for general informational and educational purposes only. All information
@@ -83,13 +83,13 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* No Affiliation */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 YouTube & Third-Party Affiliation
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
-                                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
-                                    <p className="font-medium text-amber-800 dark:text-amber-200">
+                            <div className="space-y-4 text-gray-600">
+                                <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                                    <p className="font-medium text-amber-800">
                                         <FaExclamationTriangle className="inline mr-2" />
                                         {siteConfig.name} is NOT affiliated with, endorsed by, or sponsored by YouTube,
                                         Google, or any of their subsidiaries or affiliates.
@@ -105,11 +105,11 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* Tool Accuracy */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 Tool Accuracy & Results
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     Our AI-powered tools and calculators provide estimates and suggestions based on algorithms
                                     and available data. These results are intended to be helpful starting points and should not
@@ -135,11 +135,11 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* External Links */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 External Links
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     Our website may contain links to external websites that are not operated by us. If you click
                                     on a third-party link, you will be directed to that third party&apos;s site. We strongly advise
@@ -154,11 +154,11 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* Copyright & Fair Use */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 Copyright & Fair Use
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     Some of our tools, such as the Thumbnail Downloader, allow you to access publicly available
                                     content from YouTube. Users are responsible for ensuring their use of downloaded content
@@ -179,11 +179,11 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* Professional Advice */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 Not Professional Advice
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     The content on our website, including blog posts, tool outputs, and any other materials,
                                     is not intended to be a substitute for professional advice. This includes but is not
@@ -201,11 +201,11 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* Changes to Disclaimer */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4">
                                 Changes to This Disclaimer
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     We reserve the right to modify or replace this disclaimer at any time. Any changes will
                                     be effective immediately upon posting on this page. Your continued use of our website
@@ -215,12 +215,12 @@ export default function DisclaimerPage() {
                         </div>
 
                         {/* Contact */}
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+                        <div className="bg-white rounded-2xl p-8 shadow-lg">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
                                 <FaEnvelope className="text-blue-500" />
                                 Questions?
                             </h2>
-                            <div className="space-y-4 text-gray-600 dark:text-gray-400">
+                            <div className="space-y-4 text-gray-600">
                                 <p>
                                     If you have any questions about this disclaimer, please contact us:
                                 </p>
@@ -233,7 +233,7 @@ export default function DisclaimerPage() {
                                     </Link>
                                     <a
                                         href={`mailto:${siteConfig.contact.email}`}
-                                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-xl font-medium transition-colors"
+                                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-medium transition-colors"
                                     >
                                         <FaEnvelope />
                                         {siteConfig.contact.email}
@@ -244,8 +244,8 @@ export default function DisclaimerPage() {
                     </div>
 
                     {/* Related Links */}
-                    <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                    <div className="mt-12 pt-8 border-t border-gray-200">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
                             Related Pages
                         </h3>
                         <div className="flex flex-wrap gap-4">

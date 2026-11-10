@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { BLOG_CATEGORIES, getCategoryPostCounts } from "@/config/blog/categories";
 import { siteConfig } from "@/config/site";
-import { getCollectionPageSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
+import { combineSchemasToGraph, getCollectionPageSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -110,17 +110,11 @@ export default function BlogPage() {
         ]}
         pathname="/blog"
       />
-      {/* CollectionPage + ItemList JSON-LD */}
+      {/* CollectionPage + ItemList + Breadcrumb JSON-LD (@graph) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(collectionSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
+          __html: JSON.stringify(combineSchemasToGraph(collectionSchema, breadcrumbSchema)),
         }}
       />
       <div className="min-h-screen bg-slate-50 relative overflow-hidden">
@@ -181,8 +175,8 @@ export default function BlogPage() {
         </section>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
-          <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+          <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
             <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
           </div>
         </div>
@@ -293,7 +287,7 @@ export default function BlogPage() {
                   />
                   {(i + 1) % 6 === 0 && (
                     <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
-                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">Advertisement</p>
+                       <p className="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-2 text-center">Advertisement</p>
                        <GoogleAd slot={pickInArticleSlot(Math.floor(i / 6))} layout="in-article" format="fluid" />
                     </div>
                   )}
@@ -323,7 +317,7 @@ export default function BlogPage() {
 
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
             <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
           </div>
         </div>

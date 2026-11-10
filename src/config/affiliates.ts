@@ -26,7 +26,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://vidiq.com/jitu",
     ctaText: "Try VidIQ Free →",
     logoBg: "from-blue-600 to-indigo-600",
-    badgeBg: "bg-blue-500/10 text-blue-600 border-blue-200 dark:border-blue-800 dark:text-blue-400",
+    badgeBg: "bg-blue-500/10 text-blue-600 border-blue-200",
     featured: true,
   },
   tubebuddy: {
@@ -38,7 +38,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://www.Tubebuddy.com/pricing?a=jparmar4",
     ctaText: "Get TubeBuddy Free →",
     logoBg: "from-red-600 to-rose-600",
-    badgeBg: "bg-red-500/10 text-red-600 border-red-200 dark:border-red-800 dark:text-red-400",
+    badgeBg: "bg-red-500/10 text-red-600 border-red-200",
     featured: true,
   },
   descript: {
@@ -50,7 +50,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://www.descript.com", // Replace with your Descript affiliate referral link
     ctaText: "Start Free Trial →",
     logoBg: "from-purple-600 to-pink-600",
-    badgeBg: "bg-purple-500/10 text-purple-600 border-purple-200 dark:border-purple-800 dark:text-purple-400",
+    badgeBg: "bg-purple-500/10 text-purple-600 border-purple-200",
     featured: true,
   },
   epidemic: {
@@ -62,7 +62,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://www.epidemicsound.com", // Replace with your Epidemic Sound affiliate referral link
     ctaText: "Get 30 Days Free →",
     logoBg: "from-emerald-600 to-teal-600",
-    badgeBg: "bg-emerald-500/10 text-emerald-600 border-emerald-200 dark:border-emerald-800 dark:text-emerald-400",
+    badgeBg: "bg-emerald-500/10 text-emerald-600 border-emerald-200",
   },
   opusclip: {
     id: "opusclip",
@@ -73,7 +73,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://www.opus.pro/?via=creators",
     ctaText: "Generate Shorts Free →",
     logoBg: "from-violet-600 to-fuchsia-600",
-    badgeBg: "bg-violet-500/10 text-violet-600 border-violet-200 dark:border-violet-800 dark:text-violet-400",
+    badgeBg: "bg-violet-500/10 text-violet-600 border-violet-200",
     featured: true,
   },
   elevenlabs: {
@@ -85,7 +85,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://elevenlabs.io/?from=youtubetoolshub",
     ctaText: "Try Voice AI Free →",
     logoBg: "from-sky-600 to-blue-700",
-    badgeBg: "bg-sky-500/10 text-sky-600 border-sky-200 dark:border-sky-800 dark:text-sky-400",
+    badgeBg: "bg-sky-500/10 text-sky-600 border-sky-200",
     featured: true,
   },
   wise: {
@@ -97,7 +97,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://wise.com/invite/creators",
     ctaText: "Open Wise Account →",
     logoBg: "from-emerald-500 to-green-600",
-    badgeBg: "bg-emerald-500/10 text-emerald-600 border-emerald-200 dark:border-emerald-800 dark:text-emerald-400",
+    badgeBg: "bg-emerald-500/10 text-emerald-600 border-emerald-200",
     featured: true,
   },
   payoneer: {
@@ -109,7 +109,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://www.payoneer.com/creators",
     ctaText: "Get $50 Reward →",
     logoBg: "from-amber-500 to-orange-600",
-    badgeBg: "bg-amber-500/10 text-amber-600 border-amber-200 dark:border-amber-800 dark:text-amber-400",
+    badgeBg: "bg-amber-500/10 text-amber-600 border-amber-200",
   },
   artlist: {
     id: "artlist",
@@ -120,7 +120,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     link: "https://artlist.io",
     ctaText: "Get 2 Months Free →",
     logoBg: "from-yellow-500 to-amber-600",
-    badgeBg: "bg-yellow-500/10 text-yellow-700 border-yellow-200 dark:border-yellow-800 dark:text-yellow-400",
+    badgeBg: "bg-yellow-500/10 text-yellow-700 border-yellow-200",
   },
 };
 

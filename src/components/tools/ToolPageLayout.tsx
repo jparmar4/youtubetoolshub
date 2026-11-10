@@ -2,9 +2,8 @@
 
 import { ReactNode } from "react";
 
-// Dynamic import to avoid loading framer-motion / history UI on every tool paint
+// Dynamic import to avoid loading history + framer-motion until below-fold hydration
 import dynamic from "next/dynamic";
-const MotionWrapper = dynamic(() => import("@/components/ui/MotionWrapper"), { ssr: false });
 const ToolHistory = dynamic(() => import("./ToolHistory"), { ssr: false });
 import { useToolContext } from "./ToolContext";
 
@@ -53,9 +52,7 @@ export default function ToolPageLayout({
                     }
                     aria-live="polite"
                 >
-                    <MotionWrapper>
-                        {children}
-                    </MotionWrapper>
+                    {children}
                 </div>
 
                 {/* Recent History Section */}

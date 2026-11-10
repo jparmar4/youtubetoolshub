@@ -22,19 +22,19 @@ assert(
   "layout.tsx must load deferred external webmcp-registry.js"
 );
 assert(
-  layoutContent.includes("@graph"),
+  layoutContent.includes("@graph") || layoutContent.includes("combineSchemasToGraph"),
   "layout.tsx must consolidate SEO schemas into @graph JSON-LD"
 );
 
-// 2. Check homepage single @graph consolidation & ClientOnly
+// 2. Check homepage single @graph consolidation & direct SSR Hero showcase
 const homeContent = fs.readFileSync(path.join(__dirname, "../src/app/page.tsx"), "utf8");
 assert(
   homeContent.includes("@graph"),
   "page.tsx must consolidate schemas into @graph JSON-LD"
 );
 assert(
-  homeContent.includes("<ClientOnly"),
-  "page.tsx must wrap heavy 3D showcase in ClientOnly to avoid SSR bloat"
+  homeContent.includes("<Hero3DShowcase") && !homeContent.includes("<ClientOnly"),
+  "page.tsx must render Hero3DShowcase directly without ClientOnly fallback shift"
 );
 
 // 3. Check tool pages single @graph consolidation
@@ -106,5 +106,44 @@ assert(
   fs.existsSync(path.join(__dirname, "../public/index.md")),
   "public/index.md must exist for direct agent fetching"
 );
+
+// 9. Keep inline WebMCP script compact (< 2000 chars) so every HTML route stays slim
+const webmcpStart = layoutContent.indexOf("(function()", layoutContent.indexOf("webmcp-registry-script"));
+const webmcpEnd = layoutContent.indexOf("})();", webmcpStart) + 5;
+const webmcpInline = webmcpStart !== -1 && webmcpEnd > webmcpStart ? layoutContent.slice(webmcpStart, webmcpEnd) : "";
+assert(
+  webmcpInline.length > 0 && webmcpInline.length < 2000,
+  `Expected compact #webmcp-registry-script (< 2000 chars), got ${webmcpInline.length}`
+);
+
+// 10. Ensure no loading.tsx files emit redundant Suspense fallback shells in SSR HTML
+function findLoadingFiles(dir) {
+  const found = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      found.push(...findLoadingFiles(full));
+    } else if (entry.name === "loading.tsx") {
+      found.push(full);
+    }
+  }
+  return found;
+}
+const loadingFiles = findLoadingFiles(path.join(__dirname, "../src/app"));
+assert.strictEqual(
+  loadingFiles.length,
+  0,
+  `Expected zero src/app/**/loading.tsx files to avoid Suspense shell HTML bloat, found: ${loadingFiles.join(", ")}`
+);
+
+// 11. When a production build exists, verify built tool HTML has no Suspense S:1 fallback shell
+const builtToolHtml = path.join(__dirname, "../.next/server/app/tools/youtube-thumbnail-downloader.html");
+if (fs.existsSync(builtToolHtml)) {
+  const html = fs.readFileSync(builtToolHtml, "utf8");
+  assert(
+    !html.includes('hidden id="S:1"'),
+    "Built tool HTML must not contain hidden id=\"S:1\" Suspense fallback shell"
+  );
+}
 
 console.log("All AI Agent-Readiness & Token Budget checks passed successfully!");

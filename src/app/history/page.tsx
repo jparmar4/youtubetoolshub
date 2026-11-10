@@ -66,19 +66,19 @@ export default function HistoryPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             {/* Background Decor */}
-            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-br from-purple-100/50 via-blue-50/30 to-transparent dark:from-purple-900/20 dark:via-blue-900/10 dark:to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-br from-purple-100/50 via-blue-50/30 to-transparent pointer-events-none" />
 
             <div className="max-w-7xl mx-auto space-y-8 relative z-10">
 
                 {/* Header */}
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-slate-200 dark:border-slate-800 pb-8">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-slate-200 pb-8">
                     <div>
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4"
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-4"
                         >
                             <FaHistory /> Cloud History
                         </motion.div>
@@ -86,15 +86,15 @@ export default function HistoryPage() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-2"
+                            className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2"
                         >
-                            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Creative Vault</span>
+                            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Creative Vault</span>
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2 }}
-                            className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl"
+                            className="text-lg text-slate-600 max-w-2xl"
                         >
                             Access, manage, and reuse your AI-generated content from any device.
                         </motion.p>
@@ -114,7 +114,7 @@ export default function HistoryPage() {
                                 placeholder="Search history..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/50 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-slate-900 dark:text-white"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-slate-900"
                             />
                         </div>
                         <div className="relative w-full sm:w-64">
@@ -130,7 +130,7 @@ export default function HistoryPage() {
                 </div>
 
                 {error && (
-                    <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/30 text-red-600 dark:text-red-400 p-4 rounded-xl flex items-center gap-2 mb-6">
+                    <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl flex items-center gap-2 mb-6">
                         <FaExclamationCircle />
                         <span className="text-sm font-medium">{error}</span>
                     </div>
@@ -140,13 +140,13 @@ export default function HistoryPage() {
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="h-64 rounded-2xl bg-white dark:bg-slate-900 p-6 animate-pulse border border-slate-200 dark:border-slate-800">
-                                <div className="h-4 w-1/3 bg-slate-200 dark:bg-slate-800 rounded mb-4" />
-                                <div className="h-6 w-3/4 bg-slate-200 dark:bg-slate-800 rounded mb-4" />
+                            <div key={i} className="h-64 rounded-2xl bg-white p-6 animate-pulse border border-slate-200">
+                                <div className="h-4 w-1/3 bg-slate-200 rounded mb-4" />
+                                <div className="h-6 w-3/4 bg-slate-200 rounded mb-4" />
                                 <div className="space-y-2">
-                                    <div className="h-3 w-full bg-slate-200 dark:bg-slate-800 rounded" />
-                                    <div className="h-3 w-full bg-slate-200 dark:bg-slate-800 rounded" />
-                                    <div className="h-3 w-2/3 bg-slate-200 dark:bg-slate-800 rounded" />
+                                    <div className="h-3 w-full bg-slate-200 rounded" />
+                                    <div className="h-3 w-full bg-slate-200 rounded" />
+                                    <div className="h-3 w-2/3 bg-slate-200 rounded" />
                                 </div>
                             </div>
                         ))}
@@ -157,10 +157,10 @@ export default function HistoryPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="py-16 text-center"
                     >
-                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500 dark:text-blue-400">
+                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500">
                             {searchTerm || toolFilter !== "all" ? <FaSearch size={32} /> : <FaHistory size={32} />}
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                        <h3 className="text-2xl font-bold text-slate-900 mb-2">
                             {searchTerm || toolFilter !== "all" ? "No matches found" : "Your vault is empty"}
                         </h3>
                         <p className="text-slate-500 max-w-md mx-auto mb-8">
@@ -234,12 +234,12 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.05 }}
-            className="group relative flex flex-col justify-between bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:border-purple-500/30 transition-all duration-300 backdrop-blur-sm"
+            className="group relative flex flex-col justify-between bg-white rounded-2xl p-6 border border-slate-200 hover:shadow-2xl hover:border-purple-500/30 transition-all duration-300 backdrop-blur-sm"
         >
             <div>
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">
                         {getIcon()}
                         <span>{item.tool_slug.split('-')[1]}</span>
                     </div>
@@ -249,13 +249,13 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-tight line-clamp-2 group-hover:text-blue-500 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight line-clamp-2 group-hover:text-blue-500 transition-colors">
                     {title}
                 </h3>
 
                 {/* Image Preview (if applicable) */}
                 {isImage && images[0] && (
-                    <div className="mb-4 rounded-xl overflow-hidden aspect-video relative bg-slate-100 dark:bg-slate-800">
+                    <div className="mb-4 rounded-xl overflow-hidden aspect-video relative bg-slate-100">
                         <Image
                             src={images[0]}
                             alt={title !== "Untitled Generation" ? `Generated thumbnail preview for: ${title}` : "YouTube thumbnail preview generated by YouTube Tools Hub"}
@@ -267,18 +267,18 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
                 )}
 
                 {/* Description */}
-                <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 mb-4 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 line-clamp-3 mb-4 font-medium leading-relaxed">
                     {getDescription(item.content)}
                 </p>
             </div>
 
             {/* Actions */}
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 mt-auto">
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
                 <CopyButton text={copyText} variant="icon" className="text-slate-400 hover:text-blue-500" />
 
                 <button
                     onClick={onDelete}
-                    className="p-2 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                    className="p-2 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-red-50 transition-all"
                     title="Delete item"
                 >
                     <FaTrash size={14} />

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import {
+    combineSchemasToGraph,
     getFAQSchema,
     getHowToSchema,
     getBreadcrumbSchema,
@@ -166,8 +167,8 @@ const articleSchema = {
         "Complete YouTube monetization guide for 2026: YPP requirements, 8 revenue streams, CPM vs RPM explained, earnings by subscriber tier, and proven strategies to maximize income.",
     url: `${siteConfig.url}/resources/youtube-monetization-guide`,
     image: `${siteConfig.url}/og-image.png`,
-    author: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-    publisher: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+    author: { "@id": `${siteConfig.url}/#organization` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
     dateModified: "2026-07-19",
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-monetization-guide` },
@@ -315,10 +316,14 @@ export default function YouTubeMonetizationGuidePage() {
                 pathname="/resources/youtube-monetization-guide"
             />
             {/* Structured Data */}
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(
+                        combineSchemasToGraph(faqSchema, howToSchema, breadcrumbSchema, articleSchema),
+                    ),
+                }}
+            />
 
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -523,7 +528,7 @@ export default function YouTubeMonetizationGuidePage() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd layout="in-article" format="fluid" slot="7336636636" style={{ display: "block", textAlign: "center" }} />
+                        <GoogleAd layout="in-article" format="fluid" slot="7336636636" className="text-center" />
                     </div>
 
                     {/* Section 3: CPM vs RPM */}
@@ -832,11 +837,6 @@ export default function YouTubeMonetizationGuidePage() {
                             </div>
                         </div>
                     </section>
-
-                    {/* Ad placement */}
-                    <div className="my-8" aria-hidden="true">
-                        {/* Multiplex removed — it competed with in-article units and looked like fake recommendations */}
-                    </div>
 
                     <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-sm text-slate-600">
                         <h2 className="text-lg font-bold text-slate-900 mb-2">Methodology and official references</h2>

@@ -83,19 +83,19 @@ export default function StickyBottomAd() {
     <div
       role="complementary"
       aria-label="Advertisement"
-      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2"
+      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2"
       style={{ contain: "layout paint", transform: "translateZ(0)", maxHeight: "105px" }}
     >
       <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] max-h-[90px] overflow-hidden">
         {/* Ad Tag & Close Button */}
         <div className="absolute -top-6 right-2 flex items-center gap-2">
-          <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider bg-white/80 dark:bg-slate-800/80 px-2 py-0.5 rounded-t border border-b-0 border-slate-200 dark:border-slate-700">
+          <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider bg-white/95 px-2 py-0.5 rounded-t border border-b-0 border-slate-200">
             Ad
           </span>
           <button
             onClick={handleDismiss}
             aria-label="Close Advertisement"
-            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 text-[10px] transition-colors shadow-sm"
+            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 text-[10px] transition-colors shadow-sm"
           >
             <FaTimes />
           </button>

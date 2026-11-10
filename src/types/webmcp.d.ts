@@ -3,6 +3,9 @@ import "react";
 declare global {
   interface Navigator {
     modelContext?: {
+      provideContext?: (ctx: {
+        tools: Array<{ name: string; description: string }>;
+      }) => void;
       registerTool: (tool: {
         name: string;
         description: string;

@@ -25,7 +25,6 @@ import Hero3DShowcase from "@/components/home/Hero3DShowcase";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
-import ClientOnly from "@/components/ui/ClientOnly";
 
 export const metadata: Metadata = {
   title: {
@@ -168,10 +167,11 @@ export default function Home() {
       toolListSchema,
       mainEntitySchema,
       breadcrumbSchema,
-    ].map((item) => {
-      const { "@context": _, ...rest } = item as Record<string, unknown>;
-      return rest;
-    }),
+    ].map((item) =>
+      Object.fromEntries(
+        Object.entries(item as Record<string, unknown>).filter(([k]) => k !== "@context"),
+      ),
+    ),
   };
 
   return (
@@ -187,9 +187,6 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden py-14 md:py-22">
         <div className="nebula-bg" />
-
-        <div className="absolute top-1/4 -right-24 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 -left-24 w-80 h-80 bg-fuchsia-500/15 rounded-full blur-[120px] animate-pulse delay-700" />
 
         <div className="relative w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div>
@@ -251,17 +248,7 @@ export default function Home() {
             </div>
 
             {/* Interactive 3D UHD Creator Command Studio Showcase */}
-            <ClientOnly fallback={<div className="min-h-[140px] flex items-center justify-center"><div className="h-6 w-6 rounded-full border-2 border-purple-200 border-t-purple-600 animate-spin" /></div>}>
-              <Hero3DShowcase />
-            </ClientOnly>
-
-            {/* Above-the-fold Ad immediately below 3D Hero Showcase */}
-            <div className="mt-8 max-w-4xl mx-auto w-full">
-              <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm p-3 text-center">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
-                <GoogleAd slot="2275881649" lazy={false} responsive className="w-full text-center" />
-              </div>
-            </div>
+            <Hero3DShowcase />
           </div>
 
           {/* 3D UHD Telemetry Stat Pods */}
@@ -280,7 +267,7 @@ export default function Home() {
                   <div className={`text-3xl sm:text-4xl font-black font-outfit mb-1 text-transparent bg-clip-text bg-gradient-to-r ${stat.accent}`}>
                     {stat.value}
                   </div>
-                  <div className="text-xs font-extrabold uppercase tracking-widest text-slate-500">
+                  <div className="text-xs font-extrabold uppercase tracking-widest text-slate-600">
                     {stat.label}
                   </div>
                 </div>
@@ -290,13 +277,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Display Ad between Hero and Money Formula — reserved min-height prevents CLS */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
+        <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/95 p-3 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+          <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
+          <GoogleAd slot="2275881649" lazy={false} responsive className="w-full text-center" />
+        </div>
+      </div>
+
       {/* Money formula + calculator CTA (high-CPC intent) */}
       <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit tracking-tight mb-3">
               How much does{" "}
-              <span className="text-emerald-600">YouTube pay</span>?
+              <span className="text-emerald-700">YouTube pay</span>?
             </h2>
             <p className="text-slate-600 max-w-2xl mx-auto" data-speakable>
               Estimated AdSense earnings ≈ (monthly views ÷ 1,000) × RPM. Example:
@@ -316,8 +311,8 @@ export default function Home() {
           </div>
           {/* Ad below homepage calculator */}
           <div className="mt-8 max-w-4xl mx-auto w-full">
-            <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+            <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+              <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
               <GoogleAd slot="3397391628" responsive className="w-full text-center" />
             </div>
           </div>
@@ -403,7 +398,7 @@ export default function Home() {
       </section>
 
       {/* Tools Showcase */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10">
             <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
@@ -442,7 +437,7 @@ export default function Home() {
                 badge: "High RPM",
               },
               {
-                title: "All 44 Creator Tools",
+                title: `All ${tools.length} Creator Tools`,
                 sub: "Complete Browser Catalog",
                 href: "/tools",
                 accent: "from-sky-500 to-indigo-600",
@@ -478,7 +473,6 @@ export default function Home() {
             {featuredTools.map((tool) => (
               <ToolCard
                 key={tool.slug}
-                icon={<tool.icon />}
                 title={tool.name}
                 description={tool.shortDescription}
                 href={`/tools/${tool.slug}`}
@@ -501,7 +495,7 @@ export default function Home() {
       </section>
 
       {/* Authority & 3D Layered Creator Architecture */}
-      <section className="py-20 bg-white relative">
+      <section className="py-20 bg-white relative cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-14 items-center">
             <div className="lg:w-1/2">
@@ -630,7 +624,7 @@ export default function Home() {
       <SmartWorkflow />
 
       {/* Benefits Bridge */}
-      <section className="py-20 bg-slate-50 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
@@ -665,7 +659,7 @@ export default function Home() {
       </section>
 
       {/* Semantic FAQ Section for GEO/AEO */}
-      <section className="py-20 bg-white relative z-10">
+      <section className="py-20 bg-white relative z-10 cv-auto">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12 text-balance">
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
@@ -705,7 +699,7 @@ export default function Home() {
       </section>
 
       {/* Latest guides */}
-      <section className="py-16 bg-slate-50 relative overflow-hidden">
+      <section className="py-16 bg-slate-50 relative overflow-hidden cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
@@ -744,7 +738,7 @@ export default function Home() {
       </section>
 
       {/* Heroic 3D UHD CTA Section */}
-      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3.5rem] border border-purple-500/30 shadow-[0_32px_70px_-15px_rgba(15,23,42,0.5)]">
+      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3.5rem] border border-purple-500/30 shadow-[0_32px_70px_-15px_rgba(15,23,42,0.5)] cv-auto">
         <div className="absolute inset-0 bg-slate-950 uhd-dark-grid" />
         <div className="absolute inset-x-16 top-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
 
@@ -773,7 +767,7 @@ export default function Home() {
       </section>
 
       {/* Trust Badges */}
-      <div className="py-12 bg-slate-50 border-t border-slate-100">
+      <div className="py-12 bg-slate-50 border-t border-slate-100 cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <TrustSignals />
         </div>

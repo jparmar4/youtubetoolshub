@@ -1,8 +1,8 @@
-import React from "react";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
 import {
+  combineSchemasToGraph,
   getFAQSchema,
   getBreadcrumbSchema,
 } from "@/lib/seo";
@@ -156,11 +156,9 @@ export default function FAQPage() {
       <GeoAeoHead {...GEO_AEO_PRESETS.faqPage} pathname="/faq" />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(combineSchemasToGraph(faqSchema, breadcrumbSchema)),
+        }}
       />
 
       <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
@@ -184,8 +182,8 @@ export default function FAQPage() {
           {/* FAQ Categories */}
           <div className="grid gap-6 mb-12">
             {faqData.map((faq, index) => (
-              <React.Fragment key={index}>
                 <div
+                  key={index}
                   className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
                 >
                   <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
@@ -207,7 +205,6 @@ export default function FAQPage() {
                     </div>
                   </div>
                 </div>
-              </React.Fragment>
             ))}
           </div>
 

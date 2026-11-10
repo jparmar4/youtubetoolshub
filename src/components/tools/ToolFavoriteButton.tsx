@@ -39,8 +39,8 @@ function ToolFavoriteButton({
         onClick={handleClick}
         className={`p-2 rounded-xl transition-all shadow-2xs ${
           favorited
-            ? "bg-amber-100/90 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"
-            : "bg-white/80 dark:bg-slate-800/80 text-slate-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-slate-700"
+            ? "bg-amber-100/90 text-amber-600"
+            : "bg-white/80 text-slate-400 hover:text-amber-500 hover:bg-amber-50"
         } ${className}`}
         aria-label={favorited ? `Pinned to Quick Access - Unpin ${toolName}` : `Pin to Quick Access - ${toolName}`}
         title={favorited ? "Pinned to Quick Access" : "Pin to Quick Access"}
@@ -56,8 +56,8 @@ function ToolFavoriteButton({
       onClick={handleClick}
       className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all border shadow-2xs hover:shadow-xs ${
         favorited
-          ? "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200"
-          : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-amber-400 hover:text-amber-600"
+          ? "bg-amber-50 border-amber-300 text-amber-900"
+          : "bg-white border-slate-200 text-slate-700 hover:border-amber-400 hover:text-amber-600"
       } ${className}`}
       aria-label={favorited ? `Pinned to Quick Access - Unpin ${toolName}` : `Pin to Quick Access - ${toolName}`}
     >

@@ -13,7 +13,7 @@ const MCP_TOOLS = [
   {
     name: "list_youtube_tools",
     description:
-      "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
+      `List or search all ${tools.length} free YouTube creator tools on YouTube Tools Hub by category or keyword.`,
     inputSchema: {
       type: "object",
       properties: {
@@ -78,7 +78,7 @@ const MCP_TOOLS = [
       },
       required: ["videoIdOrUrl"],
     },
-  },,
+  },
   {
     name: "estimate_sponsorship_rate",
     description:
@@ -620,7 +620,7 @@ export async function POST(request: NextRequest) {
                     },
                     monetizationBenchmark:
                       "YouTube Shorts revenue pool pays between $0.03 and $0.07 per 1,000 views. 1,000,000 Shorts views generates approximately $30 to $70 in AdSense earnings.",
-                    toolUrl: `${baseUrl}/tools/youtube-shorts-monetization-calculator`,
+                    toolUrl: `${baseUrl}/tools/youtube-shorts-vs-long-form-calculator`,
                   },
                   null,
                   2,

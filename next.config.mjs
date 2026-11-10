@@ -258,8 +258,10 @@ const nextConfig = {
       },
 
       // ─── Default API endpoints: non-public APIs should not be indexed ───
+      // Exclude /api/markdown so its handler can emit indexable headers on 200
+      // and X-Robots-Tag: noindex on 404 responses.
       {
-        source: "/api/:path*",
+        source: "/api/:path((?!markdown$).*)",
         headers: [
           {
             key: "X-Robots-Tag",
@@ -323,32 +325,7 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/api/markdown",
-        headers: [
-          {
-            key: "Cache-Control",
-            value:
-              "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
-          },
-          {
-            key: "Content-Type",
-            value: "text/markdown; charset=utf-8",
-          },
-          {
-            key: "Vary",
-            value: "Accept",
-          },
-          {
-            key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
-          },
-          {
-            key: "Access-Control-Allow-Origin",
-            value: "*",
-          },
-        ],
-      },
+      // /api/markdown headers (200 vs 404 X-Robots-Tag and Cache-Control) are set dynamically in route.ts
       {
         source: "/api/mcp",
         headers: [

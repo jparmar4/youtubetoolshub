@@ -309,7 +309,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             />
             {/* Quick View Presets */}
             <div className="flex flex-wrap items-center gap-1.5 mt-2">
-              <span className="text-[11px] font-bold text-slate-400 mr-0.5">Presets:</span>
+              <span className="text-[11px] font-bold text-slate-600 mr-0.5">Presets:</span>
               {VIEW_PRESETS.map((p) => (
                 <button
                   key={p.label}
@@ -336,7 +336,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               onChange={(e) => setRpm(e.target.value)}
               step="0.01"
             />
-            <div className="text-[11px] text-slate-400 mt-2">
+            <div className="text-[11px] text-slate-600 mt-2">
               Earnings per 1,000 views after YouTube cut
             </div>
           </div>
@@ -384,9 +384,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
           <AdSectionPrioritize>
             <div className="space-y-6 pt-2">
               {/* Currency Selector Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/90 dark:border-slate-700">
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200">
-                  <FaGlobeAmericas className="text-purple-600 dark:text-purple-400" />
+              <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                  <FaGlobeAmericas className="text-purple-600"/>
                   <span>Display Currency:</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
@@ -398,7 +398,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                       className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                         activeCurrency === code
                           ? "bg-purple-600 text-white shadow-xs"
-                          : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700"
+                          :"bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
                       }`}
                     >
                       {conf.label}
@@ -435,7 +435,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Yearly Projection */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-600 mb-1 flex items-center">
                       <FaChartLine className="mr-1.5 text-purple-600" /> Yearly AdSense Run Rate
                     </div>
                     <p className="text-2xl sm:text-3xl font-black text-slate-900 mb-1">
@@ -450,7 +450,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Brand Deal Sponsor Value */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-600 mb-1 flex items-center">
                       <FaHandshake className="mr-1.5 text-amber-500" /> Sponsor Rate / Video
                     </div>
                     <p className="text-xl sm:text-2xl font-black text-slate-900 mb-1">
@@ -465,7 +465,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 {/* Estimated Channel Asset Value */}
                 <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
                   <div>
-                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-1 flex items-center">
+                    <div className="text-xs uppercase font-extrabold tracking-wider text-slate-600 mb-1 flex items-center">
                       <FaCoins className="mr-1.5 text-rose-500" /> Channel Asset Value
                     </div>
                     <p className="text-xl sm:text-2xl font-black text-slate-900 mb-1">
@@ -517,9 +517,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
             <Link
               href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
-              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all text-xs"
             >
-              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+              <span className="font-bold text-slate-900 block mb-1">
                 LLC vs. S-Corp Calculator →
               </span>
               <span className="text-slate-500">
@@ -529,9 +529,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
 
             <Link
               href="/tools/patreon-vs-youtube-memberships-vs-fourthwall-fee-calculator"
-              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all text-xs"
             >
-              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+              <span className="font-bold text-slate-900 block mb-1">
                 Platform Fee Calculator →
               </span>
               <span className="text-slate-500">
@@ -541,9 +541,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
 
             <Link
               href="/tools/youtube-shorts-music-royalty-split-calculator"
-              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 dark:border-slate-800 dark:bg-slate-900 transition-all text-xs"
+              className="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 transition-all text-xs"
             >
-              <span className="font-bold text-slate-900 dark:text-white block mb-1">
+              <span className="font-bold text-slate-900 block mb-1">
                 Shorts Music Split Calculator →
               </span>
               <span className="text-slate-500">

@@ -11,14 +11,14 @@ interface ExpertQuoteProps {
 
 export default function ExpertQuote({ quote, author, role, image }: ExpertQuoteProps) {
     return (
-        <div className="expert-quote my-12 relative">
+        <div className="not-prose expert-quote my-12 relative">
             <div className="absolute top-0 left-6 -translate-y-1/2 bg-purple-600 text-white p-3 rounded-full shadow-lg">
                 <FaQuoteLeft className="w-5 h-5" />
             </div>
 
             <div className="bg-white border border-slate-200 rounded-2xl p-8 pt-10 shadow-lg shadow-purple-900/5 relative">
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-                    <span className="text-2xl text-purple-600 dark:text-purple-400 font-serif leading-none">&quot;</span>
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl text-purple-600 font-serif leading-none">&quot;</span>
                 </div>
                 <blockquote className="text-xl text-slate-800 font-medium leading-relaxed italic mb-6">
                     {quote}

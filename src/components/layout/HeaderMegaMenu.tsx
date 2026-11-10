@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import { useFavoriteTools } from "@/lib/favorites";
 import { toast } from "@/components/ui/Toast";
+import { toolMeta } from "@/config/tool-meta";
 
 interface HeaderMegaMenuProps {
   isOpen: boolean;
@@ -171,7 +172,7 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
 
   return (
     <div
-      className="absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-2xl border-b border-slate-200/90 shadow-2xl animate-fade-in-up"
+      className="absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200/90 shadow-2xl animate-fade-in-up"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -183,13 +184,13 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
             return (
               <div key={category.title} className="flex flex-col space-y-3">
                 {/* Category Header */}
-                <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100">
                   <div
                     className={`w-7 h-7 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center text-white text-xs shadow-xs`}
                   >
                     <CatIcon className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
                     {category.title}
                   </span>
                 </div>
@@ -203,28 +204,28 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                     return (
                       <div
                         key={tool.slug}
-                        className="group relative flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
+                        className="group relative flex items-start gap-2.5 p-2 rounded-xl hover:bg-slate-50 transition-colors"
                       >
                         <Link
                           href={`/tools/${tool.slug}`}
                           onClick={onClose}
                           className="flex items-start gap-2.5 flex-1 min-w-0"
                         >
-                          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-purple-600 group-hover:text-white transition-colors flex-shrink-0 mt-0.5">
+                          <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600 group-hover:bg-purple-600 group-hover:text-white transition-colors flex-shrink-0 mt-0.5">
                             <ToolIcon className="w-3.5 h-3.5" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <span className="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors truncate">
+                              <span className="text-xs font-bold text-slate-800 group-hover:text-purple-600 transition-colors truncate">
                                 {tool.name}
                               </span>
                               {tool.badge && (
-                                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
+                                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
                                   {tool.badge}
                                 </span>
                               )}
                             </div>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 leading-normal">
+                            <p className="text-[11px] text-slate-500 line-clamp-1 leading-normal">
                               {tool.desc}
                             </p>
                           </div>
@@ -246,7 +247,7 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                           className={`p-1.5 rounded-lg text-xs transition-colors flex-shrink-0 ${
                             favorited
                               ? "text-amber-500 hover:text-amber-600"
-                              : "text-slate-300 dark:text-slate-600 hover:text-amber-400 opacity-0 group-hover:opacity-100"
+                              : "text-slate-300 hover:text-amber-400 opacity-0 group-hover:opacity-100"
                           }`}
                           aria-label={favorited ? "Unpin tool" : "Pin tool to Quick Access"}
                           title={favorited ? "Pinned to Quick Access" : "Pin to Quick Access"}
@@ -263,11 +264,11 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
         </div>
 
         {/* Footer Ribbon inside Mega Menu */}
-        <div className="mt-6 pt-5 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">
+        <div className="mt-6 pt-5 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-slate-600">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              44 Free Tools
+              {toolMeta.length} Free Tools
             </span>
             <span>No sign-up or credit card required. Fast browser-based execution.</span>
           </div>
@@ -275,9 +276,9 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
           <Link
             href="/tools"
             onClick={onClose}
-            className="inline-flex items-center gap-2 text-xs font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors group"
+            className="inline-flex items-center gap-2 text-xs font-bold text-purple-600 hover:text-purple-700 transition-colors group"
           >
-            <span>Explore All 44 Tools Catalog</span>
+            <span>Explore All {toolMeta.length} Tools Catalog</span>
             <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

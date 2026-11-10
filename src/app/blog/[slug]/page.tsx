@@ -14,7 +14,7 @@ import { NOINDEX_BLOG_SLUGS } from "@/config/index-policy";
 import { getArticleSchema, getBreadcrumbSchema, getFAQSchema, getVideoObjectSchema, getGlobalAlternates, getPersonSchema, getHowToSchema, noIndexRobots } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { getClusterSiblings } from "@/lib/topic-clusters";
-import { processContent, extractYoutubeVideoIds } from "@/lib/content-processor";
+import { processContent, extractYoutubeVideoIds, extractTocHeadings } from "@/lib/content-processor";
 import {
     getCanonicalCategorySlug,
     getCategoryDisplayName,
@@ -174,18 +174,7 @@ export default async function BlogPostPage({
     const author = resolveAuthor(post.author);
     const authorUrl = `${siteConfig.url}${getAuthorPageUrl(author)}`;
 
-    const tocHeadings: TocHeading[] = post.content
-        .split("\n")
-        .filter((line) => line.trim().startsWith("## "))
-        .map((line) => {
-            const text = line.trim().replace(/^##\s+/, "").replace(/[*_`]/g, "");
-            const id = text
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, "-")
-                .replace(/(^-|-$)/g, "");
-            return { text, id };
-        })
-        .filter((h) => h.id.length > 0);
+    const tocHeadings: TocHeading[] = extractTocHeadings(post.content);
 
     // Generate structured data for SEO
     const articleSchema = getArticleSchema({
@@ -263,10 +252,9 @@ export default async function BlogPostPage({
 
     const combinedBlogGraphSchema = {
         "@context": "https://schema.org",
-        "@graph": blogSchemasToCombine.map((item) => {
-            const { "@context": _, ...rest } = item;
-            return rest;
-        }),
+        "@graph": blogSchemasToCombine.map((item) =>
+            Object.fromEntries(Object.entries(item).filter(([k]) => k !== "@context")),
+        ),
     };
 
     return (
@@ -416,28 +404,15 @@ export default async function BlogPostPage({
                             )}
 
                             {/* Above-Article Content Ad — high initial viewability */}
-                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 text-center">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
                             </div>
 
                             <article itemScope itemType="https://schema.org/Article">
                                 <AdSectionPrioritize>
                                 {/* Article Content */}
-                                <div
-                                    className="prose prose-lg prose-slate max-w-none 
-                                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
-                                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:pb-3 prose-h2:border-b prose-h2:border-slate-200
-                                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4
-                                prose-p:text-slate-600 prose-p:leading-relaxed
-                                prose-a:text-purple-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
-                                prose-strong:text-slate-900 prose-strong:font-bold
-                                prose-ul:my-6 prose-li:text-slate-600
-                                prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:py-1 prose-blockquote:rounded-r-lg
-                                prose-code:text-purple-600 prose-code:bg-purple-100 prose-code:px-2 prose-code:py-0.5 prose-code:rounded prose-code:font-medium
-                                prose-pre:bg-slate-900 prose-pre:rounded-xl
-                                prose-img:rounded-xl prose-img:shadow-md"
-                                >
+                                <div className="article-prose max-w-none">
                                     {processContent(post.content, {
                                         // Mid-article touch after first major section
                                         injectEarningsCtaAfterH2: showEarningsCta
@@ -573,8 +548,8 @@ export default async function BlogPostPage({
                             </article>
 
                             {/* Recommended Content / Multiplex Ad Unit */}
-                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm" aria-hidden="true">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm" aria-hidden="true">
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                                 <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
                             </div>
 

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, TIERS } from "@/lib/cpm-data";
-import { getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema, getGlobalAlternates } from "@/lib/seo";
+import { combineSchemasToGraph, getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema, getGlobalAlternates } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -248,10 +248,14 @@ export default function YouTubeCPMRatesPage() {
                 pathname="/resources/youtube-cpm-rates"
             />
             {/* Structured Data */}
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(
+                        combineSchemasToGraph(faqSchema, howToSchema, breadcrumbSchema, datasetSchema),
+                    ),
+                }}
+            />
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
                 {/* Hero */}
@@ -271,7 +275,7 @@ export default function YouTubeCPMRatesPage() {
                                 Updated for 2026 · 50+ Countries
                             </span>
                             <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight">
-                                YouTube CPM Rates<br />
+                                YouTube CPM Rates{" "}<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                                     by Country 2026
                                 </span>
@@ -373,7 +377,7 @@ export default function YouTubeCPMRatesPage() {
 
                     {/* Ad placement */}
                     <div className="my-8" aria-hidden="true">
-                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" style={{ display: "block", textAlign: "center" }} />
+                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="text-center" />
                     </div>
 
                     {/* Tier 3 Table */}

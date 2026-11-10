@@ -7,6 +7,7 @@ import { authors, getAuthorBySlug, resolveAuthor } from "@/config/blog/authors";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
 import {
+    combineSchemasToGraph,
     getBreadcrumbSchema,
     getGlobalAlternates,
     getPersonSchema,
@@ -94,11 +95,9 @@ export default async function AuthorPage({
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(combineSchemasToGraph(personSchema, breadcrumbSchema)),
+                }}
             />
 
             <div className="min-h-screen bg-slate-50">

@@ -58,15 +58,16 @@ function HeaderCurrencyPicker() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         className="h-9 inline-flex items-center gap-1.5 px-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 text-xs font-bold transition-all shadow-[inset_0_1px_0_0_#fff,0_1px_2px_rgba(15,23,42,0.05)] hover:border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500/40 whitespace-nowrap"
-        aria-label="Select preferred display currency"
         aria-expanded={isOpen}
       >
-        <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-700 font-extrabold text-[10px] leading-none">
+        <span className="sr-only">Display currency: </span>
+        <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 font-extrabold text-[10px] leading-none">
           {symbol}
         </span>
         <span className="tracking-tight font-extrabold text-slate-800">{currency}</span>
         <FaChevronDown
-          className={`w-2.5 h-2.5 text-slate-400 transition-transform duration-200 ${
+          aria-hidden="true"
+          className={`w-2.5 h-2.5 text-slate-500 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />

@@ -54,7 +54,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     type="button"
                     onClick={() => setDismissed(true)}
                     aria-label="Dismiss usage banner"
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 >
                     <FaTimes className="w-3 h-3" aria-hidden="true" />
                 </button>
@@ -130,7 +130,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 type="button"
                 onClick={() => setDismissed(true)}
                 aria-label="Dismiss usage banner"
-                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
                 <FaTimes className="w-3 h-3" aria-hidden="true" />
             </button>

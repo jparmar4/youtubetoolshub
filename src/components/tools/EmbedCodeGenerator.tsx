@@ -125,17 +125,17 @@ export default function EmbedCodeGenerator() {
     >
       <div className="space-y-8">
         {/* Header Alert */}
-        <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/80 via-white to-cyan-50/60 p-5 sm:p-6 dark:border-blue-900/40 dark:from-slate-900 dark:via-blue-950/20 dark:to-slate-900 shadow-sm">
+        <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/80 via-white to-cyan-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700 dark:bg-blue-950/80 dark:text-blue-400">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
                 <FaCode /> Developer &amp; Blogger Utility
               </span>
-              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+              <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                 Responsive &amp; Privacy-Enhanced YouTube Embed Code Generator
               </h2>
-              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                Generate 100% mobile-friendly responsive embed code that never overflows your container and uses GDPR-safe <code className="text-blue-600 dark:text-blue-400 font-bold">youtube-nocookie.com</code>.
+              <p className="mt-1 text-sm text-slate-600">
+                Generate 100% mobile-friendly responsive embed code that never overflows your container and uses GDPR-safe <code className="text-blue-600 font-bold">youtube-nocookie.com</code>.
               </p>
             </div>
           </div>
@@ -144,9 +144,9 @@ export default function EmbedCodeGenerator() {
         {/* Input & Options Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
-          <div className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-5">
+          <div className="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
             <div>
-              <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
+              <label className="block text-sm font-bold text-slate-800 mb-1">
                 YouTube Video or Shorts URL
               </label>
               <Input
@@ -172,7 +172,7 @@ export default function EmbedCodeGenerator() {
                     className={`py-2 text-xs font-bold rounded-lg border transition-all ${
                       aspectRatio === r
                         ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                        : "border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        :"border-slate-200 text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     {r === "9:16" ? "9:16 (Shorts)" : r}
@@ -184,7 +184,7 @@ export default function EmbedCodeGenerator() {
             {/* Timestamps */}
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Start Time (seconds)
                 </label>
                 <Input
@@ -197,7 +197,7 @@ export default function EmbedCodeGenerator() {
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   End Time (seconds)
                 </label>
                 <Input
@@ -212,8 +212,8 @@ export default function EmbedCodeGenerator() {
             </div>
 
             {/* Toggles */}
-            <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-3">
-              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+            <div className="pt-2 border-t border-slate-100 space-y-3">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={privacyMode}
@@ -222,7 +222,7 @@ export default function EmbedCodeGenerator() {
                 />
                 <FaShieldAlt className="text-emerald-500" /> Use Privacy-Enhanced Mode (youtube-nocookie.com)
               </label>
-              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={mute}
@@ -231,7 +231,7 @@ export default function EmbedCodeGenerator() {
                 />
                 Start Video Muted
               </label>
-              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={autoplay}
@@ -240,7 +240,7 @@ export default function EmbedCodeGenerator() {
                 />
                 Autoplay Video (Muted automatically per browser policy)
               </label>
-              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={loop}
@@ -249,7 +249,7 @@ export default function EmbedCodeGenerator() {
                 />
                 Loop Video Continuously
               </label>
-              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+              <label className="flex items-center gap-2.5 text-xs font-bold text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={hideControls}
@@ -264,7 +264,7 @@ export default function EmbedCodeGenerator() {
           {/* Live Preview & Code Panel */}
           <div className="lg:col-span-6 space-y-4">
             {/* Live Preview */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-3">
+            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                 <FaTv className="text-blue-500" /> Live Embed Preview
               </span>
@@ -291,7 +291,7 @@ export default function EmbedCodeGenerator() {
             </div>
 
             {/* HTML / React Code Exports */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-3">
+            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
                   <FaLaptopCode className="text-indigo-500" /> Responsive HTML + CSS Code

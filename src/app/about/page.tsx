@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About YouTube Tools Hub – Free AI YouTube Tools for Creators",
     description:
-      "YouTube Tools Hub is a free suite of 44+ creator tools for YouTube creators. Learn about our mission to make creator workflows easier.",
+      `YouTube Tools Hub is a free suite of ${tools.length}+ creator tools for YouTube creators. Learn about our mission to make creator workflows easier.`,
     type: "website",
     url: `${siteConfig.url}/about`,
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About YouTube Tools Hub – Free AI YouTube Tools",
     description:
-      "Learn about YouTube Tools Hub—44+ free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.",
+      `Learn about YouTube Tools Hub—${tools.length}+ free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.`,
     images: [`${siteConfig.url}/og-image.png`],
   },
   alternates: getGlobalAlternates("/about"),

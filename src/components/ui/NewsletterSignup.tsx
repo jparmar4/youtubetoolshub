@@ -42,17 +42,17 @@ export default function NewsletterSignup() {
     };
 
     return (
-        <div className="glass-premium rounded-3xl p-8 md:p-10 text-center border border-purple-100 dark:border-slate-800 shadow-md">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-fuchsia-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-inner">
+        <div className="glass-premium rounded-3xl p-8 md:p-10 text-center border border-purple-100 shadow-md">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-fuchsia-500/20 flex items-center justify-center text-purple-600 shadow-inner">
                 <FaEnvelope className="w-6 h-6" />
             </div>
-            <span className="inline-block bg-purple-100 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full mb-3 border border-purple-200 dark:border-purple-800">
+            <span className="inline-block bg-purple-100 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full mb-3 border border-purple-200">
                 Free Creator Resource
             </span>
-            <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-2xl font-extrabold text-slate-900 mb-2">
                 Get the 2026 YouTube SEO & High-CPM Matrix
             </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-6 text-sm max-w-lg mx-auto leading-relaxed">
+            <p className="text-slate-600 mb-6 text-sm max-w-lg mx-auto leading-relaxed">
                 Join thousands of creators getting our breakdown of <strong>$20–$50 CPM niches</strong>, viral title formulas, and weekly algorithm updates.
             </p>
 
@@ -74,7 +74,7 @@ export default function NewsletterSignup() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your creator email"
                         aria-label="Email address"
-                        className="flex-1 px-4 py-3.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
+                        className="flex-1 px-4 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
                         required
                         disabled={status === "loading"}
                     />

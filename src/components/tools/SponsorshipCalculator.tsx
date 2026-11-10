@@ -283,14 +283,14 @@ ${channelHandle}`
             description="Explore illustrative quotes for sponsored integrations, shoutouts, and dedicated reviews."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status" className="text-sm text-amber-700 dark:text-amber-300">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 <p className="text-sm text-slate-500">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
                 {/* Header Controls: Currency & View Presets */}
-                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700">
+                <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex items-center gap-2">
                         <FaExchangeAlt className="text-purple-600" />
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">Currency:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900">
+                        <span className="text-sm font-semibold text-slate-700">Currency:</span>
+                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
                             {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
                                 <button
                                     key={c}
@@ -299,7 +299,7 @@ ${channelHandle}`
                                     className={`px-3 py-1.5 text-xs font-bold transition-all ${
                                         currency === c
                                             ? "bg-purple-600 text-white"
-                                            : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            :"text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {c}
@@ -315,7 +315,7 @@ ${channelHandle}`
                                 key={preset}
                                 type="button"
                                 onClick={() => setViews(preset)}
-                                className="px-2.5 py-1 bg-white dark:bg-slate-700 hover:border-purple-400 border border-slate-200 dark:border-slate-600 rounded-md font-medium transition-colors"
+                                className="px-2.5 py-1 bg-white hover:border-purple-400 border border-slate-200 rounded-md font-medium transition-colors"
                             >
                                 {(parseInt(preset) / 1000)}k
                             </button>
@@ -340,13 +340,13 @@ ${channelHandle}`
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-2">
                             Content Niche (Affects Sponsor CPM)
                         </label>
                         <select
                             value={selectedNiche}
                             onChange={(e) => setSelectedNiche(e.target.value)}
-                            className="w-full px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500"
                         >
                             {NICHES.map((n) => (
                                 <option key={n.id} value={n.id}>
@@ -360,7 +360,7 @@ ${channelHandle}`
 
                 {/* Sponsorship Placement Options */}
                 <div>
-                    <label className="block text-sm font-bold text-slate-800 dark:text-slate-100 mb-3">
+                    <label className="block text-sm font-bold text-slate-800 mb-3">
                         Sponsorship Placement Format
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -372,14 +372,14 @@ ${channelHandle}`
                                 onClick={() => setSelectedPlacement(p.id)}
                                 className={`cursor-pointer p-4 rounded-xl border transition-all text-left ${
                                     selectedPlacement === p.id
-                                        ? "border-purple-600 bg-purple-50/60 dark:bg-purple-950/30 shadow-sm ring-1 ring-purple-500"
-                                        : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-purple-300"
+                                        ?"border-purple-600 bg-purple-50/60 shadow-sm ring-1 ring-purple-500"
+                                        :"border-slate-200 bg-white hover:border-purple-300"
                                 }`}
                             >
-                                <div className="font-bold text-sm text-slate-900 dark:text-white mb-1">
+                                <div className="font-bold text-sm text-slate-900 mb-1">
                                     {p.name}
                                 </div>
-                                <div className="text-xs text-slate-500 dark:text-slate-400">
+                                <div className="text-xs text-slate-500">
                                     {p.desc}
                                 </div>
                             </button>
@@ -388,8 +388,8 @@ ${channelHandle}`
                 </div>
 
                 {/* Add-Ons & Commercial Deliverables */}
-                <div className="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700">
-                    <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-3 flex items-center gap-2">
+                <div className="p-5 bg-white rounded-2xl border border-slate-200">
+                    <h3 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
                         <FaShieldAlt className="text-purple-600" />
                         Commercial Add-Ons & Usage Rights (High Value)
                     </h3>
@@ -402,7 +402,7 @@ ${channelHandle}`
                                 className="mt-1 rounded text-purple-600 focus:ring-purple-500 h-4 w-4"
                             />
                             <div>
-                                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                                <span className="font-semibold text-slate-800">
                                     Paid Ad Usage Rights (+35%)
                                 </span>
                                 <p className="text-xs text-slate-500">
@@ -419,7 +419,7 @@ ${channelHandle}`
                                 className="mt-1 rounded text-purple-600 focus:ring-purple-500 h-4 w-4"
                             />
                             <div>
-                                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                                <span className="font-semibold text-slate-800">
                                     30-Day Competitor Exclusivity (+25%)
                                 </span>
                                 <p className="text-xs text-slate-500">
@@ -436,7 +436,7 @@ ${channelHandle}`
                                 className="mt-1 rounded text-purple-600 focus:ring-purple-500 h-4 w-4"
                             />
                             <div>
-                                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                                <span className="font-semibold text-slate-800">
                                     Pinned Comment & Top Link (+10%)
                                 </span>
                                 <p className="text-xs text-slate-500">
@@ -453,7 +453,7 @@ ${channelHandle}`
                                 className="mt-1 rounded text-purple-600 focus:ring-purple-500 h-4 w-4"
                             />
                             <div>
-                                <span className="font-semibold text-slate-800 dark:text-slate-200">
+                                <span className="font-semibold text-slate-800">
                                     Community Tab Post (+15%)
                                 </span>
                                 <p className="text-xs text-slate-500">
@@ -466,23 +466,23 @@ ${channelHandle}`
 
                 {/* Results Card */}
                 {calculations && (
-                    <div className="space-y-8 pt-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
+                    <div className="space-y-8 pt-4 border-t border-slate-200 animate-fade-in">
                         <div className="text-center">
-                            <span className="inline-block text-xs font-black tracking-widest text-purple-600 uppercase bg-purple-100 dark:bg-purple-900/40 px-3 py-1 rounded-full mb-2">
+                            <span className="inline-block text-xs font-black tracking-widest text-purple-600 uppercase bg-purple-100 px-3 py-1 rounded-full mb-2">
                                 2026 Recommended Quote Tiers
                             </span>
-                            <h3 className="text-2xl font-black text-slate-900 dark:text-white font-outfit">
+                            <h3 className="text-2xl font-black text-slate-900 font-outfit">
                                 Estimated Brand Deal Quote
                             </h3>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Floor Price */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
                                     Floor Minimum
                                 </div>
-                                <div className="text-3xl font-black text-slate-700 dark:text-slate-200 font-outfit">
+                                <div className="text-3xl font-black text-slate-700 font-outfit">
                                     {activeCurrency.symbol}{calculations.floorPrice.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -491,27 +491,27 @@ ${channelHandle}`
                             </div>
 
                             {/* Recommended Price */}
-                            <div className="p-6 rounded-2xl bg-gradient-to-b from-purple-50 to-white dark:from-purple-950/40 dark:to-slate-900 border-2 border-purple-500 shadow-xl text-center relative overflow-hidden">
+                            <div className="p-6 rounded-2xl bg-gradient-to-b from-purple-50 to-white border-2 border-purple-500 shadow-xl text-center relative overflow-hidden">
                                 <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
                                     Target Pitch
                                 </div>
-                                <div className="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400 mb-1">
+                                <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">
                                     Recommended Quote
                                 </div>
-                                <div className="text-4xl font-black text-purple-700 dark:text-purple-300 font-outfit">
+                                <div className="text-4xl font-black text-purple-700 font-outfit">
                                     {activeCurrency.symbol}{calculations.recommendedPrice.toLocaleString()}
                                 </div>
-                                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 font-medium">
+                                <p className="text-xs text-slate-600 mt-2 font-medium">
                                     Standard rate to send in your initial pitch / media kit response.
                                 </p>
                             </div>
 
                             {/* Premium Agency Price */}
-                            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center">
+                            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm text-center">
                                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">
                                     Agency / Premium
                                 </div>
-                                <div className="text-3xl font-black text-emerald-600 dark:text-emerald-400 font-outfit">
+                                <div className="text-3xl font-black text-emerald-600 font-outfit">
                                     {activeCurrency.symbol}{calculations.premiumPrice.toLocaleString()}
                                 </div>
                                 <p className="text-xs text-slate-500 mt-2">
@@ -521,28 +521,28 @@ ${channelHandle}`
                         </div>
 
                         {/* Breakdown Metrics */}
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-center text-xs">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200 text-center text-xs">
                             <div>
                                 <span className="text-slate-500 block">Baseline Value</span>
-                                <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                                <span className="font-bold text-slate-800 text-sm">
                                     {activeCurrency.symbol}{calculations.baseFee.toLocaleString()}
                                 </span>
                             </div>
                             <div>
                                 <span className="text-slate-500 block">Add-Ons Added</span>
-                                <span className="font-bold text-purple-600 dark:text-purple-400 text-sm">
+                                <span className="font-bold text-purple-600 text-sm">
                                     +{activeCurrency.symbol}{calculations.addonValue.toLocaleString()}
                                 </span>
                             </div>
                             <div>
                                 <span className="text-slate-500 block">Effective CPM</span>
-                                <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                                <span className="font-bold text-slate-800 text-sm">
                                     {activeCurrency.symbol}{calculations.effectiveCpm}
                                 </span>
                             </div>
                             <div>
                                 <span className="text-slate-500 block">View Assumption</span>
-                                <span className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                                <span className="font-bold text-slate-800 text-sm">
                                     30-Day Median
                                 </span>
                             </div>
@@ -575,16 +575,16 @@ ${channelHandle}`
                         {/* =========================================================================
                             FEATURE 1: LIVE MEDIA KIT & RATE CARD PDF GENERATOR
                            ========================================================================= */}
-                        <div className="rounded-3xl border border-purple-200/90 bg-gradient-to-br from-purple-50/50 via-white to-indigo-50/40 p-6 sm:p-8 dark:border-purple-900/50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 shadow-xl">
-                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-purple-100 pb-6 dark:border-slate-800">
+                        <div className="rounded-3xl border border-purple-200/90 bg-gradient-to-br from-purple-50/50 via-white to-indigo-50/40 p-6 sm:p-8 shadow-xl">
+                            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-purple-100 pb-6">
                                 <div>
-                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700 dark:bg-purple-950/80 dark:text-purple-400">
+                                    <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700">
                                         <FaCrown className="text-amber-500" /> Agency-Grade Pitch Asset
                                     </span>
-                                    <h3 className="mt-2 text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                                    <h3 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
                                         Live Media Kit &amp; Rate Card PDF Generator
                                     </h3>
-                                    <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                                    <p className="mt-1 text-xs sm:text-sm text-slate-600">
                                         Turn your calculator numbers into a polished 1-page rate card brands love receiving.
                                     </p>
                                 </div>
@@ -609,7 +609,7 @@ ${channelHandle}`
                                             <span>Upgrade to Pro ($1.99 / ₹99)</span>
                                         </button>
                                     ) : (
-                                        <span className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-100 px-3 py-2 text-xs font-bold text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+                                        <span className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-100 px-3 py-2 text-xs font-bold text-emerald-800">
                                             <FaCheckCircle className="text-emerald-600" /> Pro Unlocked (No Watermark)
                                         </span>
                                     )}
@@ -619,7 +619,7 @@ ${channelHandle}`
                             {/* Media Kit Customizer Controls */}
                             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Channel Handle / Brand Name
                                     </label>
                                     <Input
@@ -630,7 +630,7 @@ ${channelHandle}`
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Total Subscribers
                                     </label>
                                     <Input
@@ -641,7 +641,7 @@ ${channelHandle}`
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Monthly Channel Views
                                     </label>
                                     <Input
@@ -652,7 +652,7 @@ ${channelHandle}`
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Contact Email
                                     </label>
                                     <Input
@@ -666,7 +666,7 @@ ${channelHandle}`
                             {/* Demographics Inputs */}
                             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Top Audience Countries
                                     </label>
                                     <Input
@@ -677,7 +677,7 @@ ${channelHandle}`
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Primary Age Bracket
                                     </label>
                                     <Input
@@ -688,7 +688,7 @@ ${channelHandle}`
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                                    <label className="block text-xs font-bold text-slate-700 mb-1">
                                         Gender Demographics
                                     </label>
                                     <Input
@@ -700,12 +700,12 @@ ${channelHandle}`
                             </div>
 
                             {/* Template Selector */}
-                            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-purple-100 pt-4 dark:border-slate-800">
+                            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-purple-100 pt-4">
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                                    <span className="text-xs font-bold text-slate-700">
                                         Agency Color Theme:
                                     </span>
-                                    <div className="flex rounded-lg border border-slate-200 bg-white p-1 dark:border-slate-700 dark:bg-slate-800">
+                                    <div className="flex rounded-lg border border-slate-200 bg-white p-1">
                                         {(["dark", "light", "emerald", "sunset"] as const).map((theme) => (
                                             <button
                                                 key={theme}
@@ -714,7 +714,7 @@ ${channelHandle}`
                                                 className={`rounded-md px-3 py-1 text-xs font-bold capitalize transition-all ${
                                                     mediaKitTheme === theme
                                                         ? "bg-purple-600 text-white shadow"
-                                                        : "text-slate-600 hover:text-slate-900 dark:text-slate-300"
+                                                        :"text-slate-600 hover:text-slate-900"
                                                 }`}
                                             >
                                                 {theme}
@@ -725,7 +725,7 @@ ${channelHandle}`
 
                                 <div className="text-xs text-slate-500">
                                     {isProUnlocked ? (
-                                        <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
+                                        <span className="text-emerald-600 font-semibold">
                                             ✓ Watermark Removed • Agency White-Label Ready
                                         </span>
                                     ) : (
@@ -893,12 +893,12 @@ ${channelHandle}`
                             </div>
 
                             {/* Pro Cold Pitch Scripts Section */}
-                            <div className="mt-8 border-t border-purple-100 pt-6 dark:border-slate-800">
+                            <div className="mt-8 border-t border-purple-100 pt-6">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                                     <div>
                                         <div className="flex items-center gap-2">
-                                            <FaEnvelope className="text-purple-600 dark:text-purple-400" />
-                                            <h4 className="font-bold text-base text-slate-900 dark:text-white">
+                                            <FaEnvelope className="text-purple-600"/>
+                                            <h4 className="font-bold text-base text-slate-900">
                                                 5 Copy-Paste Cold Pitch Email Scripts ({activeNiche.name})
                                             </h4>
                                         </div>
@@ -927,7 +927,7 @@ ${channelHandle}`
                                             className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                                                 activeScriptIndex === idx
                                                     ? "bg-purple-600 text-white shadow-sm"
-                                                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                                    :"bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
                                             }`}
                                         >
                                             {script.title}
@@ -935,7 +935,7 @@ ${channelHandle}`
                                     ))}
                                 </div>
 
-                                <div className="rounded-xl border border-slate-200 bg-slate-900 p-4 text-white shadow-inner dark:border-slate-800">
+                                <div className="rounded-xl border border-slate-200 bg-slate-900 p-4 text-white shadow-inner">
                                     <div className="text-xs font-mono text-purple-300 mb-2 pb-2 border-b border-slate-800">
                                         <strong>Subject:</strong> {COLD_PITCH_SCRIPTS[activeScriptIndex]?.subject}
                                     </div>
@@ -949,11 +949,11 @@ ${channelHandle}`
                         {/* Pro Upgrade Modal */}
                         {showUpgradeModal && (
                             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                                <div className="relative w-full max-w-md rounded-3xl border border-purple-200 bg-white p-6 sm:p-8 shadow-2xl dark:border-purple-900 dark:bg-slate-900">
+                                <div className="relative w-full max-w-md rounded-3xl border border-purple-200 bg-white p-6 sm:p-8 shadow-2xl">
                                     <button
                                         type="button"
                                         onClick={() => setShowUpgradeModal(false)}
-                                        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"
+                                        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
                                     >
                                         <FaTimes className="text-base" />
                                     </button>
@@ -963,27 +963,27 @@ ${channelHandle}`
                                             <FaCrown className="text-2xl" />
                                         </div>
 
-                                        <h3 className="text-xl font-black text-slate-900 dark:text-white">
+                                        <h3 className="text-xl font-black text-slate-900">
                                             Unlock Agency Pro Media Kit
                                         </h3>
-                                        <p className="mt-1 text-xs text-slate-600 dark:text-slate-300">
+                                        <p className="mt-1 text-xs text-slate-600">
                                             Present yourself as an agency-represented creator and charge 25%–40% higher sponsor rates.
                                         </p>
 
-                                        <div className="mt-4 rounded-2xl bg-purple-50 p-4 text-left text-xs space-y-2 dark:bg-purple-950/40">
-                                            <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                                        <div className="mt-4 rounded-2xl bg-purple-50 p-4 text-left text-xs space-y-2">
+                                            <div className="flex items-center gap-2 font-bold text-slate-800">
                                                 <FaCheck className="text-emerald-500" />
                                                 <span>Removes &ldquo;YouTubeToolsHub&rdquo; watermark</span>
                                             </div>
-                                            <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                                            <div className="flex items-center gap-2 font-bold text-slate-800">
                                                 <FaCheck className="text-emerald-500" />
                                                 <span>Unlocks all 4 dark &amp; light agency themes</span>
                                             </div>
-                                            <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                                            <div className="flex items-center gap-2 font-bold text-slate-800">
                                                 <FaCheck className="text-emerald-500" />
                                                 <span>5 niche cold pitch outreach scripts</span>
                                             </div>
-                                            <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                                            <div className="flex items-center gap-2 font-bold text-slate-800">
                                                 <FaCheck className="text-emerald-500" />
                                                 <span>Instant high-res PDF rate card export</span>
                                             </div>

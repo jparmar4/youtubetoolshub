@@ -14,7 +14,21 @@ export const noIndexRobots: NonNullable<Metadata["robots"]> = {
   },
 };
 
-// Organization Schema with enhanced E-E-A-T signals
+/** Combine multiple schema objects into a single `@graph` JSON-LD payload. */
+export function combineSchemasToGraph(
+  ...schemas: Array<Record<string, unknown> | null | undefined>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": schemas
+      .filter((s): s is Record<string, unknown> => Boolean(s))
+      .map((item) =>
+        Object.fromEntries(Object.entries(item).filter(([k]) => k !== "@context")),
+      ),
+  };
+}
+
+// Organization Schema with E-E-A-T signals
 export function getOrganizationSchema() {
   return {
     "@context": "https://schema.org",
@@ -27,14 +41,10 @@ export function getOrganizationSchema() {
       "@type": "ImageObject",
       "@id": `${siteConfig.url}/#logo`,
       url: `${siteConfig.url}/og-image.png`,
-      contentUrl: `${siteConfig.url}/og-image.png`,
       width: 1200,
       height: 630,
-      caption: siteConfig.name,
     },
-    image: `${siteConfig.url}/og-image.png`,
     description: siteConfig.description,
-    slogan: "Free AI-Powered YouTube Tools for Every Creator",
     foundingDate: "2025",
     email: siteConfig.contact.email,
     telephone: siteConfig.contact.telephone,
@@ -46,78 +56,24 @@ export function getOrganizationSchema() {
       postalCode: siteConfig.contact.address.postalCode,
       addressCountry: siteConfig.contact.address.addressCountry,
     },
-    // Contact information
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        email: siteConfig.contact.email,
-        telephone: siteConfig.contact.telephone,
-        contactType: "customer service",
-        availableLanguage: ["English"],
-        responseTime: "PT24H", // 24 hours
-      },
-      {
-        "@type": "ContactPoint",
-        email: siteConfig.contact.email,
-        telephone: siteConfig.contact.telephone,
-        contactType: "technical support",
-        availableLanguage: ["English"],
-        responseTime: "PT24H",
-      },
-    ],
-    // Social profiles for entity disambiguation
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: siteConfig.contact.email,
+      telephone: siteConfig.contact.telephone,
+      contactType: "customer support",
+      availableLanguage: "English",
+    },
     sameAs: siteConfig.footerLinks.social.map((link) => link.href),
-    // Editorial policy page — E-E-A-T trust signal for search + AI engines
     publishingPrinciples: `${siteConfig.url}/blog/why-youtube-tools-hub`,
-    // Knowledge domain for E-E-A-T
     knowsAbout: [
-      {
-        "@type": "Thing",
-        name: "YouTube",
-        sameAs: "https://en.wikipedia.org/wiki/YouTube",
-      },
-      {
-        "@type": "Thing",
-        name: "YouTube Monetization",
-        sameAs: "https://en.wikipedia.org/wiki/YouTube_monetization",
-      },
-      {
-        "@type": "Thing",
-        name: "Search Engine Optimization",
-        sameAs: "https://en.wikipedia.org/wiki/Search_engine_optimization",
-      },
       "YouTube SEO",
       "YouTube Thumbnails",
-      "YouTube Analytics",
       "YouTube Monetization",
-      "YouTube CPM Rates",
-      "YouTube RPM Rates",
+      "YouTube CPM & RPM Rates",
+      "YouTube Analytics",
       "AI Content Generation",
-      "Video Marketing",
-      "Content Creator Tools",
-      "YouTube Algorithm Optimization",
-      "YouTube Shorts Optimization",
-      "YouTube Partner Program",
-      "YouTube Tag Optimization",
-      "YouTube Title Optimization",
-      "YouTube Description Writing",
-      "YouTube Channel Growth",
-      "YouTube Earnings Calculator",
-      "YouTube Thumbnail Design",
-      "YouTube Keyword Research",
     ],
-    // Geographic focus
-    areaServed: siteConfig.globalMarkets.map((market) => ({
-      "@type": market === "Worldwide" ? "AdministrativeArea" : "Country",
-      name: market,
-    })),
-    availableLanguage: ["English"],
-    // Brand information
-    brand: {
-      "@type": "Brand",
-      name: siteConfig.name,
-      logo: `${siteConfig.url}/og-image.png`,
-    },
+    areaServed: "Worldwide",
   };
 }
 
@@ -132,65 +88,8 @@ export function getWebsiteSchema() {
     url: siteConfig.url,
     description: siteConfig.description,
     inLanguage: "en",
-    availableLanguage: ["English"],
-    // Link to organization entity
     publisher: {
       "@id": `${siteConfig.url}/#organization`,
-    },
-    // Site navigation structure for AI understanding
-    mainEntity: {
-      "@type": "ItemList",
-      itemListElement: [
-        {
-          "@type": "SiteNavigationElement",
-          position: 1,
-          name: "Home",
-          url: siteConfig.url,
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 2,
-          name: "Tools",
-          url: `${siteConfig.url}/tools`,
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 3,
-          name: "Blog",
-          url: `${siteConfig.url}/blog`,
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 4,
-          name: "Pricing",
-          url: `${siteConfig.url}/pricing`,
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 5,
-          name: "About",
-          url: `${siteConfig.url}/about`,
-        },
-        {
-          "@type": "SiteNavigationElement",
-          position: 6,
-          name: "FAQ",
-          url: `${siteConfig.url}/faq`,
-        },
-      ],
-    },
-    // Do not expose SearchAction: /search is noindex + robots-disallowed.
-    // A sitelinks searchbox pointing at a blocked URL hurts indexing.
-    // Content information
-    genre: ["YouTube Tools", "Video Marketing", "SEO Tools", "Creator Economy"],
-    // Audience
-    audience: {
-      "@type": "Audience",
-      audienceType: ["YouTube Creators", "Video Marketers", "Content Creators"],
-      geographicArea: {
-        "@type": "AdministrativeArea",
-        name: "Global",
-      },
     },
   };
 }
@@ -254,23 +153,9 @@ export function getArticleSchema(article: {
       ...(article.authorId ? { "@id": article.authorId } : {}),
       ...(article.authorUrl ? { url: article.authorUrl } : {}),
       ...(article.authorRole ? { jobTitle: article.authorRole } : {}),
-      worksFor: {
-        "@type": "Organization",
-        "@id": `${siteConfig.url}/#organization`,
-        name: siteConfig.name,
-      },
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
     },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/og-image.png`,
-        width: 1200,
-        height: 630,
-      },
-    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: article.datePublished,
     dateModified: article.dateModified || article.datePublished,
     mainEntityOfPage: {
@@ -280,32 +165,26 @@ export function getArticleSchema(article: {
     isAccessibleForFree: true,
     publishingPrinciples: `${siteConfig.url}/blog/why-youtube-tools-hub`,
     keywords: article.keywords?.join(", "),
-    image: [
-      imageUrl,
-      {
-        "@type": "ImageObject",
-        url: imageUrl,
-        // Declared dims must come from the real file (image-dimensions.json);
-        // a guessed 1200x675 against a 640x640 file is a rich-results error.
-        ...(article.imageWidth && article.imageHeight
-          ? { width: article.imageWidth, height: article.imageHeight }
-          : {}),
-      },
-    ],
+    image:
+      article.imageWidth && article.imageHeight
+        ? {
+            "@type": "ImageObject",
+            url: imageUrl,
+            width: article.imageWidth,
+            height: article.imageHeight,
+          }
+        : imageUrl,
     about: {
       "@type": "Thing",
       name: "YouTube",
-      sameAs: [
-        "https://en.wikipedia.org/wiki/YouTube",
-        "https://www.wikidata.org/wiki/Q866",
-      ],
+      sameAs: "https://www.wikidata.org/wiki/Q866",
     },
     ...(article.mentions && article.mentions.length > 0
       ? { mentions: article.mentions }
       : {}),
     speakable: {
       "@type": "SpeakableSpecification",
-      cssSelector: ["h1", ".summary", "[data-speakable]"],
+      cssSelector: ["h1", "[data-speakable]"],
     },
     articleSection: article.section,
     inLanguage: article.inLanguage || "en",
@@ -313,7 +192,6 @@ export function getArticleSchema(article: {
       "@type": "Blog",
       "@id": `${siteConfig.url}/blog#blog`,
       name: `${siteConfig.name} Blog`,
-      url: `${siteConfig.url}/blog`,
     },
   };
 }
@@ -376,17 +254,11 @@ export function getDefinedTermSetSchema(terms: {
       "Definitions of YouTube creator, monetization, and analytics terms, written as direct answers for quick reference.",
     url: `${siteConfig.url}/resources/youtube-glossary`,
     inLanguage: "en",
-    isPartOf: {
-      "@type": "WebSite",
-      "@id": `${siteConfig.url}/#website`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
     hasDefinedTerm: terms.map((term) => ({
       "@type": "DefinedTerm",
       name: term.name,
       description: term.description,
-      inDefinedTermSet: { "@id": `${siteConfig.url}/resources/youtube-glossary#termset` },
       ...(term.url ? { url: term.url } : {}),
     })),
   };
@@ -491,16 +363,8 @@ export function getCollectionPageSchema(collection: {
     name: collection.name,
     description: collection.description,
     url: collection.url,
-    isPartOf: {
-      "@type": "WebSite",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    isPartOf: { "@id": `${siteConfig.url}/#website` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: collection.items.length,
@@ -535,11 +399,7 @@ export function getPersonSchema(author: {
     jobTitle: author.jobTitle || "Creator Growth Expert",
     description: author.description,
     sameAs: author.sameAs,
-    worksFor: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    worksFor: { "@id": `${siteConfig.url}/#organization` },
   };
 }
 
@@ -556,18 +416,10 @@ export function getDatasetSchema(options?: {
     name: options?.name ?? "YouTube CPM and RPM Rates by Country (2026)",
     description:
       options?.description ??
-      "Comprehensive dataset of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for 50+ countries. Data is updated monthly based on real-world creator earnings and advertising rates. Includes Tier 1 country averages, niche-specific rates, and historical trends.",
+      "YouTube CPM and RPM rate dataset across 50+ countries, covering Tier-1 averages, niche ranges, and creator revenue benchmarks.",
     url: options?.url ?? `${siteConfig.url}/resources/youtube-cpm-rates`,
-    creator: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    creator: { "@id": `${siteConfig.url}/#organization` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2025-01-01",
     // Track the CPM dataset refresh cycle, not a hardcoded past date.
     dateModified: options?.dateModified ?? DATA_LAST_REVIEWED,
@@ -587,53 +439,18 @@ export function getDatasetSchema(options?: {
       },
     ],
     temporalCoverage: "2025-01-01/2026-12-31",
-    spatialCoverage: {
-      "@type": "Place",
-      name: "Global",
-      geo: {
-        "@type": "GeoShape",
-        name: "Worldwide",
-      },
-    },
+    spatialCoverage: "Global",
     keywords: [
       "YouTube CPM",
       "YouTube RPM",
       "YouTube AdSense rates",
       "YouTube monetization",
-      "YouTube earnings",
-      "creator earnings",
-      "YouTube revenue",
       "CPM by country",
-      "YouTube advertising rates",
     ],
-    variableMeasured: [
-      {
-        "@type": "PropertyValue",
-        name: "CPM (Cost Per Mille)",
-        description: "Cost per 1,000 ad impressions",
-        unitText: "USD",
-      },
-      {
-        "@type": "PropertyValue",
-        name: "RPM (Revenue Per Mille)",
-        description: "Revenue per 1,000 video views",
-        unitText: "USD",
-      },
-      {
-        "@type": "PropertyValue",
-        name: "Country",
-        description: "ISO 3166-1 alpha-2 country code",
-      },
-    ],
+    variableMeasured: ["CPM (USD)", "RPM (USD)", "Country ISO"],
     about: [
-      {
-        "@type": "Thing",
-        name: "YouTube Monetization",
-      },
-      {
-        "@type": "Thing",
-        name: "AdSense Revenue",
-      },
+      { "@type": "Thing", name: "YouTube Monetization" },
+      { "@type": "Thing", name: "AdSense Revenue" },
     ],
   };
 }
@@ -648,8 +465,7 @@ export function getMainEntitySchema() {
     url: siteConfig.url,
     description: siteConfig.description,
     applicationCategory: "UtilityApplication",
-    operatingSystem: "Any (Web-based)",
-    browserRequirements: "Requires JavaScript. Requires HTML5.",
+    operatingSystem: "Any",
     softwareVersion: "3.0",
     isAccessibleForFree: true,
     offers: {
@@ -671,14 +487,8 @@ export function getMainEntitySchema() {
       "YouTube Video Ideas Generator",
     ].join(", "),
     screenshot: `${siteConfig.url}/og-image.png`,
-    author: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-    },
-    publisher: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-    },
+    author: { "@id": `${siteConfig.url}/#organization` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
   };
 }
 

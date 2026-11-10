@@ -70,7 +70,7 @@ export async function GET() {
       {
         name: "list_youtube_tools",
         description:
-          "List or search all 44 free YouTube creator tools on YouTube Tools Hub by category or keyword.",
+          `List or search all ${tools.length} free YouTube creator tools on YouTube Tools Hub by category or keyword.`,
         inputSchema: {
           type: "object",
           properties: {
@@ -204,13 +204,71 @@ export async function GET() {
           openWorldHint: false,
         },
       },
+      {
+        name: "estimate_shorts_earnings",
+        description:
+          "Calculate YouTube Shorts AdSense revenue based on views and 2026 Shorts RPM benchmarks ($0.03 - $0.07 per 1,000 views).",
+        inputSchema: {
+          type: "object",
+          properties: {
+            views: {
+              type: "number",
+              description: "Number of YouTube Shorts views.",
+            },
+            rpm: {
+              type: "number",
+              description: "Optional custom Shorts RPM in USD (defaults to $0.05).",
+            },
+          },
+          required: ["views"],
+        },
+        annotations: {
+          readOnlyHint: true,
+          openWorldHint: false,
+        },
+      },
+      {
+        name: "calculate_youtube_tax_deductions",
+        description:
+          "Calculate estimated eligible business tax write-offs, taxable income reduction, and tax savings for YouTube creators.",
+        inputSchema: {
+          type: "object",
+          properties: {
+            annualRevenue: {
+              type: "number",
+              description: "Gross annual creator revenue from YouTube and sponsors (USD).",
+            },
+            equipmentAndGear: {
+              type: "number",
+              description: "Annual spending on cameras, lighting, audio, PCs, and gear (USD).",
+            },
+            softwareAndSubscriptions: {
+              type: "number",
+              description: "Annual spending on Adobe, Canva, hosting, music, plugins, and AI tools (USD).",
+            },
+            homeStudioRent: {
+              type: "number",
+              description: "Estimated annual home office / studio deduction (USD).",
+            },
+            contractorsAndEditors: {
+              type: "number",
+              description: "Annual spending on video editors, thumbnail designers, and contractors (USD).",
+            },
+          },
+          required: ["annualRevenue"],
+        },
+        annotations: {
+          readOnlyHint: true,
+          openWorldHint: false,
+        },
+      },
     ],
     resources: [
       {
         uri: `${baseUrl}/llms.txt`,
         name: "YouTube Tools Hub LLMs Summary",
         description:
-          "Concise Markdown index of all 44 YouTube creator tools and resources.",
+          `Concise Markdown index of all ${tools.length} YouTube creator tools and resources.`,
         mimeType: "text/plain",
       },
       {
