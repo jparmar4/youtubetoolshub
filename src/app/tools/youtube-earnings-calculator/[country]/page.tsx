@@ -24,7 +24,7 @@ import {
     getGlobalAlternates,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
@@ -238,7 +238,7 @@ export default async function CountryEarningsPage({
                                     />
                                     <div className="flex-1 min-w-0">
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-extrabold uppercase tracking-wider mb-3">
-                                            <span className="px-1.5 py-0.5 rounded bg-emerald-700 text-white text-[10px] font-black">
+                                            <span className="px-1.5 py-0.5 rounded bg-emerald-700 text-white text-[11px] font-black">
                                                 {countryData.code}
                                             </span>
                                             <span>{countryData.name} Edition · 2026 Updated ({countryData.currency})</span>
@@ -273,7 +273,7 @@ export default async function CountryEarningsPage({
                                             {countryData.name} ({countryData.currency}) YouTube RPM Studio Console
                                         </span>
                                     </div>
-                                    <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                    <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
                                         Avg ${countryData.rpmRange.avg.toFixed(2)} RPM
                                     </span>
                                 </div>
@@ -289,10 +289,7 @@ export default async function CountryEarningsPage({
                             </div>
 
                             {/* Top Responsive Leaderboard Ad */}
-                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center mb-8">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                            </div>
+                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
 
                             <div className="mb-8">
                                 <QuickAnswerCapsule
@@ -337,12 +334,7 @@ export default async function CountryEarningsPage({
                             </div>
 
                             {/* Ad placement */}
-                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">
-                                    Advertisement
-                                </p>
-                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="w-full text-center" />
-                            </div>
+                            <AdSlot slot="3397391628" preset="in-article" className="my-8" />
 
                             {/* Content Section */}
                             <div className="glass-premium rounded-2xl p-8 space-y-6">
@@ -524,7 +516,7 @@ export default async function CountryEarningsPage({
                                                             href={`/tools/youtube-earnings-calculator/${c.slug}`}
                                                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-bold hover:border-purple-500 hover:text-purple-600 transition-colors"
                                                         >
-                                                            <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black">
+                                                            <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black">
                                                                 {c.code}
                                                             </span>
                                                             <span>{c.name}</span>
@@ -551,10 +543,7 @@ export default async function CountryEarningsPage({
                             </AdSectionIgnore>
 
                             {/* Bottom Multiplex Ad Unit */}
-                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
-                                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-                            </div>
+                            <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
                         </div>
 
                         {/* Sidebar — client viewport-gated to prevent display:none mobile push */}

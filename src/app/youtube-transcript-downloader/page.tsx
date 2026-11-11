@@ -20,7 +20,7 @@ import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
@@ -216,7 +216,7 @@ export default function YouTubeTranscriptDownloaderPage() {
                     YouTube Transcript &amp; SRT Extractor — Interactive Studio Workspace
                   </span>
                 </div>
-                <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300">
+                <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300">
                   TXT · SRT · CSV
                 </span>
               </div>
@@ -229,10 +229,7 @@ export default function YouTubeTranscriptDownloaderPage() {
           </AdSectionPrioritize>
 
           {/* Leaderboard Ad */}
-          <div className="mb-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 flex flex-col items-center justify-center">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-          </div>
+          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
 
           <div className="mt-8">
             <AffiliateBanner toolId="vidiq" variant="compact" />
@@ -317,10 +314,7 @@ export default function YouTubeTranscriptDownloaderPage() {
             </div>
 
             {/* In-Article Ad Unit */}
-            <div className="my-8 rounded-2xl overflow-hidden shadow-xs border border-slate-200 bg-white p-2 text-center">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
-              <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" lazy responsive className="w-full text-center" />
-            </div>
+            <AdSlot slot={AD_SLOTS.IN_ARTICLE[0]} preset="in-article" className="my-8" />
 
             {/* Step-by-Step How To Guide */}
             <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
@@ -417,7 +411,7 @@ export default function YouTubeTranscriptDownloaderPage() {
             <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 via-white to-purple-50/50 p-6 sm:p-8 shadow-xs space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-1">
                     Monetize Your Research
                   </span>
                   <h3 className="text-xl font-bold text-slate-900">
@@ -461,10 +455,7 @@ export default function YouTubeTranscriptDownloaderPage() {
             </div>
 
             {/* Multiplex Ad Unit */}
-            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-xs">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Recommended For Creators</p>
-              <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-            </div>
+            <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
 
             {/* Newsletter & Social Share */}
             <AdSectionIgnore>

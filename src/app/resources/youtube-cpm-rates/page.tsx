@@ -11,6 +11,7 @@ import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
@@ -357,7 +358,7 @@ export default function YouTubeCPMRatesPage() {
 
                     {/* High-viewability ad below calculator CTA */}
                     <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 bg-white p-3 text-center min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
+                        <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
                         <GoogleAd slot="8649718301" responsive className="w-full text-center" />
                     </div>
 
@@ -401,10 +402,7 @@ export default function YouTubeCPMRatesPage() {
                     </section>
 
                     {/* Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="3397391628" preset="in-article" className="my-8" />
 
                     {/* Tier 3 Table */}
                     <section id="tier-3" className="scroll-mt-24">
@@ -475,10 +473,7 @@ export default function YouTubeCPMRatesPage() {
                     </section>
 
                     {/* Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-                        <GoogleAd slot="7688425196" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="7688425196" preset="leaderboard" lazy className="my-8" />
 
                     {/* CTA to calculator */}
                     <section className="rounded-3xl bg-gradient-to-br from-slate-900 to-purple-950 p-8 md:p-12 text-center shadow-2xl">

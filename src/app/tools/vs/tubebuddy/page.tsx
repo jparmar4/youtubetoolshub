@@ -1,5 +1,5 @@
 import Link from "next/link";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { FaCheck, FaDollarSign, FaRobot } from "react-icons/fa";
 import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -98,10 +98,7 @@ export default function TubeBuddyComparisonPage() {
                     </div>
 
                     {/* Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot="8649718301" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="8649718301" preset="leaderboard" lazy className="my-8" />
 
                     {/* Deep Dive Sections */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">

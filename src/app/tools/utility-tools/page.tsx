@@ -5,7 +5,7 @@ import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
 import { FaBolt, FaMagic, FaArrowRight } from "react-icons/fa";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -121,10 +121,7 @@ export default function UtilityToolsHub() {
                     </div>
 
                     {/* Top Leaderboard Ad */}
-                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                    </div>
+                    <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Productivity Strategy */}
                     <div className="glass-premium rounded-3xl p-10 border-l-8 border-emerald-500 mb-12 shadow-xl">
@@ -168,10 +165,7 @@ export default function UtilityToolsHub() {
                     </div>
 
                     {/* Mid Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot="8649718301" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="8649718301" preset="leaderboard" lazy className="my-8" />
 
                     {/* Deep Dive Section */}
                     <div className="max-w-4xl mx-auto mb-12">

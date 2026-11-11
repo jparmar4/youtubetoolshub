@@ -40,6 +40,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 
 const tool = getToolBySlug("youtube-earnings-calculator")!;
@@ -318,7 +319,7 @@ export default function YouTubeEarningsCalculatorPage() {
                       YouTube Earnings &amp; RPM Calculator — Interactive Studio Workspace
                     </span>
                   </div>
-                  <span className="shrink-0 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                  <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
                     Live Engine
                   </span>
                 </div>
@@ -331,7 +332,7 @@ export default function YouTubeEarningsCalculatorPage() {
 
               {/* Leaderboard Ad immediately below the Calculator */}
               <div className="rounded-2xl overflow-hidden shadow-xs border border-emerald-100 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                 <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
               </div>
 
@@ -349,7 +350,7 @@ export default function YouTubeEarningsCalculatorPage() {
 
               {/* Ad immediately below the Calculator */}
               <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
+                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
                 <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" responsive className="w-full text-center" />
               </div>
 
@@ -454,12 +455,7 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Ad placement */}
-              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">
-                  Advertisement
-                </p>
-                <GoogleAd layout="in-article" format="fluid" slot="6023554962" className="w-full text-center" />
-              </div>
+              <AdSlot slot="6023554962" preset="in-article" className="my-8" />
 
               {/* Countries — full 52-market index grouped by tier for global crawl + UX */}
               <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
@@ -487,7 +483,7 @@ export default function YouTubeEarningsCalculatorPage() {
                           href={`/tools/youtube-earnings-calculator/${c.slug}`}
                           className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-all shadow-2xs"
                         >
-                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black tracking-wider">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black tracking-wider">
                             {c.code}
                           </span>
                           <span>{c.name}</span>
@@ -608,10 +604,7 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Recommended Content / Multiplex Ad Unit */}
-              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
-                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-              </div>
+              <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
 
               <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-sm text-amber-900">
                 <strong>Disclaimer:</strong> Estimates are for educational

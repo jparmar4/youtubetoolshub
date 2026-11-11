@@ -4,7 +4,7 @@ import { ToolCard } from "@/components/ui/Card";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -119,10 +119,7 @@ export default function ThumbnailToolsHub() {
                     </div>
 
                     {/* Top Leaderboard Ad for High Viewability */}
-                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                    </div>
+                    <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Quick Strategy Guide */}
                     <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-purple-500 mb-12 shadow-sm">
@@ -173,10 +170,7 @@ export default function ThumbnailToolsHub() {
                     </div>
 
                     {/* Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot="6023554962" format="fluid" layout="in-article" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="6023554962" preset="in-article" className="my-8" />
 
                     {/* Deep Dive Content - E-E-A-T Optimized */}
                     <div className="grid lg:grid-cols-3 gap-8 mb-12">

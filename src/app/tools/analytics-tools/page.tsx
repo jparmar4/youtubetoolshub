@@ -4,7 +4,7 @@ import { ToolCard } from "@/components/ui/Card";
 import { getToolsByCategory } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSchema, getGlobalAlternates } from "@/lib/seo";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
@@ -121,10 +121,7 @@ export default function AnalyticsToolsHub() {
                     </div>
 
                     {/* Top Leaderboard Ad */}
-                    <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                    </div>
+                    <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Revenue & Growth Strategy */}
                     <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-emerald-500 mb-12 shadow-sm">
@@ -185,10 +182,7 @@ export default function AnalyticsToolsHub() {
                     </div>
 
                     {/* Mid Ad placement */}
-                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                        <GoogleAd slot="7336636636" format="fluid" layout="in-article" className="w-full text-center" />
-                    </div>
+                    <AdSlot slot="7336636636" preset="in-article" className="my-8" />
 
                     {/* Deep Dive Content */}
                     <div className="grid lg:grid-cols-3 gap-8 mb-12">
@@ -243,10 +237,7 @@ export default function AnalyticsToolsHub() {
                     </div>
 
                     {/* Bottom Multiplex Ad */}
-                    <div className="mb-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
-                        <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
-                    </div>
+                    <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Sponsored Recommendations" className="mb-12" />
 
                     {/* Final CTA */}
                     <div className="text-center">

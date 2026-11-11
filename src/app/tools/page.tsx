@@ -12,7 +12,7 @@ import {
 } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 import {
   FaArrowRight,
@@ -167,10 +167,7 @@ export default function ToolsPage() {
           </div>
 
           {/* Above-the-fold Ad Placement */}
-          <div className="mb-12 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/90 backdrop-blur-sm p-3 text-center min-h-[90px] flex flex-col items-center justify-center">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-          </div>
+          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
           {/* Tier 1 Commercial Stack Spotlight */}
           <div id="tier1-calculators" className="mb-20 scroll-mt-24">
@@ -272,7 +269,7 @@ export default function ToolsPage() {
                             category="analytics-earnings"
                             size="sm"
                           />
-                          <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-white">
+                          <span className="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-white">
                             {item.badge}
                           </span>
                         </div>
@@ -344,10 +341,7 @@ export default function ToolsPage() {
                       ))}
                     </div>
 
-                    <div className="mt-12 rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                      <GoogleAd slot={pickInArticleSlot(index)} format="fluid" layout="in-article" />
-                    </div>
+                    <AdSlot slot={pickInArticleSlot(index)} preset="in-article" className="mt-12" />
                   </section>
                 </div>
               );
@@ -375,10 +369,7 @@ export default function ToolsPage() {
             </div>
 
             {/* Bottom Multiplex Ad Unit */}
-            <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
-              <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
-            </div>
+            <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Sponsored Recommendations" />
 
             {/* AEO: visible FAQ matching FAQPage schema */}
             <section className="mt-24 max-w-3xl mx-auto" aria-labelledby="tools-faq-heading">

@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 import { getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 import { countryCPMData } from "@/lib/cpm-data";
 
@@ -101,10 +101,7 @@ export default function ResourcesIndexPage() {
         </p>
 
         {/* Above-the-fold Leaderboard Ad */}
-        <div className="mb-10 rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-2 min-h-[90px] flex flex-col items-center justify-center text-center">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
-          <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-        </div>
+        <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-10" />
 
         <ul className="space-y-4">
           {resources.map((item) => (

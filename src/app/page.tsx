@@ -14,7 +14,7 @@ import { ToolCard, BlogCard } from "@/components/ui/Card";
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts } from "@/config/blog";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 import { Metadata } from "next";
 import { getFAQSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
@@ -217,14 +217,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link
                 href="/tools/youtube-thumbnail-downloader"
-                className="btn-3d-primary inline-flex w-full sm:w-auto items-center justify-center gap-2.5 font-black px-10 py-5 text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="btn-3d-primary inline-flex w-full sm:w-auto items-center justify-center gap-2.5 font-black px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 <FaRocket aria-hidden="true" className="text-pink-400" />
                 Download a thumbnail
               </Link>
               <Link
                 href="/tools/youtube-earnings-calculator"
-                className="btn-3d-glass inline-flex w-full sm:w-auto items-center justify-center font-extrabold px-10 py-5 text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="btn-3d-glass inline-flex w-full sm:w-auto items-center justify-center font-extrabold px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 Calculate YouTube pay
               </Link>
@@ -280,10 +280,7 @@ export default function Home() {
 
       {/* Display Ad between Hero and Money Formula — reserved min-height prevents CLS */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-        <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white/95 p-3 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-          <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-          <GoogleAd slot="2275881649" lazy={false} responsive className="w-full text-center" />
-        </div>
+        <AdSlot slot="2275881649" preset="leaderboard" />
       </div>
 
       {/* Money formula + calculator CTA (high-CPC intent) */}
@@ -312,10 +309,7 @@ export default function Home() {
           </div>
           {/* Ad below homepage calculator */}
           <div className="mt-8 max-w-4xl mx-auto w-full">
-            <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-              <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-              <GoogleAd slot={AD_SLOTS.HORIZONTAL[0]} responsive className="w-full text-center" />
-            </div>
+            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy />
           </div>
         </div>
       </section>
@@ -452,7 +446,7 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span
-                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${cat.accent}`}
+                    className={`px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${cat.accent}`}
                   >
                     {cat.badge}
                   </span>
@@ -486,7 +480,7 @@ export default function Home() {
           <div className="text-center mt-14">
             <Link
               href="/tools"
-              className="btn-3d-primary inline-flex items-center gap-3 rounded-2xl px-10 py-5 text-lg sm:text-xl font-black group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="btn-3d-primary inline-flex items-center gap-3 rounded-2xl px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg md:text-xl font-black group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               Explore All {tools.length} Free Tools
               <FaArrowRight className="group-hover:translate-x-2 transition-transform" aria-hidden="true" />
@@ -587,7 +581,7 @@ export default function Home() {
                         key={stack.layer}
                         className={`rounded-2xl border ${stack.accent} p-4 backdrop-blur-md shadow-lg transition-transform duration-300 hover:-translate-y-1`}
                       >
-                        <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest mb-1">
+                        <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-widest mb-1">
                           <span>{stack.layer}</span>
                           <span className="px-2 py-0.5 rounded bg-white/10 text-white">
                             {stack.metric}
@@ -619,10 +613,7 @@ export default function Home() {
       </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-3 text-center min-h-[140px] flex flex-col justify-center">
-          <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-          <GoogleAd slot={AD_SLOTS.HORIZONTAL[1]} className="w-full text-center" />
-        </div>
+        <AdSlot slot={AD_SLOTS.HORIZONTAL[1]} preset="leaderboard" lazy />
       </div>
 
       <SmartWorkflow />
@@ -732,7 +723,7 @@ export default function Home() {
           <div className="text-center mt-16">
             <Link
               href="/blog"
-              className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black text-lg px-8 py-4 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black px-5 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               View all YouTube guides
               <FaArrowRight aria-hidden="true" />
@@ -759,13 +750,13 @@ export default function Home() {
           </p>
           <Link
             href="/tools"
-            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-purple-50 font-black px-12 py-6 text-xl md:text-2xl rounded-2xl shadow-[0_6px_0_0_#cbd5e1,0_20px_50px_rgba(168,85,247,0.4)] transition-all hover:-translate-y-1 active:translate-y-1 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-purple-50 font-black px-6 py-3.5 sm:px-12 sm:py-6 text-base sm:text-xl md:text-2xl rounded-2xl shadow-[0_6px_0_0_#cbd5e1,0_20px_50px_rgba(168,85,247,0.4)] transition-all hover:-translate-y-1 active:translate-y-1 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
           >
             Get Started Free
             <FaArrowRight className="group-hover:translate-x-2 transition-transform text-purple-600" aria-hidden="true" />
           </Link>
           <div className="mt-10 text-slate-400 font-black text-xs uppercase tracking-[0.3em]">
-            No Account Required | Instant Results | Scale Effortlessly
+            Instant Results | Scale Effortlessly
           </div>
         </div>
       </section>

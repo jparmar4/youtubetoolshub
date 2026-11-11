@@ -31,7 +31,7 @@ import {
     isMonetizationPost,
 } from "@/lib/related-tools";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
@@ -404,10 +404,7 @@ export default async function BlogPostPage({
                             )}
 
                             {/* Above-Article Content Ad — high initial viewability */}
-                            <div className="my-8 rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                            </div>
+                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="my-8" />
 
                             <article itemScope itemType="https://schema.org/Article">
                                 <AdSectionPrioritize>
@@ -503,10 +500,7 @@ export default async function BlogPostPage({
                                 )}
 
                                 {/* Ad: After FAQ section */}
-                                <div className="my-8 rounded-2xl overflow-hidden border border-slate-200/90 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                    <GoogleAd slot={AD_SLOTS.IN_ARTICLE[3]} format="fluid" layout="in-article" className="w-full text-center" />
-                                </div>
+                                <AdSlot slot={AD_SLOTS.IN_ARTICLE[3]} preset="in-article" className="my-8" />
 
                                 {/* Related free tools CTA — strong internal links for SEO */}
                                 {relatedTools.length > 0 && (
@@ -549,10 +543,7 @@ export default async function BlogPostPage({
                             </article>
 
                             {/* Recommended Content / Multiplex Ad Unit */}
-                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
-                                <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-                            </div>
+                            <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-10" />
 
                             {/* Newsletter CTA */}
                             <AdSectionIgnore>

@@ -11,6 +11,7 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
 import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 
 export const metadata: Metadata = {
@@ -127,7 +128,7 @@ export default function BlogPage() {
         <section className="relative py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl shadow-purple-500/10">
+              <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl shadow-purple-500/10">
                 <FaBookOpen className="w-3 h-3" />
                 Creator Intelligence 2026
               </span>
@@ -175,10 +176,7 @@ export default function BlogPage() {
         </section>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 mb-10">
-          <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-100 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-            <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-          </div>
+          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
         </div>
 
         {/* Featured Post */}
@@ -250,10 +248,7 @@ export default function BlogPage() {
 
         {/* Ad: Between Featured and Other Posts */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-            <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" className="w-full text-center" />
-          </div>
+          <AdSlot slot={AD_SLOTS.IN_ARTICLE[0]} preset="in-article" />
         </div>
 
         {/* Other Posts */}
@@ -290,7 +285,7 @@ export default function BlogPage() {
                   />
                   {(i + 1) % 6 === 0 && (
                     <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
-                       <p className="text-[10px] font-bold text-slate-300 uppercase tracking-wider mb-2 text-center">Advertisement</p>
+                       <p className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 text-center">Advertisement</p>
                        <GoogleAd slot={pickInArticleSlot(Math.floor(i / 6))} layout="in-article" format="fluid" />
                     </div>
                   )}
@@ -319,10 +314,7 @@ export default function BlogPage() {
         </section>
 
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="rounded-2xl bg-white p-4 shadow-sm border border-slate-100">
-            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-2 text-center">Sponsored Recommendations</p>
-            <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive />
-          </div>
+          <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Sponsored Recommendations" />
         </div>
 
         {/* CTA Section */}

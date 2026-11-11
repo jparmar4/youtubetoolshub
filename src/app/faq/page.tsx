@@ -19,6 +19,9 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import type { FaqItem } from "@/components/ui/FaqAccordion";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - YouTube Creator Tools",
@@ -144,6 +147,18 @@ const faqData = [
   },
 ];
 
+// Group questions by category (first-appearance order); each group keeps a
+// colored icon seeded from the first question in that category.
+const faqGroups: { category: string; icon: ReactNode; items: FaqItem[] }[] = [];
+faqData.forEach((faq) => {
+  let group = faqGroups.find((g) => g.category === faq.category);
+  if (!group) {
+    group = { category: faq.category, icon: faq.icon, items: [] };
+    faqGroups.push(group);
+  }
+  group.items.push({ question: faq.question, answer: faq.answer });
+});
+
 export default function FAQPage() {
   const faqSchema = getFAQSchema(faqData);
   const breadcrumbSchema = getBreadcrumbSchema([
@@ -180,31 +195,22 @@ export default function FAQPage() {
           </div>
 
           {/* FAQ Categories */}
-          <div className="grid gap-6 mb-12">
-            {faqData.map((faq, index) => (
-                <div
-                  key={index}
-                  className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
-                >
-                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      {faq.icon}
-                    </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <div className="flex flex-col md:flex-row items-center gap-3 mb-3">
-                        <h3 className="text-2xl font-bold text-slate-900 font-outfit">
-                          {faq.question}
-                        </h3>
-                        <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-purple-100 text-purple-700">
-                          {faq.category}
-                        </span>
-                      </div>
-                      <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
-                        {faq.answer}
-                      </p>
-                    </div>
+          <div className="space-y-8 mb-12">
+            {faqGroups.map((group) => (
+              <div
+                key={group.category}
+                className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    {group.icon}
                   </div>
+                  <h2 className="text-2xl font-bold text-slate-900 font-outfit">
+                    {group.category}
+                  </h2>
                 </div>
+                <FaqAccordion items={group.items} headingLevel="h3" />
+              </div>
             ))}
           </div>
 
