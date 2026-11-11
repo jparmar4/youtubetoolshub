@@ -111,7 +111,6 @@ export default function TaxDeductionCalculator() {
     const [region, setRegion] = useState<TaxRegion>("US");
     const [assumedRate, setAssumedRate] = useState("30");
     const [grossIncome, setGrossIncome] = useState<string>("45000");
-    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     // Expense Categories
     const [camerasGear, setCamerasGear] = useState<string>("3500");
@@ -122,6 +121,10 @@ export default function TaxDeductionCalculator() {
     const [internetMobile, setInternetMobile] = useState<string>("1500");
     const [propsWardrobe, setPropsWardrobe] = useState<string>("800");
     const [travelTraining, setTravelTraining] = useState<string>("1200");
+
+    // Trailing state so the hook order stays stable for the regression tests
+    // (scripts/test-commercial-calculators.cjs maps overrides by hook index).
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     const currentRegion = REGION_CONFIGS[region];
 

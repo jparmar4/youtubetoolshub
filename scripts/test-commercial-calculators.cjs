@@ -1,13 +1,28 @@
 // Regression checks exercise the actual components with controlled hook state.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const vm = require('node:vm');
 const ts = require('typescript');
 function load(file, mocks = {}) {
  const exports = {};
  const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), {compilerOptions: {module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX}}).outputText;
- vm.runInNewContext(code, {exports, require: id => mocks[id] ?? require(id), navigator: global.navigator, setTimeout: () => 0});
+ vm.runInNewContext(code, {exports, require: id => resolveModule(id, mocks), navigator: global.navigator, setTimeout: () => 0});
  return exports;
+}
+// Resolve "@/..." imports against src/ (loading TS/TSX through the same
+// pipeline) so tool components can import shared ui primitives.
+const SRC_DIR = path.resolve(__dirname, '..', 'src');
+function resolveModule(id, mocks) {
+ if (mocks[id]) return mocks[id];
+ if (id.startsWith('@/')) {
+  const rel = id.slice(2);
+  for (const ext of ['.tsx', '.ts']) {
+   if (fs.existsSync(path.join(SRC_DIR, rel + ext))) return load('src/' + rel + ext);
+  }
+  return require(path.join(SRC_DIR, rel));
+ }
+ return require(id);
 }
 const {parseCalculatorInput: parse} = load('src/lib/calculator-input.ts');
 assert.equal(parse('1,234.50'), 1234.5);
