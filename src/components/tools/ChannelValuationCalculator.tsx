@@ -4,12 +4,26 @@ import { useState, useMemo } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import { 
     FaCoins, FaCheckCircle, FaExchangeAlt, FaLightbulb 
 } from "react-icons/fa";
 
-type Currency = "USD" | "EUR" | "GBP" | "CAD" | "AUD";
+type Currency =
+    | "USD"
+    | "EUR"
+    | "GBP"
+    | "CAD"
+    | "AUD"
+    | "CHF"
+    | "NZD"
+    | "SGD"
+    | "NOK"
+    | "SEK"
+    | "DKK"
+    | "AED"
+    | "JPY"
+    | "KRW"
+    | "INR";
 
 const CURRENCY_MAP: Record<Currency, { symbol: string; rate: number; label: string }> = {
     USD: { symbol: "$", rate: 1.0, label: "USD ($)" },
@@ -17,7 +31,19 @@ const CURRENCY_MAP: Record<Currency, { symbol: string; rate: number; label: stri
     EUR: { symbol: "€", rate: 0.92, label: "EUR (€)" },
     CAD: { symbol: "CA$", rate: 1.36, label: "CAD ($)" },
     AUD: { symbol: "AU$", rate: 1.52, label: "AUD ($)" },
+    CHF: { symbol: "CHF ", rate: 0.88, label: "CHF (Fr)" },
+    NZD: { symbol: "NZ$", rate: 1.66, label: "NZD ($)" },
+    SGD: { symbol: "S$", rate: 1.34, label: "SGD ($)" },
+    NOK: { symbol: "NOK ", rate: 10.75, label: "NOK (kr)" },
+    SEK: { symbol: "SEK ", rate: 10.55, label: "SEK (kr)" },
+    DKK: { symbol: "DKK ", rate: 6.86, label: "DKK (kr)" },
+    AED: { symbol: "AED ", rate: 3.67, label: "AED" },
+    JPY: { symbol: "¥", rate: 152, label: "JPY (¥)" },
+    KRW: { symbol: "₩", rate: 1380, label: "KRW (₩)" },
+    INR: { symbol: "₹", rate: 86.5, label: "INR (₹)" },
 };
+
+const QUICK_CURRENCIES: Currency[] = ["USD", "GBP", "EUR", "CAD", "AUD", "CHF"];
 
 const GROWTH_TIERS = [
     { id: "declining", name: "Declining (-10% or more YoY)", factor: 0.75, desc: "Audience retention or views waning" },
@@ -102,11 +128,11 @@ export default function ChannelValuationCalculator() {
                 {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Currency Selector Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         <FaExchangeAlt className="text-emerald-600" />
                         <span className="text-sm font-semibold text-slate-700">Valuation Currency:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
-                            {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
+                        <div className="flex flex-wrap rounded-lg overflow-hidden border border-slate-200 bg-white">
+                            {QUICK_CURRENCIES.map((c) => (
                                 <button
                                     key={c}
                                     type="button"
@@ -121,6 +147,18 @@ export default function ChannelValuationCalculator() {
                                 </button>
                             ))}
                         </div>
+                        <select
+                            aria-label="Select valuation currency"
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value as Currency)}
+                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        >
+                            {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
+                                <option key={c} value={c}>
+                                    {CURRENCY_MAP[c].label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="text-xs text-slate-500">
                         Illustrative model: 28× monthly profit, adjusted by growth, model and income mix. Not a broker appraisal.
@@ -307,12 +345,6 @@ export default function ChannelValuationCalculator() {
                                     <span><strong>Clean Brand Standing:</strong> Zero active copyright strikes and verified Google Brand Account ownership.</span>
                                 </div>
                             </div>
-                        </div>
-
-                        {/* High-Value In-Tool Ad Placement */}
-                        <div className="pt-4 text-center">
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-                            <GoogleAd slot="8649718301" responsive className="w-full text-center" />
                         </div>
                     </div>
                 )}

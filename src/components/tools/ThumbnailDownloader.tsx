@@ -7,7 +7,6 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage, FaEye } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
-import GoogleAd from "@/components/ads/GoogleAd";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 import Link from "next/link";
 
@@ -187,14 +186,6 @@ export default function ThumbnailDownloader() {
 
                 {/* Creator Software Comparison Card (OpusClip, ElevenLabs, Epidemic) */}
                 <CreatorSoftwareCard defaultCategory="video" />
-
-                {/* Ad placed BELOW results — safe distance from download buttons (AdSense policy) */}
-                {thumbnails && (
-                    <div className="mt-8 pt-6 border-t border-slate-100 text-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-                        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
-                    </div>
-                )}
             </div>
         </ToolPageLayout>
     );

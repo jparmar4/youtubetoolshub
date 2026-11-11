@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
+import { formatMoneyRounded } from "@/lib/currency-data";
 import {
   FaUniversity,
   FaCheckCircle,
@@ -14,21 +15,35 @@ interface CountryFeeProfile {
   id: string;
   name: string;
   currency: string;
-  w8benRate: number; // Percentage on US-viewer revenue (approx 40% of channel total)
+  currencyCode: string;
+  countrySlug: string;
+  w8benRate: number; // Treaty withholding % on US-viewer revenue share
   avgWireFeeUsd: number;
-  bankFxMarkupPercent: number; // e.g., 3.5%
-  wiseFxMarkupPercent: number; // e.g., 0.45%
+  bankFxMarkupPercent: number; // Traditional bank FX markup %
+  wiseFxMarkupPercent: number; // Transparent multi-currency FX fee %
 }
 
 const COUNTRY_PROFILES: CountryFeeProfile[] = [
-  { id: "uk", name: "United Kingdom (GBP)", currency: "£", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.2, wiseFxMarkupPercent: 0.42 },
-  { id: "canada", name: "Canada (CAD)", currency: "C$", w8benRate: 0, avgWireFeeUsd: 15, bankFxMarkupPercent: 3.0, wiseFxMarkupPercent: 0.45 },
-  { id: "australia", name: "Australia (AUD)", currency: "A$", w8benRate: 5, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.4, wiseFxMarkupPercent: 0.45 },
-  { id: "india", name: "India (INR)", currency: "₹", w8benRate: 15, avgWireFeeUsd: 25, bankFxMarkupPercent: 3.8, wiseFxMarkupPercent: 0.55 },
-  { id: "germany", name: "Germany / EU (EUR)", currency: "€", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 2.8, wiseFxMarkupPercent: 0.40 },
-  { id: "philippines", name: "Philippines (PHP)", currency: "₱", w8benRate: 15, avgWireFeeUsd: 25, bankFxMarkupPercent: 4.2, wiseFxMarkupPercent: 0.65 },
-  { id: "brazil", name: "Brazil (BRL)", currency: "R$", w8benRate: 15, avgWireFeeUsd: 30, bankFxMarkupPercent: 4.5, wiseFxMarkupPercent: 0.70 },
-  { id: "other", name: "Other Global Countries (SWIFT Wire)", currency: "$", w8benRate: 15, avgWireFeeUsd: 30, bankFxMarkupPercent: 4.0, wiseFxMarkupPercent: 0.60 },
+  { id: "uk", name: "United Kingdom (GBP)", currency: "£", currencyCode: "GBP", countrySlug: "uk", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.2, wiseFxMarkupPercent: 0.42 },
+  { id: "canada", name: "Canada (CAD)", currency: "CA$", currencyCode: "CAD", countrySlug: "canada", w8benRate: 10, avgWireFeeUsd: 15, bankFxMarkupPercent: 3.0, wiseFxMarkupPercent: 0.45 },
+  { id: "australia", name: "Australia (AUD)", currency: "AU$", currencyCode: "AUD", countrySlug: "australia", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.4, wiseFxMarkupPercent: 0.45 },
+  { id: "switzerland", name: "Switzerland (CHF)", currency: "CHF", currencyCode: "CHF", countrySlug: "switzerland", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 2.9, wiseFxMarkupPercent: 0.42 },
+  { id: "germany", name: "Germany / EU (EUR)", currency: "€", currencyCode: "EUR", countrySlug: "germany", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 2.8, wiseFxMarkupPercent: 0.40 },
+  { id: "netherlands", name: "Netherlands / EU (EUR)", currency: "€", currencyCode: "EUR", countrySlug: "netherlands", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 2.8, wiseFxMarkupPercent: 0.40 },
+  { id: "france", name: "France / EU (EUR)", currency: "€", currencyCode: "EUR", countrySlug: "france", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 2.9, wiseFxMarkupPercent: 0.40 },
+  { id: "norway", name: "Norway (NOK)", currency: "NOK", currencyCode: "NOK", countrySlug: "norway", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.1, wiseFxMarkupPercent: 0.45 },
+  { id: "sweden", name: "Sweden (SEK)", currency: "SEK", currencyCode: "SEK", countrySlug: "sweden", w8benRate: 0, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.1, wiseFxMarkupPercent: 0.45 },
+  { id: "new-zealand", name: "New Zealand (NZD)", currency: "NZ$", currencyCode: "NZD", countrySlug: "new-zealand", w8benRate: 10, avgWireFeeUsd: 22, bankFxMarkupPercent: 3.5, wiseFxMarkupPercent: 0.48 },
+  { id: "singapore", name: "Singapore (SGD)", currency: "S$", currencyCode: "SGD", countrySlug: "singapore", w8benRate: 30, avgWireFeeUsd: 22, bankFxMarkupPercent: 3.2, wiseFxMarkupPercent: 0.45 },
+  { id: "uae", name: "United Arab Emirates (AED)", currency: "AED", currencyCode: "AED", countrySlug: "uae", w8benRate: 30, avgWireFeeUsd: 25, bankFxMarkupPercent: 3.4, wiseFxMarkupPercent: 0.50 },
+  { id: "japan", name: "Japan (JPY)", currency: "¥", currencyCode: "JPY", countrySlug: "japan", w8benRate: 0, avgWireFeeUsd: 22, bankFxMarkupPercent: 3.0, wiseFxMarkupPercent: 0.45 },
+  { id: "south-korea", name: "South Korea (KRW)", currency: "₩", currencyCode: "KRW", countrySlug: "south-korea", w8benRate: 10, avgWireFeeUsd: 22, bankFxMarkupPercent: 3.2, wiseFxMarkupPercent: 0.48 },
+  { id: "poland", name: "Poland (PLN)", currency: "zł", currencyCode: "PLN", countrySlug: "poland", w8benRate: 10, avgWireFeeUsd: 20, bankFxMarkupPercent: 3.4, wiseFxMarkupPercent: 0.50 },
+  { id: "india", name: "India (INR)", currency: "₹", currencyCode: "INR", countrySlug: "india", w8benRate: 15, avgWireFeeUsd: 25, bankFxMarkupPercent: 3.8, wiseFxMarkupPercent: 0.55 },
+  { id: "philippines", name: "Philippines (PHP)", currency: "₱", currencyCode: "PHP", countrySlug: "philippines", w8benRate: 15, avgWireFeeUsd: 25, bankFxMarkupPercent: 4.2, wiseFxMarkupPercent: 0.65 },
+  { id: "brazil", name: "Brazil (BRL)", currency: "R$", currencyCode: "BRL", countrySlug: "brazil", w8benRate: 15, avgWireFeeUsd: 30, bankFxMarkupPercent: 4.5, wiseFxMarkupPercent: 0.70 },
+  { id: "mexico", name: "Mexico (MXN)", currency: "MX$", currencyCode: "MXN", countrySlug: "mexico", w8benRate: 10, avgWireFeeUsd: 25, bankFxMarkupPercent: 4.0, wiseFxMarkupPercent: 0.58 },
+  { id: "other", name: "Other Global Countries (SWIFT Wire)", currency: "$", currencyCode: "USD", countrySlug: "", w8benRate: 15, avgWireFeeUsd: 30, bankFxMarkupPercent: 4.0, wiseFxMarkupPercent: 0.60 },
 ];
 
 export default function AdSenseFeeCalculator() {
@@ -204,6 +219,11 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
                 <p className="text-4xl font-black text-emerald-400 mt-1">
                   +${results.annualSavings.toLocaleString()} / yr
                 </p>
+                {results.country.currencyCode !== "USD" && (
+                  <p className="text-xs font-semibold text-emerald-200 mt-1">
+                    Approx. {formatMoneyRounded(results.annualSavings, results.country.currencyCode)} / year in {results.country.currencyCode}
+                  </p>
+                )}
                 <p className="text-xs text-slate-300 mt-1">
                   By switching from traditional SWIFT bank wires to modern multi-currency creator accounts.
                 </p>
@@ -264,12 +284,23 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
                 <FaCheckCircle /> Creator Banking Pro-Tip:
               </span>
               Avoid direct USD wire transfers into non-USD accounts. Link an ACH multi-currency routing number (such as Wise or Relay) to AdSense to receive USD at zero fee, then convert at mid-market spot rates.
+              <div className="mt-2.5 pt-2.5 border-t border-white/10 flex flex-wrap gap-3">
+                <Link
+                  href={results.country.countrySlug ? `/tools/youtube-earnings-calculator/${results.country.countrySlug}` : "/tools/youtube-earnings-calculator"}
+                  className="font-bold text-emerald-300 hover:text-emerald-200 underline"
+                >
+                  Model {results.country.name.split(" (")[0]} YouTube RPM →
+                </Link>
+                <Link
+                  href="/tools/youtube-tax-deduction-calculator"
+                  className="font-bold text-slate-200 hover:text-white underline"
+                >
+                  Tax Write-Offs →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Ad unit */}
-        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
       </div>
     </ToolPageLayout>
   );

@@ -514,9 +514,12 @@ export function getGlobalAlternates(path: string) {
       en: url,
       "en-US": url,
       "en-GB": url,
-      "en-IN": url,
       "en-AU": url,
       "en-CA": url,
+      "en-NZ": url,
+      "en-IE": url,
+      "en-SG": url,
+      "en-IN": url,
       "x-default": url,
     },
   };

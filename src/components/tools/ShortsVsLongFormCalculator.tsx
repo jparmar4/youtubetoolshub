@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import { parseCalculatorInput } from "@/lib/calculator-input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import {
   FaYoutube,
   FaChartLine,
@@ -349,8 +348,6 @@ Generated on youtubetoolshub.com`;
             </div>
           </div>
         )}
-
-        <GoogleAd slot="4112285121" />
       </form>
     </ToolPageLayout>
   );

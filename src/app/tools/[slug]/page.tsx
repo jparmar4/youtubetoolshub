@@ -381,12 +381,63 @@ export default async function ToolPage({
                             </AdSectionIgnore>
 
                             {/* High-CPC Tier-1 Financial & Banking Context for Analytics & Revenue Tools */}
-                            {tool.category === "analytics-earnings" && (
+                            {tool.category === "analytics-earnings" ? (
                                 <AdSectionPrioritize>
                                     <div className="space-y-8">
                                         <Tier1ComparisonMatrix />
                                         <InternationalPayoutCallout />
                                     </div>
+                                </AdSectionPrioritize>
+                            ) : (
+                                <AdSectionPrioritize>
+                                    <section className="card-3d rounded-3xl p-6 sm:p-7 border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-purple-50/40" aria-labelledby="monetize-funnel-heading">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                                            <div>
+                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
+                                                    Tier-1 Creator Monetization Suite
+                                                </span>
+                                                <h2 id="monetize-funnel-heading" className="text-lg sm:text-xl font-black text-slate-900 font-outfit">
+                                                    Estimate What These Views &amp; Keywords Are Worth
+                                                </h2>
+                                            </div>
+                                            <Link
+                                                href="/resources/youtube-cpm-rates"
+                                                className="text-xs font-bold text-purple-700 hover:underline shrink-0"
+                                            >
+                                                Compare 52 Country CPMs →
+                                            </Link>
+                                        </div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <Link
+                                                href="/tools/youtube-earnings-calculator"
+                                                className="p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-emerald-400 hover:shadow-sm transition-all"
+                                            >
+                                                <span className="font-bold text-sm text-slate-900 block">YouTube Earnings Calculator →</span>
+                                                <span className="text-xs text-slate-600 mt-0.5 block">Model US, UK, Canada, Australia &amp; Germany AdSense RPM payouts.</span>
+                                            </Link>
+                                            <Link
+                                                href="/tools/youtube-sponsorship-calculator"
+                                                className="p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-purple-400 hover:shadow-sm transition-all"
+                                            >
+                                                <span className="font-bold text-sm text-slate-900 block">Sponsorship Rate Calculator →</span>
+                                                <span className="text-xs text-slate-600 mt-0.5 block">Price Tier-1 brand integrations ($22–$45 CPM benchmarks) &amp; media kits.</span>
+                                            </Link>
+                                            <Link
+                                                href="/tools/youtube-channel-valuation-calculator"
+                                                className="p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-purple-400 hover:shadow-sm transition-all"
+                                            >
+                                                <span className="font-bold text-sm text-slate-900 block">Channel Valuation Estimator →</span>
+                                                <span className="text-xs text-slate-600 mt-0.5 block">Value your channel asset using 24x–36x monthly net profit multiples.</span>
+                                            </Link>
+                                            <Link
+                                                href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                                                className="p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-purple-400 hover:shadow-sm transition-all"
+                                            >
+                                                <span className="font-bold text-sm text-slate-900 block">LLC vs S-Corp Tax Savings →</span>
+                                                <span className="text-xs text-slate-600 mt-0.5 block">Calculate self-employment tax savings for monetized US creator businesses.</span>
+                                            </Link>
+                                        </div>
+                                    </section>
                                 </AdSectionPrioritize>
                             )}
 
@@ -605,14 +656,9 @@ export default async function ToolPage({
                         </div>
                     </div>
                     {/* Recommended Content / Multiplex Ad Unit */}
-                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm" aria-hidden="true">
+                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm">
                         <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                         <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-                    </div>
-
-                    {/* One below-fold display unit */}
-                    <div className="animate-fade-in-up delay-300 mt-8">
-                        <GoogleAd slot="7688425196" />
                     </div>
                 </div>
             </div>

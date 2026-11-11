@@ -3,7 +3,6 @@
 import { useState } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import Link from "next/link";
 import {
   FaMagic,
@@ -289,9 +288,6 @@ TRANSCRIPT:
             </p>
           </Link>
         </div>
-
-        {/* Ad unit */}
-        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
       </div>
     </ToolPageLayout>
   );

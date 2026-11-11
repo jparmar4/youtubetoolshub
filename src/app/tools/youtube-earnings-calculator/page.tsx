@@ -350,7 +350,7 @@ export default function YouTubeEarningsCalculatorPage() {
               {/* Ad immediately below the Calculator */}
               <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
                 <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-                <GoogleAd slot="8649718301" format="fluid" layout="in-article" responsive className="w-full text-center" />
+                <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" responsive className="w-full text-center" />
               </div>
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
@@ -454,8 +454,11 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Ad placement */}
-              <div className="my-8" aria-hidden="true">
-                <GoogleAd layout="in-article" format="fluid" slot="6023554962" className="text-center" />
+              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
+                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">
+                  Advertisement
+                </p>
+                <GoogleAd layout="in-article" format="fluid" slot="6023554962" className="w-full text-center" />
               </div>
 
               {/* Countries — full 52-market index grouped by tier for global crawl + UX */}
@@ -605,7 +608,7 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Recommended Content / Multiplex Ad Unit */}
-              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm" aria-hidden="true">
+              <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm">
                 <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                 <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
               </div>

@@ -125,7 +125,7 @@ export default function CreatorSoftwareCard({
         ))}
       </div>
 
-      <p className="mt-4 text-center text-[11px] text-slate-400 italic">
+      <p className="mt-4 text-center text-[11px] text-slate-600 italic">
         {DEFAULT_AFFILIATE_DISCLOSURE}
       </p>
     </div>

@@ -102,14 +102,26 @@ export function formatNumber(num: number): string {
     return new Intl.NumberFormat('en-US').format(num);
 }
 
+const ZERO_DECIMAL_CURRENCIES = new Set(["JPY", "KRW", "VND", "IDR", "CLP", "ISK", "HUF"]);
+
 /**
  * Format currency
  */
 export function formatCurrency(amount: number, currency: string = 'USD'): string {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency,
-    }).format(amount);
+    const upper = currency.toUpperCase();
+    const zeroDecimal = ZERO_DECIMAL_CURRENCIES.has(upper);
+    try {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: upper,
+            ...(zeroDecimal ? { minimumFractionDigits: 0, maximumFractionDigits: 0 } : {}),
+        }).format(zeroDecimal ? Math.round(amount) : amount);
+    } catch {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(amount);
+    }
 }
 
 /**

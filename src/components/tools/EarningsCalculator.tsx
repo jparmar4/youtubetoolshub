@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
@@ -17,9 +17,10 @@ import {
   FaGlobeAmericas,
 } from "react-icons/fa";
 import { formatCurrency, calculateEarnings } from "@/lib/utils";
+import { CURRENCY_CONFIG, isSupportedCurrency, type SupportedCurrency } from "@/lib/currency-data";
+import { usePreferredCurrency } from "@/lib/currency";
 import { saveHistory } from "@/lib/history";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
-import { AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
 import Link from "next/link";
 
 const faq = [
@@ -61,24 +62,45 @@ const VIEW_PRESETS = [
 ];
 
 const RPM_PRESETS = [
-  { label: "🇺🇸 US Long-Form ($8.50)", value: 8.5 },
-  { label: "🇬🇧 UK Long-Form ($6.50)", value: 6.5 },
   { label: "📈 US Finance/Tech ($14.00)", value: 14.0 },
+  { label: "🇺🇸 US Long-Form ($8.50)", value: 8.5 },
+  { label: "🇨🇭 Switzerland ($7.80)", value: 7.8 },
+  { label: "🇦🇺 Australia ($7.20)", value: 7.2 },
+  { label: "🇨🇦 Canada ($7.00)", value: 7.0 },
+  { label: "🇳🇿 New Zealand ($6.80)", value: 6.8 },
+  { label: "🇬🇧 UK Long-Form ($6.50)", value: 6.5 },
+  { label: "🇩🇪 Germany ($6.20)", value: 6.2 },
+  { label: "🇳🇴 Norway ($6.00)", value: 6.0 },
+  { label: "🇫🇷 France ($4.80)", value: 4.8 },
+  { label: "🇦🇪 UAE ($4.00)", value: 4.0 },
+  { label: "🇯🇵 Japan ($3.50)", value: 3.5 },
   { label: "🌐 Global Long-Form ($2.50)", value: 2.5 },
   { label: "🇮🇳 India Long-Form ($0.80)", value: 0.8 },
   { label: "⚡ US Shorts ($0.05)", value: 0.05 },
   { label: "⚡ Global Shorts ($0.02)", value: 0.02 },
 ];
 
-const CURRENCY_CONFIG: Record<string, { symbol: string; rate: number; label: string }> = {
-  USD: { symbol: "$", rate: 1.0, label: "USD ($)" },
-  EUR: { symbol: "€", rate: 0.92, label: "EUR (€)" },
-  GBP: { symbol: "£", rate: 0.79, label: "GBP (£)" },
-  CAD: { symbol: "CA$", rate: 1.36, label: "CAD ($)" },
-  AUD: { symbol: "AU$", rate: 1.52, label: "AUD ($)" },
-  CHF: { symbol: "CHF", rate: 0.88, label: "CHF (Fr)" },
-  INR: { symbol: "₹", rate: 86.5, label: "INR (₹)" },
-};
+const QUICK_CURRENCY_CODES: SupportedCurrency[] = [
+  "USD",
+  "GBP",
+  "EUR",
+  "CAD",
+  "AUD",
+  "CHF",
+  "SGD",
+  "AED",
+  "JPY",
+  "INR",
+];
+
+const NICHE_MULTIPLIERS = [
+  { id: "balanced", label: "Balanced Mix (1.0x)", factor: 1.0 },
+  { id: "finance", label: "💰 Finance & Investing (2.2x)", factor: 2.2 },
+  { id: "b2b", label: "💼 B2B SaaS & Software (1.9x)", factor: 1.9 },
+  { id: "tech", label: "💻 Tech & AI Reviews (1.4x)", factor: 1.4 },
+  { id: "education", label: "🎓 Education & Career (1.15x)", factor: 1.15 },
+  { id: "gaming", label: "🎮 Gaming & Shorts Mix (0.65x)", factor: 0.65 },
+];
 
 interface EarningsCalculatorProps {
   initialRPM?: number;
@@ -93,13 +115,12 @@ export default function EarningsCalculator({
 }: EarningsCalculatorProps) {
   const [views, setViews] = useState("100000");
   const [rpm, setRpm] = useState(initialRPM.toString());
-  const [activeCurrency, setActiveCurrency] = useState(
-    currency in CURRENCY_CONFIG ? currency : "USD"
-  );
+  const [baseRpm, setBaseRpm] = useState<number>(initialRPM);
+  const [nicheId, setNicheId] = useState<string>("balanced");
+  const { currency: activeCurrency, setCurrency: setPreferredCurrency, rate: currentRate } =
+    usePreferredCurrency(currency);
   const [adError, setAdError] = useState("");
   const [copied, setCopied] = useState(false);
-
-  const currentRate = CURRENCY_CONFIG[activeCurrency]?.rate || 1.0;
   const [adResult, setAdResult] = useState<{
     monthly: number;
     yearly: number;
@@ -126,6 +147,45 @@ export default function EarningsCalculator({
       channelValuationMax: Math.round(res.monthly * 36),
     };
   });
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.location.search) return;
+    const params = new URLSearchParams(window.location.search);
+    const viewsParam = params.get("views");
+    const rpmParam = params.get("rpm");
+    const parsedViews = viewsParam ? parseFloat(viewsParam.replace(/,/g, "")) : NaN;
+    const parsedRpm = rpmParam ? parseFloat(rpmParam) : NaN;
+
+    const validViews = Number.isFinite(parsedViews) && parsedViews > 0 ? parsedViews : 100000;
+    const validRpm = Number.isFinite(parsedRpm) && parsedRpm >= 0 ? parsedRpm : initialRPM;
+    const hasCustomQuery = (viewsParam && Number.isFinite(parsedViews) && parsedViews > 0) ||
+      (rpmParam && Number.isFinite(parsedRpm) && parsedRpm >= 0);
+    if (!hasCustomQuery) return;
+
+    let cancelled = false;
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      setViews(validViews.toString());
+      setRpm(validRpm.toString());
+      setBaseRpm(validRpm);
+      setNicheId("balanced");
+      const res = calculateEarnings(validViews, validRpm);
+      setAdResult({
+        monthly: res.monthly,
+        yearly: res.yearly,
+        viewsNum: validViews,
+        rpmNum: validRpm,
+        sponsorEstMin: Math.round((validViews / 1000) * 18),
+        sponsorEstMax: Math.round((validViews / 1000) * 38),
+        channelValuationMin: Math.round(res.monthly * 24),
+        channelValuationMax: Math.round(res.monthly * 36),
+      });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialRPM]);
 
   const handleCalculateWithValues = (viewsStr: string, rpmStr: string) => {
     const monthlyViews = parseFloat(viewsStr.replace(/,/g, ""));
@@ -161,7 +221,7 @@ export default function EarningsCalculator({
         type: "ads",
         monthlyViews,
         rpm: rpmValue,
-        currency,
+        currency: activeCurrency,
         countryName,
         result,
       });
@@ -181,7 +241,17 @@ export default function EarningsCalculator({
   };
 
   const handleRpmPreset = (val: number) => {
+    setBaseRpm(val);
+    setNicheId("balanced");
     const str = val.toString();
+    setRpm(str);
+    handleCalculateWithValues(views, str);
+  };
+
+  const handleNicheMultiplier = (id: string, factor: number) => {
+    setNicheId(id);
+    const scaled = Math.max(0.02, Number((baseRpm * factor).toFixed(2)));
+    const str = scaled.toString();
     setRpm(str);
     handleCalculateWithValues(views, str);
   };
@@ -329,15 +399,23 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
 
           <div>
             <Input
-              label={`RPM (${currency === "USD" ? "$" : currency})`}
+              label="Est. RPM ($ USD Base)"
               type="number"
               placeholder="2.5"
               value={rpm}
-              onChange={(e) => setRpm(e.target.value)}
+              onChange={(e) => {
+                const next = e.target.value;
+                setRpm(next);
+                const parsed = parseFloat(next);
+                if (Number.isFinite(parsed) && parsed >= 0) {
+                  setBaseRpm(parsed);
+                  setNicheId("balanced");
+                }
+              }}
               step="0.01"
             />
             <div className="text-[11px] text-slate-600 mt-2">
-              Earnings per 1,000 views after YouTube cut
+              USD per 1,000 views (converted to {activeCurrency} below)
             </div>
           </div>
 
@@ -350,26 +428,51 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
         </form>
 
         {/* Quick RPM Presets */}
-        <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/80">
-          <div className="text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5">
-            <FaBolt className="text-amber-500" />
-            <span>Select Benchmark RPM by Country &amp; Format:</span>
+        <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200/80 space-y-3">
+          <div>
+            <div className="text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+              <FaBolt className="text-amber-500" />
+              <span>Select Benchmark RPM by Country &amp; Format:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {RPM_PRESETS.map((p) => (
+                <button
+                  key={p.label}
+                  type="button"
+                  onClick={() => handleRpmPreset(p.value)}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+                    parseFloat(rpm) === p.value && nicheId === "balanced"
+                      ? "bg-purple-600 text-white border-purple-600 shadow-xs"
+                      : "bg-white border-slate-200 text-slate-700 hover:border-purple-400 hover:bg-purple-50"
+                  }`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {RPM_PRESETS.map((p) => (
-              <button
-                key={p.label}
-                type="button"
-                onClick={() => handleRpmPreset(p.value)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
-                  parseFloat(rpm) === p.value
-                    ? "bg-purple-600 text-white border-purple-600 shadow-xs"
-                    : "bg-white border-slate-200 text-slate-700 hover:border-purple-400 hover:bg-purple-50"
-                }`}
-              >
-                {p.label}
-              </button>
-            ))}
+
+          <div className="pt-2.5 border-t border-slate-200/80">
+            <div className="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between gap-2">
+              <span>Apply Content Niche Multiplier ({countryName ? `${countryName} Base` : `$${baseRpm.toFixed(2)} Base`}):</span>
+              <span className="text-[11px] font-semibold text-emerald-700">High-intent niches boost Tier-1 RPM up to 2.2x</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {NICHE_MULTIPLIERS.map((n) => (
+                <button
+                  key={n.id}
+                  type="button"
+                  onClick={() => handleNicheMultiplier(n.id, n.factor)}
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
+                    nicheId === n.id
+                      ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
+                      : "bg-white border-slate-200 text-slate-700 hover:border-emerald-400 hover:bg-emerald-50"
+                  }`}
+                >
+                  {n.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -381,29 +484,46 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
 
         {/* Calculation Results Grid */}
         {adResult && (
-          <AdSectionPrioritize>
-            <div className="space-y-6 pt-2">
+          <div className="space-y-6 pt-2">
               {/* Currency Selector Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-slate-50 rounded-2xl border border-slate-200/90">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
                   <FaGlobeAmericas className="text-purple-600"/>
                   <span>Display Currency:</span>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {Object.entries(CURRENCY_CONFIG).map(([code, conf]) => (
-                    <button
-                      key={code}
-                      type="button"
-                      onClick={() => setActiveCurrency(code)}
-                      className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
-                        activeCurrency === code
-                          ? "bg-purple-600 text-white shadow-xs"
-                          :"bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
-                      }`}
-                    >
-                      {conf.label}
-                    </button>
-                  ))}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {QUICK_CURRENCY_CODES.map((code) => {
+                    const conf = CURRENCY_CONFIG[code];
+                    return (
+                      <button
+                        key={code}
+                        type="button"
+                        onClick={() => setPreferredCurrency(code)}
+                        className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
+                          activeCurrency === code
+                            ? "bg-purple-600 text-white shadow-xs"
+                            : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                        }`}
+                      >
+                        {conf.label}
+                      </button>
+                    );
+                  })}
+                  <select
+                    aria-label="All supported currencies"
+                    value={activeCurrency}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (isSupportedCurrency(val)) setPreferredCurrency(val);
+                    }}
+                    className="px-2.5 py-1 text-xs font-bold rounded-lg bg-white text-slate-700 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                  >
+                    {(Object.keys(CURRENCY_CONFIG) as SupportedCurrency[]).map((code) => (
+                      <option key={code} value={code}>
+                        {CURRENCY_CONFIG[code].label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
@@ -508,8 +628,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   </Link>
                 </div>
               </div>
-            </div>
-          </AdSectionPrioritize>
+          </div>
         )}
 
         {/* High-CPC FinTech Comparisons & International Payout Callout */}

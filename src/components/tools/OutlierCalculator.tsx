@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import {
   FaFire,
   FaBolt, FaCopy, FaCheck } from "react-icons/fa";
@@ -273,9 +272,6 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
             Studying outliers is the secret weapon used by top YouTube producers (including MrBeast, Colin &amp; Samir, and Ali Abdaal). When a video becomes an outlier, it proves that the <strong>Topic + Title + Thumbnail packaging</strong> broke out of the creator&apos;s existing subscriber circle and appealed to broad casual viewers on YouTube&apos;s home feed.
           </p>
         </div>
-
-        {/* Ad unit */}
-        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
       </div>
     </ToolPageLayout>
   );

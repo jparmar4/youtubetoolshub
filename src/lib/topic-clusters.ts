@@ -169,7 +169,72 @@ export const topicClusters: TopicCluster[] = [
       {
         path: "/tools/youtube-earnings-calculator/uk",
         title: "UK YouTube Earnings",
-        anchors: ["youtube cpm uk", "uk youtube cpm"],
+        anchors: ["youtube cpm uk", "uk youtube cpm", "youtube earnings uk"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/australia",
+        title: "Australia YouTube Earnings",
+        anchors: ["youtube cpm australia", "australia youtube cpm", "youtube earnings australia"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/canada",
+        title: "Canada YouTube Earnings",
+        anchors: ["youtube cpm canada", "canada youtube cpm", "youtube earnings canada"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/germany",
+        title: "Germany YouTube Earnings",
+        anchors: ["youtube cpm germany", "germany youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/switzerland",
+        title: "Switzerland YouTube Earnings",
+        anchors: ["youtube cpm switzerland", "switzerland youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/norway",
+        title: "Norway YouTube Earnings",
+        anchors: ["youtube cpm norway", "norway youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/new-zealand",
+        title: "New Zealand YouTube Earnings",
+        anchors: ["youtube cpm new zealand", "new zealand youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/singapore",
+        title: "Singapore YouTube Earnings",
+        anchors: ["youtube cpm singapore", "singapore youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/netherlands",
+        title: "Netherlands YouTube Earnings",
+        anchors: ["youtube cpm netherlands", "netherlands youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/sweden",
+        title: "Sweden YouTube Earnings",
+        anchors: ["youtube cpm sweden", "sweden youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/france",
+        title: "France YouTube Earnings",
+        anchors: ["youtube cpm france", "france youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/uae",
+        title: "UAE YouTube Earnings",
+        anchors: ["youtube cpm uae", "uae youtube cpm", "youtube cpm dubai"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/japan",
+        title: "Japan YouTube Earnings",
+        anchors: ["youtube cpm japan", "japan youtube cpm"],
+      },
+      {
+        path: "/tools/youtube-earnings-calculator/south-korea",
+        title: "South Korea YouTube Earnings",
+        anchors: ["youtube cpm south korea", "south korea youtube cpm"],
       },
       {
         path: "/tools/youtube-earnings-calculator/india",

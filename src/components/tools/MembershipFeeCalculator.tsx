@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import {
@@ -366,12 +365,6 @@ export default function MembershipFeeCalculator() {
                   </tbody>
                 </table>
               </div>
-            </div>
-
-            {/* Ad Placement */}
-            <div className="pt-2 text-center">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-              <GoogleAd slot="8649718301" responsive className="w-full text-center" />
             </div>
 
             {/* International Payout Callout */}

@@ -214,7 +214,7 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
                                     <span className="mr-2">{c.flag}</span>
                                     {c.name}
                                 </Link>
-                                <span className="ml-2 text-xs text-slate-400">({c.currency})</span>
+                                <span className="ml-2 text-xs text-slate-600">({c.currency})</span>
                             </td>
                             <td className="px-4 py-3 text-right text-slate-600">${c.cpmRange.min.toFixed(2)}</td>
                             <td className="px-4 py-3 text-right font-bold text-slate-900">${c.cpmRange.avg.toFixed(2)}</td>
@@ -289,7 +289,7 @@ export default function YouTubeCPMRatesPage() {
                                     answer={`Average YouTube CPM in the United States is $8–$25 per 1,000 ad impressions ($14.50 avg). The UK averages $6–$18, Canada $6.50–$20, Australia $7.50–$22, and India $0.50–$3.00. Finance and Business niches earn 3–5x more than Gaming in every market. (Reviewed ${DATA_LAST_REVIEWED}).`}
                                     keyPoints={[
                                         "United States: $8.00–$25.00 CPM ($14.50 average)",
-                                        "United Kingdom: $6.00–$18.00 CPM ($12.20 average)",
+                                        "United Kingdom: $6.00–$18.00 CPM ($11.00 average)",
                                         "Australia & Canada: $6.50–$22.00 CPM ($13.00 average)",
                                         "India & Tier 3: $0.50–$3.00 CPM ($1.50 average)",
                                     ]}
@@ -330,9 +330,34 @@ export default function YouTubeCPMRatesPage() {
                         contextLabel="Turn CPM data into your estimate"
                     />
 
+                    {/* Quick Section & Market Jump Bar */}
+                    <nav
+                        aria-label="CPM report sections"
+                        className="flex flex-wrap items-center gap-2 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-xs"
+                    >
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-600 px-2">
+                            Jump to:
+                        </span>
+                        {[
+                            { href: "#tier-1", label: `Tier 1 (${tier1.length})` },
+                            { href: "#tier-2", label: `Tier 2 (${tier2.length})` },
+                            { href: "#tier-3", label: `Tier 3 (${tier3.length})` },
+                            { href: "#niche-heatmap", label: "2026 Niche RPM Heatmap" },
+                            { href: "#how-to-increase", label: "Raise Your CPM" },
+                        ].map((item) => (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-purple-50 text-slate-800 hover:text-purple-700 text-xs font-bold border border-slate-200 hover:border-purple-300 transition-colors"
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+                    </nav>
+
                     {/* High-viewability ad below calculator CTA */}
-                    <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 bg-white p-3 text-center">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Advertisement</p>
+                    <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 bg-white p-3 text-center min-h-[140px] flex flex-col justify-center">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
                         <GoogleAd slot="8649718301" responsive className="w-full text-center" />
                     </div>
 
@@ -356,48 +381,49 @@ export default function YouTubeCPMRatesPage() {
 
 
                     {/* Tier 1 Table */}
-                    <section>
+                    <section id="tier-1" className="scroll-mt-24">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-widest mb-3">Tier 1</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Premium Markets — Highest CPM</h2>
-                            <p className="text-slate-500 mt-2">US, UK, Canada, Australia, Germany, Switzerland, and Nordic countries. Advertisers pay the most to reach these audiences.</p>
+                            <p className="text-slate-600 mt-2">US, UK, Canada, Australia, Germany, Switzerland, and Nordic countries. Advertisers pay the most to reach these audiences.</p>
                         </div>
                         <CPMTable countries={tier1} tierLabel="Tier 1" tierColor="bg-purple-700" />
                     </section>
 
                     {/* Tier 2 Table */}
-                    <section>
+                    <section id="tier-2" className="scroll-mt-24">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest mb-3">Tier 2</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Solid Markets — Competitive CPM</h2>
-                            <p className="text-slate-500 mt-2">Middle East, Western Europe, East Asia, and Southeast Asia. Strong CPMs with growing advertiser bases.</p>
+                            <p className="text-slate-600 mt-2">Middle East, Western Europe, East Asia, and Southeast Asia. Strong CPMs with growing advertiser bases.</p>
                         </div>
                         <CPMTable countries={tier2} tierLabel="Tier 2" tierColor="bg-blue-700" />
                     </section>
 
                     {/* Ad placement */}
-                    <div className="my-8" aria-hidden="true">
-                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="text-center" />
+                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
+                        <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="w-full text-center" />
                     </div>
 
                     {/* Tier 3 Table */}
-                    <section>
+                    <section id="tier-3" className="scroll-mt-24">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-widest mb-3">Tier 3</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Emerging Markets — High Volume, Lower CPM</h2>
-                            <p className="text-slate-500 mt-2">India, Brazil, Southeast Asia, and Africa. Huge audience sizes but lower advertiser rates. Strategy: drive Tier 1 traffic.</p>
+                            <p className="text-slate-600 mt-2">India, Brazil, Southeast Asia, and Africa. Huge audience sizes but lower advertiser rates. Strategy: drive Tier 1 traffic.</p>
                         </div>
                         <CPMTable countries={tier3} tierLabel="Tier 3" tierColor="bg-orange-600" />
                     </section>
 
                     {/* Interactive 2026 Niche Profitability Heatmap */}
-                    <section className="my-8">
+                    <section id="niche-heatmap" className="my-8 scroll-mt-24">
                         <NicheProfitabilityHeatmap />
                     </section>
 
 
                     {/* How to Increase CPM */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section id="how-to-increase" className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60 scroll-mt-24">
                         <h2 className="text-3xl font-black text-slate-900 font-outfit mb-3">How to Increase Your YouTube CPM</h2>
                         <p className="text-slate-600 mb-8 leading-relaxed">
                             You can&apos;t control what advertisers bid, but you can control who your audience is and what topics you cover.
@@ -449,8 +475,9 @@ export default function YouTubeCPMRatesPage() {
                     </section>
 
                     {/* Ad placement */}
-                    <div className="my-8" aria-hidden="true">
-                        <GoogleAd slot="7688425196" />
+                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
+                        <GoogleAd slot="7688425196" className="w-full text-center" />
                     </div>
 
                     {/* CTA to calculator */}

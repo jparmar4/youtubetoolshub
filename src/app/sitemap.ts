@@ -4,7 +4,7 @@ import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { BLOG_CATEGORIES, getPostsForCategory } from "@/config/blog/categories";
 import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
-import { countryCPMData } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
@@ -144,16 +144,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Country-specific earnings calculator pages (Tier 1 prioritized for crawl frequency)
-  const TIER1_CODES = ["US", "AU", "GB", "CA", "CH", "DE", "NO", "NZ", "SE", "NL", "DK", "FI", "IE", "AT", "BE", "SG"];
+  // Country-specific earnings calculator pages (Tier 1 & Tier 2 prioritized for high-CPC traffic)
   for (const country of countryCPMData) {
-    const isTier1 = TIER1_CODES.includes(country.code);
+    const isTier1 = TIERS.TIER1.countries.includes(country.code);
+    const isTier2 = TIERS.TIER2.countries.includes(country.code);
     const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
       url,
       lastModified: DATA_LAST_MODIFIED,
-      changeFrequency: isTier1 ? "weekly" : "monthly",
-      priority: isTier1 ? 0.85 : 0.65,
+      changeFrequency: isTier1 || isTier2 ? "weekly" : "monthly",
+      priority: isTier1 ? 0.85 : isTier2 ? 0.78 : 0.65,
     });
   }
 

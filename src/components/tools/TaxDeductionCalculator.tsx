@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import { 
@@ -12,7 +11,7 @@ import {
     FaCheckCircle, FaExclamationTriangle, FaExchangeAlt, FaRegLightbulb 
 } from "react-icons/fa";
 
-type TaxRegion = "US" | "UK" | "CA" | "AU";
+type TaxRegion = "US" | "UK" | "CA" | "AU" | "EU" | "CH" | "SG";
 
 interface RegionConfig {
     name: string;
@@ -50,6 +49,27 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
         symbol: "AU$",
         taxAgency: "ATO Individual Tax Return",
         formName: "Business & Professional Items Schedule",
+    },
+    EU: {
+        name: "Germany / EU (Finanzamt)",
+        currency: "EUR",
+        symbol: "€",
+        taxAgency: "Finanzamt / EU Self-Employed",
+        formName: "EÜR & Anlage S / G",
+    },
+    CH: {
+        name: "Switzerland (ESTV)",
+        currency: "CHF",
+        symbol: "CHF ",
+        taxAgency: "Cantonal Tax & AHV",
+        formName: "Self-Employed Tax Schedule",
+    },
+    SG: {
+        name: "Singapore (IRAS)",
+        currency: "SGD",
+        symbol: "S$",
+        taxAgency: "IRAS Individual / Sole Proprietor",
+        formName: "Form B (4-Line Trade Statement)",
     },
 };
 
@@ -113,7 +133,7 @@ export default function TaxDeductionCalculator() {
                     <div className="flex items-center gap-2">
                         <FaExchangeAlt className="text-emerald-600" />
                         <span className="text-sm font-semibold text-slate-700">Tax Jurisdiction:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
+                        <div className="flex flex-wrap rounded-lg overflow-hidden border border-slate-200 bg-white">
                             {(Object.keys(REGION_CONFIGS) as TaxRegion[]).map((r) => (
                                 <button
                                     key={r}
@@ -224,6 +244,63 @@ export default function TaxDeductionCalculator() {
                                 className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
                             >
                                 Upper Bracket (37%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "EU" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick EU / Germany Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("28")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Mid Bracket (~28%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("42")}
+                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
+                            >
+                                Spitzensteuersatz (42%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "CH" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick Switzerland Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("18")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Low-Tax Canton (~18%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("28")}
+                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
+                            >
+                                Urban Canton (~28%)
+                            </button>
+                        </div>
+                    )}
+                    {region === "SG" && (
+                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span className="text-slate-500 font-medium">Quick Singapore Presets:</span>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("11.5")}
+                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
+                            >
+                                Resident Tier (~11.5%)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setAssumedRate("18")}
+                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
+                            >
+                                High Earner (~18%)
                             </button>
                         </div>
                     )}
@@ -474,12 +551,6 @@ export default function TaxDeductionCalculator() {
                         <InternationalPayoutCallout
                             monthlyUsdEstimate={calculations ? Math.round(calculations.gross / 12) : 3750}
                         />
-
-                        {/* High-Value In-Tool Ad Placement */}
-                        <div className="pt-4 text-center">
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-                            <GoogleAd slot="8649718301" responsive className="w-full text-center" />
-                        </div>
                     </div>
                 )}
             </div>

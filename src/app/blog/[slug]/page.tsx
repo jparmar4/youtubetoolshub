@@ -503,8 +503,9 @@ export default async function BlogPostPage({
                                 )}
 
                                 {/* Ad: After FAQ section */}
-                                <div className="my-8" aria-hidden="true">
-                                    <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
+                                <div className="my-8 rounded-2xl overflow-hidden border border-slate-200/90 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+                                    <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                                    <GoogleAd slot={AD_SLOTS.IN_ARTICLE[3]} format="fluid" layout="in-article" className="w-full text-center" />
                                 </div>
 
                                 {/* Related free tools CTA — strong internal links for SEO */}
@@ -548,7 +549,7 @@ export default async function BlogPostPage({
                             </article>
 
                             {/* Recommended Content / Multiplex Ad Unit */}
-                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm" aria-hidden="true">
+                            <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm">
                                 <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                                 <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
                             </div>

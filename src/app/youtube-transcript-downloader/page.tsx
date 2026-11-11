@@ -413,6 +413,53 @@ export default function YouTubeTranscriptDownloaderPage() {
               </div>
             </div>
 
+            {/* Tier-1 Monetization & Brand Deal Funnel */}
+            <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 via-white to-purple-50/50 p-6 sm:p-8 shadow-xs space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                    Monetize Your Research
+                  </span>
+                  <h3 className="text-xl font-bold text-slate-900">
+                    Estimate What These Spoken Keywords Pay in Tier-1 Markets
+                  </h3>
+                </div>
+                <Link href="/resources/youtube-cpm-rates" className="text-xs font-bold text-purple-700 hover:underline shrink-0">
+                  52-Country CPM Rates →
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Link
+                  href="/tools/youtube-earnings-calculator"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 transition-colors group shadow-2xs"
+                >
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-emerald-700">Earnings Calculator →</p>
+                  <p className="text-xs text-slate-500 mt-1">US, UK, AU, CA &amp; DE AdSense RPM estimates</p>
+                </Link>
+                <Link
+                  href="/tools/youtube-sponsorship-calculator"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+                >
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Sponsorship Calculator →</p>
+                  <p className="text-xs text-slate-500 mt-1">Price mid-roll brand deals &amp; media kits</p>
+                </Link>
+                <Link
+                  href="/tools/youtube-channel-valuation-calculator"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+                >
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Channel Valuation →</p>
+                  <p className="text-xs text-slate-500 mt-1">Value asset multiples (24x–36x monthly net)</p>
+                </Link>
+                <Link
+                  href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+                >
+                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">LLC vs S-Corp Tax →</p>
+                  <p className="text-xs text-slate-500 mt-1">Model US creator entity &amp; tax write-offs</p>
+                </Link>
+              </div>
+            </div>
+
             {/* Multiplex Ad Unit */}
             <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-xs">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Recommended For Creators</p>

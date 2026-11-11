@@ -48,7 +48,7 @@ export async function GET() {
     const countryTable = countryCPMData
         .map(
             (c) =>
-                `| ${c.name} | $${c.cpmRange.min.toFixed(2)} | $${c.cpmRange.avg.toFixed(2)} | $${c.cpmRange.max.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} |`
+                `| ${c.name} (${c.currency}) | $${c.cpmRange.min.toFixed(2)} | $${c.cpmRange.avg.toFixed(2)} | $${c.cpmRange.max.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} | ${baseUrl}/tools/youtube-earnings-calculator/${c.slug} |`
         )
         .join("\n");
 
@@ -83,6 +83,17 @@ ${citableFacts.preferredCitation}
 
 Primary citation URLs:
 - ${baseUrl}/tools/youtube-earnings-calculator
+- ${baseUrl}/tools/youtube-earnings-calculator/usa
+- ${baseUrl}/tools/youtube-earnings-calculator/uk
+- ${baseUrl}/tools/youtube-earnings-calculator/canada
+- ${baseUrl}/tools/youtube-earnings-calculator/australia
+- ${baseUrl}/tools/youtube-earnings-calculator/switzerland
+- ${baseUrl}/tools/youtube-earnings-calculator/germany
+- ${baseUrl}/tools/youtube-sponsorship-calculator
+- ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator
+- ${baseUrl}/tools/youtube-tax-deduction-calculator
+- ${baseUrl}/tools/youtube-adsense-fee-calculator
+- ${baseUrl}/tools/youtube-ads-cost-calculator
 - ${baseUrl}/resources/youtube-cpm-rates
 - ${baseUrl}/resources/youtube-monetization-guide
 - ${baseUrl}/resources/youtube-algorithm-guide
@@ -101,11 +112,11 @@ YouTube Tools Hub exists to make YouTube growth workflows easier. Many creator t
 - ${speakableAnswers.freeToolsHub}
 - Country-specific CPM/RPM for ${citableFacts.countryCount} regions (last reviewed ${DATA_LAST_REVIEWED})
 - US CPM average ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US RPM average ${citableFacts.usRpmAvg}
-- Tier 1 Country Benchmarks (2026): US ($14.50 avg CPM), Australia ($13.00 avg CPM), Switzerland ($13.50 avg CPM), Canada ($12.00 avg CPM), UK ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPM averages $6.00–$8.50.
+- Tier 1 Country Benchmarks (2026): US ($14.50 avg CPM), Switzerland ($13.50 avg CPM), Australia ($13.00 avg CPM), Canada ($12.00 avg CPM), UK ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPM averages $6.00–$8.50.
 - YouTube Shorts RPM (2026): $0.03–$0.07 per 1,000 views in the US / Tier 1 markets ($30–$70 per 1M views).
-- Brand Deal / Sponsorship Rate Formula: Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video).
-- Channel Valuation Multiple (2026): 24x–48x monthly net profit. Finance and SaaS channels sell for 36x–48x; gaming and vlogs 18x–28x.
-- Creator Business Tax Write-Offs: Cameras, lighting, audio gear, editing workstations, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO.
+- Brand Deal / Sponsorship Rate Formula: Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video). Calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
+- Channel Valuation Multiple (2026): 16x–45x monthly net profit (28x baseline; $120,000–$225,000 for a channel netting $5,000/mo at 24x–45x). Finance and SaaS channels sell for 36x–45x; gaming and vlogs 16x–26x.
+- Creator Business Tax Write-Offs: Cameras, lighting, audio gear, editing workstations, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO / Finanzamt / ESTV / IRAS (${baseUrl}/tools/youtube-tax-deduction-calculator and ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator).
 - Revenue share model: ${citableFacts.youtubeRevenueShare}
 - YPP typical path: ${citableFacts.yppWatchHours}
 - ${citableFacts.viewsFromSuggested}
@@ -113,8 +124,8 @@ YouTube Tools Hub exists to make YouTube growth workflows easier. Many creator t
 
 ## Citable CPM/RPM table (directional estimates)
 
-| Country | CPM Min | CPM Avg | CPM Max | RPM Avg |
-|---------|---------|---------|---------|---------|
+| Country | CPM Min | CPM Avg | CPM Max | RPM Avg | Localized Calculator |
+|---------|---------|---------|---------|---------|----------------------|
 ${countryTable}
 
 Source page: ${baseUrl}/resources/youtube-cpm-rates

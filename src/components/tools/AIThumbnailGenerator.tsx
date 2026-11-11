@@ -60,6 +60,10 @@ const examplePrompts = [
     "Happy family cooking together in modern kitchen",
 ];
 
+function buildDefaultThumbnailFilename(index: number) {
+    return `youtube-thumbnail-${index + 1}-${Date.now()}.webp`;
+}
+
 export default function AIThumbnailGenerator() {
     const [prompt, setPrompt] = useState("");
     const [style, setStyle] = useState("entertainment");
@@ -132,7 +136,7 @@ export default function AIThumbnailGenerator() {
             }
 
             const contentDisposition = response.headers.get("Content-Disposition");
-            let filename = `youtube-thumbnail-${index + 1}-${Date.now()}.webp`;
+            let filename = buildDefaultThumbnailFilename(index);
 
             if (contentDisposition) {
                 const match = contentDisposition.match(/filename="(.+?)"/);

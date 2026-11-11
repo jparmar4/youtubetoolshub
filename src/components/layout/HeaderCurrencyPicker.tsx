@@ -12,6 +12,18 @@ const CURRENCY_BADGES: Record<SupportedCurrency, string> = {
   CAD: "CA",
   AUD: "AU",
   CHF: "CH",
+  NZD: "NZ",
+  SGD: "SG",
+  NOK: "NO",
+  SEK: "SE",
+  DKK: "DK",
+  HKD: "HK",
+  JPY: "JP",
+  KRW: "KR",
+  AED: "AE",
+  SAR: "SA",
+  QAR: "QA",
+  PLN: "PL",
   INR: "IN",
 };
 

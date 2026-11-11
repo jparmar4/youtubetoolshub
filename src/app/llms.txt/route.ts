@@ -40,7 +40,7 @@ export async function GET() {
     .slice(0, 12)
     .map(
       (c) =>
-        `- ${c.name}: CPM avg $${c.cpmRange.avg.toFixed(2)} (range $${c.cpmRange.min}–$${c.cpmRange.max}); RPM avg $${c.rpmRange.avg.toFixed(2)}`,
+        `- [${c.name}](${baseUrl}/tools/youtube-earnings-calculator/${c.slug}): CPM avg $${c.cpmRange.avg.toFixed(2)} (range $${c.cpmRange.min}–$${c.cpmRange.max}); RPM avg $${c.rpmRange.avg.toFixed(2)}`,
     )
     .join("\n");
 
@@ -93,7 +93,12 @@ YouTube payout data.
 - Tools suite: ${baseUrl}/tools
 - Transcript downloader: ${baseUrl}/youtube-transcript-downloader
 - Earnings calculator: ${baseUrl}/tools/youtube-earnings-calculator
-- CPM data table: ${baseUrl}/resources/youtube-cpm-rates
+- Sponsorship rate calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
+- Creator LLC vs S-Corp tax savings calculator: ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator
+- Creator tax deduction estimator: ${baseUrl}/tools/youtube-tax-deduction-calculator
+- AdSense FX & wire fee calculator: ${baseUrl}/tools/youtube-adsense-fee-calculator
+- Channel valuation calculator: ${baseUrl}/tools/youtube-channel-valuation-calculator
+- CPM data table (${countryCPMData.length} countries): ${baseUrl}/resources/youtube-cpm-rates
 - Monetization guide: ${baseUrl}/resources/youtube-monetization-guide
 - Algorithm guide: ${baseUrl}/resources/youtube-algorithm-guide
 - Creator glossary: ${baseUrl}/resources/youtube-glossary (${glossaryTerms.length} terms defined as direct answers)
@@ -118,14 +123,14 @@ YouTube payout data.
 - **YouTube transcript downloader & keyword extractor:** ${baseUrl}/youtube-transcript-downloader — Free tool to extract YouTube transcripts, download plain text or SRT subtitles without timestamps, and mine spoken keyword frequencies for SEO.
 - **YouTube transcript downloader guide (2026):** ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free — Benchmark takeaway: spoken dialogue carries up to 3x more search weight in YouTube's neural algorithm than backend tags. Complete workflow for 15-minute video-to-article repurposing.
 - **YouTube channel valuation calculator:** ${baseUrl}/tools/youtube-channel-valuation-calculator — Free tool to estimate how much a YouTube channel is worth based on monthly net profit, niche, subscriber count, and audience geography.
-- **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Benchmark takeaway: channels sell for 24x–48x monthly net profit in 2026. Finance/B2B channels command 36x–48x; entertainment 18x–28x. Includes 7-step safe sale process, Flippa vs FE International vs Empire Flippers broker matrix, and pre-sale checklist.
+- **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Benchmark takeaway: channels typically sell for 16x–45x monthly net profit in 2026 (28x baseline; Finance/B2B channels command 36x–45x; entertainment 16x–26x). Includes 7-step safe sale process, Flippa vs FE International vs Empire Flippers broker matrix, and pre-sale checklist.
 - **YouTube video summary generator AI guide (2026):** ${baseUrl}/blog/youtube-video-summary-generator-ai-free — Benchmark takeaway: ${citableFacts.aiSummaryTimeSavings} with ${citableFacts.aiTranscriptFidelity}. Free browser workflow to summarize up to 4-hour YouTube videos into executive notes, study guides, SEO articles, and viral scripts without paid extensions or token caps.
 - **US average CPM:** ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US average RPM ≈ ${citableFacts.usRpmAvg} (range ${citableFacts.usRpmRange})
-- **Tier 1 Country Benchmarks (2026):** United States ($14.50 avg CPM), Australia ($13.00 avg CPM), Switzerland ($13.50 avg CPM), Canada ($12.00 avg CPM), United Kingdom ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPMs average $6.00–$8.50.
+- **Tier 1 Country Benchmarks (2026):** United States ($14.50 avg CPM), Switzerland ($13.50 avg CPM), Australia ($13.00 avg CPM), Canada ($12.00 avg CPM), United Kingdom ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPMs average $6.00–$8.50.
 - **YouTube Shorts RPM (2026):** $0.03–$0.07 per 1,000 views in the United States and Tier 1 markets ($30–$70 per 1M views).
-- **Brand Deal / Sponsorship Pricing Formula:** Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video).
-- **Channel Valuation Multiple (2026):** 24x–48x monthly net profit. Finance/B2B/Tech channels command 36x–48x; gaming/vlog 18x–28x. Faceless channels command a 20% premium.
-- **Creator Business Tax Write-Offs:** Cameras, lighting, microphones, editing computers, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO.
+- **Brand Deal / Sponsorship Pricing Formula:** Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video). Calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
+- **Channel Valuation Multiple (2026):** 16x–45x monthly net profit (28x baseline; $120,000–$225,000 for a channel netting $5,000/mo at 24x–45x). Finance/B2B/Tech channels command 36x–45x; gaming/vlog 16x–26x. Faceless channels command a 20% premium.
+- **Creator Business Tax Write-Offs:** Cameras, lighting, microphones, editing computers, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO / Finanzamt / ESTV / IRAS (${baseUrl}/tools/youtube-tax-deduction-calculator and ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator).
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}
 - **Mid-roll eligibility:** ${citableFacts.midRollMinutes}

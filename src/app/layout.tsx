@@ -8,7 +8,7 @@ import { combineSchemasToGraph, getOrganizationSchema, getWebsiteSchema, getPers
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
-import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
+import { AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import WebMCPRegistry from "@/components/agent/WebMCPRegistry";
 
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
@@ -299,9 +299,7 @@ export default function RootLayout({
               <Header />
             </AdSectionIgnore>
             <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-              <AdSectionPrioritize>
-                {children}
-              </AdSectionPrioritize>
+              {children}
             </main>
             <HideOnEmbed>
               <AdSectionIgnore>

@@ -22,7 +22,7 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 - [YouTube Transcript Downloader](https://www.youtubetoolshub.com/tools/youtube-transcript-downloader): Extract and download complete video transcripts with timestamps in TXT or SRT format.
 - [YouTube Watch Hours Calculator](https://www.youtubetoolshub.com/tools/youtube-watch-hours-calculator): Track your progress toward the 4,000 public watch hours required for YouTube Partner Program monetization.
 - [YouTube Sponsorship Rate Calculator](https://www.youtubetoolshub.com/tools/youtube-sponsorship-calculator): Calculate fair sponsorship rates and brand deal fees based on views and niche.
-- [YouTube Channel Valuation Calculator](https://www.youtubetoolshub.com/tools/youtube-channel-valuation-calculator): Estimate your YouTube channel's asset sale value (24x-36x monthly revenue multiple).
+- [YouTube Channel Valuation Calculator](https://www.youtubetoolshub.com/tools/youtube-channel-valuation-calculator): Estimate your YouTube channel's asset sale value (16x-45x monthly net profit multiple; 28x baseline).
 - [YouTube AI Thumbnail Generator](https://www.youtubetoolshub.com/tools/youtube-ai-thumbnail-generator): Generate eye-catching AI thumbnail concepts and image prompts.
 - [YouTube Channel Audit](https://www.youtubetoolshub.com/tools/youtube-channel-audit): Analyze channel performance, metadata quality, and optimization opportunities.
 

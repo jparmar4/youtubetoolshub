@@ -32,6 +32,15 @@ interface HeaderMegaMenuProps {
   onMouseLeave?: () => void;
 }
 
+const TIER1_QUICK_MARKETS = [
+  { code: "US", label: "United States", slug: "usa", rpm: "$8.50" },
+  { code: "UK", label: "United Kingdom", slug: "uk", rpm: "$6.50" },
+  { code: "CA", label: "Canada", slug: "canada", rpm: "$7.00" },
+  { code: "AU", label: "Australia", slug: "australia", rpm: "$7.20" },
+  { code: "CH", label: "Switzerland", slug: "switzerland", rpm: "$7.80" },
+  { code: "DE", label: "Germany", slug: "germany", rpm: "$6.20" },
+];
+
 const MENU_CATEGORIES = [
   {
     title: "Monetization & Pay",
@@ -41,29 +50,35 @@ const MENU_CATEGORIES = [
       {
         slug: "youtube-earnings-calculator",
         name: "Earnings & AdSense Calculator",
-        desc: "Estimate RPM & monthly pay across 50+ countries",
+        desc: "Estimate RPM & monthly pay across 52 countries",
         icon: FaDollarSign,
         badge: "Tier-1",
       },
       {
-        slug: "youtube-watch-hours-calculator",
-        name: "4,000 Watch Hours Countdown",
-        desc: "YPP monetization tracker & 365-day risk meter",
-        icon: FaClock,
-        badge: "New",
-      },
-      {
-        slug: "youtube-shorts-vs-long-form-calculator",
-        name: "Shorts vs. Long-Form Equivalence",
-        desc: "Compare view value, RPM and creator hourly wage",
-        icon: FaCoins,
-        badge: "New",
-      },
-      {
         slug: "youtube-sponsorship-calculator",
         name: "Sponsorship & Brand Deal Rates",
-        desc: "Calculate integration pricing based on views & niche",
+        desc: "Calculate integration pricing in 15+ currencies",
         icon: FaChartLine,
+        badge: "Pro",
+      },
+      {
+        slug: "youtube-llc-vs-s-corp-tax-savings-calculator",
+        name: "LLC vs S-Corp Tax Savings",
+        desc: "Compare SE tax vs S-Corp salary savings (US)",
+        icon: FaCoins,
+        badge: "Tax",
+      },
+      {
+        slug: "youtube-tax-deduction-calculator",
+        name: "Creator Tax & Gear Write-Offs",
+        desc: "Estimate deductions across US, UK, CA, AU, EU, CH & SG",
+        icon: FaDollarSign,
+      },
+      {
+        slug: "youtube-adsense-fee-calculator",
+        name: "AdSense FX & Wire Fee Calculator",
+        desc: "Check W-8BEN treaty withholding & FX conversion loss",
+        icon: FaCoins,
       },
     ],
   },
@@ -105,29 +120,35 @@ const MENU_CATEGORIES = [
     color: "from-blue-500 to-indigo-600",
     tools: [
       {
+        slug: "youtube-watch-hours-calculator",
+        name: "4,000 Watch Hours Countdown",
+        desc: "YPP monetization tracker & 365-day risk meter",
+        icon: FaClock,
+        badge: "YPP",
+      },
+      {
+        slug: "youtube-shorts-vs-long-form-calculator",
+        name: "Shorts vs. Long-Form Equivalence",
+        desc: "Compare view value, RPM and creator hourly wage",
+        icon: FaCoins,
+      },
+      {
+        slug: "youtube-channel-valuation-calculator",
+        name: "Channel Worth Estimator",
+        desc: "Calculate buyout valuation across 15+ currencies",
+        icon: FaDollarSign,
+      },
+      {
         slug: "youtube-milestone-countdown-calculator",
         name: "Play Button Milestone Countdown",
         desc: "Project exact date to 100K Silver & 1M Gold play buttons",
         icon: FaAward,
-        badge: "New",
       },
       {
         slug: "youtube-channel-audit",
         name: "Instant Channel Audit",
         desc: "Grade your channel SEO, branding and growth health",
         icon: FaSearch,
-      },
-      {
-        slug: "youtube-channel-valuation-calculator",
-        name: "Channel Worth Estimator",
-        desc: "Calculate the market valuation of your channel",
-        icon: FaDollarSign,
-      },
-      {
-        slug: "youtube-outlier-calculator",
-        name: "Outlier Video Spike Detector",
-        desc: "Spot break-out video topics driving 10x your average views",
-        icon: FaRocket,
       },
     ],
   },
@@ -264,23 +285,52 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
         </div>
 
         {/* Footer Ribbon inside Mega Menu */}
-        <div className="mt-6 pt-5 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-slate-600">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              {toolMeta.length} Free Tools
+        <div className="mt-6 pt-5 border-t border-slate-200/80 space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 mr-1">
+              Top Tier-1 RPM Markets:
             </span>
-            <span>No sign-up or credit card required. Fast browser-based execution.</span>
+            {TIER1_QUICK_MARKETS.map((m) => (
+              <Link
+                key={m.slug}
+                href={`/tools/youtube-earnings-calculator/${m.slug}`}
+                onClick={onClose}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-[11px] font-bold text-slate-800 hover:text-emerald-800 transition-colors"
+              >
+                <span className="px-1 py-0.5 rounded bg-slate-900 text-white text-[9px] font-black">
+                  {m.code}
+                </span>
+                <span>{m.label}</span>
+                <span className="text-emerald-700 font-semibold">{m.rpm}</span>
+              </Link>
+            ))}
+            <Link
+              href="/resources/youtube-cpm-rates"
+              onClick={onClose}
+              className="text-[11px] font-bold text-purple-700 hover:text-purple-800 hover:underline ml-auto"
+            >
+              Compare All 52 Countries →
+            </Link>
           </div>
 
-          <Link
-            href="/tools"
-            onClick={onClose}
-            className="inline-flex items-center gap-2 text-xs font-bold text-purple-600 hover:text-purple-700 transition-colors group"
-          >
-            <span>Explore All {toolMeta.length} Tools Catalog</span>
-            <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 border-t border-slate-100">
+            <div className="flex items-center gap-2 text-xs text-slate-600">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {toolMeta.length} Free Tools
+              </span>
+              <span>No sign-up or credit card required. Fast browser-based execution.</span>
+            </div>
+
+            <Link
+              href="/tools"
+              onClick={onClose}
+              className="inline-flex items-center gap-2 text-xs font-bold text-purple-700 hover:text-purple-800 transition-colors group"
+            >
+              <span>Explore All {toolMeta.length} Tools Catalog</span>
+              <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </div>
     </div>

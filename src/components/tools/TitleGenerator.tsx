@@ -13,7 +13,6 @@ import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, 
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
@@ -117,9 +116,16 @@ const titlePresets = [
 
 export default function TitleGenerator() {
     const searchParams = useSearchParams();
+    const urlTopic = searchParams.get("topic") || "";
 
-    // Initialize strictly from URL if present
-    const [topic, setTopic] = useState(searchParams.get("topic") || "");
+    // Initialize and sync cleanly when URL params change
+    const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
+    const [topic, setTopic] = useState(urlTopic);
+    if (urlTopic && urlTopic !== prevUrlTopic) {
+        setPrevUrlTopic(urlTopic);
+        setTopic(urlTopic);
+    }
+
     const [tone, setTone] = useState("casual");
     const [language, setLanguage] = useState("english");
     const [videoType, setVideoType] = useState("tutorial");
@@ -145,14 +151,6 @@ export default function TitleGenerator() {
 
         setSavedSet(prev => new Set(prev).add(title));
     };
-
-    // Sync state with URL params
-    useEffect(() => {
-        const urlTopic = searchParams.get("topic");
-        if (urlTopic) {
-            setTopic(urlTopic);
-        }
-    }, [searchParams]);
 
     const handleGenerate = async () => {
         if (!topic.trim()) {

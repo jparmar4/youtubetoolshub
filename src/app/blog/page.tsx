@@ -249,8 +249,11 @@ export default function BlogPage() {
         <div className="max-w-4xl mx-auto px-4 mb-14" />
 
         {/* Ad: Between Featured and Other Posts */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-          <GoogleAd slot="8649718301" format="fluid" layout="in-article" />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" className="w-full text-center" />
+          </div>
         </div>
 
         {/* Other Posts */}

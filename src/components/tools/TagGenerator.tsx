@@ -28,6 +28,53 @@ const tagPresets = [
     { label: "🍕 Homemade Pizza", topic: "Authentic Neapolitan pizza at home in regular oven", niche: "Cooking" },
 ];
 
+function TagSection({
+    title,
+    icon,
+    tags: sectionTags,
+    color,
+    description
+}: {
+    title: string;
+    icon: React.ReactNode;
+    tags: string[] | undefined;
+    color: string;
+    description: string;
+}) {
+    if (!sectionTags || sectionTags.length === 0) return null;
+
+    const colorClasses: Record<string, string> = {
+        red: "bg-red-100 text-red-700",
+        blue: "bg-blue-100 text-blue-700",
+        green: "bg-green-100 text-green-700",
+        orange: "bg-orange-100 text-orange-700",
+        purple: "bg-purple-100 text-purple-700",
+    };
+
+    return (
+        <div className="space-y-3">
+            <div className="flex items-center gap-2">
+                <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
+                <div>
+                    <h3 className="font-semibold text-slate-900">{title}</h3>
+                    <p className="text-xs text-slate-500">{description}</p>
+                </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+                {sectionTags.map((tag, i) => (
+                    <span
+                        key={i}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 ${colorClasses[color]} rounded-full text-sm font-medium`}
+                    >
+                        {tag}
+                        <CopyButton text={tag} className="!p-0.5 opacity-60 hover:opacity-100" />
+                    </span>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default function TagGenerator() {
     const [topic, setTopic] = useState("");
     const [niche, setNiche] = useState("");
@@ -148,53 +195,6 @@ export default function TagGenerator() {
         link.download = `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
         link.click();
         URL.revokeObjectURL(url);
-    };
-
-    const TagSection = ({
-        title,
-        icon,
-        tags: sectionTags,
-        color,
-        description
-    }: {
-        title: string;
-        icon: React.ReactNode;
-        tags: string[] | undefined;
-        color: string;
-        description: string;
-    }) => {
-        if (!sectionTags || sectionTags.length === 0) return null;
-
-        const colorClasses: Record<string, string> = {
-            red:"bg-red-100 text-red-700",
-            blue:"bg-blue-100 text-blue-700",
-            green:"bg-green-100 text-green-700",
-            orange:"bg-orange-100 text-orange-700",
-            purple:"bg-purple-100 text-purple-700",
-        };
-
-        return (
-            <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                    <span className={`p-2 rounded-lg ${colorClasses[color]}`}>{icon}</span>
-                    <div>
-                        <h3 className="font-semibold text-slate-900">{title}</h3>
-                        <p className="text-xs text-slate-500">{description}</p>
-                    </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                    {sectionTags.map((tag, i) => (
-                        <span
-                            key={i}
-                            className={`inline-flex items-center gap-2 px-3 py-1.5 ${colorClasses[color]} rounded-full text-sm font-medium`}
-                        >
-                            {tag}
-                            <CopyButton text={tag} className="!p-0.5 opacity-60 hover:opacity-100" />
-                        </span>
-                    ))}
-                </div>
-            </div>
-        );
     };
 
     const hasTags = allTags.length > 0;

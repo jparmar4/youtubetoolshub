@@ -353,6 +353,28 @@ function Header() {
                     </Link>
 
                     <Link
+                      href="/tools/youtube-sponsorship-calculator"
+                      onClick={closeMenu}
+                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
+                    >
+                      <span>Sponsorship Rate Calculator</span>
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-600 text-white">
+                        High RPM
+                      </span>
+                    </Link>
+
+                    <Link
+                      href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                      onClick={closeMenu}
+                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
+                    >
+                      <span>Creator Tax &amp; LLC Savings</span>
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-700 text-white">
+                        Finance
+                      </span>
+                    </Link>
+
+                    <Link
                       href="/tools/youtube-watch-hours-calculator"
                       onClick={closeMenu}
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"

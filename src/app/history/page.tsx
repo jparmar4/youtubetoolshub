@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getHistory, deleteHistory, HistoryItem } from "@/lib/history";
 import { FaHistory, FaSearch, FaFilter, FaTrash, FaImage, FaFileAlt, FaVideo, FaHashtag, FaCalendarAlt, FaExclamationCircle } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,22 +16,32 @@ export default function HistoryPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [toolFilter, setToolFilter] = useState("all");
 
-    useEffect(() => {
-        loadHistory();
-    }, []);
-
-    const loadHistory = async () => {
+    const fetchHistoryData = useCallback(async () => {
         try {
-            setLoading(true);
             const data = await getHistory();
-            setHistory(data);
+            return { data, error: "" };
         } catch (err) {
             console.error("Failed to load history", err);
-            setError("Failed to load history. Please try again.");
-        } finally {
-            setLoading(false);
+            return { data: null, error: "Failed to load history. Please try again." };
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        let cancelled = false;
+        fetchHistoryData().then((res) => {
+            if (cancelled) return;
+            if (res.data) {
+                setHistory(res.data);
+            }
+            if (res.error) {
+                setError(res.error);
+            }
+            setLoading(false);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [fetchHistoryData]);
 
     const handleDelete = async (id: string, e: React.MouseEvent) => {
         e.stopPropagation();

@@ -369,7 +369,7 @@ export default function NicheProfitabilityHeatmap() {
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
                 <span className="text-slate-600">100k views ≈ ${(niche.rpmAvg * 100).toFixed(0)}</span>
                 <Link
-                  href="/tools/youtube-earnings-calculator"
+                  href={`/tools/youtube-earnings-calculator?rpm=${niche.rpmAvg.toFixed(2)}&views=100000`}
                   className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 group"
                 >
                   <span>Model Earnings</span>

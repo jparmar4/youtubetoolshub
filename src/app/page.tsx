@@ -15,6 +15,7 @@ import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts } from "@/config/blog";
 import GoogleAd from "@/components/ads/GoogleAd";
+import { AD_SLOTS } from "@/lib/adsense";
 import { Metadata } from "next";
 import { getFAQSchema, getToolListSchema, getBreadcrumbSchema, getGlobalAlternates, getMainEntitySchema } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
@@ -313,7 +314,7 @@ export default function Home() {
           <div className="mt-8 max-w-4xl mx-auto w-full">
             <div className="rounded-2xl overflow-hidden shadow-sm border border-emerald-200/60 bg-white p-3 text-center min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
               <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-              <GoogleAd slot="3397391628" responsive className="w-full text-center" />
+              <GoogleAd slot={AD_SLOTS.HORIZONTAL[0]} responsive className="w-full text-center" />
             </div>
           </div>
         </div>
@@ -617,8 +618,11 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <GoogleAd slot="2275881649" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 bg-white p-3 text-center min-h-[140px] flex flex-col justify-center">
+          <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+          <GoogleAd slot={AD_SLOTS.HORIZONTAL[1]} className="w-full text-center" />
+        </div>
       </div>
 
       <SmartWorkflow />

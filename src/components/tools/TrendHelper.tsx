@@ -44,14 +44,14 @@ export default function TrendHelper() {
     const [niche, setNiche] = useState("");
     const [trendingVideos, setTrendingVideos] = useState<TrendingVideo[]>([]);
     const [aiSuggestions, setAiSuggestions] = useState<AISuggestion[]>([]);
-    const [loadingTrending, setLoadingTrending] = useState(false);
+    const [loadingTrending, setLoadingTrending] = useState(true);
     const [loadingAI, setLoadingAI] = useState(false);
     const [error, setError] = useState("");
     const [isDemo, setIsDemo] = useState(false);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
-    // Fetch viral trending videos when region changes
+    // Manual refresh for viral trending videos
     const fetchTrending = useCallback(async () => {
         setLoadingTrending(true);
         setError("");
@@ -150,8 +150,42 @@ export default function TrendHelper() {
 
     // Load trending on mount and region change
     useEffect(() => {
-        fetchTrending();
-    }, [fetchTrending]);
+        let cancelled = false;
+
+        async function loadTrendingForRegion() {
+            try {
+                const response = await fetch(`/api/trending?region=${region}`);
+                const data = await response.json();
+                if (cancelled) return;
+
+                if (data.demo) {
+                    setIsDemo(true);
+                    return;
+                }
+
+                if (data.error) {
+                    setError(data.error);
+                    return;
+                }
+
+                setTrendingVideos(data.videos || []);
+            } catch (err) {
+                if (!cancelled) {
+                    console.error("Error fetching trending:", err);
+                    setError("Failed to fetch trending videos");
+                }
+            } finally {
+                if (!cancelled) {
+                    setLoadingTrending(false);
+                }
+            }
+        }
+
+        void loadTrendingForRegion();
+        return () => {
+            cancelled = true;
+        };
+    }, [region]);
 
     const formatViews = (views: string) => {
         const num = parseInt(views);
@@ -178,7 +212,12 @@ export default function TrendHelper() {
                             label="Select Region"
                             options={regionOptions}
                             value={region}
-                            onChange={(e) => setRegion(e.target.value)}
+                            onChange={(e) => {
+                                setRegion(e.target.value);
+                                setLoadingTrending(true);
+                                setError("");
+                                setIsDemo(false);
+                            }}
                         />
                     </div>
                     <Button onClick={fetchTrending} isLoading={loadingTrending} variant="outline">

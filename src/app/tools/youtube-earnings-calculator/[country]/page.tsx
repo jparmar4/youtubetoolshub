@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
+import { getCountryMonetizationMeta } from "@/lib/country-monetization-meta";
+import { formatDualCurrencySummary, formatMoneyRounded } from "@/lib/currency-data";
 import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 
@@ -10,9 +12,10 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
-import { FaGlobeAmericas, FaChartLine, FaDollarSign } from "react-icons/fa";
+import { FaGlobeAmericas, FaChartLine, FaFileInvoiceDollar, FaUniversity } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import BlogSidebar from "@/components/blog/BlogSidebar";
 import {
     combineSchemasToGraph,
     getFAQSchema,
@@ -115,35 +118,49 @@ export default async function CountryEarningsPage({
     }
 
     const tier = getCountryTier(countryData.code);
+    const countryMeta = getCountryMonetizationMeta(
+        countryData.code,
+        countryData.name,
+        tier.id,
+        countryData.currency,
+    );
     const avgRpm = countryData.rpmRange.avg;
     const earn100k = estimateEarnings(100_000, avgRpm);
+    const earn100kMin = estimateEarnings(100_000, countryData.rpmRange.min);
+    const earn100kMax = estimateEarnings(100_000, countryData.rpmRange.max);
     const earn1m = estimateEarnings(1_000_000, avgRpm);
+    const payout100kSummary = formatDualCurrencySummary(earn100k, countryData.currency);
+    const payout1mSummary = formatDualCurrencySummary(earn1m, countryData.currency);
 
     const countryFaqs = [
         {
             question: `How much does YouTube pay in ${countryData.name}?`,
-            answer: `In ${countryData.name} (${tier.label}), planning CPM often ranges about $${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)} (avg ~$${countryData.cpmRange.avg.toFixed(2)}), with RPM roughly $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} (avg ~$${countryData.rpmRange.avg.toFixed(2)}). Actual results depend on niche, seasonality, and ad fill. Verify in YouTube Studio.`,
+            answer: `In ${countryData.name} (${tier.label}), planning CPM typically ranges about $${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)} (avg ~$${countryData.cpmRange.avg.toFixed(2)} USD), with creator RPM roughly $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} (avg ~$${countryData.rpmRange.avg.toFixed(2)} USD). ${countryMeta.marketInsight}`,
         },
         {
             question: `How much is 1 million YouTube views worth in ${countryData.name}?`,
-            answer: `At a mid planning RPM of about $${avgRpm.toFixed(2)}, 1 million views from ${countryData.name} is roughly $${earn1m.toLocaleString("en-US", { maximumFractionDigits: 0 })} in AdSense. Low-end RPM ($${countryData.rpmRange.min.toFixed(2)}) is about $${estimateEarnings(1_000_000, countryData.rpmRange.min).toLocaleString("en-US", { maximumFractionDigits: 0 })}; high-end ($${countryData.rpmRange.max.toFixed(2)}) is about $${estimateEarnings(1_000_000, countryData.rpmRange.max).toLocaleString("en-US", { maximumFractionDigits: 0 })}. These are planning ranges, not payouts.`,
+            answer: `At a mid planning RPM of $${avgRpm.toFixed(2)} USD, 1 million views from ${countryData.name} is roughly ${payout1mSummary} in AdSense. Low-end RPM ($${countryData.rpmRange.min.toFixed(2)}) is ~${formatDualCurrencySummary(estimateEarnings(1_000_000, countryData.rpmRange.min), countryData.currency)}; high-end ($${countryData.rpmRange.max.toFixed(2)}) is ~${formatDualCurrencySummary(estimateEarnings(1_000_000, countryData.rpmRange.max), countryData.currency)}.`,
         },
         {
             question: "What is CPM vs RPM?",
             answer: speakableAnswers.cpmVsRpm,
         },
         {
-            question: `How do I estimate earnings for ${countryData.name} viewers?`,
-            answer: `Use estimated earnings ≈ (views ÷ 1,000) × RPM. For ${countryData.name}, start near $${avgRpm.toFixed(2)} RPM as a mid planning value, then adjust for niche. Example: 100,000 views ≈ $${earn100k.toLocaleString("en-US", { maximumFractionDigits: 0 })}. Use this calculator and compare with Studio analytics.`,
+            question: `What are the highest-paying YouTube niches in ${countryData.name}?`,
+            answer: `Top domestic advertiser verticals in ${countryData.name} include ${countryMeta.topLocalNiches.join(", ")}. ${countryMeta.seasonalityNote}`,
         },
         {
             question: `How do creators in ${countryData.name} get paid in ${countryData.currency}?`,
-            answer: `YouTube AdSense accrues earnings in USD then pays out via bank transfer or wire in ${countryData.currency} after conversion by your bank. The payment threshold is typically $100, paid monthly around the 21st-26th once verified. Check AdSense payments settings for ${countryData.name} availability and fees.`,
+            answer: `Google AdSense accrues earnings against the ${countryMeta.adsenseThreshold} payment threshold and settles monthly between the 21st and 26th via ${countryMeta.payoutMethod}. Multi-currency accounts such as Wise or Payoneer can reduce cross-border FX markups when converting USD to ${countryData.currency}.`,
+        },
+        {
+            question: `What US tax withholding and local tax rules apply in ${countryData.name}?`,
+            answer: `US-viewer AdSense withholding status: ${countryMeta.usWithholdingRate}. ${countryMeta.usTaxNote} Domestically, creators report under ${countryMeta.localTaxAuthority}: ${countryMeta.localTaxNote}`,
         },
         {
             question: "Is this guaranteed AdSense income?",
             answer:
-                "No. These are directional industry estimates for planning. Your AdSense revenue depends on your audience mix, content category, ad formats, and policy eligibility.",
+                "No. These are directional industry benchmarks for planning. Real AdSense revenue depends on viewer geography mix, video length (8+ min mid-rolls), niche advertiser bids, and YouTube Studio analytics.",
         },
     ];
 
@@ -280,12 +297,12 @@ export default async function CountryEarningsPage({
                             <div className="mb-8">
                                 <QuickAnswerCapsule
                                     question={`Quick Answer: How much does YouTube pay in ${countryData.name}?`}
-                                    answer={`In ${countryData.name}, YouTube creators earn between $${countryData.rpmRange.min.toFixed(2)} and $${countryData.rpmRange.max.toFixed(2)} per 1,000 views (average $${countryData.rpmRange.avg.toFixed(2)} RPM). For 100,000 views, estimated AdSense earnings range from $${(100 * countryData.rpmRange.min).toFixed(0)} to $${(100 * countryData.rpmRange.max).toFixed(0)} (${countryData.currency}).`}
+                                    answer={`In ${countryData.name} (${tier.label}), YouTube creators typically earn $${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)} USD per 1,000 views (average $${countryData.rpmRange.avg.toFixed(2)} USD RPM). For 100,000 views, estimated AdSense revenue is $${Math.round(earn100kMin).toLocaleString("en-US")}–$${Math.round(earn100kMax).toLocaleString("en-US")} USD (midpoint ${payout100kSummary}).`}
                                     keyPoints={[
-                                        `Average RPM: $${countryData.rpmRange.avg.toFixed(2)} per 1,000 views ($${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)})`,
-                                        `Advertiser CPM: $${countryData.cpmRange.avg.toFixed(2)} average ($${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)})`,
-                                        `100,000 Views Payout: ~$${(100 * countryData.rpmRange.avg).toFixed(0)} ${countryData.currency}`,
-                                        `1 Million Views Payout: ~$${(1000 * countryData.rpmRange.avg).toLocaleString()} ${countryData.currency}`,
+                                        `Average RPM: $${countryData.rpmRange.avg.toFixed(2)} USD per 1,000 views ($${countryData.rpmRange.min.toFixed(2)}–$${countryData.rpmRange.max.toFixed(2)})`,
+                                        `Advertiser CPM: $${countryData.cpmRange.avg.toFixed(2)} USD average ($${countryData.cpmRange.min.toFixed(2)}–$${countryData.cpmRange.max.toFixed(2)})`,
+                                        `100,000 Views Midpoint: ~${payout100kSummary}`,
+                                        `1 Million Views Midpoint: ~${payout1mSummary} · US Withholding: ${countryMeta.usWithholdingRate}`,
                                     ]}
                                     badgeText={`⚡ ${countryData.name} 2026 Summary`}
                                 />
@@ -320,8 +337,11 @@ export default async function CountryEarningsPage({
                             </div>
 
                             {/* Ad placement */}
-                            <div className="my-8" aria-hidden="true">
-                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="text-center" />
+                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-sm min-h-[140px] flex flex-col justify-center">
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">
+                                    Advertisement
+                                </p>
+                                <GoogleAd layout="in-article" format="fluid" slot="3397391628" className="w-full text-center" />
                             </div>
 
                             {/* Content Section */}
@@ -331,15 +351,14 @@ export default async function CountryEarningsPage({
                                 </h2>
                                 <p className="text-slate-600 leading-relaxed text-lg">
                                     {countryData.name} is a <strong>{tier.label}</strong> advertiser market
-                                    ({tier.description.toLowerCase()}). Plan with RPM — what you keep per 1,000
-                                    views after YouTube’s share and unmonetized traffic — not a flat “pay per view.”
+                                    ({tier.description.toLowerCase()}). {countryMeta.marketInsight}
                                 </p>
                                 <p className="text-slate-600 leading-relaxed text-lg">
                                     Planning CPM for {countryData.name} is about{" "}
-                                    <strong>${countryData.cpmRange.min.toFixed(2)}–${countryData.cpmRange.max.toFixed(2)}</strong>
-                                    {countryData.currency !== "USD" ? ` (shown in USD-equivalent ranges; local currency ${countryData.currency})` : ""}.
-                                    Mid RPM is about <strong>${avgRpm.toFixed(2)}</strong>. Finance, software, and
-                                    business topics usually sit higher; gaming and broad entertainment sit lower.
+                                    <strong>${countryData.cpmRange.min.toFixed(2)}–${countryData.cpmRange.max.toFixed(2)} USD</strong>
+                                    {countryData.currency !== "USD" ? ` (settled locally in ${countryData.currency})` : ""}.
+                                    Mid creator RPM sits near <strong>${avgRpm.toFixed(2)} USD</strong>. Top domestic verticals here —{" "}
+                                    {countryMeta.topLocalNiches.join(", ")} — routinely double broad entertainment RPM.
                                 </p>
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-sm">
@@ -348,18 +367,29 @@ export default async function CountryEarningsPage({
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Views</th>
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Low RPM (${countryData.rpmRange.min.toFixed(2)})</th>
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Mid RPM (${avgRpm.toFixed(2)})</th>
+                                                {countryData.currency !== "USD" && (
+                                                    <th scope="col" className="py-2 pr-4 font-semibold">Mid ({countryData.currency})</th>
+                                                )}
                                                 <th scope="col" className="py-2 font-semibold">High RPM (${countryData.rpmRange.max.toFixed(2)})</th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-slate-800 font-medium">
-                                            {[10_000, 100_000, 1_000_000].map((views) => (
-                                                <tr key={views} className="border-b border-slate-100">
-                                                    <td className="py-2 pr-4">{views.toLocaleString("en-US")}</td>
-                                                    <td className="py-2 pr-4">${estimateEarnings(views, countryData.rpmRange.min).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                                    <td className="py-2 pr-4">${estimateEarnings(views, avgRpm).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                                    <td className="py-2">${estimateEarnings(views, countryData.rpmRange.max).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                                                </tr>
-                                            ))}
+                                            {[10_000, 100_000, 1_000_000].map((views) => {
+                                                const midUsd = estimateEarnings(views, avgRpm);
+                                                return (
+                                                    <tr key={views} className="border-b border-slate-100">
+                                                        <td className="py-2 pr-4">{views.toLocaleString("en-US")}</td>
+                                                        <td className="py-2 pr-4">${Math.round(estimateEarnings(views, countryData.rpmRange.min)).toLocaleString("en-US")}</td>
+                                                        <td className="py-2 pr-4 font-bold text-emerald-700">${Math.round(midUsd).toLocaleString("en-US")}</td>
+                                                        {countryData.currency !== "USD" && (
+                                                            <td className="py-2 pr-4 font-bold text-slate-900">
+                                                                ~{formatMoneyRounded(midUsd, countryData.currency)}
+                                                            </td>
+                                                        )}
+                                                        <td className="py-2">${Math.round(estimateEarnings(views, countryData.rpmRange.max)).toLocaleString("en-US")}</td>
+                                                    </tr>
+                                                );
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
@@ -375,6 +405,59 @@ export default async function CountryEarningsPage({
                                     </Link>.
                                 </p>
                             </div>
+
+                            {/* Country-Specific Tax, W-8BEN & Payout Intelligence */}
+                            <section className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-5" aria-labelledby="country-tax-payout">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <h2 id="country-tax-payout" className="text-xl sm:text-2xl font-bold text-slate-900">
+                                        {countryData.name} Creator Tax, W-8BEN &amp; Payout Rules (2026)
+                                    </h2>
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold shrink-0">
+                                        US Treaty Rate: {countryMeta.usWithholdingRate}
+                                    </span>
+                                </div>
+
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-4 space-y-1.5">
+                                        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                            <FaFileInvoiceDollar className="text-purple-600 shrink-0" />
+                                            <span>US Form W-8BEN &amp; Domestic Tax</span>
+                                        </h3>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            <strong>US Withholding:</strong> {countryMeta.usTaxNote}
+                                        </p>
+                                        <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                                            <strong>Local Filing ({countryMeta.localTaxAuthority}):</strong> {countryMeta.localTaxNote}
+                                        </p>
+                                    </div>
+
+                                    <div className="rounded-xl bg-slate-50 border border-slate-200/80 p-4 space-y-1.5">
+                                        <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                            <FaUniversity className="text-emerald-600 shrink-0" />
+                                            <span>AdSense Threshold, Rail &amp; Seasonality</span>
+                                        </h3>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            <strong>Payout Minimum:</strong> {countryMeta.adsenseThreshold} via {countryMeta.payoutMethod}.
+                                        </p>
+                                        <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                                            <strong>Seasonality:</strong> {countryMeta.seasonalityNote}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="rounded-xl bg-purple-50/60 border border-purple-200/70 p-4">
+                                    <div className="text-xs font-bold uppercase tracking-wider text-purple-800 mb-2">
+                                        Highest-CPM Domestic Advertiser Verticals in {countryData.name}
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {countryMeta.topLocalNiches.map((niche) => (
+                                            <span key={niche} className="px-3 py-1 rounded-lg bg-white border border-purple-200 text-xs font-semibold text-slate-800">
+                                                {niche}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
 
                             {/* Tier 1 Benchmark Comparison */}
                             <div className="my-8">
@@ -429,7 +512,7 @@ export default async function CountryEarningsPage({
                                         { label: `Tier 3 (${TIERS.TIER3.countries.length})`, codes: TIERS.TIER3.countries },
                                     ].map((group) => (
                                         <div key={group.label} className="mb-4 last:mb-0">
-                                            <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">
+                                            <p className="text-xs font-bold uppercase tracking-wide text-slate-600 mb-2">
                                                 {group.label}
                                             </p>
                                             <div className="flex flex-wrap gap-2">
@@ -468,55 +551,15 @@ export default async function CountryEarningsPage({
                             </AdSectionIgnore>
 
                             {/* Bottom Multiplex Ad Unit */}
-                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm" aria-hidden="true">
-                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
+                            <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-4 shadow-sm">
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
                                 <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
                             </div>
                         </div>
 
-                        {/* Sidebar */}
-                        <div className="max-lg:hidden lg:col-span-1 space-y-8">
-                            <div className="sticky top-24 space-y-8">
-
-                                {/* Related Tools */}
-                                <AdSectionIgnore>
-                                    <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-                                        <h3 className="font-bold text-slate-900 mb-4">Related Tools</h3>
-                                        <ul className="space-y-3">
-                                            <li>
-                                                <Link href="/tools/youtube-channel-audit" className="flex items-center gap-3 text-slate-600 hover:text-green-600 transition-colors">
-                                                    <span className="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center text-green-500">
-                                                        <FaChartLine />
-                                                    </span>
-                                                    <span className="font-medium">Channel Audit</span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/tools/youtube-tag-generator" className="flex items-center gap-3 text-slate-600 hover:text-blue-600 transition-colors">
-                                                    <span className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
-                                                        <FaDollarSign />
-                                                    </span>
-                                                    <span className="font-medium">Tag Generator</span>
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </AdSectionIgnore>
-
-                                {/* AdSense Sticky Sidebar Unit */}
-                                <div className="w-full">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">
-                                        Advertisement
-                                    </p>
-                                    <GoogleAd
-                                        slot={AD_SLOTS.SIDEBAR}
-                                        format="auto"
-                                        responsive
-                                        lazy={false}
-                                        className="w-full"
-                                    />
-                                </div>
-                            </div>
+                        {/* Sidebar — client viewport-gated to prevent display:none mobile push */}
+                        <div className="max-lg:hidden lg:col-span-1 min-w-0">
+                            <BlogSidebar />
                         </div>
                     </div>
 

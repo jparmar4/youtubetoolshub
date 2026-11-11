@@ -5,7 +5,6 @@ import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { saveHistory } from "@/lib/history";
 import { 
@@ -14,7 +13,22 @@ import {
     FaCheckCircle, FaTimes
 } from "react-icons/fa";
 
-type Currency = "USD" | "EUR" | "GBP" | "CAD" | "AUD";
+type Currency =
+    | "USD"
+    | "EUR"
+    | "GBP"
+    | "CAD"
+    | "AUD"
+    | "CHF"
+    | "NZD"
+    | "SGD"
+    | "NOK"
+    | "SEK"
+    | "DKK"
+    | "AED"
+    | "JPY"
+    | "KRW"
+    | "INR";
 
 const CURRENCY_MAP: Record<Currency, { symbol: string; rate: number; label: string }> = {
     USD: { symbol: "$", rate: 1.0, label: "USD ($)" },
@@ -22,7 +36,19 @@ const CURRENCY_MAP: Record<Currency, { symbol: string; rate: number; label: stri
     EUR: { symbol: "€", rate: 0.92, label: "EUR (€)" },
     CAD: { symbol: "CA$", rate: 1.36, label: "CAD ($)" },
     AUD: { symbol: "AU$", rate: 1.52, label: "AUD ($)" },
+    CHF: { symbol: "CHF ", rate: 0.88, label: "CHF (Fr)" },
+    NZD: { symbol: "NZ$", rate: 1.66, label: "NZD ($)" },
+    SGD: { symbol: "S$", rate: 1.34, label: "SGD ($)" },
+    NOK: { symbol: "NOK ", rate: 10.75, label: "NOK (kr)" },
+    SEK: { symbol: "SEK ", rate: 10.55, label: "SEK (kr)" },
+    DKK: { symbol: "DKK ", rate: 6.86, label: "DKK (kr)" },
+    AED: { symbol: "AED ", rate: 3.67, label: "AED" },
+    JPY: { symbol: "¥", rate: 152, label: "JPY (¥)" },
+    KRW: { symbol: "₩", rate: 1380, label: "KRW (₩)" },
+    INR: { symbol: "₹", rate: 86.5, label: "INR (₹)" },
 };
+
+const QUICK_CURRENCIES: Currency[] = ["USD", "GBP", "EUR", "CAD", "AUD", "CHF"];
 
 const NICHES = [
     { id: "finance", name: "Finance, Crypto & Investing", multiplier: 2.2, desc: "Highest purchasing power & sponsor budgets" },
@@ -32,6 +58,7 @@ const NICHES = [
     { id: "fitness", name: "Health, Fitness & Wellness", multiplier: 1.2, desc: "Supplements, athletic wear & meal kits" },
     { id: "lifestyle", name: "Lifestyle, Fashion & Travel", multiplier: 1.1, desc: "Consumer goods, travel & apparel" },
     { id: "gaming", name: "Gaming & Entertainment", multiplier: 0.85, desc: "High views, mobile games & peripheral sponsors" },
+    { id: "ai-b2b", name: "Enterprise Cloud & B2B SaaS", multiplier: 2.35, desc: "Highest enterprise LTV sponsor CPMs in US & Europe" },
 ];
 
 const PLACEMENTS = [
@@ -287,11 +314,11 @@ ${channelHandle}`
                 <p className="text-sm text-slate-500">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
                 {/* Header Controls: Currency & View Presets */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         <FaExchangeAlt className="text-purple-600" />
                         <span className="text-sm font-semibold text-slate-700">Currency:</span>
-                        <div className="flex rounded-lg overflow-hidden border border-slate-200 bg-white">
-                            {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
+                        <div className="flex flex-wrap rounded-lg overflow-hidden border border-slate-200 bg-white">
+                            {QUICK_CURRENCIES.map((c) => (
                                 <button
                                     key={c}
                                     type="button"
@@ -306,6 +333,18 @@ ${channelHandle}`
                                 </button>
                             ))}
                         </div>
+                        <select
+                            aria-label="Select sponsorship currency"
+                            value={currency}
+                            onChange={(e) => setCurrency(e.target.value as Currency)}
+                            className="px-2.5 py-1.5 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        >
+                            {(Object.keys(CURRENCY_MAP) as Currency[]).map((c) => (
+                                <option key={c} value={c}>
+                                    {CURRENCY_MAP[c].label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-slate-500">
@@ -1011,12 +1050,6 @@ ${channelHandle}`
 
                         {/* International Wire / Payout Affiliate Card */}
                         <InternationalPayoutCallout monthlyUsdEstimate={calculations.recommendedPrice * 2} />
-
-                        {/* High-Value In-Tool Ad Placement */}
-                        <div className="pt-4 text-center">
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-                            <GoogleAd slot="8649718301" responsive className="w-full text-center" />
-                        </div>
                     </div>
                 )}
             </div>

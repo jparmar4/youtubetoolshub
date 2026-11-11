@@ -1,9 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
+import { formatCurrency } from "@/lib/utils";
+import { CURRENCY_CONFIG, isSupportedCurrency, type SupportedCurrency } from "@/lib/currency-data";
+import { usePreferredCurrency } from "@/lib/currency";
 import {
   FaBullhorn,
   FaGlobe,
@@ -22,10 +25,12 @@ interface CountryTier {
 }
 
 const REGION_TIERS: CountryTier[] = [
-  { id: "tier1-us", name: "United States (Top Tier)", cpvMultiplier: 1.0, cpmMultiplier: 1.0 },
-  { id: "tier1-uk-ca-au", name: "UK, Canada & Australia", cpvMultiplier: 0.85, cpmMultiplier: 0.85 },
-  { id: "tier1-eu", name: "Western Europe (Germany, France, Nordics)", cpvMultiplier: 0.75, cpmMultiplier: 0.75 },
-  { id: "tier2", name: "Global Tier 2 (Brazil, Mexico, Poland, UAE)", cpvMultiplier: 0.40, cpmMultiplier: 0.40 },
+  { id: "tier1-us", name: "United States (Highest Tier-1 Auction)", cpvMultiplier: 1.0, cpmMultiplier: 1.0 },
+  { id: "tier1-uk-ca-au", name: "UK, Canada, Australia & New Zealand", cpvMultiplier: 0.85, cpmMultiplier: 0.85 },
+  { id: "tier1-dach", name: "DACH (Switzerland, Germany, Austria)", cpvMultiplier: 0.82, cpmMultiplier: 0.82 },
+  { id: "tier1-eu", name: "Western Europe & Nordics (FR, NL, NO, SE, DK)", cpvMultiplier: 0.75, cpmMultiplier: 0.75 },
+  { id: "tier2-mena-apac", name: "High-GDP Tier 2 (UAE, Singapore, Japan, Korea)", cpvMultiplier: 0.58, cpmMultiplier: 0.58 },
+  { id: "tier2", name: "Global Tier 2 (Poland, Brazil, Mexico, Spain)", cpvMultiplier: 0.40, cpmMultiplier: 0.40 },
   { id: "tier3", name: "Global Tier 3 / Emerging (India, SE Asia)", cpvMultiplier: 0.18, cpmMultiplier: 0.18 },
 ];
 
@@ -106,6 +111,8 @@ export default function AdsCostCalculator() {
   const [selectedFormat, setSelectedFormat] = useState<string>("skippable-instream");
   const [selectedNiche, setSelectedNiche] = useState<string>("tech");
   const [copied, setCopied] = useState<boolean>(false);
+  const { currency: activeCurrency, setCurrency: setPreferredCurrency, rate: fxRate } =
+    usePreferredCurrency("USD");
 
   const applyPreset = (nicheId: string, formatId: string, regionId: string, budget: string) => {
     setSelectedNiche(nicheId);
@@ -377,9 +384,26 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
           {/* Results Display Panel */}
           <div className="lg:col-span-5 flex flex-col justify-between bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white shadow-lg space-y-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">
-                Campaign Projection
-              </span>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">
+                  Campaign Projection
+                </span>
+                <select
+                  aria-label="Campaign display currency"
+                  value={activeCurrency}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (isSupportedCurrency(val)) setPreferredCurrency(val);
+                  }}
+                  className="rounded-lg bg-white/10 border border-white/20 px-2 py-1 text-xs font-bold text-white focus:outline-none"
+                >
+                  {(Object.keys(CURRENCY_CONFIG) as SupportedCurrency[]).map((code) => (
+                    <option key={code} value={code} className="text-slate-900">
+                      {CURRENCY_CONFIG[code].label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <div className="bg-white/10 rounded-xl p-3.5 backdrop-blur-sm">
                   <p className="text-xs text-slate-300 font-medium">Projected Views</p>
@@ -388,9 +412,9 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                   </p>
                 </div>
                 <div className="bg-white/10 rounded-xl p-3.5 backdrop-blur-sm">
-                  <p className="text-xs text-slate-300 font-medium">Estimated Budget</p>
+                  <p className="text-xs text-slate-300 font-medium">Estimated Budget ({activeCurrency})</p>
                   <p className="text-2xl font-black text-emerald-400 mt-1">
-                    ${results.totalBudget.toLocaleString()}
+                    {formatCurrency(results.totalBudget * fxRate, activeCurrency)}
                   </p>
                 </div>
               </div>
@@ -399,11 +423,11 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
               <div className="mt-5 space-y-3 divide-y divide-white/10 text-sm">
                 <div className="flex justify-between pt-2">
                   <span className="text-slate-400">Average Cost Per View (CPV):</span>
-                  <span className="font-bold text-white">${results.effectiveCpv}</span>
+                  <span className="font-bold text-white">{formatCurrency(parseFloat(results.effectiveCpv) * fxRate, activeCurrency)}</span>
                 </div>
                 <div className="flex justify-between pt-2">
                   <span className="text-slate-400">Effective CPM (Impressions):</span>
-                  <span className="font-bold text-white">${results.effectiveCpm}</span>
+                  <span className="font-bold text-white">{formatCurrency(parseFloat(results.effectiveCpm) * fxRate, activeCurrency)}</span>
                 </div>
                 <div className="flex justify-between pt-2">
                   <span className="text-slate-400">Total Ad Impressions:</span>
@@ -488,10 +512,22 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
               </p>
             </div>
           </div>
-        </div>
 
-        {/* Ad unit */}
-        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
+          <div className="pt-2 flex flex-wrap gap-3 text-xs font-bold">
+            <Link
+              href="/resources/youtube-cpm-rates"
+              className="px-3.5 py-2 rounded-xl bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 transition-colors"
+            >
+              Compare Full 52-Country YouTube CPM Rates →
+            </Link>
+            <Link
+              href="/tools/youtube-earnings-calculator"
+              className="px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+            >
+              Creator AdSense Earnings Calculator →
+            </Link>
+          </div>
+        </div>
       </div>
     </ToolPageLayout>
   );

@@ -176,8 +176,9 @@ export default function YouTubeStatistics() {
           </div>
 
           {/* Ad placement */}
-          <div className="my-8" aria-hidden="true">
-            <GoogleAd layout="in-article" format="fluid" slot="2084309959" className="text-center" />
+          <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd layout="in-article" format="fluid" slot="2084309959" className="w-full text-center" />
           </div>
 
           <div className="glass-premium rounded-2xl p-8 mb-12">
@@ -285,8 +286,9 @@ export default function YouTubeStatistics() {
           </div>
 
           {/* Ad placement */}
-          <div className="my-8" aria-hidden="true">
-            <GoogleAd slot="8649718301" />
+          <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd slot="8649718301" className="w-full text-center" />
           </div>
 
           <section className="glass-premium rounded-2xl p-8 mb-12" aria-labelledby="stats-faq">

@@ -1,40 +1,29 @@
 "use client";
 
 import { useSyncExternalStore, useCallback } from "react";
+import {
+  CURRENCY_CONFIG,
+  isSupportedCurrency,
+  type CurrencyMeta,
+  type SupportedCurrency,
+} from "@/lib/currency-data";
 
-export type SupportedCurrency = "USD" | "EUR" | "GBP" | "CAD" | "AUD" | "CHF" | "INR";
-
-export interface CurrencyMeta {
-  code: SupportedCurrency;
-  symbol: string;
-  rate: number; // exchange rate relative to 1.0 USD
-  label: string;
-}
-
-export const CURRENCY_CONFIG: Record<SupportedCurrency, CurrencyMeta> = {
-  USD: { code: "USD", symbol: "$", rate: 1.0, label: "USD ($)" },
-  EUR: { code: "EUR", symbol: "€", rate: 0.92, label: "EUR (€)" },
-  GBP: { code: "GBP", symbol: "£", rate: 0.79, label: "GBP (£)" },
-  CAD: { code: "CAD", symbol: "CA$", rate: 1.36, label: "CAD ($)" },
-  AUD: { code: "AUD", symbol: "AU$", rate: 1.52, label: "AUD ($)" },
-  CHF: { code: "CHF", symbol: "CHF", rate: 0.88, label: "CHF (Fr)" },
-  INR: { code: "INR", symbol: "₹", rate: 86.5, label: "INR (₹)" },
-};
+export { CURRENCY_CONFIG, isSupportedCurrency, type CurrencyMeta, type SupportedCurrency };
 
 const STORAGE_KEY = "yt_preferred_currency";
 const EVENT_NAME = "yt_currency_changed";
 
-export function getStoredCurrency(): SupportedCurrency {
-  if (typeof window === "undefined") return "USD";
+export function getStoredCurrency(fallback: SupportedCurrency = "USD"): SupportedCurrency {
+  if (typeof window === "undefined") return fallback;
   try {
-    const saved = localStorage.getItem(STORAGE_KEY) as SupportedCurrency | null;
-    if (saved && saved in CURRENCY_CONFIG) {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && isSupportedCurrency(saved)) {
       return saved;
     }
   } catch {
     /* ignore */
   }
-  return "USD";
+  return fallback;
 }
 
 export function saveStoredCurrency(currency: SupportedCurrency) {
@@ -57,20 +46,16 @@ function subscribe(callback: () => void) {
   };
 }
 
-function getSnapshot(): SupportedCurrency {
-  return getStoredCurrency();
-}
-
-function getServerSnapshot(): SupportedCurrency {
-  return "USD";
-}
-
 export function usePreferredCurrency(defaultCurrency?: string) {
-  const storeCurrency = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const currency: SupportedCurrency =
-    defaultCurrency && !(typeof window !== "undefined" && localStorage.getItem(STORAGE_KEY))
-      ? (defaultCurrency as SupportedCurrency)
-      : storeCurrency;
+  const fallback: SupportedCurrency = isSupportedCurrency(defaultCurrency)
+    ? defaultCurrency
+    : "USD";
+
+  const currency = useSyncExternalStore(
+    subscribe,
+    () => getStoredCurrency(fallback),
+    () => fallback,
+  );
 
   const setCurrency = useCallback((newCurr: SupportedCurrency) => {
     saveStoredCurrency(newCurr);

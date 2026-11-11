@@ -299,8 +299,11 @@ export default function LinkToUsPage() {
         </section>
 
         {/* Ad placement */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 my-8" aria-hidden="true">
-          <GoogleAd layout="in-article" format="fluid" slot="2084309959" className="text-center" />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 my-8">
+          <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <GoogleAd layout="in-article" format="fluid" slot="2084309959" className="w-full text-center" />
+          </div>
         </div>
 
         {/* Embed Snippets */}

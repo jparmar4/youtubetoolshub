@@ -4,13 +4,14 @@ import { useState, useMemo } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
-import GoogleAd from "@/components/ads/GoogleAd";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import {
   FaFileInvoiceDollar,
   FaBuilding,
-  FaUserTie } from "react-icons/fa";
+  FaUserTie,
+  FaCopy,
+  FaCheck } from "react-icons/fa";
 
 interface StateTaxRule {
   name: string;
@@ -24,6 +25,13 @@ const US_STATES: Record<string, StateTaxRule> = {
   FL: { name: "Florida", minFranchiseTax: 150, note: "0% personal income tax, $150 annual report fee" },
   NY: { name: "New York", minFranchiseTax: 325, note: "State franchise tax based on gross payroll/capital" },
   WA: { name: "Washington", minFranchiseTax: 0, note: "0% personal income tax, B&O tax applies" },
+  NV: { name: "Nevada", minFranchiseTax: 350, note: "0% personal income tax, $200 business license + $150 list fee" },
+  TN: { name: "Tennessee", minFranchiseTax: 100, note: "0% personal income tax, $100 minimum franchise fee" },
+  NC: { name: "North Carolina", minFranchiseTax: 200, note: "$200 minimum franchise tax, flat state personal tax" },
+  IL: { name: "Illinois", minFranchiseTax: 150, note: "1.5% personal property replacement tax applies to S-Corps" },
+  CO: { name: "Colorado", minFranchiseTax: 10, note: "Low $10–$25 annual Secretary of State periodic report" },
+  MA: { name: "Massachusetts", minFranchiseTax: 456, note: "$456 minimum corporate excise tax for S-Corps" },
+  GA: { name: "Georgia", minFranchiseTax: 50, note: "$50 annual registration fee; flat state income tax" },
   OTHER: { name: "Other States (Standard)", minFranchiseTax: 100, note: "Average state filing/annual fee" } };
 
 export default function LLCvsSCorpCalculator() {
@@ -31,6 +39,7 @@ export default function LLCvsSCorpCalculator() {
   const [salaryPercent, setSalaryPercent] = useState<string>("50");
   const [complianceOverhead, setComplianceOverhead] = useState<string>("1800");
   const [selectedState, setSelectedState] = useState<string>("CA");
+  const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
 
   const calculations = useMemo(() => {
     const profit = parseCalculatorInput(netProfitInput);
@@ -121,7 +130,24 @@ export default function LLCvsSCorpCalculator() {
         </div>
 
         {/* Input Parameters */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm space-y-4">
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="font-bold text-slate-600">Creator Profit Benchmarks:</span>
+            {["75000", "120000", "200000", "350000", "500000"].map((val) => (
+              <button
+                key={val}
+                type="button"
+                onClick={() => setNetProfitInput(val)}
+                className={`px-2.5 py-1 rounded-lg font-bold border transition-colors ${
+                  netProfitInput === val
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-400"
+                }`}
+              >
+                ${(parseInt(val, 10) / 1000).toLocaleString()}K
+              </button>
+            ))}
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-700 mb-1">
@@ -223,6 +249,31 @@ export default function LLCvsSCorpCalculator() {
                   ? `By electing S-Corporation tax status with IRS Form 2553, you pocket an estimated $${calculations.netAnnualSavings.toLocaleString()} extra in cash after paying for Gusto payroll and CPA tax filing.`
                   : `At your current profit of $${calculations.profit.toLocaleString()}, S-Corporation overhead ($${calculations.totalSCorpOverhead.toLocaleString()}) exceeds the self-employment tax savings. We recommend waiting until you reach $${calculations.breakEvenProfit.toLocaleString()}/year in profit.`}
               </p>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const summary = `YouTube LLC vs S-Corp Tax Analysis (${calculations.stateRule.name})\n• Net Profit: $${calculations.profit.toLocaleString()}\n• Standard LLC SE Tax: $${calculations.llcTotalSeTax.toLocaleString()}\n• S-Corp W-2 Salary: $${calculations.w2Salary.toLocaleString()} (FICA Tax: $${calculations.scorpFicaTax.toLocaleString()})\n• Shareholder Distribution: $${calculations.shareholderDistribution.toLocaleString()}\n• Compliance + State Overhead: $${calculations.totalSCorpOverhead.toLocaleString()}\n• Net Annual Savings: ${calculations.isProfitable ? `+$${calculations.netAnnualSavings.toLocaleString()}` : `-$${Math.abs(calculations.netAnnualSavings).toLocaleString()}`}/yr\n• Break-Even Profit: ~$${calculations.breakEvenProfit.toLocaleString()}\nSource: https://www.youtubetoolshub.com/tools/youtube-llc-vs-s-corp-tax-savings-calculator`;
+                    try {
+                      await navigator.clipboard.writeText(summary);
+                      setCopiedSummary(true);
+                      setTimeout(() => setCopiedSummary(false), 2500);
+                    } catch {
+                      /* ignore */
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 px-3.5 py-2 text-xs font-bold text-white transition-all shadow-xs"
+                >
+                  {copiedSummary ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                  <span>{copiedSummary ? "CPA Summary Copied!" : "Copy CPA Summary"}</span>
+                </button>
+                <Link
+                  href="/tools/youtube-adsense-fee-calculator"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-white border border-slate-200 hover:border-blue-400 px-3.5 py-2 text-xs font-bold text-slate-700 transition-colors"
+                >
+                  <span>Audit AdSense Wire Fees →</span>
+                </Link>
+              </div>
             </div>
 
             {/* Side-by-Side Comparison Grid */}
@@ -340,12 +391,6 @@ export default function LLCvsSCorpCalculator() {
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* High-Value In-Tool Ad Placement */}
-            <div className="pt-2 text-center">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Advertisement</p>
-              <GoogleAd slot="8649718301" responsive className="w-full text-center" />
             </div>
 
             {/* International Creator Payout Callout */}

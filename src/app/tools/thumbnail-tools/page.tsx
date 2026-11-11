@@ -173,8 +173,9 @@ export default function ThumbnailToolsHub() {
                     </div>
 
                     {/* Ad placement */}
-                    <div className="my-8" aria-hidden="true">
-                        <GoogleAd slot="7688425196" format="fluid" layout="in-article" />
+                    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
+                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                        <GoogleAd slot="6023554962" format="fluid" layout="in-article" className="w-full text-center" />
                     </div>
 
                     {/* Deep Dive Content - E-E-A-T Optimized */}

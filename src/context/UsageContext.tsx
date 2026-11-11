@@ -47,25 +47,23 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
     const [limitReachedTool, setLimitReachedTool] = useState<string | null>(null);
 
-    const loadData = useCallback(async () => {
+    const fetchServerUsage = useCallback(async () => {
         try {
             const [usageData, proStatus] = await Promise.all([
                 fetchUserUsage(),
-                fetchSubscriptionStatus()
+                fetchSubscriptionStatus(),
             ]);
 
-            if (usageData) {
-                setUsageMap(usageData);
-            } else {
-                setUsageMap(getLocalUsage());
-            }
-
-            setIsPro(proStatus);
+            return {
+                usageData: usageData ?? getLocalUsage(),
+                proStatus,
+            };
         } catch (error) {
             console.error("Failed to load usage/sub:", error);
-            setUsageMap(getLocalUsage());
-        } finally {
-            setLoading(false);
+            return {
+                usageData: getLocalUsage(),
+                proStatus: false,
+            };
         }
     }, []);
 
@@ -73,15 +71,30 @@ export function UsageProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (status === "loading") return;
 
+        let cancelled = false;
+
         if (status !== "authenticated") {
-            setUsageMap(getLocalUsage());
-            setIsPro(false);
-            setLoading(false);
-            return;
+            void Promise.resolve().then(() => {
+                if (cancelled) return;
+                setUsageMap(getLocalUsage());
+                setIsPro(false);
+                setLoading(false);
+            });
+            return () => {
+                cancelled = true;
+            };
         }
 
-        loadData();
-    }, [status, loadData]);
+        void fetchServerUsage().then(({ usageData, proStatus }) => {
+            if (cancelled) return;
+            setUsageMap(usageData);
+            setIsPro(proStatus);
+            setLoading(false);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [status, fetchServerUsage]);
 
     // Check limit
     const checkLimit = useCallback((slug: string): boolean => {

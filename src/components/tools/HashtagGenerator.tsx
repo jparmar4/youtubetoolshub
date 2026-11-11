@@ -28,6 +28,64 @@ interface HashtagResult {
     trending: HashtagItem[];
 }
 
+function CategorySection({
+    title,
+    icon,
+    items,
+    color,
+    desc,
+}: {
+    title: string;
+    icon: React.ReactNode;
+    items: HashtagItem[];
+    color: string;
+    desc: string;
+}) {
+    if (!items || items.length === 0) return null;
+
+    const colorClasses: Record<string, string> = {
+        purple: "bg-purple-50 text-purple-700 border border-purple-200",
+        blue: "bg-blue-50 text-blue-700 border border-blue-200",
+        orange: "bg-orange-50 text-orange-700 border border-orange-200",
+    };
+
+    const iconBg: Record<string, string> = {
+        purple: "bg-purple-100 text-purple-700",
+        blue: "bg-blue-100 text-blue-700",
+        orange: "bg-orange-100 text-orange-700",
+    };
+
+    return (
+        <div className="space-y-3">
+            <div className="flex items-center gap-2">
+                <span className={`p-2 rounded-lg ${iconBg[color]}`}>{icon}</span>
+                <div>
+                    <h3 className="text-lg font-bold text-slate-900">{title}</h3>
+                    <p className="text-xs text-slate-500">{desc}</p>
+                </div>
+            </div>
+            <div className="flex flex-wrap gap-3">
+                {items.map((item, i) => (
+                    <div
+                        key={i}
+                        className={`group relative flex items-center gap-2 px-4 py-2 ${colorClasses[color]} rounded-xl text-sm font-semibold hover:brightness-95 transition-all`}
+                    >
+                        {item.tag}
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity pl-2 border-l border-current/20">
+                            <CopyButton text={item.tag} variant="icon" className="!p-0 !h-auto" />
+                        </div>
+                        {(item.volume || item.relevance) && (
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Vol: {item.volume} • Rel: {item.relevance}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default function HashtagGenerator() {
     const [topic, setTopic] = useState("");
     const [niche, setNiche] = useState("");
@@ -133,64 +191,6 @@ export default function HashtagGenerator() {
         link.download = `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
         link.click();
         URL.revokeObjectURL(url);
-    };
-
-    const CategorySection = ({
-        title,
-        icon,
-        items,
-        color,
-        desc,
-    }: {
-        title: string;
-        icon: React.ReactNode;
-        items: HashtagItem[];
-        color: string;
-        desc: string;
-    }) => {
-        if (!items || items.length === 0) return null;
-
-        const colorClasses: Record<string, string> = {
-            purple:"bg-purple-50 text-purple-700 border border-purple-200",
-            blue:"bg-blue-50 text-blue-700 border border-blue-200",
-            orange:"bg-orange-50 text-orange-700 border border-orange-200",
-        };
-
-        const iconBg: Record<string, string> = {
-            purple:"bg-purple-100 text-purple-700",
-            blue:"bg-blue-100 text-blue-700",
-            orange:"bg-orange-100 text-orange-700",
-        };
-
-        return (
-            <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                    <span className={`p-2 rounded-lg ${iconBg[color]}`}>{icon}</span>
-                    <div>
-                        <h3 className="text-lg font-bold text-slate-900">{title}</h3>
-                        <p className="text-xs text-slate-500">{desc}</p>
-                    </div>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    {items.map((item, i) => (
-                        <div
-                            key={i}
-                            className={`group relative flex items-center gap-2 px-4 py-2 ${colorClasses[color]} rounded-xl text-sm font-semibold hover:brightness-95 transition-all`}
-                        >
-                            {item.tag}
-                            <div className="opacity-0 group-hover:opacity-100 transition-opacity pl-2 border-l border-current/20">
-                                <CopyButton text={item.tag} variant="icon" className="!p-0 !h-auto" />
-                            </div>
-                            {(item.volume || item.relevance) && (
-                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                                    Vol: {item.volume} • Rel: {item.relevance}
-                                </div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
     };
 
     return (
