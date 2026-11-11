@@ -57,3 +57,4 @@ outputs/
 
 # runtime data (subscriber emails — do not commit PII)
 data/subscribers.json
+.zcode/

@@ -30,7 +30,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#a855f7", // Brand purple
+  themeColor: "#7c3aed", // Brand electric violet (matches manifest.ts / --primary)
 };
 
 export const metadata = {

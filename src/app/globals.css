@@ -15,6 +15,14 @@
   --secondary: #f1f5f9;
   --accent: #d8b4fe;
 
+  /* Semantic status — success/warning/danger (used by tool states, banners, meters) */
+  --success: #059669;
+  --success-light: #d1fae5;
+  --warning: #b45309;
+  --warning-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+
   /* Surfaces - UHD Multi-Layer */
   --surface-100: #ffffff;
   --surface-200: #f8fafc;
@@ -22,6 +30,10 @@
 
   /* UI Borders */
   --border-color: rgba(148, 163, 184, 0.22);
+
+  /* Signature brand gradients */
+  --gradient-brand: linear-gradient(135deg, #6d28d9 0%, #c026d3 55%, #ec4899 100%);
+  --gradient-accent-bar: linear-gradient(90deg, #9333ea, #d946ef, #ec4899);
 
   /* 3D Glassmorphism - UHD Crystal */
   --card-gradient: linear-gradient(
@@ -38,6 +50,12 @@
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
+  --color-success: var(--success);
+  --color-success-light: var(--success-light);
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+  --color-danger: var(--danger);
+  --color-danger-light: var(--danger-light);
   --color-surface-100: var(--surface-100);
   --color-surface-200: var(--surface-200);
   --color-surface-300: var(--surface-300);
@@ -317,12 +335,30 @@
   transform: translateY(0);
 }
 
+/* Selected/active preset (driven by aria-pressed, see ui/PresetPills.tsx) */
+.preset-pill[aria-pressed="true"] {
+  color: #ffffff;
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 3px 8px -1px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.preset-pill[aria-pressed="true"]:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+}
+
+.preset-pill:focus-visible {
+  outline: 2px solid var(--primary-dark, #6d28d9);
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
    UHD TEXT GRADIENTS & ANIMATIONS
    ========================================================================== */
 
 .text-gradient {
-  background: linear-gradient(135deg, #6d28d9 0%, #c026d3 55%, #ec4899 100%);
+  background: var(--gradient-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -607,7 +643,7 @@
   inset-inline: 0;
   top: 0;
   height: 3px;
-  background: linear-gradient(90deg, #9333ea, #d946ef, #ec4899);
+  background: var(--gradient-accent-bar);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;

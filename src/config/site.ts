@@ -33,16 +33,7 @@ export const siteConfig = {
     "Worldwide",
   ],
 
-  // Colors (used as CSS variables)
-  colors: {
-    primary: "#a855f7", // Purple 500
-    primaryDark: "#7e22ce", // Purple 700
-    secondary: "#0f0518", // Deep Violet
-    accent: "#e879f9", // Fuchsia 400
-    success: "#34d399",
-    warning: "#fbbf24",
-    error: "#ef4444",
-  },
+  // Brand colors are tokenized in src/app/globals.css (--primary, --gradient-brand, …)
 
   // Navigation
   nav: [

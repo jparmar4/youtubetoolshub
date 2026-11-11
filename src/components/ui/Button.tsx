@@ -3,7 +3,7 @@
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "primary" | "secondary" | "outline" | "ghost";
+    variant?: "primary" | "secondary" | "outline" | "ghost" | "cta" | "success";
     size?: "sm" | "md" | "lg";
     isLoading?: boolean;
 }
@@ -20,6 +20,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             // fail WCAG AA on the white background these now sit on.
             outline: "border-2 border-purple-500 text-purple-700 hover:bg-purple-600 hover:text-white focus:ring-purple-500",
             ghost: "text-slate-600 hover:text-purple-700 hover:bg-purple-500/10",
+            // Tactile extruded hero CTA (the .btn-3d-* family from globals.css) —
+            // one variant so marketing pages and tools share a single button system.
+            cta: "btn-3d-primary rounded-2xl focus:ring-purple-500",
+            success: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/25 focus:ring-emerald-500",
         };
 
         const sizes = {
