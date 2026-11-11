@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
@@ -123,6 +124,14 @@ export default function ChannelIdFinder() {
                     </div>
                 </div>
 
+                {/* Empty state before first run */}
+                {!loading && !error && !channelData && (
+                    <ToolEmptyState
+                        icon={<FaIdCard aria-hidden="true" className="text-xl" />}
+                        title="Channel ID details will appear here"
+                        description="Enter a channel URL, @handle, or video URL above to reveal the permanent UC... channel ID, handle, and public channel stats."
+                    />
+                )}
 
                 {/* Results Section */}
                 {channelData && !loading && (

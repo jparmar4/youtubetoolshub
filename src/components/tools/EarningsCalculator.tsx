@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import {
   FaCalculator,
@@ -354,6 +355,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   key={p.label}
                   type="button"
+                  aria-pressed={parseFloat(views.replace(/,/g, "")) === p.value}
                   onClick={() => handleViewPreset(p.value)}
                   className={`px-2 py-0.5 text-[11px] font-semibold rounded-md transition-colors ${
                     parseFloat(views.replace(/,/g, "")) === p.value
@@ -409,6 +411,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   key={p.label}
                   type="button"
+                  aria-pressed={parseFloat(rpm) === p.value && nicheId === "balanced"}
                   onClick={() => handleRpmPreset(p.value)}
                   className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
                     parseFloat(rpm) === p.value && nicheId === "balanced"
@@ -432,6 +435,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   key={n.id}
                   type="button"
+                  aria-pressed={nicheId === n.id}
                   onClick={() => handleNicheMultiplier(n.id, n.factor)}
                   className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     nicheId === n.id
@@ -446,11 +450,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
           </div>
         </div>
 
-        {adError && (
-          <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
-            {adError}
-          </p>
-        )}
+        {adError && <ErrorNotice message={adError} />}
 
         {/* Calculation Results Grid */}
         {adResult && (

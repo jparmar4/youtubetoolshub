@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -61,6 +64,7 @@ export default function VideoIdeasGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
@@ -206,30 +210,32 @@ export default function VideoIdeasGenerator() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
                             {/* Quick Presets Pills */}
-                            <div className="flex flex-wrap items-center gap-2 mb-3">
-                                <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                                    <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
-                                </span>
-                                {ideaPresets.map((preset) => (
-                                    <button
-                                        key={preset.label}
-                                        type="button"
-                                        onClick={() => {
-                                            setNiche(preset.niche);
-                                            setLevel(preset.level);
-                                            setContentGoal(preset.goal);
-                                        }}
-                                        className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
-                                    >
-                                        {preset.label}
-                                    </button>
-                                ))}
+                            <div className="mb-3">
+                                <PresetPills
+                                    options={ideaPresets.map((preset, i) => ({
+                                        id: `preset-${i}`,
+                                        label: preset.label.replace(/^\S+\s/, ""),
+                                        icon: preset.label.match(/^\S+/)?.[0],
+                                    }))}
+                                    activeId={activePreset}
+                                    onSelect={(id) => {
+                                        const preset = ideaPresets[Number(id.replace("preset-", ""))];
+                                        if (!preset) return;
+                                        setActivePreset(id);
+                                        setNiche(preset.niche);
+                                        setLevel(preset.level);
+                                        setContentGoal(preset.goal);
+                                    }}
+                                />
                             </div>
                             <Input
                                 label="Your Niche (Be Specific)"
                                 placeholder="e.g., Sustainable tech reviews, Vegan meal prep for students"
                                 value={niche}
-                                onChange={(e) => setNiche(e.target.value)}
+                                onChange={(e) => {
+                                    setNiche(e.target.value);
+                                    setActivePreset(null);
+                                }}
                                 className="text-lg"
                             />
                         </div>
@@ -269,14 +275,10 @@ export default function VideoIdeasGenerator() {
 
                 </div>
 
-                {error && (
-                    <div className="bg-red-50 rounded-xl p-4 border border-red-200 text-red-600">
-                        {error}
-                    </div>
-                )}
+                {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
                 {loading && (
-                    <div className="py-12 text-center space-y-4">
+                    <div className="py-12 text-center space-y-4" role="status" aria-live="polite">
                         <div className="inline-block relative">
                             <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-emerald-500 animate-spin" />
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -285,6 +287,14 @@ export default function VideoIdeasGenerator() {
                         </div>
                         <p className="text-gray-500 text-lg">Brainstorming viral angles for your niche...</p>
                     </div>
+                )}
+
+                {/* Empty state before first run */}
+                {!loading && !error && ideas.length === 0 && (
+                    <ToolEmptyState
+                        title="Strategic video ideas will appear here"
+                        description="Enter your niche above or tap a quick preset — each idea includes a concept, difficulty rating, angle and thumbnail concept tuned to your channel size and goal."
+                    />
                 )}
 
                 {/* Results - Card Layout */}

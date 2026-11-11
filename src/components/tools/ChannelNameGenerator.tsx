@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -191,17 +193,25 @@ export default function ChannelNameGenerator() {
                 </Button>
 
 
-                {error && (
-                    <div className="bg-red-50 rounded-lg p-4">
-                        <p className="text-emerald-600">{error}</p>
-                    </div>
-                )}
+                {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
                 {loading && (
-                    <div className="bg-slate-50 rounded-xl p-8 text-center animate-pulse">
+                    <div
+                        className="bg-slate-50 rounded-xl p-8 text-center animate-pulse"
+                        role="status"
+                        aria-live="polite"
+                    >
                         <FaUser className="w-10 h-10 mx-auto text-blue-500 mb-3" />
                         <p className="text-slate-600">Consulting branding engine...</p>
                     </div>
+                )}
+
+                {/* Empty state before first run */}
+                {!loading && !error && !names && (
+                    <ToolEmptyState
+                        title="Brand name suggestions will appear here"
+                        description="Enter your niche above to get 15 assessed channel names across five styles, each with a vibe and score."
+                    />
                 )}
 
                 {/* Results Section */}

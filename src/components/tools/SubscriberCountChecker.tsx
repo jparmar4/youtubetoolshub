@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import UsageBanner from "@/components/ui/UsageBanner";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import { useUsage } from "@/hooks/useUsage";
 
 interface ChannelDetails {
@@ -117,6 +118,14 @@ export default function SubscriberCountChecker() {
                     </Link>
                 </div>
 
+                {/* Empty state before first run */}
+                {!loading && !error && !channel && (
+                    <ToolEmptyState
+                        icon={<FaUsers aria-hidden="true" className="text-xl" />}
+                        title="Channel statistics will appear here"
+                        description="Enter a channel URL, @handle, or video URL above to look up the public subscriber, video, and view counts via the official YouTube Data API."
+                    />
+                )}
 
                 {channel && (
                     <div className="space-y-6">

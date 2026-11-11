@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
+import { useExport } from "@/hooks/useExport";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -94,6 +97,7 @@ export default function HashtagGenerator() {
     const [saved, setSaved] = useState(false);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { downloadText, downloadCsv } = useExport();
 
     const [error, setError] = useState("");
 
@@ -174,23 +178,17 @@ export default function HashtagGenerator() {
     const lineFormat = allHashtags.map((h) => h.tag).join("\n");
 
     const handleDownloadCSV = () => {
-        const blob = new Blob([commaFormat], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadCsv(
+            `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`,
+            commaFormat,
+        );
     };
 
     const handleDownloadTXT = () => {
-        const blob = new Blob([lineFormat], { type: "text/plain;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadText(
+            `youtube-hashtags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`,
+            lineFormat,
+        );
     };
 
     return (
@@ -225,13 +223,17 @@ export default function HashtagGenerator() {
                         <FaHashtag className="mr-2" />
                         Generate Hashtag Strategy
                     </Button>
-                    {error && (
-                        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 font-medium">
-                            {error}
-                        </p>
-                    )}
+                    {error && <ErrorNotice message={error} className="mt-4" onRetry={() => setError("")} />}
 
                 </div>
+
+                {/* Empty state before first run */}
+                {!loading && !error && !hashtags && (
+                    <ToolEmptyState
+                        title="Your hashtag strategy will appear here"
+                        description="Enter a video topic above to get hashtags grouped by broad reach, niche relevance and trending signals."
+                    />
+                )}
 
                 {/* Results Section */}
                 {hashtags && (

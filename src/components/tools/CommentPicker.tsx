@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaTrophy, FaFilter, FaQuoteLeft } from "react-icons/fa";
 import Image from "next/image";
@@ -239,6 +240,14 @@ export default function CommentPicker() {
                     </div>
                 </div>
 
+
+                {/* Empty state before first load */}
+                {!fetching && !error && originalComments.length === 0 && (
+                    <ToolEmptyState
+                        title="Giveaway entries will appear here"
+                        description="Paste a video URL above and load up to 2,000 public top-level comments — filter duplicates or keyword entries, then draw a random winner."
+                    />
+                )}
 
                 {/* Status Bar */}
                 {originalComments.length > 0 && (

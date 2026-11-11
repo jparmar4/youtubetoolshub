@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaCalendarAlt, FaDownload } from "react-icons/fa";
 import { downloadAsFile, generateCSV } from "@/lib/utils";
@@ -183,12 +185,16 @@ export default function ContentCalendarGenerator() {
                     Generate Calendar
                 </Button>
 
-                {error && (
-                    <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
-                        {error}
-                    </p>
-                )}
+                {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
+
+                {/* Empty state before first run */}
+                {!loading && !error && calendar.length === 0 && (
+                    <ToolEmptyState
+                        title="Your content calendar will appear here"
+                        description="Enter your niche and posting frequency above to generate a day-by-day schedule of video ideas."
+                    />
+                )}
 
                 {/* Results Section */}
                 {calendar.length > 0 && (

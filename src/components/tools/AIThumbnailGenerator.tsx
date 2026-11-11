@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -41,6 +43,7 @@ export default function AIThumbnailGenerator() {
     const [loading, setLoading] = useState(false);
     const [generatedImages, setGeneratedImages] = useState<string[]>([]);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
@@ -149,7 +152,10 @@ export default function AIThumbnailGenerator() {
                             label="Describe Your Thumbnail"
                             placeholder="e.g., Person looking shocked at laptop screen with vibrant colors"
                             value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
+                            onChange={(e) => {
+                                setPrompt(e.target.value);
+                                setActivePreset(null);
+                            }}
                             error={error}
                         />
 
@@ -191,22 +197,25 @@ export default function AIThumbnailGenerator() {
                     <p className="text-sm font-medium text-gray-700 mb-3">
                         💡 Try these example prompts:
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                        {examplePrompts.map((example, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setPrompt(example)}
-                                className="text-xs px-3 py-1.5 bg-white rounded-full border border-gray-200 text-gray-600 hover:border-emerald-500 hover:text-emerald-500 transition-colors"
-                            >
-                                {example.length > 40 ? example.substring(0, 40) + "..." : example}
-                            </button>
-                        ))}
-                    </div>
+                    <PresetPills
+                        label="Example prompts"
+                        options={examplePrompts.map((example, i) => ({
+                            id: `preset-${i}`,
+                            label: example.length > 40 ? example.substring(0, 40) + "..." : example,
+                        }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            const example = examplePrompts[Number(id.replace("preset-", ""))];
+                            if (!example) return;
+                            setActivePreset(id);
+                            setPrompt(example);
+                        }}
+                    />
                 </div>
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-12 text-center">
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-12 text-center" role="status" aria-live="polite">
                         <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center animate-pulse">
                             <FaImage className="w-10 h-10 text-white" />
                         </div>
@@ -217,6 +226,14 @@ export default function AIThumbnailGenerator() {
                             This usually takes 10-15 seconds
                         </p>
                     </div>
+                )}
+
+                {/* Empty state before first generation */}
+                {!loading && !error && generatedImages.length === 0 && (
+                    <ToolEmptyState
+                        title="Generated thumbnails will appear here"
+                        description="Describe your thumbnail above or tap an example prompt — each run creates two AI-generated options in your chosen style to pick from."
+                    />
                 )}
 
                 {/* Generated Images - Side by Side */}

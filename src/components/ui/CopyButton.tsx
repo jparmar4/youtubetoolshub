@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaCopy, FaCheck } from "react-icons/fa";
+import { toast } from "./Toast";
 
 interface CopyButtonProps {
     text: string;
@@ -25,6 +26,7 @@ export default function CopyButton({
             setTimeout(() => setCopied(false), 2000);
         } catch (err) {
             console.error("Failed to copy:", err);
+            toast.error("Copy failed — your browser blocked clipboard access. Select the text and copy manually.");
         }
     };
 

@@ -3,6 +3,7 @@
 import { useState, useId } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
+import PresetPills from "@/components/ui/PresetPills";
 import Link from "next/link";
 import {
   FaMobileAlt,
@@ -155,6 +156,7 @@ export default function ThumbnailFeedPreviewer() {
   const [viewCount, setViewCount] = useState<string>("184K views");
   const [timeAgo, setTimeAgo] = useState<string>("3 hours ago");
   const [selectedNiche, setSelectedNiche] = useState<string>("tech");
+  const [activePreset, setActivePreset] = useState<string | null>(null);
 
   // Viewport & Mode Controls
   const [viewportMode, setViewportMode] = useState<
@@ -172,6 +174,7 @@ export default function ThumbnailFeedPreviewer() {
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setActivePreset(null);
       const reader = new FileReader();
       reader.onload = () => {
         if (typeof reader.result === "string") {
@@ -325,7 +328,10 @@ export default function ThumbnailFeedPreviewer() {
                   </label>
                   <Input
                     value={thumbnailUrl}
-                    onChange={(e) => setThumbnailUrl(e.target.value)}
+                    onChange={(e) => {
+                      setThumbnailUrl(e.target.value);
+                      setActivePreset(null);
+                    }}
                     placeholder="Or paste image URL..."
                     className="flex-1 text-xs"
                   />
@@ -336,26 +342,19 @@ export default function ThumbnailFeedPreviewer() {
                 <label className="block text-xs font-semibold text-slate-600 mb-1.5">
                   Quick Sample Thumbnails:
                 </label>
-                <div className="flex flex-wrap gap-2">
-                  {SAMPLE_THUMBNAILS.map((sample) => (
-                    <button
-                      key={sample.name}
-                      type="button"
-                      onClick={() => {
-                        setThumbnailUrl(sample.url);
-                        setVideoTitle(sample.title);
-                        setSelectedNiche(sample.niche);
-                      }}
-                      className={`rounded-lg px-2.5 py-1 text-xs font-semibold border transition-all ${
-                        thumbnailUrl === sample.url
-                          ?"border-red-600 bg-red-50 text-red-700"
-                          :"border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                      }`}
-                    >
-                      {sample.name}
-                    </button>
-                  ))}
-                </div>
+                <PresetPills
+                  label="Quick sample thumbnails"
+                  options={SAMPLE_THUMBNAILS.map((sample, i) => ({ id: `preset-${i}`, label: sample.name }))}
+                  activeId={activePreset}
+                  onSelect={(id) => {
+                    const sample = SAMPLE_THUMBNAILS[Number(id.replace("preset-", ""))];
+                    if (!sample) return;
+                    setActivePreset(id);
+                    setThumbnailUrl(sample.url);
+                    setVideoTitle(sample.title);
+                    setSelectedNiche(sample.niche);
+                  }}
+                />
               </div>
 
               <div>

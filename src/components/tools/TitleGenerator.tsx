@@ -5,11 +5,15 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
+import { useExport } from "@/hooks/useExport";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
-import { FaMagic, FaStar, FaRegStar, FaFire, FaInfoCircle, FaBullseye, FaVideo, FaUsers, FaDownload, FaFileAlt } from "react-icons/fa";
+import { FaMagic, FaStar, FaRegStar, FaFire, FaBullseye, FaVideo, FaUsers, FaDownload, FaFileAlt } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams } from "next/navigation";
@@ -109,9 +113,11 @@ export default function TitleGenerator() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [savedSet, setSavedSet] = useState<Set<string>>(new Set());
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     // Usage tracking
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { downloadCsv, downloadText } = useExport();
 
     const handleSave = async (title: string) => {
         // Save to History (Cloud + Local Fallback)
@@ -205,27 +211,19 @@ export default function TitleGenerator() {
     };
 
     const allTitlesText = titles.map(t => t.title).join("\n");
-    const allTitlesCSV = titles.map(t => `"${t.title.replace(/"/g, '""')}",${t.score},"${t.method}","${t.why.replace(/"/g, '""')}"`).join("\n");
 
     const handleDownloadCSV = () => {
-        const csvContent = `Title,Viral Score,Strategy,Why It Works\n${allTitlesCSV}`;
-        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadCsv(
+            `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`,
+            [["Title", "Viral Score", "Strategy", "Why It Works"], ...titles.map(t => [t.title, String(t.score), t.method, t.why])],
+        );
     };
 
     const handleDownloadTXT = () => {
-        const blob = new Blob([allTitlesText], { type: "text/plain;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadText(
+            `youtube-titles-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`,
+            allTitlesText,
+        );
     };
 
     return (
@@ -247,30 +245,32 @@ export default function TitleGenerator() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="col-span-1 md:col-span-2">
                             {/* Quick Presets Pills */}
-                            <div className="flex flex-wrap items-center gap-2 mb-3">
-                                <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                                    <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
-                                </span>
-                                {titlePresets.map((preset) => (
-                                    <button
-                                        key={preset.label}
-                                        type="button"
-                                        onClick={() => {
-                                            setTopic(preset.topic);
-                                            setVideoType(preset.videoType);
-                                            setTone(preset.tone);
-                                        }}
-                                        className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
-                                    >
-                                        {preset.label}
-                                    </button>
-                                ))}
+                            <div className="mb-3">
+                                <PresetPills
+                                    options={titlePresets.map((preset, i) => ({
+                                        id: `preset-${i}`,
+                                        label: preset.label.replace(/^\S+\s/, ""),
+                                        icon: preset.label.match(/^\S+/)?.[0],
+                                    }))}
+                                    activeId={activePreset}
+                                    onSelect={(id) => {
+                                        const preset = titlePresets[Number(id.replace("preset-", ""))];
+                                        if (!preset) return;
+                                        setActivePreset(id);
+                                        setTopic(preset.topic);
+                                        setVideoType(preset.videoType);
+                                        setTone(preset.tone);
+                                    }}
+                                />
                             </div>
                             <Input
                                 label="Video Topic (Be Specific)"
                                 placeholder="e.g., how to fix a leaky faucet without tools"
                                 value={topic}
-                                onChange={(e) => setTopic(e.target.value)}
+                                onChange={(e) => {
+                                    setTopic(e.target.value);
+                                    setActivePreset(null);
+                                }}
                                 className="text-lg"
                             />
                         </div>
@@ -317,17 +317,11 @@ export default function TitleGenerator() {
                 </div>
 
                 {/* Error Display */}
-                {error && (
-                    <div className="bg-red-50 rounded-xl p-4 border border-red-200">
-                        <p className="text-emerald-600 font-medium flex items-center gap-2">
-                            <FaInfoCircle /> {error}
-                        </p>
-                    </div>
-                )}
+                {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="py-12 text-center space-y-4">
+                    <div className="py-12 text-center space-y-4" role="status" aria-live="polite">
                         <div className="inline-block relative">
                             <div className="w-16 h-16 rounded-full border-4 border-red-100 border-t-emerald-500 animate-spin" />
                             <div className="absolute inset-0 flex items-center justify-center">
@@ -336,6 +330,14 @@ export default function TitleGenerator() {
                         </div>
                         <p className="text-gray-500 text-lg">Analyzing 1,000+ viral titles...</p>
                     </div>
+                )}
+
+                {/* Empty state before first run */}
+                {!loading && !error && titles.length === 0 && (
+                    <ToolEmptyState
+                        title="AI-scored titles will appear here"
+                        description="Enter a topic above or tap a quick preset, then generate titles scored for curiosity, clarity and click-through."
+                    />
                 )}
 
                 {/* Results Section - List Layout */}

@@ -4,9 +4,11 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
+import { useExport } from "@/hooks/useExport";
 import { extractVideoId } from "@/lib/utils";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar, FaDownload, FaFileAlt } from "react-icons/fa";
 import Link from "next/link";
@@ -31,6 +33,7 @@ export default function TagExtractor() {
     const [isDemo, setIsDemo] = useState(false);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { downloadText, downloadCsv } = useExport();
 
     const handleExtract = async () => {
         setError("");
@@ -105,27 +108,16 @@ export default function TagExtractor() {
     };
     const csvFormat = tags.join(", ");
     const lineFormat = tags.join("\n");
+    const hasResults = tags.length > 0 || noTagsFound;
 
     const handleDownloadCSV = () => {
         const id = extractVideoId(url) || "youtube";
-        const blob = new Blob([csvFormat], { type: "text/csv;charset=utf-8;" });
-        const urlObj = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = urlObj;
-        link.download = `extracted-tags-${id}.csv`;
-        link.click();
-        URL.revokeObjectURL(urlObj);
+        downloadCsv(`extracted-tags-${id}.csv`, csvFormat);
     };
 
     const handleDownloadTXT = () => {
         const id = extractVideoId(url) || "youtube";
-        const blob = new Blob([lineFormat], { type: "text/plain;charset=utf-8;" });
-        const urlObj = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = urlObj;
-        link.download = `extracted-tags-${id}.txt`;
-        link.click();
-        URL.revokeObjectURL(urlObj);
+        downloadText(`extracted-tags-${id}.txt`, lineFormat);
     };
 
     const formatDate = (dateStr: string) => {
@@ -198,7 +190,7 @@ export default function TagExtractor() {
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
+                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center" role="status" aria-live="polite">
                         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center animate-pulse">
                             <FaSearch className="w-8 h-8 text-white" />
                         </div>
@@ -206,6 +198,14 @@ export default function TagExtractor() {
                             Fetching video data from YouTube API...
                         </p>
                     </div>
+                )}
+
+                {/* Empty state before first extraction */}
+                {!loading && !error && !hasResults && (
+                    <ToolEmptyState
+                        title="Extracted tags will appear here"
+                        description="Paste a YouTube video URL above — the video's official tags are fetched from the YouTube Data API along with its title, channel, and publish date."
+                    />
                 )}
 
                 {/* Video Info */}

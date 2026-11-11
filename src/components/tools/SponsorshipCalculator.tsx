@@ -5,6 +5,7 @@ import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import PresetPills from "@/components/ui/PresetPills";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { saveHistory } from "@/lib/history";
 import { 
@@ -83,6 +84,7 @@ export default function SponsorshipCalculator() {
 
     const [copyError, setCopyError] = useState("");
     const [copied, setCopied] = useState<boolean>(false);
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     // Media Kit & Rate Card Customization State
     const [channelHandle, setChannelHandle] = useState<string>("@YourCreatorHandle");
@@ -347,19 +349,15 @@ ${channelHandle}`
                         </select>
                     </div>
 
-                    <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <span>Quick Presets:</span>
-                        {["10000", "25000", "50000", "100000"].map((preset) => (
-                            <button
-                                key={preset}
-                                type="button"
-                                onClick={() => setViews(preset)}
-                                className="px-2.5 py-1 bg-white hover:border-purple-400 border border-slate-200 rounded-md font-medium transition-colors"
-                            >
-                                {(parseInt(preset) / 1000)}k
-                            </button>
-                        ))}
-                    </div>
+                    <PresetPills
+                        label="Quick view presets"
+                        options={["10000", "25000", "50000", "100000"].map((preset) => ({ id: preset, label: `${parseInt(preset) / 1000}k` }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            setActivePreset(id);
+                            setViews(id);
+                        }}
+                    />
                 </div>
 
                 {/* Primary Inputs */}
@@ -371,7 +369,10 @@ ${channelHandle}`
                             inputMode="decimal"
                             placeholder="e.g. 25000"
                             value={views}
-                            onChange={(e) => setViews(e.target.value)}
+                            onChange={(e) => {
+                                setViews(e.target.value);
+                                setActivePreset(null);
+                            }}
                         />
                         <p className="text-xs text-slate-500 mt-1.5">
                             Use your median view count, excluding 1-2 abnormal viral outliers.

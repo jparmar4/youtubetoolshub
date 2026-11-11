@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { extractVideoId, getThumbnailUrls } from "@/lib/utils";
 import { FaDownload, FaImage, FaEye } from "react-icons/fa";
@@ -21,6 +23,7 @@ export default function ThumbnailDownloader() {
     const [thumbnails, setThumbnails] = useState<ReturnType<typeof getThumbnailUrls> | null>(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     const handleFetch = () => {
         setError("");
@@ -78,21 +81,17 @@ export default function ThumbnailDownloader() {
         >
             <div className="space-y-6">
                 {/* Quick Presets Pills */}
-                <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                        <span className="text-amber-500 font-bold">⚡</span> Try sample URL:
-                    </span>
-                    {thumbnailPresets.map((preset) => (
-                        <button
-                            key={preset.label}
-                            type="button"
-                            onClick={() => handlePresetClick(preset.url)}
-                            className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
-                        >
-                            {preset.label}
-                        </button>
-                    ))}
-                </div>
+                <PresetPills
+                    label="Try sample URL"
+                    options={thumbnailPresets.map((preset, i) => ({ id: `preset-${i}`, label: preset.label }))}
+                    activeId={activePreset}
+                    onSelect={(id) => {
+                        const preset = thumbnailPresets[Number(id.replace("preset-", ""))];
+                        if (!preset) return;
+                        setActivePreset(id);
+                        handlePresetClick(preset.url);
+                    }}
+                />
 
                 {/* This browser-only utility is genuinely free and needs no account. */}
                 <form
@@ -109,7 +108,10 @@ export default function ThumbnailDownloader() {
                             label="YouTube Video or Shorts URL"
                             placeholder="https://www.youtube.com/watch?v=... or /shorts/..."
                             value={url}
-                            onChange={(e) => setUrl(e.target.value)}
+                            onChange={(e) => {
+                                setUrl(e.target.value);
+                                setActivePreset(null);
+                            }}
                             onKeyDown={handleKeyDown}
                             error={error}
                         />
@@ -134,6 +136,15 @@ export default function ThumbnailDownloader() {
                         <span>Preview in YouTube Feed →</span>
                     </Link>
                 </div>
+
+                {/* Empty state before first fetch */}
+                {!thumbnails && !error && (
+                    <ToolEmptyState
+                        icon={<FaImage aria-hidden="true" className="text-xl" />}
+                        title="Thumbnails will appear here"
+                        description="Paste any YouTube video or Shorts link above — all available resolutions up to 4K (maxresdefault) are fetched instantly, right in your browser."
+                    />
+                )}
 
                 {/* Results Section */}
                 {thumbnails && (

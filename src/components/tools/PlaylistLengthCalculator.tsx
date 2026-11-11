@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
 
@@ -137,6 +138,14 @@ export default function PlaylistLengthCalculator() {
                     </div>
                 </div>
 
+                {/* Empty state before first run */}
+                {!loading && !error && !result && (
+                    <ToolEmptyState
+                        icon={<FaListUl aria-hidden="true" className="text-xl" />}
+                        title="Playlist duration will appear here"
+                        description="Paste a YouTube playlist URL above to see its total length, average video length, and watch time at 1.25x, 1.5x, and 2x speeds."
+                    />
+                )}
 
                 {/* Results Section */}
                 {result && !loading && (

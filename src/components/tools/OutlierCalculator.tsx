@@ -3,15 +3,23 @@
 import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
+import PresetPills from "@/components/ui/PresetPills";
 import {
   FaFire,
   FaBolt, FaCopy, FaCheck } from "react-icons/fa";
+
+const OUTLIER_PRESETS = [
+  { id: "viral", label: "14x Viral Breakout", views: "350000", median: "25000", days: "7" },
+  { id: "solid", label: "3x Solid Outlier", views: "90000", median: "30000", days: "14" },
+  { id: "baseline", label: "1.0x Baseline", views: "32000", median: "30000", days: "21" },
+];
 
 export default function OutlierCalculator() {
   const [videoViews, setVideoViews] = useState<string>("250000");
   const [channelMedian, setChannelMedian] = useState<string>("30000");
   const [daysSinceUpload, setDaysSinceUpload] = useState<string>("14");
   const [copied, setCopied] = useState<boolean>(false);
+  const [activePreset, setActivePreset] = useState<string | null>(null);
 
   const applyPreset = (views: string, median: string, days: string) => {
     setVideoViews(views);
@@ -119,29 +127,17 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
           {/* Inputs Panel */}
           <div className="lg:col-span-6 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
             {/* Quick Presets */}
-            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-100">
-              <span className="text-xs font-bold text-slate-500">Presets:</span>
-              <button
-                type="button"
-                onClick={() => applyPreset("350000", "25000", "7")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-              >
-                14x Viral Breakout
-              </button>
-              <button
-                type="button"
-                onClick={() => applyPreset("90000", "30000", "14")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-              >
-                3x Solid Outlier
-              </button>
-              <button
-                type="button"
-                onClick={() => applyPreset("32000", "30000", "21")}
-                className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
-              >
-                1.0x Baseline
-              </button>
+            <div className="pb-2 border-b border-slate-100">
+              <PresetPills
+                options={OUTLIER_PRESETS}
+                activeId={activePreset}
+                onSelect={(id) => {
+                  const preset = OUTLIER_PRESETS.find((p) => p.id === id);
+                  if (!preset) return;
+                  setActivePreset(id);
+                  applyPreset(preset.views, preset.median, preset.days);
+                }}
+              />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-800 mb-1">
@@ -152,7 +148,10 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
                 min="0"
                 step="5000"
                 value={videoViews}
-                onChange={(e) => setVideoViews(e.target.value)}
+                onChange={(e) => {
+                  setVideoViews(e.target.value);
+                  setActivePreset(null);
+                }}
                 placeholder="250000"
                 className="text-lg font-bold"
               />
@@ -168,7 +167,10 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
                 min="1"
                 step="1000"
                 value={channelMedian}
-                onChange={(e) => setChannelMedian(e.target.value)}
+                onChange={(e) => {
+                  setChannelMedian(e.target.value);
+                  setActivePreset(null);
+                }}
                 placeholder="30000"
                 className="text-lg font-bold"
               />
@@ -186,7 +188,10 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
                 min="1"
                 max="3650"
                 value={daysSinceUpload}
-                onChange={(e) => setDaysSinceUpload(e.target.value)}
+                onChange={(e) => {
+                  setDaysSinceUpload(e.target.value);
+                  setActivePreset(null);
+                }}
                 placeholder="14"
                 className="text-base font-semibold"
               />

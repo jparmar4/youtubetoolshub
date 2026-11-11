@@ -1,11 +1,11 @@
 "use client";
 
 import { useSyncExternalStore, memo } from "react";
-import { FaCheckCircle, FaInfoCircle, FaStar, FaTimes } from "react-icons/fa";
+import { FaCheckCircle, FaInfoCircle, FaStar, FaTimes, FaExclamationCircle } from "react-icons/fa";
 
 export interface ToastItem {
   id: string;
-  type: "success" | "info" | "star";
+  type: "success" | "info" | "star" | "error";
   message: string;
   duration?: number;
 }
@@ -35,6 +35,9 @@ export const toast = {
   },
   info(message: string) {
     toast.show({ type: "info", message });
+  },
+  error(message: string) {
+    toast.show({ type: "error", message });
   },
   star(message: string) {
     toast.show({ type: "star", message });
@@ -81,6 +84,7 @@ export function ToastContainer() {
             {t.type === "star" && <FaStar className="w-4 h-4 text-amber-400 flex-shrink-0 animate-bounce" />}
             {t.type === "success" && <FaCheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />}
             {t.type === "info" && <FaInfoCircle className="w-4 h-4 text-sky-400 flex-shrink-0" />}
+            {t.type === "error" && <FaExclamationCircle className="w-4 h-4 text-red-400 flex-shrink-0" />}
             <span className="truncate">{t.message}</span>
           </div>
           <button

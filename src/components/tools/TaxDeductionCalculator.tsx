@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
+import PresetPills from "@/components/ui/PresetPills";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 import { 
@@ -73,10 +74,44 @@ const REGION_CONFIGS: Record<TaxRegion, RegionConfig> = {
     },
 };
 
+const REGION_RATE_PRESETS: Record<TaxRegion, { id: string; label: string; rate: string }[]> = {
+    US: [
+        { id: "us-baseline", label: "US Baseline (30%)", rate: "30" },
+        { id: "us-california", label: "California (39% fed+state)", rate: "39" },
+        { id: "us-newyork", label: "New York (37% fed+state)", rate: "37" },
+        { id: "us-no-state", label: "TX / FL / WA (0% state tax ~28%)", rate: "28" },
+    ],
+    UK: [
+        { id: "uk-basic", label: "Basic Rate (20% + NI ~29%)", rate: "29" },
+        { id: "uk-higher", label: "Higher Rate (40% + NI ~42%)", rate: "42" },
+    ],
+    CA: [
+        { id: "ca-moderate", label: "Ontario/BC Moderate (~31%)", rate: "31" },
+        { id: "ca-high", label: "High Earner (~43%)", rate: "43" },
+    ],
+    AU: [
+        { id: "au-middle", label: "Middle Bracket (32.5%)", rate: "32.5" },
+        { id: "au-upper", label: "Upper Bracket (37%)", rate: "37" },
+    ],
+    EU: [
+        { id: "eu-mid", label: "Mid Bracket (~28%)", rate: "28" },
+        { id: "eu-top", label: "Spitzensteuersatz (42%)", rate: "42" },
+    ],
+    CH: [
+        { id: "ch-low", label: "Low-Tax Canton (~18%)", rate: "18" },
+        { id: "ch-urban", label: "Urban Canton (~28%)", rate: "28" },
+    ],
+    SG: [
+        { id: "sg-resident", label: "Resident Tier (~11.5%)", rate: "11.5" },
+        { id: "sg-high", label: "High Earner (~18%)", rate: "18" },
+    ],
+};
+
 export default function TaxDeductionCalculator() {
     const [region, setRegion] = useState<TaxRegion>("US");
     const [assumedRate, setAssumedRate] = useState("30");
     const [grossIncome, setGrossIncome] = useState<string>("45000");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     // Expense Categories
     const [camerasGear, setCamerasGear] = useState<string>("3500");
@@ -89,6 +124,13 @@ export default function TaxDeductionCalculator() {
     const [travelTraining, setTravelTraining] = useState<string>("1200");
 
     const currentRegion = REGION_CONFIGS[region];
+
+    const handleRatePreset = (id: string) => {
+        const preset = REGION_RATE_PRESETS[region].find((p) => p.id === id);
+        if (!preset) return;
+        setActivePreset(id);
+        setAssumedRate(preset.rate);
+    };
 
     const calculations = useMemo(() => {
         const gross = parseCalculatorInput(grossIncome);
@@ -156,152 +198,43 @@ export default function TaxDeductionCalculator() {
                 </div>
 
                 <div className="space-y-2">
-                    <Input label="Assumed marginal tax rate (%)" type="text" inputMode="decimal" value={assumedRate} onChange={(e) => setAssumedRate(e.target.value)} />
+                    <Input label="Assumed marginal tax rate (%)" type="text" inputMode="decimal" value={assumedRate} onChange={(e) => {
+                        setAssumedRate(e.target.value);
+                        setActivePreset(null);
+                    }} />
                     {region === "US" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick US Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("30")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                US Baseline (30%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("39")}
-                                className="px-2 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-medium transition-colors"
-                            >
-                                California (39% fed+state)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("37")}
-                                className="px-2 py-1 rounded-md bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 font-medium transition-colors"
-                            >
-                                New York (37% fed+state)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("28")}
-                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
-                            >
-                                TX / FL / WA (0% state tax ~28%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick US Presets" options={REGION_RATE_PRESETS.US} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "UK" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick UK Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("29")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Basic Rate (20% + NI ~29%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("42")}
-                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
-                            >
-                                Higher Rate (40% + NI ~42%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick UK Presets" options={REGION_RATE_PRESETS.UK} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "CA" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick Canada Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("31")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Ontario/BC Moderate (~31%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("43")}
-                                className="px-2 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-medium transition-colors"
-                            >
-                                High Earner (~43%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick Canada Presets" options={REGION_RATE_PRESETS.CA} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "AU" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick Australia Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("32.5")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Middle Bracket (32.5%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("37")}
-                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
-                            >
-                                Upper Bracket (37%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick Australia Presets" options={REGION_RATE_PRESETS.AU} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "EU" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick EU / Germany Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("28")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Mid Bracket (~28%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("42")}
-                                className="px-2 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 font-medium transition-colors"
-                            >
-                                Spitzensteuersatz (42%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick EU / Germany Presets" options={REGION_RATE_PRESETS.EU} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "CH" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick Switzerland Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("18")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Low-Tax Canton (~18%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("28")}
-                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
-                            >
-                                Urban Canton (~28%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick Switzerland Presets" options={REGION_RATE_PRESETS.CH} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     {region === "SG" && (
-                        <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                            <span className="text-slate-500 font-medium">Quick Singapore Presets:</span>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("11.5")}
-                                className="px-2 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium transition-colors"
-                            >
-                                Resident Tier (~11.5%)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setAssumedRate("18")}
-                                className="px-2 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
-                            >
-                                High Earner (~18%)
-                            </button>
+                        <div className="pt-1">
+                            <PresetPills label="Quick Singapore Presets" options={REGION_RATE_PRESETS.SG} activeId={activePreset} onSelect={handleRatePreset} />
                         </div>
                     )}
                     <p className="text-sm text-slate-500">Illustrative marginal rate assumption. Enter a rate from 0 to 100 for your scenario. Enter only the business portion you expect to deduct this year, including applicable depreciation rather than the full asset price.</p>

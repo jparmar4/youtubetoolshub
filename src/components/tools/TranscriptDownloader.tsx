@@ -4,6 +4,9 @@ import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import ErrorNotice from "@/components/ui/ErrorNotice";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import { useExport } from "@/hooks/useExport";
 import { extractVideoId } from "@/lib/utils";
 import {
   FaSearch,
@@ -14,7 +17,6 @@ import {
   FaClock,
   FaListUl,
   FaFileAlt,
-  FaExclamationTriangle,
   FaPlay,
   FaBookOpen,
   FaVideo,
@@ -99,6 +101,8 @@ export default function TranscriptDownloader() {
   const [articleCopied, setArticleCopied] = useState(false);
   const [copiedHookId, setCopiedHookId] = useState<number | null>(null);
   const [showDayPassModal, setShowDayPassModal] = useState(false);
+
+  const { downloadText, downloadCsv } = useExport();
 
   const handleExtract = (customUrl?: string) => {
     const targetUrl = customUrl || url;
@@ -370,15 +374,11 @@ ${sec3Text}
       mimeType = "text/csv";
     }
 
-    const blob = new Blob([content], { type: `${mimeType};charset=utf-8;` });
-    const downloadUrl = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.setAttribute("download", filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(downloadUrl);
+    if (format === "csv") {
+      downloadCsv(filename, content);
+    } else {
+      downloadText(filename, content, mimeType);
+    }
   };
 
   return (
@@ -449,15 +449,17 @@ ${sec3Text}
         </form>
 
         {error && (
-          <div className="mt-4 p-4 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-700 text-sm">
-            <FaExclamationTriangle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold">Extraction Notice</p>
-              <p>{error}</p>
-            </div>
-          </div>
+          <ErrorNotice message={error} title="Extraction Notice" className="mt-4" />
         )}
       </div>
+
+      {/* Empty state before first extraction */}
+      {!loading && !error && !videoData && (
+        <ToolEmptyState
+          title="Transcript will appear here"
+          description="Paste a YouTube URL or 11-character video ID above to extract synchronized captions with timestamps, keyword stats, and TXT / SRT / CSV downloads."
+        />
+      )}
 
       {/* Transcript Results */}
       {videoData && (

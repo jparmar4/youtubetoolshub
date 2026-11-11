@@ -4,6 +4,10 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
+import { useExport } from "@/hooks/useExport";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -81,6 +85,8 @@ export default function TagGenerator() {
     const [tags, setTags] = useState<TagResult>({});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
+    const { downloadCsv, downloadText } = useExport();
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
@@ -178,23 +184,17 @@ export default function TagGenerator() {
     const charLimit = 500;
 
     const handleDownloadCSV = () => {
-        const blob = new Blob([csvFormat], { type: "text/csv;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadCsv(
+            `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.csv`,
+            csvFormat,
+        );
     };
 
     const handleDownloadTXT = () => {
-        const blob = new Blob([csvFormat], { type: "text/plain;charset=utf-8;" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`;
-        link.click();
-        URL.revokeObjectURL(url);
+        downloadText(
+            `youtube-tags-${topic.toLowerCase().replace(/[^a-z0-9]+/g, "-") || "export"}.txt`,
+            csvFormat,
+        );
     };
 
     const hasTags = allTags.length > 0;
@@ -210,24 +210,21 @@ export default function TagGenerator() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Quick Presets Pills */}
-                <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                        <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
-                    </span>
-                    {tagPresets.map((preset) => (
-                        <button
-                            key={preset.label}
-                            type="button"
-                            onClick={() => {
-                                setTopic(preset.topic);
-                                setNiche(preset.niche);
-                            }}
-                            className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
-                        >
-                            {preset.label}
-                        </button>
-                    ))}
-                </div>
+                <PresetPills
+                    options={tagPresets.map((preset, i) => ({
+                        id: `preset-${i}`,
+                        label: preset.label.replace(/^\S+\s/, ""),
+                        icon: preset.label.match(/^\S+/)?.[0],
+                    }))}
+                    activeId={activePreset}
+                    onSelect={(id) => {
+                        const preset = tagPresets[Number(id.replace("preset-", ""))];
+                        if (!preset) return;
+                        setActivePreset(id);
+                        setTopic(preset.topic);
+                        setNiche(preset.niche);
+                    }}
+                />
 
                 {/* Input Section */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -236,7 +233,10 @@ export default function TagGenerator() {
                             label="Video Topic or Title"
                             placeholder="e.g., How to edit videos on iPhone for beginners"
                             value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
+                            onChange={(e) => {
+                                setTopic(e.target.value);
+                                setActivePreset(null);
+                            }}
                         />
                     </div>
                     <Input
@@ -263,15 +263,15 @@ export default function TagGenerator() {
 
 
                 {/* Error Display */}
-                {error && (
-                    <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                        <p className="text-red-600 font-medium">{error}</p>
-                    </div>
-                )}
+                {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
                 {/* Loading State */}
                 {loading && (
-                    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8 text-center border border-slate-200">
+                    <div
+                        className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8 text-center border border-slate-200"
+                        role="status"
+                        aria-live="polite"
+                    >
                         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center animate-pulse shadow-md">
                             <FaHashtag className="w-8 h-8 text-white" />
                         </div>
@@ -279,6 +279,14 @@ export default function TagGenerator() {
                             Analyzing topic & generating SEO-optimized tags...
                         </p>
                     </div>
+                )}
+
+                {/* Empty state before first run */}
+                {!loading && !error && !hasTags && (
+                    <ToolEmptyState
+                        title="SEO-optimized tags will appear here"
+                        description="Enter a topic above or tap a quick preset — tags come grouped by search intent and pre-checked against the 500-character YouTube Studio limit."
+                    />
                 )}
 
                 {/* Results Section */}

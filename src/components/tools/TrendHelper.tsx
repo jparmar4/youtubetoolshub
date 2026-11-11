@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -239,11 +241,7 @@ export default function TrendHelper() {
                     </div>
                 )}
 
-                {error && (
-                    <div className="bg-red-50 rounded-lg p-4">
-                        <p className="text-emerald-600">{error}</p>
-                    </div>
-                )}
+                {error && <ErrorNotice message={error} onRetry={fetchTrending} />}
 
                 {/* Real Trending Videos */}
                 {!isDemo && (
@@ -254,7 +252,11 @@ export default function TrendHelper() {
                         </h3>
 
                         {loadingTrending ? (
-                            <div className="bg-slate-50 rounded-xl p-8 text-center">
+                            <div
+                                className="bg-slate-50 rounded-xl p-8 text-center"
+                                role="status"
+                                aria-live="polite"
+                            >
                                 <FaSpinner className="w-8 h-8 mx-auto text-emerald-500 animate-spin mb-3" />
                                 <p className="text-slate-600">Loading trending videos...</p>
                             </div>
@@ -322,6 +324,14 @@ export default function TrendHelper() {
                             )}
                         </Button>
                     </div>
+
+                    {/* Empty state before first run */}
+                    {!loadingAI && aiSuggestions.length === 0 && (
+                        <ToolEmptyState
+                            title="AI trend ideas will appear here"
+                            description="Enter your niche above to get trending topic ideas, each with a suggested angle and why it is trending."
+                        />
+                    )}
 
                     {aiSuggestions.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

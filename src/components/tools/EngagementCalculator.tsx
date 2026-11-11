@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaChartBar } from "react-icons/fa";
 import { calculateEngagementRate, formatNumber } from "@/lib/utils";
@@ -107,11 +108,7 @@ export default function EngagementCalculator() {
                     <FaChartBar className="mr-2" />
                     Calculate Engagement
                 </Button>
-                {error && (
-                    <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
-                        {error}
-                    </p>
-                )}
+                {error && <ErrorNotice message={error} />}
 
 
                 {/* Results Section */}

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -94,7 +95,7 @@ export default function AIThumbnailPromptGenerator() {
             slug="youtube-ai-thumbnail-prompt"
             description="Generate optimized prompts for AI thumbnail creation - works with any AI image generator"
         >
-            <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
+            <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center" role="status" aria-live="polite"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
                 <AIThumbnailPromptGeneratorContent />
             </Suspense>
         </ToolPageLayout>
@@ -295,7 +296,7 @@ function AIThumbnailPromptGeneratorContent() {
 
             {/* Loading State */}
             {loading && (
-                <div className="flex flex-col items-center justify-center py-12">
+                <div className="flex flex-col items-center justify-center py-12" role="status" aria-live="polite">
                     <div className="relative">
                         <div className="w-20 h-20 rounded-full border-4 border-purple-200"></div>
                         <div className="absolute top-0 left-0 w-20 h-20 rounded-full border-4 border-purple-600 border-t-transparent animate-spin"></div>
@@ -373,20 +374,12 @@ function AIThumbnailPromptGeneratorContent() {
                 </div>
             )}
 
-            {/* Empty State */}
-            {!loading && generatedPrompts.length === 0 && (
-                <div className="text-center py-12 bg-slate-50 rounded-2xl">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center">
-                        <FaMagic className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                        Ready to Create Perfect Prompts
-                    </h3>
-                    <p className="text-slate-600 max-w-md mx-auto">
-                        Enter your video topic and customize the options above to generate
-                        AI-optimized prompts for stunning thumbnails.
-                    </p>
-                </div>
+            {/* Empty state before first generation */}
+            {!loading && !error && generatedPrompts.length === 0 && (
+                <ToolEmptyState
+                    title="Ready to Create Perfect Prompts"
+                    description="Enter your video topic and customize the options above to generate AI-optimized prompts for stunning thumbnails."
+                />
             )}
         </div>
     );

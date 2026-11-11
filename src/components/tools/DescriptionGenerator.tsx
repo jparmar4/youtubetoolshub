@@ -5,6 +5,9 @@ import { Input, Textarea } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
+import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import ErrorNotice from "@/components/ui/ErrorNotice";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import UsageBanner from "@/components/ui/UsageBanner";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
@@ -86,6 +89,7 @@ function DescriptionGeneratorContent() {
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<"preview" | "edit">("preview");
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
@@ -165,31 +169,33 @@ function DescriptionGeneratorContent() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="col-span-1 md:col-span-2">
                         {/* Quick Presets Pills */}
-                        <div className="flex flex-wrap items-center gap-2 mb-3">
-                            <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
-                                <span className="text-amber-500 font-bold">⚡</span> Quick Presets:
-                            </span>
-                            {descriptionPresets.map((preset) => (
-                                <button
-                                    key={preset.label}
-                                    type="button"
-                                    onClick={() => {
-                                        setTopic(preset.topic);
-                                        setVideoType(preset.videoType);
-                                        setTone(preset.tone);
-                                        setKeywords(preset.keywords);
-                                    }}
-                                    className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 border border-slate-200 hover:border-purple-300 transition-all cursor-pointer active:scale-95"
-                                >
-                                    {preset.label}
-                                </button>
-                            ))}
+                        <div className="mb-3">
+                            <PresetPills
+                                options={descriptionPresets.map((preset, i) => ({
+                                    id: `preset-${i}`,
+                                    label: preset.label.replace(/^\S+\s/, ""),
+                                    icon: preset.label.match(/^\S+/)?.[0],
+                                }))}
+                                activeId={activePreset}
+                                onSelect={(id) => {
+                                    const preset = descriptionPresets[Number(id.replace("preset-", ""))];
+                                    if (!preset) return;
+                                    setActivePreset(id);
+                                    setTopic(preset.topic);
+                                    setVideoType(preset.videoType);
+                                    setTone(preset.tone);
+                                    setKeywords(preset.keywords);
+                                }}
+                            />
                         </div>
                         <Input
                             label="Video Topic / Summary"
                             placeholder="e.g., How to edit videos faster in Premiere Pro"
                             value={topic}
-                            onChange={(e) => setTopic(e.target.value)}
+                            onChange={(e) => {
+                                setTopic(e.target.value);
+                                setActivePreset(null);
+                            }}
                             className="text-lg"
                         />
                     </div>
@@ -228,14 +234,14 @@ function DescriptionGeneratorContent() {
 
             </div>
 
-            {error && (
-                <div className="bg-red-50 rounded-xl p-4 border border-red-200 text-emerald-600">
-                    {error}
-                </div>
-            )}
+            {error && <ErrorNotice message={error} onRetry={() => setError("")} />}
 
             {loading && (
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
+                <div
+                    className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 text-center"
+                    role="status"
+                    aria-live="polite"
+                >
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center animate-pulse">
                         <FaMagic className="w-8 h-8 text-white" />
                     </div>
@@ -243,6 +249,14 @@ function DescriptionGeneratorContent() {
                         Writing a human-sounding description optimized for SEO...
                     </p>
                 </div>
+            )}
+
+            {/* Empty state before first run */}
+            {!loading && !error && !description && (
+                <ToolEmptyState
+                    title="Your SEO description will appear here"
+                    description="Enter a video topic above or tap a quick preset — the generated description includes timestamps, key takeaways and hashtags ready to paste into YouTube."
+                />
             )}
 
             {/* Results Section */}
