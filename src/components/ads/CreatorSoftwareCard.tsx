@@ -97,7 +97,7 @@ export default function CreatorSoftwareCard({
                   </span>
                 </div>
                 <span
-                  className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
+                  className={`text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
                 >
                   {tool.badge}
                 </span>
@@ -118,7 +118,7 @@ export default function CreatorSoftwareCard({
                 className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-purple-600 px-3 py-2 text-xs font-bold text-white shadow transition-all hover:bg-purple-700 hover:scale-[1.02]"
               >
                 <span>{tool.ctaText}</span>
-                <FaExternalLinkAlt className="text-[10px]" />
+                <FaExternalLinkAlt className="text-[11px]" />
               </a>
             </div>
           </div>

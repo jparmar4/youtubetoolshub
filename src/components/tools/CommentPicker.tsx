@@ -213,7 +213,7 @@ export default function CommentPicker() {
                     {/* Filters - Only show if we have comments or if we want to set them beforehand? Better to show always or after load? Show always for convenience */}
                     <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-4">
                         <h3 className="font-semibold text-slate-900 flex items-center gap-2">
-                            <FaFilter className="text-slate-400" /> Contest Rules
+                            <FaFilter className="text-slate-500" /> Contest Rules
                         </h3>
 
                         <div className="flex flex-col sm:flex-row gap-6">

@@ -279,7 +279,7 @@ export default function ShortsMusicSplitCalculator() {
                   className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-teal-600 px-5 py-3 text-xs font-bold text-white shadow hover:bg-teal-700 transition-all"
                 >
                   <span>{epidemicTool.ctaText}</span>
-                  <FaExternalLinkAlt className="text-[10px]" />
+                  <FaExternalLinkAlt className="text-[11px]" />
                 </a>
               </div>
             </div>

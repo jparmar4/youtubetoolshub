@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 import HeaderCurrencyPicker from "@/components/layout/HeaderCurrencyPicker";
 import HeaderSavedTools from "@/components/layout/HeaderSavedTools";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 const CommandPalette = dynamic(() => import("@/components/layout/CommandPalette"), {
   ssr: false,
@@ -55,7 +56,7 @@ const NavLink = memo(function NavLink({
       <span>{children}</span>
       {badge && (
         <span
-          className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap ${badgeColor}`}
+          className={`text-[11px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap ${badgeColor}`}
         >
           {badge}
         </span>
@@ -87,6 +88,7 @@ function Header() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const megaMenuTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toolsTriggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -129,6 +131,10 @@ function Header() {
     setIsMenuOpen(false);
   }, []);
 
+  // Traps Tab inside the mobile drawer, moves focus in on open, restores it to
+  // the hamburger on close, and closes the drawer on Escape.
+  const drawerRef = useFocusTrap(isMenuOpen, { onEscape: closeMenu });
+
   const closeMegaMenu = useCallback(() => {
     cancelMegaMenuTimeout();
     setIsMegaMenuOpen(false);
@@ -136,15 +142,17 @@ function Header() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false);
+      if (event.key !== "Escape") return;
+      if (isMenuOpen) return; // Closed by the drawer's focus trap, which restores focus.
+      if (isMegaMenuOpen) {
         setIsMegaMenuOpen(false);
         cancelMegaMenuTimeout();
+        toolsTriggerRef.current?.focus();
       }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [cancelMegaMenuTimeout]);
+  }, [isMenuOpen, isMegaMenuOpen, cancelMegaMenuTimeout]);
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
@@ -179,7 +187,7 @@ function Header() {
                       <span className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight group-hover:text-purple-700 transition-colors leading-tight">
                         {siteConfig.name}
                       </span>
-                      <span className="hidden sm:inline-block text-[9px] font-extrabold text-purple-700 tracking-[0.14em] uppercase leading-tight">
+                      <span className="hidden sm:inline-block text-[11px] font-extrabold text-purple-700 tracking-[0.14em] uppercase leading-tight">
                         4K Creator Suite • {toolMeta.length} Tools
                       </span>
                     </div>
@@ -195,6 +203,7 @@ function Header() {
                   >
                     <button
                       type="button"
+                      ref={toolsTriggerRef}
                       onClick={() => setIsMegaMenuOpen((prev) => !prev)}
                       className={`h-8 inline-flex items-center gap-1.5 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                         isMegaMenuOpen || pathname === "/tools"
@@ -202,9 +211,10 @@ function Header() {
                           : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
                       }`}
                       aria-expanded={isMegaMenuOpen}
+                      aria-haspopup="true"
                     >
                       <span>Tools</span>
-                      <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-purple-700 text-white leading-none">
+                      <span className="text-[11px] font-black px-1.5 py-0.5 rounded-full bg-purple-700 text-white leading-none">
                         {toolMeta.length}
                       </span>
                       <FaChevronDown
@@ -263,7 +273,7 @@ function Header() {
                     <span className="truncate text-slate-600 text-left flex-1">
                       Search {toolMeta.length} tools...
                     </span>
-                    <kbd aria-hidden="true" className="inline-flex items-center text-[10px] font-bold text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
+                    <kbd aria-hidden="true" className="inline-flex items-center text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
                       ⌘K
                     </kbd>
                   </button>
@@ -297,6 +307,7 @@ function Header() {
                     className="lg:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200/90 shadow-2xs shrink-0"
                     aria-label="Toggle menu"
                     aria-expanded={isMenuOpen}
+                    aria-controls="mobile-nav-drawer"
                   >
                     {isMenuOpen ? <FaTimes className="w-3.5 h-3.5" /> : <FaBars className="w-3.5 h-3.5" />}
                   </button>
@@ -305,7 +316,11 @@ function Header() {
 
               {/* Mobile Drawer Navigation */}
               {isMenuOpen && (
-                <div className="lg:hidden py-4 border-t border-slate-200/80 animate-fade-in-up">
+                <div
+                  id="mobile-nav-drawer"
+                  ref={drawerRef}
+                  className="lg:hidden py-4 border-t border-slate-200/80 animate-fade-in-up"
+                >
                   <div className="flex sm:hidden items-center justify-between gap-2 mb-3">
                     <HeaderCurrencyPicker />
                     <HeaderSavedTools />
@@ -323,7 +338,7 @@ function Header() {
                         <FaSearch className="text-purple-600" />
                         Search {toolMeta.length} creator tools &amp; CPM data...
                       </span>
-                      <span className="text-[10px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold">
+                      <span className="text-[11px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold">
                         ⌘K
                       </span>
                     </button>
@@ -336,7 +351,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>All {toolMeta.length} Creator Tools</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
                         Catalog
                       </span>
                     </Link>
@@ -347,7 +362,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube Earnings Calculator</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-emerald-700 text-white">
                         Tier-1
                       </span>
                     </Link>
@@ -358,7 +373,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>Sponsorship Rate Calculator</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-600 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-amber-600 text-white">
                         High RPM
                       </span>
                     </Link>
@@ -369,7 +384,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>Creator Tax &amp; LLC Savings</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-indigo-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-indigo-700 text-white">
                         Finance
                       </span>
                     </Link>
@@ -380,7 +395,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>4,000 Watch Hours Countdown</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
                         New
                       </span>
                     </Link>
@@ -391,7 +406,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>4K Thumbnail Downloader</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-pink-700 text-white">
                         UHD
                       </span>
                     </Link>
@@ -402,7 +417,7 @@ function Header() {
                       className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
                     >
                       <span>YouTube CPM Rates 2026</span>
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-sky-700 text-white">
+                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-sky-700 text-white">
                         52 Markets
                       </span>
                     </Link>

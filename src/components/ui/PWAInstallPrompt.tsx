@@ -79,7 +79,7 @@ export default function PWAInstallPrompt() {
             </p>
             <button
               onClick={handleDismiss}
-              className="text-slate-400 hover:text-slate-600 text-xs p-1"
+              className="text-slate-500 hover:text-slate-600 text-xs p-1"
               aria-label="Dismiss"
             >
               <FaTimes />
@@ -93,7 +93,7 @@ export default function PWAInstallPrompt() {
               onClick={handleInstall}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-colors shadow-sm"
             >
-              <FaDownload className="text-[10px]" />
+              <FaDownload className="text-[11px]" />
               <span>Install App</span>
             </button>
             <button

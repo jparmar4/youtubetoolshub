@@ -40,7 +40,7 @@ function ToolFavoriteButton({
         className={`p-2 rounded-xl transition-all shadow-2xs ${
           favorited
             ? "bg-amber-100/90 text-amber-600"
-            : "bg-white/80 text-slate-400 hover:text-amber-500 hover:bg-amber-50"
+            : "bg-white/80 text-slate-500 hover:text-amber-500 hover:bg-amber-50"
         } ${className}`}
         aria-label={favorited ? `Pinned to Quick Access - Unpin ${toolName}` : `Pin to Quick Access - ${toolName}`}
         title={favorited ? "Pinned to Quick Access" : "Pin to Quick Access"}
@@ -63,7 +63,7 @@ function ToolFavoriteButton({
     >
       <FaStar
         className={`w-3.5 h-3.5 ${
-          favorited ? "text-amber-500 fill-current animate-bounce" : "text-slate-400"
+          favorited ? "text-amber-500 fill-current animate-bounce" : "text-slate-500"
         }`}
       />
       <span>{favorited ? "Pinned to Quick Access" : "Pin to Quick Access"}</span>

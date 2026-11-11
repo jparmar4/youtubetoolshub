@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { FaCrown, FaLock, FaTimes } from "react-icons/fa";
 import { getToolMetaBySlug } from "@/config/tool-meta";
 import { getToolLimit } from "@/lib/usage";
 
 import { useUsage } from "@/hooks/useUsage";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 interface LimitReachedModalProps {
     isOpen: boolean;
@@ -17,14 +17,8 @@ interface LimitReachedModalProps {
 export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitReachedModalProps) {
     const { isPro } = useUsage();
 
-    useEffect(() => {
-        if (!isOpen) return;
-        function handleKeyDown(event: KeyboardEvent) {
-            if (event.key === "Escape") onClose();
-        }
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [isOpen, onClose]);
+    // Traps Tab inside the dialog, closes on Escape, and restores focus on close.
+    const dialogRef = useFocusTrap(Boolean(isOpen && toolSlug), { onEscape: onClose });
 
     if (!isOpen || !toolSlug) return null;
 
@@ -33,7 +27,7 @@ export default function LimitReachedModal({ isOpen, onClose, toolSlug }: LimitRe
     const toolName = tool?.name || "Tool";
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="limit-reached-title">
+        <div ref={dialogRef} className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="limit-reached-title">
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"

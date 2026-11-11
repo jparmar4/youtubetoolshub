@@ -532,7 +532,7 @@ ${channelHandle}`
 
                             {/* Recommended Price */}
                             <div className="p-6 rounded-2xl bg-gradient-to-b from-purple-50 to-white border-2 border-purple-500 shadow-xl text-center relative overflow-hidden">
-                                <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
+                                <div className="absolute top-0 right-0 bg-purple-600 text-white text-[11px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
                                     Target Pitch
                                 </div>
                                 <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">
@@ -861,7 +861,7 @@ ${channelHandle}`
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                             {/* Tier 1 */}
                                             <div className="rounded-xl bg-white/5 p-5 border border-purple-500/40 relative">
-                                                <span className="text-[10px] font-black uppercase tracking-wider text-purple-400 block mb-1">
+                                                <span className="text-[11px] font-black uppercase tracking-wider text-purple-400 block mb-1">
                                                     Tier 1: Most Popular
                                                 </span>
                                                 <h4 className="font-bold text-sm">60-90s Mid-Roll Integration</h4>
@@ -878,7 +878,7 @@ ${channelHandle}`
 
                                             {/* Tier 2 */}
                                             <div className="rounded-xl bg-white/5 p-5 border border-white/10">
-                                                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 block mb-1">
+                                                <span className="text-[11px] font-black uppercase tracking-wider text-emerald-400 block mb-1">
                                                     Tier 2: Maximum Impact
                                                 </span>
                                                 <h4 className="font-bold text-sm">Dedicated Video Episode</h4>
@@ -895,7 +895,7 @@ ${channelHandle}`
 
                                             {/* Tier 3 */}
                                             <div className="rounded-xl bg-white/5 p-5 border border-white/10">
-                                                <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 block mb-1">
+                                                <span className="text-[11px] font-black uppercase tracking-wider text-amber-400 block mb-1">
                                                     Tier 3: Viral Short Pack
                                                 </span>
                                                 <h4 className="font-bold text-sm">Shorts / Reels Integration</h4>
@@ -993,7 +993,7 @@ ${channelHandle}`
                                     <button
                                         type="button"
                                         onClick={() => setShowUpgradeModal(false)}
-                                        className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+                                        className="absolute top-4 right-4 text-slate-500 hover:text-slate-600"
                                     >
                                         <FaTimes className="text-base" />
                                     </button>
@@ -1040,7 +1040,7 @@ ${channelHandle}`
                                             >
                                                 Unlock Instant Pro ($1.99 / ₹99)
                                             </button>
-                                            <span className="text-[11px] text-slate-400">
+                                            <span className="text-[11px] text-slate-500">
                                                 One-time unlock • Lifetime access on this device
                                             </span>
                                         </div>

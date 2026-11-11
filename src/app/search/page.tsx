@@ -83,13 +83,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                         {/* Search Form */}
                         <form action="/search" method="GET" className="max-w-2xl mx-auto mb-12">
                             <div className="relative group">
-                                <FaSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 group-focus-within:text-purple-500 transition-colors" />
+                                <FaSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-purple-500 transition-colors" />
                                 <input
                                     type="text"
                                     name="q"
                                     defaultValue={query || ""}
                                     placeholder="Search tools, guides, strategies..."
-                                    className="w-full pl-16 pr-6 py-5 rounded-2xl border-2 border-slate-200 bg-white text-lg font-outfit font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all shadow-lg"
+                                    className="w-full pl-16 pr-6 py-5 rounded-2xl border-2 border-slate-200 bg-white text-lg font-outfit font-medium text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all shadow-lg"
                                     autoFocus
                                 />
                             </div>
@@ -165,7 +165,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                                 <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-md uppercase tracking-wide">
                                                     {post.category}
                                                 </span>
-                                                <span className="text-xs text-slate-400">
+                                                <span className="text-xs text-slate-500">
                                                     {post.date}
                                                 </span>
                                             </div>

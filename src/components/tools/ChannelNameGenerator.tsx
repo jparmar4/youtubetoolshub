@@ -263,7 +263,7 @@ export default function ChannelNameGenerator() {
                                                     className="group relative bg-slate-50 hover:bg-white hover:shadow-md border border-transparent hover:border-slate-200 rounded-xl p-4 transition-all duration-200"
                                                 >
                                                     <div className="flex justify-between items-start mb-2">
-                                                        <span className="inline-block px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wide bg-slate-200 text-slate-600">
+                                                        <span className="inline-block px-2 py-0.5 rounded text-[11px] uppercase font-bold tracking-wide bg-slate-200 text-slate-600">
                                                             {item.vibe}
                                                         </span>
                                                         <span className="text-xs font-bold text-green-500">

@@ -241,7 +241,7 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                                 {tool.name}
                               </span>
                               {tool.badge && (
-                                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
+                                <span className="text-[11px] font-extrabold px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
                                   {tool.badge}
                                 </span>
                               )}
@@ -297,7 +297,7 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                 onClick={onClose}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 text-[11px] font-bold text-slate-800 hover:text-emerald-800 transition-colors"
               >
-                <span className="px-1 py-0.5 rounded bg-slate-900 text-white text-[9px] font-black">
+                <span className="px-1 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black">
                   {m.code}
                 </span>
                 <span>{m.label}</span>

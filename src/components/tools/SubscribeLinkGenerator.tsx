@@ -109,7 +109,7 @@ export default function SubscribeLinkGenerator() {
           </label>
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500">
                 <FaLink />
               </span>
               <Input

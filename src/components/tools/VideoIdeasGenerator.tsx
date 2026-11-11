@@ -329,7 +329,7 @@ export default function VideoIdeasGenerator() {
                                                     }`}>
                                                     {idea.score}
                                                 </span>
-                                                <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
+                                                <span className="text-[11px] uppercase font-bold text-slate-500">Score</span>
                                             </div>
                                             <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-green-100 text-green-700' :
                                                 idea.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
@@ -360,7 +360,7 @@ export default function VideoIdeasGenerator() {
                                                         disabled={isSaved}
                                                         className={`p-2 rounded-xl transition-all ${isSaved
                                                             ? "bg-yellow-50 text-yellow-500"
-                                                            : "bg-slate-50 text-slate-400 hover:text-yellow-500 hover:bg-yellow-50"
+                                                            : "bg-slate-50 text-slate-500 hover:text-yellow-500 hover:bg-yellow-50"
                                                             }`}
                                                         title="Save Idea"
                                                     >
@@ -375,7 +375,7 @@ export default function VideoIdeasGenerator() {
                                             </p>
 
                                             <div className="bg-slate-50 rounded-lg p-3 flex gap-3 items-start border border-slate-200">
-                                                <FaImage className="text-slate-400 mt-1 flex-shrink-0" />
+                                                <FaImage className="text-slate-500 mt-1 flex-shrink-0" />
                                                 <div>
                                                     <span className="text-xs font-bold text-slate-500 uppercase block mb-1">Thumbnail Concept</span>
                                                     <p className="text-sm text-slate-600 italic">

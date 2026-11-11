@@ -302,7 +302,7 @@ export default function TagGenerator() {
                                     <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${charCount <= charLimit ?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700'}`}>
                                         {charCount} / {charLimit} characters
                                     </span>
-                                    <span className="text-[11px] text-slate-400">
+                                    <span className="text-[11px] text-slate-500">
                                         (YouTube Studio Limit: 500)
                                     </span>
                                 </div>
@@ -314,7 +314,7 @@ export default function TagGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as CSV"
                                 >
-                                    <FaDownload className="text-[10px]" />
+                                    <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
@@ -322,7 +322,7 @@ export default function TagGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as Plain Text"
                                 >
-                                    <FaFileAlt className="text-[10px]" />
+                                    <FaFileAlt className="text-[11px]" />
                                     <span>TXT</span>
                                 </button>
                             </div>

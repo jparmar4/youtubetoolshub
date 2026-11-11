@@ -107,7 +107,7 @@ export default function InternationalPayoutCallout({
                   className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-black text-white shadow hover:from-emerald-700 hover:to-teal-700 hover:shadow-md transition-all"
                 >
                   <span>{currentTool.ctaText}</span>
-                  <FaExternalLinkAlt className="text-[10px]" />
+                  <FaExternalLinkAlt className="text-[11px]" />
                 </a>
               </div>
             </div>

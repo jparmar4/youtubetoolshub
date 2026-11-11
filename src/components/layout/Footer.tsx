@@ -1,10 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { FaYoutube, FaTelegram, FaFacebook, FaHeart } from "react-icons/fa";
+import {
+  FaYoutube,
+  FaTelegram,
+  FaFacebook,
+  FaTwitter,
+  FaPinterest,
+  FaHeart,
+} from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import CurrentYear from "@/components/layout/CurrentYear";
+
+// Icon + brand hover color per siteConfig.footerLinks.social icon name
+const SOCIAL_LINK_META: Record<string, { Icon: typeof FaTelegram; hoverClass: string }> = {
+  telegram: { Icon: FaTelegram, hoverClass: "hover:bg-[#0088cc]" },
+  facebook: { Icon: FaFacebook, hoverClass: "hover:bg-[#1877F2]" },
+  twitter: { Icon: FaTwitter, hoverClass: "hover:bg-[#1DA1F2]" },
+  pinterest: { Icon: FaPinterest, hoverClass: "hover:bg-[#E60023]" },
+};
 
 const popularTools = [
   { name: "Thumbnail Downloader (HD & 4K)", href: "/tools/youtube-thumbnail-downloader" },
@@ -51,24 +66,23 @@ export default function Footer() {
             </p>
             {/* Social Links */}
             <div className="flex gap-3">
-              <a
-                href="https://t.me/youtubetoolshub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-[#0088cc] hover:text-white transition-all duration-300"
-                aria-label="Telegram"
-              >
-                <FaTelegram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=61585430621256"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-slate-200 text-slate-700 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
-                aria-label="Facebook"
-              >
-                <FaFacebook className="w-4 h-4" />
-              </a>
+              {siteConfig.footerLinks.social.map((social) => {
+                const meta = SOCIAL_LINK_META[social.icon];
+                if (!meta) return null;
+                const SocialIcon = meta.Icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-2 rounded-lg bg-slate-200 text-slate-700 ${meta.hoverClass} hover:text-white transition-all duration-300`}
+                    aria-label={social.name}
+                  >
+                    <SocialIcon className="w-4 h-4" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

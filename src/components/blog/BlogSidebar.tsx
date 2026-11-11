@@ -77,7 +77,7 @@ export default function BlogSidebar() {
             <FaGlobeAmericas className="w-3.5 h-3.5" />
             2026 Tier-1 RPM Index
           </span>
-          <span className="text-[11px] font-bold text-slate-400">52 Markets</span>
+          <span className="text-[11px] font-bold text-slate-500">52 Markets</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -97,7 +97,7 @@ export default function BlogSidebar() {
                 </span>
                 <span className="text-emerald-400 font-black">{m.rpm}</span>
               </div>
-              <div className="text-[11px] text-slate-400 mt-1 truncate">
+              <div className="text-[11px] text-slate-500 mt-1 truncate">
                 {m.label}
               </div>
             </div>

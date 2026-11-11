@@ -201,7 +201,7 @@ export default function ThumbnailToolsHub() {
                                 <p className="text-slate-300 mb-6 leading-relaxed">
                                     Using our HD Downloader to study 4K and 8K thumbnails allows you to see the micro-adjustments top creators (like MrBeast or Peter McKinnon) make to their contrast and saturation—details invisible at lower resolutions.
                                 </p>
-                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-slate-400">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-slate-500">
                                     &ldquo;Small tweaks in lighting can increase CTR by 2-5% overnight.&rdquo;
                                 </div>
                             </div>

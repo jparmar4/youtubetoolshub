@@ -450,7 +450,7 @@ export default function Home() {
                   >
                     {cat.badge}
                   </span>
-                  <FaArrowRight className="w-3 h-3 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+                  <FaArrowRight className="w-3 h-3 text-slate-500 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
                 </div>
                 <div>
                   <div className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-purple-700 transition-colors font-outfit">
@@ -755,7 +755,7 @@ export default function Home() {
             Get Started Free
             <FaArrowRight className="group-hover:translate-x-2 transition-transform text-purple-600" aria-hidden="true" />
           </Link>
-          <div className="mt-10 text-slate-400 font-black text-xs uppercase tracking-[0.3em]">
+          <div className="mt-10 text-slate-500 font-black text-xs uppercase tracking-[0.3em]">
             Instant Results | Scale Effortlessly
           </div>
         </div>

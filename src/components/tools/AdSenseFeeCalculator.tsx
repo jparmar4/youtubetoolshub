@@ -155,7 +155,7 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
                 Monthly YouTube AdSense Payout (USD)
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
                 <Input
                   type="number"
                   min="50"
@@ -199,7 +199,7 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
                   className="pr-8 text-base font-semibold"
                   placeholder="45"
                 />
-                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">%</span>
+                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 font-bold">%</span>
               </div>
               <p className="text-xs text-slate-500 mt-1">
                 Google withholding tax (W-8BEN) applies strictly to income generated from viewers located in the US.
@@ -232,7 +232,7 @@ Audited with: https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculat
               {/* Monthly Breakdown */}
               <div className="mt-5 space-y-2.5 text-xs sm:text-sm divide-y divide-white/10">
                 <div className="flex justify-between pt-1">
-                  <span className="text-slate-400">Gross Monthly AdSense:</span>
+                  <span className="text-slate-500">Gross Monthly AdSense:</span>
                   <span className="font-bold text-white">${results.grossMonthly.toLocaleString()}</span>
                 </div>
                 {results.usWithholdingMonthly > 0 && (

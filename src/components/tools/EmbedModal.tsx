@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaCode, FaTimes, FaCheck, FaCopy, FaExternalLinkAlt } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 interface EmbedModalProps {
   slug: string;
@@ -13,6 +14,9 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [height, setHeight] = useState("600");
+
+  // Traps Tab inside the dialog, closes on Escape, and restores focus on close.
+  const dialogRef = useFocusTrap(isOpen, { onEscape: () => setIsOpen(false) });
 
   const embedUrl = `${siteConfig.url}/embed/tools/${slug}`;
   const toolUrl = `${siteConfig.url}/tools/${slug}`;
@@ -43,6 +47,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
           <div
+            ref={dialogRef}
             className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 p-6 md:p-8 max-h-[90vh] overflow-y-auto"
             role="dialog"
             aria-modal="true"
@@ -62,7 +67,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                className="p-2 rounded-full text-slate-500 hover:text-slate-600 hover:bg-slate-100 transition-colors"
                 aria-label="Close"
               >
                 <FaTimes />
@@ -83,7 +88,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                   min="400"
                   max="1200"
                 />
-                <span className="text-slate-400">Width is automatically 100% responsive</span>
+                <span className="text-slate-500">Width is automatically 100% responsive</span>
               </div>
 
               {/* Code Snippet Box */}
@@ -134,7 +139,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-purple-600 transition-colors"
               >
                 <span>Open widget preview in new tab</span>
-                <FaExternalLinkAlt className="text-[10px]" />
+                <FaExternalLinkAlt className="text-[11px]" />
               </a>
               <button
                 onClick={() => setIsOpen(false)}

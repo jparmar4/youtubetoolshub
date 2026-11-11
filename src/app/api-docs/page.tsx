@@ -198,7 +198,7 @@ export default function APIDocsPage() {
                                             <h3 className="font-bold text-slate-900 font-outfit">
                                                 {res.name}
                                             </h3>
-                                            <FaExternalLinkAlt className="w-3 h-3 text-slate-400" />
+                                            <FaExternalLinkAlt className="w-3 h-3 text-slate-500" />
                                         </div>
                                         <p className="text-sm text-slate-500 mb-2">
                                             {res.description}
@@ -311,7 +311,7 @@ export default function APIDocsPage() {
                             <h2 className="text-4xl font-black mb-4 font-outfit tracking-tight">
                                 Ready to integrate?
                             </h2>
-                            <p className="text-slate-400 text-xl mb-10 max-w-xl mx-auto font-outfit">
+                            <p className="text-slate-500 text-xl mb-10 max-w-xl mx-auto font-outfit">
                                 Start using the API or explore our OpenAPI specification for
                                 full endpoint details.
                             </p>

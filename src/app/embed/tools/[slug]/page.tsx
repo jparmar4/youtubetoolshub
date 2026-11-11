@@ -74,7 +74,7 @@ export default async function EmbedToolPage({
             className="text-xs font-semibold text-purple-600 hover:text-purple-700 hover:underline flex items-center gap-1 shrink-0"
           >
             <span>Full Tool</span>
-            <FaExternalLinkAlt className="text-[10px]" />
+            <FaExternalLinkAlt className="text-[11px]" />
           </a>
         </div>
 

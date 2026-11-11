@@ -302,7 +302,7 @@ export default function ContactForm() {
                                                 )}
                                             </Button>
 
-                                            <p className="text-center text-slate-400 text-sm">
+                                            <p className="text-center text-slate-500 text-sm">
                                                 By submitting, you agree to our{" "}
                                                 <a href="/privacy-policy" className="text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors">Privacy Policy</a>
                                             </p>

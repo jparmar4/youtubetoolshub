@@ -221,12 +221,12 @@ export default function TagExtractor() {
                                 </h3>
                                 <div className="flex flex-wrap gap-4 mt-2 text-sm text-slate-600">
                                     <span className="flex items-center gap-1.5 font-medium">
-                                        <FaUser className="w-3.5 h-3.5 text-slate-400" />
+                                        <FaUser className="w-3.5 h-3.5 text-slate-500" />
                                         {videoInfo.channelTitle}
                                     </span>
                                     {videoInfo.publishedAt && (
                                         <span className="flex items-center gap-1.5">
-                                            <FaCalendar className="w-3.5 h-3.5 text-slate-400" />
+                                            <FaCalendar className="w-3.5 h-3.5 text-slate-500" />
                                             {formatDate(videoInfo.publishedAt)}
                                         </span>
                                     )}
@@ -273,7 +273,7 @@ export default function TagExtractor() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as CSV"
                                 >
-                                    <FaDownload className="text-[10px]" />
+                                    <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
@@ -281,7 +281,7 @@ export default function TagExtractor() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as Plain Text"
                                 >
-                                    <FaFileAlt className="text-[10px]" />
+                                    <FaFileAlt className="text-[11px]" />
                                     <span>TXT</span>
                                 </button>
                             </div>

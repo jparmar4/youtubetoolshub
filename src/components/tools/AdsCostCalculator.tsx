@@ -225,7 +225,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
                   <span className="inline-flex items-center gap-1.5"><FaMagic className="text-indigo-500" /> 1-Click Industry Presets</span>
                 </label>
-                <span className="text-[11px] text-slate-400">Click to autofill 2026 benchmarks</span>
+                <span className="text-[11px] text-slate-500">Click to autofill 2026 benchmarks</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {[
@@ -291,7 +291,7 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
                     Total Ad Budget (USD)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
                     <Input
                       type="number"
                       min="10"
@@ -422,27 +422,27 @@ Generated with: https://www.youtubetoolshub.com/tools/youtube-ads-cost-calculato
               {/* Detailed Breakdown */}
               <div className="mt-5 space-y-3 divide-y divide-white/10 text-sm">
                 <div className="flex justify-between pt-2">
-                  <span className="text-slate-400">Average Cost Per View (CPV):</span>
+                  <span className="text-slate-500">Average Cost Per View (CPV):</span>
                   <span className="font-bold text-white">{formatCurrency(parseFloat(results.effectiveCpv) * fxRate, activeCurrency)}</span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-slate-400">Effective CPM (Impressions):</span>
+                  <span className="text-slate-500">Effective CPM (Impressions):</span>
                   <span className="font-bold text-white">{formatCurrency(parseFloat(results.effectiveCpm) * fxRate, activeCurrency)}</span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-slate-400">Total Ad Impressions:</span>
+                  <span className="text-slate-500">Total Ad Impressions:</span>
                   <span className="font-bold text-indigo-200">
                     {results.estimatedImpressions.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-slate-400">Expected Website Clicks (CTR):</span>
+                  <span className="text-slate-500">Expected Website Clicks (CTR):</span>
                   <span className="font-bold text-emerald-300">
                     ~{results.estimatedClicks.toLocaleString()} clicks
                   </span>
                 </div>
                 <div className="flex justify-between pt-2">
-                  <span className="text-slate-400">View Rate Benchmark:</span>
+                  <span className="text-slate-500">View Rate Benchmark:</span>
                   <span className="font-bold text-white">{results.viewRate}%</span>
                 </div>
               </div>

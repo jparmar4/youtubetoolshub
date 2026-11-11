@@ -131,7 +131,7 @@ export default function SmartWorkflow() {
                       0{step.id}
                     </div>
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border mb-2.5 ${colors.pill}`}
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider border mb-2.5 ${colors.pill}`}
                     >
                       {step.tool}
                     </span>

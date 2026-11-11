@@ -434,7 +434,7 @@ export default function ThumbnailFeedPreviewer() {
                 className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
                   showTimestampOverlay
                     ? "border-red-500 bg-red-950/60 text-red-300"
-                    : "border-slate-700 bg-slate-800 text-slate-400"
+                    : "border-slate-700 bg-slate-800 text-slate-500"
                 }`}
               >
                 <FaClock className="text-red-400" />
@@ -449,7 +449,7 @@ export default function ThumbnailFeedPreviewer() {
                 className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
                   showShortsSafeZone
                     ? "border-emerald-500 bg-emerald-950/60 text-emerald-300"
-                    : "border-slate-700 bg-slate-800 text-slate-400"
+                    : "border-slate-700 bg-slate-800 text-slate-500"
                 }`}
               >
                 <FaShieldAlt className="text-emerald-400" />
@@ -463,7 +463,7 @@ export default function ThumbnailFeedPreviewer() {
               className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
                 isGrayscale
                   ? "border-purple-500 bg-purple-950/60 text-purple-300"
-                  : "border-slate-700 bg-slate-800 text-slate-400"
+                  : "border-slate-700 bg-slate-800 text-slate-500"
               }`}
             >
               B&amp;W Contrast
@@ -475,7 +475,7 @@ export default function ThumbnailFeedPreviewer() {
               className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
                 isBlurred
                   ? "border-purple-500 bg-purple-950/60 text-purple-300"
-                  : "border-slate-700 bg-slate-800 text-slate-400"
+                  : "border-slate-700 bg-slate-800 text-slate-500"
               }`}
             >
               Squint Blur Test
@@ -550,7 +550,7 @@ export default function ThumbnailFeedPreviewer() {
                     {showTimestampOverlay && (
                       <div className="pointer-events-none absolute bottom-0 right-0 h-14 w-28 rounded-tl-xl border-2 border-dashed border-red-500 bg-red-600/30 backdrop-blur-[1px] flex flex-col items-center justify-center p-1 text-center">
                         <FaExclamationTriangle className="text-red-300 text-xs" />
-                        <span className="text-[9px] font-black uppercase text-red-200 leading-tight">
+                        <span className="text-[11px] font-black uppercase text-red-200 leading-tight">
                           Danger Zone (Blocked)
                         </span>
                       </div>
@@ -654,12 +654,12 @@ export default function ThumbnailFeedPreviewer() {
                       isGrayscale ? "grayscale" : ""
                     } ${isBlurred ? "blur-[3px]" : ""}`}
                   />
-                  <div className="absolute bottom-1.5 right-1.5 rounded bg-black/85 px-1 py-0.5 text-[10px] font-bold text-white">
+                  <div className="absolute bottom-1.5 right-1.5 rounded bg-black/85 px-1 py-0.5 text-[11px] font-bold text-white">
                     {duration}
                   </div>
 
                   {showTimestampOverlay && (
-                    <div className="absolute bottom-0 right-0 h-12 w-24 border border-dashed border-red-500 bg-red-600/40 flex items-center justify-center text-[9px] font-bold text-red-200">
+                    <div className="absolute bottom-0 right-0 h-12 w-24 border border-dashed border-red-500 bg-red-600/40 flex items-center justify-center text-[11px] font-bold text-red-200">
                       Blocked
                     </div>
                   )}
@@ -673,7 +673,7 @@ export default function ThumbnailFeedPreviewer() {
                     <h4 className="font-semibold text-xs leading-snug line-clamp-2 text-white">
                       {videoTitle}
                     </h4>
-                    <p className="mt-0.5 text-[11px] text-slate-400">
+                    <p className="mt-0.5 text-[11px] text-slate-500">
                       {channelName} • {viewCount} • {timeAgo}
                     </p>
                   </div>
@@ -726,7 +726,7 @@ export default function ThumbnailFeedPreviewer() {
                   <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between">
                     {/* Top 12% Header Danger Zone */}
                     <div className="h-[12%] w-full bg-red-600/30 border-b border-dashed border-red-400 flex items-center justify-center">
-                      <span className="text-[10px] font-black uppercase text-red-200 tracking-wider">
+                      <span className="text-[11px] font-black uppercase text-red-200 tracking-wider">
                         Header Safe-Zone (12%)
                       </span>
                     </div>
@@ -737,7 +737,7 @@ export default function ThumbnailFeedPreviewer() {
                         <span className="text-xs font-black text-emerald-300 block">
                           100% ACTIVE SAFE-ZONE
                         </span>
-                        <span className="text-[9px] text-slate-200">
+                        <span className="text-[11px] text-slate-200">
                           Place all thumbnail text, faces &amp; logos here
                         </span>
                       </div>
@@ -745,7 +745,7 @@ export default function ThumbnailFeedPreviewer() {
 
                     {/* Bottom 30% Caption & Actions Danger Zone */}
                     <div className="h-[30%] w-full bg-red-600/30 border-t border-dashed border-red-400 flex items-center justify-center">
-                      <span className="text-[10px] font-black uppercase text-red-200 tracking-wider">
+                      <span className="text-[11px] font-black uppercase text-red-200 tracking-wider">
                         Overlay Danger Zone (Captions &amp; UI)
                       </span>
                     </div>
@@ -767,7 +767,7 @@ export default function ThumbnailFeedPreviewer() {
                     {/* Left: Channel Info & Title */}
                     <div className="max-w-[75%] space-y-2">
                       <div className="flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-red-600 text-[11px] font-bold text-white">
                           {channelName.charAt(0)}
                         </div>
                         <span className="font-bold text-xs text-white drop-shadow">
@@ -775,7 +775,7 @@ export default function ThumbnailFeedPreviewer() {
                         </span>
                         <button
                           type="button"
-                          className="rounded-full bg-white px-2.5 py-0.5 text-[10px] font-bold text-black shadow"
+                          className="rounded-full bg-white px-2.5 py-0.5 text-[11px] font-bold text-black shadow"
                         >
                           Subscribe
                         </button>
@@ -785,7 +785,7 @@ export default function ThumbnailFeedPreviewer() {
                         {videoTitle}
                       </p>
 
-                      <div className="flex items-center gap-1.5 text-[10px] text-slate-200 opacity-90">
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-200 opacity-90">
                         <span>♫ Original Audio • {channelName}</span>
                       </div>
                     </div>
@@ -796,21 +796,21 @@ export default function ThumbnailFeedPreviewer() {
                         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-md">
                           <FaThumbsUp className="text-sm" />
                         </div>
-                        <span className="text-[10px] font-bold mt-0.5">84K</span>
+                        <span className="text-[11px] font-bold mt-0.5">84K</span>
                       </div>
 
                       <div className="flex flex-col items-center">
                         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-md">
                           <FaComment className="text-sm" />
                         </div>
-                        <span className="text-[10px] font-bold mt-0.5">1.2K</span>
+                        <span className="text-[11px] font-bold mt-0.5">1.2K</span>
                       </div>
 
                       <div className="flex flex-col items-center">
                         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur-md">
                           <FaShare className="text-sm" />
                         </div>
-                        <span className="text-[10px] font-bold mt-0.5">Share</span>
+                        <span className="text-[11px] font-bold mt-0.5">Share</span>
                       </div>
 
                       <div className="h-7 w-7 rounded-full bg-slate-700 border-2 border-white animate-spin"></div>

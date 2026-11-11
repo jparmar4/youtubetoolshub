@@ -106,7 +106,7 @@ TRANSCRIPT:
               href="/blog/youtube-video-summary-generator-ai-free"
               className="text-xs font-bold text-purple-600 hover:underline flex items-center gap-1 self-start sm:self-center bg-white px-3 py-1.5 rounded-lg border border-purple-200"
             >
-              Read Full 50-Video Study <FaExternalLinkAlt className="text-[10px]" />
+              Read Full 50-Video Study <FaExternalLinkAlt className="text-[11px]" />
             </Link>
           </div>
         </div>

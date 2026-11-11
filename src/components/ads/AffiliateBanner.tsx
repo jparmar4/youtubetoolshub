@@ -32,7 +32,7 @@ export default function AffiliateBanner({
                   {tool.name}
                 </span>
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
+                  className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
                 >
                   {tool.badge}
                 </span>
@@ -49,7 +49,7 @@ export default function AffiliateBanner({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-purple-600 hover:bg-purple-700 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.02]"
           >
             <span>{tool.ctaText}</span>
-            <FaExternalLinkAlt className="text-[10px]" />
+            <FaExternalLinkAlt className="text-[11px]" />
           </a>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function AffiliateBanner({
             <FaRocket className="text-amber-300" />
             <span>{tool.ctaText}</span>
           </a>
-          <span className="text-[11px] text-slate-400 italic text-center sm:text-right">
+          <span className="text-[11px] text-slate-500 italic text-center sm:text-right">
             {DEFAULT_AFFILIATE_DISCLOSURE}
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function AffiliateBanner({
               {tool.name}
             </h4>
             <span
-              className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
+              className={`inline-block text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${tool.badgeBg}`}
             >
               {tool.badge}
             </span>
@@ -127,7 +127,7 @@ export default function AffiliateBanner({
           <span>{tool.ctaText}</span>
           <FaExternalLinkAlt className="text-xs" />
         </a>
-        <p className="text-[10px] text-slate-400 text-center italic mt-1">
+        <p className="text-[11px] text-slate-500 text-center italic mt-1">
           {DEFAULT_AFFILIATE_DISCLOSURE}
         </p>
       </div>

@@ -354,7 +354,7 @@ export default function TitleGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as CSV"
                                 >
-                                    <FaDownload className="text-[10px]" />
+                                    <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
@@ -362,7 +362,7 @@ export default function TitleGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as Plain Text"
                                 >
-                                    <FaFileAlt className="text-[10px]" />
+                                    <FaFileAlt className="text-[11px]" />
                                     <span>TXT</span>
                                 </button>
                             </div>
@@ -390,7 +390,7 @@ export default function TitleGenerator() {
                                                 }`}>
                                                 {item.score}
                                             </span>
-                                            <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
+                                            <span className="text-[11px] uppercase font-bold text-slate-500">Score</span>
                                         </div>
 
                                         <div className="flex-1 space-y-2">
@@ -426,7 +426,7 @@ export default function TitleGenerator() {
                                                 disabled={isSaved}
                                                 className={`p-2 rounded-xl transition-all ${isSaved
                                                     ? "bg-yellow-50 text-yellow-500"
-                                                    : "bg-slate-50 text-slate-400 hover:text-yellow-500 hover:bg-yellow-50"
+                                                    : "bg-slate-50 text-slate-500 hover:text-yellow-500 hover:bg-yellow-50"
                                                     }`}
                                                 title="Save Title"
                                             >

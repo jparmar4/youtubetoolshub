@@ -272,7 +272,7 @@ export default function AboutPage() {
             </span>{" "}
             of Creation
           </h2>
-          <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed font-outfit">
+          <p className="text-xl md:text-2xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed font-outfit">
             Start using professional tools today—absolutely free, no sign-up
             needed.
           </p>

@@ -279,7 +279,7 @@ export default function YouTubeAlgorithmGuidePage() {
                                 { name: "Resources", href: "/resources" },
                                 { name: "YouTube Algorithm Guide 2026" },
                             ]}
-                            className="mb-8 text-slate-400 [&_a]:text-slate-400 [&_a:hover]:text-white"
+                            className="mb-8 text-slate-500 [&_a]:text-slate-500 [&_a:hover]:text-white"
                         />
                         <div className="text-center">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">

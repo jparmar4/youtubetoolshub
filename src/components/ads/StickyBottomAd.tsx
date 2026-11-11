@@ -89,13 +89,13 @@ export default function StickyBottomAd() {
       <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] max-h-[90px] overflow-hidden">
         {/* Ad Tag & Close Button */}
         <div className="absolute -top-6 right-2 flex items-center gap-2">
-          <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider bg-white/95 px-2 py-0.5 rounded-t border border-b-0 border-slate-200">
+          <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider bg-white/95 px-2 py-0.5 rounded-t border border-b-0 border-slate-200">
             Ad
           </span>
           <button
             onClick={handleDismiss}
             aria-label="Close Advertisement"
-            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 text-[10px] transition-colors shadow-sm"
+            className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-600 text-[11px] transition-colors shadow-sm"
           >
             <FaTimes />
           </button>

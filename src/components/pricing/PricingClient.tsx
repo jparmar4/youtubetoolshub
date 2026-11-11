@@ -183,10 +183,10 @@ export default function PricingClient() {
                                                     </span>
                                                 ) : (
                                                     <span className="flex-shrink-0 w-5 h-5 mt-0.5 rounded-full bg-slate-100 flex items-center justify-center">
-                                                        <FaTimes className="w-3 h-3 text-slate-400" />
+                                                        <FaTimes className="w-3 h-3 text-slate-500" />
                                                     </span>
                                                 )}
-                                                <span className={`text-base leading-tight ${feature.included ? 'text-slate-700' : 'text-slate-400'} ${feature.highlight ? 'font-semibold' : ''}`}>
+                                                <span className={`text-base leading-tight ${feature.included ? 'text-slate-700' : 'text-slate-500'} ${feature.highlight ? 'font-semibold' : ''}`}>
                                                     {feature.text}
                                                 </span>
                                             </li>

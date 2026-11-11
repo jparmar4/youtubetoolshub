@@ -168,7 +168,7 @@ export default function BlogPage() {
                   className="px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-full text-sm font-semibold hover:border-purple-400 hover:text-purple-700 hover:bg-purple-50 transition-colors shadow-sm"
                 >
                   {category.name}
-                  <span className="text-slate-400 font-normal"> · {categoryPostCounts[category.slug] ?? 0}</span>
+                  <span className="text-slate-500 font-normal"> · {categoryPostCounts[category.slug] ?? 0}</span>
                 </Link>
               ))}
             </div>
@@ -263,7 +263,7 @@ export default function BlogPage() {
                   Latest Strategic Guides
                 </h2>
               </div>
-              <p className="text-slate-400 max-w-md font-medium">
+              <p className="text-slate-500 max-w-md font-medium">
                 Deep dives into the mechanics of growth, monetization, and
                 automation.
               </p>
@@ -293,7 +293,7 @@ export default function BlogPage() {
               ))}
             </div>
             {remainingCount > 0 && (
-              <p className="mt-12 text-center text-slate-400 text-sm">
+              <p className="mt-12 text-center text-slate-500 text-sm">
                 Showing {POSTS_ON_INDEX} of {blogPosts.length} guides. Browse by
                 topic on our{" "}
                 <Link href="/blog/category/channel-growth" className="text-purple-400 underline">

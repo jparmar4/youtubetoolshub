@@ -398,7 +398,7 @@ export default async function ToolPage({
                                     <section className="card-3d rounded-3xl p-6 sm:p-7 border border-emerald-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-purple-50/40" aria-labelledby="monetize-funnel-heading">
                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                                             <div>
-                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
+                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-1.5">
                                                     Tier-1 Creator Monetization Suite
                                                 </span>
                                                 <h2 id="monetize-funnel-heading" className="text-lg sm:text-xl font-black text-slate-900 font-outfit">

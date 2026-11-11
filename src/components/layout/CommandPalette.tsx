@@ -266,13 +266,13 @@ export default function CommandPalette({
                 setQuery("");
                 setSelectedIndex(0);
               }}
-              className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg ml-2"
+              className="p-1.5 text-slate-500 hover:text-slate-600 rounded-lg ml-2"
               aria-label="Clear search"
             >
               <FaTimes className="w-4 h-4" />
             </button>
           ) : (
-            <kbd className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md ml-2">
+            <kbd className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md ml-2">
               ESC
             </kbd>
           )}
@@ -314,7 +314,7 @@ export default function CommandPalette({
             <div className="py-12 text-center text-slate-500">
               <FaSearch className="w-8 h-8 mx-auto text-slate-300 mb-3" />
               <p className="font-semibold text-slate-700">No matching tools found</p>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Try searching for "earnings", "cpm", "thumbnail", "sponsorship", or "tags"
               </p>
             </div>
@@ -365,7 +365,7 @@ export default function CommandPalette({
                         </span>
                         {item.badge && (
                           <span
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                            className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
                               item.isTier1
                                 ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
                                 : "bg-purple-100 text-purple-800"
@@ -382,7 +382,7 @@ export default function CommandPalette({
                   </div>
 
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="hidden sm:inline-block text-[11px] font-medium text-slate-400">
+                    <span className="hidden sm:inline-block text-[11px] font-medium text-slate-500">
                       {item.categoryLabel}
                     </span>
                     <FaArrowRight
@@ -403,16 +403,16 @@ export default function CommandPalette({
         <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 bg-slate-50 border-t border-slate-200 text-xs text-slate-500">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-semibold text-slate-600">
+              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[11px] font-semibold text-slate-600">
                 ↑
               </kbd>
-              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-semibold text-slate-600">
+              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[11px] font-semibold text-slate-600">
                 ↓
               </kbd>{" "}
               Navigate
             </span>
             <span className="inline-flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[10px] font-semibold text-slate-600">
+              <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[11px] font-semibold text-slate-600">
                 ↵
               </kbd>{" "}
               Open

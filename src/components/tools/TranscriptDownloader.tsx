@@ -511,7 +511,7 @@ ${sec3Text}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-purple-200 text-xs font-medium text-slate-800 shadow-xs"
                   >
                     <span className="font-semibold text-purple-600">{keyword}</span>
-                    <span className="px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[10px] font-bold">
+                    <span className="px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[11px] font-bold">
                       {count}x
                     </span>
                   </span>
@@ -564,7 +564,7 @@ ${sec3Text}
               {/* Search in Transcript */}
               {viewMode === "timestamps" && (
                 <div className="relative flex-1 max-w-xs">
-                  <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5" />
+                  <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 w-3.5 h-3.5" />
                   <input
                     type="text"
                     value={searchFilter}
@@ -746,7 +746,7 @@ ${sec3Text}
                       className="inline-flex items-center gap-1 rounded-lg border border-purple-200 bg-white px-3 py-1.5 text-xs font-bold text-purple-700 hover:bg-purple-50"
                     >
                       <span>Timestamp Generator</span>
-                      <FaExternalLinkAlt className="text-[10px]" />
+                      <FaExternalLinkAlt className="text-[11px]" />
                     </Link>
                   </div>
                 </div>
@@ -812,7 +812,7 @@ ${sec3Text}
                     >
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-2">
-                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-[10px] font-black uppercase text-purple-700">
+                          <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-[11px] font-black uppercase text-purple-700">
                             {hook.type}
                           </span>
                           <span className="text-[11px] font-mono text-slate-500">
@@ -833,7 +833,7 @@ ${sec3Text}
                       </div>
 
                       <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-emerald-600">
+                        <span className="text-[11px] font-bold text-emerald-600">
                           ✓ {hook.badge}
                         </span>
                         <Button
@@ -859,7 +859,7 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => setShowDayPassModal(false)}
-                  className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+                  className="absolute top-4 right-4 text-slate-500 hover:text-slate-600"
                 >
                   <FaTimes className="text-base" />
                 </button>
@@ -899,7 +899,7 @@ ${sec3Text}
                     >
                       Get Day Pass ($1.99 / ₹99)
                     </button>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-slate-500">
                       24 hours of unlimited batch processing
                     </span>
                   </div>

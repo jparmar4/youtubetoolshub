@@ -55,7 +55,7 @@ export function ToolCard({ icon, title, description, href, isAI, category, class
 
             <div className="flex items-center gap-2">
               {isAI && (
-                <span className="px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-full shadow-xs">
+                <span className="px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white rounded-full shadow-xs">
                   AI Studio
                 </span>
               )}

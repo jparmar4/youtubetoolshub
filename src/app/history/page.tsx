@@ -118,7 +118,7 @@ export default function HistoryPage() {
                         className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto"
                     >
                         <div className="relative flex-1 sm:w-64">
-                            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                            <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
                             <input
                                 type="text"
                                 placeholder="Search history..."
@@ -253,7 +253,7 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
                         {getIcon()}
                         <span>{item.tool_slug.split('-')[1]}</span>
                     </div>
-                    <span className="text-xs text-slate-400 font-medium">
+                    <span className="text-xs text-slate-500 font-medium">
                         {formatDate(item.created_at)}
                     </span>
                 </div>
@@ -284,11 +284,11 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
 
             {/* Actions */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
-                <CopyButton text={copyText} variant="icon" className="text-slate-400 hover:text-blue-500" />
+                <CopyButton text={copyText} variant="icon" className="text-slate-500 hover:text-blue-500" />
 
                 <button
                     onClick={onDelete}
-                    className="p-2 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-red-50 transition-all"
+                    className="p-2 rounded-lg text-slate-500 hover:text-emerald-500 hover:bg-red-50 transition-all"
                     title="Delete item"
                 >
                     <FaTrash size={14} />

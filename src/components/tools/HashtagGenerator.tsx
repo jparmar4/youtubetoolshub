@@ -78,7 +78,7 @@ function CategorySection({
                             <CopyButton text={item.tag} variant="icon" className="!p-0 !h-auto" />
                         </div>
                         {(item.volume || item.relevance) && (
-                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[11px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                                 Vol: {item.volume} • Rel: {item.relevance}
                             </div>
                         )}
@@ -259,7 +259,7 @@ export default function HashtagGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download hashtags as CSV"
                                 >
-                                    <FaDownload className="text-[10px]" />
+                                    <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
@@ -267,7 +267,7 @@ export default function HashtagGenerator() {
                                     className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download hashtags as Plain Text"
                                 >
-                                    <FaFileAlt className="text-[10px]" />
+                                    <FaFileAlt className="text-[11px]" />
                                     <span>TXT</span>
                                 </button>
                                 <button

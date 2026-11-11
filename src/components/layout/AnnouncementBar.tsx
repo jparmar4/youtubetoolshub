@@ -48,7 +48,7 @@ function AnnouncementBar() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-purple-900/30 via-fuchsia-900/20 to-emerald-900/30" />
       <div className="relative max-w-7xl mx-auto flex items-center justify-between gap-2 min-w-0">
         <div className="flex-1 min-w-0 flex items-center justify-center gap-2 sm:gap-3 text-center">
-          <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[10px] tracking-wider uppercase border border-emerald-400/30">
+          <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[11px] tracking-wider uppercase border border-emerald-400/30">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             2026 Suite
           </span>
@@ -73,7 +73,7 @@ function AnnouncementBar() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="shrink-0 p-1 text-slate-400 hover:text-white rounded-lg transition-colors"
+          className="shrink-0 p-1 text-slate-500 hover:text-white rounded-lg transition-colors"
           aria-label="Dismiss banner"
         >
           <FaTimes className="w-3 h-3" />

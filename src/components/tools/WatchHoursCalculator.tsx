@@ -365,7 +365,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               {/* Remaining Watch Hours */}
               <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center">
                     <FaClock className="mr-1.5 text-emerald-600" /> Remaining Hours
                   </div>
                   <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
@@ -380,7 +380,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               {/* Total Views Needed */}
               <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center">
                     <FaVideo className="mr-1.5 text-blue-600" /> Total Views Needed
                   </div>
                   <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
@@ -395,7 +395,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               {/* Views per Upload Target */}
               <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center">
                     <FaRocket className="mr-1.5 text-purple-600" /> 6-Month Per-Video Target
                   </div>
                   <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">
@@ -410,7 +410,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               {/* Subscribers Remaining */}
               <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1 flex items-center">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1 flex items-center">
                     <FaUsers className="mr-1.5 text-pink-600" /> Subscribers Needed
                   </div>
                   <div className="text-2xl sm:text-3xl font-black text-slate-900 font-outfit">

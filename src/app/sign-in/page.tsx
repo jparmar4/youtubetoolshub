@@ -45,7 +45,7 @@ function SignInContent() {
                     </div>
 
                     {/* Terms */}
-                    <p className="mt-6 text-xs text-center text-slate-400">
+                    <p className="mt-6 text-xs text-center text-slate-500">
                         By signing in, you agree to our{" "}
                         <Link href="/terms-of-use" className="text-purple-600 hover:underline">
                             Terms of Service

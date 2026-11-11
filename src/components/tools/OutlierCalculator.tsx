@@ -203,7 +203,7 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
           <div className="lg:col-span-6 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 rounded-2xl p-6 text-white shadow-lg flex flex-col justify-between space-y-6">
             <div>
               <div className="flex justify-between items-center">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Viral Multiplier Score
                 </span>
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-white/10 text-indigo-300">
@@ -231,13 +231,13 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
               {/* Velocity & Metrics */}
               <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
                 <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
-                  <span className="text-xs text-slate-400 block">Daily View Velocity</span>
+                  <span className="text-xs text-slate-500 block">Daily View Velocity</span>
                   <span className="font-bold text-white text-lg mt-0.5 block">
                     ~{results.dailyVelocity.toLocaleString()} / day
                   </span>
                 </div>
                 <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
-                  <span className="text-xs text-slate-400 block">Baseline Multiple</span>
+                  <span className="text-xs text-slate-500 block">Baseline Multiple</span>
                   <span className="font-bold text-emerald-300 text-lg mt-0.5 block">
                     +{(parseFloat(results.multiplier) * 100 - 100).toFixed(0)}% Lift
                   </span>

@@ -216,7 +216,7 @@ export default function FAQPage() {
 
           {/* Ad placement */}
           <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-            <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+            <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
             <GoogleAd slot="7688425196" className="w-full text-center" />
           </div>
 
@@ -227,7 +227,7 @@ export default function FAQPage() {
               <h2 className="text-4xl font-black mb-4 font-outfit tracking-tight">
                 Still have questions?
               </h2>
-              <p className="text-slate-400 text-xl mb-10 max-w-xl mx-auto font-outfit">
+              <p className="text-slate-500 text-xl mb-10 max-w-xl mx-auto font-outfit">
                 Our growth experts are active in the community. Reach out for
                 technical help or strategic advice.
               </p>

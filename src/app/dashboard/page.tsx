@@ -193,7 +193,7 @@ export default function DashboardPage() {
                                         const tool = getToolBySlug(item.toolSlug);
                                         return (
                                             <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
-                                                <div className="flex-shrink-0 text-slate-400">
+                                                <div className="flex-shrink-0 text-slate-500">
                                                     {tool ? <tool.icon /> : <FaCheckCircle />}
                                                 </div>
                                                 <div className="flex-1 min-w-0">

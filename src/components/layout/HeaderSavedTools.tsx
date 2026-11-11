@@ -14,6 +14,7 @@ function HeaderSavedTools() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"pinned" | "recent">("pinned");
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   // Close when clicking outside
   useEffect(() => {
@@ -30,10 +31,13 @@ function HeaderSavedTools() {
     };
   }, [isOpen]);
 
-  // Close on Escape
+  // Close on Escape and return focus to the trigger
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+      }
     }
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
@@ -55,19 +59,21 @@ function HeaderSavedTools() {
     <div ref={containerRef} className="relative inline-block text-left shrink-0">
       <button
         type="button"
+        ref={triggerRef}
         onClick={() => setIsOpen((prev) => !prev)}
         className={`h-9 inline-flex items-center gap-1.5 px-3 rounded-full border text-xs font-bold transition-all shadow-[inset_0_1px_0_0_#fff,0_1px_2px_rgba(15,23,42,0.05)] focus:outline-none focus:ring-2 focus:ring-amber-500/40 whitespace-nowrap ${
           favorites.length > 0
             ? "bg-amber-50/90 border-amber-200/90 text-amber-900 hover:bg-amber-100/90"
             : "bg-white border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:border-purple-300"
         }`}
+        aria-haspopup="menu"
         aria-expanded={isOpen}
       >
         <FaStar className="w-3.5 h-3.5 text-amber-500 shrink-0" aria-hidden="true" />
         <span className="sr-only xl:not-sr-only">Saved</span>
         <span className="sr-only"> tools and recents</span>
         {favorites.length > 0 && (
-          <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[10px] font-black leading-none">
+          <span className="px-1.5 py-0.5 rounded-full bg-amber-600 text-white text-[11px] font-black leading-none">
             {favorites.length}
           </span>
         )}
@@ -89,7 +95,7 @@ function HeaderSavedTools() {
               >
                 <FaStar className="w-3 h-3 text-amber-500" />
                 <span>Pinned</span>
-                <span className="text-[10px] px-1 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                <span className="text-[11px] px-1 py-0.5 rounded-full bg-amber-100 text-amber-800">
                   {favorites.length}
                 </span>
               </button>
@@ -106,7 +112,7 @@ function HeaderSavedTools() {
                 <FaClock className="w-3 h-3 text-purple-600" />
                 <span>Recent</span>
                 {recentToolObjects.length > 0 && (
-                  <span className="text-[10px] px-1 py-0.5 rounded-full bg-purple-100 text-purple-800">
+                  <span className="text-[11px] px-1 py-0.5 rounded-full bg-purple-100 text-purple-800">
                     {recentToolObjects.length}
                   </span>
                 )}
@@ -120,7 +126,7 @@ function HeaderSavedTools() {
                   clearRecents();
                   toast.info("Cleared recent tools history.");
                 }}
-                className="text-[10px] text-slate-400 hover:text-red-500 transition-colors flex items-center gap-1"
+                className="text-[11px] text-slate-500 hover:text-red-500 transition-colors flex items-center gap-1"
                 title="Clear history"
               >
                 <FaTrashAlt className="w-2.5 h-2.5" />
@@ -135,7 +141,7 @@ function HeaderSavedTools() {
               savedToolObjects.length === 0 ? (
                 <div className="p-4 text-center">
                   <p className="text-xs text-slate-500 mb-2">No tools pinned yet!</p>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">
+                  <p className="text-[11px] text-slate-500 leading-relaxed">
                     Click the <FaStar className="inline w-3 h-3 text-amber-400" /> star on any tool
                     page or card to pin it here for instant 1-click access.
                   </p>
@@ -160,7 +166,7 @@ function HeaderSavedTools() {
                           <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">
                             {tool.name}
                           </p>
-                          <p className="text-[10px] text-slate-400 truncate">
+                          <p className="text-[11px] text-slate-500 truncate">
                             {tool.shortDescription}
                           </p>
                         </div>
@@ -185,7 +191,7 @@ function HeaderSavedTools() {
             ) : recentToolObjects.length === 0 ? (
               <div className="p-4 text-center">
                 <p className="text-xs text-slate-500 mb-2">No recent tools viewed yet!</p>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
+                <p className="text-[11px] text-slate-500 leading-relaxed">
                   As you browse creator tools, your most recently visited tools will appear here
                   automatically.
                 </p>
@@ -212,7 +218,7 @@ function HeaderSavedTools() {
                         <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">
                           {tool.name}
                         </p>
-                        <p className="text-[10px] text-slate-400 truncate">
+                        <p className="text-[11px] text-slate-500 truncate">
                           {tool.shortDescription}
                         </p>
                       </div>
@@ -246,7 +252,7 @@ function HeaderSavedTools() {
           </div>
 
           <div className="px-4 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <span className="text-slate-400">Fast 1-click launch</span>
+            <span className="text-slate-500">Fast 1-click launch</span>
             <Link
               href="/tools"
               onClick={() => setIsOpen(false)}

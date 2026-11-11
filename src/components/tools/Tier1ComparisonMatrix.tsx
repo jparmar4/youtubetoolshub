@@ -243,7 +243,7 @@ export default function Tier1ComparisonMatrix() {
                     }`}
                   >
                     <div className="text-sm font-bold">{p.label}</div>
-                    <div className="text-[10px] text-slate-600">/ month</div>
+                    <div className="text-[11px] text-slate-600">/ month</div>
                   </button>
                 );
               })}
@@ -269,7 +269,7 @@ export default function Tier1ComparisonMatrix() {
             <div className="text-xs text-white/95 mt-1">
               Range: ${stats.monthlyAdSenseMin.toLocaleString()} – ${stats.monthlyAdSenseMax.toLocaleString()} USD
             </div>
-            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[11px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Based on ${activeCountry.rpmAvg.toFixed(2)} USD average RPM
             </div>
           </div>
@@ -285,7 +285,7 @@ export default function Tier1ComparisonMatrix() {
             <div className="text-xs text-white/95 mt-1">
               12-Month Ad Revenue (USD)
             </div>
-            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[11px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Excluding seasonal Q4 spikes (+20–50%)
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function Tier1ComparisonMatrix() {
             <div className="text-xs text-white/95 mt-1">
               Per 60s Video Integration
             </div>
-            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[11px] text-white/90 mt-3 pt-2 border-t border-white/20">
               {activeCountry.tier === "TIER1" ? "Tier 1" : "Tier 2"} Brand Direct Placement
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function Tier1ComparisonMatrix() {
             <div className="text-xs text-white/95 mt-1">
               24x–36x Monthly Net Multiple
             </div>
-            <div className="text-[10px] text-white/90 mt-3 pt-2 border-t border-white/20">
+            <div className="text-[11px] text-white/90 mt-3 pt-2 border-t border-white/20">
               Broker standard (Flippa / Empire Flippers)
             </div>
           </div>

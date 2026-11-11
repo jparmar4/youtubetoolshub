@@ -204,7 +204,7 @@ export default function ThumbnailGenerator() {
 
                                             {/* Color Suggestion */}
                                             <div className="flex items-start gap-2 text-sm text-slate-500 mb-4">
-                                                <FaPalette className="flex-shrink-0 mt-0.5 text-slate-400" />
+                                                <FaPalette className="flex-shrink-0 mt-0.5 text-slate-500" />
                                                 <span>{idea.color_suggestion || "High contrast colors recommendation"}</span>
                                             </div>
                                         </div>

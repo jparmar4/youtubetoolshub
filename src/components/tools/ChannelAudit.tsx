@@ -97,7 +97,7 @@ export default function ChannelAudit() {
                 )}
 
                 <label className="block text-sm font-medium text-slate-700">
-                    Channel name or handle <span className="text-slate-400">(optional)</span>
+                    Channel name or handle <span className="text-slate-500">(optional)</span>
                     <input
                         value={channelLabel}
                         onChange={(event) => setChannelLabel(event.target.value)}
@@ -146,7 +146,7 @@ export default function ChannelAudit() {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
                             <div className="text-sm font-bold uppercase text-slate-500">Self-assessment score</div>
-                            <div className="mt-1 text-4xl font-black text-slate-900">{score}<span className="text-xl text-slate-400">/100</span></div>
+                            <div className="mt-1 text-4xl font-black text-slate-900">{score}<span className="text-xl text-slate-500">/100</span></div>
                         </div>
                         <div className="flex flex-wrap gap-3">
                             <button

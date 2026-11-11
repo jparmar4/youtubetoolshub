@@ -17,7 +17,7 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       {items.map((item, index) => (
         <div key={index} className="flex items-center">
           {index > 0 && (
-            <FaChevronRight className="w-4 h-4 text-slate-400 mx-2" />
+            <FaChevronRight className="w-4 h-4 text-slate-500 mx-2" />
           )}
           {item.href ? (
             <Link

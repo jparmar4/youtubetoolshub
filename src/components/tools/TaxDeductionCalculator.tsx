@@ -391,7 +391,7 @@ export default function TaxDeductionCalculator() {
 
                             {/* Estimated Tax Savings */}
                             <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-50 to-white border-2 border-emerald-500 shadow-xl text-center relative overflow-hidden">
-                                <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
+                                <div className="absolute top-0 right-0 bg-emerald-600 text-white text-[11px] font-black uppercase px-3 py-0.5 rounded-bl-lg">
                                     Estimated Savings
                                 </div>
                                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">

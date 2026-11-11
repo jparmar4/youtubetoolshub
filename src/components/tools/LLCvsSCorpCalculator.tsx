@@ -322,7 +322,7 @@ export default function LLCvsSCorpCalculator() {
                     <FaUserTie className="text-blue-600" />
                     <span>S-Corp Election (Form 2553)</span>
                   </div>
-                  <span className="rounded-full bg-blue-600 px-2.5 py-0.5 text-[10px] font-bold text-white uppercase">
+                  <span className="rounded-full bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white uppercase">
                     Tax Optimizer
                   </span>
                 </div>

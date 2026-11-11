@@ -83,7 +83,7 @@ export default function WhyUsPage() {
                         <p className="text-2xl md:text-3xl font-serif italic mb-8">
                             &quot;The difference between YouTube Tools Hub and the rest is that it actually helps me *make* the video, not just look at numbers after I&apos;ve posted it.&quot;
                         </p>
-                        <footer className="font-bold text-slate-400">
+                        <footer className="font-bold text-slate-500">
                             — Top Tech Creator, 2026
                         </footer>
                     </blockquote>

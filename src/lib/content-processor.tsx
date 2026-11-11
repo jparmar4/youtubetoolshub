@@ -315,7 +315,7 @@ export function processContent(
         inArticleAdCount++;
         elements.push(
             <div key={`mid-ad-${index}`} className="my-8 not-prose rounded-2xl overflow-hidden border border-slate-200/90 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
+                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
                 <GoogleAd layout="in-article" format="fluid" slot={slot} className="w-full text-center" />
             </div>,
         );
@@ -722,7 +722,7 @@ export function processContent(
                     {codeBlockLang && (
                         <div className="flex items-center justify-between px-5 py-2.5 bg-slate-800/90 border-b border-slate-700/60 text-xs font-mono text-slate-300">
                             <span className="font-semibold uppercase tracking-wider text-purple-400">{codeBlockLang}</span>
-                            <span className="text-[11px] text-slate-400 font-sans">Code Snippet</span>
+                            <span className="text-[11px] text-slate-500 font-sans">Code Snippet</span>
                         </div>
                     )}
                     <pre className="p-5 overflow-x-auto text-sm text-slate-100 font-mono leading-relaxed whitespace-pre">

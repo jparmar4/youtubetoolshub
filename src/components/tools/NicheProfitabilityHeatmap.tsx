@@ -238,7 +238,7 @@ export default function NicheProfitabilityHeatmap() {
 
         {/* View Switcher / Sort */}
         <div className="flex items-center gap-2 self-start md:self-auto">
-          <FaSlidersH className="text-slate-400 text-xs" />
+          <FaSlidersH className="text-slate-500 text-xs" />
           <span className="text-xs font-semibold text-slate-500">Sort:</span>
           <select
             aria-label="Sort niches by"
@@ -276,7 +276,7 @@ export default function NicheProfitabilityHeatmap() {
         </div>
 
         <div className="relative min-w-[200px]">
-          <FaSearch className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-400" />
+          <FaSearch className="absolute left-3 top-2.5 w-3.5 h-3.5 text-slate-500" />
           <input
             type="text"
             value={search}
@@ -311,7 +311,7 @@ export default function NicheProfitabilityHeatmap() {
                     </h3>
                   </div>
                   {isTopTier && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
                       <FaAward /> Top Payout
                     </span>
                   )}
@@ -320,13 +320,13 @@ export default function NicheProfitabilityHeatmap() {
                 {/* Primary Metric Badges */}
                 <div className="grid grid-cols-2 gap-2 my-3 p-3 rounded-xl bg-slate-50 border border-slate-100">
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-600 block">US CPM Range</span>
+                    <span className="text-[11px] uppercase font-bold text-slate-600 block">US CPM Range</span>
                     <span className="text-base font-black text-slate-900">
                       ${niche.usCpmRange[0]} – ${niche.usCpmRange[1]}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-600 block">Avg Creator RPM</span>
+                    <span className="text-[11px] uppercase font-bold text-slate-600 block">Avg Creator RPM</span>
                     <span className="text-base font-black text-emerald-700">
                       ~${niche.rpmAvg.toFixed(2)}
                     </span>

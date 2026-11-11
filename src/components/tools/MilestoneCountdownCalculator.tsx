@@ -353,7 +353,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                     </div>
 
                     <div className="text-left md:text-right shrink-0">
-                      <span className="text-xs text-slate-400 block font-semibold">
+                      <span className="text-xs text-slate-500 block font-semibold">
                         {m.isReached ? "Status" : "Projected Completion"}
                       </span>
                       <span className="text-lg font-black text-slate-900 font-outfit">

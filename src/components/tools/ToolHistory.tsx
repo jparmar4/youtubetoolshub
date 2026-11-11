@@ -160,7 +160,7 @@ function MiniHistoryCard({
             className="group relative bg-white rounded-xl p-5 border border-slate-200 hover:shadow-lg hover:border-blue-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all cursor-pointer"
         >
             <div className="flex justify-between items-start mb-3">
-                <span className="text-xs text-slate-400 font-medium">
+                <span className="text-xs text-slate-500 font-medium">
                     {formatDate(item.created_at)}
                 </span>
                 <button
@@ -168,7 +168,7 @@ function MiniHistoryCard({
                     onClick={onDelete}
                     onKeyDown={(e) => e.stopPropagation()}
                     aria-label={`Delete history item: ${title}`}
-                    className="text-slate-400 hover:text-emerald-600 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 p-2 -m-1 rounded focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                    className="text-slate-500 hover:text-emerald-600 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 p-2 -m-1 rounded focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
                 >
                     <FaTrash size={12} aria-hidden="true" />
                 </button>
@@ -270,7 +270,7 @@ function HistoryDetailModal({
                                 type="button"
                                 onClick={() => handleCopy(title)}
                                 aria-label="Copy title"
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                                className="text-slate-500 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
                                 <FaCopy size={14} aria-hidden="true" />
                             </button>
@@ -287,7 +287,7 @@ function HistoryDetailModal({
                                 type="button"
                                 onClick={() => handleCopy(concept)}
                                 aria-label="Copy concept"
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                                className="text-slate-500 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
                                 <FaCopy size={14} aria-hidden="true" />
                             </button>
@@ -304,7 +304,7 @@ function HistoryDetailModal({
                                 type="button"
                                 onClick={() => handleCopy(description)}
                                 aria-label="Copy description"
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                                className="text-slate-500 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
                                 <FaCopy size={14} aria-hidden="true" />
                             </button>
@@ -321,7 +321,7 @@ function HistoryDetailModal({
                                 type="button"
                                 onClick={() => handleCopy(thumbnailConcept)}
                                 aria-label="Copy thumbnail concept"
-                                className="text-slate-400 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                                className="text-slate-500 hover:text-blue-500 transition-colors flex-shrink-0 p-1 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                             >
                                 <FaCopy size={14} aria-hidden="true" />
                             </button>
@@ -409,7 +409,7 @@ function HistoryDetailModal({
                         type="button"
                         onClick={onClose}
                         aria-label="Close history details"
-                        className="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                        className="p-2 text-slate-500 hover:text-slate-600 transition-colors rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                     >
                         <FaTimes aria-hidden="true" />
                     </button>

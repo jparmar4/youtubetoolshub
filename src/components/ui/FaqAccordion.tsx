@@ -39,7 +39,7 @@ export default function FaqAccordion({
                         </Heading>
                         <FaChevronDown
                             aria-hidden="true"
-                            className="shrink-0 text-sm text-slate-400 transition-transform duration-300 group-open:rotate-180 group-open:text-purple-600"
+                            className="shrink-0 text-sm text-slate-500 transition-transform duration-300 group-open:rotate-180 group-open:text-purple-600"
                         />
                     </summary>
                     <div className="border-t border-slate-100 px-5 py-4">

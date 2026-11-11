@@ -157,7 +157,7 @@ export default function ExitIntentPopup() {
 
                                 <form onSubmit={handleSubmit} className="space-y-3">
                                     <div className="relative">
-                                        <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+                                        <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
                                         <input
                                             type="email"
                                             value={email}

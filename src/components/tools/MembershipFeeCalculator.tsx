@@ -287,7 +287,7 @@ export default function MembershipFeeCalculator() {
                         </span>
                       </div>
                     </div>
-                    <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-[9px] font-black text-white uppercase">
+                    <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-[11px] font-black text-white uppercase">
                       Winner
                     </span>
                   </div>
