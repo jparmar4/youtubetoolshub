@@ -12,10 +12,6 @@ interface ToolPageLayoutProps {
     description: string;
     slug?: string; // Optional - will be generated from title if not provided
     children: ReactNode;
-    /** @deprecated Parent tool page renders the canonical FAQ set from seoFaqs. */
-    faq?: { question: string; answer: string }[];
-    howTo?: string[];
-    seoContent?: string;
 }
 
 export default function ToolPageLayout({

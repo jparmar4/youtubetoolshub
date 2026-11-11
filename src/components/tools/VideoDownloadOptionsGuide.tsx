@@ -55,20 +55,6 @@ const intentButtons: { id: Intent; icon: React.ReactNode; label: string; descrip
     { id: "share", icon: <FaLink />, label: "Share or embed", description: "Show the original video elsewhere" },
 ];
 
-const faq = [
-    {
-        question: "Why does this page not extract video files?",
-        answer: "YouTube's API developer policies prohibit tools from downloading, caching, or storing copies of YouTube audiovisual content without prior written approval from YouTube.",
-    },
-    {
-        question: "Can I download my own upload?",
-        answer: "Yes. Use the download option in YouTube Studio for videos that you uploaded to your own channel.",
-    },
-    {
-        question: "Can I share a YouTube video on my website?",
-        answer: "Use the original YouTube link or the standard YouTube embed player. This preserves attribution and the normal YouTube viewing experience.",
-    },
-];
 
 export default function VideoDownloadOptionsGuide() {
     const [intent, setIntent] = useState<Intent>("own-video");
@@ -87,7 +73,6 @@ export default function VideoDownloadOptionsGuide() {
             title="YouTube Video Download Options Guide"
             slug="youtube-video-download-options"
             description="Choose your goal and get a policy-safe YouTube option. This guide does not fetch, extract, or store video files."
-            faq={faq}
         >
             <div className="space-y-8">
                 <UsageBanner toolSlug="youtube-video-download-options" />

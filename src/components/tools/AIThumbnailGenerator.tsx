@@ -23,35 +23,6 @@ const styleOptions = [
     { value: "cooking", label: "Cooking / Food" },
 ];
 
-const faq = [
-    {
-        question: "How does AI thumbnail generation work?",
-        answer: "The tool uses an image generation model to create thumbnail concept drafts from your text description. Review each result for accuracy and edit it before publishing."
-    },
-    {
-        question: "Why do I get 2 images?",
-        answer: "We generate 2 variations for each prompt so you can choose the one that best fits your video. Each image is slightly different, giving you more options."
-    },
-    {
-        question: "What resolution are the thumbnails?",
-        answer: "Thumbnails are generated at 1280x720 pixels (16:9 aspect ratio), the recommended size for YouTube thumbnails."
-    },
-    {
-        question: "Can I use these thumbnails commercially?",
-        answer: "Yes! AI-generated thumbnails can be used for your YouTube videos. However, always ensure the content doesn't infringe on any copyrights or trademarks."
-    },
-];
-
-const howTo = [
-    "Describe the thumbnail you want in detail (e.g., 'person looking shocked at laptop screen')",
-    "Select a style that matches your video content",
-    "Click 'Generate Thumbnails' to create 2 AI images",
-    "Wait a few seconds for the AI to generate your thumbnails",
-    "Compare both options and download the one you like best"
-];
-
-const seoContent = `Create stunning YouTube thumbnails with AI in seconds. Our AI Thumbnail Generator uses advanced FLUX technology to transform your text descriptions into eye-catching thumbnail images. Get 2 variations per prompt so you can choose the best one. Perfect for gaming, tech, vlogs, education, and more.`;
-
 const examplePrompts = [
     "Person with surprised face looking at phone, bright yellow background",
     "Mysterious hooded figure in dark forest with glowing eyes",
@@ -166,9 +137,6 @@ export default function AIThumbnailGenerator() {
             title="AI YouTube Thumbnail Generator"
             slug="youtube-ai-thumbnail-generator"
             description="Generate 2 stunning thumbnail options with AI - pick the best one"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <UsageBanner type="image" toolSlug="youtube-ai-thumbnail-generator" />

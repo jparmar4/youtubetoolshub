@@ -9,37 +9,6 @@ import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
 
-
-const faq = [
-    {
-        question: "What is a YouTube Channel ID?",
-        answer: "A YouTube Channel ID is a unique identifier starting with 'UC' that strictly identifies a YouTube channel. Unlike handles (@name) which can change, the Channel ID is permanent."
-    },
-    {
-        question: "Why do I need my Channel ID?",
-        answer: "You often need your Channel ID for API integrations, third-party tools, verifying your channel, or setting up monetization and sponsorship platforms."
-    },
-    {
-        question: "Is the Channel ID the same as my User ID?",
-        answer: "No, they are different. The Channel ID (starts with UC) is for the channel itself. The User ID is for the account owner. Both are provided by this tool."
-    },
-    {
-        question: "Can I find a Channel ID from a video URL?",
-        answer: "Yes! Just paste any video URL from the channel, and our tool will find the owner's Channel ID."
-    },
-];
-
-const howTo = [
-    "Copy the URL of the YouTube channel (or any video from that channel)",
-    "Paste the URL or handle (e.g., @PewDiePie) into the input field",
-    "Click 'Find Channel ID' to retrieve the details",
-    "Copy the Channel ID, User ID, or other details as needed"
-];
-
-const seoContent = `Find any YouTube Channel ID unique identifier (UC...) instantly. 
-Whether you have a channel URL, a handle, or a video link, our free tool extracts the exact Channel ID, 
-User ID, and channel statistics. Essential for developers, marketers, and creators using YouTube APIs.`;
-
 interface ChannelDetails {
     id: string;
     title: string;
@@ -122,9 +91,6 @@ export default function ChannelIdFinder() {
             title="YouTube Channel ID Finder"
             slug="youtube-channel-id-finder"
             description="Find the unique Channel ID (UC...) and User ID for any YouTube channel instantly."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 {/* Input Section */}

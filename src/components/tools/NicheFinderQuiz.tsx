@@ -80,20 +80,6 @@ const strengths: { id: Strength; label: string }[] = [
     { id: "create", label: "Make visuals" },
 ];
 
-const faq = [
-    {
-        question: "Does this quiz guarantee a profitable niche?",
-        answer: "No. It suggests a useful starting direction based on your interests and preferred format. Audience demand, originality, execution quality, and consistency still matter.",
-    },
-    {
-        question: "Should I choose the highest-paying niche?",
-        answer: "Choose a niche where you can provide accurate, first-hand, useful content. A topic with advertiser demand is not a shortcut if the content lacks expertise or audience value.",
-    },
-    {
-        question: "Does the quiz collect my answers?",
-        answer: "No. The recommendations are calculated locally in your browser.",
-    },
-];
 
 export default function NicheFinderQuiz() {
     const [selectedStrengths, setSelectedStrengths] = useState<Strength[]>(["teach"]);
@@ -132,7 +118,6 @@ export default function NicheFinderQuiz() {
             title="YouTube Niche Finder Quiz"
             slug="youtube-niche-finder-quiz"
             description="Find a practical YouTube niche direction based on your strengths and preferred video format. Recommendations are calculated locally."
-            faq={faq}
         >
             <div className="space-y-8">
                 <UsageBanner toolSlug="youtube-niche-finder-quiz" />

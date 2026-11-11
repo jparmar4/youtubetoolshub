@@ -9,36 +9,6 @@ import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
 
-
-const faq = [
-    {
-        question: "How does the Playlist Length Calculator work?",
-        answer: "It fetches all videos in a YouTube playlist, extracts their durations using the YouTube Data API, and sums them up to give you the total watch time."
-    },
-    {
-        question: "Does it calculate correctly for deleted or private videos?",
-        answer: "Deleted or private videos are skipped by the API, so the calculation only includes watchable videos."
-    },
-    {
-        question: "What is the 1.25x, 1.5x, and 2x speed calculation?",
-        answer: "This shows you how much time you save by watching the playlist at faster speeds. Great for estimating study time or binge-watching sessions."
-    },
-    {
-        question: "Why only the first 500 videos?",
-        answer: "To ensure fast performance and fair usage, we currently limit calculations to the first 500 videos of a playlist, which covers 99% of playlists."
-    },
-];
-
-const howTo = [
-    "Copy the URL of a YouTube specific playlist (e.g., https://youtube.com/playlist?list=...)",
-    "Paste the URL into the input field below",
-    "Click 'Calculate Length' to see the breakdown"
-];
-
-const seoContent = `Calculate the total duration of any YouTube playlist instantly. 
-Perfect for planning your study schedule, binge-watching sessions, or content consumption. 
-See how long it takes to watch at 1.25x, 1.5x, and 2x speeds.`;
-
 interface PlaylistResult {
     playlistInfo: {
         title: string;
@@ -135,9 +105,6 @@ export default function PlaylistLengthCalculator() {
             title="YouTube Playlist Length Calculator"
             slug="youtube-playlist-length-calculator"
             description="Find out exactly how long a YouTube playlist is. See total duration and time at different playback speeds."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 {/* Input Section */}

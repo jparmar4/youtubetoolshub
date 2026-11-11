@@ -28,20 +28,6 @@ interface ChannelDetails {
     };
 }
 
-const faq = [
-    {
-        question: "Where does the subscriber count come from?",
-        answer: "The checker requests public channel statistics from the official YouTube Data API. It does not scrape YouTube pages or ask you to sign in.",
-    },
-    {
-        question: "Why is a subscriber count hidden or rounded?",
-        answer: "Channel owners can hide their public subscriber count, and YouTube may display rounded public values. This tool only shows the public value returned by YouTube.",
-    },
-    {
-        question: "Does this tool store channel statistics?",
-        answer: "No channel lookup history is stored by this tool. A short server cache may be used to keep the lookup fast and reduce API requests.",
-    },
-];
 
 function formatNumber(value?: string) {
     if (!value) return "Unavailable";
@@ -99,7 +85,6 @@ export default function SubscriberCountChecker() {
             title="YouTube Subscriber Count Checker"
             slug="youtube-subscriber-count-checker"
             description="Check the public subscriber count, video count, and view count for a YouTube channel using the official YouTube Data API."
-            faq={faq}
         >
             <div className="space-y-8">
                 <UsageBanner toolSlug="youtube-subscriber-count-checker" />

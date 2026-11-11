@@ -10,20 +10,6 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import UsageBanner from "@/components/ui/UsageBanner";
 import { useUsage } from "@/hooks/useUsage";
 
-const faq = [
-    {
-        question: "What format should YouTube timestamps use?",
-        answer: "Start each chapter on a new line with a time such as 00:00 followed by a descriptive title. YouTube chapters work best when the first timestamp starts at 00:00.",
-    },
-    {
-        question: "Can I paste timestamps I already drafted?",
-        answer: "Yes. Lines that already begin with a timestamp are preserved. Lines without timestamps receive evenly spaced times based on your interval.",
-    },
-    {
-        question: "Does this tool upload my text?",
-        answer: "No. Timestamp formatting happens in your browser.",
-    },
-];
 
 const timestampPattern = /^((?:\d{1,2}:)?\d{1,2}:\d{2})\s+(.+)$/;
 
@@ -67,7 +53,6 @@ export default function TimestampGenerator() {
             title="YouTube Timestamp Generator"
             slug="youtube-timestamp-generator"
             description="Turn a chapter outline into clean YouTube timestamps for your video description. Formatting runs locally in your browser."
-            faq={faq}
         >
             <div className="space-y-6">
                 <UsageBanner toolSlug="youtube-timestamp-generator" />

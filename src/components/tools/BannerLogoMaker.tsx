@@ -11,20 +11,6 @@ import { useUsage } from "@/hooks/useUsage";
 
 type BannerStyle = "spotlight" | "stripes" | "minimal";
 
-const faq = [
-    {
-        question: "What size is the exported YouTube banner?",
-        answer: "The exported banner is 2560 by 1440 pixels. The optional guide shows the central safe area where important text should remain visible across devices.",
-    },
-    {
-        question: "Does this tool upload my branding?",
-        answer: "No. The preview and image exports are created locally in your browser.",
-    },
-    {
-        question: "Can I use the logo export as my channel avatar?",
-        answer: "Yes. The square logo export is designed as a simple starting point for a channel avatar. Review it before publishing to make sure it matches your brand.",
-    },
-];
 
 function getInitials(name: string) {
     return name
@@ -186,7 +172,6 @@ export default function BannerLogoMaker() {
             title="YouTube Banner and Logo Maker"
             slug="youtube-banner-logo-maker"
             description="Create a simple YouTube channel banner and matching logo locally in your browser, with a safe-area preview for important text."
-            faq={faq}
         >
             <div className="space-y-6">
                 <UsageBanner toolSlug="youtube-banner-logo-maker" />

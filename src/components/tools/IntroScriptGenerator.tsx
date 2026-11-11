@@ -37,31 +37,6 @@ const structureOptions = [
     { value: "Controversial", label: "Controversial (Pattern Interrupt)" },
 ];
 
-const faq = [
-    {
-        question: "How long should a YouTube intro be?",
-        answer: "10-30 seconds max. Viewers decide in the first 5 seconds whether to keep watching. Hook them fast, then deliver value."
-    },
-    {
-        question: "What makes a good video intro?",
-        answer: "A great intro has: 1) A hook that stops the scroll, 2) Context about what they'll learn, 3) A promise of value, 4) Smooth transition into content."
-    },
-    {
-        question: "Should I ask for likes in the intro?",
-        answer: "No! Save CTAs for later. Focus the intro on hooking viewers. Asking for likes before delivering value feels desperate."
-    },
-];
-
-const howTo = [
-    "Enter your video topic",
-    "Choose a personality that matches your style",
-    "Select your desired intro length",
-    "Click 'Generate Script' to get your intro",
-    "Practice reading out loud before recording"
-];
-
-const seoContent = `Create attention-grabbing YouTube intro scripts with our AI generator. Get ready-to-read scripts that hook viewers in the first 5 seconds. Choose your personality style and length, and get a complete intro with hook, context, promise, and transition.`;
-
 interface ScriptResult {
     hook: string;
     context: string;
@@ -161,9 +136,6 @@ export default function IntroScriptGenerator() {
             title="YouTube Intro Script Generator"
             slug="youtube-intro-script-generator"
             description="Create engaging video intros that hook viewers in seconds"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-intro-script-generator" />

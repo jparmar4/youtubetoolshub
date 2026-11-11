@@ -3,60 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  FaDollarSign,
-  FaDownload,
-  FaTags,
-  FaClock,
-  FaHandshake,
   FaArrowRight,
   FaGlobeAmericas,
 } from "react-icons/fa";
 import GoogleAd from "@/components/ads/GoogleAd";
 import { AD_SLOTS } from "@/lib/adsense";
 import { toolMeta } from "@/config/tool-meta";
-
-const QUICK_LAUNCH_TOOLS = [
-  {
-    name: "YouTube Earnings Calculator",
-    href: "/tools/youtube-earnings-calculator",
-    badge: "Tier-1",
-    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200",
-    icon: FaDollarSign,
-    iconBg: "from-emerald-500 to-teal-600",
-  },
-  {
-    name: "4K Thumbnail Downloader",
-    href: "/tools/youtube-thumbnail-downloader",
-    badge: "UHD",
-    badgeColor: "bg-pink-100 text-pink-800 border-pink-200",
-    icon: FaDownload,
-    iconBg: "from-pink-500 to-rose-600",
-  },
-  {
-    name: "Viral Video Tag Generator",
-    href: "/tools/youtube-tag-generator",
-    badge: "AI",
-    badgeColor: "bg-purple-100 text-purple-800 border-purple-200",
-    icon: FaTags,
-    iconBg: "from-purple-600 to-fuchsia-600",
-  },
-  {
-    name: "4,000 Watch Hours Planner",
-    href: "/tools/youtube-watch-hours-calculator",
-    badge: "YPP",
-    badgeColor: "bg-sky-100 text-sky-800 border-sky-200",
-    icon: FaClock,
-    iconBg: "from-sky-500 to-indigo-600",
-  },
-  {
-    name: "Sponsorship Rate Calculator",
-    href: "/tools/youtube-sponsorship-calculator",
-    badge: "Pro",
-    badgeColor: "bg-amber-100 text-amber-800 border-amber-200",
-    icon: FaHandshake,
-    iconBg: "from-amber-500 to-orange-600",
-  },
-];
+import { QUICK_LAUNCH_TOOLS } from "@/config/quick-launch";
 
 export default function BlogSidebar() {
   const [desktop, setDesktop] = useState(false);
@@ -107,7 +60,7 @@ export default function BlogSidebar() {
                   </span>
                 </div>
                 <span
-                  className={`shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded-full border ${item.badgeColor}`}
+                  className={`shrink-0 text-[11px] font-black uppercase px-1.5 py-0.5 rounded-full border ${item.badgeColor}`}
                 >
                   {item.badge}
                 </span>
@@ -124,7 +77,7 @@ export default function BlogSidebar() {
             <FaGlobeAmericas className="w-3.5 h-3.5" />
             2026 Tier-1 RPM Index
           </span>
-          <span className="text-[10px] font-bold text-slate-400">52 Markets</span>
+          <span className="text-[11px] font-bold text-slate-400">52 Markets</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -138,13 +91,13 @@ export default function BlogSidebar() {
               key={m.code}
               className="rounded-xl bg-white/[0.06] border border-white/10 p-2.5"
             >
-              <div className="flex items-center justify-between text-[10px] text-slate-300 font-bold">
+              <div className="flex items-center justify-between text-[11px] text-slate-300 font-bold">
                 <span className="px-1.5 py-0.5 rounded bg-white/10 font-mono text-white">
                   {m.code}
                 </span>
                 <span className="text-emerald-400 font-black">{m.rpm}</span>
               </div>
-              <div className="text-[10px] text-slate-400 mt-1 truncate">
+              <div className="text-[11px] text-slate-400 mt-1 truncate">
                 {m.label}
               </div>
             </div>
@@ -162,7 +115,7 @@ export default function BlogSidebar() {
 
       {/* 3. Sticky Vertical AdSense Slot */}
       <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3 shadow-xs">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 text-center">
+        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-center">
           Sponsored
         </p>
         {desktop ? (

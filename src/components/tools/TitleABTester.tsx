@@ -30,30 +30,8 @@ interface TitleAnalysis {
 }
 
 // Constants
-const faq = [
-    {
-        question: "How reliable is the A/B simulation?",
-        answer: "The AI simulates viewer psychology based on millions of viral video patterns. While it's a strong predictor of human behavior, actual performance depends on your specific audience and thumbnail."
-    },
-    {
-        question: "What is 'Impulse Rating'?",
-        answer: "This measures how likely a user is to click immediately without thinking (System 1 thinking). High impulse ratings correlate with viral explosions."
-    },
-    {
-        question: "Should I always pick the winner?",
-        answer: "Use the 'Confidence Score' as a guide. If confidence is low (<60%), both titles are likely similar in quality. If high (>80%), trust the winner."
-    },
-];
 
-const howTo = [
-    "Enter two title options you're debating between",
-    "Add context (e.g., 'Targeting beginners in tech')",
-    "Click 'Run Simulation' to see predicted CTR and winner",
-    "Review the 'Strengths' and 'Weaknesses' to understand WHY one won",
-    "Use the insights to craft a 3rd, even better title"
-];
 
-const seoContent = `Stop guessing which title will go viral. Our AI Title A/B Tester acts as a 'Click Simulator', predicting which of your title options will generate a higher Click-Through Rate (CTR). Get deep psychological analysis, strength/weakness breakdowns, and an impulse rating to ensure you launch your video with the best possible packaging.`;
 
 export default function TitleABTester() {
     const [titleA, setTitleA] = useState("");
@@ -122,9 +100,6 @@ export default function TitleABTester() {
             title="AI Title Click Simulator"
             slug="youtube-title-ab-tester"
             description="Predict the winner before you publish. Simulate 1,000 keyword impressions."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-title-ab-tester" />

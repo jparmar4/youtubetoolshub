@@ -72,38 +72,6 @@ const compositionOptions = [
     { value: "wide", label: "Wide/Panoramic" },
 ];
 
-const faq = [
-    {
-        question: "What makes a great AI thumbnail prompt?",
-        answer: "A great prompt is specific, descriptive, and includes details about subject, mood, colors, lighting, and style. Our tool combines all these elements into prompts optimized for AI image generators."
-    },
-    {
-        question: "Can I use these prompts with any AI generator?",
-        answer: "Yes! These prompts work with DALL-E, Midjourney, Stable Diffusion, FLUX, and our built-in AI Thumbnail Generator. They're designed to be universally effective."
-    },
-    {
-        question: "How do I get the best results?",
-        answer: "Be specific about your video topic, choose options that match your content style, and experiment with different combinations. The more details you provide, the better the results."
-    },
-    {
-        question: "Why generate prompts instead of direct images?",
-        answer: "Prompts give you full control. You can tweak them, combine elements, and use them across different AI tools. It's the professional approach to AI-generated content."
-    },
-];
-
-const howTo = [
-    "Enter your video title or topic for context",
-    "Select your content niche for style optimization",
-    "Choose the main subject type for your thumbnail",
-    "Pick the mood and emotion you want to convey",
-    "Select a color scheme that fits your brand",
-    "Choose a composition style",
-    "Click 'Generate Prompts' to get optimized AI prompts",
-    "Copy any prompt and use it with your favorite AI image generator",
-];
-
-const seoContent = `Create AI prompt drafts for YouTube thumbnail concepts. Enter your topic, niche, and preferences, then adapt the generated prompt for image tools like DALL-E, Midjourney, or Stable Diffusion.`;
-
 const quickPromptTemplates = [
     {
         label: "Viral Reaction",
@@ -125,9 +93,6 @@ export default function AIThumbnailPromptGenerator() {
             title="AI Thumbnail Prompt Generator"
             slug="youtube-ai-thumbnail-prompt"
             description="Generate optimized prompts for AI thumbnail creation - works with any AI image generator"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
                 <AIThumbnailPromptGeneratorContent />

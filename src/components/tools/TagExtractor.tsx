@@ -18,34 +18,8 @@ interface VideoInfo {
     publishedAt: string;
 }
 
-const faq = [
-    {
-        question: "How do I see tags on YouTube videos?",
-        answer: "YouTube doesn't publicly display video tags in the interface. Our tool uses the YouTube Data API to fetch the actual tags that creators have added to their videos."
-    },
-    {
-        question: "Is it okay to use other videos' tags?",
-        answer: "While you can use them for inspiration, it's best to create your own relevant tags. Copying tags that don't relate to your content can hurt your SEO. Use extracted tags to understand what works in your niche."
-    },
-    {
-        question: "Why can't I see tags for some videos?",
-        answer: "Not all videos have tags - many creators don't use them. Also, some videos may be private or unlisted, which prevents tag extraction."
-    },
-    {
-        question: "How can I use these tags effectively?",
-        answer: "Don't copy tags directly. Instead, analyze patterns - what keywords are popular? What long-tail phrases do successful videos use? Then create your own relevant variations."
-    },
-];
 
-const howTo = [
-    "Copy the URL of any YouTube video you want to analyze",
-    "Paste the video URL into the input field",
-    "Click 'Extract Tags' to retrieve the video's actual tags",
-    "View video info and all extracted tags",
-    "Copy tags in your preferred format to analyze or get inspiration"
-];
 
-const seoContent = `Extract real tags and keywords from any YouTube video with our Tag Extractor tool. Using the official YouTube Data API, we fetch the actual tags that creators have added to their videos. Analyze competitor videos, understand successful tag strategies, and get inspiration for your own content optimization.`;
 
 export default function TagExtractor() {
     const [url, setUrl] = useState("");
@@ -170,9 +144,6 @@ export default function TagExtractor() {
             title="YouTube Tag Extractor"
             slug="youtube-tag-extractor"
             description="Extract real tags from any YouTube video using the official API"
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-6">
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />

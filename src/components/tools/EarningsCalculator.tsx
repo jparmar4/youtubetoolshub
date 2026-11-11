@@ -23,35 +23,7 @@ import { saveHistory } from "@/lib/history";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
 
-const faq = [
-  {
-    question: "What is YouTube RPM?",
-    answer:
-      "RPM (Revenue Per Mille) is what you earn per 1,000 video views after YouTube's 45% revenue share and non-monetized views are accounted for. In Tier-1 countries like the US, long-form RPM typically ranges from $4.00 to $15.00+ depending on your niche.",
-  },
-  {
-    question: "What is YouTube Shorts RPM in 2026?",
-    answer:
-      "YouTube Shorts monetization operates through the Creator Pool. In the United States and Tier 1 markets, Shorts RPM typically averages $0.03 to $0.07 per 1,000 views ($30 to $70 per 1 million views). Emerging market Shorts RPM is roughly $0.01 to $0.02.",
-  },
-  {
-    question: "How accurate is this earnings estimate?",
-    answer:
-      "This is a planning model based on 2026 benchmark data. Always confirm real earnings in YouTube Studio Analytics under the Revenue tab, as audience geography and advertiser seasonality cause fluctuations.",
-  },
-  {
-    question: "When does YouTube AdSense pay creators?",
-    answer:
-      "YouTube AdSense pays monthly between the 21st and 26th for earnings accrued during the previous calendar month, provided your balance exceeds the $100 payout threshold.",
-  },
-];
 
-const howTo = [
-  "Enter your estimated monthly video or Shorts views (or pick a Quick View preset)",
-  "Select a typical RPM rate for your audience country & niche (e.g., $8.50 for US, $0.05 for Shorts)",
-  "Click Calculate to see monthly AdSense, yearly projections, sponsor values, and channel asset valuation",
-  "Use the copy button to save or share your creator revenue blueprint",
-];
 
 const VIEW_PRESETS = [
   { label: "25K", value: 25000 },
@@ -349,8 +321,6 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
       title="YouTube Earnings Calculator"
       slug="youtube-earnings-calculator"
       description="Estimate monthly and yearly AdSense revenue, brand deal sponsorships, and channel value from views and RPM."
-      faq={faq}
-      howTo={howTo}
     >
       <div className="space-y-6">
         {countryName && (

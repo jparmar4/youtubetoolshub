@@ -2,7 +2,7 @@ import { toolExamples } from "@/lib/tool-examples";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getToolBySlug, tools } from "@/config/tools";
+import { getToolBySlug, tools, toolCategories } from "@/config/tools";
 import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHowToSchema, getGlobalAlternates } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { siteConfig } from "@/config/site";
@@ -22,7 +22,7 @@ import {
     getToolSeoFaqs,
     getToolClusterLinks,
 } from "@/lib/tool-seo-content";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
@@ -30,6 +30,8 @@ import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import MobileQuickLinks from "@/components/tools/MobileQuickLinks";
 import ToolComponentRenderer from "@/components/tools/ToolComponentRenderer";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
@@ -284,13 +286,17 @@ export default async function ToolPage({
 
                             {/* 3D UHD Interactive Tool Console — Immediately Above the Fold */}
                             <div className="studio-console-3d rounded-3xl overflow-hidden">
-                                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                                <div className="flex items-center justify-between gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-900 text-white border-b border-slate-800">
                                     <div className="flex items-center gap-2 min-w-0">
-                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
-                                        <span className="ml-2 text-xs font-bold text-slate-200 truncate">
-                                            {tool.name} — Interactive Studio Workspace
+                                        {/* Decorative traffic lights — hidden on mobile so the
+                                            actual tool input is reached sooner */}
+                                        <span className="hidden sm:flex items-center gap-2 shrink-0" aria-hidden="true">
+                                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                                            <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                                        </span>
+                                        <span className="ml-0 text-xs font-bold text-slate-200 truncate">
+                                            {tool.name}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
@@ -298,7 +304,7 @@ export default async function ToolPage({
                                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                                             Live Session
                                         </span>
-                                        <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
+                                        <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
                                             Live Engine
                                         </span>
                                     </div>
@@ -310,11 +316,13 @@ export default async function ToolPage({
                                 </div>
                             </div>
 
+                            {/* Mobile-only flagship tool quick links (desktop gets the sidebar dock) */}
+                            <AdSectionIgnore>
+                                <MobileQuickLinks />
+                            </AdSectionIgnore>
+
                             {/* Leaderboard immediately below the interactive tool */}
-                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-                            </div>
+                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
 
                             {/* AEO Quick Answer Capsule */}
                             <QuickAnswerCapsule
@@ -356,10 +364,7 @@ export default async function ToolPage({
                             <AffiliateBanner toolId={getAffiliateToolForCategory(tool.category, tool.slug)} variant="compact" />
 
                             {/* Ad: Below Worked Example */}
-                            <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                                <GoogleAd slot="3397391628" format="fluid" layout="in-article" />
-                            </div>
+                            <AdSlot slot="3397391628" preset="in-article" />
                             </AdSectionPrioritize>
 
                             {/* Share & Embed This Tool */}
@@ -467,28 +472,37 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* Key Facts for AI Extraction */}
+                            {/* Key Facts for AI Extraction — per-tool data, not boilerplate */}
                             <div className="key-facts card-3d rounded-3xl p-6 sm:p-8">
                                 <h2 className="text-xl font-black text-slate-900 mb-4 font-outfit">
                                     Tool Specifications &amp; Key Facts
                                 </h2>
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-700">
-                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                                        <span className="text-emerald-600 font-black">✓</span>
-                                        <span><strong>Tool:</strong> {tool.name}</span>
-                                    </li>
-                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                                        <span className="text-emerald-600 font-black">✓</span>
-                                        <span><strong>Pricing:</strong> 100% Free (No Signup)</span>
-                                    </li>
-                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                                        <span className="text-emerald-600 font-black">✓</span>
-                                        <span><strong>Engine:</strong> {tool.isAI ? "AI-Assisted Studio" : "Instant Browser Utility"}</span>
-                                    </li>
-                                    <li className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70">
-                                        <span className="text-emerald-600 font-black">✓</span>
-                                        <span><strong>Speed:</strong> {tool.howTo?.totalTime === "PT1M" ? "Under 1 minute" : "Instant execution"}</span>
-                                    </li>
+                                    {[
+                                        { label: "Tool", value: tool.name },
+                                        {
+                                            label: "Category",
+                                            value: toolCategories.find((c) => c.id === tool.category)?.name ?? tool.category,
+                                        },
+                                        {
+                                            label: "Engine",
+                                            value: tool.isAI ? "AI-Assisted Studio" : "Instant Browser Utility",
+                                        },
+                                        {
+                                            label: "Speed",
+                                            value: tool.howTo?.totalTime === "PT1M" ? "Under 1 minute" : "Instant execution",
+                                        },
+                                        { label: "Pricing", value: "100% Free · No Signup" },
+                                        { label: "Data Last Reviewed", value: DATA_LAST_REVIEWED },
+                                    ].map((fact) => (
+                                        <li
+                                            key={fact.label}
+                                            className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/70"
+                                        >
+                                            <span className="text-emerald-600 font-black" aria-hidden="true">✓</span>
+                                            <span><strong>{fact.label}:</strong> {fact.value}</span>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
 
@@ -552,24 +566,14 @@ export default async function ToolPage({
                                 )}
                             </article>
 
-                            {/* FAQ Section (always rendered from expanded set) */}
+                            {/* FAQ Section (always rendered from expanded set; native
+                                details/summary keeps Q&A text crawlable without JS) */}
                             {seoFaqs.length > 0 && (
-                                <div className="card-3d rounded-3xl p-6 sm:p-8 animate-fade-in-up delay-200">
+                                <div className="animate-fade-in-up delay-200">
                                     <h2 className="text-2xl font-black text-slate-900 mb-6 font-outfit">
                                         Frequently Asked Questions
                                     </h2>
-                                    <div className="space-y-4">
-                                        {seoFaqs.map((faq, idx) => (
-                                            <div key={idx} className="border-b border-slate-200/80 last:border-0 pb-4 last:pb-0">
-                                                <h3 className="font-extrabold text-slate-900 mb-1.5 font-outfit">
-                                                    {faq.question}
-                                                </h3>
-                                                <p className="text-slate-600 leading-relaxed">
-                                                    {faq.answer}
-                                                </p>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <FaqAccordion items={seoFaqs} headingLevel="h3" />
                                 </div>
                             )}
 
@@ -656,10 +660,7 @@ export default async function ToolPage({
                         </div>
                     </div>
                     {/* Recommended Content / Multiplex Ad Unit */}
-                    <div className="my-10 rounded-2xl overflow-hidden border border-slate-200/80 bg-white p-4 shadow-sm">
-                        <p className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mb-3 text-center">Recommended For Creators</p>
-                        <GoogleAd slot={AD_SLOTS.MULTIPLEX} format="autorelaxed" responsive className="w-full" />
-                    </div>
+                    <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-10" />
                 </div>
             </div>
 

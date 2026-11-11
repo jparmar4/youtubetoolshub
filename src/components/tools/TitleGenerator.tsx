@@ -73,32 +73,6 @@ const languageOptions = [
     { value: "italian", label: "🇮🇹 Italian (Italiano)" },
 ];
 
-const faq = [
-    {
-        question: "How does the AI determine the 'Viral Score'?",
-        answer: "The score is based on psychological triggers known to drive clicks on YouTube, such as curiosity gaps, power words, and negative urgency. A higher score means the title uses more of these proven patterns."
-    },
-    {
-        question: "Start with 'Target Audience'?",
-        answer: "Yes! Defining who you are talking to (e.g., Beginners vs. Experts) drastically changes the language. Beginners need simple, promise-based titles; experts want ultra-specific, networked knowledge."
-    },
-    {
-        question: "Should I stick to the 'Method' suggested?",
-        answer: "The 'Method' tags (like 'Curiosity Gap') explain WHY the title works. Use this to learn title psychology over time!"
-    },
-];
-
-const howTo = [
-    "Enter your video topic (be specific for better results)",
-    "Select your Video Type (Tutorial, Vlog, etc.)",
-    "Define your Target Audience (Beginners, Pros, etc.)",
-    "Choose a Tone to match your personality",
-    "Click 'Generate' to get AI-scored title analysis",
-    "Use the 'Viral Score' to choose the best option"
-];
-
-const seoContent = `Generate YouTube title drafts with AI-assisted variations. Compare options for clarity, search intent, curiosity, and audience fit before choosing a final title.`;
-
 interface TitleResult {
     title: string;
     score: number;
@@ -259,9 +233,6 @@ export default function TitleGenerator() {
             title="Professional YouTube Title Generator"
             slug="youtube-title-generator"
             description="Generate data-backed, high-CTR titles with Viral Scores and Analysis."
-            faq={faq}
-            howTo={howTo}
-            seoContent={seoContent}
         >
             <div className="space-y-8">
                 <UsageBanner type="ai" toolSlug="youtube-title-generator" />

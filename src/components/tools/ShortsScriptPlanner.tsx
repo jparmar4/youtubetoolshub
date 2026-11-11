@@ -12,20 +12,6 @@ import { useUsage } from "@/hooks/useUsage";
 
 type Tone = "educational" | "energetic" | "story";
 
-const faq = [
-    {
-        question: "Does this tool edit or upload a video?",
-        answer: "No. It creates a local Shorts script and shot plan. You can record and edit the video in the editor of your choice.",
-    },
-    {
-        question: "Why is the first shot so short?",
-        answer: "A concise opening helps viewers understand the topic quickly. Adjust the suggested timing to fit your own delivery style.",
-    },
-    {
-        question: "Is my topic sent to a server?",
-        answer: "No. This planner uses local templates in your browser.",
-    },
-];
 
 const toneCopy: Record<Tone, { hook: string; pace: string; close: string }> = {
     educational: { hook: "Here is the fastest way to understand", pace: "Show one clear example", close: "Save this so you can try it later." },
@@ -68,7 +54,6 @@ export default function ShortsScriptPlanner() {
             title="YouTube Shorts Script and Shot Planner"
             slug="youtube-shorts-script-planner"
             description="Build a practical YouTube Shorts script, shot timeline, and recording checklist without uploading your footage."
-            faq={faq}
         >
             <div className="space-y-6">
                 <UsageBanner toolSlug="youtube-shorts-script-planner" />
