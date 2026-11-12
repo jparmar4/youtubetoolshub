@@ -789,27 +789,30 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 1rem;
+  border-radius: 1.1875rem;
   background: linear-gradient(
     105deg,
     transparent 42%,
-    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.45) 50%,
     rgba(255, 255, 255, 0.12) 57%,
     transparent 64%
   );
-  transform: translateX(-130%);
-  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0;
+  transform: translateX(-110%);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
   pointer-events: none;
   z-index: 15;
 }
 
-.ti-sm.ti-3d::after { border-radius: 0.75rem; }
-.ti-lg.ti-3d::after, .ti-md.ti-3d::after { border-radius: 1rem; }
+.ti-sm.ti-3d::after { border-radius: 0.85rem; }
+.ti-md.ti-3d::after { border-radius: 1.1875rem; }
+.ti-lg.ti-3d::after { border-radius: 1.375rem; }
 .ti-xl.ti-3d::after { border-radius: 1.5rem; }
 
 .group:hover .ti-3d::after,
 .ti-3d:hover::after {
-  transform: translateX(130%);
+  opacity: 1;
+  transform: translateX(110%);
 }
 
 .ti-box {
@@ -862,12 +865,64 @@
   pointer-events: none;
 }
 
-.ti-sm .ti-box { width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; font-size: 1.125rem; }
-.ti-sm .ti-box::after { inset: 0.25rem; border-radius: 0.5rem; }
-.ti-md .ti-box { width: 3.25rem; height: 3.25rem; border-radius: 1rem; font-size: 1.4rem; }
-.ti-lg .ti-box { width: 4rem; height: 4rem; border-radius: 1rem; font-size: 1.75rem; }
-.ti-xl .ti-box { width: 5rem; height: 5rem; border-radius: 1.5rem; font-size: 2.1rem; }
+.ti-sm .ti-box { width: 2.75rem; height: 2.75rem; border-radius: 0.85rem; font-size: 1.15rem; }
+.ti-sm .ti-box::after { inset: 0.25rem; border-radius: 0.6rem; }
+.ti-md .ti-box { width: 4.25rem; height: 4.25rem; border-radius: 1.1875rem; font-size: 1.5rem; }
+.ti-lg .ti-box { width: 5.25rem; height: 5.25rem; border-radius: 1.375rem; font-size: 1.9rem; }
+.ti-xl .ti-box { width: 6rem; height: 6rem; border-radius: 1.5rem; font-size: 2.25rem; }
 .ti-xl .ti-box::after { inset: 0.5rem; border-radius: 1rem; }
+
+/* 3D UHD Artwork Ceramic-Crystal Tile Mode */
+.ti-box.ti-has-img {
+  background: linear-gradient(155deg, #ffffff 0%, #fcfcfd 65%, #f4f6fb 100%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(15, 23, 42, 0.06),
+    0 4px 0 0 rgba(226, 232, 240, 0.92),
+    0 12px 26px -6px var(--ti-glow),
+    0 2px 6px -1px rgba(15, 23, 42, 0.14);
+}
+
+.group:hover .ti-box.ti-has-img,
+.ti-3d:hover .ti-box.ti-has-img {
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 1),
+    0 0 0 1px rgba(15, 23, 42, 0.08),
+    0 6px 0 0 rgba(226, 232, 240, 0.95),
+    0 18px 34px -8px var(--ti-glow),
+    0 4px 10px -1px rgba(15, 23, 42, 0.16);
+}
+
+.ti-box.ti-has-img::before {
+  background: radial-gradient(120% 85% at 15% 10%, rgba(255, 255, 255, 0.45) 0%, transparent 58%);
+  z-index: 12;
+}
+
+.ti-box.ti-has-img::after {
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 0 12px rgba(15, 23, 42, 0.03);
+  z-index: 12;
+}
+
+.ti-img {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.06);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.group:hover .ti-img,
+.ti-3d:hover .ti-img {
+  transform: scale(1.13);
+}
 
 .ti-ico {
   position: relative;

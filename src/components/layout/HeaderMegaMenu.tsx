@@ -172,11 +172,11 @@ function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuP
 
   return (
     <div
-      className="px-4 sm:px-6 lg:px-8 pt-2 before:content-[''] before:absolute before:-top-3 before:inset-x-0 before:h-3"
+      className="px-4 sm:px-6 lg:px-8 pt-2"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="max-w-7xl mx-auto rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_28px_64px_-16px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.03)] overflow-hidden animate-fade-in-up">
+      <div className="max-w-7xl mx-auto rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_28px_64px_-16px_rgba(15,23,42,0.18),0_0_0_1px_rgba(15,23,42,0.03)] overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12">
           {/* Left Rail: Category Switcher */}
           <div className="lg:col-span-3 bg-slate-50/90 border-b lg:border-b-0 lg:border-r border-slate-200/80 p-3 sm:p-4 flex flex-col justify-between">
@@ -258,7 +258,7 @@ function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuP
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[340px] overflow-y-auto pr-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[min(360px,calc(100vh-15rem))] overflow-y-auto pr-1">
                 {visibleTools.map((tool, index) => {
                   const favorited = isFavorite(tool.slug);
                   return (

@@ -202,6 +202,7 @@ export default async function middleware(request: NextRequest) {
   //    never for /api/* (their UA string is client-controlled).
   const isApiPath = pathname.startsWith("/api");
   const isWebhookPath = pathname.startsWith("/api/webhooks/");
+  const isStaticAssetPath = /\.(?:webp|png|jpe?g|gif|svg|ico|avif|woff2?|ttf|eot|css|js|map)$/i.test(pathname);
   const isMutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
   // Payment webhooks authenticate via HMAC signature; Razorpay retry
   // deliveries must never be 403'd by a UA heuristic or 429'd by bursts.
@@ -216,7 +217,9 @@ export default async function middleware(request: NextRequest) {
   }
 
   // 1b. Empty user agents are almost always scripted — allow only a trickle.
-  if (!skipMitigation && !userAgent) {
+  // Skip internal image-optimizer & static binary fetches so pages with many
+  // icons (e.g. /tools with 45 tool icons) never self-throttle on loopback.
+  if (!skipMitigation && !isStaticAssetPath && !userAgent) {
     if (!rateLimit(`empty-ua:${getClientIp(request)}`, 10)) {
       return new NextResponse("Too Many Requests", {
         status: 429,
@@ -227,7 +230,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   // 1c. Per-IP fixed-window rate limits (pages for bots, everything for humans).
-  if (!skipMitigation && (!isSearchBot(userAgent) || isApiPath)) {
+  if (!skipMitigation && !isStaticAssetPath && (!isSearchBot(userAgent) || isApiPath)) {
     const ip = getClientIp(request);
     if (isApiPath) {
       const limit = isMutation ? RATE_LIMITS.apiMutation : RATE_LIMITS.apiRead;

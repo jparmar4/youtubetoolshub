@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, memo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { FaStar, FaTimes, FaExternalLinkAlt, FaClock, FaTrashAlt } from "react-icons/fa";
 import { useFavoriteTools } from "@/lib/favorites";
 import { useRecentTools } from "@/lib/recent-tools";
@@ -147,9 +148,7 @@ function HeaderSavedTools() {
                   </p>
                 </div>
               ) : (
-                savedToolObjects.map((tool) => {
-                  const Icon = tool.icon;
-                  return (
+                savedToolObjects.map((tool) => (
                     <div
                       key={tool.slug}
                       className="flex items-center justify-between gap-3 px-3.5 py-2 hover:bg-slate-50 transition-colors group"
@@ -159,8 +158,16 @@ function HeaderSavedTools() {
                         onClick={() => setIsOpen(false)}
                         className="flex items-center gap-2.5 flex-1 min-w-0"
                       >
-                        <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 text-xs">
-                          <Icon className="w-3.5 h-3.5" />
+                        <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/80 shadow-xs overflow-hidden flex items-center justify-center flex-shrink-0">
+                          <Image
+                            src={`/images/tools/${tool.slug}.webp`}
+                            alt=""
+                            width={64}
+                            height={64}
+                            unoptimized
+                            className="w-full h-full object-contain scale-[1.06]"
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="truncate">
                           <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">
@@ -185,8 +192,7 @@ function HeaderSavedTools() {
                         <FaTimes className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                  );
-                })
+                  ))
               )
             ) : recentToolObjects.length === 0 ? (
               <div className="p-4 text-center">
@@ -198,7 +204,6 @@ function HeaderSavedTools() {
               </div>
             ) : (
               recentToolObjects.map((tool) => {
-                const Icon = tool.icon;
                 const favorited = isFavorite(tool.slug);
 
                 return (
@@ -211,8 +216,16 @@ function HeaderSavedTools() {
                       onClick={() => setIsOpen(false)}
                       className="flex items-center gap-2.5 flex-1 min-w-0"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center flex-shrink-0 text-xs">
-                        <Icon className="w-3.5 h-3.5" />
+                      <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/80 shadow-xs overflow-hidden flex items-center justify-center flex-shrink-0">
+                        <Image
+                          src={`/images/tools/${tool.slug}.webp`}
+                          alt=""
+                          width={64}
+                          height={64}
+                          unoptimized
+                          className="w-full h-full object-contain scale-[1.06]"
+                          aria-hidden="true"
+                        />
                       </div>
                       <div className="truncate">
                         <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">

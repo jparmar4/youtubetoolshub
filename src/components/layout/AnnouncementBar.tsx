@@ -45,7 +45,7 @@ function AnnouncementBar() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-slate-950 text-white text-xs py-1.5 px-3 sm:px-6 border-b border-white/10 relative overflow-hidden">
+    <div className="bg-slate-950 text-white text-xs py-1.5 px-3 sm:px-6 border-b border-white/10 relative z-50 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-purple-900/35 via-fuchsia-900/20 to-emerald-900/30" />
       <div className="relative max-w-7xl mx-auto flex items-center justify-between gap-2 min-w-0">
         <div className="flex-1 min-w-0 flex items-center justify-center gap-2 sm:gap-3 text-center">
