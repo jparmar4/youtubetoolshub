@@ -7,7 +7,6 @@ import { getBreadcrumbSchema, getSoftwareApplicationSchema, getFAQSchema, getHow
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { siteConfig } from "@/config/site";
 import { countryCPMData } from "@/lib/cpm-data";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -31,7 +30,6 @@ import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import FaqAccordion from "@/components/ui/FaqAccordion";
-import MobileQuickLinks from "@/components/tools/MobileQuickLinks";
 import ToolComponentRenderer from "@/components/tools/ToolComponentRenderer";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
@@ -203,7 +201,7 @@ export default async function ToolPage({
 
             <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
                 <div className="nebula-bg" />
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb Navigation */}
                     <AdSectionIgnore>
@@ -218,9 +216,9 @@ export default async function ToolPage({
                         </div>
                     </AdSectionIgnore>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Column */}
-                        <div className="lg:col-span-2 space-y-10">
+                    <div>
+                        {/* Main Column — full-width now that the sidebar rail is gone */}
+                        <div className="space-y-10">
                             <AdSectionPrioritize>
                             {/*
                               Server-rendered H1 + summary OUTSIDE Suspense/client tools.
@@ -306,11 +304,6 @@ export default async function ToolPage({
                                     </ToolContextProvider>
                                 </div>
                             </div>
-
-                            {/* Mobile-only flagship tool quick links (desktop gets the sidebar dock) */}
-                            <AdSectionIgnore>
-                                <MobileQuickLinks />
-                            </AdSectionIgnore>
 
                             {/* AEO Quick Answer Capsule */}
                             <QuickAnswerCapsule
@@ -640,11 +633,6 @@ export default async function ToolPage({
                                     </div>
                                 </div>
                             </AdSectionIgnore>
-                        </div>
-
-                        {/* Sidebar Column — ad-only rail for vertical AdSense */}
-                        <div className="max-lg:hidden lg:col-span-1 min-w-0">
-                            <BlogSidebar />
                         </div>
                     </div>
                     {/* Recommended Content / Multiplex Ad Unit */}

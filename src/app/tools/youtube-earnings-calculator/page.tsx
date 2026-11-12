@@ -24,7 +24,6 @@ import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
@@ -260,8 +259,8 @@ export default function YouTubeEarningsCalculatorPage() {
             </div>
           </AdSectionIgnore>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2 space-y-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="space-y-8">
               <AdSectionPrioritize>
               {/* Studio Hero Header */}
               <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
@@ -619,10 +618,6 @@ export default function YouTubeEarningsCalculatorPage() {
               </div>
 
               <NewsletterSignup />
-            </div>
-
-            <div className="max-lg:hidden min-w-0">
-              <BlogSidebar />
             </div>
           </div>
 

@@ -36,7 +36,6 @@ import AdSlot from "@/components/ads/AdSlot";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 // Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
 
@@ -357,11 +356,11 @@ export default async function BlogPostPage({
                 </header>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* 2-Column Layout: content + sidebar (auto ads fill the sidebar) */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    {/* Full-width single column (sidebar rail removed for more reading space) */}
+                    <div className="max-w-5xl mx-auto">
 
                         {/* Main Content Column */}
-                        <div className="lg:col-span-2">
+                        <div>
                             {/* Featured Image (Moved from Header) */}
                             {post.coverImage && (
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
@@ -369,7 +368,7 @@ export default async function BlogPostPage({
                                         src={post.coverImage}
                                         alt={post.imageAlt || post.title}
                                         fill
-                                        sizes="(min-width: 1024px) 66vw, 100vw"
+                                        sizes="(min-width: 1024px) 60rem, 100vw"
                                         className="object-cover"
                                         priority
                                     />
@@ -574,9 +573,6 @@ export default async function BlogPostPage({
                                 )}
                             </div>
                         </div>
-
-                        {/* Sidebar Column */}
-                        <BlogSidebar />
 
                     </div>
                 </div>

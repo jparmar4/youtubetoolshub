@@ -16,7 +16,6 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { FaGlobeAmericas, FaChartLine, FaFileInvoiceDollar, FaUniversity, FaLayerGroup } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
-import BlogSidebar from "@/components/blog/BlogSidebar";
 import {
     combineSchemasToGraph,
     getFAQSchema,
@@ -223,9 +222,9 @@ export default async function CountryEarningsPage({
                         </div>
                     </AdSectionIgnore>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Content */}
-                        <div className="lg:col-span-2 space-y-8">
+                    <div className="max-w-6xl mx-auto">
+                        {/* Main Content — full-width now that the sidebar rail is gone */}
+                        <div className="space-y-8">
                             <AdSectionPrioritize>
                             {/* Studio Header */}
                             <header className="card-3d rounded-3xl p-6 sm:p-7 mb-8 relative overflow-hidden">
@@ -535,11 +534,6 @@ export default async function CountryEarningsPage({
 
                             {/* Bottom Multiplex Ad Unit */}
                             <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
-                        </div>
-
-                        {/* Sidebar — client viewport-gated to prevent display:none mobile push */}
-                        <div className="max-lg:hidden lg:col-span-1 min-w-0">
-                            <BlogSidebar />
                         </div>
                     </div>
 
