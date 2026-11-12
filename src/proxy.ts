@@ -78,6 +78,90 @@ function isSearchBot(userAgent: string | null): boolean {
   return BOT_USER_AGENTS.some((bot) => lowerUA.includes(bot));
 }
 
+/* ==========================================================================
+   BOT MITIGATION — abusive UA blocking + per-IP rate limiting
+   Protects AdSense from invalid-traffic patterns (high page views with
+   little/no ad fill, scripted clicks) and shields tool APIs from scrapers.
+   Verified search crawlers (allowlist above) bypass rate limiting entirely.
+   ========================================================================== */
+
+// Scripting/scraping client signatures — no real visitor sends these.
+const ABUSIVE_UA_PATTERNS = [
+  "curl/",
+  "wget",
+  "python-requests",
+  "python-urllib",
+  "python-httpx",
+  "aiohttp",
+  "scrapy",
+  "go-http-client",
+  "java/",
+  "okhttp",
+  "apache-httpclient",
+  "libwww-perl",
+  "headlesschrome",
+  "puppeteer",
+  "playwright",
+  "phantomjs",
+  "selenium",
+  "masscan",
+  "nikto",
+  "zgrab",
+  "nmap!",
+  "dataforseo",
+  "megaindex",
+  "serpstatbot",
+];
+
+function isAbusiveBot(userAgent: string | null): boolean {
+  if (!userAgent) return false; // empty UA handled separately below
+  const lowerUA = userAgent.toLowerCase();
+  return ABUSIVE_UA_PATTERNS.some((pattern) => lowerUA.includes(pattern));
+}
+
+// Fixed-window per-IP counters. Single-instance standalone deploy on
+// Hostinger, so an in-memory Map is sufficient (resets on restart — fine:
+// limits are generous for humans, hostile only to scripts).
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function pruneRateBuckets(now: number) {
+  if (rateBuckets.size < 5000) return;
+  for (const [key, bucket] of rateBuckets) {
+    if (bucket.resetAt <= now) rateBuckets.delete(key);
+  }
+}
+
+function rateLimit(key: string, limit: number, windowMs = 60_000): boolean {
+  const now = Date.now();
+  pruneRateBuckets(now);
+  const bucket = rateBuckets.get(key);
+  if (!bucket || bucket.resetAt <= now) {
+    rateBuckets.set(key, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  if (bucket.count >= limit) return false;
+  bucket.count += 1;
+  return true;
+}
+
+/** Client IP behind the local reverse proxy (Hostinger panel sets X-Real-IP /
+ *  X-Forwarded-For). Never trust a self-supplied value blindly — we only take
+ *  the FIRST proxy-added entry, which the origin proxy controls. */
+function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get("x-real-ip") ||
+    request.headers.get("cf-connecting-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
+
+const RATE_LIMITS = {
+  apiMutation: 10, // POST/PATCH per minute per IP (tool actions, auth, orders)
+  apiRead: 120, // GET /api/* per minute (markdown-for-agents, feeds, lookups)
+  page: 180, // HTML pages per minute per IP — far above human browsing
+} as const;
+
 
 /** Paths that must never appear in Google Search (app UI / thin search results) */
 const NOINDEX_PREFIXES = [
@@ -110,6 +194,58 @@ export default async function middleware(request: NextRequest) {
   const userAgent = request.headers.get("user-agent");
   const pathname = request.nextUrl.pathname;
   const host = request.headers.get("host");
+
+  // 1. Bot mitigation — blocks scraping clients and caps per-IP request
+  //    rates (AdSense invalid-traffic + API-abuse protection). Verified
+  //    search crawlers bypass rate limiting entirely.
+  const isApiPath = pathname.startsWith("/api");
+  const isMutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
+
+  // 1a. Known scripting/scraping clients get a hard 403 (never real visitors).
+  if (isAbusiveBot(userAgent)) {
+    console.warn(
+      `[proxy] blocked abusive UA: ip=${getClientIp(request)} path=${pathname} ua=${userAgent?.slice(0, 120)}`,
+    );
+    return new NextResponse("Forbidden", { status: 403 });
+  }
+
+  // 1b. Empty user agents are almost always scripted — allow only a trickle.
+  if (!userAgent) {
+    if (!rateLimit(`empty-ua:${getClientIp(request)}`, 10)) {
+      return new NextResponse("Too Many Requests", {
+        status: 429,
+        headers: { "Retry-After": "60" },
+      });
+    }
+    return withOptionalNoIndex(NextResponse.next(), pathname);
+  }
+
+  // 1c. Per-IP fixed-window rate limits.
+  if (!isSearchBot(userAgent)) {
+    const ip = getClientIp(request);
+    if (isApiPath) {
+      const limit = isMutation ? RATE_LIMITS.apiMutation : RATE_LIMITS.apiRead;
+      if (!rateLimit(`api:${ip}`, limit)) {
+        console.warn(`[proxy] rate-limited api: ip=${ip} method=${request.method} path=${pathname}`);
+        return new NextResponse(
+          JSON.stringify({ error: "Too many requests. Please slow down." }),
+          {
+            status: 429,
+            headers: {
+              "Content-Type": "application/json",
+              "Retry-After": "60",
+            },
+          },
+        );
+      }
+    } else if (!rateLimit(`page:${ip}`, RATE_LIMITS.page)) {
+      console.warn(`[proxy] rate-limited page: ip=${ip} path=${pathname}`);
+      return new NextResponse("Too Many Requests", {
+        status: 429,
+        headers: { "Retry-After": "60" },
+      });
+    }
+  }
 
   // 0. Redirect non-www to www (SEO Canonicalization)
   if (host === "youtubetoolshub.com" || host?.startsWith("youtubetoolshub.com:")) {
@@ -220,14 +356,11 @@ export default async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match everything except API routes and Next internals so the apex→www
-     * 301 also covers sitemaps, feeds, ads.txt, .well-known files, and images.
-     * Previously those were matcher-excluded, so e.g.
-     * https://youtubetoolshub.com/sitemap.xml served 200 instead of
-     * redirecting to the www canonical host. On the www host the middleware
-     * just calls next() for these, so the only behavior change is the
-     * canonicalizing redirect for apex-host requests.
+     * Match everything except Next internals so the apex→www 301 also covers
+     * sitemaps, feeds, ads.txt, .well-known files, images — AND /api routes,
+     * which are now rate-limited and abusive-UA-filtered by the bot-mitigation
+     * layer above (they previously had zero protection).
      */
-    "/((?!api|_next/static|_next/image|_next/data|favicon\\.ico).*)",
+    "/((?!_next/static|_next/image|_next/data|favicon\\.ico).*)",
   ],
 };
