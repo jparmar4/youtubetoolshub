@@ -1,4 +1,5 @@
 import type { IconType } from "react-icons";
+import { getToolArtwork } from "@/components/ui/tool-artwork";
 import {
   FaImage,
   FaMagic,
@@ -102,6 +103,12 @@ const TOOL_ICONS: Record<string, IconType> = {
 };
 
 export function renderToolIcon(key?: string, className?: string) {
+  // Custom per-tool SVG artwork takes priority (1em-sized, scales with the
+  // cube's font-size exactly like the FA glyph fallback below).
+  const Artwork = getToolArtwork(key);
+  if (Artwork) {
+    return <Artwork />;
+  }
   const Icon = (key && TOOL_ICONS[key]) || FaRocket;
   return <Icon className={className} />;
 }
