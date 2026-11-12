@@ -11,6 +11,7 @@ import { AD_SLOTS } from "@/lib/adsense";
 import { toolMeta } from "@/config/tool-meta";
 import { QUICK_LAUNCH_TOOLS } from "@/config/quick-launch";
 import { countryCPMData } from "@/lib/cpm-data";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 
 export default function BlogSidebar() {
   const [desktop, setDesktop] = useState(false);
@@ -46,7 +47,6 @@ export default function BlogSidebar() {
 
         <div className="space-y-2">
           {QUICK_LAUNCH_TOOLS.map((item) => {
-            const Icon = item.icon;
             return (
               <Link
                 key={item.href}
@@ -54,11 +54,7 @@ export default function BlogSidebar() {
                 className="group flex items-center justify-between gap-2.5 p-2.5 rounded-2xl bg-white/80 hover:bg-purple-50/70 border border-slate-200/70 hover:border-purple-300 transition-all shadow-2xs"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span
-                    className={`w-8 h-8 rounded-xl bg-gradient-to-br ${item.iconBg} text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                  </span>
+                  <ToolIcon3D slug={item.href.replace("/tools/", "")} size="sm" />
                   <span className="text-xs font-bold text-slate-800 group-hover:text-purple-700 truncate">
                     {item.name}
                   </span>

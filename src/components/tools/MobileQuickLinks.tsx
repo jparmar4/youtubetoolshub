@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import { QUICK_LAUNCH_TOOLS } from "@/config/quick-launch";
 
 /**
@@ -14,18 +15,13 @@ export default function MobileQuickLinks() {
             </p>
             <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
                 {QUICK_LAUNCH_TOOLS.map((tool) => {
-                    const Icon = tool.icon;
                     return (
                         <Link
                             key={tool.href}
                             href={tool.href}
                             className="group flex shrink-0 snap-start items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white px-3.5 py-2.5 shadow-xs transition-all hover:border-purple-300 hover:shadow-sm"
                         >
-                            <span
-                                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${tool.iconBg} text-white`}
-                            >
-                                <Icon aria-hidden="true" className="text-sm" />
-                            </span>
+                            <ToolIcon3D slug={tool.href.replace("/tools/", "")} size="sm" />
                             <span className="flex flex-col">
                                 <span className="whitespace-nowrap text-xs font-bold text-slate-800 group-hover:text-purple-700">
                                     {tool.name}
