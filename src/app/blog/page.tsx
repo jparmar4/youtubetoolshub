@@ -8,6 +8,7 @@ import { combineSchemasToGraph, getCollectionPageSchema, getBreadcrumbSchema, ge
 import { FaClock, FaUser, FaArrowRight, FaBookOpen } from "react-icons/fa";
 import { BlogCard } from "@/components/ui/Card";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
 import AdSlot from "@/components/ads/AdSlot";
@@ -190,58 +191,60 @@ export default function BlogPage() {
               <div className="h-px flex-1 bg-slate-200 ml-8 hidden md:block" />
             </div>
 
-            <Link href={`/blog/${featuredPost.slug}`} className="block group">
-              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 sm:p-8 lg:p-12 card-3d rounded-[2.5rem] relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-purple-500/5 to-transparent -z-10" />
+            <ScrollReveal>
+              <Link href={`/blog/${featuredPost.slug}`} className="block group">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 sm:p-8 lg:p-12 card-3d rounded-[2.5rem] relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-purple-500/5 to-transparent -z-10" />
 
-                <div className="relative z-10">
-                  <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-700 text-white rounded-full mb-6 uppercase tracking-widest">
-                    {featuredPost.category}
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-5 group-hover:text-purple-600 transition-colors leading-[1.1] font-outfit tracking-tighter">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-slate-600 mb-8 text-lg sm:text-xl leading-relaxed line-clamp-3 font-outfit">
-                    {featuredPost.excerpt}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-sm text-slate-600 font-black uppercase tracking-widest">
-                    <span className="flex items-center gap-2">
-                      <FaUser className="text-purple-500" />
-                      {featuredPost.author}
+                  <div className="relative z-10">
+                    <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-700 text-white rounded-full mb-6 uppercase tracking-widest">
+                      {featuredPost.category}
                     </span>
-                    <span className="flex items-center gap-2">
-                      <FaClock className="text-purple-500" />
-                      {featuredPost.readTime}
-                    </span>
-                    <span>{featuredPost.date}</span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-5 group-hover:text-purple-600 transition-colors leading-[1.1] font-outfit tracking-tighter">
+                      {featuredPost.title}
+                    </h2>
+                    <p className="text-slate-600 mb-8 text-lg sm:text-xl leading-relaxed line-clamp-3 font-outfit">
+                      {featuredPost.excerpt}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-sm text-slate-600 font-black uppercase tracking-widest">
+                      <span className="flex items-center gap-2">
+                        <FaUser className="text-purple-500" />
+                        {featuredPost.author}
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <FaClock className="text-purple-500" />
+                        {featuredPost.readTime}
+                      </span>
+                      <span>{featuredPost.date}</span>
+                    </div>
+                  </div>
+
+                  <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl hidden lg:block border-8 border-white/50 bg-slate-100">
+                    {featuredPost.coverImage ? (
+                      <Image
+                        src={featuredPost.coverImage}
+                        alt={featuredPost.title}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 flex items-center justify-center text-white">
+                        <div className="flex flex-col items-center gap-4">
+                          <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:scale-125 transition-transform duration-700">
+                            <FaBookOpen className="w-10 h-10" />
+                          </div>
+                          <span className="font-black text-xs uppercase tracking-[0.3em] opacity-50">
+                            Strategy Guide
+                          </span>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl hidden lg:block border-8 border-white/50 bg-slate-100">
-                  {featuredPost.coverImage ? (
-                    <Image
-                      src={featuredPost.coverImage}
-                      alt={featuredPost.title}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 flex items-center justify-center text-white">
-                      <div className="flex flex-col items-center gap-4">
-                        <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center group-hover:scale-125 transition-transform duration-700">
-                          <FaBookOpen className="w-10 h-10" />
-                        </div>
-                        <span className="font-black text-xs uppercase tracking-[0.3em] opacity-50">
-                          Strategy Guide
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -255,35 +258,41 @@ export default function BlogPage() {
         {/* Other Posts */}
         <section className="py-16 bg-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-              <div>
-                <span className="text-purple-400 font-black uppercase tracking-widest text-sm mb-3 block">
-                  Knowledge Base
-                </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit tracking-tighter">
-                  Latest Strategic Guides
-                </h2>
+            <ScrollReveal>
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <span className="text-purple-400 font-black uppercase tracking-widest text-sm mb-3 block">
+                    Knowledge Base
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit tracking-tighter">
+                    Latest Strategic Guides
+                  </h2>
+                </div>
+                <p className="text-slate-300 max-w-md font-medium">
+                  Deep dives into the mechanics of growth, monetization, and
+                  automation.
+                </p>
               </div>
-              <p className="text-slate-300 max-w-md font-medium">
-                Deep dives into the mechanics of growth, monetization, and
-                automation.
-              </p>
-            </div>
+            </ScrollReveal>
 
+            {/* Cards reveal individually so the interleaved in-article ad slots
+                (full-width grid items below) stay outside every reveal wrapper. */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               {otherPosts.map((post, i) => (
                 <Fragment key={post.slug}>
-                  <BlogCard
-                    title={post.title}
-                    excerpt={post.excerpt}
-                    date={post.date}
-                    category={post.category}
-                    slug={post.slug}
-                    coverImage={post.coverImage}
-                    coverAlt={post.title}
-                    className="bg-white/5 border-white/10 hover:bg-white/10"
-                    dark={true}
-                  />
+                  <ScrollReveal>
+                    <BlogCard
+                      title={post.title}
+                      excerpt={post.excerpt}
+                      date={post.date}
+                      category={post.category}
+                      slug={post.slug}
+                      coverImage={post.coverImage}
+                      coverAlt={post.title}
+                      className="bg-white/5 border-white/10 hover:bg-white/10"
+                      dark={true}
+                    />
+                  </ScrollReveal>
                   {(i + 1) % 6 === 0 && (
                     <AdSlot
                       slot={pickInArticleSlot(Math.floor(i / 6))}

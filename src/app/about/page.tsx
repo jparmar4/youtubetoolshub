@@ -16,6 +16,7 @@ import {
 } from "react-icons/fa";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
   title: { absolute: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026" },
@@ -223,39 +224,41 @@ export default function AboutPage() {
 
       {/* Features Section */}
       <section className="py-20 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-outfit tracking-tight">
-              Tools for Every Stage
-            </h2>
-            <p className="text-slate-500 text-xl max-w-2xl mx-auto font-outfit">
-              Our suite covers the entire lifecycle of a viral video.
-            </p>
-          </div>
+        <ScrollReveal>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 font-outfit tracking-tight">
+                Tools for Every Stage
+              </h2>
+              <p className="text-slate-500 text-xl max-w-2xl mx-auto font-outfit">
+                Our suite covers the entire lifecycle of a viral video.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {features.map((feature, i) => (
-              <div
-                key={i}
-                className="group card-3d rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden"
-              >
-                <div className="relative z-10 text-center md:text-left">
-                  <div
-                    className={`w-16 h-16 mb-6 mx-auto md:mx-0 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white shadow-xl group-hover:scale-105 transition-transform`}
-                  >
-                    <feature.icon className="w-7 h-7" />
+            <div className="grid md:grid-cols-2 gap-8">
+              {features.map((feature, i) => (
+                <div
+                  key={i}
+                  className="group card-3d rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden"
+                >
+                  <div className="relative z-10 text-center md:text-left">
+                    <div
+                      className={`w-16 h-16 mb-6 mx-auto md:mx-0 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white shadow-xl group-hover:scale-105 transition-transform`}
+                    >
+                      <feature.icon className="w-7 h-7" />
+                    </div>
+                    <h3 className="font-black text-2xl sm:text-3xl text-slate-900 mb-4 font-outfit tracking-tight">
+                      {feature.title}
+                    </h3>
+                    <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 className="font-black text-2xl sm:text-3xl text-slate-900 mb-4 font-outfit tracking-tight">
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
-                    {feature.description}
-                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* CTA Section */}

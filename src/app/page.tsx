@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
 import FaqAccordion from "@/components/ui/FaqAccordion";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
@@ -288,16 +289,18 @@ export default function Home() {
       {/* Money formula + calculator CTA (high-CPC intent) */}
       <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit tracking-tight mb-3">
-              How much does{" "}
-              <span className="text-emerald-700">YouTube pay</span>?
-            </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto" data-speakable>
-              Estimated AdSense earnings ≈ (monthly views ÷ 1,000) × RPM. Example:
-              100,000 views at $5 RPM ≈ $500/month. Free calculator — no signup.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 font-outfit tracking-tight mb-3">
+                How much does{" "}
+                <span className="text-emerald-700">YouTube pay</span>?
+              </h2>
+              <p className="text-slate-600 max-w-2xl mx-auto" data-speakable>
+                Estimated AdSense earnings ≈ (monthly views ÷ 1,000) × RPM. Example:
+                100,000 views at $5 RPM ≈ $500/month. Free calculator — no signup.
+              </p>
+            </div>
+          </ScrollReveal>
           <EarningsCalculatorCTA variant="card" contextLabel={`Free · Instant · ${countryCPMData.length} countries`} />
 
           {/* Tier 1 High-RPM Benchmarks */}
@@ -324,41 +327,43 @@ export default function Home() {
               What is <span className="text-purple-600">YouTube Tools Hub</span>?
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="card-3d rounded-2xl p-8 text-center group">
-              <div className="mb-5 flex justify-center">
-                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-purple-600">
-                  <FaBolt className="h-7 w-7" aria-hidden="true" />
+          <ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="card-3d rounded-2xl p-8 text-center group">
+                <div className="mb-5 flex justify-center">
+                  <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-purple-600">
+                    <FaBolt className="h-7 w-7" aria-hidden="true" />
+                  </div>
                 </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">{tools.length} Free YouTube Tools</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  YouTube Tools Hub is a free online platform providing {tools.length} creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
+                </p>
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">{tools.length} Free YouTube Tools</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                YouTube Tools Hub is a free online platform providing {tools.length} creator tools for YouTube creators. No signup required. A free alternative to TubeBuddy and VidIQ.
-              </p>
-            </div>
-            <div className="card-3d rounded-2xl p-8 text-center group">
-              <div className="mb-5 flex justify-center">
-                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-pink-600">
-                  <FaMagic className="h-7 w-7" aria-hidden="true" />
+              <div className="card-3d rounded-2xl p-8 text-center group">
+                <div className="mb-5 flex justify-center">
+                  <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-pink-600">
+                    <FaMagic className="h-7 w-7" aria-hidden="true" />
+                  </div>
                 </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Includes: Thumbnail Downloader, AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator, Channel Audit, and more.
+                </p>
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Complete Creator Suite</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Includes: Thumbnail Downloader, AI Thumbnail Generator, Title Generator, Description Generator, Tag Generator &amp; Extractor, Hashtag Generator, Video Ideas Generator, Earnings Calculator, Channel Audit, and more.
-              </p>
-            </div>
-            <div className="card-3d rounded-2xl p-8 text-center group">
-              <div className="mb-5 flex justify-center">
-                <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-indigo-600">
-                  <FaCheck className="h-7 w-7" aria-hidden="true" />
+              <div className="card-3d rounded-2xl p-8 text-center group">
+                <div className="mb-5 flex justify-center">
+                  <div className="icon-cube-3d w-14 h-14 rounded-2xl flex items-center justify-center text-indigo-600">
+                    <FaCheck className="h-7 w-7" aria-hidden="true" />
+                  </div>
                 </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Accessible Worldwide</h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  Available worldwide with no browser extension or private YouTube login required. Use the tools directly in your browser at youtubetoolshub.com.
+                </p>
               </div>
-              <h3 className="font-bold text-lg text-slate-900 mb-3 font-outfit">Accessible Worldwide</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Available worldwide with no browser extension or private YouTube login required. Use the tools directly in your browser at youtubetoolshub.com.
-              </p>
             </div>
-          </div>
+          </ScrollReveal>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-bold text-slate-600">
             <Link
               href="/about"
@@ -397,74 +402,76 @@ export default function Home() {
       {/* Tools Showcase */}
       <section className="py-20 bg-slate-50 relative overflow-hidden cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-10">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
-              Flagship Creator Suite
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
-              Popular free YouTube tools
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
-              Thumbnails, titles, tags, and Tier-1 earnings — the flagship tools creators use daily.
-            </p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-10">
+              <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
+                Flagship Creator Suite
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
+                Popular free YouTube tools
+              </h2>
+              <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
+                Thumbnails, titles, tags, and Tier-1 earnings — the flagship tools creators use daily.
+              </p>
+            </div>
 
-          {/* 4-Category Bento Hub Bar */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mb-10">
-            {[
-              {
-                title: "Thumbnail & HD Studio",
-                sub: "Downloader, AI & Feed Preview",
-                href: "/tools/thumbnail-tools",
-                accent: "from-pink-500 to-rose-600",
-                badge: "HD / MaxRes",
-              },
-              {
-                title: "SEO & Metadata Suite",
-                sub: "Titles, Tags, Chapters & Transcripts",
-                href: "/tools/seo-tools",
-                accent: "from-purple-600 to-fuchsia-600",
-                badge: "Rank #1",
-              },
-              {
-                title: "Tier-1 Money & Tax",
-                sub: "AdSense RPM, S-Corp & Valuation",
-                href: "/tools/analytics-tools",
-                accent: "from-emerald-500 to-teal-600",
-                badge: "High RPM",
-              },
-              {
-                title: `All ${tools.length} Creator Tools`,
-                sub: "Complete Browser Catalog",
-                href: "/tools",
-                accent: "from-sky-500 to-indigo-600",
-                badge: "Full Suite",
-              },
-            ].map((cat) => (
-              <Link
-                key={cat.title}
-                href={cat.href}
-                className="group card-3d rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left"
-              >
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span
-                    className={`px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${cat.accent}`}
-                  >
-                    {cat.badge}
-                  </span>
-                  <FaArrowRight className="w-3 h-3 text-slate-500 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
-                </div>
-                <div>
-                  <div className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-purple-700 transition-colors font-outfit">
-                    {cat.title}
+            {/* 4-Category Bento Hub Bar */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mb-10">
+              {[
+                {
+                  title: "Thumbnail & HD Studio",
+                  sub: "Downloader, AI & Feed Preview",
+                  href: "/tools/thumbnail-tools",
+                  accent: "from-pink-500 to-rose-600",
+                  badge: "HD / MaxRes",
+                },
+                {
+                  title: "SEO & Metadata Suite",
+                  sub: "Titles, Tags, Chapters & Transcripts",
+                  href: "/tools/seo-tools",
+                  accent: "from-purple-600 to-fuchsia-600",
+                  badge: "Rank #1",
+                },
+                {
+                  title: "Tier-1 Money & Tax",
+                  sub: "AdSense RPM, S-Corp & Valuation",
+                  href: "/tools/analytics-tools",
+                  accent: "from-emerald-500 to-teal-600",
+                  badge: "High RPM",
+                },
+                {
+                  title: `All ${tools.length} Creator Tools`,
+                  sub: "Complete Browser Catalog",
+                  href: "/tools",
+                  accent: "from-sky-500 to-indigo-600",
+                  badge: "Full Suite",
+                },
+              ].map((cat) => (
+                <Link
+                  key={cat.title}
+                  href={cat.href}
+                  className="group card-3d rounded-2xl p-4 sm:p-5 flex flex-col justify-between text-left"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider text-white bg-gradient-to-r ${cat.accent}`}
+                    >
+                      {cat.badge}
+                    </span>
+                    <FaArrowRight className="w-3 h-3 text-slate-500 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
                   </div>
-                  <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">
-                    {cat.sub}
+                  <div>
+                    <div className="font-extrabold text-sm sm:text-base text-slate-900 group-hover:text-purple-700 transition-colors font-outfit">
+                      {cat.title}
+                    </div>
+                    <div className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+                      {cat.sub}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {featuredTools.map((tool) => (
@@ -622,99 +629,105 @@ export default function Home() {
 
       {/* Benefits Bridge */}
       <section className="py-20 bg-slate-50 relative overflow-hidden cv-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
-              Why Creators Use{" "}
-              <span className="text-gradient">YouTube Tools Hub</span>
-            </h2>
-            <p className="text-xl text-slate-500 max-w-3xl mx-auto font-outfit font-medium italic">
-              &ldquo;Simple browser-based utilities for common creator tasks,
-              available without a browser extension.&rdquo;
-            </p>
-          </div>
+        <ScrollReveal>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
+                Why Creators Use{" "}
+                <span className="text-gradient">YouTube Tools Hub</span>
+              </h2>
+              <p className="text-xl text-slate-500 max-w-3xl mx-auto font-outfit font-medium italic">
+                &ldquo;Simple browser-based utilities for common creator tasks,
+                available without a browser extension.&rdquo;
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, i) => (
-              <div
-                key={i}
-                className="card-3d rounded-3xl p-8 text-center group"
-              >
-                <div className="w-18 h-18 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-[0_10px_25px_-5px_rgba(124,58,237,0.45),inset_0_1.5px_0_0_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300">
-                  <benefit.icon className="w-8 h-8" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {benefits.map((benefit, i) => (
+                <div
+                  key={i}
+                  className="card-3d rounded-3xl p-8 text-center group"
+                >
+                  <div className="w-18 h-18 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white shadow-[0_10px_25px_-5px_rgba(124,58,237,0.45),inset_0_1.5px_0_0_rgba(255,255,255,0.4)] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300">
+                    <benefit.icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="font-black text-xl text-slate-900 mb-3 font-outfit tracking-tight">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm leading-relaxed font-outfit font-medium">
+                    {benefit.description}
+                  </p>
                 </div>
-                <h3 className="font-black text-xl text-slate-900 mb-3 font-outfit tracking-tight">
-                  {benefit.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed font-outfit font-medium">
-                  {benefit.description}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Semantic FAQ Section for GEO/AEO */}
       <section className="py-20 bg-white relative z-10 cv-auto">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12 text-balance">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
-              Common YouTube <span className="text-purple-600">questions</span>
-            </h2>
-            <p className="text-xl text-slate-600 font-outfit font-medium">
-              Straight answers on thumbnails, pay per view, and free tools.
-            </p>
+        <ScrollReveal>
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-12 text-balance">
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+                Common YouTube <span className="text-purple-600">questions</span>
+              </h2>
+              <p className="text-xl text-slate-600 font-outfit font-medium">
+                Straight answers on thumbnails, pay per view, and free tools.
+              </p>
+            </div>
+            <FaqAccordion items={homeFAQs} headingLevel="h3" />
+            <div className="mt-12 text-center">
+              <Link
+                href="/faq"
+                className="text-purple-600 font-black text-xl hover:underline underline-offset-8"
+              >
+                More YouTube FAQs →
+              </Link>
+            </div>
           </div>
-          <FaqAccordion items={homeFAQs} headingLevel="h3" />
-          <div className="mt-12 text-center">
-            <Link
-              href="/faq"
-              className="text-purple-600 font-black text-xl hover:underline underline-offset-8"
-            >
-              More YouTube FAQs →
-            </Link>
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Latest guides */}
       <section className="py-16 bg-slate-50 relative overflow-hidden cv-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tighter">
-              Latest YouTube guides
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
-              Thumbnail sizes, CPM by country, Shorts pay, and SEO checklists.
-            </p>
-          </div>
+        <ScrollReveal>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tighter">
+                Latest YouTube guides
+              </h2>
+              <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
+                Thumbnail sizes, CPM by country, Shorts pay, and SEO checklists.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {blogPosts.map((post) => (
-              <BlogCard
-                key={post.slug}
-                title={post.title}
-                excerpt={post.excerpt}
-                date={post.date}
-                category={post.category}
-                slug={post.slug}
-                coverImage={post.coverImage}
-                coverAlt={post.title}
-              />
-            ))}
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {blogPosts.map((post) => (
+                <BlogCard
+                  key={post.slug}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  date={post.date}
+                  category={post.category}
+                  slug={post.slug}
+                  coverImage={post.coverImage}
+                  coverAlt={post.title}
+                />
+              ))}
+            </div>
 
-          <div className="text-center mt-14">
-            <Link
-              href="/blog"
-              className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black px-5 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-            >
-              View all YouTube guides
-              <FaArrowRight aria-hidden="true" />
-            </Link>
+            <div className="text-center mt-14">
+              <Link
+                href="/blog"
+                className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black px-5 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              >
+                View all YouTube guides
+                <FaArrowRight aria-hidden="true" />
+              </Link>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* CTA Section */}

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, Fragment } from "react";
 import { useRouter } from "next/navigation";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { toolMeta } from "@/config/tool-meta";
 import { countryCPMData } from "@/lib/cpm-data";
 import {
@@ -141,6 +142,12 @@ export default function CommandPalette({
     return [...toolItems, ...STATIC_RESOURCES];
   }, []);
 
+  // First featured tools for the empty-state suggestion chips
+  const featuredSuggestions = useMemo(
+    () => toolMeta.filter((t) => t.isFeatured).slice(0, 4),
+    [],
+  );
+
   // Filter items by query and active tab
   const filteredItems = useMemo(() => {
     let results = allItems;
@@ -172,12 +179,32 @@ export default function CommandPalette({
       .slice(0, 24);
   }, [allItems, query, activeTab]);
 
+  // Presentational grouping for sticky headers: consecutive runs keep the
+  // filtered order and data-index mapping intact. Shown when searching or on
+  // the "All Items" tab; a specific category tab is a single group, so skip.
+  const showGroupHeaders = activeTab === "all" || query.trim() !== "";
+  const groupedItems = useMemo(() => {
+    const groups: { label: string; items: { item: SearchItem; index: number }[] }[] = [];
+    filteredItems.forEach((item, index) => {
+      const lastGroup = groups[groups.length - 1];
+      if (lastGroup && lastGroup.label === item.categoryLabel) {
+        lastGroup.items.push({ item, index });
+      } else {
+        groups.push({ label: item.categoryLabel, items: [{ item, index }] });
+      }
+    });
+    return groups;
+  }, [filteredItems]);
+
   const handleClose = useCallback(() => {
     setQuery("");
     setSelectedIndex(0);
     setActiveTab("all");
     onClose();
   }, [onClose]);
+
+  // Traps Tab navigation inside the panel; Escape closes via onEscape
+  const panelRef = useFocusTrap<HTMLDivElement>(isOpen, { onEscape: handleClose });
 
   // Focus input when opened
   useEffect(() => {
@@ -189,7 +216,7 @@ export default function CommandPalette({
     }
   }, [isOpen]);
 
-  // Keyboard navigation inside palette
+  // Keyboard navigation inside palette (Escape is handled by the focus trap)
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowDown") {
@@ -207,9 +234,6 @@ export default function CommandPalette({
           router.push(selected.href);
           handleClose();
         }
-      } else if (e.key === "Escape") {
-        e.preventDefault();
-        handleClose();
       }
     },
     [filteredItems, selectedIndex, router, handleClose],
@@ -225,6 +249,85 @@ export default function CommandPalette({
       activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
   }, [selectedIndex]);
+
+  // Render one result row (shared by the grouped and flat result views)
+  const renderItem = (item: SearchItem, index: number) => {
+    const isSelected = index === selectedIndex;
+    return (
+      <div
+        key={item.id}
+        data-index={index}
+        onClick={() => {
+          router.push(item.href);
+          handleClose();
+        }}
+        onMouseEnter={() => setSelectedIndex(index)}
+        className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all ${
+          isSelected
+            ? "bg-purple-50/90 text-purple-950 border border-purple-200/60 border-l-2 border-l-purple-500 shadow-sm"
+            : "hover:bg-slate-50 text-slate-700"
+        }`}
+      >
+        <div className="flex items-center gap-3 min-w-0 pr-2">
+          <div
+            className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
+              item.category === "calculator"
+                ? "bg-emerald-100 text-emerald-700"
+                : item.category === "thumbnail"
+                ? "bg-blue-100 text-blue-700"
+                : item.category === "seo"
+                ? "bg-amber-100 text-amber-700"
+                : item.category === "ai"
+                ? "bg-purple-100 text-purple-700"
+                : "bg-pink-100 text-pink-700"
+            }`}
+          >
+            {item.category === "calculator" && <FaCalculator className="w-4 h-4" />}
+            {item.category === "thumbnail" && <FaImage className="w-4 h-4" />}
+            {item.category === "seo" && <FaChartLine className="w-4 h-4" />}
+            {item.category === "ai" && <FaRobot className="w-4 h-4" />}
+            {item.category === "resource" && <FaBook className="w-4 h-4" />}
+            {item.category === "other" && <FaArrowRight className="w-4 h-4" />}
+          </div>
+
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-semibold text-sm sm:text-base truncate">
+                {item.title}
+              </span>
+              {item.badge && (
+                <span
+                  className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                    item.isTier1
+                      ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                      : "bg-purple-100 text-purple-800"
+                  }`}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-slate-500 truncate mt-0.5">
+              {item.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="hidden sm:inline-block text-[11px] font-medium text-slate-500">
+            {item.categoryLabel}
+          </span>
+          <FaArrowRight
+            className={`w-3.5 h-3.5 transition-transform ${
+              isSelected
+                ? "text-purple-600 translate-x-0.5"
+                : "text-slate-400"
+            }`}
+          />
+        </div>
+      </div>
+    );
+  };
 
   if (!isOpen) return null;
 
@@ -243,8 +346,9 @@ export default function CommandPalette({
 
       {/* Palette Modal */}
       <div
+        ref={panelRef}
         onKeyDown={handleKeyDown}
-        className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col z-10 my-auto sm:my-0"
+        className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200/90 ring-1 ring-slate-950/5 overflow-hidden flex flex-col z-10 my-auto sm:my-0"
       >
         {/* Search Input Bar */}
         <div className="relative flex items-center px-4 sm:px-6 py-4 border-b border-slate-200 bg-slate-50/50">
@@ -311,7 +415,9 @@ export default function CommandPalette({
         {/* Results List */}
         <div
           ref={listRef}
-          className="max-h-[380px] sm:max-h-[440px] overflow-y-auto divide-y divide-slate-100 p-2"
+          className={`max-h-[380px] sm:max-h-[440px] overflow-y-auto p-2 ${
+            showGroupHeaders ? "" : "divide-y divide-slate-100"
+          }`}
         >
           {filteredItems.length === 0 ? (
             <div className="py-12 text-center text-slate-500">
@@ -320,85 +426,34 @@ export default function CommandPalette({
               <p className="text-xs text-slate-500 mt-1">
                 Try searching for "earnings", "cpm", "thumbnail", "sponsorship", or "tags"
               </p>
+              {/* Featured suggestions */}
+              <div className="mt-4 flex flex-wrap justify-center gap-2 px-4">
+                {featuredSuggestions.map((tool) => (
+                  <button
+                    key={tool.slug}
+                    type="button"
+                    onClick={() => {
+                      router.push(`/tools/${tool.slug}`);
+                      handleClose();
+                    }}
+                    className="px-3 py-1.5 rounded-full bg-purple-50 hover:bg-purple-100 border border-purple-200/80 text-purple-800 text-xs font-semibold transition-colors cursor-pointer"
+                  >
+                    {tool.name}
+                  </button>
+                ))}
+              </div>
             </div>
-          ) : (
-            filteredItems.map((item, index) => {
-              const isSelected = index === selectedIndex;
-              return (
-                <div
-                  key={item.id}
-                  data-index={index}
-                  onClick={() => {
-                    router.push(item.href);
-                    handleClose();
-                  }}
-                  onMouseEnter={() => setSelectedIndex(index)}
-                  className={`flex items-center justify-between p-3 rounded-xl cursor-pointer transition-all ${
-                    isSelected
-                      ? "bg-purple-50/90 text-purple-950 border border-purple-200/60 shadow-sm"
-                      : "hover:bg-slate-50 text-slate-700"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0 pr-2">
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                        item.category === "calculator"
-                          ? "bg-emerald-100 text-emerald-700"
-                          : item.category === "thumbnail"
-                          ? "bg-blue-100 text-blue-700"
-                          : item.category === "seo"
-                          ? "bg-amber-100 text-amber-700"
-                          : item.category === "ai"
-                          ? "bg-purple-100 text-purple-700"
-                          : "bg-pink-100 text-pink-700"
-                      }`}
-                    >
-                      {item.category === "calculator" && <FaCalculator className="w-4 h-4" />}
-                      {item.category === "thumbnail" && <FaImage className="w-4 h-4" />}
-                      {item.category === "seo" && <FaChartLine className="w-4 h-4" />}
-                      {item.category === "ai" && <FaRobot className="w-4 h-4" />}
-                      {item.category === "resource" && <FaBook className="w-4 h-4" />}
-                      {item.category === "other" && <FaArrowRight className="w-4 h-4" />}
-                    </div>
-
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-sm sm:text-base truncate">
-                          {item.title}
-                        </span>
-                        {item.badge && (
-                          <span
-                            className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                              item.isTier1
-                                ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                                : "bg-purple-100 text-purple-800"
-                            }`}
-                          >
-                            {item.badge}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-slate-500 truncate mt-0.5">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="hidden sm:inline-block text-[11px] font-medium text-slate-500">
-                      {item.categoryLabel}
-                    </span>
-                    <FaArrowRight
-                      className={`w-3.5 h-3.5 transition-transform ${
-                        isSelected
-                          ? "text-purple-600 translate-x-0.5"
-                          : "text-slate-400"
-                      }`}
-                    />
-                  </div>
+          ) : showGroupHeaders ? (
+            groupedItems.map((group) => (
+              <Fragment key={group.items[0].item.id}>
+                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 sticky top-0 bg-white/95 backdrop-blur-sm z-10 px-3 pt-3 pb-1">
+                  {group.label}
                 </div>
-              );
-            })
+                {group.items.map(({ item, index }) => renderItem(item, index))}
+              </Fragment>
+            ))
+          ) : (
+            filteredItems.map((item, index) => renderItem(item, index))
           )}
         </div>
 

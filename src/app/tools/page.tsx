@@ -4,6 +4,7 @@ import { ToolCard } from "@/components/ui/Card";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import FaqAccordion from "@/components/ui/FaqAccordion";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import ToolsFilterBar from "@/components/tools/ToolsFilterBar";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { countryCPMData } from "@/lib/cpm-data";
@@ -310,48 +311,50 @@ export default function ToolsPage() {
               return (
                 <div key={category.id} id={category.id} className="scroll-mt-24">
                   <section className="animate-fade-in-up">
-                    <div className="mb-10 flex flex-col items-center text-center">
-                      <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 font-outfit relative">
-                        {category.name}
-                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-purple-500 rounded-full"></div>
-                      </h2>
-                      <p className="text-base sm:text-lg text-slate-600 max-w-2xl mb-4">
-                        {category.description}
-                      </p>
-                      {/* Link to Hub Page */}
-                      {(() => {
-                        const hubMap: Record<string, string> = {
-                          "thumbnail-media": "/tools/thumbnail-tools",
-                          "seo-metadata": "/tools/seo-tools",
-                          "channel-growth": "/tools/channel-tools",
-                          "analytics-earnings": "/tools/analytics-tools",
-                          "utility-fun": "/tools/utility-tools",
-                        };
-                        const hubUrl = hubMap[category.id];
-                        return hubUrl ? (
-                          <Link
-                            href={hubUrl}
-                            className="inline-flex items-center gap-1.5 text-purple-600 font-bold hover:text-purple-700 transition-colors text-sm group"
-                          >
-                            <span>View Full {category.name.replace(" Tools", "")} Suite</span>
-                            <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                          </Link>
-                        ) : null;
-                      })()}
-                    </div>
+                    <ScrollReveal>
+                      <div className="mb-10 flex flex-col items-center text-center">
+                        <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 font-outfit relative">
+                          {category.name}
+                          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-purple-500 rounded-full"></div>
+                        </h2>
+                        <p className="text-base sm:text-lg text-slate-600 max-w-2xl mb-4">
+                          {category.description}
+                        </p>
+                        {/* Link to Hub Page */}
+                        {(() => {
+                          const hubMap: Record<string, string> = {
+                            "thumbnail-media": "/tools/thumbnail-tools",
+                            "seo-metadata": "/tools/seo-tools",
+                            "channel-growth": "/tools/channel-tools",
+                            "analytics-earnings": "/tools/analytics-tools",
+                            "utility-fun": "/tools/utility-tools",
+                          };
+                          const hubUrl = hubMap[category.id];
+                          return hubUrl ? (
+                            <Link
+                              href={hubUrl}
+                              className="inline-flex items-center gap-1.5 text-purple-600 font-bold hover:text-purple-700 transition-colors text-sm group"
+                            >
+                              <span>View Full {category.name.replace(" Tools", "")} Suite</span>
+                              <FaArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                          ) : null;
+                        })()}
+                      </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                      {categoryTools.map((tool) => (
-                        <ToolCard
-                          key={tool.slug}
-                          title={tool.name}
-                          description={tool.shortDescription}
-                          href={`/tools/${tool.slug}`}
-                          isAI={tool.isAI}
-                          category={tool.category}
-                        />
-                      ))}
-                    </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                        {categoryTools.map((tool) => (
+                          <ToolCard
+                            key={tool.slug}
+                            title={tool.name}
+                            description={tool.shortDescription}
+                            href={`/tools/${tool.slug}`}
+                            isAI={tool.isAI}
+                            category={tool.category}
+                          />
+                        ))}
+                      </div>
+                    </ScrollReveal>
 
                     <AdSlot slot={pickInArticleSlot(index)} preset="in-article" className="mt-12" />
                   </section>
