@@ -57,24 +57,18 @@ const audienceOptions = [
 
 // All major world languages
 const languageOptions = [
-    // Top 10 most spoken
-    { value: "english", label: "🇺🇸 English" },
-    { value: "spanish", label: "🇪🇸 Spanish (Español)" },
-    { value: "mandarin", label: "🇨🇳 Chinese (中文)" },
-    { value: "hindi", label: "🇮🇳 Hindi (हिन्दी)" },
-    { value: "arabic", label: "🇸🇦 Arabic (العربية)" },
-    { value: "portuguese", label: "🇧🇷 Portuguese (Português)" },
-    // ... rest of languages can be kept simple or filtered for brevity in this replace block, 
-    // but preserving the main ones is key. I'll use a subset for brevity in the tool call 
-    // but in a real edit I'd keep the list full if possible.
-    // For this specific edit, I will include the full list from the original file to minimize diff noise if I had it all,
-    // but since I'm replacing the whole file content, I'll stick to the main ones + regions requested.
-    { value: "bengali", label: "🇧🇩 Bengali (বাংলা)" },
-    { value: "russian", label: "🇷🇺 Russian (Русский)" },
-    { value: "japanese", label: "🇯🇵 Japanese (日本語)" },
-    { value: "french", label: "🇫🇷 French (Français)" },
-    { value: "german", label: "🇩🇪 German (Deutsch)" },
-    { value: "italian", label: "🇮🇹 Italian (Italiano)" },
+    { value: "english", label: "English" },
+    { value: "spanish", label: "Spanish (Español)" },
+    { value: "mandarin", label: "Chinese (中文)" },
+    { value: "hindi", label: "Hindi (हिन्दी)" },
+    { value: "arabic", label: "Arabic (العربية)" },
+    { value: "portuguese", label: "Portuguese (Português)" },
+    { value: "bengali", label: "Bengali (বাংলা)" },
+    { value: "russian", label: "Russian (Русский)" },
+    { value: "japanese", label: "Japanese (日本語)" },
+    { value: "french", label: "French (Français)" },
+    { value: "german", label: "German (Deutsch)" },
+    { value: "italian", label: "Italian (Italiano)" },
 ];
 
 interface TitleResult {
@@ -328,7 +322,7 @@ export default function TitleGenerator() {
                                 <FaMagic className="text-emerald-500 animate-pulse" />
                             </div>
                         </div>
-                        <p className="text-gray-500 text-lg">Analyzing 1,000+ viral titles...</p>
+                        <p className="text-slate-600 text-lg">Analyzing 1,000+ viral titles...</p>
                     </div>
                 )}
 
@@ -350,16 +344,18 @@ export default function TitleGenerator() {
                             <div className="flex flex-wrap items-center gap-2">
                                 <CopyButton text={allTitlesText} variant="button" label="Copy All" />
                                 <button
+                                    type="button"
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as CSV"
                                 >
                                     <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download titles as Plain Text"
                                 >
                                     <FaFileAlt className="text-[11px]" />
@@ -385,12 +381,12 @@ export default function TitleGenerator() {
 
                                         {/* Score Badge */}
                                         <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200">
-                                            <span className={`text-xl font-black ${item.score >= 90 ? "text-green-500" :
-                                                item.score >= 80 ? "text-blue-500" : "text-yellow-500"
+                                            <span className={`text-xl font-black ${item.score >= 90 ? "text-emerald-600" :
+                                                item.score >= 80 ? "text-blue-600" : "text-amber-600"
                                                 }`}>
                                                 {item.score}
                                             </span>
-                                            <span className="text-[11px] uppercase font-bold text-slate-500">Score</span>
+                                            <span className="text-[11px] uppercase font-bold text-slate-600">Score</span>
                                         </div>
 
                                         <div className="flex-1 space-y-2">
@@ -404,10 +400,10 @@ export default function TitleGenerator() {
                                                 <span className="px-2.5 py-1 rounded-md bg-purple-50 text-purple-700 font-medium flex items-center gap-1.5 border border-purple-200">
                                                     <FaBullseye className="text-xs" /> {item.method}
                                                 </span>
-                                                <span className={`px-2.5 py-1 rounded-md font-semibold ${titleLen <= 60 ?'bg-green-50 text-green-700 border border-green-200':'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+                                                <span className={`px-2.5 py-1 rounded-md font-semibold ${titleLen <= 60 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
                                                     {titleLen} chars {titleLen <= 60 ? '✓ Mobile Safe' : '⚠ Truncates on Mobile'}
                                                 </span>
-                                                <span className="text-slate-500 border-l border-slate-200 pl-2">
+                                                <span className="text-slate-600 border-l border-slate-200 pl-2">
                                                     {item.why}
                                                 </span>
                                             </div>
@@ -422,13 +418,15 @@ export default function TitleGenerator() {
                                                 <FaPen /> Write Desc
                                             </Link>
                                             <button
+                                                type="button"
                                                 onClick={() => handleSave(item.title)}
                                                 disabled={isSaved}
-                                                className={`p-2 rounded-xl transition-all ${isSaved
-                                                    ? "bg-yellow-50 text-yellow-500"
-                                                    : "bg-slate-50 text-slate-500 hover:text-yellow-500 hover:bg-yellow-50"
+                                                className={`cursor-pointer p-2 rounded-xl transition-all disabled:cursor-default ${isSaved
+                                                    ? "bg-amber-50 text-amber-500"
+                                                    : "bg-slate-50 text-slate-600 hover:text-amber-500 hover:bg-amber-50"
                                                     }`}
                                                 title="Save Title"
+                                                aria-label={isSaved ? "Saved Title" : "Save Title"}
                                             >
                                                 {isSaved ? <FaStar /> : <FaRegStar />}
                                             </button>

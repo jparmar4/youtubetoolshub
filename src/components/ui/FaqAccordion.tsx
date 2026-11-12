@@ -31,10 +31,10 @@ export default function FaqAccordion({
             {items.map((item, index) => (
                 <details
                     key={index}
-                    className="group rounded-2xl border border-slate-200/80 bg-white shadow-xs transition-colors open:border-purple-300/80"
+                    className="group rounded-2xl border border-slate-200/90 bg-white shadow-2xs transition-all hover:border-purple-200 open:border-purple-300 open:shadow-md open:shadow-purple-900/5"
                 >
-                    <summary className="flex cursor-pointer select-none items-center justify-between gap-4 px-5 py-4 font-bold text-slate-900 transition-colors hover:text-purple-700 [&::-webkit-details-marker]:hidden">
-                        <Heading className="text-sm sm:text-base font-black font-outfit tracking-tight">
+                    <summary className="flex cursor-pointer select-none items-center justify-between gap-4 px-5 py-4 sm:px-6 font-bold text-slate-900 transition-colors hover:text-purple-700 [&::-webkit-details-marker]:hidden">
+                        <Heading className="text-sm sm:text-base font-bold font-outfit tracking-tight text-left">
                             {item.question}
                         </Heading>
                         <FaChevronDown
@@ -42,8 +42,8 @@ export default function FaqAccordion({
                             className="shrink-0 text-sm text-slate-500 transition-transform duration-300 group-open:rotate-180 group-open:text-purple-600"
                         />
                     </summary>
-                    <div className="border-t border-slate-100 px-5 py-4">
-                        <p className="text-sm leading-relaxed text-slate-600">{item.answer}</p>
+                    <div className="border-t border-slate-100 px-5 py-4 sm:px-6 bg-slate-50/40">
+                        <p className="text-sm sm:text-[15px] leading-relaxed text-slate-600">{item.answer}</p>
                     </div>
                 </details>
             ))}

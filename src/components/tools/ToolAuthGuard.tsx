@@ -19,8 +19,8 @@ export default function ToolAuthGuard({
 
     if (status === "loading") {
         return (
-            <div className="min-h-[300px] flex items-center justify-center bg-gray-50 rounded-2xl animate-pulse">
-                <div className="text-center text-slate-500">Loading...</div>
+            <div className="min-h-[300px] flex items-center justify-center bg-slate-50 rounded-2xl animate-pulse">
+                <div className="text-center text-slate-600">Loading...</div>
             </div>
         );
     }

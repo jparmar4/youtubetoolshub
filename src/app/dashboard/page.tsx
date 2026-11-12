@@ -88,15 +88,15 @@ export default function DashboardPage() {
     const getToolBySlug = (slug: string): ToolMeta | undefined => getToolMetaBySlug(slug);
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-28 pb-12">
+        <div className="min-h-screen bg-slate-50 pt-10 sm:pt-14 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Header Section */}
-                <div className="glass-premium rounded-3xl p-8 mb-10 border border-slate-200/50 shadow-sm relative overflow-hidden">
+                <div className="card-3d rounded-3xl p-6 sm:p-8 mb-10 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-5 sm:gap-6">
                             {session?.user?.image ? (
                                 <Image
                                     src={session.user.image}
@@ -106,21 +106,23 @@ export default function DashboardPage() {
                                     className="rounded-2xl border-4 border-white shadow-lg"
                                 />
                             ) : (
-                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center text-white text-3xl font-bold border-4 border-white shadow-lg">
+                                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-fuchsia-500 flex items-center justify-center text-white text-2xl sm:text-3xl font-bold border-4 border-white shadow-lg">
                                     {session?.user?.name?.[0] || "U"}
                                 </div>
                             )}
                             <div>
-                                <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-                                    Welcome back, <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">{session?.user?.name?.split(" ")[0]}</span>!
+                                <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 font-outfit">
+                                    Welcome back, <span className="bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">{session?.user?.name?.split(" ")[0] || "Creator"}</span>!
                                 </h1>
-                                <div className="flex items-center gap-3">
-                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold shadow-sm ${usage?.isPro ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 text-slate-700'}`}>
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold shadow-sm ${usage?.isPro ? 'bg-gradient-to-r from-yellow-400 to-amber-600 text-white' : 'bg-slate-200 text-slate-800'}`}>
                                         {usage?.isPro ? <FaCrown /> : null}
                                         {usage?.isPro ? 'PRO Plan' : 'Free Plan'}
                                     </span>
-                                    <span className="text-slate-300">•</span>
-                                    <span className="text-slate-500 text-sm">Member since 2025</span>
+                                    <span className="text-slate-400">•</span>
+                                    <span className="text-slate-600 text-sm font-medium">
+                                        {usage?.isPro ? 'Active Pro Workspace' : 'Creator Workspace'}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +181,7 @@ export default function DashboardPage() {
                         {/* Recent Activity */}
                         <Card className="p-6 bg-white">
                             <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                                <span className="p-2 rounded-lg bg-green-50 text-green-600"><FaHistory /></span>
+                                <span className="p-2 rounded-lg bg-emerald-50 text-emerald-700"><FaHistory /></span>
                                 Recent Activity
                             </h2>
 
@@ -277,12 +279,13 @@ export default function DashboardPage() {
                                         description={tool.shortDescription}
                                         href={`/tools/${tool.slug}`}
                                         isAI={tool.isAI}
+                                        category={tool.category}
                                     />
                                 ))}
                             </div>
                             <div className="mt-4 text-right">
-                                <Link href="/tools" className="text-sm font-medium text-slate-500 hover:text-purple-600 transition-colors">
-                                    View All Tools →
+                                <Link href="/tools" className="text-sm font-semibold text-slate-600 hover:text-purple-700 transition-colors">
+                                    View All {toolMeta.length} Tools →
                                 </Link>
                             </div>
                         </div>
@@ -317,14 +320,14 @@ export default function DashboardPage() {
                                             href={`/tools/youtube-video-ideas-generator?topic=${encodeURIComponent(video.title)}`}
                                             className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
                                         >
-                                            <div className="flex-shrink-0 font-mono text-2xl font-bold text-slate-300 group-hover:text-orange-500 transition-colors w-8">
+                                            <div className="flex-shrink-0 font-mono text-2xl font-bold text-slate-400 group-hover:text-orange-500 transition-colors w-8">
                                                 {index + 1}
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <h3 className="font-semibold text-slate-900 line-clamp-1 group-hover:text-orange-600 transition-colors">
                                                     {video.title}
                                                 </h3>
-                                                <p className="text-sm text-slate-500 mt-1">
+                                                <p className="text-sm text-slate-600 mt-1">
                                                     {video.channel} • {parseInt(video.views).toLocaleString()} views
                                                 </p>
                                                 {video.tags && video.tags.length > 0 && (

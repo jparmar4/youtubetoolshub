@@ -21,9 +21,9 @@ export const QUICK_LAUNCH_TOOLS = [
         iconBg: "from-emerald-500 to-teal-600",
     },
     {
-        name: "4K Thumbnail Downloader",
+        name: "Thumbnail Downloader",
         href: "/tools/youtube-thumbnail-downloader",
-        badge: "UHD",
+        badge: "HD",
         badgeColor: "bg-pink-100 text-pink-800 border-pink-200",
         icon: FaDownload,
         iconBg: "from-pink-500 to-rose-600",

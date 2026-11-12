@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import NextImage from "next/image";
-import { FaUser, FaSignOutAlt, FaCog } from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaCog, FaRocket } from "react-icons/fa";
 
 export default function UserMenu() {
     const { data: session, status } = useSession();
@@ -50,7 +50,7 @@ export default function UserMenu() {
             <Link
                 href="/sign-in"
                 rel="nofollow"
-                className="h-9 px-4 inline-flex items-center justify-center text-xs font-extrabold bg-slate-900 hover:bg-purple-700 text-white rounded-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_2px_0_0_#020617,0_6px_14px_-3px_rgba(15,23,42,0.3)] transition-all hover:-translate-y-0.5 whitespace-nowrap shrink-0"
+                className="h-9 px-4 inline-flex items-center justify-center text-xs font-bold bg-slate-900 hover:bg-purple-700 text-white rounded-full shadow-xs transition-all whitespace-nowrap shrink-0"
             >
                 Sign In
             </Link>
@@ -66,25 +66,25 @@ export default function UserMenu() {
                 aria-haspopup="menu"
                 aria-expanded={isOpen}
                 aria-label="Account menu"
-                className="flex items-center gap-2 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="flex items-center gap-2 rounded-full cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
                 {session.user.image && !imageError ? (
                     <NextImage
                         src={session.user.image}
                         alt=""
-                        width={40}
-                        height={40}
-                        className="rounded-full border-2 border-purple-500 object-cover"
+                        width={36}
+                        height={36}
+                        className="w-9 h-9 rounded-full border-2 border-purple-500 object-cover"
                         onError={() => setImageError(true)}
                     />
                 ) : (
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 flex items-center justify-center border-2 border-purple-500">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 flex items-center justify-center border-2 border-purple-500">
                         {session.user.name ? (
-                            <span className="text-white font-bold text-lg" aria-hidden="true">
+                            <span className="text-white font-bold text-sm" aria-hidden="true">
                                 {session.user.name.charAt(0).toUpperCase()}
                             </span>
                         ) : (
-                            <FaUser className="w-5 h-5 text-white" />
+                            <FaUser className="w-4 h-4 text-white" />
                         )}
                     </div>
                 )}
@@ -115,7 +115,7 @@ export default function UserMenu() {
                             className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-purple-50 hover:text-purple-700 focus-visible:bg-purple-50 focus-visible:text-purple-700 font-medium"
                             onClick={closeMenu}
                         >
-                            <span className="w-4 h-4 flex items-center justify-center" aria-hidden="true">🚀</span>
+                            <FaRocket className="w-4 h-4 text-purple-600 shrink-0" aria-hidden="true" />
                             My Dashboard
                         </Link>
                         <Link
@@ -135,7 +135,7 @@ export default function UserMenu() {
                             type="button"
                             role="menuitem"
                             onClick={() => signOut({ callbackUrl: "/" })}
-                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-purple-700 hover:bg-purple-50 focus-visible:bg-purple-50"
+                            className="flex items-center gap-3 px-4 py-2 w-full text-left text-purple-700 hover:bg-purple-50 focus-visible:bg-purple-50 cursor-pointer"
                         >
                             <FaSignOutAlt className="w-4 h-4" aria-hidden="true" />
                             Sign Out

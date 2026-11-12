@@ -23,7 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 {label && (
                     <label
                         htmlFor={inputId}
-                        className="block text-sm font-medium text-slate-700 mb-2"
+                        className="block text-sm font-semibold text-slate-800 mb-1.5"
                     >
                         {label}
                     </label>
@@ -32,23 +32,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                     ref={ref}
                     id={inputId}
                     className={`
-            w-full px-4 py-3 rounded-xl border-2 
+            w-full px-4 py-2.5 sm:py-3 rounded-xl border
             bg-white
-            border-slate-200
-            text-slate-900
+            border-slate-300/90 hover:border-slate-400
+            text-slate-900 text-sm sm:text-base
             placeholder-slate-400
-            focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none
+            shadow-2xs
+            focus:border-purple-600 focus:ring-4 focus:ring-purple-500/10 focus:outline-none
             transition-all duration-200
-            ${error ? "border-red-500" : ""}
+            ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500/15" : ""}
             ${className}
           `}
                     {...props}
                 />
                 {error && (
-                    <p className="mt-1 text-sm text-red-500">{error}</p>
+                    <p className="mt-1.5 text-sm font-medium text-red-600">{error}</p>
                 )}
                 {helperText && !error && (
-                    <p className="mt-1 text-sm text-slate-500">{helperText}</p>
+                    <p className="mt-1.5 text-xs sm:text-sm text-slate-500">{helperText}</p>
                 )}
             </div>
         );
@@ -66,7 +67,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 {label && (
                     <label
                         htmlFor={inputId}
-                        className="block text-sm font-medium text-slate-700 mb-2"
+                        className="block text-sm font-semibold text-slate-800 mb-1.5"
                     >
                         {label}
                     </label>
@@ -75,24 +76,25 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                     ref={ref}
                     id={inputId}
                     className={`
-            w-full px-4 py-3 rounded-xl border-2 
+            w-full px-4 py-3 rounded-xl border
             bg-white
-            border-slate-200
-            text-slate-900
+            border-slate-300/90 hover:border-slate-400
+            text-slate-900 text-sm sm:text-base
             placeholder-slate-400
-            focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none
+            shadow-2xs
+            focus:border-purple-600 focus:ring-4 focus:ring-purple-500/10 focus:outline-none
             transition-all duration-200
             resize-y min-h-[120px]
-            ${error ? "border-red-500" : ""}
+            ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500/15" : ""}
             ${className}
           `}
                     {...props}
                 />
                 {error && (
-                    <p className="mt-1 text-sm text-red-400">{error}</p>
+                    <p className="mt-1.5 text-sm font-medium text-red-600">{error}</p>
                 )}
                 {helperText && !error && (
-                    <p className="mt-1 text-sm text-slate-600">{helperText}</p>
+                    <p className="mt-1.5 text-xs sm:text-sm text-slate-500">{helperText}</p>
                 )}
             </div>
         );

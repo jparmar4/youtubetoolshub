@@ -8,11 +8,15 @@ import { FaRocket, FaArrowRight, FaBrain } from "react-icons/fa";
 import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
-    title: "YouTube Channel Research & Growth Tools - AI Strategist 2026",
+    title: {
+        absolute: "Free YouTube Channel Growth & Analytics Tools (2026)",
+    },
     description: "Scale your YouTube channel with AI-powered research tools. Generate viral video ideas, find trending topics, and plan your content calendar. Free growth suite for 2026.",
     keywords: ["youtube growth tools", "video ideas generator", "youtube trend finder", "content calendar planner", "channel strategy 2026", "viral content ideas", "youtube algorithm tools"],
     openGraph: {
@@ -90,29 +94,25 @@ export default function ChannelToolsHub() {
                 }}
             />
 
-            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
-                        <Link href="/" className="hover:text-purple-600 transition-colors">
-                            Home
-                        </Link>
-                        <span>/</span>
-                        <Link href="/tools" className="hover:text-purple-600 transition-colors">
-                            Tools
-                        </Link>
-                        <span>/</span>
-                        <span className="text-slate-900 font-medium font-outfit">Channel Growth</span>
-                    </nav>
+                    <Breadcrumb
+                        items={[
+                            { name: "Home", href: "/" },
+                            { name: "Tools", href: "/tools" },
+                            { name: "Channel Growth" },
+                        ]}
+                        className="mb-8"
+                    />
 
                     {/* Header */}
                     <div className="text-center mb-10">
-                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 text-xs font-black uppercase tracking-[0.2em] mb-4">
+                        <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-700 text-xs font-black uppercase tracking-[0.15em] mb-4">
                             <FaBrain className="w-3 h-3" />
-                            Growth Intelligence
+                            Growth Intelligence · {growthTools.length} Free Tools
                         </span>
-                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-5 tracking-tight font-outfit">
                             Master the <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-rose-600">Algorithm</span>
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary" data-speakable>
@@ -124,29 +124,29 @@ export default function ChannelToolsHub() {
                     <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Growth Strategy Checklist */}
-                    <div className="glass-premium rounded-3xl p-10 border-l-8 border-orange-500 mb-12 shadow-xl">
-                        <h2 className="text-3xl font-black text-slate-900 mb-6 font-outfit flex items-center gap-3">
+                    <div className="card-3d rounded-3xl p-8 sm:p-10 border-l-4 border-l-orange-500 mb-12">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 font-outfit flex items-center gap-3">
                             <FaRocket className="text-orange-500" />
                             The 2026 Rapid Growth Blueprint
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-10">
+                        <div className="grid md:grid-cols-2 gap-8">
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
+                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">✓</div>
                                     <p className="text-slate-700 font-outfit"><strong>Viral Topic Discovery:</strong> Use the Trend Helper to find rising interests before they reach the mainstream.</p>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
-                                    <p className="text-slate-700 font-outfit"><strong>Engagement Loops:</strong> Plan your community posts and polls using the Content Calendar for 24/7 channel activity.</p>
+                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">✓</div>
+                                    <p className="text-slate-700 font-outfit"><strong>Engagement Loops:</strong> Plan your community posts and polls using the Content Calendar for consistent channel activity.</p>
                                 </li>
                             </ul>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
+                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">✓</div>
                                     <p className="text-slate-700 font-outfit"><strong>Niche Authority:</strong> Generate video ideas that reinforce your &ldquo;Topic Cluster&rdquo; to improve your semantic ranking.</p>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <div className="w-6 h-6 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center flex-shrink-0 mt-1">✓</div>
+                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">✓</div>
                                     <p className="text-slate-700 font-outfit"><strong>Retention Modeling:</strong> Design your video hooks around proven curiosity gaps generated by our AI idea engine.</p>
                                 </li>
                             </ul>
@@ -177,12 +177,12 @@ export default function ChannelToolsHub() {
 
                     {/* Authority Guide Section */}
                     <div className="max-w-4xl mx-auto mb-12">
-                        <div className="glass-premium rounded-[3rem] p-12 shadow-sm relative overflow-hidden border-t-4 border-rose-500/20">
-                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+                        <div className="card-3d rounded-3xl p-8 sm:p-10 border-t-4 border-t-rose-500/30">
+                            <h2 className="text-3xl font-black text-slate-900 mb-5 font-outfit tracking-tight">
                                 Why Strategy Beats &ldquo;Luck&rdquo; in 2026
                             </h2>
                             <div className="article-prose max-w-none text-slate-600 font-outfit">
-                                <p className="mb-6">
+                                <p className="mb-4">
                                     The 2026 YouTube algorithm is powered by deep neural networks that analyze <strong>Human Satisfaction Metrics</strong>. It&apos;s no longer just about clicks—it&apos;s about &ldquo;Value Delivered.&rdquo;
                                 </p>
                                 <p>
@@ -193,32 +193,21 @@ export default function ChannelToolsHub() {
                     </div>
 
                     {/* AEO / FAQ Section */}
-                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                    <section className="mb-12" data-speakable>
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
                             Frequently Asked Questions About YouTube Channel Growth
                         </h2>
-                        <div className="space-y-6">
-                            {channelFaqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                        <FaqAccordion items={channelFaqs} headingLevel="h3" />
+                    </section>
 
                     {/* Final CTA */}
                     <div className="text-center">
                         <Link
                             href="/tools"
-                            className="inline-flex items-center gap-4 px-12 py-6 bg-slate-900 text-white rounded-full font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95 group"
+                            className="btn-3d-primary inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base sm:text-lg group"
                         >
-                            View Entire Stack
-                            <FaArrowRight className="group-hover:translate-x-3 transition-transform" />
+                            <span>View All Tools</span>
+                            <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </div>

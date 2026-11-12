@@ -38,8 +38,9 @@ import {
   FaLightbulb,
   FaArrowRight,
   FaCheckCircle,
+  FaLayerGroup,
 } from "react-icons/fa";
-import GoogleAd from "@/components/ads/GoogleAd";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 
@@ -47,7 +48,9 @@ const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
 
 export const metadata: Metadata = {
-  title: "YouTube Earnings Calculator — Pay per 1,000 Views (Free)",
+  title: {
+    absolute: "YouTube Earnings Calculator (2026) — RPM & AdSense",
+  },
   description:
     `Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, ${countryCPMData.length} markets). See 100k and 1M view scenarios. Free, no signup.`,
   keywords: [
@@ -242,11 +245,11 @@ export default function YouTubeEarningsCalculatorPage() {
         }}
       />
 
-      <div className="min-h-screen py-10 lg:py-16 relative overflow-hidden">
+      <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
         <div className="nebula-bg" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AdSectionIgnore>
-            <div className="mb-8">
+            <div className="mb-6">
               <Breadcrumb
                 items={[
                   { name: "Home", href: "/" },
@@ -258,9 +261,9 @@ export default function YouTubeEarningsCalculatorPage() {
           </AdSectionIgnore>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2 space-y-10">
+            <div className="lg:col-span-2 space-y-8">
               <AdSectionPrioritize>
-              {/* 3D Studio Hero Header */}
+              {/* Studio Hero Header */}
               <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -275,7 +278,7 @@ export default function YouTubeEarningsCalculatorPage() {
                     <div className="flex-1 min-w-0">
                       <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Free · 52 Country Markets · 2026 Verified</span>
+                        <span>Free · {countryCPMData.length} Country Markets · 2026 Benchmarks</span>
                       </span>
                       <h1
                         className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit leading-tight"
@@ -305,22 +308,25 @@ export default function YouTubeEarningsCalculatorPage() {
                 </div>
               </header>
 
-              {/* 3D UHD Interactive Calculator Console — Immediately Above the Fold */}
+              {/* Compact Responsive Leaderboard Above Calculator */}
+              <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
+
+              {/* Interactive Calculator Console — Immediately Visible */}
               <section
                 id="calculator"
                 className="studio-console-3d rounded-3xl overflow-hidden"
               >
-                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
-                    <span className="ml-2 text-xs font-bold text-slate-200 truncate">
-                      YouTube Earnings &amp; RPM Calculator — Interactive Studio Workspace
+                <div className="flex items-center justify-between gap-2 px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-white/10 text-emerald-300 shrink-0" aria-hidden="true">
+                      <FaLayerGroup className="w-3 h-3" />
+                    </span>
+                    <span className="text-xs font-bold text-slate-200 truncate">
+                      YouTube Earnings &amp; RPM Calculator
                     </span>
                   </div>
                   <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                    Live Engine
+                    Live Workspace
                   </span>
                 </div>
                 <div className="p-4 sm:p-6">
@@ -329,12 +335,6 @@ export default function YouTubeEarningsCalculatorPage() {
                   </ToolContextProvider>
                 </div>
               </section>
-
-              {/* Leaderboard Ad immediately below the Calculator */}
-              <div className="rounded-2xl overflow-hidden shadow-xs border border-emerald-100 bg-white p-2 min-h-[268px] sm:min-h-[280px] flex flex-col items-center justify-center">
-                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                <GoogleAd slot={AD_SLOTS.HEADER} lazy={false} responsive className="w-full text-center" />
-              </div>
 
               <QuickAnswerCapsule
                 question="Quick Answer: How much does YouTube pay for views?"
@@ -345,14 +345,15 @@ export default function YouTubeEarningsCalculatorPage() {
                   "Tier 3 (India, Brazil, PH) averages $0.40–$2.50 RPM",
                   "Finance, Tech & Business niches pay 3x–5x higher than Gaming",
                 ]}
-                badgeText="⚡ AI Quick Summary"
+                badgeText="Quick Summary"
               />
 
-              {/* Ad immediately below the Calculator */}
-              <div className="my-6 rounded-2xl overflow-hidden shadow-sm border border-emerald-100 bg-white p-3 text-center">
-                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-                <GoogleAd slot={AD_SLOTS.IN_ARTICLE[0]} format="fluid" layout="in-article" responsive className="w-full text-center" />
-              </div>
+              {/* Ad immediately below the Calculator (auto-collapses when unfilled) */}
+              <AdSlot
+                slot={AD_SLOTS.IN_ARTICLE[0]}
+                preset="in-article"
+                className="my-6 border-emerald-100"
+              />
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
 
@@ -373,10 +374,10 @@ export default function YouTubeEarningsCalculatorPage() {
               </AdSectionPrioritize>
 
               {/* Example table */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <section className="card-3d rounded-3xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2 font-outfit">
                   <FaChartLine className="text-emerald-600" />
-                  Example YouTube earnings by views
+                  <span>Example YouTube earnings by views</span>
                 </h2>
                 <p className="text-slate-600 mb-6">
                   Planning examples only. Your Studio RPM is the ground truth.
@@ -384,7 +385,7 @@ export default function YouTubeEarningsCalculatorPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm md:text-base">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-500">
+                      <tr className="border-b border-slate-200 text-slate-600">
                         <th scope="col" className="py-3 pr-4 font-semibold">Scenario</th>
                         <th scope="col" className="py-3 pr-4 font-semibold">Views</th>
                         <th scope="col" className="py-3 pr-4 font-semibold">RPM</th>
@@ -417,12 +418,12 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* CPM vs RPM */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 space-y-4">
-                <h2 className="text-2xl font-bold text-slate-900">
+              <section className="card-3d rounded-3xl p-6 md:p-8 space-y-4">
+                <h2 className="text-2xl font-bold text-slate-900 font-outfit">
                   YouTube CPM vs RPM (simple explanation)
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="rounded-xl bg-slate-50 p-5 border border-slate-100">
+                  <div className="rounded-2xl bg-slate-50 p-5 border border-slate-200/80">
                     <h3 className="font-bold text-slate-900 mb-2">CPM</h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
                       Cost Per Mille — what advertisers pay for 1,000 ad
@@ -430,7 +431,7 @@ export default function YouTubeEarningsCalculatorPage() {
                       countries.
                     </p>
                   </div>
-                  <div className="rounded-xl bg-emerald-50 p-5 border border-emerald-100">
+                  <div className="rounded-2xl bg-emerald-50 p-5 border border-emerald-200/80">
                     <h3 className="font-bold text-slate-900 mb-2">RPM</h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
                       Revenue Per Mille — what you earn per 1,000 video views
@@ -457,11 +458,11 @@ export default function YouTubeEarningsCalculatorPage() {
               {/* Ad placement */}
               <AdSlot slot="6023554962" preset="in-article" className="my-8" />
 
-              {/* Countries — full 52-market index grouped by tier for global crawl + UX */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+              {/* Countries — full market index grouped by tier for global crawl + UX */}
+              <section className="card-3d rounded-3xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2 font-outfit">
                   <FaGlobeAmericas className="text-blue-600" />
-                  {`Calculate earnings by country (${countryCPMData.length} markets)`}
+                  <span>{`Calculate earnings by country (${countryCPMData.length} markets)`}</span>
                 </h2>
                 <p className="text-slate-600 mb-6">
                   Open a localized calculator for CPM/RPM context in that market.
@@ -473,7 +474,7 @@ export default function YouTubeEarningsCalculatorPage() {
                   { label: "Tier 3 — Emerging markets", countries: tier3 },
                 ].map((group) => (
                   <div key={group.label} className="mb-5 last:mb-0">
-                    <h3 className="text-sm font-bold uppercase tracking-wide text-slate-500 mb-3">
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-slate-600 mb-3">
                       {group.label} ({group.countries.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -505,8 +506,8 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* Niche table */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
+              <section className="card-3d rounded-3xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2 font-outfit">
                   YouTube CPM by niche (indicative 2026)
                 </h2>
                 <p className="text-slate-600 mb-6">
@@ -516,7 +517,7 @@ export default function YouTubeEarningsCalculatorPage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-500">
+                      <tr className="border-b border-slate-200 text-slate-600">
                         <th scope="col" className="py-2 pr-3 font-semibold">Niche</th>
                         <th scope="col" className="py-2 pr-3 font-semibold">Avg CPM</th>
                         <th scope="col" className="py-2 font-semibold">Notes</th>
@@ -543,10 +544,10 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* How to increase */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <section className="card-3d rounded-3xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2 font-outfit">
                   <FaLightbulb className="text-amber-500" />
-                  How to increase YouTube earnings
+                  <span>How to increase YouTube earnings</span>
                 </h2>
                 <ul className="space-y-3 text-slate-700">
                   {[
@@ -557,7 +558,7 @@ export default function YouTubeEarningsCalculatorPage() {
                     "Improve retention so more ads are completed — pair with our free SEO and thumbnail tools.",
                   ].map((item) => (
                     <li key={item} className="flex gap-3">
-                      <FaCheckCircle className="text-emerald-500 mt-1 shrink-0" />
+                      <FaCheckCircle className="text-emerald-600 mt-1 shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -565,19 +566,19 @@ export default function YouTubeEarningsCalculatorPage() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href="/tools/youtube-title-generator"
-                    className="px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-bold hover:bg-purple-700"
+                    className="btn-3d-primary px-4 py-2 rounded-xl text-sm font-bold"
                   >
                     Title Generator
                   </Link>
                   <Link
                     href="/tools/youtube-thumbnail-downloader"
-                    className="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-bold hover:bg-slate-800"
+                    className="px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors"
                   >
                     Thumbnail Downloader
                   </Link>
                   <Link
                     href="/resources/youtube-cpm-rates"
-                    className="px-4 py-2 rounded-lg border border-slate-200 text-sm font-bold text-slate-800 hover:border-purple-400"
+                    className="btn-3d-glass px-4 py-2 rounded-xl text-sm font-bold text-slate-800"
                   >
                     CPM rates by country
                   </Link>
@@ -585,38 +586,27 @@ export default function YouTubeEarningsCalculatorPage() {
               </section>
 
               {/* FAQ */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">
-                  YouTube earnings calculator FAQ
+              <section data-speakable>
+                <h2 className="text-2xl font-bold text-slate-900 mb-5 font-outfit">
+                  YouTube Earnings Calculator FAQ
                 </h2>
-                <div className="space-y-5">
-                  {pillarFAQs.map((faq) => (
-                    <div key={faq.question}>
-                      <h3 className="text-lg font-bold text-slate-900 mb-2">
-                        {faq.question}
-                      </h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                <FaqAccordion items={pillarFAQs} headingLevel="h3" />
               </section>
 
               {/* Recommended Content / Multiplex Ad Unit */}
               <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
 
-              <div className="rounded-xl bg-amber-50 border border-amber-100 p-4 text-sm text-amber-900">
+              <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
                 <strong>Disclaimer:</strong> Estimates are for educational
                 planning only. YouTube Tools Hub is not affiliated with YouTube
                 or Google. Actual revenue depends on AdSense, policies,
                 seasonality, and your audience.
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="card-3d rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <p className="text-slate-800 font-bold">Embed or share this calculator</p>
-                  <p className="text-xs text-slate-500">Free to add to your own blog, agency site, or creator article.</p>
+                  <p className="text-slate-900 font-bold">Embed or share this calculator</p>
+                  <p className="text-xs text-slate-600">Free to add to your own blog, agency site, or creator article.</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   <EmbedModal slug="youtube-earnings-calculator" toolName="YouTube Earnings Calculator" />
@@ -637,8 +627,8 @@ export default function YouTubeEarningsCalculatorPage() {
           </div>
 
           {/* Related tools strip */}
-          <section className="mt-16 mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">
+          <section className="mt-14 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 font-outfit">
               Related free creator tools
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -660,12 +650,12 @@ export default function YouTubeEarningsCalculatorPage() {
                   <Link
                     key={t.slug}
                     href={`/tools/${t.slug}`}
-                    className="rounded-xl border border-slate-200 bg-white p-4 hover:border-purple-400 hover:shadow-md transition-all"
+                    className="card-3d rounded-2xl p-5 hover:border-purple-400 transition-all"
                   >
                     <span className="font-bold text-slate-900 block mb-1">
                       {t.name}
                     </span>
-                    <span className="text-sm text-slate-500">
+                    <span className="text-sm text-slate-600">
                       {t.shortDescription}
                     </span>
                   </Link>

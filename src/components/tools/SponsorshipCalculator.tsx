@@ -312,8 +312,8 @@ ${channelHandle}`
             description="Explore illustrative quotes for sponsored integrations, shoutouts, and dedicated reviews."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
-                <p className="text-sm text-slate-500">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
+                {!calculations && <p role="status" className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                <p className="text-sm text-slate-600">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
                 {/* Header Controls: Currency & View Presets */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2">
@@ -325,10 +325,10 @@ ${channelHandle}`
                                     key={c}
                                     type="button"
                                     onClick={() => setCurrency(c)}
-                                    className={`px-3 py-1.5 text-xs font-bold transition-all ${
+                                    className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                                         currency === c
                                             ? "bg-purple-600 text-white"
-                                            :"text-slate-600 hover:bg-slate-100"
+                                            : "text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {c}

@@ -5,6 +5,8 @@ import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { siteConfig } from "@/config/site";
+import { tools } from "@/config/tools";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
     combineSchemasToGraph,
     getBreadcrumbSchema,
@@ -28,7 +30,7 @@ const comparisonFaqs = [
     {
         question: "Is YouTube Tools Hub really free compared to TubeBuddy?",
         answer:
-            "Yes — all 30 core tools are free with no signup. YouTube Tools Hub's optional Pro tier only raises usage limits for heavy users. TubeBuddy pricing is set by TubeBuddy and changes over time, so compare its current plans before subscribing.",
+            `Yes — all ${tools.length} core tools are free with no signup. YouTube Tools Hub's optional Pro tier only raises usage limits for heavy users. TubeBuddy pricing is set by TubeBuddy and changes over time, so compare its current plans before subscribing.`,
     },
     {
         question: "Can I use YouTube Tools Hub and TubeBuddy together?",
@@ -54,47 +56,49 @@ export default function TubeBuddyComparisonPage() {
                     __html: JSON.stringify(combineSchemasToGraph(breadcrumbSchema, faqSchema)),
                 }}
             />
-            <div className="min-h-screen bg-white pt-28 pb-20">
+            <div className="min-h-screen bg-white pt-10 sm:pt-14 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     {/* Header */}
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                    <div className="text-center max-w-3xl mx-auto mb-12">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit text-slate-900 mb-4 tracking-tight">
                             YouTube Tools Hub vs TubeBuddy
                         </h1>
-                        <p className="text-xl text-slate-600">
+                        <p className="text-lg sm:text-xl text-slate-600">
                             Compare workflow focus and setup. TubeBuddy features and pricing can change, so confirm its current plan details before choosing.
                         </p>
                     </div>
 
                     {/* Comparison Table */}
-                    <div className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-xl mb-12">
-                        <div className="grid grid-cols-3 bg-slate-100 p-6 border-b border-slate-200">
-                            <div className="col-span-1 font-bold text-slate-500">Feature</div>
-                            <div className="col-span-1 text-center font-bold text-xl text-purple-600">YouTube Tools Hub</div>
-                            <div className="col-span-1 text-center font-bold text-xl text-slate-700">TubeBuddy</div>
-                        </div>
-
-                        {[
-                            { feature: "Browser-based creator utilities", us: true, them: "Check current product" },
-                            { feature: "No browser extension required for core tools", us: true, them: "Check current setup" },
-                            { feature: "AI-assisted title ideas", us: true, them: "Check current plan" },
-                            { feature: "Thumbnail download utility", us: true, them: "Check current plan" },
-                            { feature: "Channel workflow checklist", us: true, them: "Check current plan" },
-                            { feature: "Pricing", us: "Core tools free", them: "Check current pricing" },
-                        ].map((row, idx) => (
-                            <div key={idx} className="grid grid-cols-3 p-6 border-b border-slate-200 last:border-0 hover:bg-slate-100 transition-colors">
-                                <div className="col-span-1 font-medium text-slate-900 flex flex-col justify-center">
-                                    {row.feature}
-                                </div>
-                                <div className="col-span-1 flex items-center justify-center">
-                                    {row.us === true ? <FaCheck className="text-green-500 text-xl" /> : <span className="font-bold text-slate-900">{row.us}</span>}
-                                </div>
-                                <div className="col-span-1 flex items-center justify-center">
-                                    <span className="text-center font-bold text-slate-500">{row.them}</span>
-                                </div>
+                    <div className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-xl mb-12 overflow-x-auto">
+                        <div className="min-w-[540px]">
+                            <div className="grid grid-cols-3 bg-slate-100 p-5 sm:p-6 border-b border-slate-200">
+                                <div className="col-span-1 font-bold text-slate-700">Feature</div>
+                                <div className="col-span-1 text-center font-bold text-lg sm:text-xl text-purple-700">YouTube Tools Hub</div>
+                                <div className="col-span-1 text-center font-bold text-lg sm:text-xl text-slate-700">TubeBuddy</div>
                             </div>
-                        ))}
+
+                            {[
+                                { feature: "Browser-based creator utilities", us: true, them: "Check current product" },
+                                { feature: "No browser extension required for core tools", us: true, them: "Check current setup" },
+                                { feature: "AI-assisted title ideas", us: true, them: "Check current plan" },
+                                { feature: "Thumbnail download utility", us: true, them: "Check current plan" },
+                                { feature: "Channel workflow checklist", us: true, them: "Check current plan" },
+                                { feature: "Pricing", us: "Core tools free", them: "Check current pricing" },
+                            ].map((row, idx) => (
+                                <div key={idx} className="grid grid-cols-3 p-5 sm:p-6 border-b border-slate-200 last:border-0 hover:bg-slate-100/70 transition-colors">
+                                    <div className="col-span-1 font-medium text-slate-900 flex flex-col justify-center">
+                                        {row.feature}
+                                    </div>
+                                    <div className="col-span-1 flex items-center justify-center">
+                                        {row.us === true ? <FaCheck className="text-emerald-600 text-xl" /> : <span className="font-bold text-slate-900">{row.us}</span>}
+                                    </div>
+                                    <div className="col-span-1 flex items-center justify-center">
+                                        <span className="text-center font-semibold text-slate-600">{row.them}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Ad placement */}
@@ -128,17 +132,10 @@ export default function TubeBuddyComparisonPage() {
 
                     {/* FAQ */}
                     <div className="max-w-4xl mx-auto mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center font-outfit">
                             TubeBuddy Alternative — FAQ
                         </h2>
-                        <div className="space-y-6">
-                            {comparisonFaqs.map((item) => (
-                                <div key={item.question} className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                                    <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                                    <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={comparisonFaqs} headingLevel="h3" />
                     </div>
 
                     {/* CTA */}

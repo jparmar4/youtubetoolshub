@@ -151,7 +151,7 @@ export default function Tier1ComparisonMatrix() {
               href="/resources/youtube-cpm-rates"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-purple-600/30"
             >
-              <span>View All 52 Countries</span>
+              <span>View All {countryCPMData.length} Countries</span>
               <FaArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -164,20 +164,20 @@ export default function Tier1ComparisonMatrix() {
           {/* Country Selection */}
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
                 1. Select Target Market
               </label>
               <div className="inline-flex rounded-lg bg-slate-100 p-0.5 border border-slate-200">
                 {[
                   { id: "TIER1" as const, label: "Tier 1" },
                   { id: "TIER2" as const, label: "Tier 2" },
-                  { id: "ALL" as const, label: "All 15" },
+                  { id: "ALL" as const, label: `All ${BENCHMARK_COUNTRIES.length}` },
                 ].map((tab) => (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setTierFilter(tab.id)}
-                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors cursor-pointer ${
                       tierFilter === tab.id
                         ? "bg-white text-purple-700 shadow-2xs"
                         : "text-slate-600 hover:text-slate-900"
@@ -225,7 +225,7 @@ export default function Tier1ComparisonMatrix() {
 
           {/* Views Preset Selection */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
               2. Select Monthly View Milestone
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -236,7 +236,7 @@ export default function Tier1ComparisonMatrix() {
                     key={p.views}
                     type="button"
                     onClick={() => setSelectedViews(p.views)}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
                       isSelected
                         ? "bg-emerald-50 border-emerald-500 text-emerald-950 font-bold shadow-xs ring-1 ring-emerald-500"
                         : "bg-slate-50/70 border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -334,7 +334,7 @@ export default function Tier1ComparisonMatrix() {
                 <h4 className="font-extrabold text-slate-900 text-lg">
                   {activeCountry.name} Monetization Intelligence (2026)
                 </h4>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-600">
                   Advertiser CPM Range: ${activeCountry.cpmRange[0].toFixed(2)} – ${activeCountry.cpmRange[1].toFixed(2)} · Creator RPM Avg: ${activeCountry.rpmAvg.toFixed(2)} · US Treaty: {activeCountry.withholdingRate}
                 </p>
               </div>

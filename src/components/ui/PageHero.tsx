@@ -36,11 +36,11 @@ export default function PageHero({
         <section className={`relative overflow-hidden ${className}`}>
             {nebula && <div className="nebula-bg" aria-hidden="true" />}
             <div className={`relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${contentClassName}`}>
-                <div className="py-12 lg:py-20 flex flex-col items-center">
+                <div className="py-10 sm:py-12 lg:py-16 flex flex-col items-center">
                     {badge}
                     <h1
-                        className={`mt-4 font-black tracking-tight font-outfit text-slate-900 ${
-                            size === "xl" ? "text-4xl sm:text-5xl md:text-6xl" : "text-3xl sm:text-4xl md:text-5xl"
+                        className={`mt-4 font-black tracking-tight font-outfit text-slate-950 ${
+                            size === "xl" ? "text-4xl sm:text-5xl md:text-6xl leading-[1.08]" : "text-3xl sm:text-4xl md:text-5xl leading-[1.12]"
                         }`}
                     >
                         {title}
@@ -50,7 +50,7 @@ export default function PageHero({
                             {description}
                         </p>
                     )}
-                    {actions && <div className="mt-8 flex flex-wrap items-center justify-center gap-4">{actions}</div>}
+                    {actions && <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">{actions}</div>}
                     {children}
                 </div>
             </div>

@@ -38,16 +38,16 @@ export default function RefundPolicyPage() {
             description={`Thank you for subscribing to ${siteConfig.name}. Please read our cancellation and refund terms.`}
             icon={<FaUndo className="w-9 h-9" />}
             highlights={
-                <section className="py-8">
+                <section className="py-6 sm:py-8">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {highlights.map((item, i) => (
-                                <div key={i} className="flex flex-col items-center text-center p-6 bg-white rounded-2xl border border-slate-100 shadow-xl shadow-purple-900/5 hover:shadow-purple-900/10 transition-shadow">
-                                    <div className="w-12 h-12 flex-shrink-0 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 mb-4">
+                                <div key={i} className="card-3d flex flex-col items-center text-center p-6 rounded-2xl">
+                                    <div className="w-12 h-12 flex-shrink-0 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 mb-4">
                                         <item.icon className="w-6 h-6" />
                                     </div>
                                     <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
-                                    <p className="text-slate-500 text-sm leading-relaxed">{item.description}</p>
+                                    <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
                                 </div>
                             ))}
                         </div>
@@ -98,10 +98,10 @@ export default function RefundPolicyPage() {
                         { title: "Failed Access", desc: "Unable to access paid features" },
                         { title: "Accidental Purchase", desc: "Unintended subscription (unused)" },
                     ].map((item, i) => (
-                        <div key={i} className="p-5 bg-slate-50 rounded-2xl border border-slate-100 hover:border-green-200 hover:bg-green-50/30 transition-colors">
-                            <FaCheckCircle className="w-5 h-5 text-green-500 mb-3" />
+                        <div key={i} className="p-5 bg-slate-50 rounded-2xl border border-slate-200/80 hover:border-emerald-200 hover:bg-emerald-50/40 transition-colors">
+                            <FaCheckCircle className="w-5 h-5 text-emerald-600 mb-3" />
                             <h4 className="font-bold text-slate-900 text-sm mb-1">{item.title}</h4>
-                            <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
+                            <p className="text-slate-600 text-xs leading-relaxed">{item.desc}</p>
                         </div>
                     ))}
                 </div>

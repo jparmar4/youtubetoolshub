@@ -3,7 +3,7 @@ import NextImage from "next/image";
 import { tools } from "@/config/tools";
 import { FaInfoCircle, FaLightbulb, FaExclamationTriangle, FaBolt } from "react-icons/fa";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 
 // AEO Components
@@ -314,10 +314,12 @@ export function processContent(
         const slot = inArticleSlots[inArticleAdCount % inArticleSlots.length];
         inArticleAdCount++;
         elements.push(
-            <div key={`mid-ad-${index}`} className="my-8 not-prose rounded-2xl overflow-hidden border border-slate-200/90 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-                <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-                <GoogleAd layout="in-article" format="fluid" slot={slot} className="w-full text-center" />
-            </div>,
+            <AdSlot
+                key={`mid-ad-${index}`}
+                slot={slot}
+                preset="in-article"
+                className="my-8 not-prose"
+            />,
         );
     };
 

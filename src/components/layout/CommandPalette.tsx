@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toolMeta } from "@/config/tool-meta";
+import { countryCPMData } from "@/lib/cpm-data";
 import {
   FaSearch,
   FaTimes,
@@ -29,7 +30,7 @@ const STATIC_RESOURCES: SearchItem[] = [
   {
     id: "res-cpm",
     title: "YouTube CPM Rates by Country 2026",
-    description: "Full benchmark data table for 50+ markets (US, UK, CA, AU, DE, IN)",
+    description: `Full benchmark data table for ${countryCPMData.length} markets (US, UK, CA, AU, DE, IN)`,
     href: "/resources/youtube-cpm-rates",
     category: "resource",
     categoryLabel: "Resources & Data",
@@ -257,16 +258,17 @@ export default function CommandPalette({
               setSelectedIndex(0);
             }}
             placeholder={`Search ${toolMeta.length} free YouTube tools, CPM rates, tax calculators...`}
-            className="w-full bg-transparent text-slate-900 text-base sm:text-lg placeholder-slate-400 focus:outline-none"
+            className="w-full bg-transparent text-slate-900 text-base sm:text-lg placeholder:text-slate-500 focus:outline-none"
             aria-autocomplete="list"
           />
           {query ? (
             <button
+              type="button"
               onClick={() => {
                 setQuery("");
                 setSelectedIndex(0);
               }}
-              className="p-1.5 text-slate-500 hover:text-slate-600 rounded-lg ml-2"
+              className="p-1.5 text-slate-500 hover:text-slate-700 rounded-lg ml-2 cursor-pointer"
               aria-label="Clear search"
             >
               <FaTimes className="w-4 h-4" />
@@ -290,11 +292,12 @@ export default function CommandPalette({
           ].map((tab) => (
             <button
               key={tab.id}
+              type="button"
               onClick={() => {
                 setActiveTab(tab.id);
                 setSelectedIndex(0);
               }}
-              className={`px-3 py-1.5 rounded-full font-medium whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-full font-medium whitespace-nowrap transition-colors cursor-pointer ${
                 activeTab === tab.id
                   ? "bg-purple-600 text-white shadow-sm"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -389,7 +392,7 @@ export default function CommandPalette({
                       className={`w-3.5 h-3.5 transition-transform ${
                         isSelected
                           ? "text-purple-600 translate-x-0.5"
-                          : "text-slate-300"
+                          : "text-slate-400"
                       }`}
                     />
                   </div>

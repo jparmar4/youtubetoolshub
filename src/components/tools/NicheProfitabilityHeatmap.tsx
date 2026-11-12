@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { countryCPMData } from "@/lib/cpm-data";
 import {
   FaChartLine,
   FaFire,
@@ -264,10 +265,11 @@ export default function NicheProfitabilityHeatmap() {
           ].map((tab) => (
             <button
               key={tab.id}
+              type="button"
               onClick={() => setFilter(tab.id as typeof filter)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${filter === tab.id
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${filter === tab.id
                   ? "bg-slate-900 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                 }`}
             >
               {tab.label}
@@ -360,7 +362,7 @@ export default function NicheProfitabilityHeatmap() {
                   {niche.topSponsors.join(", ")}
                 </div>
 
-                <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
                   {niche.notes}
                 </p>
               </div>
@@ -393,7 +395,7 @@ export default function NicheProfitabilityHeatmap() {
           href="/resources/youtube-cpm-rates"
           className="font-bold text-emerald-700 hover:underline shrink-0"
         >
-          View Full 50-Country CPM Table →
+          View Full {countryCPMData.length}-Country CPM Table →
         </Link>
       </div>
     </div>

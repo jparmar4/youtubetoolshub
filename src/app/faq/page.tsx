@@ -18,13 +18,15 @@ import {
   FaUsers,
   FaArrowRight,
 } from "react-icons/fa";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import type { FaqItem } from "@/components/ui/FaqAccordion";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions - YouTube Creator Tools",
+  title: {
+    absolute: "FAQ — Free YouTube Creator Tools | YouTube Tools Hub",
+  },
   description:
     "Get answers to common questions about YouTube Tools Hub, free creator tools, AI-assisted features, and monetization calculators.",
   keywords: [
@@ -99,7 +101,7 @@ const faqData = [
   },
   {
     question: "How many tools are currently in the suite?",
-    answer: `We currently offer ${tools.length}+ specialized tools. This includes the Earning Calculator, SEO Optimizer, and specialized Utility tools. We add roughly one new tool every 4-6 weeks based on community demand.`,
+    answer: `We currently offer ${tools.length} specialized tools. This includes the Earning Calculator, SEO Optimizer, and specialized Utility tools. We add roughly one new tool every 4-6 weeks based on community demand.`,
     category: "Overview",
     icon: <FaTools className="text-indigo-500" />,
   },
@@ -176,19 +178,19 @@ export default function FAQPage() {
         }}
       />
 
-      <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
+      <div className="min-h-screen pt-10 sm:pt-14 pb-20 relative overflow-hidden">
         <div className="nebula-bg" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h1
-              className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter"
+              className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tighter"
               data-speakable
             >
               YouTube Tools FAQ — Free Creator Tools, SEO &amp; Earnings
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
+            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto font-outfit faq-summary">
               Everything you need to know about mastering the algorithm with our
               creator tool suite.
             </p>
@@ -199,10 +201,10 @@ export default function FAQPage() {
             {faqGroups.map((group) => (
               <div
                 key={group.category}
-                className="glass-premium rounded-3xl p-8 border-white/40 hover:border-purple-500/30 hover:shadow-2xl transition-all duration-300 group"
+                className="card-3d rounded-3xl p-6 sm:p-8 group"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 shadow-xs flex items-center justify-center">
                     {group.icon}
                   </div>
                   <h2 className="text-2xl font-bold text-slate-900 font-outfit">
@@ -214,34 +216,31 @@ export default function FAQPage() {
             ))}
           </div>
 
-          {/* Ad placement */}
-          <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-white p-3 text-center shadow-xs min-h-[140px] flex flex-col justify-center">
-            <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1 text-center">Advertisement</p>
-            <GoogleAd slot="7688425196" className="w-full text-center" />
-          </div>
+          {/* Ad placement (auto-collapses when unfilled) */}
+          <AdSlot slot="7688425196" preset="leaderboard" lazy className="my-8" />
 
           {/* Contact Support */}
-          <div className="relative group overflow-hidden rounded-[3rem] p-1 shadow-2xl">
+          <div className="relative group overflow-hidden rounded-[2.5rem] p-1 shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] animate-gradient" />
-            <div className="relative bg-slate-900 rounded-[2.9rem] p-12 text-center text-white">
-              <h2 className="text-4xl font-black mb-4 font-outfit tracking-tight">
+            <div className="relative bg-slate-900 rounded-[2.4rem] p-8 sm:p-12 text-center text-white">
+              <h2 className="text-3xl sm:text-4xl font-black mb-4 font-outfit tracking-tight">
                 Still have questions?
               </h2>
-              <p className="text-slate-500 text-xl mb-10 max-w-xl mx-auto font-outfit">
+              <p className="text-slate-300 text-lg sm:text-xl mb-8 max-w-xl mx-auto font-outfit">
                 Our growth experts are active in the community. Reach out for
                 technical help or strategic advice.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                 <Link
                   href="/contact"
-                  className="px-10 py-5 bg-white text-slate-900 rounded-full font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                  className="px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
                 >
                   Contact Experts
                   <FaArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/tools"
-                  className="px-10 py-5 bg-white/10 text-white border border-white/20 rounded-full font-black text-lg hover:bg-white/20 transition-all backdrop-blur-md"
+                  className="px-8 py-4 bg-white/10 text-white border border-white/25 rounded-2xl font-black text-lg hover:bg-white/20 transition-all backdrop-blur-md"
                 >
                   Try the Suite
                 </Link>

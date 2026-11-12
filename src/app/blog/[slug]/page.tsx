@@ -5,7 +5,8 @@ import NextImage from "next/image";
 import Link from "next/link";
 
 import ShareButtons from "@/components/ui/ShareButtons";
-import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools } from "react-icons/fa";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import { FaArrowLeft, FaClock, FaCalendar, FaArrowRight, FaTools, FaQuestionCircle } from "react-icons/fa";
 import { getBlogPostBySlug, getRelatedPosts, getAllBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { getCoverDimensions } from "@/config/blog/image-dimensions";
 import { resolveAuthor, getAuthorPageUrl } from "@/config/blog/authors";
@@ -277,7 +278,7 @@ export default async function BlogPostPage({
 
             <div className="min-h-screen bg-slate-50">
                 {/* Header */}
-                <header className="py-12 lg:py-20 relative overflow-hidden text-center lg:text-left">
+                <header className="py-8 lg:py-12 relative overflow-hidden text-center lg:text-left">
                     <div className="absolute top-0 left-0 w-full h-full bg-white/50 backdrop-blur-3xl -z-10" />
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-200/20 blur-[100px] rounded-full -z-10" />
 
@@ -286,7 +287,7 @@ export default async function BlogPostPage({
                         <AdSectionIgnore>
                             <Link
                                 href="/blog"
-                                className="inline-flex items-center gap-2 text-slate-500 hover:text-purple-600 mb-8 group transition-colors font-medium"
+                                className="inline-flex items-center gap-2 text-slate-600 hover:text-purple-700 mb-6 group transition-colors font-semibold"
                             >
                                 <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
                                 Back to Blog
@@ -296,7 +297,7 @@ export default async function BlogPostPage({
                         <AdSectionPrioritize>
                             <div className="max-w-4xl mx-auto text-center">
                                 {/* Category */}
-                                <div className="mb-6 flex justify-center">
+                                <div className="mb-5 flex justify-center">
                                     <Link
                                         href={`/blog/category/${getCanonicalCategorySlug(post)}`}
                                         className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide hover:bg-purple-200 transition-colors"
@@ -306,7 +307,7 @@ export default async function BlogPostPage({
                                 </div>
 
                                 {/* Title */}
-                                <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight" data-speakable>
+                                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black font-outfit text-slate-900 mb-5 leading-tight tracking-tight" data-speakable>
                                     {post.title}
                                 </h1>
 
@@ -315,7 +316,7 @@ export default async function BlogPostPage({
                                 </div>
 
                                 {/* Meta */}
-                                <div className="flex flex-wrap items-center justify-center gap-6 text-slate-500 border-t border-slate-200 pt-6">
+                                <div className="flex flex-wrap items-center justify-center gap-6 text-slate-600 border-t border-slate-200 pt-6">
                                     <div className="flex items-center gap-3">
                                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
                                             {author.name.charAt(0)}
@@ -323,11 +324,11 @@ export default async function BlogPostPage({
                                         <div className="text-left">
                                             <Link
                                                 href={getAuthorPageUrl(author)}
-                                                className="block text-slate-900 font-bold hover:text-purple-600 transition-colors"
+                                                className="block text-slate-900 font-bold hover:text-purple-700 transition-colors"
                                             >
                                                 {author.name}
                                             </Link>
-                                            <span className="text-sm text-slate-500">{post.authorRole}</span>
+                                            <span className="text-sm text-slate-600">{post.authorRole}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-6">
@@ -393,7 +394,7 @@ export default async function BlogPostPage({
                                     `Written by ${author.name} (${post.authorRole})`,
                                     `Actionable creator strategies with zero fluff or filler`,
                                 ]}
-                                badgeText="⚡ AI Article Summary"
+                                badgeText="AI Article Summary"
                                 verifiedNote={`Fact-checked by the editorial team — last full review ${DATA_LAST_REVIEWED}`}
                                 className="mb-8"
                             />
@@ -467,12 +468,12 @@ export default async function BlogPostPage({
                                 {/* Tags */}
                                 {post.keywords && post.keywords.length > 0 && (
                                     <div className="mt-12 pt-8 border-t border-slate-200">
-                                        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Topics</h3>
+                                        <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">Topics</h3>
                                         <div className="flex flex-wrap gap-2">
                                             {post.keywords.slice(0, 8).map((keyword, index) => (
                                                 <span
                                                     key={index}
-                                                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors cursor-default"
+                                                    className="px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors cursor-default"
                                                 >
                                                     {keyword}
                                                 </span>
@@ -483,19 +484,12 @@ export default async function BlogPostPage({
 
                                 {/* FAQ Section */}
                                 {post.faq && post.faq.length > 0 && (
-                                    <div className="mt-16 p-8 bg-slate-50 rounded-2xl">
-                                        <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                                            <span className="text-3xl">❓</span>
+                                    <div className="mt-14 p-6 sm:p-8 bg-slate-100/70 rounded-3xl border border-slate-200/70">
+                                        <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3 font-outfit">
+                                            <FaQuestionCircle className="w-6 h-6 text-purple-600 shrink-0" />
                                             Frequently Asked Questions
                                         </h2>
-                                        <div className="space-y-6">
-                                            {post.faq.map((item, index) => (
-                                                <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-                                                    <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                                                    <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                                                </div>
-                                            ))}
-                                        </div>
+                                        <FaqAccordion items={post.faq} headingLevel="h3" />
                                     </div>
                                 )}
 
@@ -569,7 +563,7 @@ export default async function BlogPostPage({
                                                         <h3 className="text-lg font-bold text-slate-900 mt-3 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
                                                             {relatedPost.title}
                                                         </h3>
-                                                        <p className="text-sm text-slate-500 line-clamp-2">
+                                                        <p className="text-sm text-slate-600 line-clamp-2">
                                                             {relatedPost.excerpt}
                                                         </p>
                                                     </article>

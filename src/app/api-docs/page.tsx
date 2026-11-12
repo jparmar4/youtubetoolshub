@@ -154,12 +154,12 @@ export default function APIDocsPage() {
                 }}
             />
 
-            <div className="min-h-screen pt-32 pb-24 relative overflow-hidden">
+            <div className="min-h-screen pt-12 pb-20 relative overflow-hidden">
                 <div className="nebula-bg" />
 
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     {/* Header */}
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-12">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-bold mb-6">
                             <FaCode className="w-4 h-4" />
                             Developer Resources
@@ -170,7 +170,7 @@ export default function APIDocsPage() {
                                 Documentation
                             </span>
                         </h1>
-                        <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit">
+                        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto font-outfit">
                             Free, public API endpoints for developers and AI systems. No
                             authentication required for read-only access.
                         </p>
@@ -178,7 +178,7 @@ export default function APIDocsPage() {
 
                     {/* AI Resources */}
                     <section className="mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 font-outfit">
                             AI &amp; Machine-Readable Resources
                         </h2>
                         <div className="grid md:grid-cols-2 gap-4">
@@ -188,9 +188,9 @@ export default function APIDocsPage() {
                                     href={`${baseUrl}${res.path}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="glass-premium rounded-2xl p-6 border-white/40 hover:border-purple-500/30 hover:shadow-xl transition-all duration-300 group flex items-start gap-4"
+                                    className="card-3d rounded-2xl p-6 group flex items-start gap-4"
                                 >
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/60 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-slate-100 border border-slate-200/70 shadow-2xs flex items-center justify-center group-hover:scale-105 transition-transform">
                                         {res.icon}
                                     </div>
                                     <div className="flex-1">
@@ -200,7 +200,7 @@ export default function APIDocsPage() {
                                             </h3>
                                             <FaExternalLinkAlt className="w-3 h-3 text-slate-500" />
                                         </div>
-                                        <p className="text-sm text-slate-500 mb-2">
+                                        <p className="text-sm text-slate-600 mb-2">
                                             {res.description}
                                         </p>
                                         <code className="text-xs bg-slate-100 px-2 py-1 rounded text-purple-700 font-mono">
@@ -214,20 +214,20 @@ export default function APIDocsPage() {
 
                     {/* API Endpoints */}
                     <section className="mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 font-outfit">
                             Public API Endpoints
                         </h2>
                         <div className="space-y-6">
                             {endpoints.map((ep) => (
                                 <div
                                     key={ep.path}
-                                    className="glass-premium rounded-2xl p-8 border-white/40 hover:border-purple-500/20 transition-all"
+                                    className="card-3d rounded-2xl p-6 sm:p-8"
                                 >
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <span className="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono font-bold text-sm">
                                             {ep.method}
                                         </span>
-                                        <code className="text-lg font-mono text-slate-800 font-semibold">
+                                        <code className="text-base sm:text-lg font-mono text-slate-800 font-semibold break-all">
                                             {ep.path}
                                         </code>
                                     </div>
@@ -236,10 +236,10 @@ export default function APIDocsPage() {
                                     </h3>
                                     <p className="text-slate-600 mb-4">{ep.description}</p>
                                     <div className="bg-slate-900 rounded-xl p-4 overflow-x-auto">
-                                        <p className="text-xs text-slate-500 mb-1 font-mono">
+                                        <p className="text-xs text-slate-400 mb-1 font-mono">
                       // Response shape
                                         </p>
-                                        <code className="text-sm text-emerald-400 font-mono">
+                                        <code className="text-sm text-emerald-300 font-mono">
                                             {ep.response}
                                         </code>
                                     </div>
@@ -250,10 +250,10 @@ export default function APIDocsPage() {
 
                     {/* Usage Notes */}
                     <section className="mb-12">
-                        <h2 className="text-3xl font-black text-slate-900 mb-8 font-outfit">
+                        <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-6 font-outfit">
                             Usage Notes
                         </h2>
-                        <div className="glass-premium rounded-2xl p-8 border-white/40">
+                        <div className="card-3d rounded-2xl p-6 sm:p-8">
                             <div className="space-y-4 text-slate-700 font-outfit">
                                 <div className="flex items-start gap-3">
                                     <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">
@@ -305,29 +305,29 @@ export default function APIDocsPage() {
                     </section>
 
                     {/* CTA */}
-                    <div className="relative group overflow-hidden rounded-[3rem] p-1 shadow-2xl">
+                    <div className="relative group overflow-hidden rounded-[2.5rem] p-1 shadow-2xl">
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 bg-[length:200%_auto] animate-gradient" />
-                        <div className="relative bg-slate-900 rounded-[2.9rem] p-12 text-center text-white">
-                            <h2 className="text-4xl font-black mb-4 font-outfit tracking-tight">
+                        <div className="relative bg-slate-900 rounded-[2.4rem] p-8 sm:p-12 text-center text-white">
+                            <h2 className="text-3xl sm:text-4xl font-black mb-4 font-outfit tracking-tight">
                                 Ready to integrate?
                             </h2>
-                            <p className="text-slate-500 text-xl mb-10 max-w-xl mx-auto font-outfit">
+                            <p className="text-slate-300 text-lg sm:text-xl mb-8 max-w-xl mx-auto font-outfit">
                                 Start using the API or explore our OpenAPI specification for
                                 full endpoint details.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
                                 <a
                                     href={`${baseUrl}/.well-known/openapi.yaml`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="px-10 py-5 bg-white text-slate-900 rounded-full font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                                    className="px-8 py-4 bg-white text-slate-900 rounded-2xl font-black text-lg hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
                                 >
                                     OpenAPI Spec
                                     <FaExternalLinkAlt className="w-4 h-4" />
                                 </a>
                                 <Link
                                     href="/tools"
-                                    className="px-10 py-5 bg-white/10 text-white border border-white/20 rounded-full font-black text-lg hover:bg-white/20 transition-all backdrop-blur-md flex items-center justify-center gap-2"
+                                    className="px-8 py-4 bg-white/10 text-white border border-white/25 rounded-2xl font-black text-lg hover:bg-white/20 transition-all backdrop-blur-md flex items-center justify-center gap-2"
                                 >
                                     Explore Tools
                                     <FaArrowRight className="w-4 h-4" />

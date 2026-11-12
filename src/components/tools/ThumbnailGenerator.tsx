@@ -196,14 +196,14 @@ export default function ThumbnailGenerator() {
                                             </div>
 
                                             {/* Main Text */}
-                                            <div className="bg-gray-900 rounded-xl p-4 mb-4 text-center transform group-hover:scale-[1.02] transition-transform">
+                                            <div className="bg-slate-900 rounded-xl p-4 mb-4 text-center transform group-hover:scale-[1.02] transition-transform">
                                                 <p className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-md">
                                                     {idea.text}
                                                 </p>
                                             </div>
 
                                             {/* Color Suggestion */}
-                                            <div className="flex items-start gap-2 text-sm text-slate-500 mb-4">
+                                            <div className="flex items-start gap-2 text-sm text-slate-600 mb-4">
                                                 <FaPalette className="flex-shrink-0 mt-0.5 text-slate-500" />
                                                 <span>{idea.color_suggestion || "High contrast colors recommendation"}</span>
                                             </div>
@@ -211,11 +211,12 @@ export default function ThumbnailGenerator() {
 
                                         <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                                             <button
+                                                type="button"
                                                 onClick={() => handleSave(idea)}
                                                 disabled={isSaved}
-                                                className={`flex items-center gap-2 text-sm font-medium transition-colors ${isSaved
-                                                    ? "text-yellow-500 cursor-default"
-                                                    : "text-slate-500 hover:text-yellow-500"
+                                                className={`cursor-pointer flex items-center gap-2 text-sm font-medium transition-colors disabled:cursor-default ${isSaved
+                                                    ? "text-amber-500"
+                                                    : "text-slate-600 hover:text-amber-500"
                                                     }`}
                                             >
                                                 {isSaved ? <FaStar /> : <FaRegStar />}

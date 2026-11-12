@@ -10,20 +10,25 @@ import {
   FaYoutube,
   FaSearch,
   FaChevronDown,
+  FaArrowRight,
+  FaDollarSign,
+  FaTags,
+  FaImage,
+  FaRocket,
+  FaTools,
 } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import { toolMeta } from "@/config/tool-meta";
+import { countryCPMData } from "@/lib/cpm-data";
 import UserMenu from "@/components/auth/UserMenu";
 import { useSession } from "next-auth/react";
 import HeaderCurrencyPicker from "@/components/layout/HeaderCurrencyPicker";
 import HeaderSavedTools from "@/components/layout/HeaderSavedTools";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
+import HeaderMegaMenu from "@/components/layout/HeaderMegaMenu";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 const CommandPalette = dynamic(() => import("@/components/layout/CommandPalette"), {
-  ssr: false,
-});
-const HeaderMegaMenu = dynamic(() => import("@/components/layout/HeaderMegaMenu"), {
   ssr: false,
 });
 
@@ -32,40 +37,38 @@ const NavLink = memo(function NavLink({
   children,
   onClick,
   isActive,
-  badge,
-  badgeColor = "bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white",
+  dotColor,
 }: {
   href: string;
   children: React.ReactNode;
   onClick?: () => void;
   isActive?: boolean;
-  badge?: string;
-  badgeColor?: string;
+  dotColor?: string;
 }) {
   return (
     <Link
       href={href}
       onClick={onClick}
-      className={`relative h-8 inline-flex items-center gap-1.5 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+      className={`h-9 inline-flex items-center gap-1.5 px-2.5 xl:px-3.5 rounded-full text-[12.5px] xl:text-[13px] font-semibold whitespace-nowrap transition-all ${
         isActive
-          ? "bg-white text-purple-700 shadow-xs border border-slate-200/80"
-          : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
+          ? "bg-purple-50 text-purple-800 border border-purple-200/80 shadow-2xs"
+          : "text-slate-700 hover:text-slate-950 hover:bg-slate-100/80 border border-transparent"
       }`}
       prefetch={false}
     >
+      {dotColor && <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${dotColor}`} aria-hidden="true" />}
       <span>{children}</span>
-      {badge && (
-        <span
-          className={`text-[11px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap ${badgeColor}`}
-        >
-          {badge}
-        </span>
-      )}
     </Link>
   );
 });
 
-const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () => void }) {
+const DashboardLink = memo(function DashboardLink({
+  onClick,
+  isActive,
+}: {
+  onClick?: () => void;
+  isActive?: boolean;
+}) {
   const { data: session } = useSession();
 
   if (!session) return null;
@@ -75,12 +78,24 @@ const DashboardLink = memo(function DashboardLink({ onClick }: { onClick?: () =>
       href="/dashboard"
       onClick={onClick}
       rel="nofollow"
-      className="h-8 px-3 rounded-full text-slate-700 hover:text-purple-700 hover:bg-white/60 font-bold transition-colors inline-flex items-center gap-1.5 text-xs whitespace-nowrap"
+      className={`h-9 px-2.5 xl:px-3.5 rounded-full font-semibold transition-all inline-flex items-center gap-1.5 text-[12.5px] xl:text-[13px] whitespace-nowrap border ${
+        isActive
+          ? "bg-purple-50 text-purple-800 border-purple-200/80"
+          : "text-slate-700 hover:text-slate-950 hover:bg-slate-100/80 border-transparent"
+      }`}
     >
       <span>Dashboard</span>
     </Link>
   );
 });
+
+const MOBILE_CATEGORY_HUBS = [
+  { href: "/tools/analytics-tools", label: "Monetization", icon: FaDollarSign, color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+  { href: "/tools/seo-tools", label: "SEO & Tags", icon: FaTags, color: "text-purple-600 bg-purple-50 border-purple-200" },
+  { href: "/tools/thumbnail-tools", label: "Thumbnails", icon: FaImage, color: "text-pink-600 bg-pink-50 border-pink-200" },
+  { href: "/tools/channel-tools", label: "Growth", icon: FaRocket, color: "text-sky-600 bg-sky-50 border-sky-200" },
+  { href: "/tools/utility-tools", label: "Utilities", icon: FaTools, color: "text-amber-600 bg-amber-50 border-amber-200" },
+];
 
 function Header() {
   const pathname = usePathname();
@@ -88,6 +103,8 @@ function Header() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const megaMenuTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const megaMenuOpenTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const megaMenuOpenedByHoverAtRef = useRef<number>(0);
   const toolsTriggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -106,18 +123,49 @@ function Header() {
       clearTimeout(megaMenuTimeoutRef.current);
       megaMenuTimeoutRef.current = null;
     }
+    if (megaMenuOpenTimeoutRef.current) {
+      clearTimeout(megaMenuOpenTimeoutRef.current);
+      megaMenuOpenTimeoutRef.current = null;
+    }
   }, []);
 
   const handleMegaMenuAreaEnter = useCallback(() => {
-    cancelMegaMenuTimeout();
-    setIsMegaMenuOpen(true);
-  }, [cancelMegaMenuTimeout]);
+    if (megaMenuTimeoutRef.current) {
+      clearTimeout(megaMenuTimeoutRef.current);
+      megaMenuTimeoutRef.current = null;
+    }
+    if (isMegaMenuOpen || megaMenuOpenTimeoutRef.current) return;
+    megaMenuOpenTimeoutRef.current = setTimeout(() => {
+      megaMenuOpenTimeoutRef.current = null;
+      megaMenuOpenedByHoverAtRef.current = Date.now();
+      setIsMegaMenuOpen(true);
+    }, 140);
+  }, [isMegaMenuOpen]);
 
   const handleMegaMenuAreaLeave = useCallback(() => {
+    if (megaMenuOpenTimeoutRef.current) {
+      clearTimeout(megaMenuOpenTimeoutRef.current);
+      megaMenuOpenTimeoutRef.current = null;
+    }
     megaMenuTimeoutRef.current = setTimeout(() => {
       setIsMegaMenuOpen(false);
-    }, 280);
+    }, 220);
   }, []);
+
+  const handleToolsTriggerClick = useCallback(() => {
+    cancelMegaMenuTimeout();
+    setIsMegaMenuOpen((prev) => {
+      if (!prev) {
+        megaMenuOpenedByHoverAtRef.current = 0;
+        return true;
+      }
+      if (megaMenuOpenedByHoverAtRef.current && Date.now() - megaMenuOpenedByHoverAtRef.current < 600) {
+        megaMenuOpenedByHoverAtRef.current = 0;
+        return true;
+      }
+      return false;
+    });
+  }, [cancelMegaMenuTimeout]);
 
   useEffect(() => {
     return () => cancelMegaMenuTimeout();
@@ -131,8 +179,6 @@ function Header() {
     setIsMenuOpen(false);
   }, []);
 
-  // Traps Tab inside the mobile drawer, moves focus in on open, restores it to
-  // the hamburger on close, and closes the drawer on Escape.
   const drawerRef = useFocusTrap(isMenuOpen, { onEscape: closeMenu });
 
   const closeMegaMenu = useCallback(() => {
@@ -143,7 +189,7 @@ function Header() {
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
-      if (isMenuOpen) return; // Closed by the drawer's focus trap, which restores focus.
+      if (isMenuOpen) return;
       if (isMegaMenuOpen) {
         setIsMegaMenuOpen(false);
         cancelMegaMenuTimeout();
@@ -167,35 +213,42 @@ function Header() {
 
   return (
     <>
+      {isMegaMenuOpen && (
+        <div
+          aria-hidden="true"
+          onClick={closeMegaMenu}
+          className="fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[1px] transition-opacity"
+        />
+      )}
+
       <div className="sticky top-0 z-50">
         <AnnouncementBar />
 
         <header className="relative transition-all">
-          {/* Specular Top Accent Line */}
           <div className="h-[2px] w-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-emerald-500" />
 
-          <div className="bg-white/95 backdrop-blur-sm border-b border-slate-200/85 shadow-[0_8px_28px_-10px_rgba(15,23,42,0.08),inset_0_1px_0_0_rgba(255,255,255,0.95)]">
-            <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="bg-white/95 backdrop-blur-xl border-b border-slate-200/90 shadow-[0_6px_28px_-12px_rgba(15,23,42,0.08)]">
+            <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8" aria-label="Main navigation">
               <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
-                {/* 1. Brand Logo & Emblem */}
+                {/* 1. Brand Lockup */}
                 <div className="shrink-0 flex items-center">
                   <Link href="/" className="flex items-center gap-2.5 group whitespace-nowrap">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-[inset_0_1.5px_0_0_rgba(255,255,255,0.45),0_3px_0_0_#4c1d95,0_8px_16px_-4px_rgba(124,58,237,0.4)] group-hover:scale-105 group-hover:-translate-y-0.5 transition-all duration-300 shrink-0">
-                      <FaYoutube className="w-5 h-5" />
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-600 via-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-purple-600/20 group-hover:scale-105 transition-transform duration-200 shrink-0">
+                      <FaYoutube className="w-4.5 h-4.5" />
                     </div>
                     <div className="flex flex-col">
-                      <span className="font-extrabold text-base sm:text-lg text-slate-900 tracking-tight group-hover:text-purple-700 transition-colors leading-tight">
+                      <span className="font-extrabold text-base sm:text-[17px] text-slate-950 tracking-tight group-hover:text-purple-700 transition-colors leading-tight font-outfit">
                         {siteConfig.name}
                       </span>
-                      <span className="hidden sm:inline-block text-[11px] font-extrabold text-purple-700 tracking-[0.14em] uppercase leading-tight">
-                        4K Creator Suite • {toolMeta.length} Tools
+                      <span className="hidden xl:inline-block text-[11px] font-semibold text-slate-600 leading-tight">
+                        Creator Studio · {toolMeta.length} Free Tools
                       </span>
                     </div>
                   </Link>
                 </div>
 
-                {/* 2. Center 3D Glass Pill Navigation Dock (Desktop) */}
-                <div className="hidden lg:flex items-center bg-slate-100/90 p-1 rounded-full border border-slate-200/85 shadow-[inset_0_1px_2px_rgba(15,23,42,0.05)] gap-0.5 shrink-0">
+                {/* 2. Clean Primary Navigation (Desktop) */}
+                <div className="hidden lg:flex items-center gap-0.5 xl:gap-1 shrink-0">
                   <div
                     className="relative flex items-center"
                     onMouseEnter={handleMegaMenuAreaEnter}
@@ -204,23 +257,23 @@ function Header() {
                     <button
                       type="button"
                       ref={toolsTriggerRef}
-                      onClick={() => setIsMegaMenuOpen((prev) => !prev)}
-                      className={`h-8 inline-flex items-center gap-1.5 px-3 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                        isMegaMenuOpen || pathname === "/tools"
-                          ? "bg-white text-purple-700 shadow-xs border border-slate-200/80"
-                          : "text-slate-700 hover:text-slate-950 hover:bg-white/60"
+                      onClick={handleToolsTriggerClick}
+                      className={`h-9 inline-flex items-center gap-1.5 px-2.5 xl:px-3.5 rounded-full text-[12.5px] xl:text-[13px] font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                        isMegaMenuOpen || pathname?.startsWith("/tools")
+                          ? "bg-purple-50 text-purple-800 border-purple-200/80 shadow-2xs"
+                          : "text-slate-700 hover:text-slate-950 hover:bg-slate-100/80 border-transparent"
                       }`}
                       aria-expanded={isMegaMenuOpen}
                       aria-haspopup="true"
                     >
                       <span>Tools</span>
-                      <span className="text-[11px] font-black px-1.5 py-0.5 rounded-full bg-purple-700 text-white leading-none">
+                      <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-full bg-purple-600 text-white leading-none">
                         {toolMeta.length}
                       </span>
                       <FaChevronDown
                         aria-hidden="true"
                         className={`w-2.5 h-2.5 text-slate-500 transition-transform duration-200 ${
-                          isMegaMenuOpen ? "rotate-180" : ""
+                          isMegaMenuOpen ? "rotate-180 text-purple-700" : ""
                         }`}
                       />
                     </button>
@@ -228,8 +281,7 @@ function Header() {
 
                   <NavLink
                     href="/tools/youtube-earnings-calculator"
-                    badge="Tier 1"
-                    badgeColor="bg-emerald-700 text-white"
+                    dotColor="bg-emerald-500"
                     isActive={Boolean(pathname?.includes("earnings"))}
                   >
                     Earnings
@@ -237,12 +289,26 @@ function Header() {
 
                   <NavLink
                     href="/resources/youtube-cpm-rates"
-                    badge="52"
-                    badgeColor="bg-purple-100 text-purple-800 border border-purple-200"
                     isActive={Boolean(pathname?.includes("cpm"))}
                   >
                     CPM Rates
                   </NavLink>
+
+                  <NavLink
+                    href="/resources"
+                    isActive={pathname === "/resources"}
+                  >
+                    Resources
+                  </NavLink>
+
+                  <div className="hidden xl:inline-flex">
+                    <NavLink
+                      href="/blog"
+                      isActive={Boolean(pathname?.startsWith("/blog"))}
+                    >
+                      Guides
+                    </NavLink>
+                  </div>
 
                   <NavLink
                     href="/pricing"
@@ -251,60 +317,48 @@ function Header() {
                     Pricing
                   </NavLink>
 
-                  <NavLink
-                    href="/blog"
-                    isActive={Boolean(pathname?.startsWith("/blog"))}
-                  >
-                    Guides
-                  </NavLink>
-
-                  <DashboardLink />
+                  <DashboardLink isActive={pathname === "/dashboard"} />
                 </div>
 
-                {/* 3. Right Utilities Dock */}
+                {/* 3. Right Utilities Cluster */}
                 <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                  {/* Desktop Command Search Trigger */}
                   <button
                     type="button"
                     onClick={() => setIsCommandOpen(true)}
-                    className="hidden md:inline-flex h-9 items-center gap-2 px-3 rounded-full bg-slate-100/90 hover:bg-white border border-slate-200/90 hover:border-purple-300 text-slate-600 text-xs font-semibold transition-all duration-200 cursor-pointer shadow-[inset_0_1px_0_0_#fff] w-40 xl:w-52 group shrink-0"
+                    className="hidden xl:inline-flex h-9 items-center gap-2 px-3 rounded-full bg-slate-50 hover:bg-white border border-slate-200/90 hover:border-purple-300 text-slate-700 text-xs font-medium transition-all duration-200 cursor-pointer shadow-2xs w-52 group shrink-0"
                   >
-                    <FaSearch aria-hidden="true" className="w-3 h-3 text-purple-700 shrink-0 group-hover:scale-110 transition-transform" />
+                    <FaSearch aria-hidden="true" className="w-3 h-3 text-purple-600 shrink-0 group-hover:scale-110 transition-transform" />
                     <span className="truncate text-slate-600 text-left flex-1">
-                      Search {toolMeta.length} tools...
+                      Search tools...
                     </span>
-                    <kbd aria-hidden="true" className="inline-flex items-center text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-1.5 py-0.5 rounded shadow-2xs shrink-0">
+                    <kbd aria-hidden="true" className="inline-flex items-center text-[11px] font-bold text-slate-500 bg-white border border-slate-200 px-1.5 py-0.5 rounded shrink-0">
                       ⌘K
                     </kbd>
                   </button>
 
-                  {/* Global Multi-Currency Picker (sm+ in bar, also accessible on desktop/tablet) */}
                   <div className="hidden sm:block">
                     <HeaderCurrencyPicker />
                   </div>
 
-                  {/* Pinned / Saved Tools Drawer */}
                   <div className="hidden sm:block">
                     <HeaderSavedTools />
                   </div>
 
-                  {/* Mobile Search Trigger */}
                   <button
                     type="button"
                     onClick={() => setIsCommandOpen(true)}
-                    className="md:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200/90 shadow-2xs shrink-0"
+                    className="xl:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-colors border border-slate-200/90 shadow-2xs shrink-0 cursor-pointer"
                     aria-label="Open search palette"
                   >
                     <FaSearch className="w-3.5 h-3.5" />
                   </button>
 
-                  {/* User Account / Sign In */}
                   <UserMenu />
 
-                  {/* Mobile Hamburger Menu Button */}
                   <button
+                    type="button"
                     onClick={toggleMenu}
-                    className="lg:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border border-slate-200/90 shadow-2xs shrink-0"
+                    className="lg:hidden w-9 h-9 inline-flex items-center justify-center rounded-full bg-white text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-colors border border-slate-200/90 shadow-2xs shrink-0 cursor-pointer"
                     aria-label="Toggle menu"
                     aria-expanded={isMenuOpen}
                     aria-controls="mobile-nav-drawer"
@@ -319,126 +373,139 @@ function Header() {
                 <div
                   id="mobile-nav-drawer"
                   ref={drawerRef}
-                  className="lg:hidden py-4 border-t border-slate-200/80 animate-fade-in-up"
+                  className="lg:hidden py-4 border-t border-slate-200/80 max-h-[calc(100vh-5rem)] overflow-y-auto animate-fade-in-up"
                 >
                   <div className="flex sm:hidden items-center justify-between gap-2 mb-3">
                     <HeaderCurrencyPicker />
                     <HeaderSavedTools />
                   </div>
-                  <div className="mb-3">
+
+                  <div className="mb-4">
                     <button
                       type="button"
                       onClick={() => {
                         closeMenu();
                         setIsCommandOpen(true);
                       }}
-                      className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 text-xs font-bold"
+                      className="w-full min-h-11 flex items-center justify-between px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/70 border border-slate-200 text-slate-700 text-xs font-semibold cursor-pointer transition-colors"
                     >
                       <span className="flex items-center gap-2">
                         <FaSearch className="text-purple-600" />
-                        Search {toolMeta.length} creator tools &amp; CPM data...
+                        Search {toolMeta.length} tools &amp; {countryCPMData.length} CPM markets...
                       </span>
-                      <span className="text-[11px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold">
+                      <span className="text-[11px] bg-white border border-slate-200 px-1.5 py-0.5 rounded font-bold text-slate-600">
                         ⌘K
                       </span>
                     </button>
                   </div>
 
-                  <div className="flex flex-col gap-1">
-                    <Link
-                      href="/tools"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>All {toolMeta.length} Creator Tools</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
-                        Catalog
-                      </span>
-                    </Link>
+                  {/* Category Shortcuts */}
+                  <div className="mb-4">
+                    <p className="px-2 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      Tool Categories
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link
+                        href="/tools"
+                        onClick={closeMenu}
+                        className="col-span-2 flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-purple-700 text-white text-xs font-bold transition-colors"
+                      >
+                        <span>Browse All {toolMeta.length} Tools</span>
+                        <FaArrowRight className="w-3 h-3" />
+                      </Link>
+                      {MOBILE_CATEGORY_HUBS.map((hub) => {
+                        const HubIcon = hub.icon;
+                        return (
+                          <Link
+                            key={hub.href}
+                            href={hub.href}
+                            onClick={closeMenu}
+                            className="flex items-center gap-2 px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-semibold text-slate-800 hover:bg-purple-50 hover:border-purple-200 transition-colors"
+                          >
+                            <span className={`w-6 h-6 rounded-lg border flex items-center justify-center shrink-0 ${hub.color}`}>
+                              <HubIcon className="w-3 h-3" />
+                            </span>
+                            <span className="truncate">{hub.label}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
 
-                    <Link
-                      href="/tools/youtube-earnings-calculator"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>YouTube Earnings Calculator</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-emerald-700 text-white">
-                        Tier-1
-                      </span>
-                    </Link>
+                  {/* Flagship Calculators & Resources */}
+                  <div className="mb-3">
+                    <p className="px-2 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      Flagship &amp; Resources
+                    </p>
+                    <div className="flex flex-col gap-1">
+                      <Link
+                        href="/tools/youtube-earnings-calculator"
+                        onClick={closeMenu}
+                        className="px-3.5 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-700 font-semibold transition-colors flex items-center justify-between text-sm"
+                      >
+                        <span>YouTube Earnings Calculator</span>
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
+                          Tier-1
+                        </span>
+                      </Link>
 
-                    <Link
-                      href="/tools/youtube-sponsorship-calculator"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>Sponsorship Rate Calculator</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-amber-600 text-white">
-                        High RPM
-                      </span>
-                    </Link>
+                      <Link
+                        href="/tools/youtube-thumbnail-downloader"
+                        onClick={closeMenu}
+                        className="px-3.5 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-700 font-semibold transition-colors flex items-center justify-between text-sm"
+                      >
+                        <span>Thumbnail Downloader</span>
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-pink-50 border border-pink-200 text-pink-700">
+                          HD
+                        </span>
+                      </Link>
 
-                    <Link
-                      href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>Creator Tax &amp; LLC Savings</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-indigo-700 text-white">
-                        Finance
-                      </span>
-                    </Link>
+                      <Link
+                        href="/resources/youtube-cpm-rates"
+                        onClick={closeMenu}
+                        className="px-3.5 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-700 font-semibold transition-colors flex items-center justify-between text-sm"
+                      >
+                        <span>YouTube CPM Rates 2026</span>
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700">
+                          {countryCPMData.length} Markets
+                        </span>
+                      </Link>
 
-                    <Link
-                      href="/tools/youtube-watch-hours-calculator"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>4,000 Watch Hours Countdown</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-purple-700 text-white">
-                        New
-                      </span>
-                    </Link>
+                      <Link
+                        href="/blog"
+                        onClick={closeMenu}
+                        className="px-3.5 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-700 font-semibold transition-colors text-sm"
+                      >
+                        Creator Growth Guides
+                      </Link>
 
-                    <Link
-                      href="/tools/youtube-thumbnail-downloader"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>4K Thumbnail Downloader</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-pink-700 text-white">
-                        UHD
-                      </span>
-                    </Link>
+                      <Link
+                        href="/pricing"
+                        onClick={closeMenu}
+                        className="px-3.5 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-700 font-semibold transition-colors text-sm"
+                      >
+                        Pricing
+                      </Link>
 
-                    <Link
-                      href="/resources/youtube-cpm-rates"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-bold transition-colors flex items-center justify-between text-sm"
-                    >
-                      <span>YouTube CPM Rates 2026</span>
-                      <span className="text-[11px] font-black px-2 py-0.5 rounded-full bg-sky-700 text-white">
-                        52 Markets
-                      </span>
-                    </Link>
+                      <div className="grid grid-cols-2 gap-1 pt-1">
+                        <Link
+                          href="/tools/vs/tubebuddy"
+                          onClick={closeMenu}
+                          className="px-3.5 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold"
+                        >
+                          vs. TubeBuddy
+                        </Link>
+                        <Link
+                          href="/tools/vs/vidiq"
+                          onClick={closeMenu}
+                          className="px-3.5 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold"
+                        >
+                          vs. VidIQ
+                        </Link>
+                      </div>
 
-                    <Link
-                      href="/pricing"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-semibold transition-colors text-sm"
-                    >
-                      Pricing
-                    </Link>
-
-                    <Link
-                      href="/blog"
-                      onClick={closeMenu}
-                      className="px-4 py-2.5 rounded-xl text-slate-800 hover:bg-purple-50 hover:text-purple-600 font-semibold transition-colors text-sm"
-                    >
-                      Creator Growth Guides
-                    </Link>
-
-                    <DashboardLink onClick={closeMenu} />
+                      <DashboardLink onClick={closeMenu} />
+                    </div>
                   </div>
                 </div>
               )}

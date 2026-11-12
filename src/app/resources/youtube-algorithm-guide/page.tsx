@@ -11,6 +11,7 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import {
@@ -33,7 +34,9 @@ import {
 import AdSlot from "@/components/ads/AdSlot";
 
 export const metadata: Metadata = {
-    title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
+    title: {
+        absolute: "How the YouTube Algorithm Works in 2026 (Creator Guide)",
+    },
     description:
         "Complete guide to the YouTube algorithm in 2026. Learn the 7 key ranking factors (CTR, Watch Time, Engagement), how recommendations work, YouTube SEO best practices, and proven strategies to get more views.",
     keywords: [
@@ -270,7 +273,7 @@ export default function YouTubeAlgorithmGuidePage() {
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
                 {/* Hero */}
-                <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
+                <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <Breadcrumb
@@ -279,10 +282,10 @@ export default function YouTubeAlgorithmGuidePage() {
                                 { name: "Resources", href: "/resources" },
                                 { name: "YouTube Algorithm Guide 2026" },
                             ]}
-                            className="mb-8 text-slate-500 [&_a]:text-slate-500 [&_a:hover]:text-white"
+                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
                         />
                         <div className="text-center">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Ranking Guide
                             </span>
                             <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
@@ -304,14 +307,14 @@ export default function YouTubeAlgorithmGuidePage() {
                                         "3 Delivery Feeds: Home (interests), Suggested (related videos), Search (intent)",
                                         "Shorts Algorithm: Loop rate & 'Viewed vs Swiped Away' ratio determine reach",
                                     ]}
-                                    badgeText="⚡ AI Quick Summary"
+                                    badgeText="Quick Summary"
                                 />
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
 
                     {/* Key Stats */}
                     <section aria-label="YouTube Algorithm key statistics">
@@ -332,7 +335,7 @@ export default function YouTubeAlgorithmGuidePage() {
                     </section>
 
                     {/* Section 1: What is the YouTube Algorithm */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">What is the YouTube Algorithm in 2026?</h2>
                         <p className="text-slate-600 text-lg leading-relaxed mb-6">
                             The <strong>YouTube algorithm</strong> is a set of machine learning systems that decide which videos to show each of the 2.5+ billion monthly logged-in YouTube users. It is not a single algorithm — it is a collection of interconnected models operating across different surfaces: Search, Suggested Videos, the Homepage, the Shorts feed, and Trending.
@@ -365,13 +368,13 @@ export default function YouTubeAlgorithmGuidePage() {
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-widest mb-3">Core Ranking Signals</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">The 7 Key YouTube Ranking Factors in 2026</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Master these signals to rank higher in search, appear in suggested videos, and dominate your niche.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Master these signals to rank higher in search, appear in suggested videos, and dominate your niche.</p>
                         </div>
                         <div className="space-y-6">
                             {rankingFactors.map((factor, index) => {
                                 const Icon = factor.icon;
                                 return (
-                                    <div key={factor.name} className="glass-premium rounded-2xl p-6 border border-white/60 shadow-sm">
+                                    <div key={factor.name} className="card-3d rounded-2xl p-6">
                                         <div className="flex items-start gap-5">
                                             <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${factor.color} flex items-center justify-center shadow-md`}>
                                                 <Icon className="text-white text-xl" />
@@ -423,7 +426,7 @@ export default function YouTubeAlgorithmGuidePage() {
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest mb-3">Recommendation Systems</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">How YouTube Recommends Videos: 3 Systems Explained</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Each surface on YouTube has a different algorithm. Optimize for all three to maximize total reach.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Each surface on YouTube has a different algorithm. Optimize for all three to maximize total reach.</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
@@ -496,7 +499,7 @@ export default function YouTubeAlgorithmGuidePage() {
                     </section>
 
                     {/* Section 4: YouTube SEO Best Practices */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-widest mb-3">YouTube SEO 2026</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">YouTube SEO Best Practices: Title, Description, Tags & Thumbnails</h2>
@@ -695,13 +698,13 @@ export default function YouTubeAlgorithmGuidePage() {
                                     {[
                                         { tactic: "Open Loop Hook", desc: "Start with an unanswered question or shocking statement that only gets resolved later in the video." },
                                         { tactic: "Pattern Interrupts", desc: "Change camera angle, music, or pacing every 60–90 seconds to prevent mental fatigue." },
-                                        { tactic: "'Coming Up Next' Teases", desc: "Verbally preview what&apos;s coming at natural drop-off points (end of each section)." },
+                                        { tactic: "'Coming Up Next' Teases", desc: "Verbally preview what's coming at natural drop-off points (end of each section)." },
                                         { tactic: "B-Roll Variety", desc: "Cut to supporting footage, graphics, or screen recordings frequently during talking-head segments." },
                                         { tactic: "Chapter Markers", desc: "Add chapters in the description — viewers who know the structure are more likely to finish." },
                                     ].map((item) => (
                                         <div key={item.tactic} className="bg-white rounded-xl p-4 border border-slate-200">
                                             <div className="font-bold text-slate-900 text-sm mb-1">{item.tactic}</div>
-                                            <div className="text-slate-500 text-sm">{item.desc}</div>
+                                            <div className="text-slate-600 text-sm">{item.desc}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -718,7 +721,7 @@ export default function YouTubeAlgorithmGuidePage() {
                                     ].map((item) => (
                                         <div key={item.tactic} className="bg-white rounded-xl p-4 border border-slate-200">
                                             <div className="font-bold text-slate-900 text-sm mb-1">{item.tactic}</div>
-                                            <div className="text-slate-500 text-sm">{item.desc}</div>
+                                            <div className="text-slate-600 text-sm">{item.desc}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -789,7 +792,7 @@ export default function YouTubeAlgorithmGuidePage() {
                     <section>
                         <div className="mb-8 text-center">
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Free YouTube SEO Tools to Beat the Algorithm</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Use these tools to implement every strategy in this guide — all free, no signup required.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Use these tools to implement every strategy in this guide — all free, no signup required.</p>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             {[
@@ -841,13 +844,13 @@ export default function YouTubeAlgorithmGuidePage() {
                                     <Link
                                         key={tool.href}
                                         href={tool.href}
-                                        className="group block glass-premium rounded-2xl p-6 border border-white/60 hover:border-purple-200 hover:shadow-lg transition-all duration-200"
+                                        className="group block card-3d rounded-2xl p-6"
                                     >
-                                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform`}>
+                                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-md transition-transform group-hover:scale-105`}>
                                             <Icon className="text-white text-lg" />
                                         </div>
                                         <h3 className="font-bold text-slate-900 mb-1 group-hover:text-purple-700 transition-colors">{tool.name}</h3>
-                                        <p className="text-sm text-slate-500">{tool.desc}</p>
+                                        <p className="text-sm text-slate-600">{tool.desc}</p>
                                         <div className="mt-3 text-xs text-purple-600 font-semibold flex items-center gap-1">
                                             Use for free <FaArrowRight className="text-xs" />
                                         </div>
@@ -863,38 +866,26 @@ export default function YouTubeAlgorithmGuidePage() {
                             <span className="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-widest mb-3">Common Questions</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">YouTube Algorithm FAQ 2026</h2>
                         </div>
-                        <div className="space-y-4">
-                            {pageFAQs.map((faq, index) => (
-                                <div key={index} className="glass-premium rounded-2xl p-6 border border-white/60 shadow-sm">
-                                    <h3 className="text-lg font-black text-slate-900 mb-3 flex items-start gap-3">
-                                        <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-black">
-                                            {index + 1}
-                                        </span>
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed pl-10">{faq.answer}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={pageFAQs} headingLevel="h3" />
                     </section>
 
                     {/* Final CTA */}
-                    <section className="text-center glass-premium rounded-3xl p-10 border border-purple-100 shadow-sm">
+                    <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
                         <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
                         <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Ready to Beat the YouTube Algorithm?</h2>
-                        <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+                        <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
                             Use our free suite of YouTube SEO tools to implement every strategy on this page. Optimize your titles, tags, descriptions, and track your earnings — all in one place.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link
                                 href="/tools/youtube-title-generator"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                                className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
                             >
                                 <FaSearch /> Start with Title Generator
                             </Link>
                             <Link
                                 href="/tools/youtube-earnings-calculator"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border-2 border-purple-200 hover:border-purple-400 text-purple-700 font-bold text-lg transition-all duration-200"
+                                className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
                             >
                                 <FaChartLine /> Calculate Your Earnings
                             </Link>

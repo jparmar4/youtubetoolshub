@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaCalculator, FaArrowRight, FaChartLine } from "react-icons/fa";
+import { countryCPMData } from "@/lib/cpm-data";
 
 interface EarningsCalculatorCTAProps {
   /** Compact mid-article style vs full card */
@@ -75,7 +76,7 @@ export default function EarningsCalculatorCTA({
           RPM × views formula
         </li>
         <li className="rounded-lg bg-white/80 border border-emerald-100 px-3 py-2 font-medium">
-          50+ country pages
+          {countryCPMData.length} country pages
         </li>
         <li className="rounded-lg bg-white/80 border border-emerald-100 px-3 py-2 font-medium">
           Niche CPM context
@@ -98,7 +99,7 @@ export default function EarningsCalculatorCTA({
         />
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition-colors shadow-md shadow-emerald-600/20"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition-colors shadow-md shadow-emerald-600/20 cursor-pointer"
         >
           <FaCalculator />
           Calculate earnings free

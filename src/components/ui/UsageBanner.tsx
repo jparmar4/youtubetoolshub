@@ -54,7 +54,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     type="button"
                     onClick={() => setDismissed(true)}
                     aria-label="Dismiss usage banner"
-                    className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                    className="absolute top-2 right-2 text-slate-500 hover:text-slate-700 p-1.5 rounded cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 >
                     <FaTimes className="w-3 h-3" aria-hidden="true" />
                 </button>
@@ -79,7 +79,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                     {isWarning && (
                         <Link
                             href="/pricing"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all shadow-lg shadow-emerald-500/25"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-sm font-semibold rounded-xl hover:from-purple-700 hover:to-fuchsia-700 transition-all shadow-md shadow-purple-500/20"
                         >
                             <FaCrown className="w-4 h-4" />
                             Upgrade to Pro
@@ -130,7 +130,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 type="button"
                 onClick={() => setDismissed(true)}
                 aria-label="Dismiss usage banner"
-                className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 p-1.5 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="absolute top-2 right-2 text-slate-500 hover:text-slate-700 p-1.5 rounded cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
                 <FaTimes className="w-3 h-3" aria-hidden="true" />
             </button>
@@ -173,7 +173,7 @@ export default function UsageBanner({ type = "both", compact = false, toolSlug }
                 {isWarning && (
                     <Link
                         href="/pricing"
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-orange-500 text-white text-sm font-medium rounded-lg hover:from-emerald-700 hover:to-orange-600 transition-all shadow-lg shadow-emerald-500/25"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white text-sm font-semibold rounded-xl hover:from-purple-700 hover:to-fuchsia-700 transition-all shadow-md shadow-purple-500/20"
                     >
                         <FaCrown className="w-4 h-4" />
                         Upgrade to Pro

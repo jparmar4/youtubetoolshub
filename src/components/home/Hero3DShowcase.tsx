@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { toolMeta } from "@/config/tool-meta";
+import { countryCPMData } from "@/lib/cpm-data";
 import {
   FaChartLine,
   FaDownload,
@@ -13,6 +14,7 @@ import {
   FaPlay,
   FaArrowRight,
   FaShieldAlt,
+  FaLayerGroup,
 } from "react-icons/fa";
 
 export default function Hero3DShowcase() {
@@ -112,20 +114,20 @@ export default function Hero3DShowcase() {
         <div className="rounded-[1.6rem] bg-slate-950/95 uhd-dark-grid border border-white/10 overflow-hidden">
           {/* Console Top Telemetry Chrome Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-3.5 bg-slate-900/95 border-b border-white/10">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.7)] shrink-0" />
-              <span className="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.7)] shrink-0" />
-              <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)] shrink-0" />
-              <span className="ml-2 text-xs font-extrabold text-slate-200 tracking-wide truncate">
-                YouTube Tools Hub — 3D UHD Creator Command Studio
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center shadow-sm shrink-0">
+                <FaLayerGroup className="w-3.5 h-3.5" aria-hidden="true" />
+              </span>
+              <span className="text-xs font-extrabold text-slate-100 tracking-wide truncate">
+                YouTube Tools Hub — Creator Command Studio
               </span>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-[11px] font-bold">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200 text-[11px] font-bold">
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-                4K UHD Engine
+                Instant Browser Engine
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[11px] font-bold">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-200 text-[11px] font-bold">
                 <FaCheckCircle className="w-2.5 h-2.5" />
                 {toolMeta.length} Instant Tools
               </span>
@@ -134,28 +136,28 @@ export default function Hero3DShowcase() {
 
           {/* 2-Panel Interactive Studio Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 p-4 sm:p-6 text-left">
-            {/* Left Panel: 4K UHD Thumbnail & Visual Packaging Inspector (5 cols) */}
+            {/* Left Panel: HD Thumbnail & Visual Packaging Inspector (5 cols) */}
             <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-900/80 border border-white/10 p-4 sm:p-5 flex flex-col justify-between shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3.5">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-pink-400 flex items-center gap-1.5">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-pink-300 flex items-center gap-1.5">
                     <FaDownload className="w-3 h-3" />
-                    4K Thumbnail &amp; CTR Studio
+                    HD Thumbnail &amp; CTR Studio
                   </span>
-                  <span className="px-2 py-0.5 rounded-md bg-pink-500/20 border border-pink-400/30 text-pink-300 text-[11px] font-black whitespace-nowrap">
-                    MAXRES • 4K UHD
+                  <span className="px-2 py-0.5 rounded-md bg-pink-500/20 border border-pink-400/30 text-pink-200 text-[11px] font-black whitespace-nowrap">
+                    MAXRES • HD
                   </span>
                 </div>
 
-                {/* Simulated 3D 16:9 UHD Video Canvas */}
+                {/* Simulated 16:9 Video Canvas */}
                 <div className="relative aspect-video rounded-xl overflow-hidden border border-white/15 bg-gradient-to-tr from-purple-950 via-indigo-900 to-fuchsia-900 p-4 flex flex-col justify-between shadow-lg">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(236,72,153,0.4),transparent_60%)]" />
                   <div className="relative z-10 flex items-center justify-between">
                     <span className="px-2 py-0.5 rounded bg-black/75 text-[11px] font-bold text-white border border-white/15">
-                      16:9 UHD CANVAS
+                      16:9 PREVIEW CANVAS
                     </span>
                     <span className="px-2 py-0.5 rounded bg-emerald-400 text-slate-950 text-[11px] font-black shadow">
-                      CTR +15.5% LIFT
+                      CTR BENCHMARK
                     </span>
                   </div>
 
@@ -174,21 +176,21 @@ export default function Hero3DShowcase() {
                     </div>
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-between text-[11px] text-slate-300 font-semibold pt-2 border-t border-white/10">
-                    <span>1280×720 HD</span>
-                    <span>1920×1080 FHD</span>
-                    <span className="text-amber-300 font-black">3840×2160 4K</span>
+                  <div className="relative z-10 flex items-center justify-between text-[11px] text-slate-200 font-semibold pt-2 border-t border-white/10">
+                    <span>480×360 HQ</span>
+                    <span>640×480 SD</span>
+                    <span className="text-amber-300 font-black">1280×720 HD</span>
                   </div>
                 </div>
               </div>
 
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-                <span className="text-xs text-slate-500 font-medium">
+                <span className="text-xs text-slate-300 font-medium">
                   Videos, Shorts &amp; Live Streams
                 </span>
                 <Link
                   href="/tools/youtube-thumbnail-downloader"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/30 text-xs font-bold text-pink-300 hover:text-white transition-all whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/30 text-xs font-bold text-pink-200 hover:text-white transition-all whitespace-nowrap"
                 >
                   <span>Open Downloader</span>
                   <FaArrowRight className="w-3 h-3" />
@@ -200,47 +202,47 @@ export default function Hero3DShowcase() {
             <div className="lg:col-span-7 rounded-2xl bg-gradient-to-br from-slate-900 to-purple-950/50 border border-white/10 p-4 sm:p-5 flex flex-col justify-between shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3.5">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
                     <FaChartLine className="w-3.5 h-3.5" />
                     Tier-1 AdSense RPM &amp; Valuation Telemetry
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-[11px] font-black whitespace-nowrap">
-                    52 COUNTRIES • 2026 DATA
+                  <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-[11px] font-black whitespace-nowrap">
+                    {countryCPMData.length} COUNTRIES • 2026 DATA
                   </span>
                 </div>
 
-                {/* 3 Mini 3D Metric Cards */}
+                {/* 3 Mini Metric Cards */}
                 <div className="grid grid-cols-3 gap-2.5 sm:gap-3 mb-4">
                   <div className="rounded-xl bg-white/[0.06] border border-white/10 p-3 shadow-inner">
-                    <div className="text-[11px] font-bold uppercase text-slate-500 truncate">
+                    <div className="text-[11px] font-bold uppercase text-slate-300 truncate">
                       US Finance RPM
                     </div>
                     <div className="text-lg sm:text-xl font-black text-emerald-400 mt-0.5">
                       $18.40
                     </div>
-                    <div className="text-[11px] text-emerald-300/80 font-semibold truncate">
+                    <div className="text-[11px] text-emerald-200 font-semibold truncate">
                       Tier-1 Ad Auction
                     </div>
                   </div>
                   <div className="rounded-xl bg-white/[0.06] border border-white/10 p-3 shadow-inner">
-                    <div className="text-[11px] font-bold uppercase text-slate-500 truncate">
+                    <div className="text-[11px] font-bold uppercase text-slate-300 truncate">
                       Est. Monthly Pay
                     </div>
                     <div className="text-lg sm:text-xl font-black text-white mt-0.5">
                       $12,450
                     </div>
-                    <div className="text-[11px] text-purple-300 font-semibold truncate">
+                    <div className="text-[11px] text-purple-200 font-semibold truncate">
                       + S-Corp Tax Saved
                     </div>
                   </div>
                   <div className="rounded-xl bg-white/[0.06] border border-white/10 p-3 shadow-inner">
-                    <div className="text-[11px] font-bold uppercase text-slate-500 truncate">
+                    <div className="text-[11px] font-bold uppercase text-slate-300 truncate">
                       Channel Valuation
                     </div>
                     <div className="text-lg sm:text-xl font-black text-amber-300 mt-0.5">
                       $348K
                     </div>
-                    <div className="text-[11px] text-amber-200/80 font-semibold truncate">
+                    <div className="text-[11px] text-amber-200 font-semibold truncate">
                       28× Net Multiple
                     </div>
                   </div>

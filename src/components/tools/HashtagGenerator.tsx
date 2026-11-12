@@ -78,7 +78,7 @@ function CategorySection({
                             <CopyButton text={item.tag} variant="icon" className="!p-0 !h-auto" />
                         </div>
                         {(item.volume || item.relevance) && (
-                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[11px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[11px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                                 Vol: {item.volume} • Rel: {item.relevance}
                             </div>
                         )}
@@ -255,27 +255,30 @@ export default function HashtagGenerator() {
                                 <CopyButton text={spaceFormat} variant="button" label="Copy (Space)" />
                                 <CopyButton text={commaFormat} variant="button" label="Copy (CSV)" />
                                 <button
+                                    type="button"
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm cursor-pointer"
                                     title="Download hashtags as CSV"
                                 >
                                     <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm cursor-pointer"
                                     title="Download hashtags as Plain Text"
                                 >
                                     <FaFileAlt className="text-[11px]" />
                                     <span>TXT</span>
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={handleSave}
                                     disabled={saved}
                                     className={`flex items-center gap-1.5 px-3 py-2 text-xs rounded-lg font-semibold transition-colors ${saved
-                                        ?"bg-green-100 text-green-700 cursor-default"
-                                        :"bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 shadow-sm"
+                                        ? "bg-emerald-100 text-emerald-700 cursor-default"
+                                        : "bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 shadow-sm cursor-pointer"
                                         }`}
                                 >
                                     {saved ? <FaCheckCircle className="text-xs" /> : <FaBookmark className="text-xs" />}

@@ -13,11 +13,13 @@ import {
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 
 const GLOSSARY_PATH = "/resources/youtube-glossary";
 
 export const metadata: Metadata = {
-  title: { absolute: "YouTube Glossary: 44 Creator Terms Defined (2026)" },
+  title: { absolute: `YouTube Glossary: ${glossaryTerms.length} Creator Terms Defined (2026)` },
   description:
     "Plain-English definitions of YouTube creator terms: CPM, RPM, CTR, watch time, YPP, Content ID, Shorts revenue, retention, and more — direct answers, no jargon.",
   keywords: [
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "YouTube Glossary: 44 Creator Terms Defined (2026)",
+    title: `YouTube Glossary: ${glossaryTerms.length} Creator Terms Defined (2026)`,
     description:
       "Every YouTube creator term defined in plain English — CPM, RPM, CTR, YPP, Content ID, retention, and more.",
     type: "article",
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "YouTube Glossary: 44 Creator Terms Defined (2026)",
+    title: `YouTube Glossary: ${glossaryTerms.length} Creator Terms Defined (2026)`,
     description:
       "Every YouTube creator term defined in plain English — CPM, RPM, CTR, YPP, Content ID, retention, and more.",
     images: [`${siteConfig.url}/og-image.png`],
@@ -136,7 +138,7 @@ export default function GlossaryPage() {
     <>
       <GeoAeoHead
         {...GEO_AEO_PRESETS.resourcePage(
-          "YouTube Glossary: 44 Creator Terms Defined (2026)",
+          `YouTube Glossary: ${glossaryTerms.length} Creator Terms Defined (2026)`,
           "Plain-English definitions of YouTube creator terms: CPM, RPM, CTR, watch time, YPP, Content ID, and more.",
           "YouTube glossary",
           "This glossary defines the YouTube creator terms creators ask about most — CPM, RPM, CTR, watch time, YPP, Content ID, and Shorts revenue — each as a direct, jargon-free answer.",
@@ -158,21 +160,18 @@ export default function GlossaryPage() {
       />
 
       <div className="min-h-screen bg-slate-50">
-        <header className="py-16 relative overflow-hidden">
+        <header className="py-10 sm:py-12 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-white/50 backdrop-blur-3xl -z-10" />
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <nav aria-label="Breadcrumb" className="text-sm text-slate-500 mb-6">
-              <Link href="/" className="hover:text-purple-600">
-                Home
-              </Link>
-              <span aria-hidden="true" className="mx-2">/</span>
-              <Link href="/resources" className="hover:text-purple-600">
-                Resources
-              </Link>
-              <span aria-hidden="true" className="mx-2">/</span>
-              <span aria-current="page">Glossary</span>
-            </nav>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight" data-speakable>
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Resources", href: "/resources" },
+                { name: "Glossary" },
+              ]}
+              className="mb-6"
+            />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 tracking-tight" data-speakable>
               YouTube Glossary: Every Creator Term, Explained Simply
             </h1>
             <p className="summary text-lg text-slate-700 leading-relaxed" data-speakable>
@@ -186,7 +185,7 @@ export default function GlossaryPage() {
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           {/* Jump links */}
-          <nav aria-label="Glossary sections" className="flex flex-wrap gap-2 mb-12">
+          <nav aria-label="Glossary sections" className="flex flex-wrap gap-2 mb-10">
             {grouped.map(({ group }) => (
               <a
                 key={group}
@@ -203,7 +202,7 @@ export default function GlossaryPage() {
               <h2 className="text-2xl font-bold text-slate-900 mb-6 pb-3 border-b border-slate-200">
                 {GROUP_LABELS[group]}
               </h2>
-              <dl className="space-y-6">
+              <dl className="space-y-4">
                 {terms.map((t) => (
                   <div
                     key={t.term}
@@ -211,7 +210,7 @@ export default function GlossaryPage() {
                       .toLowerCase()
                       .replace(/[^a-z0-9]+/g, "-")
                       .replace(/(^-|-$)/g, "")}
-                    className="bg-white rounded-xl p-6 shadow-sm border border-slate-100 scroll-mt-24"
+                    className="card-3d rounded-2xl p-6 scroll-mt-24"
                   >
                     <dt className="font-bold text-lg text-slate-900 mb-2">{t.term}</dt>
                     <dd className="text-slate-600 leading-relaxed">{t.definition}</dd>
@@ -226,17 +225,7 @@ export default function GlossaryPage() {
             <h2 className="text-2xl font-bold text-slate-900 mb-6">
               Glossary FAQ
             </h2>
-            <div className="space-y-6">
-              {faqs.map((item) => (
-                <div
-                  key={item.question}
-                  className="bg-white rounded-xl p-6 shadow-sm border border-slate-100"
-                >
-                  <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                  <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                </div>
-              ))}
-            </div>
+            <FaqAccordion items={faqs} headingLevel="h3" />
           </section>
 
           {/* Related guides */}
@@ -247,25 +236,25 @@ export default function GlossaryPage() {
             <div className="grid sm:grid-cols-2 gap-3">
               <Link
                 href="/resources/youtube-cpm-rates"
-                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 hover:border-purple-400 hover:shadow-md transition-all"
+                className="block card-3d rounded-xl px-4 py-3 font-semibold text-slate-800 hover:text-purple-700"
               >
                 CPM rates by country →
               </Link>
               <Link
                 href="/tools/youtube-earnings-calculator"
-                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 hover:border-purple-400 hover:shadow-md transition-all"
+                className="block card-3d rounded-xl px-4 py-3 font-semibold text-slate-800 hover:text-purple-700"
               >
                 Earnings calculator (free) →
               </Link>
               <Link
                 href="/resources/youtube-monetization-guide"
-                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 hover:border-purple-400 hover:shadow-md transition-all"
+                className="block card-3d rounded-xl px-4 py-3 font-semibold text-slate-800 hover:text-purple-700"
               >
                 Monetization guide →
               </Link>
               <Link
                 href="/blog"
-                className="block rounded-xl border border-slate-200 bg-white px-4 py-3 font-semibold text-slate-800 hover:border-purple-400 hover:shadow-md transition-all"
+                className="block card-3d rounded-xl px-4 py-3 font-semibold text-slate-800 hover:text-purple-700"
               >
                 Growth blog →
               </Link>

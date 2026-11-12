@@ -2,7 +2,11 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import ToolsFilterBar from "@/components/tools/ToolsFilterBar";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
+import { countryCPMData } from "@/lib/cpm-data";
 import {
   combineSchemasToGraph,
   getToolListSchema,
@@ -38,7 +42,7 @@ const toolsPageFaqs = [
   {
     question: "Can I estimate YouTube earnings by country?",
     answer:
-      "Yes. The YouTube Earnings Calculator uses country-level CPM and RPM planning ranges for 50+ markets, including the US, UK, Canada, Australia, and India.",
+      `Yes. The YouTube Earnings Calculator uses country-level CPM and RPM planning ranges for ${countryCPMData.length} markets, including the US, UK, Canada, Australia, and India.`,
   },
 ];
 
@@ -121,19 +125,24 @@ export default function ToolsPage() {
         }}
       />
 
-      <div className="min-h-screen py-16 sm:py-20 relative overflow-hidden bg-slate-50">
-        {/* UHD Spatial Background Decorations */}
+      <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden bg-slate-50">
+        {/* Spatial Background Decorations */}
         <div className="nebula-bg" />
-        <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-purple-100/40 via-blue-50/20 to-transparent -z-10" />
+        <div className="absolute top-0 left-0 w-full h-[520px] bg-gradient-to-b from-purple-100/40 via-blue-50/20 to-transparent -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <Breadcrumb
+            items={[{ name: "Home", href: "/" }, { name: "Tools" }]}
+            className="mb-6"
+          />
+
           {/* Header */}
           <div className="text-center mb-10 animate-fade-in-up">
-            <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-6 shadow-[0_6px_20px_rgba(124,58,237,0.28),inset_0_1px_0_rgba(255,255,255,0.25)]">
-              {tools.length} Free Creator Tools · 4K UHD · No Signup
+            <span className="inline-block py-1.5 px-4 rounded-full bg-slate-900 text-white text-xs font-bold uppercase tracking-widest mb-5 shadow-md">
+              {tools.length} Free Creator Tools · Browser-Based · No Signup
             </span>
             <h1
-              className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-outfit"
+              className="text-3xl md:text-5xl font-black text-slate-900 mb-5 tracking-tight font-outfit"
               data-speakable
             >
               All {tools.length} Free YouTube Tools
@@ -142,14 +151,14 @@ export default function ToolsPage() {
               className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit summary"
               data-speakable
             >
-              Streamline your YouTube workflow: download full HD &amp; 4K thumbnails, generate high-CTR titles and tags, calculate country-level AdSense payouts, estimate tax deductions, and grow without extensions.
+              Streamline your YouTube workflow: download HD &amp; full-resolution thumbnails, generate high-CTR titles and tags, calculate country-level AdSense payouts, estimate tax deductions, and grow without extensions.
             </p>
 
-            {/* Quick Category Chips */}
-            <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mt-8">
+            {/* Quick Category Jump Chips */}
+            <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mt-7">
               <a
                 href="#tier1-calculators"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold shadow-xs hover:scale-105 transition-all"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs font-bold shadow-xs hover:from-emerald-700 hover:to-teal-700 transition-colors"
               >
                 <FaBolt className="w-3 h-3 text-amber-300" />
                 <span>Tier 1 Money &amp; Tax Suite</span>
@@ -158,7 +167,7 @@ export default function ToolsPage() {
                 <a
                   key={cat.id}
                   href={`#${cat.id}`}
-                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700 text-xs font-semibold shadow-2xs transition-all"
+                  className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700 text-xs font-semibold shadow-2xs transition-colors"
                 >
                   {cat.name.replace(" Tools", "")} ({getToolsByCategory(cat.id).length})
                 </a>
@@ -166,11 +175,14 @@ export default function ToolsPage() {
             </div>
           </div>
 
+          {/* Interactive Search & Category Filter */}
+          <ToolsFilterBar />
+
           {/* Above-the-fold Ad Placement */}
           <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
           {/* Tier 1 Commercial Stack Spotlight */}
-          <div id="tier1-calculators" className="mb-20 scroll-mt-24">
+          <div id="tier1-calculators" className="mb-16 scroll-mt-24">
             <div className="bg-slate-950 uhd-dark-grid border border-purple-500/30 rounded-3xl p-6 sm:p-10 text-white shadow-[0_28px_60px_-15px_rgba(15,23,42,0.5)] relative overflow-hidden">
               <div className="absolute inset-x-12 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
               <div className="absolute top-0 right-0 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -202,7 +214,7 @@ export default function ToolsPage() {
                       name: "YouTube Earnings Calculator",
                       href: "/tools/youtube-earnings-calculator",
                       desc: "Estimate monthly and yearly AdSense by country and RPM.",
-                      badge: "50+ Markets",
+                      badge: `${countryCPMData.length} Markets`,
                       iconKey: "earnings-calculator-hero",
                     },
                     {
@@ -303,7 +315,7 @@ export default function ToolsPage() {
                         {category.name}
                         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-purple-500 rounded-full"></div>
                       </h2>
-                      <p className="text-base sm:text-lg text-slate-500 max-w-2xl mb-4">
+                      <p className="text-base sm:text-lg text-slate-600 max-w-2xl mb-4">
                         {category.description}
                       </p>
                       {/* Link to Hub Page */}
@@ -348,21 +360,21 @@ export default function ToolsPage() {
             })}
 
             {/* Trust Bar Section */}
-            <div className="glass-premium rounded-3xl p-12 text-center border border-white/40 shadow-sm animate-fade-in-up">
+            <div className="card-3d rounded-3xl p-10 text-center animate-fade-in-up">
               <h3 className="text-2xl font-bold text-slate-900 mb-4 font-outfit italic">
-                "A practical toolkit for faster creator workflows."
+                &ldquo;A practical toolkit for faster creator workflows.&rdquo;
               </h3>
-              <div className="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale">
-                <span className="font-bold text-xl tracking-tighter">
+              <div className="flex flex-wrap justify-center items-center gap-8 text-slate-500">
+                <span className="font-bold text-lg sm:text-xl tracking-tight">
                   BROWSER BASED
                 </span>
-                <span className="font-bold text-xl tracking-tighter">
+                <span className="font-bold text-lg sm:text-xl tracking-tight">
                   NO SIGNUP NEEDED
                 </span>
-                <span className="font-bold text-xl tracking-tighter">
+                <span className="font-bold text-lg sm:text-xl tracking-tight">
                   AI POWERED
                 </span>
-                <span className="font-bold text-xl tracking-tighter">
+                <span className="font-bold text-lg sm:text-xl tracking-tight">
                   CREATOR FOCUSED
                 </span>
               </div>
@@ -372,25 +384,15 @@ export default function ToolsPage() {
             <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Sponsored Recommendations" />
 
             {/* AEO: visible FAQ matching FAQPage schema */}
-            <section className="mt-24 max-w-3xl mx-auto" aria-labelledby="tools-faq-heading">
+            <section className="mt-20 max-w-3xl mx-auto" aria-labelledby="tools-faq-heading">
               <h2
                 id="tools-faq-heading"
                 className="text-3xl font-bold text-slate-900 mb-8 text-center font-outfit"
               >
                 Free YouTube Tools FAQ
               </h2>
-              <div className="space-y-4">
-                {toolsPageFaqs.map((faq) => (
-                  <div
-                    key={faq.question}
-                    className="glass-premium rounded-2xl p-6 border border-white/40"
-                  >
-                    <h3 className="font-bold text-slate-900 mb-2">{faq.question}</h3>
-                    <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-center mt-8 text-slate-500">
+              <FaqAccordion items={toolsPageFaqs} headingLevel="h3" />
+              <p className="text-center mt-8 text-slate-600">
                 More answers on the{" "}
                 <Link href="/faq" className="text-purple-600 font-semibold hover:underline">
                   full FAQ page

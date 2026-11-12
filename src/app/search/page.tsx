@@ -82,21 +82,30 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
                         {/* Search Form */}
                         <form action="/search" method="GET" className="max-w-2xl mx-auto mb-12">
-                            <div className="relative group">
-                                <FaSearch className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-purple-500 transition-colors" />
-                                <input
-                                    type="text"
-                                    name="q"
-                                    defaultValue={query || ""}
-                                    placeholder="Search tools, guides, strategies..."
-                                    className="w-full pl-16 pr-6 py-5 rounded-2xl border-2 border-slate-200 bg-white text-lg font-outfit font-medium text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all shadow-lg"
-                                    autoFocus
-                                />
+                            <div className="flex flex-col sm:flex-row gap-3">
+                                <div className="relative group flex-1">
+                                    <FaSearch className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-purple-600 transition-colors" />
+                                    <input
+                                        type="text"
+                                        name="q"
+                                        defaultValue={query || ""}
+                                        placeholder="Search tools, guides, strategies..."
+                                        className="w-full pl-14 pr-5 py-4 rounded-2xl border-2 border-slate-200 bg-white text-base sm:text-lg font-outfit font-medium text-slate-900 placeholder:text-slate-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all shadow-md"
+                                        autoFocus
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="btn-3d-primary px-7 py-4 rounded-2xl font-bold text-base inline-flex items-center justify-center gap-2 cursor-pointer shrink-0"
+                                >
+                                    <FaSearch className="w-4 h-4" />
+                                    <span>Search</span>
+                                </button>
                             </div>
                         </form>
 
                         {searchQuery && (
-                            <p className="text-lg text-slate-500 font-outfit">
+                            <p className="text-lg text-slate-600 font-outfit">
                                 {totalResults === 0
                                     ? `No results found for "${query}"`
                                     : `${totalResults} result${totalResults !== 1 ? "s" : ""} for "${query}"`}
@@ -123,16 +132,16 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                         href={`/tools/${tool.slug}`}
                                         className="group block"
                                     >
-                                        <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
+                                        <div className="card-3d rounded-2xl p-6">
                                             <div className="flex items-start gap-4">
-                                                <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 flex-shrink-0 group-hover:bg-purple-100 transition-colors">
+                                                <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0 group-hover:bg-purple-100 transition-colors">
                                                     <tool.icon className="w-6 h-6" />
                                                 </div>
                                                 <div>
                                                     <h3 className="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors mb-1 font-outfit">
                                                         {tool.name}
                                                     </h3>
-                                                    <p className="text-slate-500 text-sm line-clamp-2">
+                                                    <p className="text-slate-600 text-sm line-clamp-2">
                                                         {tool.shortDescription}
                                                     </p>
                                                 </div>
@@ -160,19 +169,19 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                         href={`/blog/${post.slug}`}
                                         className="group block"
                                     >
-                                        <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
+                                        <div className="card-3d rounded-2xl p-6">
                                             <div className="flex items-center gap-3 mb-2">
-                                                <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-md uppercase tracking-wide">
+                                                <span className="text-xs font-bold text-purple-700 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded-md uppercase tracking-wide">
                                                     {post.category}
                                                 </span>
-                                                <span className="text-xs text-slate-500">
+                                                <span className="text-xs text-slate-600 font-medium">
                                                     {post.date}
                                                 </span>
                                             </div>
                                             <h3 className="text-lg font-bold text-slate-900 group-hover:text-purple-600 transition-colors mb-1 font-outfit">
                                                 {post.title}
                                             </h3>
-                                            <p className="text-slate-500 text-sm line-clamp-2">
+                                            <p className="text-slate-600 text-sm line-clamp-2">
                                                 {post.metaDescription}
                                             </p>
                                         </div>
@@ -184,20 +193,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
                     {/* No Results State */}
                     {searchQuery && totalResults === 0 && (
-                        <div className="text-center py-16">
-                            <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-8">
-                                <FaSearch className="w-10 h-10 text-slate-300" />
+                        <div className="text-center py-14">
+                            <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-6">
+                                <FaSearch className="w-9 h-9 text-slate-500" />
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
+                            <h3 className="text-2xl font-bold text-slate-900 mb-3 font-outfit">
                                 No results found
                             </h3>
-                            <p className="text-slate-500 mb-8 max-w-md mx-auto">
+                            <p className="text-slate-600 mb-8 max-w-md mx-auto">
                                 Try searching for &quot;thumbnail&quot;, &quot;earnings&quot;,
                                 &quot;SEO&quot;, or &quot;tags&quot; to find relevant tools and guides.
                             </p>
                             <Link
                                 href="/tools"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg"
+                                className="btn-3d-primary inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold"
                             >
                                 Browse All Tools
                                 <FaArrowRight className="w-4 h-4" />
@@ -207,14 +216,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
                     {/* Empty State (no query) */}
                     {!searchQuery && (
-                        <div className="text-center py-16">
-                            <div className="w-24 h-24 rounded-full bg-purple-50 flex items-center justify-center mx-auto mb-8">
-                                <FaSearch className="w-10 h-10 text-purple-300" />
+                        <div className="text-center py-14">
+                            <div className="w-20 h-20 rounded-full bg-purple-50 border border-purple-100 flex items-center justify-center mx-auto mb-6">
+                                <FaSearch className="w-9 h-9 text-purple-600" />
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
+                            <h3 className="text-2xl font-bold text-slate-900 mb-3 font-outfit">
                                 Search our entire suite
                             </h3>
-                            <p className="text-slate-500 mb-8 max-w-md mx-auto">
+                            <p className="text-slate-600 mb-8 max-w-md mx-auto">
                                 Find the perfect YouTube tool or growth strategy from our collection
                                 of {tools.length} free creator tools and expert guides.
                             </p>
@@ -224,7 +233,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                                         <Link
                                             key={suggestion}
                                             href={`/search?q=${suggestion}`}
-                                            className="px-5 py-2.5 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600 hover:border-purple-300 hover:text-purple-600 transition-all"
+                                            className="px-5 py-2.5 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-700 hover:border-purple-400 hover:text-purple-700 transition-all shadow-2xs"
                                         >
                                             {suggestion}
                                         </Link>

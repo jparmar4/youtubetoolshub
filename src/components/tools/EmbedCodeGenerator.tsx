@@ -159,7 +159,7 @@ export default function EmbedCodeGenerator() {
 
             {/* Aspect Ratio Selector */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
                 Aspect Ratio
               </label>
               <div className="grid grid-cols-4 gap-2">
@@ -168,10 +168,10 @@ export default function EmbedCodeGenerator() {
                     key={r}
                     type="button"
                     onClick={() => setAspectRatio(r)}
-                    className={`py-2 text-xs font-bold rounded-lg border transition-all ${
+                    className={`cursor-pointer py-2 text-xs font-bold rounded-lg border transition-all ${
                       aspectRatio === r
                         ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                        :"border-slate-200 text-slate-700 hover:bg-slate-50"
+                        : "border-slate-200 text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     {r === "9:16" ? "9:16 (Shorts)" : r}
@@ -292,12 +292,13 @@ export default function EmbedCodeGenerator() {
             {/* HTML / React Code Exports */}
             <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
                   <FaLaptopCode className="text-indigo-500" /> Responsive HTML + CSS Code
                 </span>
                 <button
+                  type="button"
                   onClick={() => handleCopy(embedData.responsiveHtml, "html")}
-                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
+                  className="cursor-pointer px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
                 >
                   {copiedKey === "html" ? <FaCheckCircle /> : <FaCopy />}
                   {copiedKey === "html" ? "Copied HTML!" : "Copy Code"}

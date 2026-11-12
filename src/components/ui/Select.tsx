@@ -24,7 +24,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 {label && (
                     <label
                         htmlFor={inputId}
-                        className="block text-sm font-medium text-slate-700 mb-2"
+                        className="block text-sm font-semibold text-slate-800 mb-1.5"
                     >
                         {label}
                     </label>
@@ -39,22 +39,23 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                         ref={ref}
                         id={inputId}
                         className={`
-                            w-full py-3 rounded-xl border-2 
-                            bg-white 
-                            border-slate-200
-                            text-slate-900
-                            focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none
+                            w-full py-2.5 sm:py-3 rounded-xl border
+                            bg-white
+                            border-slate-300/90 hover:border-slate-400
+                            text-slate-900 text-sm sm:text-base font-medium
+                            shadow-2xs
+                            focus:border-purple-600 focus:ring-4 focus:ring-purple-500/10 focus:outline-none
                             transition-all duration-200
                             appearance-none cursor-pointer
                             bg-no-repeat bg-right
-                            ${icon ? "pl-11 pr-10" : "px-4"}
-                            ${error ? "border-red-500" : ""}
+                            ${icon ? "pl-11 pr-10" : "pl-4 pr-10"}
+                            ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500/15" : ""}
                             ${className}
                         `}
                         style={{
                             backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
                             backgroundPosition: "right 0.75rem center",
-                            backgroundSize: "1.5em 1.5em",
+                            backgroundSize: "1.4em 1.4em",
                         }}
                         {...props}
                     >
@@ -66,10 +67,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                     </select>
                 </div>
                 {error && (
-                    <p className="mt-1 text-sm text-red-400">{error}</p>
+                    <p className="mt-1.5 text-sm font-medium text-red-600">{error}</p>
                 )}
                 {helperText && !error && (
-                    <p className="mt-1 text-sm text-slate-600">{helperText}</p>
+                    <p className="mt-1.5 text-xs sm:text-sm text-slate-500">{helperText}</p>
                 )}
             </div>
         );

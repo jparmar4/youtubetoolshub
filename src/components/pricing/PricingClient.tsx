@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaCheck, FaTimes, FaCrown, FaRocket, FaInfinity } from "react-icons/fa";
 import PaymentButton from "@/components/payment/PaymentButton";
+import { toolMeta } from "@/config/tool-meta";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 
 const plans = [
     {
@@ -15,7 +17,7 @@ const plans = [
         icon: FaRocket,
         features: [
             { text: "2 uses per day (1 image per week)", included: true, highlight: false },
-            { text: "All 30 YouTube tools", included: true, highlight: false },
+            { text: `All ${toolMeta.length} YouTube tools`, included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
             { text: "Unlimited generations", included: false, highlight: false },
@@ -40,7 +42,7 @@ const plans = [
         features: [
             { text: "Unlimited AI generations", included: true, highlight: true },
             { text: "Unlimited image generations", included: true, highlight: true },
-            { text: "All 16+ YouTube tools", included: true, highlight: false },
+            { text: `All ${toolMeta.length} YouTube tools`, included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
             { text: "CSV exports", included: true, highlight: false },
             { text: "Priority AI processing", included: true, highlight: false },
@@ -50,7 +52,7 @@ const plans = [
         cta: "Upgrade to Pro",
         href: "/sign-in?plan=pro",
         popular: true,
-        gradient: "from-emerald-600 to-orange-500",
+        gradient: "from-purple-600 to-fuchsia-600",
         isPaid: true,
     },
 ];
@@ -69,11 +71,11 @@ export default function PricingClient() {
     const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
 
     return (
-        <div className="min-h-screen py-12 bg-gray-50">
+        <div className="min-h-screen py-12 bg-slate-50">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
                         Simple, Honest Pricing
                     </h1>
                     <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
@@ -81,12 +83,12 @@ export default function PricingClient() {
                     </p>
 
                     {/* Billing Toggle */}
-                    <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-100" role="group" aria-label="Billing cycle">
+                    <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-200/80" role="group" aria-label="Billing cycle">
                         <button
                             type="button"
                             onClick={() => setBillingCycle("monthly")}
                             aria-pressed={billingCycle === "monthly"}
-                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all ${billingCycle === "monthly"
+                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "monthly"
                                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
                                 : "text-slate-700 hover:text-slate-900"
                                 }`}
@@ -97,13 +99,13 @@ export default function PricingClient() {
                             type="button"
                             onClick={() => setBillingCycle("yearly")}
                             aria-pressed={billingCycle === "yearly"}
-                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all ${billingCycle === "yearly"
+                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "yearly"
                                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
                                 : "text-slate-700 hover:text-slate-900"
                                 }`}
                         >
                             Yearly
-                            <span className="ml-2 text-xs bg-green-700 text-white px-2 py-0.5 rounded-full">
+                            <span className="ml-2 text-xs bg-emerald-600 text-white px-2 py-0.5 rounded-full">
                                 Save 17%
                             </span>
                         </button>
@@ -261,42 +263,34 @@ export default function PricingClient() {
 
                 {/* FAQ Section */}
                 <div className="max-w-3xl mx-auto">
-                    <h2 className="text-2xl font-bold text-slate-900 text-center mb-8">
+                    <h2 className="text-2xl font-bold text-slate-900 text-center mb-8 font-outfit">
                         Frequently Asked Questions
                     </h2>
-                    <div className="space-y-4">
-                        {[
+                    <FaqAccordion
+                        headingLevel="h3"
+                        items={[
                             {
-                                q: "What payment methods do you accept?",
-                                a: "We accept all major credit/debit cards (Visa, Mastercard, Amex), UPI, Paytm, Google Pay, and net banking via Razorpay."
+                                question: "What payment methods do you accept?",
+                                answer: "We accept all major credit/debit cards (Visa, Mastercard, Amex), UPI, Paytm, Google Pay, and net banking via Razorpay."
                             },
                             {
-                                q: "What counts as an AI generation?",
-                                a: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 2 generations per day, plus 1 AI thumbnail image per week.",
+                                question: "What counts as an AI generation?",
+                                answer: "Each time you use one of our AI-powered tools (title generator, description writer, tag generator, etc.), it counts as one generation. Free users get 2 generations per day, plus 1 AI thumbnail image per week.",
                             },
                             {
-                                q: "When do my daily limits reset?",
-                                a: "Your usage limits reset every 24 hours from your first generation of the day."
+                                question: "When do my daily limits reset?",
+                                answer: "Your usage limits reset every 24 hours from your first generation of the day."
                             },
                             {
-                                q: "Can I cancel my Pro subscription?",
-                                a: "Yes! You can cancel anytime. You'll keep Pro access until the end of your billing period."
+                                question: "Can I cancel my Pro subscription?",
+                                answer: "Yes! You can cancel anytime. You'll keep Pro access until the end of your billing period."
                             },
                             {
-                                q: "Is there a refund policy?",
-                                a: "Yes, we offer a 7-day money-back guarantee if you're not satisfied with Pro."
+                                question: "Is there a refund policy?",
+                                answer: "Yes, we offer a 7-day money-back guarantee if you're not satisfied with Pro."
                             },
-                        ].map((faq, i) => (
-                            <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-                                <h3 className="font-semibold text-slate-900 mb-2">
-                                    {faq.q}
-                                </h3>
-                                <p className="text-slate-600 text-sm">
-                                    {faq.a}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                        ]}
+                    />
                 </div>
             </div>
         </div>

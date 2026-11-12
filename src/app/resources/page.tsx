@@ -7,6 +7,8 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 import { countryCPMData } from "@/lib/cpm-data";
+import { glossaryTerms } from "@/config/glossary";
+import Breadcrumb from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "YouTube Creator Resources & Guides",
@@ -43,7 +45,7 @@ const resources = [
   },
   {
     href: "/resources/youtube-glossary",
-    title: "YouTube Glossary — 44 Terms Defined",
+    title: `YouTube Glossary — ${glossaryTerms.length} Terms Defined`,
     description:
       "Plain-English definitions of creator terms: CPM, RPM, CTR, watch time, YPP, Content ID, Shorts revenue, retention, and more.",
   },
@@ -82,17 +84,12 @@ export default function ResourcesIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <nav aria-label="Breadcrumb" className="text-sm text-slate-500 mb-6">
-          <Link href="/" className="hover:text-purple-600">
-            Home
-          </Link>
-          <span aria-hidden="true" className="mx-2">
-            /
-          </span>
-          <span aria-current="page">Resources</span>
-        </nav>
-        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">
+      <div className="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+        <Breadcrumb
+          items={[{ name: "Home", href: "/" }, { name: "Resources" }]}
+          className="mb-6"
+        />
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight">
           YouTube Creator Resources
         </h1>
         <p className="text-slate-600 mb-6 max-w-2xl">
@@ -108,7 +105,7 @@ export default function ResourcesIndexPage() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="block rounded-2xl border border-slate-200 bg-white p-6 hover:border-purple-300 hover:shadow-md transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="block card-3d rounded-2xl p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 <h2 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h2>
                 <p className="text-slate-600 text-sm">{item.description}</p>
@@ -122,7 +119,7 @@ export default function ResourcesIndexPage() {
           </h2>
           <p className="text-slate-600 text-sm mb-4">
             Localized CPM/RPM calculators for the US, UK, Canada, Australia, India,
-            Germany, Brazil, Mexico, South Africa, Nigeria, Singapore, UAE and 40 more.
+            Germany, Brazil, Mexico, South Africa, Nigeria, Singapore, UAE and {Math.max(countryCPMData.length - 12, 1)} more.
             Start global, then drill into your audience country.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -134,25 +131,28 @@ export default function ResourcesIndexPage() {
             </Link>
             <Link
               href="/tools/youtube-earnings-calculator/usa"
-              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800 hover:border-emerald-500 transition-colors"
             >
-              🇺🇸 United States
+              <span className="px-1.5 py-0.5 rounded bg-slate-100 text-[11px] font-bold text-slate-700">US</span>
+              United States
             </Link>
             <Link
               href="/tools/youtube-earnings-calculator/india"
-              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800 hover:border-emerald-500 transition-colors"
             >
-              🇮🇳 India
+              <span className="px-1.5 py-0.5 rounded bg-slate-100 text-[11px] font-bold text-slate-700">IN</span>
+              India
             </Link>
             <Link
               href="/tools/youtube-earnings-calculator/uk"
-              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800 hover:border-emerald-500 transition-colors"
             >
-              🇬🇧 UK
+              <span className="px-1.5 py-0.5 rounded bg-slate-100 text-[11px] font-bold text-slate-700">UK</span>
+              United Kingdom
             </Link>
             <Link
               href="/resources/youtube-cpm-rates"
-              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium hover:border-emerald-500 transition-colors"
+              className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-800 hover:border-emerald-500 transition-colors"
             >
               {`Full ${countryCPMData.length}-country table`}
             </Link>

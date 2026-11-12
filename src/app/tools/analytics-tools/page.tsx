@@ -9,15 +9,21 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
+import { countryCPMData } from "@/lib/cpm-data";
+import { FaDollarSign, FaChartBar } from "react-icons/fa";
+
+const analyticsTools = getToolsByCategory("analytics-earnings");
 
 export const metadata: Metadata = {
-    title: "YouTube Analytics, Revenue & Tax Calculators — 14 Free Tools (2026)",
-    description: "14 free YouTube analytics, revenue, sponsorship, channel valuation, S-Corp tax, and AdSense banking calculators for Tier-1 and global creators in 2026.",
+    title: `YouTube Analytics, Revenue & Tax Calculators — ${analyticsTools.length} Free Tools (2026)`,
+    description: `${analyticsTools.length} free YouTube analytics, revenue, sponsorship, channel valuation, S-Corp tax, and AdSense banking calculators for Tier-1 and global creators in 2026.`,
     keywords: ["youtube earnings calculator", "youtube sponsorship calculator", "youtube channel valuation calculator", "youtube llc vs s corp calculator", "engagement rate benchmarks 2026", "youtube monetization tools", "cpm by niche 2026", "youtube roi calculator"],
     openGraph: {
-        title: "14 Free YouTube Analytics, Revenue & Tax Calculators | ROI 2026",
+        title: `${analyticsTools.length} Free YouTube Analytics, Revenue & Tax Calculators | ROI 2026`,
         description: "Calculate your YouTube AdSense income, sponsorship rates, channel net worth, S-Corp tax savings, and engagement depth with our 2026 suite.",
         type: "website",
         url: `${siteConfig.url}/tools/analytics-tools`,
@@ -45,8 +51,6 @@ const analyticsFaqs = [
 ];
 
 export default function AnalyticsToolsHub() {
-    const analyticsTools = getToolsByCategory("analytics-earnings");
-
     const toolListSchema = getToolListSchema(
         analyticsTools.map((tool) => ({
             name: tool.name,
@@ -72,7 +76,7 @@ export default function AnalyticsToolsHub() {
                     "Calculate potential ad revenue, evaluate engagement metrics, and forecast growth with free YouTube creator analytics calculators.",
                     analyticsTools.length,
                     [
-                        "Dynamic YouTube earnings and RPM calculator across 50+ countries",
+                        `Dynamic YouTube earnings and RPM calculator across ${countryCPMData.length} countries`,
                         "Audience engagement rate and benchmark diagnostic tool",
                         "Title A/B prediction engine for higher CTR",
                         "100% free with no account or API keys required",
@@ -91,28 +95,24 @@ export default function AnalyticsToolsHub() {
                 }}
             />
 
-            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
-                        <Link href="/" className="hover:text-purple-600 transition-colors">
-                            Home
-                        </Link>
-                        <span>/</span>
-                        <Link href="/tools" className="hover:text-purple-600 transition-colors">
-                            Tools
-                        </Link>
-                        <span>/</span>
-                        <span className="text-slate-900 font-medium font-outfit">Analytics Tools</span>
-                    </nav>
+                    <Breadcrumb
+                        items={[
+                            { name: "Home", href: "/" },
+                            { name: "Tools", href: "/tools" },
+                            { name: "Analytics Tools" },
+                        ]}
+                        className="mb-8"
+                    />
 
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4">
                             {analyticsTools.length} Free Analytics &amp; Revenue Calculators
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight font-outfit">
                             Analytics, Revenue &amp; Tax Hub 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed summary" data-speakable>
@@ -124,28 +124,29 @@ export default function AnalyticsToolsHub() {
                     <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Revenue & Growth Strategy */}
-                    <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-emerald-500 mb-12 shadow-sm">
-                        <h2 className="text-xl font-bold text-emerald-600 mb-4 flex items-center gap-2 font-outfit">
-                            💰 The 2026 Monetization Blueprint
+                    <div className="summary card-3d rounded-2xl p-8 border-l-4 border-l-emerald-500 mb-12">
+                        <h2 className="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2 font-outfit">
+                            <FaDollarSign className="w-5 h-5" />
+                            <span>The 2026 Monetization Blueprint</span>
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6 text-slate-700">
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>CPM Maximization:</strong> Learn which high-intent niches (Finance, SaaS, Real Estate) currently yield $35+ CPMs.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Engagement Velocity:</strong> Measure how fast your community responds to new uploads to trigger &lsquo;Suggested Video&rsquo; loops.</span>
                                 </li>
                             </ul>
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Title A/B Prediction:</strong> Use AI to compare CTR potential before you upload, saving your video from a poor launch.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Sponsorship Value:</strong> Use your engagement rate to negotiate higher rates with brand sponsors.</span>
                                 </li>
                             </ul>
@@ -187,7 +188,7 @@ export default function AnalyticsToolsHub() {
                     {/* Deep Dive Content */}
                     <div className="grid lg:grid-cols-3 gap-8 mb-12">
                         <div className="lg:col-span-2 space-y-8">
-                            <div className="glass-premium rounded-3xl p-10 shadow-sm">
+                            <div className="card-3d rounded-3xl p-8 sm:p-10">
                                 <h2 className="text-3xl font-bold text-slate-900 mb-6 font-outfit">
                                     Why Data Trumps Luck in 2026
                                 </h2>
@@ -205,12 +206,15 @@ export default function AnalyticsToolsHub() {
                         </div>
 
                         <div className="lg:col-span-1">
-                            <div className="glass-premium rounded-3xl p-8 bg-gradient-to-b from-emerald-900 to-teal-900 text-white border-0 shadow-2xl">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">📊 Mastery Tip</h3>
+                            <div className="rounded-3xl p-8 bg-gradient-to-b from-emerald-900 to-teal-900 text-white shadow-xl">
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                    <FaChartBar className="w-5 h-5 text-emerald-300" />
+                                    <span>Mastery Tip</span>
+                                </h3>
                                 <p className="text-emerald-100 mb-6 leading-relaxed">
                                     A high view count is a vanity metric. A high <strong>Engagement-to-Earnings Ratio</strong> is a sanity metric. Focus on building a community that clicks, comments, and contributes to your business.
                                 </p>
-                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-emerald-200">
+                                <div className="p-4 rounded-xl bg-white/10 border border-white/15 italic text-sm text-emerald-100">
                                     &ldquo;Profitability doesn&apos;t require millions of views—it requires the right high-intent viewers.&rdquo;
                                 </div>
                             </div>
@@ -218,23 +222,12 @@ export default function AnalyticsToolsHub() {
                     </div>
 
                     {/* AEO / FAQ Section */}
-                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                    <section className="mb-12" data-speakable>
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
                             Frequently Asked Questions About YouTube Analytics &amp; Earnings
                         </h2>
-                        <div className="space-y-6">
-                            {analyticsFaqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                        <FaqAccordion items={analyticsFaqs} headingLevel="h3" />
+                    </section>
 
                     {/* Bottom Multiplex Ad */}
                     <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Sponsored Recommendations" className="mb-12" />
@@ -243,7 +236,7 @@ export default function AnalyticsToolsHub() {
                     <div className="text-center">
                         <Link
                             href="/tools"
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-full font-bold text-lg transition-all shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-1"
+                            className="btn-3d-primary inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base sm:text-lg"
                         >
                             Explore All Growth Tools
                         </Link>

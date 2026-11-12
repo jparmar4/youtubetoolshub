@@ -61,7 +61,7 @@ function HeaderSavedTools() {
         type="button"
         ref={triggerRef}
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`h-9 inline-flex items-center gap-1.5 px-3 rounded-full border text-xs font-bold transition-all shadow-[inset_0_1px_0_0_#fff,0_1px_2px_rgba(15,23,42,0.05)] focus:outline-none focus:ring-2 focus:ring-amber-500/40 whitespace-nowrap ${
+        className={`h-9 inline-flex items-center gap-1.5 px-3 rounded-full border text-xs font-semibold transition-all shadow-2xs focus:outline-none focus:ring-2 focus:ring-amber-500/40 whitespace-nowrap cursor-pointer ${
           favorites.length > 0
             ? "bg-amber-50/90 border-amber-200/90 text-amber-900 hover:bg-amber-100/90"
             : "bg-white border-slate-200/90 text-slate-700 hover:bg-slate-50 hover:border-purple-300"
@@ -80,17 +80,17 @@ function HeaderSavedTools() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-72 sm:w-84 rounded-2xl bg-white shadow-2xl border border-slate-200/90 py-3 z-50 animate-fade-in-up">
+        <div className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl bg-white shadow-2xl border border-slate-200/90 py-3 z-50 animate-fade-in-up">
           {/* Segmented Tab Controls */}
           <div className="px-3 pb-2 border-b border-slate-100 flex items-center justify-between gap-2">
             <div className="flex items-center bg-slate-100 p-0.5 rounded-xl text-xs">
               <button
                 type="button"
                 onClick={() => setActiveTab("pinned")}
-                className={`flex items-center gap-1 px-3 py-1 rounded-lg font-bold transition-all ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                   activeTab === "pinned"
                     ? "bg-white text-slate-900 shadow-2xs"
-                    : "text-slate-500 hover:text-slate-800"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 <FaStar className="w-3 h-3 text-amber-500" />
@@ -103,10 +103,10 @@ function HeaderSavedTools() {
               <button
                 type="button"
                 onClick={() => setActiveTab("recent")}
-                className={`flex items-center gap-1 px-3 py-1 rounded-lg font-bold transition-all ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                   activeTab === "recent"
                     ? "bg-white text-slate-900 shadow-2xs"
-                    : "text-slate-500 hover:text-slate-800"
+                    : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 <FaClock className="w-3 h-3 text-purple-600" />
@@ -126,7 +126,7 @@ function HeaderSavedTools() {
                   clearRecents();
                   toast.info("Cleared recent tools history.");
                 }}
-                className="text-[11px] text-slate-500 hover:text-red-500 transition-colors flex items-center gap-1"
+                className="text-[11px] text-slate-500 hover:text-rose-600 transition-colors flex items-center gap-1 cursor-pointer"
                 title="Clear history"
               >
                 <FaTrashAlt className="w-2.5 h-2.5" />
@@ -140,8 +140,8 @@ function HeaderSavedTools() {
             {activeTab === "pinned" ? (
               savedToolObjects.length === 0 ? (
                 <div className="p-4 text-center">
-                  <p className="text-xs text-slate-500 mb-2">No tools pinned yet!</p>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">
+                  <p className="text-xs font-semibold text-slate-700 mb-1.5">No tools pinned yet</p>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
                     Click the <FaStar className="inline w-3 h-3 text-amber-400" /> star on any tool
                     page or card to pin it here for instant 1-click access.
                   </p>
@@ -166,7 +166,7 @@ function HeaderSavedTools() {
                           <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">
                             {tool.name}
                           </p>
-                          <p className="text-[11px] text-slate-500 truncate">
+                          <p className="text-[11px] text-slate-600 truncate">
                             {tool.shortDescription}
                           </p>
                         </div>
@@ -178,7 +178,7 @@ function HeaderSavedTools() {
                           removeFavorite(tool.slug);
                           toast.info(`Unpinned "${tool.name}"`);
                         }}
-                        className="p-1 text-slate-300 hover:text-red-500 rounded-md transition-colors flex-shrink-0"
+                        className="p-1 text-slate-400 hover:text-rose-600 rounded-md transition-colors flex-shrink-0 cursor-pointer"
                         aria-label={`Unpin ${tool.name}`}
                         title="Unpin"
                       >
@@ -190,8 +190,8 @@ function HeaderSavedTools() {
               )
             ) : recentToolObjects.length === 0 ? (
               <div className="p-4 text-center">
-                <p className="text-xs text-slate-500 mb-2">No recent tools viewed yet!</p>
-                <p className="text-[11px] text-slate-500 leading-relaxed">
+                <p className="text-xs font-semibold text-slate-700 mb-1.5">No recent tools viewed yet</p>
+                <p className="text-[11px] text-slate-600 leading-relaxed">
                   As you browse creator tools, your most recently visited tools will appear here
                   automatically.
                 </p>
@@ -218,7 +218,7 @@ function HeaderSavedTools() {
                         <p className="text-xs font-bold text-slate-800 group-hover:text-purple-600 truncate transition-colors">
                           {tool.name}
                         </p>
-                        <p className="text-[11px] text-slate-500 truncate">
+                        <p className="text-[11px] text-slate-600 truncate">
                           {tool.shortDescription}
                         </p>
                       </div>
@@ -235,10 +235,10 @@ function HeaderSavedTools() {
                           toast.star(`Pinned "${tool.name}"!`);
                         }
                       }}
-                      className={`p-1 rounded-md transition-colors flex-shrink-0 ${
+                      className={`p-1 rounded-md transition-colors flex-shrink-0 cursor-pointer ${
                         favorited
                           ? "text-amber-500 hover:text-amber-600"
-                          : "text-slate-300 hover:text-amber-400"
+                          : "text-slate-400 hover:text-amber-500"
                       }`}
                       aria-label={favorited ? "Unpin tool" : "Pin tool"}
                       title={favorited ? "Pinned" : "Pin to favorites"}

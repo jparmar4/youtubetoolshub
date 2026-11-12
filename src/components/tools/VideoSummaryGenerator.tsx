@@ -131,70 +131,70 @@ TRANSCRIPT:
               <FaFileAlt /> Extract Clean Transcript Free
             </Link>
           </div>
-          <p className="text-xs text-slate-500">
-            💡 <strong>Why extract transcript first?</strong> Feeding verbatim transcripts into your AI eliminates 99% of hallucinations and phantom quotes caused by generic &quot;browse URL&quot; bots.
+          <p className="text-xs text-slate-600">
+            <strong>Why extract transcript first?</strong> Feeding verbatim transcripts into your AI eliminates 99% of hallucinations and phantom quotes caused by generic &quot;browse URL&quot; bots.
           </p>
         </div>
 
         {/* Step 2: Choose Synthesis Framework */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-3">
               Step 2: Select Summary Output Framework
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <button
                 type="button"
                 onClick={() => setActiveFramework("executive")}
-                className={`p-3.5 rounded-xl border text-left transition-all ${
+                className={`cursor-pointer p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "executive"
-                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
-                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
+                    ? "border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    : "border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
                   <FaFileAlt className="text-purple-500" /> Executive Brief
                 </div>
-                <p className="text-xs opacity-75">Thesis, 5 takeaways, quotes & action steps.</p>
+                <p className="text-xs opacity-75">Thesis, 5 takeaways, quotes &amp; action steps.</p>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveFramework("study")}
-                className={`p-3.5 rounded-xl border text-left transition-all ${
+                className={`cursor-pointer p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "study"
-                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
-                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
+                    ? "border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    : "border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
                   <FaGraduationCap className="text-blue-500" /> Study Guide
                 </div>
-                <p className="text-xs opacity-75">Chapter timecodes, glossary & review quiz.</p>
+                <p className="text-xs opacity-75">Chapter timecodes, glossary &amp; review quiz.</p>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveFramework("seo-article")}
-                className={`p-3.5 rounded-xl border text-left transition-all ${
+                className={`cursor-pointer p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "seo-article"
-                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
-                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
+                    ? "border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    : "border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
                   <FaBookOpen className="text-emerald-500" /> SEO Article
                 </div>
-                <p className="text-xs opacity-75">1,200-word blog post with H2s & FAQs.</p>
+                <p className="text-xs opacity-75">1,200-word blog post with H2s &amp; FAQs.</p>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveFramework("shorts-script")}
-                className={`p-3.5 rounded-xl border text-left transition-all ${
+                className={`cursor-pointer p-3.5 rounded-xl border text-left transition-all ${
                   activeFramework === "shorts-script"
-                    ?"border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
-                    :"border-slate-200 hover:bg-slate-50 text-slate-700"
+                    ? "border-purple-500 bg-purple-50/50 text-purple-900 shadow-sm"
+                    : "border-slate-200 hover:bg-slate-50 text-slate-700"
                 }`}
               >
                 <div className="font-bold text-sm flex items-center gap-2 mb-1">
@@ -223,7 +223,7 @@ TRANSCRIPT:
                 onChange={(e) => setIncludeMetrics(e.target.checked)}
                 className="rounded text-purple-600 focus:ring-purple-500"
               />
-              Extract Numbers & Financial Metrics
+              Extract Numbers &amp; Financial Metrics
             </label>
             <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1 ml-auto">
               <FaShieldAlt /> Anti-Hallucination Grounding Locked
@@ -233,12 +233,13 @@ TRANSCRIPT:
           {/* Generated Prompt Codebox */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
                 <FaRobot className="text-purple-500" /> Ready-to-Execute Grounded Prompt
               </span>
               <button
+                type="button"
                 onClick={handleCopyPrompt}
-                className="px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
+                className="cursor-pointer px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
               >
                 {copied ? <FaCheckCircle /> : <FaCopy />}
                 {copied ? "Prompt Copied!" : "Copy Full Prompt"}

@@ -17,6 +17,9 @@ import {
   subscriberBenchmarks,
 } from "@/lib/seo-data";
 import AdSlot from "@/components/ads/AdSlot";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import { countryCPMData } from "@/lib/cpm-data";
 
 const pagePath = "/resources/youtube-creator-statistics";
 const pageUrl = `${siteConfig.url}${pagePath}`;
@@ -39,12 +42,14 @@ const pageFaqs = [
   {
     question: "Where can I estimate earnings by country?",
     answer:
-      "Use the free YouTube Earnings Calculator and the CPM rates resource on YouTube Tools Hub for country-level planning ranges across 50+ markets.",
+      `Use the free YouTube Earnings Calculator and the CPM rates resource on YouTube Tools Hub for country-level planning ranges across ${countryCPMData.length} markets.`,
   },
 ];
 
 export const metadata: Metadata = {
-  title: "YouTube Creator Statistics 2026 - Views, Earnings & Growth Data",
+  title: {
+    absolute: "YouTube Creator Statistics 2026 — RPM & Growth Data",
+  },
   description:
     "YouTube creator statistics for 2026: RPM by niche ranges, subscriber milestone benchmarks, platform scale, and links to free CPM/earnings tools.",
   keywords: [
@@ -117,36 +122,27 @@ export default function YouTubeStatistics() {
         }}
       />
 
-      <div className="min-h-screen py-20 relative overflow-hidden">
+      <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
         <div className="nebula-bg" />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav
-            className="flex items-center gap-2 text-sm text-slate-500 mb-8"
-            aria-label="Breadcrumb"
-          >
-            <Link href="/" className="hover:text-purple-600 transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <Link
-              href="/resources/youtube-cpm-rates"
-              className="hover:text-purple-600 transition-colors"
-            >
-              Resources
-            </Link>
-            <span>/</span>
-            <span className="text-slate-900 font-medium">YouTube Statistics</span>
-          </nav>
+          <Breadcrumb
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Resources", href: "/resources" },
+              { name: "YouTube Statistics" },
+            ]}
+            className="mb-8"
+          />
 
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h1
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-6"
+              className="text-3xl md:text-4xl font-black text-slate-900 mb-5 tracking-tight"
               data-speakable
             >
               YouTube Creator Statistics 2026
             </h1>
             <p
-              className="text-xl text-slate-600 max-w-3xl mx-auto summary"
+              className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto summary"
               data-speakable
             >
               Data-backed planning ranges for earnings, RPM by niche, and growth
@@ -155,22 +151,22 @@ export default function YouTubeStatistics() {
             </p>
           </div>
 
-          <div className="glass-premium rounded-2xl p-8 mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">
+          <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Platform Overview
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-purple-50 rounded-xl">
+              <div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
                 <div className="text-4xl font-bold text-purple-600 mb-2">3B+</div>
-                <div className="text-slate-600">Monthly Searches</div>
+                <div className="text-slate-600 font-medium">Monthly Searches</div>
               </div>
-              <div className="text-center p-6 bg-purple-50 rounded-xl">
+              <div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
                 <div className="text-4xl font-bold text-purple-600 mb-2">2.7B</div>
-                <div className="text-slate-600">Active Users</div>
+                <div className="text-slate-600 font-medium">Active Users</div>
               </div>
-              <div className="text-center p-6 bg-purple-50 rounded-xl">
+              <div className="text-center p-6 bg-purple-50 rounded-xl border border-purple-100">
                 <div className="text-4xl font-bold text-purple-600 mb-2">500hr</div>
-                <div className="text-slate-600">Uploaded/Minute</div>
+                <div className="text-slate-600 font-medium">Uploaded/Minute</div>
               </div>
             </div>
           </div>
@@ -178,8 +174,8 @@ export default function YouTubeStatistics() {
           {/* Ad placement */}
           <AdSlot slot="2084309959" preset="in-article" className="my-8" />
 
-          <div className="glass-premium rounded-2xl p-8 mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+          <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
               Niche RPM ranking context
             </h2>
             <p className="text-slate-600 mb-6">
@@ -213,7 +209,7 @@ export default function YouTubeStatistics() {
                       <td className="py-4 px-4 font-medium text-slate-900">
                         {row.label}
                       </td>
-                      <td className="text-right py-4 px-4 font-semibold text-green-700">
+                      <td className="text-right py-4 px-4 font-semibold text-emerald-700">
                         {row.value}
                       </td>
                       <td className="text-right py-4 px-4 text-sm">
@@ -226,15 +222,15 @@ export default function YouTubeStatistics() {
             </div>
           </div>
 
-          <div className="glass-premium rounded-2xl p-8 mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8">
+          <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Subscriber milestone planning
             </h2>
             <div className="space-y-4">
               {subscriberBenchmarks.map((row) => (
                 <div
                   key={row.label}
-                  className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 p-4 bg-slate-50 rounded-lg"
+                  className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 p-4 bg-slate-50 rounded-xl border border-slate-100"
                 >
                   <span className="font-semibold text-slate-900">{row.label}</span>
                   <span className="text-slate-600 text-sm sm:text-right">
@@ -246,8 +242,8 @@ export default function YouTubeStatistics() {
             </div>
           </div>
 
-          <div className="glass-premium rounded-2xl p-8 mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6">
+          <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Key insights for 2026
             </h2>
             <ul className="space-y-4 text-slate-600 key-facts">
@@ -285,30 +281,23 @@ export default function YouTubeStatistics() {
           {/* Ad placement */}
           <AdSlot slot="8649718301" preset="leaderboard" lazy className="my-8" />
 
-          <section className="glass-premium rounded-2xl p-8 mb-12" aria-labelledby="stats-faq">
-            <h2 id="stats-faq" className="text-3xl font-bold text-slate-900 mb-8">
+          <section className="mb-12" aria-labelledby="stats-faq">
+            <h2 id="stats-faq" className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Creator statistics FAQ
             </h2>
-            <div className="space-y-6">
-              {pageFaqs.map((faq) => (
-                <div key={faq.question}>
-                  <h3 className="font-bold text-slate-900 mb-2">{faq.question}</h3>
-                  <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
+            <FaqAccordion items={pageFaqs} headingLevel="h3" />
           </section>
 
           <div className="text-center mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/tools/youtube-earnings-calculator"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold transition-all shadow-lg"
+              className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
             >
               Calculate Your Potential Earnings
             </Link>
             <Link
               href="/resources/youtube-cpm-rates"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white border border-slate-200 hover:border-purple-300 text-slate-900 rounded-xl font-bold transition-all"
+              className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
             >
               View CPM by Country
             </Link>

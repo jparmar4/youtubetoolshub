@@ -222,7 +222,7 @@ export default function ChannelNameGenerator() {
                                 <h3 className="text-xl font-bold text-slate-900">
                                     Your Brand Portfolio
                                 </h3>
-                                <p className="text-sm text-gray-500">15 curated names across 5 styles</p>
+                                <p className="text-sm text-slate-600">15 curated names across 5 styles</p>
                             </div>
                             <CopyButton
                                 text={getAllNames().join("\n")}
@@ -274,14 +274,15 @@ export default function ChannelNameGenerator() {
                                                     <h4 className="text-lg font-bold text-slate-900 mb-1">
                                                         {item.name}
                                                     </h4>
-                                                    <p className="text-xs text-slate-500 mb-3 line-clamp-2">
+                                                    <p className="text-xs text-slate-600 mb-3 line-clamp-2">
                                                         {item.reason}
                                                     </p>
 
                                                     <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
                                                         <button
+                                                            type="button"
                                                             onClick={() => checkAvailability(item.name)}
-                                                            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md py-1.5 transition-colors"
+                                                            className="cursor-pointer flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md py-1.5 transition-colors"
                                                         >
                                                             <FaExternalLinkAlt className="w-3 h-3" />
                                                             Check Tube

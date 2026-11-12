@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BlogCard } from "@/components/ui/Card";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import {
@@ -152,25 +154,22 @@ export default async function BlogCategoryPage({
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full -z-10" />
 
         {/* Hero */}
-        <section className="py-16">
+        <section className="py-10 sm:py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav aria-label="Breadcrumb" className="text-sm text-slate-500 mb-8">
-              <Link href="/blog" className="hover:text-purple-600 font-medium">
-                Blog
-              </Link>
-              <span className="mx-2" aria-hidden="true">
-                /
-              </span>
-              <span className="text-slate-700 font-medium" aria-current="page">
-                {category.name}
-              </span>
-            </nav>
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Blog", href: "/blog" },
+                { name: category.name },
+              ]}
+              className="mb-6"
+            />
             <div className="max-w-4xl">
-              <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide mb-6">
+              <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide mb-5">
                 {posts.length} guide{posts.length === 1 ? "" : "s"}
               </span>
               <h1
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 tracking-tight"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 tracking-tight"
                 data-speakable
               >
                 YouTube {category.name} Guides
@@ -208,17 +207,7 @@ export default async function BlogCategoryPage({
             <h2 className="text-2xl font-bold text-slate-900 mb-8">
               {category.name} — Frequently Asked Questions
             </h2>
-            <div className="space-y-6">
-              {category.faqs.map((item) => (
-                <div
-                  key={item.question}
-                  className="bg-white rounded-xl p-6 shadow-sm border border-slate-100"
-                >
-                  <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                  <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                </div>
-              ))}
-            </div>
+            <FaqAccordion items={category.faqs} headingLevel="h3" />
           </div>
         </section>
 
@@ -237,7 +226,7 @@ export default async function BlogCategoryPage({
                   <Link
                     key={tool.slug}
                     href={`/tools/${tool.slug}`}
-                    className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 hover:border-purple-400 hover:shadow-md transition-all"
+                    className="card-3d flex items-center justify-between rounded-xl px-4 py-3"
                   >
                     <span className="font-semibold text-slate-800 hover:text-purple-700 text-sm md:text-base">
                       {tool.name}
@@ -252,7 +241,7 @@ export default async function BlogCategoryPage({
 
             {/* Browse other hubs */}
             <div className="mt-12">
-              <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">
+              <h2 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">
                 Browse all topics
               </h2>
               <div className="flex flex-wrap gap-2">

@@ -10,12 +10,13 @@ import { BlogCard } from "@/components/ui/Card";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { Fragment } from "react";
-import GoogleAd from "@/components/ads/GoogleAd";
 import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS, pickInArticleSlot } from "@/lib/adsense";
 
 export const metadata: Metadata = {
-  title: "YouTube Blog 2026: SEO, Monetization & Growth Guides",
+  title: {
+    absolute: "YouTube Growth Blog 2026 — SEO, CPM & Monetization",
+  },
   description:
     "Free YouTube creator guides: SEO checklists, CPM/RPM explained, Shorts monetization, thumbnail psychology, algorithm tips, and AI tools for channel growth in 2026.",
   keywords: [
@@ -125,15 +126,15 @@ export default function BlogPage() {
         <div className="absolute bottom-1/2 left-0 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full -z-10" />
 
         {/* Hero Section */}
-        <section className="relative py-16">
+        <section className="relative py-10 sm:py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl shadow-purple-500/10">
+              <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.2em] mb-6 shadow-xl shadow-purple-500/10">
                 <FaBookOpen className="w-3 h-3" />
                 Creator Intelligence 2026
               </span>
               <h1
-                className="text-3xl md:text-4xl font-black text-slate-900 mb-8 tracking-tighter font-outfit"
+                className="text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tighter font-outfit"
                 data-speakable
               >
                 YouTube{" "}
@@ -157,7 +158,7 @@ export default function BlogPage() {
         {/* Browse by topic — canonical category hubs */}
         <section aria-label="Browse topics by category" className="pb-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4 text-center">
+            <h2 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4 text-center">
               Browse by topic
             </h2>
             <div className="flex flex-wrap justify-center gap-2">
@@ -180,9 +181,9 @@ export default function BlogPage() {
         </div>
 
         {/* Featured Post */}
-        <section className="pb-24">
+        <section className="pb-16 sm:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-12 flex items-center justify-between">
+            <div className="mb-8 sm:mb-10 flex items-center justify-between">
               <h2 className="text-2xl font-black text-slate-900 font-outfit uppercase tracking-widest">
                 Prime Insight
               </h2>
@@ -190,20 +191,20 @@ export default function BlogPage() {
             </div>
 
             <Link href={`/blog/${featuredPost.slug}`} className="block group">
-              <div className="grid lg:grid-cols-2 gap-12 items-center p-12 glass-premium border-white/40 rounded-[3rem] shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 sm:p-8 lg:p-12 card-3d rounded-[2.5rem] relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-purple-500/5 to-transparent -z-10" />
 
                 <div className="relative z-10">
-                  <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-700 text-white rounded-full mb-8 uppercase tracking-widest">
+                  <span className="inline-block px-4 py-1.5 text-xs font-black bg-purple-700 text-white rounded-full mb-6 uppercase tracking-widest">
                     {featuredPost.category}
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 group-hover:text-purple-600 transition-colors leading-[1.1] font-outfit tracking-tighter">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-5 group-hover:text-purple-600 transition-colors leading-[1.1] font-outfit tracking-tighter">
                     {featuredPost.title}
                   </h2>
-                  <p className="text-slate-600 mb-10 text-xl leading-relaxed line-clamp-3 font-outfit">
+                  <p className="text-slate-600 mb-8 text-lg sm:text-xl leading-relaxed line-clamp-3 font-outfit">
                     {featuredPost.excerpt}
                   </p>
-                  <div className="flex flex-wrap items-center gap-8 text-sm text-slate-500 font-black uppercase tracking-widest">
+                  <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-sm text-slate-600 font-black uppercase tracking-widest">
                     <span className="flex items-center gap-2">
                       <FaUser className="text-purple-500" />
                       {featuredPost.author}
@@ -254,16 +255,16 @@ export default function BlogPage() {
         {/* Other Posts */}
         <section className="py-16 bg-slate-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
               <div>
-                <span className="text-purple-500 font-black uppercase tracking-widest text-sm mb-4 block">
+                <span className="text-purple-400 font-black uppercase tracking-widest text-sm mb-3 block">
                   Knowledge Base
                 </span>
-                <h2 className="text-4xl md:text-5xl font-black font-outfit tracking-tighter">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit tracking-tighter">
                   Latest Strategic Guides
                 </h2>
               </div>
-              <p className="text-slate-500 max-w-md font-medium">
+              <p className="text-slate-300 max-w-md font-medium">
                 Deep dives into the mechanics of growth, monetization, and
                 automation.
               </p>
@@ -284,27 +285,28 @@ export default function BlogPage() {
                     dark={true}
                   />
                   {(i + 1) % 6 === 0 && (
-                    <div className="md:col-span-2 lg:col-span-3 mt-4 mb-4 rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2">
-                       <p className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 text-center">Advertisement</p>
-                       <GoogleAd slot={pickInArticleSlot(Math.floor(i / 6))} layout="in-article" format="fluid" />
-                    </div>
+                    <AdSlot
+                      slot={pickInArticleSlot(Math.floor(i / 6))}
+                      preset="in-article"
+                      className="md:col-span-2 lg:col-span-3 my-4 border-white/10 bg-white/5 [&_p]:text-slate-300"
+                    />
                   )}
                 </Fragment>
               ))}
             </div>
             {remainingCount > 0 && (
-              <p className="mt-12 text-center text-slate-500 text-sm">
+              <p className="mt-12 text-center text-slate-300 text-sm">
                 Showing {POSTS_ON_INDEX} of {blogPosts.length} guides. Browse by
                 topic on our{" "}
-                <Link href="/blog/category/channel-growth" className="text-purple-400 underline">
+                <Link href="/blog/category/channel-growth" className="text-purple-300 hover:text-purple-200 underline">
                   category hubs
                 </Link>
                 , the{" "}
-                <Link href="/feed.xml" className="text-purple-400 underline">
+                <Link href="/feed.xml" className="text-purple-300 hover:text-purple-200 underline">
                   RSS feed
                 </Link>
                 , or search{" "}
-                <Link href="/search" className="text-purple-400 underline">
+                <Link href="/search" className="text-purple-300 hover:text-purple-200 underline">
                   all articles
                 </Link>
                 .
@@ -318,32 +320,32 @@ export default function BlogPage() {
         </div>
 
         {/* CTA Section */}
-        <section className="py-20 relative overflow-hidden">
+        <section className="py-16 sm:py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-slate-50 -z-20" />
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-purple-500/10 blur-[150px] rounded-full -z-10" />
 
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit">
               Built for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
                 Action
               </span>
             </h2>
-            <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto font-outfit font-medium italic">
-              "Knowledge without tools is just a dream. Strategy with automation
-              is a business."
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-600 mb-10 max-w-3xl mx-auto font-outfit font-medium italic">
+              &ldquo;Knowledge without tools is just a dream. Strategy with automation
+              is a business.&rdquo;
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
               <Link
                 href="/tools"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-12 py-6 bg-slate-900 text-white rounded-full font-black text-xl transition-all shadow-2xl hover:scale-105 active:scale-95 group"
+                className="btn-3d-primary w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-black text-lg group"
               >
                 Launch Free Tools
-                <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
+                <FaArrowRight className="group-hover:translate-x-1.5 transition-transform" />
               </Link>
               <Link
                 href="/tools/seo-tools"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-12 py-6 bg-white border-2 border-slate-900 text-slate-900 rounded-full font-black text-xl transition-all hover:bg-slate-50 shadow-lg"
+                className="btn-3d-glass w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-black text-lg"
               >
                 Master SEO
               </Link>

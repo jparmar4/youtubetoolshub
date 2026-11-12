@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About YouTube Tools Hub – Free AI YouTube Tools for Creators",
     description:
-      `YouTube Tools Hub is a free suite of ${tools.length}+ creator tools for YouTube creators. Learn about our mission to make creator workflows easier.`,
+      `YouTube Tools Hub is a free suite of ${tools.length} creator tools for YouTube creators. Learn about our mission to make creator workflows easier.`,
     type: "website",
     url: `${siteConfig.url}/about`,
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About YouTube Tools Hub – Free AI YouTube Tools",
     description:
-      `Learn about YouTube Tools Hub—${tools.length}+ free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.`,
+      `Learn about YouTube Tools Hub—${tools.length} free creator tools for YouTube creators. Our mission is to democratize YouTube growth for everyone.`,
     images: [`${siteConfig.url}/og-image.png`],
   },
   alternates: getGlobalAlternates("/about"),
@@ -115,7 +115,7 @@ const values = [
 ];
 
 const stats = [
-  { value: `${tools.length}+`, label: "Creator Tools" },
+  { value: `${tools.length}`, label: "Creator Tools" },
   { value: "No", label: "Signup Needed" },
   { value: "Free", label: "Core Tools" },
   { value: "Yes", label: "Browser Based" },
@@ -128,37 +128,37 @@ export default function AboutPage() {
       <div className="nebula-bg" />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24">
+      <section className="relative pt-12 pb-16 sm:pt-16 sm:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/40 backdrop-blur-md text-purple-700 text-xs font-black border border-white/60 mb-8 uppercase tracking-[0.2em] shadow-sm">
-              <FaHeart className="w-3 h-3 text-pink-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/80 backdrop-blur-md text-purple-700 text-xs font-black border border-purple-200/70 mb-6 uppercase tracking-[0.2em] shadow-sm">
+              <FaHeart className="w-3 h-3 text-pink-500" />
               Empowering the 1% and the 99%
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-8 tracking-tighter font-outfit">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-6 tracking-tighter font-outfit">
               About YouTube Tools Hub — Free Tools for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-fuchsia-600 to-pink-600">
                 Creators
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
-              We believe that useful creator tools shouldn't be a
+            <p className="text-lg sm:text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-outfit">
+              We believe that useful creator tools shouldn&apos;t be a
               luxury. We are making creator research, planning, and monetization
               workflows easier for everyone, from first-time uploaders to teams.
             </p>
           </div>
 
           {/* Stats Grid */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-5 max-w-5xl mx-auto">
             {stats.map((stat, i) => (
               <div
                 key={i}
-                className="glass-premium rounded-3xl p-10 text-center border-white/40 group hover:border-purple-500/30 transition-all duration-500"
+                className="card-3d rounded-3xl p-6 sm:p-8 text-center group"
               >
-                <div className="text-4xl font-black text-slate-900 mb-2 tracking-tighter font-outfit group-hover:scale-110 transition-transform">
+                <div className="text-3xl sm:text-4xl font-black text-slate-900 mb-2 tracking-tighter font-outfit group-hover:scale-105 transition-transform">
                   {stat.value}
                 </div>
-                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest">
+                <div className="text-slate-600 text-xs font-bold uppercase tracking-widest">
                   {stat.label}
                 </div>
               </div>
@@ -237,15 +237,15 @@ export default function AboutPage() {
             {features.map((feature, i) => (
               <div
                 key={i}
-                className="group glass-premium border-white/40 rounded-[2.5rem] p-10 md:p-12 hover:shadow-2xl hover:shadow-purple-900/10 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden"
+                className="group card-3d rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden"
               >
                 <div className="relative z-10 text-center md:text-left">
                   <div
-                    className={`w-16 h-16 mb-8 mx-auto md:mx-0 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform`}
+                    className={`w-16 h-16 mb-6 mx-auto md:mx-0 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white shadow-xl group-hover:scale-105 transition-transform`}
                   >
                     <feature.icon className="w-7 h-7" />
                   </div>
-                  <h3 className="font-black text-3xl text-slate-900 mb-6 font-outfit tracking-tight">
+                  <h3 className="font-black text-2xl sm:text-3xl text-slate-900 mb-4 font-outfit tracking-tight">
                     {feature.title}
                   </h3>
                   <p className="text-slate-600 text-lg leading-relaxed font-outfit font-medium">
@@ -259,34 +259,34 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[4rem]">
+      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3rem]">
         <div className="absolute inset-0 bg-slate-900" />
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-purple-900/40 blur-[150px] rounded-full" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-900/40 blur-[150px] rounded-full" />
 
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10 py-12">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-10 font-outfit tracking-tighter">
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10 py-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 font-outfit tracking-tighter">
             Join the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
               Future
             </span>{" "}
             of Creation
           </h2>
-          <p className="text-xl md:text-2xl text-slate-500 mb-12 max-w-2xl mx-auto leading-relaxed font-outfit">
+          <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-outfit">
             Start using professional tools today—absolutely free, no sign-up
             needed.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <Link
               href="/tools"
-              className="inline-flex items-center justify-center bg-white text-slate-900 hover:bg-slate-100 border-none font-bold shadow-2xl px-10 py-8 text-lg rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="inline-flex items-center justify-center bg-white text-slate-900 hover:bg-slate-100 border-none font-bold shadow-2xl px-8 py-4 text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               Explore All Tools
               <FaArrowRight className="ml-2" aria-hidden="true" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center border-slate-700 text-white hover:bg-white/10 hover:border-white px-10 py-8 text-lg rounded-full backdrop-blur-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+              className="inline-flex items-center justify-center border border-white/25 text-white hover:bg-white/10 hover:border-white px-8 py-4 text-lg font-bold rounded-2xl backdrop-blur-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
             >
               Get in Touch
             </Link>

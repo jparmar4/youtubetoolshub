@@ -153,7 +153,7 @@ export default function PlaylistLengthCalculator() {
                         {/* Playlist Info */}
                         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                             <div className="flex gap-4 items-center">
-                                <div className="relative w-24 h-16 sm:w-32 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-gray-200">
+                                <div className="relative w-24 h-16 sm:w-32 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-slate-200">
                                     {
                                         result.playlistInfo.thumbnail ? (
                                             <Image
@@ -164,7 +164,7 @@ export default function PlaylistLengthCalculator() {
                                                 className="object-cover"
                                             />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                            <div className="w-full h-full flex items-center justify-center text-slate-400">
                                                 <FaPlayCircle className="w-8 h-8" />
                                             </div>
                                         )

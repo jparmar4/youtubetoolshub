@@ -397,7 +397,7 @@ ${sec3Text}
           <button
             type="button"
             onClick={loadDemo}
-            className="text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-700 underline underline-offset-4 flex items-center gap-1.5"
+            className="text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-700 underline underline-offset-4 flex items-center gap-1.5 cursor-pointer"
           >
             <FaPlay className="w-3 h-3" /> Load Sample Video
           </button>
@@ -529,10 +529,10 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => setViewMode("timestamps")}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                     viewMode === "timestamps"
-                      ?"bg-white text-purple-600 shadow-xs"
-                      :"text-slate-600 hover:text-slate-900"
+                      ? "bg-white text-purple-600 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <FaClock className="w-3.5 h-3.5" /> Timestamps
@@ -540,10 +540,10 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => setViewMode("plain")}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                     viewMode === "plain"
-                      ?"bg-white text-purple-600 shadow-xs"
-                      :"text-slate-600 hover:text-slate-900"
+                      ? "bg-white text-purple-600 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <FaFileAlt className="w-3.5 h-3.5" /> Plain Text
@@ -551,10 +551,10 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => setViewMode("srt")}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
                     viewMode === "srt"
-                      ?"bg-white text-purple-600 shadow-xs"
-                      :"text-slate-600 hover:text-slate-900"
+                      ? "bg-white text-purple-600 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <FaListUl className="w-3.5 h-3.5" /> SRT Format
@@ -590,21 +590,21 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => handleDownload("txt")}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5 cursor-pointer"
                 >
                   <FaFileDownload className="w-3 h-3" /> TXT
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDownload("srt")}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5 cursor-pointer"
                 >
                   <FaFileDownload className="w-3 h-3" /> SRT
                 </button>
                 <button
                   type="button"
                   onClick={() => handleDownload("csv")}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 flex items-center gap-1.5 cursor-pointer"
                 >
                   <FaFileDownload className="w-3 h-3" /> CSV
                 </button>
@@ -676,7 +676,7 @@ ${sec3Text}
               <button
                 type="button"
                 onClick={() => setShowDayPassModal(true)}
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2.5 text-xs font-black text-white shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all"
+                className="cursor-pointer inline-flex shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-4 py-2.5 text-xs font-black text-white shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all"
               >
                 <FaCrown className="text-amber-300" />
                 <span>Playlist Day Pass ($1.99)</span>
@@ -688,10 +688,10 @@ ${sec3Text}
               <button
                 type="button"
                 onClick={() => setRepurposeTab("chapters")}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                className={`cursor-pointer flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
                   repurposeTab === "chapters"
                     ? "bg-purple-600 text-white shadow-md"
-                    :"bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
                 }`}
               >
                 <FaClock />
@@ -701,10 +701,10 @@ ${sec3Text}
               <button
                 type="button"
                 onClick={() => setRepurposeTab("article")}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                className={`cursor-pointer flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
                   repurposeTab === "article"
                     ? "bg-purple-600 text-white shadow-md"
-                    :"bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
                 }`}
               >
                 <FaBookOpen />
@@ -714,10 +714,10 @@ ${sec3Text}
               <button
                 type="button"
                 onClick={() => setRepurposeTab("hooks")}
-                className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
+                className={`cursor-pointer flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-black transition-all ${
                   repurposeTab === "hooks"
                     ? "bg-purple-600 text-white shadow-md"
-                    :"bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
+                    : "bg-white text-slate-700 border border-slate-200 hover:border-slate-300"
                 }`}
               >
                 <FaVideo />
@@ -859,7 +859,8 @@ ${sec3Text}
                 <button
                   type="button"
                   onClick={() => setShowDayPassModal(false)}
-                  className="absolute top-4 right-4 text-slate-500 hover:text-slate-600"
+                  aria-label="Close modal"
+                  className="cursor-pointer absolute top-4 right-4 text-slate-600 hover:text-slate-900 p-1 rounded-lg"
                 >
                   <FaTimes className="text-base" />
                 </button>
@@ -895,11 +896,11 @@ ${sec3Text}
                     <button
                       type="button"
                       onClick={() => setShowDayPassModal(false)}
-                      className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-3 text-sm font-black text-white shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all"
+                      className="cursor-pointer w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 py-3 text-sm font-black text-white shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all"
                     >
                       Get Day Pass ($1.99 / ₹99)
                     </button>
-                    <span className="text-[11px] text-slate-500">
+                    <span className="text-[11px] text-slate-600">
                       24 hours of unlimited batch processing
                     </span>
                   </div>

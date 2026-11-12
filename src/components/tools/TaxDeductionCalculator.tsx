@@ -172,7 +172,7 @@ export default function TaxDeductionCalculator() {
             description="Explore an expense planning scenario using your own assumed tax rate. This tool does not determine deduction eligibility or tax owed."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                {!calculations && <p role="status" className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Region Selector */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex items-center gap-2">
@@ -184,10 +184,10 @@ export default function TaxDeductionCalculator() {
                                     key={r}
                                     type="button"
                                     onClick={() => setRegion(r)}
-                                    className={`px-3 py-1.5 text-xs font-bold transition-all ${
+                                    className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                                         region === r
                                             ? "bg-emerald-600 text-white"
-                                            :"text-slate-600 hover:bg-slate-100"
+                                            : "text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {r} ({REGION_CONFIGS[r].symbol})

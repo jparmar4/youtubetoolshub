@@ -7,15 +7,22 @@ import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSc
 import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
+import { FaLightbulb } from "react-icons/fa";
+
+const thumbnailTools = getToolsByCategory("thumbnail-media");
 
 export const metadata: Metadata = {
-    title: "YouTube Thumbnail Tools - HD Downloader & AI Generator 2026",
+    title: {
+        absolute: "Free YouTube Thumbnail Tools — 4K Downloader & AI Studio",
+    },
     description: "The ultimate YouTube thumbnail toolkit for 2026. Download HD thumbnails, generate AI images, optimize text hooks, and get pro-level prompts for Midjourney & DALL-E. Free tools!",
     keywords: ["youtube thumbnail tools", "thumbnail downloader hd", "ai thumbnail generator", "thumbnail text ideas", "thumbnail psychology 2026", "midjourney prompts for youtube"],
     openGraph: {
-        title: "6 Free YouTube Thumbnail Tools | AI Generators & HD Downloaders",
+        title: `${thumbnailTools.length} Free YouTube Thumbnail Tools | AI Generators & HD Downloaders`,
         description: "Everything you need to create, download, and optimize viral YouTube thumbnails in 2026. Boost your click-through rate with AI-powered tools.",
         type: "website",
         url: `${siteConfig.url}/tools/thumbnail-tools`,
@@ -25,8 +32,8 @@ export const metadata: Metadata = {
 
 const thumbnailFaqs = [
     {
-        question: "How do I download YouTube thumbnails in full HD and 4K?",
-        answer: "Paste any YouTube video or Shorts URL into our YouTube Thumbnail Downloader. It immediately fetches all available resolution streams from YouTube's CDN (including 1080p MaxResDefault and HD) with a single-click direct download button. No browser extensions or registration required.",
+        question: "How do I download YouTube thumbnails in full HD resolution?",
+        answer: "Paste any YouTube video or Shorts URL into our YouTube Thumbnail Downloader. It immediately fetches all available resolution streams from YouTube's CDN (including 1080p MaxResDefault and HD 720p) with a single-click direct download button. No browser extensions or registration required.",
     },
     {
         question: "What is the recommended YouTube thumbnail size and aspect ratio in 2026?",
@@ -43,8 +50,6 @@ const thumbnailFaqs = [
 ];
 
 export default function ThumbnailToolsHub() {
-    const thumbnailTools = getToolsByCategory("thumbnail-media");
-
     const toolListSchema = getToolListSchema(
         thumbnailTools.map((tool) => ({
             name: tool.name,
@@ -67,10 +72,10 @@ export default function ThumbnailToolsHub() {
             <GeoAeoHead
                 {...GEO_AEO_PRESETS.categoryPage(
                     "YouTube Thumbnail & Media Tools",
-                    "Download HD and 4K thumbnails, generate AI thumbnail concepts, craft text hooks, and optimize video packaging for maximum Click-Through Rate.",
+                    "Download HD and full-resolution thumbnails, generate AI thumbnail concepts, craft text hooks, and optimize video packaging for maximum Click-Through Rate.",
                     thumbnailTools.length,
                     [
-                        "Direct 1080p and 4K thumbnail downloads",
+                        "Direct 1080p MaxRes and HD 720p thumbnail downloads",
                         "AI prompt generator for Midjourney & DALL-E",
                         "100% free with no browser extension required",
                         "Designed for practical creator workflows",
@@ -89,28 +94,24 @@ export default function ThumbnailToolsHub() {
                 }}
             />
 
-            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
-                        <Link href="/" className="hover:text-purple-600 transition-colors">
-                            Home
-                        </Link>
-                        <span>/</span>
-                        <Link href="/tools" className="hover:text-purple-600 transition-colors">
-                            Tools
-                        </Link>
-                        <span>/</span>
-                        <span className="text-slate-900 font-medium font-outfit">Thumbnail Tools</span>
-                    </nav>
+                    <Breadcrumb
+                        items={[
+                            { name: "Home", href: "/" },
+                            { name: "Tools", href: "/tools" },
+                            { name: "Thumbnail Tools" },
+                        ]}
+                        className="mb-8"
+                    />
 
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider mb-4">
                             {thumbnailTools.length} Free Thumbnail &amp; Media Tools
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight font-outfit">
                             YouTube Thumbnail Tools 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed summary" data-speakable>
@@ -122,28 +123,29 @@ export default function ThumbnailToolsHub() {
                     <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* Quick Strategy Guide */}
-                    <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-purple-500 mb-12 shadow-sm">
-                        <h2 className="text-xl font-bold text-purple-600 mb-4 flex items-center gap-2 font-outfit">
-                            💡 The 2026 3-Second Packaging Rule
+                    <div className="summary card-3d rounded-2xl p-8 border-l-4 border-l-purple-500 mb-12">
+                        <h2 className="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2 font-outfit">
+                            <FaLightbulb className="w-5 h-5" />
+                            <span>The 2026 3-Second Packaging Rule</span>
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6 text-slate-700">
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>High Contrast &amp; Clean Edges:</strong> Over 70% of viewers scroll on mobile. High contrast ensures your focal subject stands out even at 150px thumbnail widths.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Under 4 Words:</strong> Avoid repeating the title. Use the thumbnail text to create curiosity or highlight the emotional climax.</span>
                                 </li>
                             </ul>
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
-                                    <span><strong>The 8K Downloader Advantage:</strong> Study competitors&apos; high-resolution assets to inspect framing, color grading, and facial expressions.</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
+                                    <span><strong>HD &amp; Full-Resolution Analysis:</strong> Study competitors&apos; high-resolution assets to inspect framing, color grading, and facial expressions.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Prompt Engineering:</strong> Generate hyper-specific background assets with AI prompts to elevate production value without expensive studios.</span>
                                 </li>
                             </ul>
@@ -175,7 +177,7 @@ export default function ThumbnailToolsHub() {
                     {/* Deep Dive Content - E-E-A-T Optimized */}
                     <div className="grid lg:grid-cols-3 gap-8 mb-12">
                         <div className="lg:col-span-2 space-y-8">
-                            <div className="glass-premium rounded-3xl p-10 shadow-sm">
+                            <div className="card-3d rounded-3xl p-8 sm:p-10">
                                 <h2 className="text-3xl font-bold text-slate-900 mb-6 font-outfit">
                                     Thumbnail Psychology: Why It Matters in 2026
                                 </h2>
@@ -196,42 +198,31 @@ export default function ThumbnailToolsHub() {
                         </div>
 
                         <div className="lg:col-span-1">
-                            <div className="glass-premium rounded-3xl p-8 bg-gradient-to-b from-slate-900 to-slate-800 text-white border-0 shadow-2xl">
-                                <h3 className="text-xl font-bold mb-4">Pro Tip: 8K Downloader</h3>
+                            <div className="rounded-3xl p-8 bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-xl">
+                                <h3 className="text-xl font-bold mb-4">Pro Tip: Full-Resolution Inspection</h3>
                                 <p className="text-slate-300 mb-6 leading-relaxed">
-                                    Using our HD Downloader to study 4K and 8K thumbnails allows you to see the micro-adjustments top creators (like MrBeast or Peter McKinnon) make to their contrast and saturation—details invisible at lower resolutions.
+                                    Using our HD Downloader to inspect full-resolution MaxRes (1280×720) thumbnails allows you to study the micro-adjustments top creators make to contrast, framing, and saturation—details easy to miss at small preview sizes.
                                 </p>
-                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-slate-500">
-                                    &ldquo;Small tweaks in lighting can increase CTR by 2-5% overnight.&rdquo;
+                                <div className="p-4 rounded-xl bg-white/10 border border-white/15 italic text-sm text-slate-200">
+                                    &ldquo;Small tweaks in lighting and contrast can noticeably lift click-through rate.&rdquo;
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* AEO / FAQ Section */}
-                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                    <section className="mb-12" data-speakable>
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
                             Frequently Asked Questions About YouTube Thumbnails
                         </h2>
-                        <div className="space-y-6">
-                            {thumbnailFaqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                        <FaqAccordion items={thumbnailFaqs} headingLevel="h3" />
+                    </section>
 
                     {/* Final CTA */}
                     <div className="text-center">
                         <Link
                             href="/tools"
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-bold text-lg transition-all shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-1"
+                            className="btn-3d-primary inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base sm:text-lg"
                         >
                             Explore Growth &amp; SEO Tools
                         </Link>

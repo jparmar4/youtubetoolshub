@@ -13,7 +13,7 @@ import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
 import Link from "next/link";
 
 const thumbnailPresets = [
-    { label: "Sample 4K Video", url: "https://www.youtube.com/watch?v=Bey4XXJAqS8" },
+    { label: "Sample Travel Video", url: "https://www.youtube.com/watch?v=Bey4XXJAqS8" },
     { label: "Sample Popular Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
     { label: "Sample Shorts", url: "https://www.youtube.com/shorts/5qap5aO4i9A" },
 ];
@@ -123,7 +123,7 @@ export default function ThumbnailDownloader() {
                         </Button>
                     </div>
                 </form>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-slate-500">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-slate-600">
                     <p>
                         Supports regular videos, Shorts, youtu.be links, and live replays. Downloads
                         public thumbnail images YouTube already hosts — no account required.
@@ -142,7 +142,7 @@ export default function ThumbnailDownloader() {
                     <ToolEmptyState
                         icon={<FaImage aria-hidden="true" className="text-xl" />}
                         title="Thumbnails will appear here"
-                        description="Paste any YouTube video or Shorts link above — all available resolutions up to 4K (maxresdefault) are fetched instantly, right in your browser."
+                        description="Paste any YouTube video or Shorts link above — all available resolutions up to HD MaxRes (1280×720) are fetched instantly, right in your browser."
                     />
                 )}
 
@@ -156,7 +156,7 @@ export default function ThumbnailDownloader() {
                             {thumbnails.map((thumb) => (
                                 <div
                                     key={thumb.quality}
-                                    className="bg-slate-50 rounded-xl p-4"
+                                    className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs hover:shadow-md transition-shadow"
                                 >
                                     <div className="aspect-video mb-4 rounded-lg overflow-hidden bg-slate-200">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -172,10 +172,10 @@ export default function ThumbnailDownloader() {
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="font-medium text-slate-900">
+                                            <p className="font-semibold text-slate-900">
                                                 {thumb.quality}
                                             </p>
-                                            <p className="text-sm text-slate-500">
+                                            <p className="text-sm text-slate-600">
                                                 {thumb.dimension}
                                             </p>
                                         </div>
@@ -183,7 +183,7 @@ export default function ThumbnailDownloader() {
                                             href={`/api/download-image?url=${encodeURIComponent(thumb.url)}&filename=${encodeURIComponent(`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`)}`}
                                             download={`youtube-thumbnail-${thumb.quality.toLowerCase().replace(/\s+/g, "-")}.jpg`}
                                             rel="nofollow"
-                                            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
+                                            className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors shadow-sm"
                                         >
                                             <FaDownload />
                                             Download

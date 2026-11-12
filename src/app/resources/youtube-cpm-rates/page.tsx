@@ -7,19 +7,21 @@ import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-da
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
-import GoogleAd from "@/components/ads/GoogleAd";
 import AdSlot from "@/components/ads/AdSlot";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 
 export const metadata: Metadata = {
-    title: "YouTube CPM Rates by Country 2026 (50+ Markets)",
+    title: {
+        absolute: `YouTube CPM & RPM Rates by Country 2026 (${countryCPMData.length} Markets)`,
+    },
     description:
-        "YouTube CPM & RPM by country for 50+ markets in 2026. US, UK, India, finance vs gaming niches, plus tips to raise earnings. Free data table.",
+        `YouTube CPM & RPM by country for ${countryCPMData.length} markets in 2026. US, UK, India, finance vs gaming niches, plus tips to raise earnings. Free data table.`,
     keywords: [
         "youtube cpm rates by country 2026",
         "youtube cpm rates",
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "YouTube CPM Rates by Country 2026 — Full Data Table",
         description:
-            "Complete YouTube CPM and RPM data for 50+ countries. Finance, Tech, Gaming niche breakdowns. Updated for 2026.",
+            `Complete YouTube CPM and RPM data for ${countryCPMData.length} countries. Finance, Tech, Gaming niche breakdowns. Updated for 2026.`,
         url: `${siteConfig.url}/resources/youtube-cpm-rates`,
         // Dynamic image: /resources/youtube-cpm-rates/opengraph-image
     },
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "YouTube CPM Rates by Country 2026",
         description:
-            "50+ countries. US avg CPM ~$14.50. Free data table + earnings calculator.",
+            `${countryCPMData.length} countries. US avg CPM ~$14.50. Free data table + earnings calculator.`,
     },
     other: {
         "pinterest:media": `${siteConfig.url}/resources/youtube-cpm-rates/pinterest-image`,
@@ -177,7 +179,7 @@ const datasetSchema = {
     ...getDatasetSchema({
         name: "YouTube CPM and RPM Rates by Country 2026",
         description:
-            "Industry estimates of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for 50+ countries, categorized by Tier 1, Tier 2, and Tier 3 markets. Also includes niche-level CPM benchmarks for Personal Finance, Technology, Gaming, and more.",
+            `Industry estimates of YouTube CPM (Cost Per Mille) and RPM (Revenue Per Mille) rates for ${countryCPMData.length} countries, categorized by Tier 1, Tier 2, and Tier 3 markets. Also includes niche-level CPM benchmarks for Personal Finance, Technology, Gaming, and more.`,
         url: `${siteConfig.url}/resources/youtube-cpm-rates`,
         dateModified: DATA_LAST_REVIEWED,
     }),
@@ -210,9 +212,11 @@ function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof count
                             <td className="px-4 py-3 font-medium text-slate-900">
                                 <Link
                                     href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                    className="hover:text-emerald-700 hover:underline"
+                                    className="hover:text-emerald-700 hover:underline inline-flex items-center"
                                 >
-                                    <span className="mr-2">{c.flag}</span>
+                                    <span className="inline-block mr-2 px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px] uppercase">
+                                        {c.code}
+                                    </span>
                                     {c.name}
                                 </Link>
                                 <span className="ml-2 text-xs text-slate-600">({c.currency})</span>
@@ -235,7 +239,7 @@ export default function YouTubeCPMRatesPage() {
             <GeoAeoHead
                 {...GEO_AEO_PRESETS.resourcePage(
                     "YouTube CPM Rates by Country 2026",
-                    "Complete YouTube CPM and RPM planning table for 50+ countries plus niche context for 2026.",
+                    `Complete YouTube CPM and RPM planning table for ${countryCPMData.length} countries plus niche context for 2026.`,
                     "YouTube CPM Rates by Country",
                     speakableAnswers.howMuchYoutubePays,
                     [
@@ -260,7 +264,7 @@ export default function YouTubeCPMRatesPage() {
 
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
                 {/* Hero */}
-                <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
+                <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <Breadcrumb
@@ -269,11 +273,11 @@ export default function YouTubeCPMRatesPage() {
                                 { name: "Resources", href: "/resources" },
                                 { name: "YouTube CPM Rates 2026" },
                             ]}
-                            className="mb-8 text-slate-500 [&_a]:text-slate-500 [&_a:hover]:text-white"
+                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
                         />
                         <div className="text-center">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
-                                Updated for 2026 · 50+ Countries
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
+                                Updated for 2026 · {countryCPMData.length} Countries
                             </span>
                             <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight">
                                 YouTube CPM Rates{" "}<br />
@@ -282,7 +286,7 @@ export default function YouTubeCPMRatesPage() {
                                 </span>
                             </h1>
                             <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
-                                Complete CPM and RPM data for 50+ countries. Understand exactly how much YouTube pays per 1,000 views in your market — and how to maximize your earnings.
+                                Complete CPM and RPM data for {countryCPMData.length} countries. Understand exactly how much YouTube pays per 1,000 views in your market — and how to maximize your earnings.
                             </p>
                             <div className="max-w-2xl mx-auto text-left">
                                 <QuickAnswerCapsule
@@ -294,14 +298,17 @@ export default function YouTubeCPMRatesPage() {
                                         "Australia & Canada: $6.50–$22.00 CPM ($13.00 average)",
                                         "India & Tier 3: $0.50–$3.00 CPM ($1.50 average)",
                                     ]}
-                                    badgeText="⚡ AI Quick Summary"
+                                    badgeText="Quick Summary"
                                 />
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-14">
+
+                    {/* High-viewability Leaderboard immediately below Hero (auto-collapses if unfilled) */}
+                    <AdSlot slot="8649718301" preset="leaderboard" />
 
                     {/* Key Stats */}
                     <section>
@@ -310,12 +317,12 @@ export default function YouTubeCPMRatesPage() {
                                 { label: "US Avg CPM", value: "$14.50", sub: "Highest globally", color: "from-purple-500 to-purple-700" },
                                 { label: "Finance Niche CPM", value: "$22 avg", sub: "Up to $50 in US", color: "from-emerald-500 to-emerald-700" },
                                 { label: "India Avg CPM", value: "$1.50", sub: "Tier 3 market", color: "from-orange-500 to-orange-700" },
-                                { label: "Countries Tracked", value: "50+", sub: "Updated 2026", color: "from-pink-500 to-pink-700" },
+                                { label: "Countries Tracked", value: `${countryCPMData.length}`, sub: "Updated 2026", color: "from-pink-500 to-pink-700" },
                             ].map((stat) => (
                                 <div key={stat.label} className={`bg-gradient-to-br ${stat.color} rounded-2xl p-5 text-white text-center shadow-lg`}>
                                     <div className="text-3xl font-black mb-1">{stat.value}</div>
-                                    <div className="text-sm font-bold opacity-90">{stat.label}</div>
-                                    <div className="text-xs opacity-70 mt-1">{stat.sub}</div>
+                                    <div className="text-sm font-bold opacity-95">{stat.label}</div>
+                                    <div className="text-xs opacity-85 mt-1">{stat.sub}</div>
                                 </div>
                             ))}
                         </div>
@@ -356,24 +363,18 @@ export default function YouTubeCPMRatesPage() {
                         ))}
                     </nav>
 
-                    {/* High-viewability ad below calculator CTA */}
-                    <div className="rounded-2xl overflow-hidden shadow-sm border border-purple-100 bg-white p-3 text-center min-h-[140px] flex flex-col justify-center">
-                        <p className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Advertisement</p>
-                        <GoogleAd slot="8649718301" responsive className="w-full text-center" />
-                    </div>
-
                     <AffiliateBanner toolId="vidiq" variant="compact" />
 
                     {/* What is CPM section */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">What is YouTube CPM?</h2>
                         <p className="text-slate-600 text-lg leading-relaxed mb-6">
                             <strong>CPM (Cost Per Mille)</strong> is the amount advertisers pay YouTube for every 1,000 ad impressions served on your videos. <strong>RPM (Revenue Per Mille)</strong> is what you actually receive per 1,000 video views — after YouTube takes its 45% revenue share.
                         </p>
                         <div className="bg-slate-50 rounded-xl p-5 border border-slate-200 font-mono text-sm">
-                            <div className="text-slate-500 mb-1">// The relationship between CPM and RPM:</div>
+                            <div className="text-slate-600 mb-1">// The relationship between CPM and RPM:</div>
                             <div className="text-slate-900">Your RPM ≈ CPM × 0.55 × Ad Fill Rate</div>
-                            <div className="text-slate-500 mt-2 text-xs">Example: $14.50 CPM × 55% share × 80% fill = ~$6.38 RPM</div>
+                            <div className="text-slate-600 mt-2 text-xs">Example: $14.50 CPM × 55% share × 80% fill = ~$6.38 RPM</div>
                         </div>
                         <p className="text-slate-600 mt-4 leading-relaxed">
                             Not every view generates an ad impression (ad fill rate is typically 60–85%). That&apos;s why your RPM is always lower than your CPM. The data tables below show both figures for accurate income planning.
@@ -421,7 +422,7 @@ export default function YouTubeCPMRatesPage() {
 
 
                     {/* How to Increase CPM */}
-                    <section id="how-to-increase" className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60 scroll-mt-24">
+                    <section id="how-to-increase" className="card-3d rounded-3xl p-8 md:p-12 scroll-mt-24">
                         <h2 className="text-3xl font-black text-slate-900 font-outfit mb-3">How to Increase Your YouTube CPM</h2>
                         <p className="text-slate-600 mb-8 leading-relaxed">
                             You can&apos;t control what advertisers bid, but you can control who your audience is and what topics you cover.
@@ -485,11 +486,11 @@ export default function YouTubeCPMRatesPage() {
                         </p>
                         <Link
                             href="/tools/youtube-earnings-calculator"
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-black text-lg rounded-full shadow-xl hover:bg-slate-100 transition-all hover:scale-105"
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-black text-lg rounded-full shadow-xl hover:bg-slate-100 transition-colors"
                         >
                             Open Earnings Calculator →
                         </Link>
-                        <p className="text-slate-500 text-sm mt-4">Free · No signup · Directional CPM planning ranges for 50+ countries</p>
+                        <p className="text-slate-300 text-sm mt-4">Free · No signup · Directional CPM planning ranges for {countryCPMData.length} countries</p>
                     </section>
 
                     {/* FAQ Section */}
@@ -497,14 +498,7 @@ export default function YouTubeCPMRatesPage() {
                         <h2 className="text-3xl font-black text-slate-900 font-outfit mb-8">
                             Frequently Asked Questions
                         </h2>
-                        <div className="space-y-5">
-                            {pageFAQs.map((faq, i) => (
-                                <div key={i} className="glass-premium rounded-2xl p-7 border border-white/60 shadow-sm">
-                                    <h3 className="text-lg font-bold text-slate-900 mb-3">{faq.question}</h3>
-                                    <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={pageFAQs} headingLevel="h3" />
                     </section>
 
                     {/* Methodology and references make the estimates usable and citable. */}

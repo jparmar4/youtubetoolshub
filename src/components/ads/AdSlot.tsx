@@ -30,23 +30,24 @@ const PRESET_DEFAULTS: Record<AdSlotPreset, { format: string; layout?: string; l
 };
 
 const PRESET_CHROME: Record<AdSlotPreset, string> = {
-    // Responsive reserve: a full-width responsive unit renders ~100px tall on
-    // mobile and up to ~250-280px on desktop, so a fixed 268px reserve left a
-    // large blank block on small screens.
+    // Compact responsive reserve: fits standard mobile (50–100px) and desktop
+    // leaderboard (90px+) banners without pushing primary tools off-screen,
+    // while expanding naturally if AdSense serves a taller responsive unit.
     leaderboard:
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 min-h-[110px] sm:min-h-[260px] flex flex-col items-center justify-center",
+        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[76px] sm:min-h-[108px] flex flex-col items-center justify-center",
     "in-article":
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 min-h-[100px] flex flex-col items-center justify-center",
+        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[100px] flex flex-col items-center justify-center",
     multiplex:
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white p-2 min-h-[240px] flex flex-col items-center justify-center",
-    sidebar: "",
+        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[220px] flex flex-col items-center justify-center",
+    sidebar:
+        "rounded-2xl border border-slate-200/80 bg-white/90 p-3 shadow-xs min-h-[120px] flex flex-col items-center justify-center",
     bare: "",
 };
 
 /**
  * Unified ad container: one card treatment + "Advertisement" label for every
- * AdSense unit on the site. When AdSense marks the unit unfilled, the whole
- * container collapses instead of leaving a blank reserved block.
+ * AdSense unit on the site. When AdSense marks the unit unfilled (or
+ * unfill-optimized), the whole container collapses cleanly.
  */
 export default function AdSlot({
     slot,
@@ -62,15 +63,27 @@ export default function AdSlot({
     const containerRef = useRef<HTMLDivElement>(null);
     const [unfilled, setUnfilled] = useState(false);
 
-    // Collapse when AdSense reports no fill. The <ins> element itself is
-    // hidden by globals.css; this removes the leftover reserved height too.
+    // Collapse when AdSense reports no fill ("unfilled" or "unfill-optimized").
     useEffect(() => {
         const container = containerRef.current;
-        if (!container || typeof MutationObserver === "undefined") return;
+        if (!container) return;
+
+        const isUnfilled = () =>
+            Boolean(
+                container.querySelector(
+                    "ins.adsbygoogle[data-ad-status='unfilled'], ins.adsbygoogle[data-ad-status='unfill-optimized']",
+                ),
+            );
+
+        if (isUnfilled()) {
+            const id = setTimeout(() => setUnfilled(true), 0);
+            return () => clearTimeout(id);
+        }
+
+        if (typeof MutationObserver === "undefined") return;
 
         const observer = new MutationObserver(() => {
-            const ins = container.querySelector("ins.adsbygoogle[data-ad-status='unfilled']");
-            if (ins) {
+            if (isUnfilled()) {
                 setUnfilled(true);
                 observer.disconnect();
             }
@@ -94,7 +107,7 @@ export default function AdSlot({
             className={`${PRESET_CHROME[preset]} ${className}`}
             data-ad-slot-container={preset}
         >
-            {label && preset !== "sidebar" && preset !== "bare" && (
+            {label && preset !== "bare" && (
                 <p className="mb-1 text-center text-[11px] font-bold uppercase tracking-wider text-slate-500">
                     {label}
                 </p>

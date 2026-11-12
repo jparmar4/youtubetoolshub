@@ -334,7 +334,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-ai-thumbnail-prompt",
         name: "AI Thumbnail Prompt Generator",
-        seoTitle: "FREE AI Thumbnail Prompt Generator – Midjourney & DALL-E Prompts 2026",
+        seoTitle: "Free AI Thumbnail Prompt Generator — Midjourney & DALL-E",
         seoDescription: "Generate AI thumbnail prompt drafts for Midjourney, DALL-E, and Stable Diffusion. Review and adapt each prompt before publishing.",
         description: "Generate professional AI prompts for stunning YouTube thumbnails. Works with DALL-E, Midjourney, Stable Diffusion, and any AI image generator.",
         shortDescription: "Create perfect AI image prompts",
@@ -800,7 +800,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-video-ideas-generator",
         name: "Strategic Video Ideas Generator",
-        seoTitle: "YouTube Video Ideas Generator - AI-Powered Content Ideas Free 2026",
+        seoTitle: "Free YouTube Video Ideas Generator — Viral Topic Ideas",
         seoDescription: "Generate viral YouTube video ideas tailored to your niche and channel size. Get complete concepts with titles, thumbnail ideas, and difficulty ratings. Free AI tool!",
         description: "Get proven video concepts tailored to your channel size and growth goals. Includes titles, thumbnails, and difficulty ratings for maximum impact.",
         shortDescription: "AI video ideas for your niche",
@@ -984,7 +984,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-content-calendar-generator",
         name: "AI Content Calendar Generator",
-        seoTitle: "YouTube Content Calendar Generator - AI-Powered Schedule Planner 2026",
+        seoTitle: "YouTube Content Calendar Generator — 30-Day Planner",
         seoDescription: "Generate a strategic YouTube content calendar with AI. Get 30 days of video ideas organized by date. Download CSV. Perfect for consistent uploading.",
         description: "Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule with video ideas tailored to your niche.",
         shortDescription: "Plan your content schedule",
@@ -1175,7 +1175,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-engagement-rate-calculator",
         name: "Engagement Rate Calculator",
-        seoTitle: "YouTube Engagement Rate Calculator - Measure Video Performance Free",
+        seoTitle: "YouTube Engagement Rate Calculator — Free Video Check",
         seoDescription: "Calculate your YouTube engagement rate instantly. Enter views, likes, and comments to get your percentage score. Compare against industry benchmarks. Free tool!",
         description: "Calculate your YouTube video's engagement rate. Measure how actively your audience interacts with your content.",
         shortDescription: "Measure video engagement",
@@ -1254,7 +1254,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-title-ab-tester",
         name: "Title A/B Score Checker",
-        seoTitle: "YouTube Title A/B Tester - AI Click-Through Rate Predictor 2026",
+        seoTitle: "YouTube Title A/B Tester — Free CTR Score Checker",
         seoDescription: "Compare two YouTube titles and see which one will get more views. Our AI analyzes CTR potential, curiosity gaps, and emotional hooks. Free tool!",
         description: "Compare two titles and get AI scoring for click-through potential, clarity, and emotional appeal to maximize your video reach.",
         shortDescription: "Compare title effectiveness",
@@ -1439,7 +1439,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-hashtag-generator",
         name: "YouTube Hashtag Generator",
-        seoTitle: "YouTube Hashtag Generator - AI-Powered Hashtag Finder (Free 2026)",
+        seoTitle: "Free YouTube Hashtag Generator — Trending Tags Finder",
         seoDescription: "Generate viral YouTube hashtags with AI. Get broad reach and niche-specific hashtags. Optimize discoverability with trending hashtags. Free creator tool!",
         description: "Generate relevant hashtags for your YouTube videos. Get broad and specific hashtag suggestions tailored to the 2026 discovery algorithm.",
         shortDescription: "Generate video hashtags",
@@ -1621,7 +1621,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-id-finder",
         name: "YouTube Channel ID Finder",
-        seoTitle: "YouTube Channel ID Finder - Get Any Channel's UC ID (Free 2026)",
+        seoTitle: "YouTube Channel ID Finder — Find Any UC ID (Free)",
         seoDescription: "Find the unique Channel ID (UC...) for any YouTube channel instantly. Works with handles, URLs, and video links. Free developer & marketer tool!",
         description: "Find the unique Channel ID (UC...) and User ID for any YouTube channel. Essential for API integrations and advanced research in 2026.",
         shortDescription: "Find any YouTube Channel ID",
@@ -1712,8 +1712,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-playlist-length-calculator",
         name: "YouTube Playlist Length Calculator",
-        seoTitle: "YouTube Playlist Length Calculator - Total Duration Finder (Free 2026)",
-        seoDescription: "Calculate the total runtime of a YouTube playlist and compare watch time at 1.25x, 1.5x, and 2x speed.",
+        seoTitle: "YouTube Playlist Length Calculator — Total Runtime",
+        seoDescription: "Calculate the exact total runtime of any public YouTube playlist and compare watch time at 1.25x, 1.5x, 1.75x, and 2x playback speeds. Free.",
         description: "Calculate the total length of any YouTube playlist. See how long it takes to watch at specific speeds (1.25x, 1.5x, 2x).",
         shortDescription: "Calculate playlist duration",
         category: "utility-fun",
@@ -1804,7 +1804,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-comment-picker",
         name: "YouTube Comment Picker",
-        seoTitle: "YouTube Comment Picker - Random Giveaway Winner Selector (Free 2026)",
+        seoTitle: "Free YouTube Comment Picker — Giveaway Winner Draw",
         seoDescription: "Pick a random winner from loaded public YouTube comments. Apply duplicate and keyword filters, then verify your giveaway rules manually.",
         description: "Pick a random winner from loaded public YouTube comments with duplicate and keyword filters.",
         shortDescription: "Pick random comment winner",
@@ -2403,7 +2403,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-sponsorship-calculator",
         name: "YouTube Sponsorship Rate Calculator",
-        seoTitle: "YouTube Sponsorship Rate Calculator — Brand Deal Pricing (2026)",
+        seoTitle: "YouTube Sponsorship Rate Calculator — Brand Deal Pay",
         seoDescription: "Calculate how much to charge for YouTube sponsorships and brand deals. Estimate 30s mentions, 60s integrations, and dedicated video rates by niche and views.",
         description: "Estimate how much money you should charge brands for sponsored integrations, shoutouts, and dedicated YouTube videos based on views, niche CPM, and deliverables.",
         shortDescription: "Calculate how much to charge for YouTube brand deals and sponsorships",
@@ -2481,8 +2481,8 @@ export const tools: Tool[] = [
     {
         slug: "youtube-channel-valuation-calculator",
         name: "YouTube Channel Valuation Calculator",
-        seoTitle: "YouTube Channel Valuation Calculator — How Much is Your Channel Worth? (2026)",
-        seoDescription: "Estimate the market selling price and net worth of any YouTube channel. Models monthly net profit with an adjustable profile and a 16x–45x monthly multiple. This is a planning estimate, not a broker appraisal.",
+        seoTitle: "YouTube Channel Valuation Calculator — Channel Worth",
+        seoDescription: "Estimate the market selling value of any YouTube channel. Models monthly net profit with 16x–45x multiples for creators and media buyers. Free.",
         description: "Calculate the estimated market value and acquisition price of a YouTube channel based on monthly net profit, revenue diversification, and creator industry multiples.",
         shortDescription: "Estimate the market value and net worth of any YouTube channel",
         category: "analytics-earnings",
@@ -2554,7 +2554,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-transcript-downloader",
         name: "YouTube Transcript Downloader & Keyword Extractor",
-        seoTitle: "Free YouTube Transcript Downloader: Extract Subtitles Free (2026)",
+        seoTitle: "Free YouTube Transcript Downloader — Subtitles & SRT",
         seoDescription: "Download YouTube transcripts and extract video subtitles free in 2026. Export clean plain text, SRT, or CSV without timestamps and analyze spoken keywords.",
         description: "Extract clean transcripts, subtitles, and spoken SEO keywords from any YouTube video or Short. Export as plain text, SRT, or CSV with no signup required.",
         shortDescription: "Download transcripts, subtitles & extract spoken keywords free",
@@ -2629,7 +2629,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-tax-deduction-calculator",
         name: "YouTube Creator Tax & Write-Off Calculator",
-        seoTitle: "YouTube Creator Tax & Write-Off Calculator (1099 Deductions 2026)",
+        seoTitle: "YouTube Creator Tax & Write-Off Calculator (1099)",
         seoDescription: "Explore creator expense scenarios using your own assumed tax rate. Estimate a possible tax reduction; this tool does not determine deduction eligibility.",
         description: "Plan creator business expenses and explore a possible tax reduction using an adjustable rate assumption.",
         shortDescription: "Plan creator expenses and compare illustrative tax reduction scenarios",
@@ -2709,7 +2709,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-feed-previewer",
         name: "YouTube Thumbnail & Feed Safe-Zone Previewer",
-        seoTitle: "YouTube Thumbnail Feed Previewer (Desktop, Mobile & Shorts Safe-Zone)",
+        seoTitle: "YouTube Thumbnail Previewer — Feed & Shorts Safe-Zone",
         seoDescription: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading. Free tool.",
         description: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading.",
         shortDescription: "Preview thumbnails in realistic YouTube feeds and Shorts safe zones",
@@ -2961,7 +2961,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-shorts-music-royalty-split-calculator",
         name: "YouTube Shorts Music Royalty & Revenue Split Calculator",
-        seoTitle: "YouTube Shorts Music Royalty & Revenue Split Calculator (Creator Pool)",
+        seoTitle: "YouTube Shorts Music Royalty & Revenue Calculator",
         seoDescription: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
         description: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
         shortDescription: "Model how commercial music licensing shares impact YouTube Shorts RPM",
@@ -3129,7 +3129,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-subscribe-link-generator",
         name: "YouTube Subscribe Link Generator (?sub_confirmation=1)",
-        seoTitle: "YouTube Subscribe Link Generator (?sub_confirmation=1 & QR Code)",
+        seoTitle: "YouTube Subscribe Link Generator (sub_confirmation=1)",
         seoDescription: "Create a 1-click YouTube auto-subscribe link with modal confirmation popup, HTML button embed, and QR code for free without signup.",
         description: "Generate an instant YouTube auto-subscribe URL with the ?sub_confirmation=1 parameter, downloadable QR code, and HTML button code to boost subscriber conversions.",
         shortDescription: "Generate YouTube 1-click auto-subscribe links and QR codes",
@@ -3206,7 +3206,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-video-summary-generator",
         name: "YouTube Video Summary Generator (AI Notes & Scripts)",
-        seoTitle: "Free YouTube Video Summary Generator (AI Notes, Blogs & Scripts)",
+        seoTitle: "Free YouTube Video Summary Generator — AI Key Notes",
         seoDescription: "Summarize any YouTube video into bulleted executive notes, study guides, SEO articles, and viral Shorts scripts with AI for free. No login or extension required.",
         description: "Transform long-form YouTube videos, lectures, and podcasts into structured executive notes, study guides, SEO blog posts, and Shorts scripts using grounded AI prompts.",
         shortDescription: "Summarize YouTube videos into notes, blog posts, and scripts",
@@ -3283,7 +3283,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-outlier-calculator",
         name: "YouTube Outlier Video & Viral Ratio Finder",
-        seoTitle: "YouTube Outlier Video & Viral Ratio Calculator (Free 1of10 Alternative)",
+        seoTitle: "YouTube Outlier Video Calculator — Viral Score Finder",
         seoDescription: "Calculate YouTube video viral multipliers, outlier scores, and view velocity. Free alternative to 1of10 to find high-performing video topics and packaging.",
         description: "Analyze video view counts against channel median baselines to identify true algorithmic viral outliers and discover high-demand content ideas.",
         shortDescription: "Calculate video viral multipliers and algorithmic outlier scores",
@@ -3514,7 +3514,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-watch-hours-calculator",
         name: "YouTube 4,000 Watch Hours & Monetization Planner",
-        seoTitle: "YouTube 4,000 Watch Hours Calculator (YPP Monetization Tracker 2026)",
+        seoTitle: "YouTube 4,000 Watch Hours Calculator — YPP Tracker",
         seoDescription: "Calculate how many views, retention minutes, and uploads you need to reach 4,000 watch hours and 1,000 subscribers before the 365-day rolling window expires.",
         description: "Calculate your exact roadmap to 4,000 public watch hours and 1,000 subscribers for YouTube Partner Program (YPP) monetization.",
         shortDescription: "Calculate views and pace needed for 4,000 watch hours & YPP",
@@ -3591,7 +3591,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-shorts-vs-long-form-calculator",
         name: "YouTube Shorts vs. Long-Form Profitability Calculator",
-        seoTitle: "YouTube Shorts vs Long-Form Money Calculator (2026 RPM & Effort)",
+        seoTitle: "YouTube Shorts vs Long-Form Earnings Calculator",
         seoDescription: "Compare the real AdSense earnings, required view volume, editing effort, and hourly wage between YouTube Shorts and long-form videos.",
         description: "Compare required view volume, editing effort, AdSense revenue, and creator hourly wage between YouTube Shorts and long-form videos.",
         shortDescription: "Compare real AdSense revenue, views, and effort: Shorts vs Long-Form",
@@ -3667,7 +3667,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-milestone-countdown-calculator",
         name: "YouTube Milestone & Play Button Countdown Calculator",
-        seoTitle: "YouTube Play Button & Milestone Countdown Calculator (100K & 1M Subs)",
+        seoTitle: "YouTube Play Button & Milestone Countdown Tracker",
         seoDescription: "Calculate the exact projected calendar date your channel will reach 1,000 (YPP), 100,000 (Silver Play Button), and 1,000,000 subscribers (Gold Play Button).",
         description: "Track your subscriber growth velocity and project the exact dates you will unlock YPP Monetization, Silver Play Button, and Gold Play Button.",
         shortDescription: "Project exact dates for Silver (100K) and Gold (1M) Play Buttons",
@@ -3743,7 +3743,7 @@ export const tools: Tool[] = [
     {
         slug: "youtube-thumbnail-ab-test-calculator",
         name: "YouTube Thumbnail A/B Test Statistical Significance Calculator",
-        seoTitle: "YouTube Thumbnail A/B Test Calculator (Sample Size & Statistical Significance)",
+        seoTitle: "YouTube Thumbnail A/B Test Significance Calculator",
         seoDescription: "Calculate statistical confidence, p-value, and sample size requirements for YouTube Studio Test & Compare thumbnail experiments.",
         description: "Determine whether your thumbnail test winner is statistically significant or random variance with two-tailed proportion Z-testing.",
         shortDescription: "Calculate statistical confidence and winner significance for thumbnail tests",

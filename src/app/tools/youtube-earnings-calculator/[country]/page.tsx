@@ -9,10 +9,11 @@ import { getToolBySlug } from "@/config/tools";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
-import { FaGlobeAmericas, FaChartLine, FaFileInvoiceDollar, FaUniversity } from "react-icons/fa";
+import { FaGlobeAmericas, FaChartLine, FaFileInvoiceDollar, FaUniversity, FaLayerGroup } from "react-icons/fa";
 import { ToolContextProvider } from "@/components/tools/ToolContext";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import BlogSidebar from "@/components/blog/BlogSidebar";
@@ -56,11 +57,12 @@ export async function generateMetadata({
     }
 
     const rpm = countryData.rpmRange;
-    const title = `YouTube Earnings in ${countryData.name} 2026 — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
+    const baseTitle = `YouTube Earnings in ${countryData.name} 2026 — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
+    const title = baseTitle.length <= 60 ? baseTitle : `YouTube Earnings in ${countryData.name} — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
     const description = `Free YouTube earnings calculator for ${countryData.name}. Planning RPM is about $${rpm.min.toFixed(2)}–$${rpm.max.toFixed(2)} (avg $${rpm.avg.toFixed(2)}). Estimate 100k and 1M view pay.`;
 
     return {
-        title,
+        title: { absolute: title },
         description,
         keywords: [`youtube earnings calculator ${countryData.name}`, `youtube cpm ${countryData.name}`, `youtube money calculator ${countryData.currency}`, `how much does youtube pay in ${countryData.name}`],
         openGraph: {
@@ -203,13 +205,13 @@ export default async function CountryEarningsPage({
                     ),
                 }}
             />
-            <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb */}
                     <AdSectionIgnore>
-                        <div className="mb-8">
+                        <div className="mb-6">
                             <Breadcrumb
                                 items={[
                                     { name: "Home", href: "/" },
@@ -225,7 +227,7 @@ export default async function CountryEarningsPage({
                         {/* Main Content */}
                         <div className="lg:col-span-2 space-y-8">
                             <AdSectionPrioritize>
-                            {/* 3D Studio Header */}
+                            {/* Studio Header */}
                             <header className="card-3d rounded-3xl p-6 sm:p-7 mb-8 relative overflow-hidden">
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
                                 <div className="flex items-start gap-4 sm:gap-5">
@@ -262,15 +264,18 @@ export default async function CountryEarningsPage({
                                 </div>
                             </header>
 
-                            {/* 3D UHD Calculator Console — Immediately Above the Fold */}
+                            {/* Compact Responsive Leaderboard Above Calculator */}
+                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
+
+                            {/* Interactive Calculator Console — Immediately Visible */}
                             <div className="studio-console-3d rounded-3xl overflow-hidden mb-8">
-                                <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-                                    <div className="flex items-center gap-2 min-w-0">
-                                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
-                                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
-                                        <span className="ml-2 text-xs font-bold text-slate-200 truncate">
-                                            {countryData.name} ({countryData.currency}) YouTube RPM Studio Console
+                                <div className="flex items-center justify-between gap-2 px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-white/10 text-emerald-300 shrink-0" aria-hidden="true">
+                                            <FaLayerGroup className="w-3 h-3" />
+                                        </span>
+                                        <span className="text-xs font-bold text-slate-200 truncate">
+                                            {countryData.name} ({countryData.currency}) YouTube RPM Studio
                                         </span>
                                     </div>
                                     <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
@@ -288,9 +293,6 @@ export default async function CountryEarningsPage({
                                 </div>
                             </div>
 
-                            {/* Top Responsive Leaderboard Ad */}
-                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
-
                             <div className="mb-8">
                                 <QuickAnswerCapsule
                                     question={`Quick Answer: How much does YouTube pay in ${countryData.name}?`}
@@ -301,7 +303,7 @@ export default async function CountryEarningsPage({
                                         `100,000 Views Midpoint: ~${payout100kSummary}`,
                                         `1 Million Views Midpoint: ~${payout1mSummary} · US Withholding: ${countryMeta.usWithholdingRate}`,
                                     ]}
-                                    badgeText={`⚡ ${countryData.name} 2026 Summary`}
+                                    badgeText={`${countryData.name} 2026 Summary`}
                                 />
                             </div>
 
@@ -311,25 +313,25 @@ export default async function CountryEarningsPage({
 
                             {/* Country Stats Grid */}
                             <div className="grid sm:grid-cols-2 gap-4 mt-8">
-                                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                <div className="card-3d p-6 rounded-2xl">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <FaChartLine className="text-green-500 text-xl" />
+                                        <FaChartLine className="text-emerald-600 text-xl" />
                                         <h3 className="font-bold text-slate-900">Average CPM</h3>
                                     </div>
                                     <div className="text-3xl font-bold text-slate-900">
                                         ${countryData.cpmRange.min} - ${countryData.cpmRange.max}
                                     </div>
-                                    <p className="text-slate-500 text-sm">per 1,000 views in {countryData.name}</p>
+                                    <p className="text-slate-600 text-sm">per 1,000 views in {countryData.name}</p>
                                 </div>
-                                <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                <div className="card-3d p-6 rounded-2xl">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <FaGlobeAmericas className="text-blue-500 text-xl" />
+                                        <FaGlobeAmericas className="text-blue-600 text-xl" />
                                         <h3 className="font-bold text-slate-900">Est. RPM</h3>
                                     </div>
                                     <div className="text-3xl font-bold text-slate-900">
                                         ${countryData.rpmRange.min} - ${countryData.rpmRange.max}
                                     </div>
-                                    <p className="text-slate-500 text-sm">Actual revenue per 1k views</p>
+                                    <p className="text-slate-600 text-sm">Actual revenue per 1k views</p>
                                 </div>
                             </div>
 
@@ -337,8 +339,8 @@ export default async function CountryEarningsPage({
                             <AdSlot slot="3397391628" preset="in-article" className="my-8" />
 
                             {/* Content Section */}
-                            <div className="glass-premium rounded-2xl p-8 space-y-6">
-                                <h2 className="text-2xl font-bold text-slate-900">
+                            <div className="card-3d rounded-3xl p-6 sm:p-8 space-y-6">
+                                <h2 className="text-2xl font-bold text-slate-900 font-outfit">
                                     How Much Does YouTube Pay in {countryData.name}? (2026)
                                 </h2>
                                 <p className="text-slate-600 leading-relaxed text-lg">
@@ -355,7 +357,7 @@ export default async function CountryEarningsPage({
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-left text-sm">
                                         <thead>
-                                            <tr className="border-b border-slate-200 text-slate-500">
+                                            <tr className="border-b border-slate-200 text-slate-600">
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Views</th>
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Low RPM (${countryData.rpmRange.min.toFixed(2)})</th>
                                                 <th scope="col" className="py-2 pr-4 font-semibold">Mid RPM (${avgRpm.toFixed(2)})</th>
@@ -399,9 +401,9 @@ export default async function CountryEarningsPage({
                             </div>
 
                             {/* Country-Specific Tax, W-8BEN & Payout Intelligence */}
-                            <section className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/90 shadow-sm space-y-5" aria-labelledby="country-tax-payout">
+                            <section className="card-3d rounded-3xl p-6 sm:p-8 space-y-5" aria-labelledby="country-tax-payout">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                    <h2 id="country-tax-payout" className="text-xl sm:text-2xl font-bold text-slate-900">
+                                    <h2 id="country-tax-payout" className="text-xl sm:text-2xl font-bold text-slate-900 font-outfit">
                                         {countryData.name} Creator Tax, W-8BEN &amp; Payout Rules (2026)
                                     </h2>
                                     <span className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold shrink-0">
@@ -463,23 +465,12 @@ export default async function CountryEarningsPage({
                             </AdSectionPrioritize>
 
                             {/* AEO FAQ (visible + schema) */}
-                            <section className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
-                                <h2 className="text-2xl font-bold text-slate-900 mb-6">
+                            <section data-speakable>
+                                <h2 className="text-2xl font-bold text-slate-900 mb-5 font-outfit">
                                     {countryData.name} YouTube earnings FAQ
                                 </h2>
-                                <div className="space-y-5">
-                                    {countryFaqs.map((faq) => (
-                                        <div key={faq.question}>
-                                            <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                                {faq.question}
-                                            </h3>
-                                            <p className="text-slate-600 leading-relaxed">
-                                                {faq.answer}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <p className="mt-6 text-sm text-slate-500">
+                                <FaqAccordion items={countryFaqs} headingLevel="h3" />
+                                <p className="mt-5 text-sm text-slate-600">
                                     Full multi-country table:{" "}
                                     <Link href="/resources/youtube-cpm-rates" className="text-purple-600 font-semibold hover:underline">
                                         YouTube CPM rates by country
@@ -488,14 +479,14 @@ export default async function CountryEarningsPage({
                                 </p>
                             </section>
 
-                            {/* Internal Links to other countries — full 52-market mesh for global crawl */}
+                            {/* Internal Links to other countries — full market mesh for global crawl */}
                             <AdSectionIgnore>
-                                <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
-                                    <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
-                                        <FaGlobeAmericas className="text-purple-500" />
-                                        {`Compare with all ${countryCPMData.length} countries`}
+                                <div className="card-3d rounded-3xl p-6 sm:p-8">
+                                    <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2 font-outfit text-lg">
+                                        <FaGlobeAmericas className="text-purple-600" />
+                                        <span>{`Compare with all ${countryCPMData.length} countries`}</span>
                                     </h3>
-                                    <p className="text-sm text-slate-500 mb-4">
+                                    <p className="text-sm text-slate-600 mb-5">
                                         Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
                                     </p>
                                     {[

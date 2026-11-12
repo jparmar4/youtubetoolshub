@@ -11,7 +11,9 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
+import { countryCPMData } from "@/lib/cpm-data";
 
 import {
     FaCheckCircle,
@@ -35,7 +37,9 @@ import {
 import AdSlot from "@/components/ads/AdSlot";
 
 export const metadata: Metadata = {
-    title: "YouTube Monetization Guide 2026: YPP & Earnings",
+    title: {
+        absolute: "YouTube Monetization Guide 2026 — YPP Rules & RPM",
+    },
     description:
         "YouTube monetization 2026: YPP requirements (1k subs + 4k hours or 10M Shorts), revenue streams, CPM vs RPM, and practical ways to grow AdSense income.",
     keywords: [
@@ -222,7 +226,7 @@ const revenueStreams = [
         color: "from-orange-500 to-orange-700",
         requirement: "~10,000+ subscribers",
         description:
-            "Direct deals with brands for dedicated segments (60–90 sec mentions) or full integrations. The most lucrative per-video revenue stream for mid-size and large channels. Brands pay for your audience&apos;s attention — independent of your CPM.",
+            "Direct deals with brands for dedicated segments (60–90 sec mentions) or full integrations. The most lucrative per-video revenue stream for mid-size and large channels. Brands pay for your audience's attention — independent of your CPM.",
         tips: ["Build a media kit with your demographics and RPM data", "Pitch brands in your exact niche first", "Charge $20–$50 per 1,000 views as a starting rate"],
     },
     {
@@ -329,7 +333,7 @@ export default function YouTubeMonetizationGuidePage() {
             <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
 
                 {/* Hero */}
-                <section className="relative overflow-hidden py-20 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
+                <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                         <Breadcrumb
@@ -338,10 +342,10 @@ export default function YouTubeMonetizationGuidePage() {
                                 { name: "Resources", href: "/resources" },
                                 { name: "YouTube Monetization Guide 2026" },
                             ]}
-                            className="mb-8 text-slate-500 [&_a]:text-slate-500 [&_a:hover]:text-white"
+                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
                         />
                         <div className="text-center">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">
+                            <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Revenue Guide
                             </span>
                             <h1 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight leading-tight" data-speakable>
@@ -363,14 +367,14 @@ export default function YouTubeMonetizationGuidePage() {
                                         "Revenue Split: Creators receive 55% of long-form AdSense and 45% of Shorts pool",
                                         "Average Creator RPM: $2.00–$25.00 per 1,000 views depending on niche and country",
                                     ]}
-                                    badgeText="⚡ AI Quick Summary"
+                                    badgeText="Quick Summary"
                                 />
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
 
                     {/* Key Stats */}
                     <section aria-label="YouTube monetization key statistics">
@@ -391,7 +395,7 @@ export default function YouTubeMonetizationGuidePage() {
                     </section>
 
                     {/* Section 1: YPP Requirements */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-widest mb-3">YPP Requirements</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">YouTube Partner Program (YPP) Requirements 2026</h2>
@@ -486,13 +490,13 @@ export default function YouTubeMonetizationGuidePage() {
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-widest mb-3">Revenue Streams</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">8 Ways to Earn Money on YouTube in 2026</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Top creators stack multiple revenue streams. Here is every income source available to YouTube creators today.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Top creators stack multiple revenue streams. Here is every income source available to YouTube creators today.</p>
                         </div>
                         <div className="space-y-6">
                             {revenueStreams.map((stream, index) => {
                                 const Icon = stream.icon;
                                 return (
-                                    <div key={stream.name} className="glass-premium rounded-2xl p-6 border border-white/60 shadow-sm">
+                                    <div key={stream.name} className="card-3d rounded-2xl p-6">
                                         <div className="flex items-start gap-5">
                                             <div className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${stream.color} flex items-center justify-center shadow-md`}>
                                                 <Icon className="text-white text-xl" />
@@ -530,7 +534,7 @@ export default function YouTubeMonetizationGuidePage() {
                     <AdSlot slot="7336636636" preset="in-article" className="my-8" />
 
                     {/* Section 3: CPM vs RPM */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-widest mb-3">Revenue Metrics</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">YouTube CPM vs RPM Explained</h2>
@@ -577,7 +581,7 @@ export default function YouTubeMonetizationGuidePage() {
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-widest mb-3">Earnings Benchmarks</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">How Much Do YouTubers Make? Earnings by Subscriber Tier</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Real earnings estimates based on average RPM across niches and typical view-to-subscriber ratios in 2026.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Real earnings estimates based on average RPM across niches and typical view-to-subscriber ratios in 2026.</p>
                         </div>
                         <div className="space-y-4">
                             {earningsTiers.map((tier) => (
@@ -616,7 +620,7 @@ export default function YouTubeMonetizationGuidePage() {
 
 
                     {/* Section 5: Maximize AdSense Revenue */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-white/60">
+                    <section className="card-3d rounded-3xl p-8 md:p-12">
                         <div className="mb-6">
                             <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-widest mb-3">Revenue Optimization</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">How to Maximize YouTube AdSense Revenue</h2>
@@ -684,7 +688,7 @@ export default function YouTubeMonetizationGuidePage() {
                         <div className="mb-8">
                             <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold uppercase tracking-widest mb-3">Niche Selection</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Best YouTube Niches for Monetization in 2026</h2>
-                            <p className="text-slate-500 mt-2 text-lg">Choose your niche wisely — CPM differences between niches are more impactful than subscriber count differences.</p>
+                            <p className="text-slate-600 mt-2 text-lg">Choose your niche wisely — CPM differences between niches are more impactful than subscriber count differences.</p>
                         </div>
                         <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
                             <table className="w-full text-sm">
@@ -700,23 +704,27 @@ export default function YouTubeMonetizationGuidePage() {
                                 </thead>
                                 <tbody>
                                     {[
-                                        { niche: "Personal Finance & Investing", cpm: "$12–$45", rpm: "$6.50–$25", difficulty: "Medium", rating: "⭐⭐⭐⭐⭐" },
-                                        { niche: "Insurance & Legal", cpm: "$12–$40", rpm: "$6–$22", difficulty: "Hard", rating: "⭐⭐⭐⭐⭐" },
-                                        { niche: "Business & Entrepreneurship", cpm: "$10–$35", rpm: "$5.50–$19", difficulty: "Medium", rating: "⭐⭐⭐⭐⭐" },
-                                        { niche: "Real Estate", cpm: "$10–$30", rpm: "$5.50–$16", difficulty: "Medium", rating: "⭐⭐⭐⭐⭐" },
-                                        { niche: "Digital Marketing & SaaS", cpm: "$8–$22", rpm: "$4.50–$12", difficulty: "Medium", rating: "⭐⭐⭐⭐" },
-                                        { niche: "Technology & Software Reviews", cpm: "$8–$20", rpm: "$4–$11", difficulty: "Medium", rating: "⭐⭐⭐⭐" },
-                                        { niche: "Health & Fitness", cpm: "$5–$15", rpm: "$2.50–$8", difficulty: "Easy", rating: "⭐⭐⭐" },
-                                        { niche: "Education & Tutorials", cpm: "$4–$12", rpm: "$2–$6.50", difficulty: "Easy", rating: "⭐⭐⭐" },
-                                        { niche: "Gaming", cpm: "$1–$6", rpm: "$0.50–$3", difficulty: "Hard", rating: "⭐⭐" },
-                                        { niche: "Entertainment & Vlogs", cpm: "$1–$4", rpm: "$0.50–$2", difficulty: "Hard", rating: "⭐" },
+                                        { niche: "Personal Finance & Investing", cpm: "$12–$45", rpm: "$6.50–$25", difficulty: "Medium", rating: "Very High", badge: "bg-emerald-100 text-emerald-800" },
+                                        { niche: "Insurance & Legal", cpm: "$12–$40", rpm: "$6–$22", difficulty: "Hard", rating: "Very High", badge: "bg-emerald-100 text-emerald-800" },
+                                        { niche: "Business & Entrepreneurship", cpm: "$10–$35", rpm: "$5.50–$19", difficulty: "Medium", rating: "Very High", badge: "bg-emerald-100 text-emerald-800" },
+                                        { niche: "Real Estate", cpm: "$10–$30", rpm: "$5.50–$16", difficulty: "Medium", rating: "High", badge: "bg-purple-100 text-purple-800" },
+                                        { niche: "Digital Marketing & SaaS", cpm: "$8–$22", rpm: "$4.50–$12", difficulty: "Medium", rating: "High", badge: "bg-purple-100 text-purple-800" },
+                                        { niche: "Technology & Software Reviews", cpm: "$8–$20", rpm: "$4–$11", difficulty: "Medium", rating: "High", badge: "bg-purple-100 text-purple-800" },
+                                        { niche: "Health & Fitness", cpm: "$5–$15", rpm: "$2.50–$8", difficulty: "Easy", rating: "Moderate", badge: "bg-blue-100 text-blue-800" },
+                                        { niche: "Education & Tutorials", cpm: "$4–$12", rpm: "$2–$6.50", difficulty: "Easy", rating: "Moderate", badge: "bg-blue-100 text-blue-800" },
+                                        { niche: "Gaming", cpm: "$1–$6", rpm: "$0.50–$3", difficulty: "Hard", rating: "Volume-Based", badge: "bg-slate-100 text-slate-700" },
+                                        { niche: "Entertainment & Vlogs", cpm: "$1–$4", rpm: "$0.50–$2", difficulty: "Hard", rating: "Volume-Based", badge: "bg-slate-100 text-slate-700" },
                                     ].map((row, i) => (
                                         <tr key={row.niche} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
                                             <td className="px-4 py-3 font-semibold text-slate-900">{row.niche}</td>
                                             <td className="px-4 py-3 text-right text-slate-600">{row.cpm}</td>
                                             <td className="px-4 py-3 text-right font-bold text-emerald-700">{row.rpm}</td>
-                                            <td className="px-4 py-3 text-center text-slate-500">{row.difficulty}</td>
-                                            <td className="px-4 py-3 text-center">{row.rating}</td>
+                                            <td className="px-4 py-3 text-center text-slate-600">{row.difficulty}</td>
+                                            <td className="px-4 py-3 text-center">
+                                                <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${row.badge}`}>
+                                                    {row.rating}
+                                                </span>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -724,7 +732,7 @@ export default function YouTubeMonetizationGuidePage() {
                         </div>
                         <div className="mt-4">
                             <Link href="/resources/youtube-cpm-rates" className="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold text-sm transition-colors">
-                                <FaArrowRight className="text-xs" /> View full CPM rates table with 50+ countries →
+                                <FaArrowRight className="text-xs" /> View full CPM rates table with {countryCPMData.length} countries →
                             </Link>
                         </div>
                     </section>
@@ -732,7 +740,7 @@ export default function YouTubeMonetizationGuidePage() {
                     {/* Section 7: International Monetization */}
                     <section className="bg-gradient-to-br from-slate-900 to-purple-950 rounded-3xl p-8 md:p-12 text-white">
                         <div className="mb-6">
-                            <span className="inline-block px-3 py-1 rounded-full bg-purple-500/30 border border-purple-400/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-3">Global Strategy</span>
+                            <span className="inline-block px-3 py-1 rounded-full bg-purple-500/30 border border-purple-400/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-3">Global Strategy</span>
                             <h2 className="text-3xl font-black text-white font-outfit">International Monetization: How to Attract High-CPM Audiences</h2>
                         </div>
                         <p className="text-slate-300 text-lg leading-relaxed mb-8">
@@ -752,12 +760,12 @@ export default function YouTubeMonetizationGuidePage() {
                                 },
                                 {
                                     title: "Use US Advertiser-Targeted Keywords",
-                                    desc: "Research what US advertisers bid on (insurance, software, finance, real estate) and create content naturally incorporating these high-CPC topics. Your video&apos;s ad inventory will be served to bidders paying premium US rates.",
+                                    desc: "Research what US advertisers bid on (insurance, software, finance, real estate) and create content naturally incorporating these high-CPC topics. Your video's ad inventory will be served to bidders paying premium US rates.",
                                     icon: FaDollarSign,
                                 },
                                 {
                                     title: "Avoid Geographic Keyword Restrictions",
-                                    desc: "Do not restrict your videos to specific countries in YouTube Studio unless necessary. Leave the target audience setting as 'All countries' to maximize the algorithm&apos;s ability to surface your content to high-CPM viewers.",
+                                    desc: "Do not restrict your videos to specific countries in YouTube Studio unless necessary. Leave the target audience setting as 'All countries' to maximize the algorithm's ability to surface your content to high-CPM viewers.",
                                     icon: FaLock,
                                 },
                             ].map((item) => {
@@ -794,7 +802,7 @@ export default function YouTubeMonetizationGuidePage() {
 
 
                     {/* Section 8: Pro Features CTA */}
-                    <section className="glass-premium rounded-3xl p-8 md:p-12 shadow-sm border border-purple-100">
+                    <section className="card-3d rounded-3xl p-8 md:p-12 border-purple-100">
                         <div className="flex flex-col md:flex-row items-center gap-8">
                             <div className="flex-1">
                                 <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-widest mb-3">Pro Plan</span>
@@ -853,38 +861,26 @@ export default function YouTubeMonetizationGuidePage() {
                             <span className="inline-block px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-widest mb-3">Common Questions</span>
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">YouTube Monetization FAQ 2026</h2>
                         </div>
-                        <div className="space-y-4">
-                            {pageFAQs.map((faq, index) => (
-                                <div key={index} className="glass-premium rounded-2xl p-6 border border-white/60 shadow-sm">
-                                    <h3 className="text-lg font-black text-slate-900 mb-3 flex items-start gap-3">
-                                        <span className="flex-shrink-0 w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center text-sm font-black">
-                                            {index + 1}
-                                        </span>
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed pl-10">{faq.answer}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={pageFAQs} headingLevel="h3" />
                     </section>
 
                     {/* Final CTA */}
-                    <section className="text-center glass-premium rounded-3xl p-10 border border-purple-100 shadow-sm">
+                    <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
                         <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
                         <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Start Maximizing Your YouTube Earnings Today</h2>
-                        <p className="text-slate-500 text-lg max-w-2xl mx-auto mb-8">
+                        <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
                             Use our free YouTube Earnings Calculator to project your monthly AdSense income by country and niche — then use our SEO tools to grow faster.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link
                                 href="/tools/youtube-earnings-calculator"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-200"
+                                className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
                             >
                                 <FaChartLine /> Calculate My Earnings
                             </Link>
                             <Link
                                 href="/tools/youtube-title-generator"
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border-2 border-purple-200 hover:border-purple-400 text-purple-700 font-bold text-lg transition-all duration-200"
+                                className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
                             >
                                 <FaStar /> Optimize My Videos for SEO
                             </Link>

@@ -148,8 +148,9 @@ export default function SubscribeLinkGenerator() {
                   className="w-full bg-slate-50 border border-slate-200 px-3 py-2 text-sm font-mono rounded-lg text-slate-800"
                 />
                 <button
+                  type="button"
                   onClick={() => handleCopy(cleanData.subLink, "url")}
-                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-lg flex items-center gap-1.5 transition-all shadow-sm shrink-0"
+                  className="cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-lg flex items-center gap-1.5 transition-all shadow-sm shrink-0"
                 >
                   {copiedKey === "url" ? <FaCheckCircle /> : <FaCopy />}
                   {copiedKey === "url" ? "Copied!" : "Copy"}
@@ -160,12 +161,13 @@ export default function SubscribeLinkGenerator() {
             {/* 2. HTML Button Embed Code */}
             <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
                   <FaCode className="text-indigo-500" /> HTML Subscribe Button (Website Embed)
                 </span>
                 <button
+                  type="button"
                   onClick={() => handleCopy(cleanData.htmlButton, "html")}
-                  className="text-xs text-indigo-600 font-bold flex items-center gap-1 hover:underline"
+                  className="cursor-pointer text-xs text-indigo-600 font-bold flex items-center gap-1 hover:underline"
                 >
                   {copiedKey === "html" ? <FaCheckCircle /> : <FaCopy />}
                   {copiedKey === "html" ? "Copied HTML!" : "Copy Code"}
@@ -179,12 +181,13 @@ export default function SubscribeLinkGenerator() {
             {/* 3. Markdown Link */}
             <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
                   <FaLink className="text-blue-500" /> Markdown Format (GitHub / Substack / Notion)
                 </span>
                 <button
+                  type="button"
                   onClick={() => handleCopy(cleanData.markdownLink, "md")}
-                  className="text-xs text-blue-600 font-bold flex items-center gap-1 hover:underline"
+                  className="cursor-pointer text-xs text-blue-600 font-bold flex items-center gap-1 hover:underline"
                 >
                   {copiedKey === "md" ? <FaCheckCircle /> : <FaCopy />}
                   {copiedKey === "md" ? "Copied Markdown!" : "Copy Markdown"}
@@ -246,10 +249,10 @@ export default function SubscribeLinkGenerator() {
                   Are you sure you want to subscribe to <strong className="text-slate-900">{cleanData.displayName}</strong>?
                 </p>
                 <div className="flex gap-2 pt-1 justify-center">
-                  <button className="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-100 rounded-md">
+                  <button type="button" className="cursor-default px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-100 rounded-md">
                     Cancel
                   </button>
-                  <button className="px-3.5 py-1.5 text-xs font-bold text-white bg-red-600 rounded-md shadow-sm">
+                  <button type="button" className="cursor-default px-3.5 py-1.5 text-xs font-bold text-white bg-red-600 rounded-md shadow-sm">
                     Subscribe
                   </button>
                 </div>

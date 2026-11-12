@@ -90,7 +90,7 @@ export function ToastContainer() {
           <button
             type="button"
             onClick={() => toast.dismiss(t.id)}
-            className="p-1 text-slate-500 hover:text-white rounded-lg transition-colors flex-shrink-0"
+            className="p-1 text-slate-400 hover:text-white rounded-lg transition-colors flex-shrink-0"
             aria-label="Dismiss toast"
           >
             <FaTimes className="w-3.5 h-3.5" />

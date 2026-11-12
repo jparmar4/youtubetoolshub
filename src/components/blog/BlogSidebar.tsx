@@ -6,10 +6,11 @@ import {
   FaArrowRight,
   FaGlobeAmericas,
 } from "react-icons/fa";
-import GoogleAd from "@/components/ads/GoogleAd";
+import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
 import { toolMeta } from "@/config/tool-meta";
 import { QUICK_LAUNCH_TOOLS } from "@/config/quick-launch";
+import { countryCPMData } from "@/lib/cpm-data";
 
 export default function BlogSidebar() {
   const [desktop, setDesktop] = useState(false);
@@ -24,7 +25,10 @@ export default function BlogSidebar() {
 
   return (
     <aside className="hidden lg:block self-start w-full min-w-[260px] lg:sticky lg:top-24 space-y-6">
-      {/* 1. 3D Quick-Launch Creator Tools Dock */}
+      {/* 1. Above-the-Fold Sticky Vertical AdSense Slot (auto-collapses if unfilled) */}
+      {desktop && <AdSlot slot={AD_SLOTS.SIDEBAR} preset="sidebar" lazy={false} />}
+
+      {/* 2. 3D Quick-Launch Creator Tools Dock */}
       <div className="card-3d rounded-3xl p-5 overflow-hidden relative">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-fuchsia-500 to-emerald-500" />
         <div className="flex items-center justify-between mb-4">
@@ -70,14 +74,14 @@ export default function BlogSidebar() {
         </div>
       </div>
 
-      {/* 2. Tier-1 CPM Quick Reference Card */}
+      {/* 3. Tier-1 CPM Quick Reference Card */}
       <div className="rounded-3xl bg-slate-950 uhd-dark-grid border border-purple-500/30 p-5 text-white shadow-xl relative overflow-hidden">
         <div className="flex items-center justify-between gap-2 mb-3">
           <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
             <FaGlobeAmericas className="w-3.5 h-3.5" />
             2026 Tier-1 RPM Index
           </span>
-          <span className="text-[11px] font-bold text-slate-500">52 Markets</span>
+          <span className="text-[11px] font-bold text-slate-300">{countryCPMData.length} Markets</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4">
@@ -97,7 +101,7 @@ export default function BlogSidebar() {
                 </span>
                 <span className="text-emerald-400 font-black">{m.rpm}</span>
               </div>
-              <div className="text-[11px] text-slate-500 mt-1 truncate">
+              <div className="text-[11px] text-slate-300 mt-1 truncate">
                 {m.label}
               </div>
             </div>
@@ -108,27 +112,9 @@ export default function BlogSidebar() {
           href="/resources/youtube-cpm-rates"
           className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-colors shadow-md"
         >
-          <span>Full 52-Country CPM Table</span>
+          <span>Full {countryCPMData.length}-Country CPM Table</span>
           <FaArrowRight className="w-3 h-3" />
         </Link>
-      </div>
-
-      {/* 3. Sticky Vertical AdSense Slot */}
-      <div className="rounded-2xl border border-slate-200/80 bg-white/90 p-3 shadow-xs">
-        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-center">
-          Sponsored
-        </p>
-        {desktop ? (
-          <GoogleAd
-            slot={AD_SLOTS.SIDEBAR}
-            format="auto"
-            responsive
-            lazy={false}
-            className="w-full"
-          />
-        ) : (
-          <div className="w-full min-h-[60px]" aria-hidden />
-        )}
       </div>
     </aside>
   );

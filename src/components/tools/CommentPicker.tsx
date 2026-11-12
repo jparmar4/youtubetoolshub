@@ -222,7 +222,7 @@ export default function CommentPicker() {
                                     type="checkbox"
                                     checked={filterDuplicates}
                                     onChange={(e) => handleSettingChange(e.target.checked, filterText)}
-                                    className="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                                    className="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
                                 />
                                 <span className="text-slate-700">Filter Duplicates</span>
                             </label>
@@ -233,7 +233,7 @@ export default function CommentPicker() {
                                     placeholder="Must contain text (e.g. #giveaway)"
                                     value={filterText}
                                     onChange={(e) => handleSettingChange(filterDuplicates, e.target.value)}
-                                    className="w-full text-sm rounded-lg border-gray-300 bg-white focus:ring-emerald-500 focus:border-emerald-500"
+                                    className="w-full text-sm rounded-lg border-slate-300 bg-white focus:ring-emerald-500 focus:border-emerald-500"
                                 />
                             </div>
                         </div>

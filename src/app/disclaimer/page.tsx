@@ -27,17 +27,17 @@ export default function DisclaimerPage() {
             title="Disclaimer"
             icon={<FaExclamationTriangle className="w-8 h-8" />}
             highlights={
-                <section className="py-12 bg-white">
+                <section className="py-10 bg-white border-b border-slate-100">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {highlights.map((item, i) => (
-                                <div key={i} className="flex items-start gap-4 p-6 bg-gray-50 rounded-xl">
-                                    <div className="w-10 h-10 flex-shrink-0 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
+                                <div key={i} className="card-3d flex items-start gap-4 p-6 rounded-2xl">
+                                    <div className="w-10 h-10 flex-shrink-0 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700">
                                         <item.icon className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
-                                        <p className="text-gray-600 text-sm">{item.description}</p>
+                                        <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
+                                        <p className="text-slate-600 text-sm">{item.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -47,13 +47,13 @@ export default function DisclaimerPage() {
             }
         >
 
-            <div className="space-y-12">
+            <div className="space-y-8">
                 {/* General Disclaimer */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
                         General Disclaimer
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             The information and tools provided by {siteConfig.name} (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;)
                             on our website are for general informational and educational purposes only. All information
@@ -71,14 +71,14 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* No Affiliation */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        YouTube & Third-Party Affiliation
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
+                        YouTube &amp; Third-Party Affiliation
                     </h2>
-                    <div className="space-y-4 text-gray-600">
-                        <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
-                            <p className="font-medium text-amber-800">
-                                <FaExclamationTriangle className="inline mr-2" />
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
+                        <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <p className="font-medium text-amber-900">
+                                <FaExclamationTriangle className="inline mr-2 text-amber-600" />
                                 {siteConfig.name} is NOT affiliated with, endorsed by, or sponsored by YouTube,
                                 Google, or any of their subsidiaries or affiliates.
                             </p>
@@ -93,11 +93,11 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* Tool Accuracy */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        Tool Accuracy & Results
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
+                        Tool Accuracy &amp; Results
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             Our AI-powered tools and calculators provide estimates and suggestions based on algorithms
                             and available data. These results are intended to be helpful starting points and should not
@@ -123,11 +123,11 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* External Links */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
                         External Links
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             Our website may contain links to external websites that are not operated by us. If you click
                             on a third-party link, you will be directed to that third party&apos;s site. We strongly advise
@@ -142,11 +142,11 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* Copyright & Fair Use */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                        Copyright & Fair Use
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
+                        Copyright &amp; Fair Use
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             Some of our tools, such as the Thumbnail Downloader, allow you to access publicly available
                             content from YouTube. Users are responsible for ensuring their use of downloaded content
@@ -167,11 +167,11 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* Professional Advice */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
                         Not Professional Advice
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             The content on our website, including blog posts, tool outputs, and any other materials,
                             is not intended to be a substitute for professional advice. This includes but is not
@@ -189,11 +189,11 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* Changes to Disclaimer */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">
                         Changes to This Disclaimer
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600 leading-relaxed">
                         <p>
                             We reserve the right to modify or replace this disclaimer at any time. Any changes will
                             be effective immediately upon posting on this page. Your continued use of our website
@@ -203,27 +203,27 @@ export default function DisclaimerPage() {
                 </div>
 
                 {/* Contact */}
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                        <FaEnvelope className="text-blue-500" />
+                <div className="card-3d rounded-2xl p-6 sm:p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3 font-outfit">
+                        <FaEnvelope className="text-purple-600" />
                         Questions?
                     </h2>
-                    <div className="space-y-4 text-gray-600">
+                    <div className="space-y-4 text-slate-600">
                         <p>
                             If you have any questions about this disclaimer, please contact us:
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-medium transition-colors"
+                                className="btn-3d-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold"
                             >
                                 Contact Us
                             </Link>
                             <a
                                 href={`mailto:${siteConfig.contact.email}`}
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 rounded-xl font-medium transition-colors"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl font-semibold transition-colors"
                             >
-                                <FaEnvelope />
+                                <FaEnvelope className="text-purple-600" />
                                 {siteConfig.contact.email}
                             </a>
                         </div>
@@ -232,20 +232,20 @@ export default function DisclaimerPage() {
             </div>
 
             {/* Related Links */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="mt-10 pt-8 border-t border-slate-200">
+                <h3 className="text-lg font-bold text-slate-900 mb-4 font-outfit">
                     Related Pages
                 </h3>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-6">
                     <Link
                         href="/privacy-policy"
-                        className="text-red-500 hover:text-red-600 font-medium"
+                        className="text-purple-600 hover:text-purple-700 font-bold hover:underline"
                     >
                         Privacy Policy →
                     </Link>
                     <Link
                         href="/terms-of-use"
-                        className="text-red-500 hover:text-red-600 font-medium"
+                        className="text-purple-600 hover:text-purple-700 font-bold hover:underline"
                     >
                         Terms of Use →
                     </Link>

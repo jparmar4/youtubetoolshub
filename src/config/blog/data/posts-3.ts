@@ -1110,7 +1110,7 @@ Canva AI is the best overall AI thumbnail generator for YouTube creators because
   {
     slug: "youtube-shorts-monetization-2026",
     title: "YouTube Shorts Monetization 2026: Complete Guide to Earning Money",
-    seoTitle: "YouTube Shorts Monetization (RPM & Real Creator Payouts • 2026)",
+    seoTitle: "YouTube Shorts Monetization: RPM & Payouts (2026)",
     excerpt:
       "YouTube Shorts monetization 2026: YPP paths (10M Shorts views or watch hours), realistic RPM tables, music splits, Shorts vs long-form strategy, and how to turn vertical views into real income.",
     date: "July 31, 2026",

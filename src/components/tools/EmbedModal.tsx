@@ -36,8 +36,9 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
   return (
     <>
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-purple-200 bg-purple-50 text-purple-700 text-xs font-bold hover:bg-purple-100 transition-colors shadow-sm"
+        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-purple-200 bg-purple-50 text-purple-700 text-xs font-bold hover:bg-purple-100 transition-colors shadow-sm cursor-pointer"
         title="Embed this calculator or tool on your own website"
       >
         <FaCode className="w-3.5 h-3.5" />
@@ -61,13 +62,14 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                 <h3 className="text-xl font-bold text-slate-900 mt-1">
                   Embed {toolName} on Your Website
                 </h3>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-slate-600 mt-1">
                   Add this live, mobile-responsive creator tool to your blog, agency site, or portal for free.
                 </p>
               </div>
               <button
+                type="button"
                 onClick={() => setIsOpen(false)}
-                className="p-2 rounded-full text-slate-500 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                className="p-2 rounded-full text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
                 aria-label="Close"
               >
                 <FaTimes />
@@ -88,7 +90,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                   min="400"
                   max="1200"
                 />
-                <span className="text-slate-500">Width is automatically 100% responsive</span>
+                <span className="text-slate-600">Width is automatically 100% responsive</span>
               </div>
 
               {/* Code Snippet Box */}
@@ -98,13 +100,14 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                     HTML Embed Code
                   </span>
                   <button
+                    type="button"
                     onClick={handleCopy}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:text-purple-700"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-600 hover:text-purple-700 cursor-pointer"
                   >
                     {copied ? (
                       <>
-                        <FaCheck className="text-green-500" />
-                        <span className="text-green-600">Copied to Clipboard!</span>
+                        <FaCheck className="text-emerald-600" />
+                        <span className="text-emerald-700">Copied to Clipboard!</span>
                       </>
                     ) : (
                       <>
@@ -114,7 +117,7 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                     )}
                   </button>
                 </div>
-                <pre className="p-3.5 rounded-xl bg-slate-900 text-purple-300 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all border border-slate-800 leading-relaxed">
+                <pre className="p-3.5 rounded-xl bg-slate-900 text-purple-200 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all border border-slate-800 leading-relaxed">
                   {embedSnippet}
                 </pre>
               </div>
@@ -136,14 +139,15 @@ export default function EmbedModal({ slug, toolName }: EmbedModalProps) {
                 href={embedUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-purple-600 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-purple-600 transition-colors"
               >
                 <span>Open widget preview in new tab</span>
                 <FaExternalLinkAlt className="text-[11px]" />
               </a>
               <button
+                type="button"
                 onClick={() => setIsOpen(false)}
-                className="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-colors shadow-md shadow-purple-600/20"
+                className="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs hover:bg-purple-700 transition-colors shadow-md shadow-purple-600/20 cursor-pointer"
               >
                 Done
               </button>

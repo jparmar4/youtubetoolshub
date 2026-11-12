@@ -6,9 +6,13 @@ import Link from "next/link";
 import { FaLink, FaCode, FaHeart, FaStar, FaRocket, FaHandshake, FaChartLine } from "react-icons/fa";
 import CopyButton from "@/components/ui/CopyButton";
 import AdSlot from "@/components/ads/AdSlot";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import { countryCPMData } from "@/lib/cpm-data";
 
 export const metadata: Metadata = {
-  title: "Link to Us – Embed Badges, Calculator Widget & Backlinks",
+  title: {
+    absolute: "Embed YouTube Creator Tools & Badges | YouTube Tools Hub",
+  },
   description:
     "Embed free YouTube Tools Hub badges and the YouTube Earnings Calculator card on your blog or resource page. Copy-paste HTML widgets — no JS, no signup.",
   keywords: [
@@ -38,7 +42,7 @@ const CALCULATOR_HTML_CARD = `<div style="max-width:420px;border:2px solid #0596
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
     <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:4px 8px;border-radius:999px;font-weight:600">No signup</span>
     <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:4px 8px;border-radius:999px;font-weight:600">RPM · CPM</span>
-    <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:4px 8px;border-radius:999px;font-weight:600">50+ countries</span>
+    <span style="font-size:11px;background:#d1fae5;color:#065f46;padding:4px 8px;border-radius:999px;font-weight:600">${countryCPMData.length} countries</span>
   </div>
   <a href="https://www.youtubetoolshub.com/tools/youtube-earnings-calculator" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#059669;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:700">Open free calculator →</a>
   <div style="margin-top:12px;font-size:11px;color:#6b7280">By <a href="https://www.youtubetoolshub.com" target="_blank" rel="noopener noreferrer" style="color:#047857;font-weight:600">YouTube Tools Hub</a></div>
@@ -49,7 +53,7 @@ const CALCULATOR_BADGE_IMG = `<a href="https://www.youtubetoolshub.com/tools/you
 const EMBED_SNIPPETS = [
   {
     id: "calc-html-card",
-    label: "⭐ Earnings Calculator HTML Card (recommended)",
+    label: "Earnings Calculator HTML Card (Recommended)",
     description:
       "Pure HTML/CSS card — no JavaScript. Perfect for monetization posts, resource pages, and newsletters.",
     code: CALCULATOR_HTML_CARD,
@@ -76,13 +80,13 @@ const EMBED_SNIPPETS = [
     id: "badge-medium",
     label: "Medium Badge (300×100 SVG)",
     description: "A medium-sized badge great for resource pages and partner sections.",
-    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – ${tools.length}+ Free YouTube Creator Tools" target="_blank" rel="noopener noreferrer"><img src="https://www.youtubetoolshub.com/images/badge-medium.svg" alt="YouTube Tools Hub – Free YouTube Creator Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
+    code: `<a href="https://www.youtubetoolshub.com" title="YouTube Tools Hub – ${tools.length} Free YouTube Creator Tools" target="_blank" rel="noopener noreferrer"><img src="https://www.youtubetoolshub.com/images/badge-medium.svg" alt="YouTube Tools Hub – Free YouTube Creator Tools" width="300" height="100" style="border:0" loading="lazy" /></a>`,
   },
   {
     id: "thumbnail-tool",
     label: "Thumbnail Downloader Link",
     description: "Direct link to our most popular tool — great for tutorial sites.",
-    code: `<a href="https://www.youtubetoolshub.com/tools/youtube-thumbnail-downloader" title="Free YouTube Thumbnail Downloader – HD & 4K" target="_blank" rel="noopener noreferrer">Download YouTube Thumbnails Free (HD & 4K) – YouTube Tools Hub</a>`,
+    code: `<a href="https://www.youtubetoolshub.com/tools/youtube-thumbnail-downloader" title="Free YouTube Thumbnail Downloader – Full-Res HD" target="_blank" rel="noopener noreferrer">Download YouTube Thumbnails Free (HD & Full-Res) – YouTube Tools Hub</a>`,
   },
   {
     id: "earnings-calc",
@@ -108,7 +112,7 @@ const EMBED_SNIPPETS = [
     description: "A styled recommendation box with description — great for resource roundups.",
     code: `<div style="border:2px solid #a855f7;border-radius:12px;padding:20px;max-width:500px;font-family:system-ui,sans-serif;background:#faf5ff">
   <h3 style="margin:0 0 8px;color:#7e22ce;font-size:18px">YouTube Tools Hub</h3>
-  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">${tools.length}+ free creator tools for YouTube. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
+  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">${tools.length} free creator tools for YouTube. Generate titles, download thumbnails, calculate earnings, and optimize your channel — no signup required.</p>
   <a href="https://www.youtubetoolshub.com" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#a855f7;color:#fff;padding:8px 20px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600">Try Free Tools →</a>
 </div>`,
   },
@@ -160,7 +164,7 @@ const BACKLINK_OPPORTUNITIES = [
     icon: FaStar,
     title: "Resource Pages & Roundup Posts",
     description:
-      `If you write "Best YouTube Tools" or "Free Creator Resources" articles, we'd love to be included. Our ${tools.length}+ free tools make us a valuable addition to any creator resource list.`,
+      `If you write "Best YouTube Tools" or "Free Creator Resources" articles, we'd love to be included. Our ${tools.length} free tools make us a valuable addition to any creator resource list.`,
   },
   {
     icon: FaRocket,
@@ -178,7 +182,7 @@ const BACKLINK_OPPORTUNITIES = [
     icon: FaChartLine,
     title: "Case Studies & Data Citation",
     description:
-      "Our CPM data covers 50+ countries. If you cite YouTube CPM rates, earnings data, or creator statistics, link to our Earnings Calculator as the source for accurate, up-to-date figures.",
+      `Our CPM data covers ${countryCPMData.length} countries. If you cite YouTube CPM rates, earnings data, or creator statistics, link to our Earnings Calculator as the source for accurate, up-to-date figures.`,
   },
 ];
 
@@ -198,32 +202,40 @@ export default function LinkToUsPage() {
 
       <div className="min-h-screen bg-gradient-to-b from-purple-50/50 to-white">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 md:py-24">
+        <section className="relative overflow-hidden py-10 md:py-14">
           <div className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-transparent to-fuchsia-100/30" />
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Resources", href: "/resources" },
+                { name: "Link to Us" },
+              ]}
+              className="mb-6 text-left"
+            />
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-6">
               <FaLink className="w-4 h-4" />
-              Support & Partnership
+              Support &amp; Partnership
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-5 leading-tight tracking-tight">
               Link to <span className="text-purple-600">YouTube Tools Hub</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Help fellow creators discover our{" "}
-              <strong>{tools.length}+ free creator tools</strong> — and embed our{" "}
+              <strong>{tools.length} free creator tools</strong> — and embed our{" "}
               <strong>YouTube Earnings Calculator</strong> card on your site.
               Copy-paste HTML below. No JavaScript required.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a
                 href="#calculator-embed"
-                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-700"
+                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-bold hover:bg-emerald-700 transition-colors"
               >
                 Get calculator embed
               </a>
               <a
                 href="#embed-snippets"
-                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 text-sm font-bold hover:border-purple-400"
+                className="inline-flex items-center px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 text-sm font-bold hover:border-purple-400 transition-colors"
               >
                 All badges &amp; links
               </a>
@@ -267,28 +279,28 @@ export default function LinkToUsPage() {
 
         {/* Why Link to Us */}
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-16">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 text-center">
             Why Link to YouTube Tools Hub?
           </h2>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-10">
+          <p className="text-slate-600 text-center max-w-2xl mx-auto mb-10">
             Every link helps YouTube creators find useful free tools.
-            Here&#39;s why your audience will thank you:
+            Here&apos;s why your audience will thank you:
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {BACKLINK_OPPORTUNITIES.map((item, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-6"
+                className="card-3d rounded-2xl p-6"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
                     <item.icon className="w-5 h-5 text-purple-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-slate-900 mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <p className="text-slate-600 text-sm leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -305,11 +317,11 @@ export default function LinkToUsPage() {
 
         {/* Embed Snippets */}
         <section id="embed-snippets" className="max-w-5xl mx-auto px-4 sm:px-6 pb-20">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 text-center">
             <FaCode className="inline w-7 h-7 text-purple-600 mr-2 align-middle" />
             Ready-to-Use Embed Snippets
           </h2>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-10">
+          <p className="text-slate-600 text-center max-w-2xl mx-auto mb-10">
             Copy any snippet below and paste it into your HTML. All links include
             proper <code className="text-purple-600 bg-purple-50 px-1 rounded">title</code> attributes
             and <code className="text-purple-600 bg-purple-50 px-1 rounded">rel=&quot;noopener&quot;</code> for
@@ -319,30 +331,30 @@ export default function LinkToUsPage() {
             {EMBED_SNIPPETS.map((snippet) => (
               <div
                 key={snippet.id}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden"
+                className="card-3d rounded-2xl overflow-hidden"
               >
-                <div className="p-5 border-b border-gray-50">
-                  <h3 className="text-lg font-semibold text-gray-900">
+                <div className="p-5 border-b border-slate-100">
+                  <h3 className="text-lg font-semibold text-slate-900">
                     {snippet.label}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-slate-600 mt-1">
                     {snippet.description}
                   </p>
                 </div>
-                <div className="p-5 bg-gray-50">
-                  <pre className="bg-gray-900 text-green-400 text-xs sm:text-sm p-4 rounded-xl overflow-x-auto leading-relaxed whitespace-pre-wrap break-all">
+                <div className="p-5 bg-slate-50">
+                  <pre className="bg-slate-900 text-emerald-300 text-xs sm:text-sm p-4 rounded-xl overflow-x-auto leading-relaxed whitespace-pre-wrap break-all">
                     <code>{snippet.code}</code>
                   </pre>
                   <div className="mt-4 flex items-center justify-between">
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-slate-600">
                       HTML • Copy and paste into your site
                     </span>
                     <CopyButton text={snippet.code} variant="button" label="Copy Code" />
                   </div>
                 </div>
                 {/* Preview */}
-                <div className="p-5 border-t border-gray-100">
-                  <p className="text-xs text-gray-400 mb-2 uppercase tracking-wider font-medium">
+                <div className="p-5 border-t border-slate-100">
+                  <p className="text-xs text-slate-600 mb-2 uppercase tracking-wider font-semibold">
                     Preview
                   </p>
                   <div
@@ -363,7 +375,7 @@ export default function LinkToUsPage() {
             </h2>
             <p className="text-purple-100 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
               We accept high-quality guest posts about YouTube growth,
-              monetization, SEO, and content creation. You&#39;ll get a contextual
+              monetization, SEO, and content creation. You&apos;ll get a contextual
               backlink when the article is relevant and useful for readers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -389,10 +401,10 @@ export default function LinkToUsPage() {
             <h2>About YouTube Tools Hub</h2>
             <p>
               <strong>YouTube Tools Hub</strong> is a free suite of AI-powered
-              tools for YouTube content creators. With <strong>{tools.length}+ creator tools</strong>, we
+              tools for YouTube content creators. With <strong>{tools.length} creator tools</strong>, we
               help creators in the{" "}
               <strong>United States, United Kingdom, Canada, Australia</strong>,
-              and 50+ other countries improve planning, SEO, and revenue estimates.
+              and {Math.max(countryCPMData.length - 4, 40)} other countries improve planning, SEO, and revenue estimates.
             </p>
             <p>
               Our tools include a{" "}
@@ -411,7 +423,7 @@ export default function LinkToUsPage() {
               <Link href="/tools/youtube-earnings-calculator">
                 YouTube Earnings Calculator
               </Link>{" "}
-              with CPM data for 50+ countries, and much more — all{" "}
+              with CPM data for {countryCPMData.length} countries, and much more — all{" "}
               <strong>free to use</strong>.
             </p>
             <p>
@@ -427,7 +439,7 @@ export default function LinkToUsPage() {
                 <Link href="/tools/youtube-thumbnail-downloader">
                   YouTube Thumbnail Downloader
                 </Link>{" "}
-                — Download HD & 4K thumbnails from any video
+                — Download HD &amp; full-resolution thumbnails from any video
               </li>
               <li>
                 <Link href="/tools/youtube-earnings-calculator">

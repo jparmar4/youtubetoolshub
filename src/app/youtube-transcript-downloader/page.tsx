@@ -33,7 +33,9 @@ import {
 const pageUrl = `${siteConfig.url}/youtube-transcript-downloader`;
 
 export const metadata: Metadata = {
-  title: "YouTube Transcript Downloader & Keyword Extractor (Free, 2026)",
+  title: {
+    absolute: "Free YouTube Transcript Downloader — TXT & SRT Extractor",
+  },
   description:
     "Extract and download YouTube transcripts and subtitles free. Export as plain text, SRT, or CSV with timestamps. Analyze spoken keywords and repurpose video dialogue into articles.",
   keywords: [
@@ -205,6 +207,9 @@ export default function YouTubeTranscriptDownloaderPage() {
               </div>
             </header>
 
+            {/* Compact Leaderboard Ad */}
+            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
+
             {/* 3D UHD Interactive Console */}
             <div className="studio-console-3d rounded-3xl overflow-hidden mb-8">
               <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
@@ -227,9 +232,6 @@ export default function YouTubeTranscriptDownloaderPage() {
               </div>
             </div>
           </AdSectionPrioritize>
-
-          {/* Leaderboard Ad */}
-          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
 
           <div className="mt-8">
             <AffiliateBanner toolId="vidiq" variant="compact" />

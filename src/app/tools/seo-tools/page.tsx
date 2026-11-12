@@ -7,15 +7,22 @@ import { combineSchemasToGraph, getToolListSchema, getBreadcrumbSchema, getFAQSc
 import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
+import Breadcrumb from "@/components/ui/Breadcrumb";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
+import { FaChartLine, FaGem } from "react-icons/fa";
+
+const seoTools = getToolsByCategory("seo-metadata");
 
 export const metadata: Metadata = {
-    title: "YouTube SEO Tools - Title, Description & Tag Generators 2026",
-    description: "The complete YouTube SEO toolkit for 2026. Generate viral titles, optimized descriptions, high-ranking tags, and trending hashtags. 9 free AI-powered tools.",
+    title: {
+        absolute: "Free YouTube SEO Tools — Titles, Tags & Description Maker",
+    },
+    description: `The complete YouTube SEO toolkit for 2026. Generate viral titles, optimized descriptions, high-ranking tags, and trending hashtags. ${seoTools.length} free AI-powered tools.`,
     keywords: ["youtube seo tools", "viral title generator", "seo description maker", "youtube tag generator 2026", "keyword research for youtube", "trending hashtags finder"],
     openGraph: {
-        title: "9 Free YouTube SEO Tools | Titles, Tags, Descriptions & More 2026",
+        title: `${seoTools.length} Free YouTube SEO Tools | Titles, Tags, Descriptions & More 2026`,
         description: "AI-powered tools to optimize your YouTube videos for maximum discoverability. Rank higher and get more views with our 2026 SEO suite.",
         type: "website",
         url: `${siteConfig.url}/tools/seo-tools`,
@@ -43,8 +50,6 @@ const seoFaqs = [
 ];
 
 export default function SEOToolsHub() {
-    const seoTools = getToolsByCategory("seo-metadata");
-
     const toolListSchema = getToolListSchema(
         seoTools.map((tool) => ({
             name: tool.name,
@@ -89,28 +94,24 @@ export default function SEOToolsHub() {
                 }}
             />
 
-            <div className="min-h-screen py-16 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Breadcrumbs */}
-                    <nav className="flex items-center gap-2 text-sm text-slate-500 mb-8" aria-label="Breadcrumb">
-                        <Link href="/" className="hover:text-purple-600 transition-colors">
-                            Home
-                        </Link>
-                        <span>/</span>
-                        <Link href="/tools" className="hover:text-purple-600 transition-colors">
-                            Tools
-                        </Link>
-                        <span>/</span>
-                        <span className="text-slate-900 font-medium font-outfit">SEO Tools</span>
-                    </nav>
+                    <Breadcrumb
+                        items={[
+                            { name: "Home", href: "/" },
+                            { name: "Tools", href: "/tools" },
+                            { name: "SEO Tools" },
+                        ]}
+                        className="mb-8"
+                    />
 
                     {/* Header */}
                     <div className="text-center mb-10">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
                             {seoTools.length} Free SEO &amp; Metadata Tools
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight font-outfit">
+                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-5 tracking-tight font-outfit">
                             YouTube SEO Tools 2026
                         </h1>
                         <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed summary" data-speakable>
@@ -122,29 +123,30 @@ export default function SEOToolsHub() {
                     <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
                     {/* SEO Strategy Checklist */}
-                    <div className="summary glass-premium rounded-2xl p-8 border-l-4 border-purple-500 mb-12 shadow-sm">
-                        <h2 className="text-xl font-bold text-purple-600 mb-4 flex items-center gap-2 font-outfit">
-                            📈 The 2026 Semantic SEO Checklist
+                    <div className="summary card-3d rounded-2xl p-8 border-l-4 border-l-purple-500 mb-12">
+                        <h2 className="text-xl font-bold text-purple-700 mb-4 flex items-center gap-2 font-outfit">
+                            <FaChartLine className="w-5 h-5" />
+                            <span>The 2026 Semantic SEO Checklist</span>
                         </h2>
                         <div className="grid md:grid-cols-2 gap-6 text-slate-700">
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Semantic Keywords:</strong> Don&apos;t just target one tag; target the entire &ldquo;Topic Cluster&rdquo; using our Tag Generator.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>First 200 Characters:</strong> Ensure your description hook contains your primary keyword for Google Search indexing.</span>
                                 </li>
                             </ul>
                             <ul className="space-y-3">
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
                                     <span><strong>Competitor Spying:</strong> Use the Tag Extractor to identify the &ldquo;Hidden Keywords&rdquo; driving traffic to viral competitors.</span>
                                 </li>
                                 <li className="flex items-start gap-2">
-                                    <span className="text-green-500 font-bold">✓</span>
-                                    <span><strong>Natural Language:</strong> Titles must sound human-written. AI detectors in the 2026 algorithm favor &ldquo;Emotional Authenticity.&rdquo;</span>
+                                    <span className="text-emerald-600 font-bold">✓</span>
+                                    <span><strong>Natural Language:</strong> Titles must sound human-written. Clear, benefit-led phrasing outperforms keyword stuffing.</span>
                                 </li>
                             </ul>
                         </div>
@@ -175,7 +177,7 @@ export default function SEOToolsHub() {
                     {/* Deep Dive Content */}
                     <div className="grid lg:grid-cols-3 gap-8 mb-12">
                         <div className="lg:col-span-2 space-y-8">
-                            <div className="glass-premium rounded-3xl p-10 shadow-sm">
+                            <div className="card-3d rounded-3xl p-8 sm:p-10">
                                 <h2 className="text-3xl font-bold text-slate-900 mb-6 font-outfit">
                                     Why Keyword Research is Different in 2026
                                 </h2>
@@ -193,12 +195,15 @@ export default function SEOToolsHub() {
                         </div>
 
                         <div className="lg:col-span-1">
-                            <div className="glass-premium rounded-3xl p-8 bg-gradient-to-b from-blue-900 to-indigo-900 text-white border-0 shadow-2xl">
-                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">💎 Pro Hack</h3>
+                            <div className="rounded-3xl p-8 bg-gradient-to-b from-blue-900 to-indigo-900 text-white shadow-xl">
+                                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                    <FaGem className="w-5 h-5 text-blue-300" />
+                                    <span>Pro Hack</span>
+                                </h3>
                                 <p className="text-blue-100 mb-6 leading-relaxed">
                                     Use the <strong>Hashtag Generator</strong> to find 3-5 high-volume tags for your description. These act as &ldquo;Category Anchors&rdquo; that tell YouTube exactly which &ldquo;Watch Next&rdquo; feeds your video belongs in.
                                 </p>
-                                <div className="p-4 rounded-xl bg-white/5 border border-white/10 italic text-sm text-blue-200">
+                                <div className="p-4 rounded-xl bg-white/10 border border-white/15 italic text-sm text-blue-100">
                                     &ldquo;SEO and AEO are now the same thing. Optimize for the answer, not just the word.&rdquo;
                                 </div>
                             </div>
@@ -206,31 +211,20 @@ export default function SEOToolsHub() {
                     </div>
 
                     {/* AEO / FAQ Section */}
-                    <div className="glass-premium rounded-3xl p-8 sm:p-10 shadow-sm mb-12" data-speakable>
+                    <section className="mb-12" data-speakable>
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 font-outfit">
                             Frequently Asked Questions About YouTube SEO
                         </h2>
-                        <div className="space-y-6">
-                            {seoFaqs.map((faq, idx) => (
-                                <div key={idx} className="border-b border-slate-200/80 pb-5 last:border-0 last:pb-0">
-                                    <h3 className="text-lg font-bold text-slate-900 mb-2">
-                                        {faq.question}
-                                    </h3>
-                                    <p className="text-slate-600 leading-relaxed">
-                                        {faq.answer}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                        <FaqAccordion items={seoFaqs} headingLevel="h3" />
+                    </section>
 
                     {/* Final CTA */}
                     <div className="text-center">
                         <Link
                             href="/tools"
-                            className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full font-bold text-lg transition-all shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-1"
+                            className="btn-3d-primary inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-base sm:text-lg"
                         >
-                            Explore Analytics &amp; Trends
+                            Explore All Tools
                         </Link>
                     </div>
                 </div>

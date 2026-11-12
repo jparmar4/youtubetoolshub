@@ -310,16 +310,18 @@ export default function TagGenerator() {
                             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                                 <CopyButton text={csvFormat} variant="button" label="Copy All (CSV)" />
                                 <button
+                                    type="button"
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm cursor-pointer"
                                     title="Download tags as CSV"
                                 >
                                     <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm cursor-pointer"
                                     title="Download tags as Plain Text"
                                 >
                                     <FaFileAlt className="text-[11px]" />
@@ -331,15 +333,15 @@ export default function TagGenerator() {
                         {/* Tag Sections */}
                         <div className="space-y-6">
                             <TagSection
-                                title="🎯 Primary Tags (Use First!)"
+                                title="Primary Tags (Use First)"
                                 icon={<FaStar className="w-4 h-4" />}
                                 tags={tags.primaryTags}
                                 color="red"
-                                description="Most important - put these first in YouTube"
+                                description="Most important — put these first in YouTube"
                             />
 
                             <TagSection
-                                title="🔍 Search Query Tags"
+                                title="Search Query Tags"
                                 icon={<FaSearch className="w-4 h-4" />}
                                 tags={tags.searchTags}
                                 color="blue"
@@ -347,7 +349,7 @@ export default function TagGenerator() {
                             />
 
                             <TagSection
-                                title="🏷️ Broad Category Tags"
+                                title="Broad Category Tags"
                                 icon={<FaHashtag className="w-4 h-4" />}
                                 tags={tags.broadTags || tags.shortTags}
                                 color="green"
@@ -355,7 +357,7 @@ export default function TagGenerator() {
                             />
 
                             <TagSection
-                                title="🔥 Trending Tags"
+                                title="Trending Tags"
                                 icon={<FaFire className="w-4 h-4" />}
                                 tags={tags.trendingTags}
                                 color="orange"
@@ -363,7 +365,7 @@ export default function TagGenerator() {
                             />
 
                             <TagSection
-                                title="💡 Long-Tail Keywords"
+                                title="Long-Tail Keywords"
                                 icon={<FaLightbulb className="w-4 h-4" />}
                                 tags={tags.longTailTags}
                                 color="purple"
@@ -372,9 +374,10 @@ export default function TagGenerator() {
                         </div>
 
                         {/* Pro Tips */}
-                        <div className="bg-blue-50 rounded-xl p-4">
-                            <h4 className="font-medium text-blue-900 mb-2">
-                                💡 Pro Tips for Maximum Reach
+                        <div className="bg-blue-50 border border-blue-200/80 rounded-xl p-4">
+                            <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                                <FaLightbulb className="text-amber-500 w-4 h-4" />
+                                <span>Pro Tips for Maximum Reach</span>
                             </h4>
                             <ul className="text-sm text-blue-700 space-y-1">
                                 <li>• <strong>Order matters:</strong> Put primary tags first - YouTube weights them more</li>

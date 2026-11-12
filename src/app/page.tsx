@@ -10,9 +10,11 @@ import {
   FaChartPie,
 } from "react-icons/fa";
 import { ToolCard, BlogCard } from "@/components/ui/Card";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 
 import { getFeaturedTools, tools } from "@/config/tools";
 import { siteConfig } from "@/config/site";
+import { countryCPMData } from "@/lib/cpm-data";
 import { getIndexableBlogPosts } from "@/config/blog";
 import AdSlot from "@/components/ads/AdSlot";
 import { AD_SLOTS } from "@/lib/adsense";
@@ -30,7 +32,7 @@ import SmartWorkflow from "@/components/home/SmartWorkflow";
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
+      "Free YouTube Tools — Thumbnails, Tags & Revenue Calculator",
   },
   description:
     `Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. ${tools.length} creator tools, no signup.`,
@@ -193,7 +195,7 @@ export default function Home() {
           <div>
             <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
               <FaBrain className="text-pink-600 animate-glow-pulse" />
-              {tools.length} free tools · 4K UHD · no signup
+              {tools.length} free tools · instant · no signup
             </span>
             <h1
               className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.06] max-w-5xl mx-auto"
@@ -210,7 +212,7 @@ export default function Home() {
               data-speakable
             >
               Download HD &amp; 4K thumbnails, generate viral titles and tags, and estimate
-              Tier-1 AdSense earnings across 52 countries. A free browser alternative to
+              Tier-1 AdSense earnings across {countryCPMData.length} countries. A free browser alternative to
               TubeBuddy and VidIQ — no extension, no account.
             </p>
 
@@ -248,18 +250,23 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Interactive 3D UHD Creator Command Studio Showcase */}
+            {/* Interactive Creator Command Studio Showcase */}
             <Hero3DShowcase />
           </div>
 
-          {/* 3D UHD Telemetry Stat Pods */}
-          <div className="mt-14 max-w-6xl mx-auto animate-fade-in-up delay-300">
+          {/* Display Ad between Hero Showcase & Telemetry Stat Pods */}
+          <div className="mt-10 max-w-4xl mx-auto">
+            <AdSlot slot="2275881649" preset="leaderboard" />
+          </div>
+
+          {/* Telemetry Stat Pods */}
+          <div className="mt-10 max-w-6xl mx-auto animate-fade-in-up delay-300">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 items-stretch">
               {[
                 { value: `${tools.length}`, label: "Free Creator Tools", accent: "from-purple-600 to-fuchsia-600" },
                 { value: "$0", label: "Monthly Fees", accent: "from-emerald-600 to-teal-600" },
-                { value: "52", label: "Country CPM Markets", accent: "from-sky-600 to-indigo-600" },
-                { value: "4K UHD", label: "Instant Browser Engine", accent: "from-pink-600 to-rose-600" },
+                { value: `${countryCPMData.length}`, label: "Country CPM Markets", accent: "from-sky-600 to-indigo-600" },
+                { value: "Instant", label: "Browser Studio Engine", accent: "from-pink-600 to-rose-600" },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -278,11 +285,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Display Ad between Hero and Money Formula — reserved min-height prevents CLS */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-        <AdSlot slot="2275881649" preset="leaderboard" />
-      </div>
-
       {/* Money formula + calculator CTA (high-CPC intent) */}
       <section className="py-16 bg-emerald-50/40 border-b border-emerald-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -296,7 +298,7 @@ export default function Home() {
               100,000 views at $5 RPM ≈ $500/month. Free calculator — no signup.
             </p>
           </div>
-          <EarningsCalculatorCTA variant="card" contextLabel="Free · Instant · 50+ countries" />
+          <EarningsCalculatorCTA variant="card" contextLabel={`Free · Instant · ${countryCPMData.length} countries`} />
 
           {/* Tier 1 High-RPM Benchmarks */}
           <div className="mt-10">
@@ -397,25 +399,25 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10">
             <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
-              Flagship 4K Creator Suite
+              Flagship Creator Suite
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
               Popular free YouTube tools
             </h2>
-            <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
+            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
               Thumbnails, titles, tags, and Tier-1 earnings — the flagship tools creators use daily.
             </p>
           </div>
 
-          {/* 4-Category 3D Bento Hub Bar */}
+          {/* 4-Category Bento Hub Bar */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mb-10">
             {[
               {
-                title: "Thumbnail & 4K Studio",
+                title: "Thumbnail & HD Studio",
                 sub: "Downloader, AI & Feed Preview",
                 href: "/tools/thumbnail-tools",
                 accent: "from-pink-500 to-rose-600",
-                badge: "HD / 4K",
+                badge: "HD / MaxRes",
               },
               {
                 title: "SEO & Metadata Suite",
@@ -544,7 +546,7 @@ export default function Home() {
               <div className="rounded-[2.5rem] p-1.5 bg-gradient-to-b from-purple-500/30 via-slate-900 to-slate-950 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.45)] overflow-hidden">
                 <div className="rounded-[2.2rem] bg-slate-950 uhd-dark-grid p-8 sm:p-10 text-white relative">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-extrabold uppercase tracking-wider mb-6">
-                    <span>3D Creator Stack Architecture</span>
+                    <span>Creator Workflow Architecture</span>
                   </div>
                   <h3 className="text-3xl font-black font-outfit mb-3">
                     Practical Creator Workflows
@@ -555,25 +557,25 @@ export default function Home() {
                     Tier-1 revenue estimation.
                   </p>
 
-                  {/* 3D Isometric Stacked Layers */}
+                  {/* Stacked Workflow Layers */}
                   <div className="space-y-4 mb-8">
                     {[
                       {
                         layer: "LAYER 01 • DISCOVERY & PACKAGING",
-                        title: "4K Thumbnail, Title A/B & Semantic Tags",
-                        metric: "+41.8% Impressions",
+                        title: "HD Thumbnail, Title A/B & Semantic Tags",
+                        metric: "Higher CTR",
                         accent: "border-pink-500/40 bg-pink-950/30 text-pink-300",
                       },
                       {
                         layer: "LAYER 02 • RETENTION & AEO INDEXING",
                         title: "Transcript NLP, Chapters & Key Moments",
-                        metric: "+114% Google SERP",
+                        metric: "Search Discovery",
                         accent: "border-purple-500/40 bg-purple-950/30 text-purple-300",
                       },
                       {
                         layer: "LAYER 03 • TIER-1 MONETIZATION",
-                        title: "52-Country AdSense RPM, Tax & Valuation",
-                        metric: "$14–$32+ US CPM",
+                        title: `${countryCPMData.length}-Country AdSense RPM, Tax & Valuation`,
+                        metric: "2026 Benchmarks",
                         accent: "border-emerald-500/40 bg-emerald-950/30 text-emerald-300",
                       },
                     ].map((stack) => (
@@ -657,31 +659,14 @@ export default function Home() {
       <section className="py-20 bg-white relative z-10 cv-auto">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12 text-balance">
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 font-outfit tracking-tighter">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
               Common YouTube <span className="text-purple-600">questions</span>
             </h2>
-            <p className="text-xl text-slate-500 font-outfit font-medium">
+            <p className="text-xl text-slate-600 font-outfit font-medium">
               Straight answers on thumbnails, pay per view, and free tools.
             </p>
           </div>
-          <div className="space-y-6">
-            {homeFAQs.map((faq, i) => (
-              <div
-                key={i}
-                className="card-3d p-8 rounded-3xl relative"
-              >
-                <h3 className="text-xl font-black text-slate-900 mb-3 flex items-center gap-4 font-outfit">
-                  <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0 shadow-sm">
-                    Q
-                  </span>
-                  {faq.question}
-                </h3>
-                <p className="text-slate-600 leading-relaxed text-base font-outfit font-medium pl-13">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion items={homeFAQs} headingLevel="h3" />
           <div className="mt-12 text-center">
             <Link
               href="/faq"
@@ -696,11 +681,11 @@ export default function Home() {
       {/* Latest guides */}
       <section className="py-16 bg-slate-50 relative overflow-hidden cv-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-6 font-outfit tracking-tighter">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl lg:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tighter">
               Latest YouTube guides
             </h2>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto font-outfit font-medium">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto font-outfit font-medium">
               Thumbnail sizes, CPM by country, Shorts pay, and SEO checklists.
             </p>
           </div>
@@ -720,7 +705,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-16">
+          <div className="text-center mt-14">
             <Link
               href="/blog"
               className="btn-3d-glass inline-flex items-center gap-2 text-purple-700 font-black px-5 py-3 sm:px-8 sm:py-4 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
@@ -732,31 +717,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Heroic 3D UHD CTA Section */}
-      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3.5rem] border border-purple-500/30 shadow-[0_32px_70px_-15px_rgba(15,23,42,0.5)] cv-auto">
+      {/* CTA Section */}
+      <section className="py-16 relative overflow-hidden mx-4 md:mx-8 mb-8 rounded-[3rem] border border-purple-500/30 shadow-[0_32px_70px_-15px_rgba(15,23,42,0.5)] cv-auto">
         <div className="absolute inset-0 bg-slate-950 uhd-dark-grid" />
         <div className="absolute inset-x-16 top-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
 
-        <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-12">
+        <div className="relative max-w-5xl mx-auto px-6 text-center z-10 py-10">
           <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tighter font-outfit leading-[1.05]">
             Start with a{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-emerald-400">
-              free 4K creator tool
+              free creator tool
             </span>
           </h2>
           <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed font-outfit font-medium">
             Download a thumbnail, generate tags, or estimate what YouTube pays
-            in your country — instant 3D browser studio, no signup.
+            in your country — instant browser studio, no signup.
           </p>
           <Link
             href="/tools"
-            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-purple-50 font-black px-6 py-3.5 sm:px-12 sm:py-6 text-base sm:text-xl md:text-2xl rounded-2xl shadow-[0_6px_0_0_#cbd5e1,0_20px_50px_rgba(168,85,247,0.4)] transition-all hover:-translate-y-1 active:translate-y-1 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+            className="inline-flex items-center gap-4 bg-white text-slate-900 hover:bg-purple-50 font-black px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-xl rounded-2xl shadow-[0_6px_0_0_#cbd5e1,0_20px_50px_rgba(168,85,247,0.4)] transition-all hover:-translate-y-1 active:translate-y-1 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
           >
             Get Started Free
             <FaArrowRight className="group-hover:translate-x-2 transition-transform text-purple-600" aria-hidden="true" />
           </Link>
-          <div className="mt-10 text-slate-500 font-black text-xs uppercase tracking-[0.3em]">
-            Instant Results | Scale Effortlessly
+          <div className="mt-10 text-slate-300 font-black text-xs uppercase tracking-[0.25em]">
+            Instant Results · Browser-Based · No Signup
           </div>
         </div>
       </section>

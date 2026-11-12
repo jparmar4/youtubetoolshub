@@ -72,6 +72,21 @@ export default function ConsentAnalytics() {
   const [consent, setConsent] = useState<Consent>(null);
 
   useEffect(() => {
+    const existingAdSense = document.querySelector(
+      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]',
+    );
+    if (!existingAdSense) {
+      // Load AdSense client-side via native async <script> (no data-nscript)
+      // so Google's runtime DOM injections (e.g. show_ads_impl.js) happen after
+      // React finishes hydrating <head> and never trigger React #418 mismatches.
+      const adScript = document.createElement("script");
+      adScript.async = true;
+      adScript.src =
+        "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070";
+      adScript.crossOrigin = "anonymous";
+      document.head.appendChild(adScript);
+    }
+
     const apply = (value: Consent) => {
       setConsent(value);
       if (value === "accepted") grantConsent();

@@ -285,7 +285,7 @@ export default function VideoIdeasGenerator() {
                                 <FaLightbulb className="text-emerald-500 animate-pulse" />
                             </div>
                         </div>
-                        <p className="text-gray-500 text-lg">Brainstorming viral angles for your niche...</p>
+                        <p className="text-slate-600 text-lg">Brainstorming viral angles for your niche...</p>
                     </div>
                 )}
 
@@ -324,23 +324,23 @@ export default function VideoIdeasGenerator() {
                                         {/* Score Visual */}
                                         <div className="flex-shrink-0 flex flex-col items-center gap-3">
                                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 flex flex-col items-center justify-center">
-                                                <span className={`text-xl font-black ${idea.score >= 90 ? "text-green-500" :
-                                                    idea.score >= 80 ? "text-blue-500" : "text-yellow-500"
+                                                <span className={`text-xl font-black ${idea.score >= 90 ? "text-emerald-600" :
+                                                    idea.score >= 80 ? "text-blue-600" : "text-amber-600"
                                                     }`}>
                                                     {idea.score}
                                                 </span>
-                                                <span className="text-[11px] uppercase font-bold text-slate-500">Score</span>
+                                                <span className="text-[11px] uppercase font-bold text-slate-600">Score</span>
                                             </div>
-                                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-green-100 text-green-700' :
-                                                idea.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                                                    'bg-red-100 text-emerald-700'
+                                            <span className={`text-xs px-2 py-1 rounded-full font-medium ${idea.difficulty === 'Easy' ? 'bg-emerald-100 text-emerald-700' :
+                                                idea.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' :
+                                                    'bg-rose-100 text-rose-700'
                                                 }`}>
                                                 {idea.difficulty}
                                             </span>
                                         </div>
 
                                         <div className="flex-1 space-y-3">
-                                            <div className="flex justify-between items-start">
+                                            <div className="flex flex-wrap justify-between items-start gap-2">
                                                 <div className="space-y-1">
                                                     <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">{idea.angle} Angle</span>
                                                     <h4 className="text-lg font-bold text-slate-900 leading-tight">
@@ -356,13 +356,15 @@ export default function VideoIdeasGenerator() {
                                                         <FaMagic /> Generate Titles
                                                     </Link>
                                                     <button
+                                                        type="button"
                                                         onClick={() => handleSave(idea)}
                                                         disabled={isSaved}
-                                                        className={`p-2 rounded-xl transition-all ${isSaved
-                                                            ? "bg-yellow-50 text-yellow-500"
-                                                            : "bg-slate-50 text-slate-500 hover:text-yellow-500 hover:bg-yellow-50"
+                                                        className={`cursor-pointer p-2 rounded-xl transition-all disabled:cursor-default ${isSaved
+                                                            ? "bg-amber-50 text-amber-500"
+                                                            : "bg-slate-50 text-slate-600 hover:text-amber-500 hover:bg-amber-50"
                                                             }`}
                                                         title="Save Idea"
+                                                        aria-label={isSaved ? "Saved Idea" : "Save Idea"}
                                                     >
                                                         {isSaved ? <FaStar /> : <FaRegStar />}
                                                     </button>

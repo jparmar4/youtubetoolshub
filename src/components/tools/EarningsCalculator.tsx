@@ -35,22 +35,22 @@ const VIEW_PRESETS = [
 ];
 
 const RPM_PRESETS = [
-  { label: "📈 US Finance/Tech ($14.00)", value: 14.0 },
-  { label: "🇺🇸 US Long-Form ($8.50)", value: 8.5 },
-  { label: "🇨🇭 Switzerland ($7.80)", value: 7.8 },
-  { label: "🇦🇺 Australia ($7.20)", value: 7.2 },
-  { label: "🇨🇦 Canada ($7.00)", value: 7.0 },
-  { label: "🇳🇿 New Zealand ($6.80)", value: 6.8 },
-  { label: "🇬🇧 UK Long-Form ($6.50)", value: 6.5 },
-  { label: "🇩🇪 Germany ($6.20)", value: 6.2 },
-  { label: "🇳🇴 Norway ($6.00)", value: 6.0 },
-  { label: "🇫🇷 France ($4.80)", value: 4.8 },
-  { label: "🇦🇪 UAE ($4.00)", value: 4.0 },
-  { label: "🇯🇵 Japan ($3.50)", value: 3.5 },
-  { label: "🌐 Global Long-Form ($2.50)", value: 2.5 },
-  { label: "🇮🇳 India Long-Form ($0.80)", value: 0.8 },
-  { label: "⚡ US Shorts ($0.05)", value: 0.05 },
-  { label: "⚡ Global Shorts ($0.02)", value: 0.02 },
+  { label: "US Finance / Tech ($14.00)", value: 14.0 },
+  { label: "US · Long-Form ($8.50)", value: 8.5 },
+  { label: "CH · Switzerland ($7.80)", value: 7.8 },
+  { label: "AU · Australia ($7.20)", value: 7.2 },
+  { label: "CA · Canada ($7.00)", value: 7.0 },
+  { label: "NZ · New Zealand ($6.80)", value: 6.8 },
+  { label: "UK · Long-Form ($6.50)", value: 6.5 },
+  { label: "DE · Germany ($6.20)", value: 6.2 },
+  { label: "NO · Norway ($6.00)", value: 6.0 },
+  { label: "FR · France ($4.80)", value: 4.8 },
+  { label: "AE · UAE ($4.00)", value: 4.0 },
+  { label: "JP · Japan ($3.50)", value: 3.5 },
+  { label: "Global Long-Form ($2.50)", value: 2.5 },
+  { label: "IN · India Long-Form ($0.80)", value: 0.8 },
+  { label: "US Shorts ($0.05)", value: 0.05 },
+  { label: "Global Shorts ($0.02)", value: 0.02 },
 ];
 
 const QUICK_CURRENCY_CODES: SupportedCurrency[] = [
@@ -68,11 +68,11 @@ const QUICK_CURRENCY_CODES: SupportedCurrency[] = [
 
 const NICHE_MULTIPLIERS = [
   { id: "balanced", label: "Balanced Mix (1.0x)", factor: 1.0 },
-  { id: "finance", label: "💰 Finance & Investing (2.2x)", factor: 2.2 },
-  { id: "b2b", label: "💼 B2B SaaS & Software (1.9x)", factor: 1.9 },
-  { id: "tech", label: "💻 Tech & AI Reviews (1.4x)", factor: 1.4 },
-  { id: "education", label: "🎓 Education & Career (1.15x)", factor: 1.15 },
-  { id: "gaming", label: "🎮 Gaming & Shorts Mix (0.65x)", factor: 0.65 },
+  { id: "finance", label: "Finance & Investing (2.2x)", factor: 2.2 },
+  { id: "b2b", label: "B2B SaaS & Software (1.9x)", factor: 1.9 },
+  { id: "tech", label: "Tech & AI Reviews (1.4x)", factor: 1.4 },
+  { id: "education", label: "Education & Career (1.15x)", factor: 1.15 },
+  { id: "gaming", label: "Gaming & Shorts Mix (0.65x)", factor: 0.65 },
 ];
 
 interface EarningsCalculatorProps {
@@ -325,7 +325,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
     >
       <div className="space-y-6">
         {countryName && (
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-600">
             Estimating for <strong>{countryName}</strong> ({currency}). Adjust
             RPM to match your Studio Analytics.
           </p>
@@ -339,9 +339,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             e.preventDefault();
             handleCalculateAds();
           }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-12 gap-4"
         >
-          <div>
+          <div className="md:col-span-5">
             <Input
               label="Monthly Views"
               placeholder="e.g., 100000"
@@ -349,7 +349,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               onChange={(e) => setViews(e.target.value)}
             />
             {/* Quick View Presets */}
-            <div className="flex flex-wrap items-center gap-1.5 mt-2">
+            <div className="flex flex-wrap items-center gap-1 mt-2">
               <span className="text-[11px] font-bold text-slate-600 mr-0.5">Presets:</span>
               {VIEW_PRESETS.map((p) => (
                 <button
@@ -357,10 +357,10 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   type="button"
                   aria-pressed={parseFloat(views.replace(/,/g, "")) === p.value}
                   onClick={() => handleViewPreset(p.value)}
-                  className={`px-2 py-0.5 text-[11px] font-semibold rounded-md transition-colors ${
+                  className={`px-2 py-0.5 text-[11px] font-semibold rounded-md transition-colors cursor-pointer ${
                     parseFloat(views.replace(/,/g, "")) === p.value
                       ? "bg-purple-600 text-white"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
                   {p.label}
@@ -369,7 +369,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             </div>
           </div>
 
-          <div>
+          <div className="md:col-span-4">
             <Input
               label="Est. RPM ($ USD Base)"
               type="number"
@@ -391,9 +391,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
             </div>
           </div>
 
-          <div className="flex items-start md:pt-6">
-            <Button type="submit" onClick={handleCalculateAds} className="w-full h-[46px] shadow-md shadow-purple-500/20">
-              <FaCalculator className="mr-2" />
+          <div className="md:col-span-3 flex items-start md:pt-6">
+            <Button type="submit" onClick={handleCalculateAds} className="w-full h-[46px] !px-3.5 text-sm whitespace-nowrap shadow-md shadow-purple-500/20">
+              <FaCalculator className="mr-1.5 shrink-0" />
               Calculate Revenue
             </Button>
           </div>
@@ -413,7 +413,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   type="button"
                   aria-pressed={parseFloat(rpm) === p.value && nicheId === "balanced"}
                   onClick={() => handleRpmPreset(p.value)}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+                  className={`cursor-pointer px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
                     parseFloat(rpm) === p.value && nicheId === "balanced"
                       ? "bg-purple-600 text-white border-purple-600 shadow-xs"
                       : "bg-white border-slate-200 text-slate-700 hover:border-purple-400 hover:bg-purple-50"
@@ -437,7 +437,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   type="button"
                   aria-pressed={nicheId === n.id}
                   onClick={() => handleNicheMultiplier(n.id, n.factor)}
-                  className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
+                  className={`cursor-pointer px-2.5 py-1 text-xs font-semibold rounded-lg border transition-all ${
                     nicheId === n.id
                       ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
                       : "bg-white border-slate-200 text-slate-700 hover:border-emerald-400 hover:bg-emerald-50"
@@ -469,7 +469,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                         key={code}
                         type="button"
                         onClick={() => setPreferredCurrency(code)}
-                        className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
+                        className={`cursor-pointer px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                           activeCurrency === code
                             ? "bg-purple-600 text-white shadow-xs"
                             : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
@@ -532,7 +532,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                       {formatCurrency(adResult.yearly * currentRate, activeCurrency)}
                     </p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-2">
+                  <p className="text-xs text-slate-600 mt-2">
                     12-month baseline (excluding seasonal Q4 advertiser surges of +20–50%).
                   </p>
                 </div>
@@ -547,7 +547,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                       {formatCurrency(adResult.sponsorEstMin * currentRate, activeCurrency)} – {formatCurrency(adResult.sponsorEstMax * currentRate, activeCurrency)}
                     </p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-2">
+                  <p className="text-xs text-slate-600 mt-2">
                     Typical 60s mid-roll brand deal rate in Tier 1 niches for {adResult.viewsNum.toLocaleString()} views.
                   </p>
                 </div>
@@ -562,7 +562,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                       {formatCurrency(adResult.channelValuationMin * currentRate, activeCurrency)} – {formatCurrency(adResult.channelValuationMax * currentRate, activeCurrency)}
                     </p>
                   </div>
-                  <p className="text-xs text-slate-500 mt-2">
+                  <p className="text-xs text-slate-600 mt-2">
                     24x–36x monthly net multiple based on broker transaction multiples.
                   </p>
                 </div>
@@ -577,7 +577,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   <button
                     type="button"
                     onClick={handleCopySummary}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs"
+                    className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs"
                   >
                     {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
                     <span>{copied ? "Copied!" : "Copy Summary"}</span>
@@ -585,7 +585,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                   <button
                     type="button"
                     onClick={handlePrintMediaKit}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-purple-300 text-purple-800 hover:bg-purple-100 text-xs font-bold transition-colors shadow-xs"
+                    className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-purple-300 text-purple-800 hover:bg-purple-100 text-xs font-bold transition-colors shadow-xs"
                   >
                     <FaPrint className="w-3.5 h-3.5 text-purple-600" />
                     <span>Print Media Kit</span>
@@ -611,7 +611,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               <span className="font-bold text-slate-900 block mb-1">
                 LLC vs. S-Corp Calculator →
               </span>
-              <span className="text-slate-500">
+              <span className="text-slate-600">
                 See how electing S-Corp saves $4k–$12k in self-employment tax.
               </span>
             </Link>
@@ -623,7 +623,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               <span className="font-bold text-slate-900 block mb-1">
                 Platform Fee Calculator →
               </span>
-              <span className="text-slate-500">
+              <span className="text-slate-600">
                 Compare YouTube 30% take vs Patreon and Fourthwall 0% fee.
               </span>
             </Link>
@@ -635,7 +635,7 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               <span className="font-bold text-slate-900 block mb-1">
                 Shorts Music Split Calculator →
               </span>
-              <span className="text-slate-500">
+              <span className="text-slate-600">
                 Model how licensed songs impact Creator Pool RPM.
               </span>
             </Link>

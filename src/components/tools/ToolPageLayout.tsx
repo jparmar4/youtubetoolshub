@@ -52,9 +52,7 @@ export default function ToolPageLayout({
                 </div>
 
                 {/* Recent History Section */}
-                <div className="mt-8 pt-6 border-t border-slate-200/70">
-                    <ToolHistory toolSlug={toolSlug} />
-                </div>
+                <ToolHistory toolSlug={toolSlug} />
             </div>
         </div>
     );

@@ -8,7 +8,7 @@ export interface QuickAnswerCapsuleProps {
   answer: string;
   /** Key bullet points or fast facts */
   keyPoints?: string[];
-  /** Badge text, defaults to "⚡ Quick Answer (2026 Summary)" */
+  /** Badge text, defaults to "Quick Answer (2026 Summary)" */
   badgeText?: string;
   /** Citation or verification notice */
   verifiedNote?: string;
@@ -65,8 +65,9 @@ export default function QuickAnswerCapsule({
       )}
 
       {verifiedNote && (
-        <p className="mt-3.5 text-[11px] text-slate-500 italic">
-          ✓ {verifiedNote}
+        <p className="mt-3.5 flex items-center gap-1.5 text-[11px] text-slate-600 italic">
+          <FaCheckCircle className="w-3 h-3 text-emerald-600 shrink-0" aria-hidden="true" />
+          <span>{verifiedNote}</span>
         </p>
       )}
     </aside>

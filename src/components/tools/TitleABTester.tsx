@@ -131,7 +131,7 @@ export default function TitleABTester() {
                     </div>
 
                     <Button onClick={handleAnalyze} isLoading={loading} className="w-full text-lg py-4">
-                        {loading ? "Running Click Simulation..." : "🚀 Run 1,000 Impression Simulation"}
+                        {loading ? "Running Click Simulation..." : "Run 1,000-Impression Simulation"}
                     </Button>
                 </div>
 
@@ -145,7 +145,7 @@ export default function TitleABTester() {
                             <div className="absolute inset-0 bg-white/10 opacity-20"></div>
                             <div className="relative z-10">
                                 <div className="inline-block bg-white/20 backdrop-blur-md rounded-full px-4 py-1 text-sm font-semibold mb-4">
-                                    🏆 AI CONFIDENCE: {result.confidence}%
+                                    AI CONFIDENCE: {result.confidence}%
                                 </div>
                                 <h3 className="text-3xl font-bold mb-2">
                                     Title {result.winner} is the Likely Winner
@@ -159,13 +159,13 @@ export default function TitleABTester() {
                         {/* Comparison Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Card A */}
-                            <div className={`rounded-2xl border-4 ${result.winner === 'A' ? 'border-green-500 shadow-green-200 shadow-lg' : 'border-transparent bg-slate-50'}`}>
+                            <div className={`rounded-2xl border-4 ${result.winner === 'A' ? 'border-emerald-500 shadow-emerald-200/70 shadow-lg bg-white' : 'border-slate-200 bg-slate-50'}`}>
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-4">
-                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'A' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'A' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-700'}`}>
                                             OPTION A
                                         </span>
-                                        <span className="font-mono text-sm text-slate-500">
+                                        <span className="font-mono text-sm text-slate-600">
                                             Impulse: <span className="font-bold text-slate-900">{result.titleA.impulse_rating}</span>
                                         </span>
                                     </div>
@@ -176,11 +176,11 @@ export default function TitleABTester() {
                                     {/* Stats Grid */}
                                     <div className="grid grid-cols-2 gap-4 mb-6">
                                         <div className="bg-white p-3 rounded-xl border border-slate-200">
-                                            <p className="text-xs text-slate-500 mb-1">Viral Score</p>
+                                            <p className="text-xs text-slate-600 mb-1">Viral Score</p>
                                             <p className="text-2xl font-bold text-blue-600">{result.titleA.score}</p>
                                         </div>
                                         <div className="bg-white p-3 rounded-xl border border-slate-200">
-                                            <p className="text-xs text-slate-500 mb-1">Proj. CTR</p>
+                                            <p className="text-xs text-slate-600 mb-1">Proj. CTR</p>
                                             <p className="text-2xl font-bold text-purple-600">{result.titleA.ctr_prediction}</p>
                                         </div>
                                     </div>
@@ -188,10 +188,10 @@ export default function TitleABTester() {
                                     {/* Lists */}
                                     <div className="space-y-4">
                                         <div>
-                                            <p className="text-sm font-semibold text-green-600 mb-2 flex items-center">
+                                            <p className="text-sm font-semibold text-emerald-700 mb-2 flex items-center">
                                                 <FaBalanceScale className="mr-2" /> Strengths
                                             </p>
-                                            <ul className="text-sm space-y-1 text-slate-600">
+                                            <ul className="text-sm space-y-1 text-slate-700">
                                                 {result.titleA.strengths.map((s, i) => (
                                                     <li key={i} className="flex items-start">
                                                         <span className="mr-2">•</span> {s}
@@ -200,8 +200,8 @@ export default function TitleABTester() {
                                             </ul>
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold text-emerald-500 mb-2">Weaknesses</p>
-                                            <ul className="text-sm space-y-1 text-slate-500">
+                                            <p className="text-sm font-semibold text-rose-600 mb-2">Weaknesses</p>
+                                            <ul className="text-sm space-y-1 text-slate-600">
                                                 {result.titleA.weaknesses.map((w, i) => (
                                                     <li key={i} className="flex items-start">
                                                         <span className="mr-2">•</span> {w}
@@ -214,13 +214,13 @@ export default function TitleABTester() {
                             </div>
 
                             {/* Card B */}
-                            <div className={`rounded-2xl border-4 ${result.winner === 'B' ? 'border-green-500 shadow-green-200 shadow-lg' : 'border-transparent bg-slate-50'}`}>
+                            <div className={`rounded-2xl border-4 ${result.winner === 'B' ? 'border-emerald-500 shadow-emerald-200/70 shadow-lg bg-white' : 'border-slate-200 bg-slate-50'}`}>
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-4">
-                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'B' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>
+                                        <span className={`text-sm font-bold px-3 py-1 rounded-full ${result.winner === 'B' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-700'}`}>
                                             OPTION B
                                         </span>
-                                        <span className="font-mono text-sm text-slate-500">
+                                        <span className="font-mono text-sm text-slate-600">
                                             Impulse: <span className="font-bold text-slate-900">{result.titleB.impulse_rating}</span>
                                         </span>
                                     </div>
@@ -231,11 +231,11 @@ export default function TitleABTester() {
                                     {/* Stats Grid */}
                                     <div className="grid grid-cols-2 gap-4 mb-6">
                                         <div className="bg-white p-3 rounded-xl border border-slate-200">
-                                            <p className="text-xs text-slate-500 mb-1">Viral Score</p>
+                                            <p className="text-xs text-slate-600 mb-1">Viral Score</p>
                                             <p className="text-2xl font-bold text-blue-600">{result.titleB.score}</p>
                                         </div>
                                         <div className="bg-white p-3 rounded-xl border border-slate-200">
-                                            <p className="text-xs text-slate-500 mb-1">Proj. CTR</p>
+                                            <p className="text-xs text-slate-600 mb-1">Proj. CTR</p>
                                             <p className="text-2xl font-bold text-purple-600">{result.titleB.ctr_prediction}</p>
                                         </div>
                                     </div>
@@ -243,10 +243,10 @@ export default function TitleABTester() {
                                     {/* Lists */}
                                     <div className="space-y-4">
                                         <div>
-                                            <p className="text-sm font-semibold text-green-600 mb-2 flex items-center">
+                                            <p className="text-sm font-semibold text-emerald-700 mb-2 flex items-center">
                                                 <FaBalanceScale className="mr-2" /> Strengths
                                             </p>
-                                            <ul className="text-sm space-y-1 text-slate-600">
+                                            <ul className="text-sm space-y-1 text-slate-700">
                                                 {result.titleB.strengths.map((s, i) => (
                                                     <li key={i} className="flex items-start">
                                                         <span className="mr-2">•</span> {s}
@@ -255,8 +255,8 @@ export default function TitleABTester() {
                                             </ul>
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold text-emerald-500 mb-2">Weaknesses</p>
-                                            <ul className="text-sm space-y-1 text-slate-500">
+                                            <p className="text-sm font-semibold text-rose-600 mb-2">Weaknesses</p>
+                                            <ul className="text-sm space-y-1 text-slate-600">
                                                 {result.titleB.weaknesses.map((w, i) => (
                                                     <li key={i} className="flex items-start">
                                                         <span className="mr-2">•</span> {w}

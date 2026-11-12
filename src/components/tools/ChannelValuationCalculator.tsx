@@ -125,7 +125,7 @@ export default function ChannelValuationCalculator() {
             description="Estimate the market value, acquisition price, and net worth of any YouTube channel based on monthly net profit and creator multiples."
         >
             <div className="space-y-8">
-                {!calculations && <p role="status"className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
+                {!calculations && <p role="status" className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Currency Selector Bar */}
                 <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2">
@@ -137,10 +137,10 @@ export default function ChannelValuationCalculator() {
                                     key={c}
                                     type="button"
                                     onClick={() => setCurrency(c)}
-                                    className={`px-3 py-1.5 text-xs font-bold transition-all ${
+                                    className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                                         currency === c
                                             ? "bg-emerald-600 text-white"
-                                            :"text-slate-600 hover:bg-slate-100"
+                                            : "text-slate-600 hover:bg-slate-100"
                                     }`}
                                 >
                                     {c}

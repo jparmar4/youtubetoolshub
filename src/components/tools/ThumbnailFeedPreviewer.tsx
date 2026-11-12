@@ -378,11 +378,11 @@ export default function ThumbnailFeedPreviewer() {
         {/* Viewport Toolbar & Diagnostics Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-slate-900 p-4 text-white shadow-md">
           {/* Viewport Tabs */}
-          <div className="flex items-center gap-1 rounded-xl bg-slate-800 p-1">
+          <div className="flex flex-wrap items-center gap-1 rounded-xl bg-slate-800 p-1">
             <button
               type="button"
               onClick={() => setViewportMode("desktop")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                 viewportMode === "desktop"
                   ? "bg-red-600 text-white shadow-sm"
                   : "text-slate-300 hover:text-white"
@@ -393,7 +393,7 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setViewportMode("mobile")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                 viewportMode === "mobile"
                   ? "bg-red-600 text-white shadow-sm"
                   : "text-slate-300 hover:text-white"
@@ -404,7 +404,7 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setViewportMode("shorts")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                 viewportMode === "shorts"
                   ? "bg-red-600 text-white shadow-sm"
                   : "text-slate-300 hover:text-white"
@@ -415,7 +415,7 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setViewportMode("tv")}
-              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
                 viewportMode === "tv"
                   ? "bg-red-600 text-white shadow-sm"
                   : "text-slate-300 hover:text-white"
@@ -431,10 +431,10 @@ export default function ThumbnailFeedPreviewer() {
               <button
                 type="button"
                 onClick={() => setShowTimestampOverlay(!showTimestampOverlay)}
-                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
+                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all cursor-pointer ${
                   showTimestampOverlay
-                    ? "border-red-500 bg-red-950/60 text-red-300"
-                    : "border-slate-700 bg-slate-800 text-slate-500"
+                    ? "border-red-500 bg-red-950/60 text-red-200"
+                    : "border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
                 }`}
               >
                 <FaClock className="text-red-400" />
@@ -446,10 +446,10 @@ export default function ThumbnailFeedPreviewer() {
               <button
                 type="button"
                 onClick={() => setShowShortsSafeZone(!showShortsSafeZone)}
-                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
+                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-bold transition-all cursor-pointer ${
                   showShortsSafeZone
-                    ? "border-emerald-500 bg-emerald-950/60 text-emerald-300"
-                    : "border-slate-700 bg-slate-800 text-slate-500"
+                    ? "border-emerald-500 bg-emerald-950/60 text-emerald-200"
+                    : "border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
                 }`}
               >
                 <FaShieldAlt className="text-emerald-400" />
@@ -460,10 +460,10 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setIsGrayscale(!isGrayscale)}
-              className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
+              className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all cursor-pointer ${
                 isGrayscale
-                  ? "border-purple-500 bg-purple-950/60 text-purple-300"
-                  : "border-slate-700 bg-slate-800 text-slate-500"
+                  ? "border-purple-500 bg-purple-950/60 text-purple-200"
+                  : "border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
               }`}
             >
               B&amp;W Contrast
@@ -472,10 +472,10 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setIsBlurred(!isBlurred)}
-              className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all ${
+              className={`rounded-lg border px-2.5 py-1.5 font-bold transition-all cursor-pointer ${
                 isBlurred
-                  ? "border-purple-500 bg-purple-950/60 text-purple-300"
-                  : "border-slate-700 bg-slate-800 text-slate-500"
+                  ? "border-purple-500 bg-purple-950/60 text-purple-200"
+                  : "border-slate-700 bg-slate-800 text-slate-300 hover:text-white"
               }`}
             >
               Squint Blur Test
@@ -484,7 +484,7 @@ export default function ThumbnailFeedPreviewer() {
             <button
               type="button"
               onClick={() => setThemeMode(themeMode === "dark" ? "light" : "dark")}
-              className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-slate-300 hover:text-white"
+              className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-800 px-2.5 py-1.5 text-slate-200 hover:text-white cursor-pointer"
             >
               {themeMode === "dark" ? <FaSun className="text-amber-400" /> : <FaMoon />}
               <span>{themeMode === "dark" ? "Light" : "Dark"} Mode</span>
@@ -673,7 +673,7 @@ export default function ThumbnailFeedPreviewer() {
                     <h4 className="font-semibold text-xs leading-snug line-clamp-2 text-white">
                       {videoTitle}
                     </h4>
-                    <p className="mt-0.5 text-[11px] text-slate-500">
+                    <p className="mt-0.5 text-[11px] text-slate-400">
                       {channelName} • {viewCount} • {timeAgo}
                     </p>
                   </div>
@@ -864,20 +864,20 @@ export default function ThumbnailFeedPreviewer() {
         {/* Diagnostic Scorecard */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-600 mb-1">
               <FaClock />
               <span>Timestamp Collision Check</span>
             </div>
             <div className="text-sm font-black text-slate-900">
               {showTimestampOverlay ? "Inspection Active" : "Overlay Hidden"}
             </div>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-600">
               Keep the bottom-right 20% clear of text, faces, and brand logos.
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-600 mb-1">
               <FaEye />
               <span>Mobile Truncation Score</span>
             </div>
@@ -888,20 +888,20 @@ export default function ThumbnailFeedPreviewer() {
             >
               {isMobileTruncated ? "Truncated after 2 Lines" : "100% Fully Visible"}
             </div>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-600">
               {titleLength} characters. Optimal mobile length is under 50 characters.
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-2 text-xs font-bold text-slate-500 mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-600 mb-1">
               <FaSlidersH />
               <span>Visual Contrast Rating</span>
             </div>
             <div className="text-sm font-black text-purple-600">
               High Separation
             </div>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-600">
               Use B&amp;W Contrast toggle above to verify luminance values pop in feeds.
             </p>
           </div>

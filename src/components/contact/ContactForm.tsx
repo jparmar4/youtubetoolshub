@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input, Textarea } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import { siteConfig } from "@/config/site";
 import { FaPaperPlane, FaEnvelope, FaCheck, FaClock, FaQuestionCircle, FaBug, FaLightbulb, FaHandshake, FaExclamationCircle, FaSpinner } from "react-icons/fa";
 
@@ -14,9 +15,9 @@ const contactReasons = [
 ];
 
 const faqs = [
-    { q: "How quickly will I get a response?", a: "We typically respond within 24-48 hours during business days." },
-    { q: "Is there phone support?", a: "Currently we only offer email support to provide better, documented responses." },
-    { q: "Can I request a custom tool?", a: "Yes! We love hearing ideas from creators. Send us your suggestions." },
+    { question: "How quickly will I get a response?", answer: "We typically respond within 24-48 hours during business days." },
+    { question: "Is there phone support?", answer: "Currently we only offer email support to provide better, documented responses." },
+    { question: "Can I request a custom tool?", answer: "Yes! We love hearing ideas from creators. Send us your suggestions." },
 ];
 
 export default function ContactForm() {
@@ -77,16 +78,16 @@ export default function ContactForm() {
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-fuchsia-200/20 blur-[100px] rounded-full pointer-events-none" />
 
             {/* Hero Section */}
-            <section className="relative pt-24 pb-12 lg:pt-32 lg:pb-16">
+            <section className="relative pt-10 pb-8 lg:pt-14 lg:pb-12">
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-4xl mx-auto">
-                        <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-8 shadow-2xl shadow-fuchsia-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                            <FaEnvelope className="w-9 h-9" />
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-6 shadow-xl shadow-fuchsia-900/10">
+                            <FaEnvelope className="w-7 h-7" />
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight font-outfit">
                             Get in Touch
                         </h1>
-                        <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                             Have questions, feedback, or ideas? We&apos;d love to hear from you!
                             Our team is here to help you succeed.
                         </p>
@@ -95,23 +96,24 @@ export default function ContactForm() {
             </section>
 
             {/* Contact Reasons */}
-            <section className="py-8">
+            <section className="py-6">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {contactReasons.map((reason, i) => (
                             <button
                                 key={i}
+                                type="button"
                                 onClick={() => setSelectedReason(reason.title)}
-                                className={`text-left p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${selectedReason === reason.title
+                                className={`text-left p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ${selectedReason === reason.title
                                     ? "border-purple-500 bg-purple-50 shadow-purple-200"
-                                    : "border-slate-100 bg-white hover:border-purple-200 hover:shadow-purple-100"
+                                    : "border-slate-200/80 bg-white hover:border-purple-200 hover:shadow-purple-100"
                                     }`}
                             >
                                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${reason.color} flex items-center justify-center text-white mb-4 shadow-lg`}>
                                     <reason.icon className="w-5 h-5" />
                                 </div>
                                 <h3 className="font-bold text-slate-900 mb-2">{reason.title}</h3>
-                                <p className="text-slate-500 text-sm leading-relaxed">{reason.description}</p>
+                                <p className="text-slate-600 text-sm leading-relaxed">{reason.description}</p>
                             </button>
                         ))}
                     </div>
@@ -174,27 +176,20 @@ export default function ContactForm() {
 
                             {/* FAQs */}
                             <div>
-                                <h3 className="text-lg font-bold text-slate-900 mb-4">
+                                <h3 className="text-lg font-bold text-slate-900 mb-4 font-outfit">
                                     Frequently Asked Questions
                                 </h3>
-                                <div className="space-y-4">
-                                    {faqs.map((faq, i) => (
-                                        <div key={i} className="p-5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                                            <h4 className="font-bold text-slate-900 mb-2">{faq.q}</h4>
-                                            <p className="text-slate-600 text-sm leading-relaxed">{faq.a}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                                <FaqAccordion items={faqs} headingLevel="h4" />
                             </div>
                         </div>
 
                         {/* Contact Form */}
                         <div className="lg:col-span-3">
-                            <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-xl shadow-slate-200/50 border border-slate-100">
+                            <div className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl shadow-slate-200/50 border border-slate-200/80">
                                 {submitted ? (
-                                    <div className="text-center py-16">
-                                        <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-green-50 flex items-center justify-center shadow-lg shadow-green-900/5 animate-bounce-slow">
-                                            <FaCheck className="w-10 h-10 text-green-500" />
+                                    <div className="text-center py-12">
+                                        <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center shadow-sm">
+                                            <FaCheck className="w-9 h-9 text-emerald-600" />
                                         </div>
                                         <h3 className="text-3xl font-black text-slate-900 mb-4">
                                             Message Sent!

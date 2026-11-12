@@ -10,6 +10,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
+import { toolMeta } from "@/config/tool-meta";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import CurrentYear from "@/components/layout/CurrentYear";
 
@@ -41,7 +42,7 @@ export default function Footer() {
     <footer className="bg-slate-50 text-slate-600 border-t border-slate-200">
       {/* Newsletter Section */}
       <div className="border-b border-slate-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
           <div className="max-w-xl mx-auto">
             <NewsletterSignup />
           </div>
@@ -49,7 +50,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-12 sm:pb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
@@ -61,7 +62,7 @@ export default function Footer() {
                 {siteConfig.name}
               </span>
             </Link>
-            <p className="text-slate-500 text-sm mb-4">
+            <p className="text-slate-600 text-sm mb-4 leading-relaxed">
               {siteConfig.description}
             </p>
             {/* Social Links */}
@@ -88,7 +89,7 @@ export default function Footer() {
 
           {/* Popular Tools */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Popular Tools</h3>
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4">Popular Tools</h3>
             <ul className="space-y-2">
               {popularTools.map((tool) => (
                 <li key={tool.name}>
@@ -103,9 +104,9 @@ export default function Footer() {
               <li>
                 <Link
                   href="/tools"
-                  className="text-sm text-purple-600 hover:text-purple-700 transition-colors font-medium"
+                  className="text-sm text-purple-700 hover:text-purple-800 transition-colors font-semibold"
                 >
-                  View All Tools →
+                  View All {toolMeta.length} Tools →
                 </Link>
               </li>
             </ul>
@@ -113,7 +114,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Company</h3>
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4">Company</h3>
             <ul className="space-y-2">
               {siteConfig.nav.map((item) => (
                 <li key={item.name}>
@@ -154,7 +155,7 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Resources</h3>
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4">Resources</h3>
             <ul className="space-y-2">
               {siteConfig.footerLinks.resources?.map((item) => (
                 <li key={item.name}>
@@ -171,7 +172,7 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Legal</h3>
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-4">Legal</h3>
             <ul className="space-y-2">
               {siteConfig.footerLinks.legal.map((item) => (
                 <li key={item.name}>
@@ -198,10 +199,10 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-600 text-sm">
             © <CurrentYear /> {siteConfig.name}. All rights reserved.
           </p>
-          <p className="text-slate-500 text-sm flex items-center gap-1">
+          <p className="text-slate-600 text-sm flex items-center gap-1">
             Made with <FaHeart className="text-purple-500" /> for YouTube Creators Worldwide
           </p>
         </div>

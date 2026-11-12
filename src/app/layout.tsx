@@ -148,15 +148,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/*
-          AdSense Auto ads + manual units. This must remain a native async tag:
-          AdSense does not support Next.js's data-nscript attribute, which can
-          leave manual units uninitialized. Analytics is consent-gated below.
+          AdSense Auto ads + manual units load in ConsentAnalytics via a native
+          async <script> after hydration so AdSense's dynamic show_ads_impl.js
+          injection never shifts <head> children during React 19 hydration.
+          AdSense account verification meta tag is emitted via metadata.other.
         */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
-          crossOrigin="anonymous"
-        />
         
         <link
           rel="alternate"

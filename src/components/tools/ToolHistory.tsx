@@ -168,7 +168,7 @@ function MiniHistoryCard({
                     onClick={onDelete}
                     onKeyDown={(e) => e.stopPropagation()}
                     aria-label={`Delete history item: ${title}`}
-                    className="text-slate-500 hover:text-emerald-600 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 p-2 -m-1 rounded focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                    className="text-slate-500 hover:text-rose-600 cursor-pointer transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 p-2 -m-1 rounded focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
                 >
                     <FaTrash size={12} aria-hidden="true" />
                 </button>
@@ -235,16 +235,16 @@ function HistoryDetailModal({
     const renderContent = () => {
         if (typeof content === 'string') {
             return (
-                <div className="bg-gray-50 rounded-lg p-4">
-                    <p className="text-gray-800 whitespace-pre-wrap">{content}</p>
+                <div className="bg-slate-50 rounded-lg p-4">
+                    <p className="text-slate-800 whitespace-pre-wrap">{content}</p>
                 </div>
             );
         }
 
         if (!isRecord(content)) {
             return (
-                <div className="bg-gray-50 rounded-lg p-4">
-                    <p className="text-gray-800 whitespace-pre-wrap">{JSON.stringify(content, null, 2)}</p>
+                <div className="bg-slate-50 rounded-lg p-4">
+                    <p className="text-slate-800 whitespace-pre-wrap">{JSON.stringify(content, null, 2)}</p>
                 </div>
             );
         }
@@ -332,23 +332,23 @@ function HistoryDetailModal({
                 {Number.isFinite(score) && score > 0 && (
                     <div className="flex items-center gap-4">
                         <div>
-                            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Score</span>
-                            <p className={`text-2xl font-black mt-1 ${score >= 90 ? "text-green-500" :
-                                score >= 80 ? "text-blue-500" : "text-yellow-500"
+                            <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Score</span>
+                            <p className={`text-2xl font-black mt-1 ${score >= 90 ? "text-emerald-600" :
+                                score >= 80 ? "text-blue-600" : "text-amber-600"
                                 }`}>
                                 {score}
                             </p>
                         </div>
                         {difficulty && (
                             <div>
-                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Difficulty</span>
-                                <p className="text-sm font-medium mt-1 text-gray-700">{difficulty}</p>
+                                <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Difficulty</span>
+                                <p className="text-sm font-medium mt-1 text-slate-700">{difficulty}</p>
                             </div>
                         )}
                         {angle && (
                             <div>
-                                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Angle</span>
-                                <p className="text-sm font-medium mt-1 text-gray-700">{angle}</p>
+                                <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Angle</span>
+                                <p className="text-sm font-medium mt-1 text-slate-700">{angle}</p>
                             </div>
                         )}
                     </div>
@@ -356,7 +356,7 @@ function HistoryDetailModal({
 
                 {images.length > 0 && (
                     <div>
-                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Images</span>
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider">Images</span>
                         <div className="mt-2 grid grid-cols-2 gap-2">
                             {images.map((img: string, i: number) => (
                                 <div key={i} className="relative aspect-video rounded-lg overflow-hidden bg-slate-100">
@@ -421,15 +421,17 @@ function HistoryDetailModal({
 
                 <div className="flex items-center justify-between p-4 border-t border-slate-100 bg-slate-50">
                     <button
+                        type="button"
                         onClick={onDelete}
-                        className="text-sm text-emerald-500 hover:text-emerald-600 font-medium flex items-center gap-1"
+                        className="text-sm text-rose-600 hover:text-rose-700 font-medium flex items-center gap-1.5 cursor-pointer"
                     >
-                        <FaTrash size={12} /> Delete
+                        <FaTrash size={12} aria-hidden="true" /> Delete
                     </button>
                     <button
+                        type="button"
                         onClick={() => handleCopy(fullText)}
-                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 ${copied
-                            ? "bg-green-500 text-white"
+                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 cursor-pointer ${copied
+                            ? "bg-emerald-600 text-white"
                             : "bg-blue-600 hover:bg-blue-700 text-white"
                             }`}
                     >
@@ -443,11 +445,11 @@ function HistoryDetailModal({
 
 function ToolHistorySkeleton() {
     return (
-        <div className="mt-12 border-t border-gray-100 pt-10">
-            <div className="h-6 w-48 bg-gray-200 rounded mb-6 animate-pulse" />
+        <div className="mt-12 border-t border-slate-100 pt-10">
+            <div className="h-6 w-48 bg-slate-200 rounded mb-6 animate-pulse" />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[1, 2, 3].map(i => (
-                    <div key={i} className="h-40 bg-gray-100 rounded-xl animate-pulse" />
+                    <div key={i} className="h-40 bg-slate-100 rounded-xl animate-pulse" />
                 ))}
             </div>
         </div>

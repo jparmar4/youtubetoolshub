@@ -10,20 +10,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className = "", variant = "primary", size = "md", isLoading, children, disabled, ...props }, ref) => {
-        const baseStyles = "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+        const baseStyles = "inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
 
         const variants = {
-            primary: "bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white shadow-lg hover:shadow-purple-500/25 focus:ring-purple-500",
-            secondary: "bg-gradient-to-r from-violet-900 to-violet-800 hover:from-violet-950 hover:to-violet-900 text-white shadow-lg focus:ring-violet-500",
-            // Resting colours target the light theme. `text-purple-400` and
-            // `text-slate-500` were left over from the removed dark theme and
-            // fail WCAG AA on the white background these now sit on.
-            outline: "border-2 border-purple-500 text-purple-700 hover:bg-purple-600 hover:text-white focus:ring-purple-500",
+            primary: "bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white shadow-md shadow-purple-600/20 hover:shadow-lg hover:shadow-purple-600/25",
+            secondary: "bg-slate-900 hover:bg-slate-800 text-white shadow-sm",
+            outline: "border border-purple-300 bg-white text-purple-700 hover:bg-purple-50 hover:border-purple-500",
             ghost: "text-slate-600 hover:text-purple-700 hover:bg-purple-500/10",
-            // Tactile extruded hero CTA (the .btn-3d-* family from globals.css) —
-            // one variant so marketing pages and tools share a single button system.
-            cta: "btn-3d-primary rounded-2xl focus:ring-purple-500",
-            success: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-emerald-500/25 focus:ring-emerald-500",
+            cta: "btn-3d-primary rounded-2xl",
+            success: "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md shadow-emerald-600/20 hover:shadow-lg",
         };
 
         const sizes = {

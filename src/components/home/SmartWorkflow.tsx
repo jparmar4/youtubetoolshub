@@ -89,14 +89,13 @@ export default function SmartWorkflow() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-14">
           <span className="inline-block py-1.5 px-4 rounded-full bg-white border border-purple-200 text-purple-700 text-xs font-extrabold uppercase tracking-widest mb-4 shadow-2xs">
-            3D Smart Context Pipeline
+            Smart Context Pipeline
           </span>
           <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 font-outfit tracking-tight">
             From Idea to Upload in{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">
               5 Minutes
-            </span>{" "}
-            ⚡
+            </span>
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Our tools utilize{" "}

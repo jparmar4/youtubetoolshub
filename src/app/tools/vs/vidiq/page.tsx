@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { siteConfig } from "@/config/site";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
     combineSchemasToGraph,
     getBreadcrumbSchema,
@@ -54,15 +55,15 @@ export default function VidIQComparisonPage() {
                     __html: JSON.stringify(combineSchemasToGraph(breadcrumbSchema, faqSchema)),
                 }}
             />
-            <div className="min-h-screen bg-white pt-28 pb-20">
+            <div className="min-h-screen bg-white pt-10 sm:pt-14 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     {/* Header */}
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                    <div className="text-center max-w-3xl mx-auto mb-12">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black font-outfit text-slate-900 mb-4 tracking-tight">
                             YouTube Tools Hub vs VidIQ
                         </h1>
-                        <p className="text-xl text-slate-600">
+                        <p className="text-lg sm:text-xl text-slate-600">
                             Looking for a VidIQ alternative? Compare workflow focus and confirm VidIQ&apos;s current plan details before choosing.
                         </p>
                     </div>
@@ -74,52 +75,52 @@ export default function VidIQComparisonPage() {
                             <div className="absolute top-0 right-0 bg-purple-700 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">
                                 Browser-based option
                             </div>
-                            <h2 className="text-2xl font-bold text-slate-900 mb-4">YouTube Tools Hub</h2>
+                            <h2 className="text-2xl font-bold text-slate-900 mb-4 font-outfit">YouTube Tools Hub</h2>
                             <ul className="space-y-4 mb-8">
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-600">Generative AI Ideas & Scripts</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-700">Generative AI Ideas &amp; Scripts</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-600">Focused browser-based utilities</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-700">Focused browser-based utilities</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-600">Focus on Content Creation</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-700">Focus on Content Creation</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-600">Modern, Clean Interface</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-700">Modern, Clean Interface</span>
                                 </li>
                             </ul>
-                            <Link href="/tools" className="block w-full py-3 bg-purple-600 text-white font-bold text-center rounded-xl hover:bg-purple-700 transition-colors">
+                            <Link href="/tools" className="btn-3d-primary block w-full py-3.5 text-center rounded-xl font-bold">
                                 Try for Free
                             </Link>
                         </div>
 
                         {/* VidIQ Card */}
                         <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200">
-                            <h2 className="text-2xl font-bold text-slate-700 mb-4">VidIQ</h2>
+                            <h2 className="text-2xl font-bold text-slate-800 mb-4 font-outfit">VidIQ</h2>
                             <ul className="space-y-4 mb-8">
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-600">Deep Analytics</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-700">Deep Analytics</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-500">Creator analytics and SEO features</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-600">Creator analytics and SEO features</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-500">Feature availability varies by plan</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-600">Feature availability varies by plan</span>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-slate-500">Check current product details</span>
+                                    <FaCheck className="text-emerald-600 mt-1 flex-shrink-0" />
+                                    <span className="text-slate-600">Check current product details</span>
                                 </li>
                             </ul>
-                            <a href="https://vidiq.com/jitu" target="_blank" rel="nofollow sponsored noopener" className="block w-full py-3 bg-slate-200 text-slate-600 font-bold text-center rounded-xl hover:bg-slate-300">
+                            <a href="https://vidiq.com/jitu" target="_blank" rel="nofollow sponsored noopener" className="block w-full py-3.5 bg-slate-200 text-slate-800 font-bold text-center rounded-xl hover:bg-slate-300 transition-colors">
                                 Review Current VidIQ Plans
                             </a>
                         </div>
@@ -158,22 +159,15 @@ export default function VidIQComparisonPage() {
 
                     {/* FAQ */}
                     <div className="max-w-4xl mx-auto mb-12">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center font-outfit">
                             VidIQ Alternative — FAQ
                         </h2>
-                        <div className="space-y-6">
-                            {comparisonFaqs.map((item) => (
-                                <div key={item.question} className="bg-slate-50 rounded-xl p-6 border border-slate-100">
-                                    <h3 className="font-bold text-lg text-slate-900 mb-3">{item.question}</h3>
-                                    <p className="text-slate-600 leading-relaxed">{item.answer}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={comparisonFaqs} headingLevel="h3" />
                     </div>
 
                     {/* CTA */}
                     <div className="text-center">
-                        <Link href="/tools" className="inline-flex items-center justify-center px-10 py-4 bg-purple-600 text-white rounded-full font-bold text-lg hover:bg-purple-700 transition-all shadow-lg hover:scale-105">
+                        <Link href="/tools" className="btn-3d-primary inline-flex items-center justify-center px-8 py-4 rounded-2xl font-bold text-lg">
                             Explore Creator Tools
                         </Link>
                     </div>

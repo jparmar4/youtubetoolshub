@@ -35,6 +35,7 @@ import MobileQuickLinks from "@/components/tools/MobileQuickLinks";
 import ToolComponentRenderer from "@/components/tools/ToolComponentRenderer";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import { AD_SLOTS, getAffiliateToolForCategory } from "@/lib/adsense";
+import { FaLayerGroup, FaLock } from "react-icons/fa";
 
 // Only known tools exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
@@ -200,13 +201,13 @@ export default async function ToolPage({
                 }}
             />
 
-            <div className="min-h-screen py-12 lg:py-20 relative overflow-hidden">
+            <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb Navigation */}
                     <AdSectionIgnore>
-                        <div className="mb-8">
+                        <div className="mb-6">
                             <Breadcrumb
                                 items={[
                                     { name: "Home", href: "/" },
@@ -219,7 +220,7 @@ export default async function ToolPage({
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         {/* Main Column */}
-                        <div className="lg:col-span-2 space-y-12">
+                        <div className="lg:col-span-2 space-y-10">
                             <AdSectionPrioritize>
                             {/*
                               Server-rendered H1 + summary OUTSIDE Suspense/client tools.
@@ -239,7 +240,7 @@ export default async function ToolPage({
                                         <div className="flex-1 min-w-0">
                                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
                                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                                <span>{tool.isAI ? "AI-Powered 3D Studio" : "Instant UHD Browser Studio"} · Free</span>
+                                                <span>{tool.isAI ? "AI-Powered Studio" : "Instant Browser Studio"} · Free</span>
                                             </div>
                                             <h1
                                                 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit"
@@ -261,21 +262,16 @@ export default async function ToolPage({
                                     </div>
                                 </div>
 
-                                {/* Trust, Speed & Creator Telemetry Badges */}
+                                {/* Speed, Privacy & Compatibility Badges */}
                                 <div className="mt-5 pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs">
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 text-amber-800 font-bold shadow-2xs">
-                                        <span className="text-amber-500 font-black">★★★★★</span>
-                                        <span>4.9/5</span>
-                                        <span className="text-amber-700/80 font-medium hidden sm:inline">(120,000+ creators)</span>
-                                    </span>
-
                                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 font-bold shadow-2xs">
                                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                        <span>{tool.isAI ? "OpenAI & Gemini Intelligence" : "Instant Browser Engine (0ms)"}</span>
+                                        <span>{tool.isAI ? "AI-Assisted Workflow" : "Instant Browser Engine"}</span>
                                     </span>
 
-                                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 font-bold shadow-2xs">
-                                        <span>🔒 100% Free · No Password Required</span>
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 font-bold shadow-2xs">
+                                        <FaLock className="w-3 h-3 shrink-0" aria-hidden="true" />
+                                        <span>100% Free · No Password Required</span>
                                     </span>
 
                                     <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-sky-50 border border-sky-200/80 text-sky-700 font-bold shadow-2xs">
@@ -284,28 +280,23 @@ export default async function ToolPage({
                                 </div>
                             </header>
 
-                            {/* 3D UHD Interactive Tool Console — Immediately Above the Fold */}
+                            {/* Compact Responsive Leaderboard Above Tool Workspace */}
+                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
+
+                            {/* Interactive Tool Console — Immediately Visible */}
                             <div className="studio-console-3d rounded-3xl overflow-hidden">
                                 <div className="flex items-center justify-between gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-900 text-white border-b border-slate-800">
-                                    <div className="flex items-center gap-2 min-w-0">
-                                        {/* Decorative traffic lights — hidden on mobile so the
-                                            actual tool input is reached sooner */}
-                                        <span className="hidden sm:flex items-center gap-2 shrink-0" aria-hidden="true">
-                                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                                            <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                                    <div className="flex items-center gap-2.5 min-w-0">
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-white/10 text-purple-300 shrink-0" aria-hidden="true">
+                                            <FaLayerGroup className="w-3 h-3" />
                                         </span>
-                                        <span className="ml-0 text-xs font-bold text-slate-200 truncate">
+                                        <span className="text-xs font-bold text-slate-200 truncate">
                                             {tool.name}
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
-                                        <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-slate-300 font-medium mr-1">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                                            Live Session
-                                        </span>
                                         <span className="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                                            Live Engine
+                                            Live Workspace
                                         </span>
                                     </div>
                                 </div>
@@ -320,9 +311,6 @@ export default async function ToolPage({
                             <AdSectionIgnore>
                                 <MobileQuickLinks />
                             </AdSectionIgnore>
-
-                            {/* Leaderboard immediately below the interactive tool */}
-                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
 
                             {/* AEO Quick Answer Capsule */}
                             <QuickAnswerCapsule
@@ -348,7 +336,7 @@ export default async function ToolPage({
                                     <h2 id="worked-example-title" className="text-xl font-black text-slate-900 font-outfit">{toolExamples[tool.slug].title}</h2>
                                     <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4">
-                                            <dt className="text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1">Example Input</dt>
+                                            <dt className="text-xs font-extrabold uppercase tracking-wider text-slate-600 mb-1">Example Input</dt>
                                             <dd className="text-sm font-semibold text-slate-800">{toolExamples[tool.slug].input}</dd>
                                         </div>
                                         <div className="rounded-2xl bg-purple-50/60 border border-purple-200/80 p-4">
@@ -372,7 +360,7 @@ export default async function ToolPage({
                                 <div className="card-3d rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                                     <div>
                                         <p className="text-slate-900 font-extrabold">Found this tool helpful?</p>
-                                        <p className="text-xs text-slate-500">Share with creators or embed directly on your website.</p>
+                                        <p className="text-xs text-slate-600">Share with creators or embed directly on your website.</p>
                                     </div>
                                     <div className="flex flex-wrap items-center gap-3">
                                         <EmbedModal slug={tool.slug} toolName={tool.name} />
@@ -409,7 +397,7 @@ export default async function ToolPage({
                                                 href="/resources/youtube-cpm-rates"
                                                 className="text-xs font-bold text-purple-700 hover:underline shrink-0"
                                             >
-                                                Compare 52 Country CPMs →
+                                                Compare {countryCPMData.length} Country CPMs →
                                             </Link>
                                         </div>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -618,7 +606,7 @@ export default async function ToolPage({
                                 <div className="card-3d rounded-3xl p-6 sm:p-8 mt-8">
                                     <div className="flex items-center justify-between gap-3 mb-5">
                                         <h3 className="text-xl font-black text-slate-900 font-outfit">
-                                            Related 3D Creator Tools
+                                            Related Creator Tools
                                         </h3>
                                         <Link
                                             href="/tools"
@@ -643,7 +631,7 @@ export default async function ToolPage({
                                                     <span className="block font-bold text-sm text-slate-900 group-hover:text-purple-700 transition-colors leading-snug">
                                                         {t.name}
                                                     </span>
-                                                    <span className="block text-xs text-slate-500 truncate mt-0.5">
+                                                    <span className="block text-xs text-slate-600 truncate mt-0.5">
                                                         {t.shortDescription}
                                                     </span>
                                                 </div>

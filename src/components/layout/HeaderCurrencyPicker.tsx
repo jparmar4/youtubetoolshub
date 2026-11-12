@@ -74,7 +74,7 @@ function HeaderCurrencyPicker() {
         type="button"
         ref={triggerRef}
         onClick={() => setIsOpen((prev) => !prev)}
-        className="h-9 inline-flex items-center gap-1.5 px-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 text-xs font-bold transition-all shadow-[inset_0_1px_0_0_#fff,0_1px_2px_rgba(15,23,42,0.05)] hover:border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500/40 whitespace-nowrap"
+        className="h-9 inline-flex items-center gap-1.5 px-3 rounded-full bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 text-xs font-semibold transition-all shadow-2xs hover:border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-500/40 whitespace-nowrap cursor-pointer"
         aria-haspopup="menu"
         aria-expanded={isOpen}
       >
@@ -112,10 +112,10 @@ function HeaderCurrencyPicker() {
                   key={code}
                   type="button"
                   onClick={() => handleSelect(code)}
-                  className={`w-full px-3.5 py-2 text-left text-xs font-semibold flex items-center justify-between transition-colors ${
+                  className={`w-full px-3.5 py-2 text-left text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
                     isSelected
-                      ? "bg-purple-50 text-purple-700 font-bold"
-                      : "text-slate-700 hover:bg-slate-50"
+                      ? "bg-purple-50 text-purple-800 font-bold"
+                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-950"
                   }`}
                 >
                   <span className="flex items-center gap-2.5">

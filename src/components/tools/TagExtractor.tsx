@@ -269,16 +269,18 @@ export default function TagExtractor() {
                             <div className="flex flex-wrap items-center gap-2">
                                 <CopyButton text={csvFormat} variant="button" label="Copy CSV" />
                                 <button
+                                    type="button"
                                     onClick={handleDownloadCSV}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as CSV"
                                 >
                                     <FaDownload className="text-[11px]" />
                                     <span>CSV</span>
                                 </button>
                                 <button
+                                    type="button"
                                     onClick={handleDownloadTXT}
-                                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
+                                    className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-200 text-slate-700 hover:border-purple-300 hover:text-purple-600 transition-colors shadow-sm"
                                     title="Download tags as Plain Text"
                                 >
                                     <FaFileAlt className="text-[11px]" />
@@ -302,12 +304,12 @@ export default function TagExtractor() {
                         {/* Tips */}
                         <div className="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-100 rounded-2xl p-5">
                             <h4 className="font-bold text-slate-900 mb-2 text-sm">
-                                💡 How to Use Competitor Tags
+                                How to Use Competitor Tags
                             </h4>
                             <ul className="text-xs text-slate-600 space-y-1.5">
                                 <li>• <strong>Analyze Keyword Grouping</strong>: Note which broad and niche phrases this video prioritizes.</li>
                                 <li>• <strong>Never Direct Copy Blindly</strong>: Ensure all tags you adapt are 100% relevant to your actual video.</li>
-                                <li>• <strong>Scale With AI</strong>: Use our <Link href="/tools/youtube-tag-generator"className="underline font-semibold text-purple-600">Tag Generator</Link> to generate fresh 500-character sets.</li>
+                                <li>• <strong>Scale With AI</strong>: Use our <Link href="/tools/youtube-tag-generator" className="underline font-semibold text-purple-600">Tag Generator</Link> to generate fresh 500-character sets.</li>
                             </ul>
                         </div>
                     </div>

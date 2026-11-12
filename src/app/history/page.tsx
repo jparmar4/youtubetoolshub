@@ -76,9 +76,9 @@ export default function HistoryPage() {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 pt-10 sm:pt-14 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
             {/* Background Decor */}
-            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-br from-purple-100/50 via-blue-50/30 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-br from-purple-100/50 via-fuchsia-50/30 to-transparent pointer-events-none" />
 
             <div className="max-w-7xl mx-auto space-y-8 relative z-10">
 
@@ -88,7 +88,7 @@ export default function HistoryPage() {
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-semibold uppercase tracking-wider mb-4"
+                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider mb-4"
                         >
                             <FaHistory /> Cloud History
                         </motion.div>
@@ -96,9 +96,9 @@ export default function HistoryPage() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2"
+                            className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2 font-outfit"
                         >
-                            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Creative Vault</span>
+                            Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">Creative Vault</span>
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0 }}
@@ -124,7 +124,7 @@ export default function HistoryPage() {
                                 placeholder="Search history..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-slate-900"
+                                className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all text-slate-900 placeholder:text-slate-500"
                             />
                         </div>
                         <div className="relative w-full sm:w-64">
@@ -167,16 +167,16 @@ export default function HistoryPage() {
                         animate={{ opacity: 1, scale: 1 }}
                         className="py-16 text-center"
                     >
-                        <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500">
+                        <div className="w-24 h-24 bg-gradient-to-br from-purple-100 to-fuchsia-100 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-600">
                             {searchTerm || toolFilter !== "all" ? <FaSearch size={32} /> : <FaHistory size={32} />}
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                        <h3 className="text-2xl font-bold text-slate-900 mb-2 font-outfit">
                             {searchTerm || toolFilter !== "all" ? "No matches found" : "Your vault is empty"}
                         </h3>
-                        <p className="text-slate-500 max-w-md mx-auto mb-8">
+                        <p className="text-slate-600 max-w-md mx-auto mb-8">
                             {searchTerm || toolFilter !== "all"
                                 ? "Try adjusting your search terms or filters to find what you're looking for."
-                                : "Start generating amazing content with our AI tools to verify it here automatically."}
+                                : "Start generating amazing content with our AI tools to save it here automatically."}
                         </p>
                     </motion.div>
                 ) : (
@@ -259,7 +259,7 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight line-clamp-2 group-hover:text-blue-500 transition-colors">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight line-clamp-2 group-hover:text-purple-700 transition-colors">
                     {title}
                 </h3>
 
@@ -284,11 +284,13 @@ function HistoryCard({ item, index, onDelete }: { item: HistoryItem, index: numb
 
             {/* Actions */}
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 mt-auto">
-                <CopyButton text={copyText} variant="icon" className="text-slate-500 hover:text-blue-500" />
+                <CopyButton text={copyText} variant="icon" className="text-slate-600 hover:text-purple-700" />
 
                 <button
+                    type="button"
                     onClick={onDelete}
-                    className="p-2 rounded-lg text-slate-500 hover:text-emerald-500 hover:bg-red-50 transition-all"
+                    aria-label="Delete item"
+                    className="p-2 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer"
                     title="Delete item"
                 >
                     <FaTrash size={14} />

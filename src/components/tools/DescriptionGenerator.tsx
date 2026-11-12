@@ -165,7 +165,7 @@ function DescriptionGeneratorContent() {
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
             {/* Input Section */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-gray-100">
+            <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div className="col-span-1 md:col-span-2">
                         {/* Quick Presets Pills */}
@@ -245,7 +245,7 @@ function DescriptionGeneratorContent() {
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center animate-pulse">
                         <FaMagic className="w-8 h-8 text-white" />
                     </div>
-                    <p className="text-gray-600">
+                    <p className="text-slate-600">
                         Writing a human-sounding description optimized for SEO...
                     </p>
                 </div>
@@ -262,32 +262,34 @@ function DescriptionGeneratorContent() {
             {/* Results Section */}
             {description && !loading && (
                 <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                            <FaAlignLeft className="text-blue-500" /> Result
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <FaAlignLeft className="text-blue-600" /> Result
                         </h3>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                             <button
+                                type="button"
                                 onClick={() => setViewMode("preview")}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${viewMode === "preview"
-                                    ?"bg-gray-100 text-gray-900"
-                                    :"text-gray-500 hover:text-gray-900"
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 cursor-pointer ${viewMode === "preview"
+                                    ? "bg-slate-100 text-slate-900 font-semibold"
+                                    : "text-slate-600 hover:text-slate-900"
                                     }`}
                             >
                                 <FaEye /> Preview
                             </button>
                             <button
+                                type="button"
                                 onClick={() => setViewMode("edit")}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${viewMode === "edit"
-                                    ?"bg-gray-100 text-gray-900"
-                                    :"text-gray-500 hover:text-gray-900"
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 cursor-pointer ${viewMode === "edit"
+                                    ? "bg-slate-100 text-slate-900 font-semibold"
+                                    : "text-slate-600 hover:text-slate-900"
                                     }`}
                             >
                                 <FaPen /> Edit
                             </button>
                             <Link
                                 href={`/tools/youtube-ai-thumbnail-prompt?topic=${encodeURIComponent(topic)}`}
-                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-emerald-600 hover:bg-pink-50"
+                                className="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 text-purple-700 hover:bg-purple-50"
                             >
                                 <FaImage /> Thumbnail
                             </Link>
@@ -296,35 +298,35 @@ function DescriptionGeneratorContent() {
                     </div>
 
                     {viewMode === "preview" ? (
-                        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-                            <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center gap-2">
-                                <FaYoutube className="text-emerald-500" />
-                                <span className="text-xs font-bold text-gray-500 uppercase">YouTube Player View</span>
+                        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                            <div className="bg-slate-50 px-4 py-2 border-b border-slate-200 flex items-center gap-2">
+                                <FaYoutube className="text-red-600" />
+                                <span className="text-xs font-bold text-slate-600 uppercase">YouTube Player View</span>
                             </div>
                             <div className="p-6">
                                 <div className="space-y-2">
-                                    <div className="h-6 w-3/4 bg-gray-100 rounded mb-4"></div>
+                                    <div className="h-6 w-3/4 bg-slate-100 rounded mb-4"></div>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-full bg-gray-200"></div>
+                                        <div className="w-10 h-10 rounded-full bg-slate-200"></div>
                                         <div className="space-y-1">
-                                            <div className="h-3 w-32 bg-gray-100 rounded"></div>
-                                            <div className="h-3 w-20 bg-gray-100 rounded"></div>
+                                            <div className="h-3 w-32 bg-slate-100 rounded"></div>
+                                            <div className="h-3 w-20 bg-slate-100 rounded"></div>
                                         </div>
                                     </div>
 
-                                    <div className="bg-gray-100 p-4 rounded-xl text-sm leading-relaxed text-gray-800 whitespace-pre-wrap font-sans">
+                                    <div className="bg-slate-50 border border-slate-200/80 p-4 rounded-xl text-sm leading-relaxed text-slate-800 whitespace-pre-wrap font-sans">
                                         {description}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                        <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200">
                             <Textarea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                                 rows={15}
-                                className="border-0 focus:ring-0 p-6 font-mono text-sm leading-relaxed text-gray-800"
+                                className="border-0 focus:ring-0 p-6 font-mono text-sm leading-relaxed text-slate-800"
                             />
                         </div>
                     )}

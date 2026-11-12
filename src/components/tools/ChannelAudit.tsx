@@ -133,7 +133,7 @@ export default function ChannelAudit() {
                 <button
                     type="button"
                     onClick={runAudit}
-                    className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-bold text-white transition-colors hover:bg-slate-700"
+                    className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-bold text-white transition-colors hover:bg-slate-700"
                 >
                     <FaClipboardCheck />
                     Review Checklist
@@ -153,7 +153,7 @@ export default function ChannelAudit() {
                                 type="button"
                                 onClick={handleSave}
                                 disabled={saved}
-                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+                                className="cursor-pointer inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-60 disabled:cursor-default"
                             >
                                 {saved ? <FaCheckCircle className="text-green-600" /> : <FaBookmark />}
                                 {saved ? "Saved" : "Save"}
@@ -161,7 +161,7 @@ export default function ChannelAudit() {
                             <button
                                 type="button"
                                 onClick={() => setShowShareModal(true)}
-                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
+                                className="cursor-pointer inline-flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
                             >
                                 <FaShareAlt />
                                 Share

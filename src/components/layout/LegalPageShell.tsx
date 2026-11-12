@@ -32,45 +32,46 @@ const ACCENT_PRESETS: Record<LegalPageAccent, AccentPreset> = {
         wrapper: "min-h-screen bg-slate-50 relative overflow-hidden",
         background:
             "absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-purple-200/20 blur-[100px] rounded-full pointer-events-none",
-        hero: "relative pt-24 pb-12 lg:pt-32 lg:pb-16",
+        hero: "relative pt-10 pb-8 lg:pt-14 lg:pb-10",
         badge:
-            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white mb-8 shadow-2xl shadow-purple-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300",
-        title: "text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight",
-        content: "py-12",
-        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 md:p-14 space-y-12 relative overflow-hidden",
+            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white mb-6 shadow-2xl shadow-purple-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300",
+        title: "text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight font-outfit",
+        content: "py-8 sm:py-10",
+        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 sm:p-8 md:p-12 space-y-10 relative overflow-hidden",
         topBorder: "bg-gradient-to-r from-purple-500 via-fuchsia-500 to-indigo-500",
     },
     indigo: {
         wrapper: "min-h-screen bg-slate-50 relative overflow-hidden",
         background:
             "absolute top-0 right-1/4 w-full h-[500px] bg-indigo-200/20 blur-[100px] rounded-full pointer-events-none",
-        hero: "relative pt-24 pb-12 lg:pt-32 lg:pb-16",
+        hero: "relative pt-10 pb-8 lg:pt-14 lg:pb-10",
         badge:
-            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-8 shadow-2xl shadow-indigo-900/10 transform -rotate-3 hover:rotate-0 transition-transform duration-300",
-        title: "text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight",
-        content: "py-12",
-        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 md:p-14 space-y-12",
+            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white mb-6 shadow-2xl shadow-indigo-900/10 transform -rotate-3 hover:rotate-0 transition-transform duration-300",
+        title: "text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight font-outfit",
+        content: "py-8 sm:py-10",
+        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 sm:p-8 md:p-12 space-y-10",
     },
     fuchsia: {
         wrapper: "min-h-screen bg-slate-50 relative overflow-hidden",
         background:
             "absolute top-0 left-1/4 w-full h-[500px] bg-fuchsia-200/20 blur-[100px] rounded-full pointer-events-none",
-        hero: "relative pt-24 pb-12 lg:pt-32 lg:pb-16",
+        hero: "relative pt-10 pb-8 lg:pt-14 lg:pb-10",
         badge:
-            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-8 shadow-2xl shadow-fuchsia-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300",
-        title: "text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight",
-        content: "py-12",
-        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 md:p-14 space-y-12 relative overflow-hidden",
+            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-fuchsia-600 to-purple-600 text-white mb-6 shadow-2xl shadow-fuchsia-900/10 transform rotate-3 hover:rotate-6 transition-transform duration-300",
+        title: "text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight font-outfit",
+        content: "py-8 sm:py-10",
+        card: "bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 sm:p-8 md:p-12 space-y-10 relative overflow-hidden",
         topBorder: "bg-gradient-to-r from-fuchsia-500 via-purple-500 to-indigo-500",
     },
     amber: {
-        wrapper: "min-h-screen",
-        hero: "relative overflow-hidden hero-gradient-light py-16 lg:py-20",
-        heroOverlay: "absolute inset-0 bg-dots opacity-20",
+        wrapper: "min-h-screen bg-slate-50 relative overflow-hidden",
+        background:
+            "absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-amber-200/20 blur-[100px] rounded-full pointer-events-none",
+        hero: "relative pt-10 pb-8 lg:pt-14 lg:pb-10",
         badge:
-            "inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white mb-6 shadow-lg",
-        title: "text-4xl md:text-5xl font-bold text-gray-900",
-        content: "py-12 bg-gray-50",
+            "inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-400 to-orange-500 text-white mb-6 shadow-2xl shadow-amber-900/10",
+        title: "text-3xl md:text-4xl font-black text-slate-900 mb-4 tracking-tight font-outfit",
+        content: "py-8 sm:py-10",
     },
 };
 

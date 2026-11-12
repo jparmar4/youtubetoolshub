@@ -6,7 +6,9 @@ import { siteConfig } from "@/config/site";
 import { getGlobalAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Pricing - Free vs Premium Plans (Save 50% Today)",
+  title: {
+    absolute: "Pricing — Free YouTube Tools vs Pro Creator Suite",
+  },
   description:
     "Compare Free vs Premium plans for YouTube Tools Hub. Core tools are free to use, while Pro offers higher limits and priority access for power users.",
   keywords: [

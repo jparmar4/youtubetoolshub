@@ -63,8 +63,8 @@ export default function NewsletterSignup() {
                 </div>
             ) : status === "error" ? (
                 <div role="alert" className="space-y-3">
-                    <p className="text-red-500 text-sm font-medium">{message || "Something went wrong."}</p>
-                    <button onClick={() => setStatus("idle")} className="text-purple-600 hover:underline text-sm font-medium">Try again</button>
+                    <p className="text-rose-600 text-sm font-medium">{message || "Something went wrong."}</p>
+                    <button type="button" onClick={() => setStatus("idle")} className="text-purple-600 hover:underline text-sm font-medium cursor-pointer">Try again</button>
                 </div>
             ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -74,14 +74,14 @@ export default function NewsletterSignup() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your creator email"
                         aria-label="Email address"
-                        className="flex-1 px-4 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
+                        className="flex-1 px-4 py-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder:text-slate-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm"
                         required
                         disabled={status === "loading"}
                     />
                     <button
                         type="submit"
                         disabled={status === "loading"}
-                        className="px-6 py-3.5 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 disabled:opacity-50 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-md shadow-purple-500/20 text-sm hover:scale-[1.01]"
+                        className="px-6 py-3.5 bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 disabled:opacity-50 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-md shadow-purple-500/20 text-sm cursor-pointer"
                     >
                         {status === "loading" ? (
                             <>

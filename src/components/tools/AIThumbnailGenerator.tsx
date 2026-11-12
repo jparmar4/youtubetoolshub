@@ -193,9 +193,9 @@ export default function AIThumbnailGenerator() {
 
 
                 {/* Example Prompts */}
-                <div className="bg-gray-50 rounded-xl p-4">
-                    <p className="text-sm font-medium text-gray-700 mb-3">
-                        💡 Try these example prompts:
+                <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4">
+                    <p className="text-sm font-medium text-slate-700 mb-3">
+                        Try these example prompts:
                     </p>
                     <PresetPills
                         label="Example prompts"
@@ -219,10 +219,10 @@ export default function AIThumbnailGenerator() {
                         <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 flex items-center justify-center animate-pulse">
                             <FaImage className="w-10 h-10 text-white" />
                         </div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        <h3 className="text-xl font-semibold text-slate-900 mb-2">
                             Creating 2 Thumbnail Options...
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-slate-600">
                             This usually takes 10-15 seconds
                         </p>
                     </div>
@@ -240,26 +240,26 @@ export default function AIThumbnailGenerator() {
                 {generatedImages.length > 0 && !loading && (
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-lg font-semibold text-gray-900">
+                            <h3 className="text-lg font-semibold text-slate-900">
                                 Choose Your Thumbnail
                             </h3>
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-slate-600">
                                 {generatedImages.length} options generated
                             </span>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {generatedImages.map((imageUrl, index) => (
-                                <div key={index} className="bg-gray-100 rounded-2xl p-4 space-y-3">
+                                <div key={index} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
                                     <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm font-medium text-gray-700">
+                                        <span className="text-sm font-semibold text-slate-700">
                                             Option {index + 1}
                                         </span>
-                                        <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full">
+                                        <span className="text-xs px-2.5 py-0.5 bg-purple-100 text-purple-700 rounded-full font-semibold">
                                             AI Generated
                                         </span>
                                     </div>
-                                    <div className="aspect-video rounded-xl overflow-hidden bg-gray-200">
+                                    <div className="aspect-video rounded-xl overflow-hidden bg-slate-200">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={imageUrl}
@@ -287,9 +287,9 @@ export default function AIThumbnailGenerator() {
                             </Button>
                         </div>
 
-                        <div className="bg-blue-50 rounded-xl p-4">
-                            <p className="text-sm text-blue-700">
-                                💡 <strong>Tip:</strong> Add text overlays to your thumbnail using image editing
+                        <div className="bg-blue-50 border border-blue-200/80 rounded-xl p-4">
+                            <p className="text-sm text-blue-800">
+                                <strong>Tip:</strong> Add text overlays to your thumbnail using image editing
                                 software or try our <strong>Thumbnail Text Generator</strong> tool for catchy text ideas!
                             </p>
                         </div>
