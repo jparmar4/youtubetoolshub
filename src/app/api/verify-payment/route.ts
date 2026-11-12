@@ -8,6 +8,7 @@ import { RAZORPAY_PLAN_IDS } from "@/lib/razorpay-plans";
 
 type RazorpaySubscription = {
   plan_id?: string;
+  status?: string;
   current_start?: number;
   current_end?: number;
   notes?: { user_email?: string };
@@ -67,8 +68,20 @@ export async function POST(request: Request) {
         ? "monthly"
         : null;
 
-    if (!planType || subscription.notes?.user_email !== session.user.email) {
+    // Ownership check is case-insensitive (DB rows normalize to lowercase).
+    const notesEmail = String(subscription.notes?.user_email ?? "").toLowerCase();
+
+    // A subscription in pending/created/halted state must never grant Pro even
+    // if it carries current_start/current_end — require an active lifecycle.
+    const statusOk = ["active", "authenticated"].includes(
+      String(subscription.status ?? "").toLowerCase(),
+    );
+
+    if (!planType || notesEmail !== session.user.email.toLowerCase()) {
       return NextResponse.json({ success: false, error: "Subscription does not match this account" }, { status: 400 });
+    }
+    if (!statusOk) {
+      return NextResponse.json({ success: false, error: "Subscription is not active" }, { status: 400 });
     }
     if (!subscription.current_start || !subscription.current_end) {
       return NextResponse.json({ success: false, error: "Subscription has no active billing period" }, { status: 400 });

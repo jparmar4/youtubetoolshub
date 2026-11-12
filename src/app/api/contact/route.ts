@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
                 EMAIL_PASS: !!emailPass
             });
             return NextResponse.json(
-                { error: "Email service not configured (Missing Server Environment Variables)" },
+                { error: "Email service is temporarily unavailable. Please email us directly." },
                 { status: 500 }
             );
         }

@@ -1,35 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 import { db } from "@/lib/db";
-
-const SUBSCRIBERS_FILE = path.join(process.cwd(), "data", "subscribers.json");
-
-interface Subscriber {
-  email: string;
-  subscribedAt: string;
-  source: string;
-}
-
-async function getSubscribers(): Promise<Subscriber[]> {
-  try {
-    const data = await fs.readFile(SUBSCRIBERS_FILE, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-}
-
-async function saveSubscribers(subscribers: Subscriber[]): Promise<void> {
-  const dir = path.dirname(SUBSCRIBERS_FILE);
-  await fs.mkdir(dir, { recursive: true });
-  // Atomic write: a crash mid-write previously truncated subscribers.json,
-  // after which reads silently returned [] and duplicates flowed to MySQL.
-  const tmpPath = `${SUBSCRIBERS_FILE}.tmp`;
-  await fs.writeFile(tmpPath, JSON.stringify(subscribers, null, 2), "utf-8");
-  await fs.rename(tmpPath, SUBSCRIBERS_FILE);
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -72,41 +43,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for duplicates
-    const subscribers = await getSubscribers();
-    const exists = subscribers.some((s) => s.email === normalizedEmail);
-
-    if (exists) {
-      return NextResponse.json(
-        { message: "You're already subscribed! Check your inbox for our latest tips." },
-        { status: 200 },
-      );
+    // Check for duplicates directly in MySQL (the single durable store).
+    try {
+      const existing = await db.sql`
+        SELECT email FROM newsletter_subscribers WHERE email = ${normalizedEmail} LIMIT 1
+      `;
+      if (Array.isArray(existing) && existing.length > 0) {
+        return NextResponse.json(
+          { message: "You're already subscribed! Check your inbox for our latest tips." },
+          { status: 200 },
+        );
+      }
+    } catch (dbErr) {
+      console.error("[Newsletter] Duplicate check error:", dbErr);
+      // Fall through — INSERT IGNORE below still prevents duplicates.
     }
 
     const source = (request.headers.get("referer") || "direct").slice(0, 500);
 
-    // 1. Persist to MySQL database
-    try {
-      await db.sql`
-        INSERT IGNORE INTO newsletter_subscribers (email, source)
-        VALUES (${normalizedEmail}, ${source})
-      `;
-    } catch (dbErr) {
-      console.error("[Newsletter] Database save error:", dbErr);
-    }
-
-    // 2. Best-effort local file backup — MySQL is the durable store; a file
-    // failure must not fail the request after the DB insert succeeded.
-    try {
-      subscribers.push({
-        email: normalizedEmail,
-        subscribedAt: new Date().toISOString(),
-        source,
-      });
-      await saveSubscribers(subscribers);
-    } catch (fileErr) {
-      console.error("[Newsletter] File backup error (non-fatal):", fileErr);
-    }
+    // Persist to MySQL (INSERT IGNORE guards against duplicate-key races).
+    await db.sql`
+      INSERT IGNORE INTO newsletter_subscribers (email, source)
+      VALUES (${normalizedEmail}, ${source})
+    `;
 
     return NextResponse.json(
       { message: "Successfully subscribed! Welcome to YouTube Tools Hub." },

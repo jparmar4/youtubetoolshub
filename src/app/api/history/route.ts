@@ -74,8 +74,8 @@ export async function POST(request: Request) {
         const { toolSlug, type, content } = body;
         const email = session.user.email;
 
-        // Validate toolSlug
-        if (!toolSlug || typeof toolSlug !== "string" || toolSlug.length > 100) {
+        // Validate toolSlug (same shape as usage/route.ts — lowercase slugs)
+        if (!toolSlug || typeof toolSlug !== "string" || !/^[a-z0-9-]{1,100}$/.test(toolSlug)) {
             return NextResponse.json({ error: "Invalid toolSlug" }, { status: 400 });
         }
 

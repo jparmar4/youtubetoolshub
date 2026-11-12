@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
         // Fetch comments
         while (nextPageToken !== null && fetchedCount < maxComments) {
-            const apiUrl: string = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=100&order=relevance&key=${apiKey}&pageToken=${nextPageToken || ""}`;
+            const apiUrl: string = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${encodeURIComponent(videoId)}&maxResults=100&order=relevance&key=${apiKey}&pageToken=${encodeURIComponent(nextPageToken || "")}`;
 
             const response = await fetch(apiUrl);
             const data = await response.json();
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
                     );
                 }
                 return NextResponse.json(
-                    { error: data.error?.message || "YouTube API error" },
+                    { error: "YouTube API error" },
                     { status: response.ok ? 400 : response.status }
                 );
             }

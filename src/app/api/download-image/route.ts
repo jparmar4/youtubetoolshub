@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { enforceRateLimit, getRequestIp, isSearchEngineBot } from "@/lib/rate-limit";
+import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
 const NOINDEX_HEADERS = {
@@ -12,24 +12,22 @@ const NOINDEX_HEADERS = {
  */
 export async function GET(req: NextRequest) {
     try {
-        const userAgent = req.headers.get("user-agent");
-        const isBot = isSearchEngineBot(userAgent);
-
-        if (!isBot) {
-            const ip = getRequestIp(req.headers);
-            const rateLimit = enforceRateLimit(`download-image:${ip}`, 30, 60 * 60 * 1000);
-            if (!rateLimit.allowed) {
-                return NextResponse.json(
-                    { error: "Too many downloads. Please try again later." },
-                    {
-                        status: 429,
-                        headers: {
-                            ...NOINDEX_HEADERS,
-                            "Retry-After": String(rateLimit.retryAfterSeconds),
-                        },
+        // Rate limit applies to EVERYONE — the UA string is client-controlled,
+        // so exempting claimed "search bots" turned this image proxy into an
+        // unlimited-bandwidth relay for anyone sending a Googlebot UA.
+        const ip = getRequestIp(req.headers);
+        const rateLimit = enforceRateLimit(`download-image:${ip}`, 30, 60 * 60 * 1000);
+        if (!rateLimit.allowed) {
+            return NextResponse.json(
+                { error: "Too many downloads. Please try again later." },
+                {
+                    status: 429,
+                    headers: {
+                        ...NOINDEX_HEADERS,
+                        "Retry-After": String(rateLimit.retryAfterSeconds),
                     },
-                );
-            }
+                },
+            );
         }
 
         const { searchParams } = new URL(req.url);
@@ -53,7 +51,8 @@ export async function GET(req: NextRequest) {
             const parsedUrl = new URL(imageUrl);
             const hostname = parsedUrl.hostname;
             const isAllowed = ALLOWED_DOMAINS.some(d => hostname === d || hostname.endsWith("." + d));
-            if (!isAllowed || !["http:", "https:"].includes(parsedUrl.protocol)) {
+            // https only — cleartext fetches of allowlisted hosts serve no purpose.
+            if (!isAllowed || parsedUrl.protocol !== "https:") {
                 return NextResponse.json(
                     { error: "Domain not allowed" },
                     { status: 400, headers: NOINDEX_HEADERS }

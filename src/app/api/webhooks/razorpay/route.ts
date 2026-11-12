@@ -51,18 +51,28 @@ export async function POST(req: NextRequest) {
             const subscription = payload?.subscription?.entity;
             const payment = payload?.payment?.entity;
 
-            const userEmail = subscription?.notes?.user_email || payment?.email;
+            // notes.user_email is set server-side at subscription creation and is
+            // the only trustworthy owner. payment.email is whatever the payer
+            // typed at checkout — never grant Pro based on it.
+            const userEmail = subscription?.notes?.user_email;
             const currentEnd = subscription?.current_end; // Unix timestamp
             const planId = subscription?.plan_id;
             const paymentId = payment?.id;
 
+            // Canonical plan vocabulary — same names verify-payment writes.
+            // Unknown plan IDs (another product in the same Razorpay account,
+            // or a rotation the code hasn't learned yet) are skipped instead of
+            // defaulting to pro-monthly, which would silently grant Pro.
+            const planName = planIdToCanonical(planId);
+            if (!planName) {
+                console.warn(
+                    `[Razorpay Webhook] Unrecognized plan_id "${planId}" — skipping charged event`,
+                );
+                return NextResponse.json({ status: "ok" });
+            }
+
             if (userEmail && currentEnd) {
                 const endDate = new Date(currentEnd * 1000).toISOString();
-                // Canonical plan vocabulary — same names verify-payment writes.
-                // Nothing reads `plan` today (only status/end_date); unknown plan
-                // IDs (rotation) fall back to monthly rather than guessing by
-                // substring.
-                const planName = planIdToCanonical(planId) ?? "pro-monthly";
 
                 await db.sql`
                     INSERT INTO subscriptions (user_email, plan, status, start_date, end_date, payment_id)

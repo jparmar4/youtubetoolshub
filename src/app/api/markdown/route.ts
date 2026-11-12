@@ -773,15 +773,18 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 
 function buildNotFoundMarkdown(pathname: string): string {
   const baseUrl = siteConfig.url;
+  // Strip markdown/backtick metacharacters — the raw path is attacker-controlled
+  // and this body targets AI agents, so keep it inert prose.
+  const safePath = pathname.replace(/[`[\]#*_>|]/g, "").slice(0, 300);
   return `---
 title: "404 Page Not Found | YouTube Tools Hub"
 status: 404
-url: "${baseUrl}${pathname}"
+url: "${baseUrl}${safePath}"
 ---
 
 # 404 — Page Not Found
 
-The requested resource (\`${pathname}\`) does not exist on YouTube Tools Hub.
+The requested resource (\`${safePath}\`) does not exist on YouTube Tools Hub.
 
 - [Home — YouTube Tools Hub](${baseUrl})
 - [All ${tools.length} Free YouTube Tools](${baseUrl}/tools)

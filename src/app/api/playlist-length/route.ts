@@ -70,13 +70,13 @@ export async function POST(req: Request) {
 
         // Fetch playlist details (title, thumbnail)
         const playlistResponse = await fetch(
-            `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${apiKey}`
+            `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${encodeURIComponent(playlistId)}&key=${apiKey}`
         );
         const playlistData = await playlistResponse.json();
 
         if (!playlistResponse.ok || playlistData.error) {
             return NextResponse.json(
-                { error: playlistData.error?.message || "YouTube API error" },
+                { error: "YouTube API error" },
                 { status: playlistResponse.ok ? 400 : playlistResponse.status }
             );
         }
@@ -96,13 +96,13 @@ export async function POST(req: Request) {
 
         // Fetch videos
         while (nextPageToken !== null && fetchedVideos < maxVideos) {
-            const itemsUrl: string = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${playlistId}&key=${apiKey}&pageToken=${nextPageToken || ""}`;
+            const itemsUrl: string = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${encodeURIComponent(playlistId)}&key=${apiKey}&pageToken=${nextPageToken || ""}`;
             const itemsResponse = await fetch(itemsUrl);
             const itemsData = await itemsResponse.json();
 
             if (!itemsResponse.ok || itemsData.error) {
                 return NextResponse.json(
-                    { error: itemsData.error?.message || "YouTube API error" },
+                    { error: "YouTube API error" },
                     { status: itemsResponse.ok ? 400 : itemsResponse.status }
                 );
             }
@@ -120,7 +120,7 @@ export async function POST(req: Request) {
 
             if (!videosResponse.ok || videosData.error) {
                 return NextResponse.json(
-                    { error: videosData.error?.message || "YouTube API error" },
+                    { error: "YouTube API error" },
                     { status: videosResponse.ok ? 400 : videosResponse.status }
                 );
             }

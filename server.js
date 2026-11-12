@@ -11,7 +11,18 @@ if (!process.env.PORT) {
   process.env.PORT = '3000';
 }
 
-console.log(`[server] Starting on port ${process.env.PORT}`);
+// Bind the Node port to loopback so it is only reachable through the local
+// panel proxy. A publicly reachable Node port would let attackers rotate a
+// spoofed `x-real-ip` / `x-forwarded-for` per request and defeat every
+// per-IP rate limit. Override with BIND_HOST=0.0.0.0 only if your proxy
+// genuinely runs on a different machine.
+if (!process.env.BIND_HOST) {
+  process.env.BIND_HOST = '127.0.0.1';
+}
+// Next's standalone server reads HOSTNAME for its bind address.
+process.env.HOSTNAME = process.env.BIND_HOST;
+
+console.log(`[server] Starting on ${process.env.BIND_HOST}:${process.env.PORT}`);
 
 // Ensure the current working directory is the root of the project
 process.chdir(__dirname);
@@ -136,7 +147,8 @@ function handleStaticRequest(req, res, nextHandler) {
       // Explicit 404 for missing static chunks instead of falling through to Next.js handler.
       // If Next.js handles it, it returns an HTML 404 which causes strict MIME checking errors in the browser,
       // preventing the Next.js client router from recovering gracefully.
-      res.writeHead(404, { 'Content-Type': 'application/javascript; charset=utf-8' });
+      // text/plain keeps the type honest for non-JS requests (favicon/images too).
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end();
     }
     return;
@@ -165,8 +177,21 @@ const _createServer = http.createServer.bind(http);
 http.createServer = function (opts, handler) {
   const h = typeof opts === 'function' ? opts : handler;
   const o = typeof opts === 'function' ? {} : opts;
-  
-  return _createServer(o, (req, res) => handleStaticRequest(req, res, h));
+
+  return _createServer(o, (req, res) => {
+    // Trust client-IP headers ONLY from the local reverse proxy. A direct
+    // connection to this port could otherwise spoof `x-real-ip` /
+    // `x-forwarded-for` per request and bypass every per-IP rate limit.
+    const peer = req.socket.remoteAddress || '';
+    const isLocalProxy =
+      peer === '127.0.0.1' || peer === '::1' || peer === '::ffff:127.0.0.1';
+    if (!isLocalProxy) {
+      delete req.headers['x-real-ip'];
+      delete req.headers['cf-connecting-ip'];
+      delete req.headers['x-forwarded-for'];
+    }
+    handleStaticRequest(req, res, h);
+  });
 };
 
 // Start Next.js

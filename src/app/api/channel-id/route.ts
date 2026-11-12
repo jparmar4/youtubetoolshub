@@ -72,7 +72,7 @@ async function resolveChannelByQuery(rawQuery: unknown, headers: Headers) {
 
         if (!videoResponse.ok || videoData.error) {
             return NextResponse.json(
-                { error: videoData.error?.message || "YouTube API error" },
+                { error: "YouTube API error" },
                 { status: videoResponse.ok ? 400 : videoResponse.status }
             );
         }
@@ -91,7 +91,7 @@ async function resolveChannelByQuery(rawQuery: unknown, headers: Headers) {
 
     if (!response.ok || data.error) {
         return NextResponse.json(
-            { error: data.error?.message || "YouTube API error" },
+            { error: "YouTube API error" },
             { status: response.ok ? 400 : response.status }
         );
     }
@@ -124,7 +124,7 @@ async function resolveChannelByQuery(rawQuery: unknown, headers: Headers) {
 
         if (!detailsResponse.ok || detailsData.error) {
             return NextResponse.json(
-                { error: detailsData.error?.message || "YouTube API error" },
+                { error: "YouTube API error" },
                 { status: detailsResponse.ok ? 400 : detailsResponse.status }
             );
         }

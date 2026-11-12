@@ -9,6 +9,11 @@ const MAX_REQUEST_BYTES = 16_000;
 const FREE_HOURLY_LIMIT = 8;
 const FREE_DAILY_LIMIT = 24;
 const PRO_HOURLY_LIMIT = 60;
+/** Pro users keep a generous daily ceiling too (60/hr × 10h of heavy use). */
+const PRO_DAILY_LIMIT = 600;
+/** Authoritative server-side enforcement of the advertised ~2/tool/day free
+ *  tier — the /api/usage counters are advisory client-written values. */
+const AI_TOOL_DAILY_FREE_LIMIT = 2;
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
@@ -35,7 +40,7 @@ export async function POST(request: Request) {
         const hourlyKey = email ? `ai-text-h:user:${email}` : `ai-text-h:ip:${ip}`;
         const dailyKey = email ? `ai-text-d:user:${email}` : `ai-text-d:ip:${ip}`;
         const hourlyLimit = isPro ? PRO_HOURLY_LIMIT : FREE_HOURLY_LIMIT;
-        const dailyLimit = isPro ? PRO_HOURLY_LIMIT * 12 : FREE_DAILY_LIMIT;
+        const dailyLimit = isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
 
         const hourly = enforceRateLimit(hourlyKey, hourlyLimit, HOUR_MS);
         if (!hourly.allowed) {
@@ -45,17 +50,17 @@ export async function POST(request: Request) {
             );
         }
 
-        if (!isPro) {
-            const daily = enforceRateLimit(dailyKey, dailyLimit, DAY_MS);
-            if (!daily.allowed) {
-                return NextResponse.json(
-                    {
-                        error: "Daily free AI limit reached. Upgrade to Pro or try again tomorrow.",
-                        code: "DAILY_LIMIT",
-                    },
-                    { status: 429, headers: { "Retry-After": String(daily.retryAfterSeconds) } },
-                );
-            }
+        const daily = enforceRateLimit(dailyKey, dailyLimit, DAY_MS);
+        if (!daily.allowed) {
+            return NextResponse.json(
+                isPro
+                    ? { error: "Daily usage ceiling reached. Please try again tomorrow.", code: "DAILY_LIMIT" }
+                    : {
+                          error: "Daily free AI limit reached. Upgrade to Pro or try again tomorrow.",
+                          code: "DAILY_LIMIT",
+                      },
+                { status: 429, headers: { "Retry-After": String(daily.retryAfterSeconds) } },
+            );
         }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,6 +117,25 @@ export async function POST(request: Request) {
                 { error: "Tool type is required" },
                 { status: 400 },
             );
+        }
+
+        // Per-tool free-tier cap (server-authoritative). The advertised free
+        // tier is ~2 generations per tool per day — enforce it here so a
+        // scripted client can't get 12x that by crossing tools.
+        if (!isPro) {
+            const perToolKey = email
+                ? `ai-tool-d:user:${email}:${tool}`
+                : `ai-tool-d:ip:${ip}:${tool}`;
+            const perTool = enforceRateLimit(perToolKey, AI_TOOL_DAILY_FREE_LIMIT, DAY_MS);
+            if (!perTool.allowed) {
+                return NextResponse.json(
+                    {
+                        error: "Daily free limit for this tool reached. Upgrade to Pro or try again tomorrow.",
+                        code: "TOOL_DAILY_LIMIT",
+                    },
+                    { status: 429, headers: { "Retry-After": String(perTool.retryAfterSeconds) } },
+                );
+            }
         }
 
         let prompt: string;

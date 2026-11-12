@@ -144,14 +144,15 @@ function rateLimit(key: string, limit: number, windowMs = 60_000): boolean {
   return true;
 }
 
-/** Client IP behind the local reverse proxy (Hostinger panel sets X-Real-IP /
- *  X-Forwarded-For). Never trust a self-supplied value blindly — we only take
- *  the FIRST proxy-added entry, which the origin proxy controls. */
+/** Client IP behind the local reverse proxy. Standardized with
+ *  src/lib/rate-limit.ts: `x-real-ip` (edge-set) first, then `cf-connecting-ip`,
+ *  then the LAST `x-forwarded-for` entry — the one appended by the trusted
+ *  proxy. The FIRST XFF entry is client-controlled and must never be trusted. */
 function getClientIp(request: NextRequest): string {
   return (
     request.headers.get("x-real-ip") ||
     request.headers.get("cf-connecting-ip") ||
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-forwarded-for")?.split(",").map((p) => p.trim()).filter(Boolean).pop() ||
     "unknown"
   );
 }
@@ -197,12 +198,17 @@ export default async function middleware(request: NextRequest) {
 
   // 1. Bot mitigation — blocks scraping clients and caps per-IP request
   //    rates (AdSense invalid-traffic + API-abuse protection). Verified
-  //    search crawlers bypass rate limiting entirely.
+  //    search crawlers bypass rate limiting for HTML page GETs only —
+  //    never for /api/* (their UA string is client-controlled).
   const isApiPath = pathname.startsWith("/api");
+  const isWebhookPath = pathname.startsWith("/api/webhooks/");
   const isMutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
+  // Payment webhooks authenticate via HMAC signature; Razorpay retry
+  // deliveries must never be 403'd by a UA heuristic or 429'd by bursts.
+  const skipMitigation = isWebhookPath;
 
   // 1a. Known scripting/scraping clients get a hard 403 (never real visitors).
-  if (isAbusiveBot(userAgent)) {
+  if (!skipMitigation && isAbusiveBot(userAgent)) {
     console.warn(
       `[proxy] blocked abusive UA: ip=${getClientIp(request)} path=${pathname} ua=${userAgent?.slice(0, 120)}`,
     );
@@ -210,7 +216,7 @@ export default async function middleware(request: NextRequest) {
   }
 
   // 1b. Empty user agents are almost always scripted — allow only a trickle.
-  if (!userAgent) {
+  if (!skipMitigation && !userAgent) {
     if (!rateLimit(`empty-ua:${getClientIp(request)}`, 10)) {
       return new NextResponse("Too Many Requests", {
         status: 429,
@@ -220,8 +226,8 @@ export default async function middleware(request: NextRequest) {
     return withOptionalNoIndex(NextResponse.next(), pathname);
   }
 
-  // 1c. Per-IP fixed-window rate limits.
-  if (!isSearchBot(userAgent)) {
+  // 1c. Per-IP fixed-window rate limits (pages for bots, everything for humans).
+  if (!skipMitigation && (!isSearchBot(userAgent) || isApiPath)) {
     const ip = getClientIp(request);
     if (isApiPath) {
       const limit = isMutation ? RATE_LIMITS.apiMutation : RATE_LIMITS.apiRead;
