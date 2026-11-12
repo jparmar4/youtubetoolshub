@@ -19,9 +19,9 @@ import { useFavoriteTools } from "@/lib/favorites";
 import { toast } from "@/components/ui/Toast";
 import { toolMeta, type ToolMeta } from "@/config/tool-meta";
 import { countryCPMData } from "@/lib/cpm-data";
+import ToolIcon3D from "@/components/ui/ToolIcon3D";
 
 interface HeaderMegaMenuProps {
-  isOpen: boolean;
   onClose: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -130,15 +130,15 @@ const FLAGSHIP_SLUGS = [
 ];
 
 const TIER1_QUICK_MARKETS = [
-  { code: "US", label: "USA", slug: "usa", rpm: "$8.50" },
-  { code: "CH", label: "Switzerland", slug: "switzerland", rpm: "$7.80" },
-  { code: "AU", label: "Australia", slug: "australia", rpm: "$7.20" },
-  { code: "CA", label: "Canada", slug: "canada", rpm: "$7.00" },
-  { code: "UK", label: "UK", slug: "uk", rpm: "$6.50" },
-  { code: "DE", label: "Germany", slug: "germany", rpm: "$6.20" },
+  { flag: "🇺🇸", code: "US", label: "USA", slug: "usa", rpm: "$8.50" },
+  { flag: "🇨🇭", code: "CH", label: "Switzerland", slug: "switzerland", rpm: "$7.80" },
+  { flag: "🇦🇺", code: "AU", label: "Australia", slug: "australia", rpm: "$7.20" },
+  { flag: "🇨🇦", code: "CA", label: "Canada", slug: "canada", rpm: "$7.00" },
+  { flag: "🇬🇧", code: "UK", label: "UK", slug: "uk", rpm: "$6.50" },
+  { flag: "🇩🇪", code: "DE", label: "Germany", slug: "germany", rpm: "$6.20" },
 ];
 
-function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuProps) {
+function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("featured");
   const { isFavorite, toggleFavorite } = useFavoriteTools();
 
@@ -170,11 +170,9 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory) ?? CATEGORIES[0];
 
-  if (!isOpen) return null;
-
   return (
     <div
-      className="absolute top-full left-0 right-0 z-40 px-4 sm:px-6 lg:px-8 pt-2 before:content-[''] before:absolute before:-top-3 before:inset-x-0 before:h-3"
+      className="px-4 sm:px-6 lg:px-8 pt-2 before:content-[''] before:absolute before:-top-3 before:inset-x-0 before:h-3"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -245,7 +243,7 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b border-slate-100">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 font-outfit">
+                  <h3 className="text-sm font-bold text-slate-900 font-heading">
                     {currentCategory.label}
                   </h3>
                   <p className="text-xs text-slate-600 mt-0.5">{currentCategory.tagline}</p>
@@ -261,22 +259,23 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[340px] overflow-y-auto pr-1">
-                {visibleTools.map((tool) => {
-                  const ToolIcon = tool.icon;
+                {visibleTools.map((tool, index) => {
                   const favorited = isFavorite(tool.slug);
                   return (
                     <div
                       key={tool.slug}
-                      className="group relative flex items-start gap-2.5 p-2.5 rounded-xl border border-transparent hover:border-slate-200/90 hover:bg-slate-50/90 transition-all"
+                      className="animate-menu-item group relative flex items-start gap-2.5 p-2.5 rounded-xl border border-transparent hover:border-slate-200/90 hover:bg-slate-50/90 transition-all"
+                      style={{ animationDelay: `${Math.min(index * 20, 240)}ms` }}
                     >
                       <Link
                         href={`/tools/${tool.slug}`}
                         onClick={onClose}
                         className="flex items-start gap-2.5 flex-1 min-w-0"
                       >
-                        <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 group-hover:bg-purple-600 group-hover:text-white flex items-center justify-center shrink-0 transition-colors mt-0.5">
-                          <ToolIcon className="w-3.5 h-3.5" />
-                        </div>
+                        {/* Signature 3D icon cube */}
+                        <span className="mt-0.5 shrink-0">
+                          <ToolIcon3D slug={tool.slug} category={tool.category} size="sm" />
+                        </span>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5">
                             <span className="text-xs font-bold text-slate-900 group-hover:text-purple-700 transition-colors truncate">
@@ -346,11 +345,11 @@ function HeaderMegaMenu({ isOpen, onClose, onMouseEnter, onMouseLeave }: HeaderM
                       key={m.slug}
                       href={`/tools/youtube-earnings-calculator/${m.slug}`}
                       onClick={onClose}
-                      className="flex items-center justify-between px-2.5 py-2 rounded-xl bg-white hover:bg-emerald-50/80 border border-slate-200/80 hover:border-emerald-300 transition-colors"
+                      className="flex items-center justify-between px-2.5 py-2 rounded-xl bg-white hover:bg-emerald-50/80 hover:shadow-[0_2px_10px_-2px_rgba(16,185,129,0.35)] border border-slate-200/80 hover:border-emerald-300 transition-all"
                     >
                       <span className="flex items-center gap-1.5 min-w-0">
-                        <span className="text-[10px] font-black px-1 py-0.5 rounded bg-slate-900 text-white">
-                          {m.code}
+                        <span aria-hidden="true" className="text-sm leading-none">
+                          {m.flag}
                         </span>
                         <span className="text-[11px] font-semibold text-slate-700 truncate">
                           {m.label}

@@ -461,6 +461,73 @@
   content-visibility: auto;
   contain-intrinsic-size: auto 700px;
 }
+
+/* Simple opacity fade (CommandPalette overlay) */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Hide scrollbars on horizontal filter rails (CommandPalette tabs) */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mega menu tool rows — staggered entrance (delay set inline per row) */
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-menu-item {
+  opacity: 0;
+  animation: menu-item-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Scroll reveal (ui/ScrollReveal.tsx). Content is server-rendered visible;
+   the component adds .reveal-pending via JS only for sections still below
+   the fold, so there is never a hide/flash for in-view content. */
+.scroll-reveal {
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.scroll-reveal.reveal-pending.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal.reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}
 }
 
 /* Scrollbar */
