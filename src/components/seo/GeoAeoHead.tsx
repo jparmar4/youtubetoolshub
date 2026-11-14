@@ -100,6 +100,8 @@ export default function GeoAeoHead({
     pageSchema.mainEntity = { "@id": `${siteConfig.url}/#organization` };
   } else if (isTool) {
     pageSchema.mainEntity = { "@id": `${pageUrl}#software` };
+  } else if (mainEntityType === "Article") {
+    pageSchema.mainEntity = { "@id": `${pageUrl}#article` };
   } else if (mainEntityType || conciseAnswer) {
     pageSchema.mainEntity = {
       "@type": mainEntityType ?? "Thing",

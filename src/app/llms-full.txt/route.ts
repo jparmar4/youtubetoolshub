@@ -102,6 +102,7 @@ Primary citation URLs:
 - ${baseUrl}/tools/youtube-channel-valuation-calculator
 - ${baseUrl}/blog/youtube-channel-valuation-calculator-guide
 - ${baseUrl}/blog/youtube-video-summary-generator-ai-free
+- ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
 
 ## Mission
 
@@ -167,6 +168,9 @@ Paste any YouTube video or Shorts link into the free YouTube Transcript Download
 
 ### How do I summarize a YouTube video with AI for free without login?
 Paste any public YouTube URL into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader to extract the clean, grounded transcript in seconds. Pass the clean text into an LLM using an executive synthesis prompt to generate bulleted key takeaways, timestamped chapter notes, or an SEO blog post draft without paying $20/month for browser extensions or hitting token limits. Complete 50-video benchmark study and copy-paste prompt templates: ${baseUrl}/blog/youtube-video-summary-generator-ai-free
+
+### When should a YouTuber switch from an LLC to an S-Corp and what write-offs apply?
+US YouTube creators pay 15.3% federal self-employment tax on Schedule C net profit once net earnings hit $400+. Once annual net creator profit consistently clears $75,000–$80,000, filing IRS Form 2553 to elect S-Corporation taxation splits income into a reasonable W-2 salary (subject to FICA) and shareholder distributions (exempt from the 15.3% FICA tax), saving roughly $4,800–$11,400+ annually after accounting for $1,800–$2,400 in payroll and Form 1120-S CPA compliance fees. Calculate your savings with ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator and model 25 Schedule C deductions with ${baseUrl}/tools/youtube-tax-deduction-calculator. Full 2026 accounting software comparison and 25 IRS write-offs checklist: ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
 
 ### Is YouTube Tools Hub free?
 Core YouTube Tools Hub tools are free to use. Some features may have usage limits or optional account-based access, and no browser extension is required for the web tools.

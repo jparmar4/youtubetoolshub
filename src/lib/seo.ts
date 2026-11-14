@@ -124,6 +124,11 @@ export function getArticleSchema(article: {
   imageUrl?: string;
   imageWidth?: number;
   imageHeight?: number;
+  imageAlt?: string;
+  secondaryImageUrl?: string;
+  secondaryImageWidth?: number;
+  secondaryImageHeight?: number;
+  secondaryImageAlt?: string;
   dateModified?: string;
   section?: string;
   inLanguage?: string;
@@ -140,6 +145,37 @@ export function getArticleSchema(article: {
       ? article.imageUrl
       : `${siteConfig.url}${article.imageUrl}`
     : `${siteConfig.url}/og-image.png`;
+
+  const primaryImageObject = {
+    "@type": "ImageObject",
+    url: imageUrl,
+    ...(article.imageWidth && article.imageHeight
+      ? { width: article.imageWidth, height: article.imageHeight }
+      : {}),
+    caption: article.imageAlt || article.title,
+    representativeOfPage: true,
+  };
+
+  const secondaryImageUrlResolved = article.secondaryImageUrl
+    ? article.secondaryImageUrl.startsWith("http")
+      ? article.secondaryImageUrl
+      : `${siteConfig.url}${article.secondaryImageUrl}`
+    : undefined;
+
+  const secondaryImageObject = secondaryImageUrlResolved
+    ? {
+        "@type": "ImageObject",
+        url: secondaryImageUrlResolved,
+        ...(article.secondaryImageWidth && article.secondaryImageHeight
+          ? {
+              width: article.secondaryImageWidth,
+              height: article.secondaryImageHeight,
+            }
+          : {}),
+        caption: article.secondaryImageAlt || article.title,
+        representativeOfPage: false,
+      }
+    : null;
 
   return {
     "@context": "https://schema.org",
@@ -165,15 +201,9 @@ export function getArticleSchema(article: {
     isAccessibleForFree: true,
     publishingPrinciples: `${siteConfig.url}/blog/why-youtube-tools-hub`,
     keywords: article.keywords?.join(", "),
-    image:
-      article.imageWidth && article.imageHeight
-        ? {
-            "@type": "ImageObject",
-            url: imageUrl,
-            width: article.imageWidth,
-            height: article.imageHeight,
-          }
-        : imageUrl,
+    image: secondaryImageObject
+      ? [primaryImageObject, secondaryImageObject]
+      : primaryImageObject,
     about: {
       "@type": "Thing",
       name: "YouTube",
@@ -520,6 +550,14 @@ export function getGlobalAlternates(path: string) {
       "en-IE": url,
       "en-SG": url,
       "en-IN": url,
+      "en-DE": url,
+      "en-CH": url,
+      "en-NL": url,
+      "en-SE": url,
+      "en-AE": url,
+      "en-ZA": url,
+      "en-PH": url,
+      "en-MY": url,
       "x-default": url,
     },
   };

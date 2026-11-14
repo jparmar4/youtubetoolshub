@@ -72,6 +72,26 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
+        path: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator",
+        title: "YouTube LLC vs S-Corp Tax Savings Calculator",
+        anchors: [
+          "youtube llc vs s corp calculator",
+          "s corp tax savings calculator",
+          "form 2553 tax calculator",
+        ],
+      },
+      {
+        path: "/blog/youtube-creator-taxes-accounting-software-guide",
+        title: "YouTube Creator Taxes & Accounting Software Guide (2026)",
+        anchors: [
+          "youtube creator taxes write offs",
+          "best accounting software for youtubers",
+          "llc vs s corp for youtubers",
+          "25 youtube tax deductions checklist",
+          "youtube creator taxes",
+        ],
+      },
+      {
         path: "/resources/youtube-cpm-rates",
         title: "YouTube CPM Rates by Country",
         anchors: ["youtube cpm rates", "cpm by country", "youtube rpm by country"],

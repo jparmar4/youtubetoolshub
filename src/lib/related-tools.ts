@@ -42,6 +42,7 @@ const CATEGORY_TOOL_MAP: Record<string, string[]> = {
     "youtube-sponsorship-calculator",
     "youtube-channel-valuation-calculator",
     "youtube-tax-deduction-calculator",
+    "youtube-llc-vs-s-corp-tax-savings-calculator",
     "youtube-engagement-rate-calculator",
     "youtube-channel-audit",
   ],

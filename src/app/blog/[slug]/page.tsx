@@ -66,6 +66,9 @@ export async function generateMetadata({
     // fake freshness by copying the publish date into modified fields.
     const modifiedIso = post.updatedAt ? toBlogIsoDate(post.updatedAt) : isoDate;
     const coverDims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+    const pinterestDims = post.pinterestImage
+        ? getCoverDimensions(post.pinterestImage)
+        : undefined;
     const author = resolveAuthor(post.author);
     const authorUrl = `${siteConfig.url}${getAuthorPageUrl(author)}`;
 
@@ -130,6 +133,17 @@ export async function generateMetadata({
                         : {}),
                     alt: post.imageAlt || post.title,
                 },
+                ...(post.pinterestImage
+                    ? [
+                        {
+                            url: `${siteConfig.url}${post.pinterestImage}`,
+                            ...(pinterestDims
+                                ? { width: pinterestDims.width, height: pinterestDims.height }
+                                : {}),
+                            alt: post.pinterestImageAlt || `${post.title} Pinterest guide`,
+                        },
+                    ]
+                    : []),
             ],
         },
         twitter: {
@@ -171,6 +185,9 @@ export default async function BlogPostPage({
     // fake freshness by copying the publish date into modified fields.
     const modifiedIso = post.updatedAt ? toBlogIsoDate(post.updatedAt) : isoDate;
     const coverDims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+    const pinterestDims = post.pinterestImage
+        ? getCoverDimensions(post.pinterestImage)
+        : undefined;
     const author = resolveAuthor(post.author);
     const authorUrl = `${siteConfig.url}${getAuthorPageUrl(author)}`;
 
@@ -191,6 +208,13 @@ export default async function BlogPostPage({
         imageUrl: post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined,
         imageWidth: coverDims?.width,
         imageHeight: coverDims?.height,
+        imageAlt: post.imageAlt || post.title,
+        secondaryImageUrl: post.pinterestImage
+            ? `${siteConfig.url}${post.pinterestImage}`
+            : undefined,
+        secondaryImageWidth: pinterestDims?.width,
+        secondaryImageHeight: pinterestDims?.height,
+        secondaryImageAlt: post.pinterestImageAlt || post.title,
         section: post.category,
         inLanguage: "en",
         // Entity edges: the free tools this guide covers, so AI engines
@@ -424,13 +448,23 @@ export default async function BlogPostPage({
                                         <NextImage
                                             src={post.pinterestImage}
                                             alt={post.pinterestImageAlt || post.title}
-                                            width={getCoverDimensions(post.pinterestImage)?.width ?? 1024}
-                                            height={getCoverDimensions(post.pinterestImage)?.height ?? 1536}
+                                            width={pinterestDims?.width ?? 1024}
+                                            height={pinterestDims?.height ?? 1536}
                                             sizes="(min-width: 1024px) 384px, 80vw"
                                             className="w-full h-auto"
                                         />
-                                        <figcaption className="px-4 py-3 text-sm text-slate-600">
-                                            Save this portrait guide to Pinterest while you shortlist names.
+                                        <figcaption className="flex items-center justify-between gap-3 px-4 py-3 text-sm text-slate-600">
+                                            <span>
+                                                {post.pinterestImageAlt || `Save this ${post.category} reference guide to Pinterest.`}
+                                            </span>
+                                            <a
+                                                href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`${siteConfig.url}/blog/${post.slug}`)}&media=${encodeURIComponent(`${siteConfig.url}${post.pinterestImage}`)}&description=${encodeURIComponent(post.pinterestImageAlt || post.title)}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="shrink-0 rounded-lg bg-rose-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-rose-700 transition-colors"
+                                            >
+                                                Pin it
+                                            </a>
                                         </figcaption>
                                     </figure>
                                 )}

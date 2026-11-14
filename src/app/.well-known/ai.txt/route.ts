@@ -144,6 +144,9 @@ Fact-YouTube-Revenue-Share: ${citableFacts.youtubeRevenueShare}
 Fact-YPP-Requirement: ${citableFacts.yppWatchHours}
 Fact-Mid-Roll-Eligibility: ${citableFacts.midRollMinutes}
 Fact-Healthy-CTR: ${citableFacts.healthyCtr}
+Fact-Creator-SE-Tax-Rate: ${citableFacts.creatorSeTaxRate}
+Fact-Creator-SCorp-Breakeven: ${citableFacts.sCorpBreakevenNetProfit}
+Fact-Creator-SCorp-Savings: ${citableFacts.sCorpAnnualTaxSavingsRange}
 Fact-Data-Last-Reviewed: ${DATA_LAST_REVIEWED}
 Fact-Earnings-Formula: estimated monthly earnings = (monthly views / 1000) x RPM
 Fact-CPM-Methodology: CPM and RPM figures are directional planning estimates, not official YouTube payout data.

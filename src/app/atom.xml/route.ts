@@ -24,12 +24,17 @@ export async function GET() {
   const blogEntries = posts
     .map((post) => {
       const postUrl = `${siteUrl}/blog/${post.slug}`;
-      const updated = toBlogIsoDate(post.date);
+      const updated = toBlogIsoDate(post.updatedAt ?? post.date);
+      const coverUrl = post.coverImage
+        ? post.coverImage.startsWith("http")
+          ? post.coverImage
+          : `${siteUrl}${post.coverImage}`
+        : null;
 
       return `
     <entry>
       <title>${cdata(post.title)}</title>
-      <link href="${escapeXml(postUrl)}" rel="alternate" type="text/html" />
+      <link href="${escapeXml(postUrl)}" rel="alternate" type="text/html" />${coverUrl ? `\n      <link href="${escapeXml(coverUrl)}" rel="enclosure" type="image/webp" />` : ""}
       <id>${escapeXml(postUrl)}</id>
       <updated>${escapeXml(updated)}</updated>
       <summary type="html">${cdata(post.metaDescription)}</summary>

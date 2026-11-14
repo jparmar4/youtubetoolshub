@@ -12,6 +12,7 @@ import KeyTakeaways from "@/components/blog/aeo/KeyTakeaways";
 import ProsCons from "@/components/blog/aeo/ProsCons";
 import ExpertQuote from "@/components/blog/aeo/ExpertQuote";
 import { getClusterKeywordMap } from "@/lib/topic-clusters";
+import { getCoverDimensions } from "@/config/blog/image-dimensions";
 
 
 // Map of keywords to tool/resource/blog URLs for contextual internal links
@@ -37,6 +38,11 @@ const manualKeywords: Record<string, string> = {
     "how much to charge for youtube sponsorship": "/blog/youtube-sponsorship-rate-calculator-pricing-formula",
     "youtube brandconnect guide": "/blog/youtube-sponsorship-rate-calculator-pricing-formula",
     "youtube sponsorship pitch email templates": "/blog/youtube-sponsorship-rate-calculator-pricing-formula",
+    "best accounting software for youtubers": "/blog/youtube-creator-taxes-accounting-software-guide",
+    "25 youtube tax deductions checklist": "/blog/youtube-creator-taxes-accounting-software-guide",
+    "youtube creator taxes write offs": "/blog/youtube-creator-taxes-accounting-software-guide",
+    "llc vs s corp for youtubers": "/blog/youtube-creator-taxes-accounting-software-guide",
+    "youtube creator taxes": "/blog/youtube-creator-taxes-accounting-software-guide",
     "youtube ads cost calculator": "/tools/youtube-ads-cost-calculator",
     "youtube cpv calculator": "/tools/youtube-ads-cost-calculator",
     "youtube ad budget calculator": "/tools/youtube-ads-cost-calculator",
@@ -568,13 +574,14 @@ export function processContent(
                 if (match) {
                     const alt = match[1];
                     const src = normalizeImageSrc(match[2]);
+                    const dims = getCoverDimensions(src);
                     nodes.push(
                         <span key={key} className="not-prose block my-6 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
                             <NextImage
                                 src={src}
                                 alt={alt}
-                                width={800}
-                                height={450}
+                                width={dims?.width ?? 1200}
+                                height={dims?.height ?? 675}
                                 className="w-full h-auto object-cover"
                             />
                             {alt && <span className="block text-center text-sm text-slate-500 mt-3 italic">{alt}</span>}
@@ -940,14 +947,12 @@ export function processContent(
         // H2 heading
         if (trimmedLine.startsWith('## ')) {
             flushList(`list-${index}`);
+            flushBlockquote(`quote-${index}`);
+            flushTable(`table-${index}`);
             const headingText = trimmedLine.replace(/^##\s+/, '');
             const headingId = nextHeadingId(headingText);
-            elements.push(
-                <h2 key={index} id={headingId}>
-                    {parseInlineMarkdown(headingText, `h2-${index}`, false)}
-                </h2>
-            );
-            // Insert an in-article ad at the pre-computed section boundaries.
+            // Place in-article CTAs and ads before the next section heading so
+            // every H2 remains directly adjacent to its opening answer paragraph (AEO).
             h2Count++;
             if (
                 earningsAfterH2 > 0 &&
@@ -962,22 +967,28 @@ export function processContent(
                 );
                 earningsCtaInserted = true;
             }
-
             injectAdIfDue(index);
+            elements.push(
+                <h2 key={index} id={headingId}>
+                    {parseInlineMarkdown(headingText, `h2-${index}`, false)}
+                </h2>
+            );
             return;
         }
 
         // H3 heading
         if (trimmedLine.startsWith('### ')) {
             flushList(`list-${index}`);
+            flushBlockquote(`quote-${index}`);
+            flushTable(`table-${index}`);
             const headingText = trimmedLine.replace(/^###\s+/, '');
             const headingId = nextHeadingId(headingText);
+            if (countH3AsBoundary) injectAdIfDue(index);
             elements.push(
                 <h3 key={index} id={headingId}>
                     {parseInlineMarkdown(headingText, `h3-${index}`, false)}
                 </h3>
             );
-            if (countH3AsBoundary) injectAdIfDue(index);
             return;
         }
 
@@ -1007,13 +1018,14 @@ export function processContent(
             flushList(`list-${index}`);
             const alt = standaloneImgMatch[1];
             const src = normalizeImageSrc(standaloneImgMatch[2]);
+            const dims = getCoverDimensions(src);
             elements.push(
                 <figure key={index} className="not-prose my-10 relative rounded-2xl overflow-hidden shadow-xl shadow-purple-900/5">
                     <NextImage
                         src={src}
                         alt={alt}
-                        width={800}
-                        height={450}
+                        width={dims?.width ?? 1200}
+                        height={dims?.height ?? 675}
                         className="w-full h-auto object-cover"
                     />
                     {alt && (

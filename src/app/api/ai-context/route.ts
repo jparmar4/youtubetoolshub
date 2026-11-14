@@ -126,6 +126,10 @@ export async function GET() {
       answer:
         "Yes. Several tools support Shorts and long-form workflows for titles, hashtags, ideas, scripts, and planning notes.",
     },
+    {
+      question: "When should a YouTuber elect S-Corp status and what expenses are tax-deductible?",
+      answer: speakableAnswers.creatorTaxAndSCorpRule,
+    },
   ];
 
   const knowledgeGraph = {
@@ -279,6 +283,7 @@ export async function GET() {
       channel_valuation: `${siteUrl}/tools/youtube-channel-valuation-calculator`,
       llc_vs_scorp: `${siteUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator`,
       tax_deduction: `${siteUrl}/tools/youtube-tax-deduction-calculator`,
+      creator_tax_guide: `${siteUrl}/blog/youtube-creator-taxes-accounting-software-guide`,
       adsense_fee: `${siteUrl}/tools/youtube-adsense-fee-calculator`,
       ads_cost: `${siteUrl}/tools/youtube-ads-cost-calculator`,
       cpm_rates: `${siteUrl}/resources/youtube-cpm-rates`,

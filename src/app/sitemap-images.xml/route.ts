@@ -5,6 +5,15 @@ import { siteConfig } from "@/config/site";
 export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate every 24 hours
 
+function escapeXml(value: string): string {
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
+
 export async function GET() {
     const baseUrl = siteConfig.url;
     const blogPosts = getIndexableBlogPosts();
@@ -14,15 +23,21 @@ export async function GET() {
     // Blog post cover images
     for (const post of blogPosts) {
         if (post.coverImage) {
+            const coverTitle = escapeXml(post.title);
+            const coverCaption = escapeXml(post.imageAlt || post.metaDescription);
+            const pinTitle = escapeXml(`${post.title} Pinterest guide`);
+            const pinCaption = escapeXml(post.pinterestImageAlt || post.metaDescription);
             entries.push(`  <url>
     <loc>${baseUrl}/blog/${post.slug}</loc>
     <image:image>
       <image:loc>${baseUrl}${post.coverImage}</image:loc>
-      <image:title>${post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
+      <image:title>${coverTitle}</image:title>
+      <image:caption>${coverCaption}</image:caption>
     </image:image>
 ${post.pinterestImage ? `    <image:image>
       <image:loc>${baseUrl}${post.pinterestImage}</image:loc>
-      <image:title>${`${post.title} Pinterest guide`.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
+      <image:title>${pinTitle}</image:title>
+      <image:caption>${pinCaption}</image:caption>
     </image:image>
 ` : ""}  </url>`);
         }
@@ -34,7 +49,7 @@ ${post.pinterestImage ? `    <image:image>
     <loc>${baseUrl}/tools/${tool.slug}</loc>
     <image:image>
       <image:loc>${baseUrl}/tools/${tool.slug}/opengraph-image</image:loc>
-      <image:title>${tool.name.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</image:title>
+      <image:title>${escapeXml(tool.name)}</image:title>
     </image:image>
   </url>`);
     }

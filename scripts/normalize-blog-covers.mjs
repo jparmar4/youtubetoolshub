@@ -29,16 +29,22 @@ const postsDir = join(root, "src", "config", "blog", "data");
 const { readdirSync } = await import("node:fs");
 const dataFiles = readdirSync(postsDir).filter((f) => /^posts-\d+\.ts$/.test(f));
 
-// Extract every coverImage path from the post data modules.
+// Extract every coverImage and pinterestImage path from the post data modules.
 const coverPaths = new Set();
+const pinterestPaths = new Set();
 for (const file of dataFiles) {
   const text = readFileSync(join(postsDir, file), "utf8");
-  for (const match of text.matchAll(/coverImage:\s*"([^"]+)"/g)) {
+  for (const match of text.matchAll(/coverImage:\s*["']([^"']+)["']/g)) {
     coverPaths.add(match[1]);
+  }
+  for (const match of text.matchAll(/pinterestImage:\s*["']([^"']+)["']/g)) {
+    pinterestPaths.add(match[1]);
   }
 }
 
-console.log(`Found ${coverPaths.size} distinct cover paths across ${dataFiles.length} data files`);
+console.log(
+  `Found ${coverPaths.size} distinct cover paths and ${pinterestPaths.size} Pinterest paths across ${dataFiles.length} data files`,
+);
 
 const dimensions = {};
 const jpegMagic = Buffer.from([0xff, 0xd8, 0xff]);
@@ -103,10 +109,33 @@ for (const coverPath of [...coverPaths].sort()) {
   if (!needsWrite) stats.ok++;
 }
 
-if (!dryRun) {
-  const outPath = join(root, "src", "config", "blog", "image-dimensions.json");
-  writeFileSync(outPath, JSON.stringify(dimensions, null, 2) + "\n");
-  console.log(`\nWrote ${outPath}`);
+// Record portrait Pinterest image dimensions without upscaling them to cover width.
+let pinterestRecorded = 0;
+for (const pinPath of [...pinterestPaths].sort()) {
+  if (dimensions[pinPath]) continue;
+  const abs = join(root, "public", pinPath);
+  if (!existsSync(abs)) {
+    console.warn(`MISSING Pinterest image: ${pinPath}`);
+    dimensions[pinPath] = null;
+    continue;
+  }
+  const meta = await sharp(readFileSync(abs)).metadata();
+  if (meta.width && meta.height) {
+    dimensions[pinPath] = { width: meta.width, height: meta.height };
+    pinterestRecorded++;
+  }
 }
 
-console.log(`\nSummary: ${stats.ok} ok, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing`);
+const sortedDimensions = Object.fromEntries(
+  Object.keys(dimensions)
+    .sort()
+    .map((key) => [key, dimensions[key]]),
+);
+
+if (!dryRun) {
+  const outPath = join(root, "src", "config", "blog", "image-dimensions.json");
+  writeFileSync(outPath, JSON.stringify(sortedDimensions, null, 2) + "\n");
+  console.log(`\nWrote ${outPath} (${pinterestRecorded} Pinterest entries recorded)`);
+}
+
+console.log(`\nSummary: ${stats.ok} ok, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing, ${pinterestRecorded} pinterest recorded`);

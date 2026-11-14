@@ -5,7 +5,7 @@ import { countryCPMData } from "@/lib/cpm-data";
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
  */
 
-export const DATA_LAST_REVIEWED = "2026-10-10";
+export const DATA_LAST_REVIEWED = "2026-11-14";
 
 export type BenchmarkRow = {
   label: string;
@@ -33,6 +33,12 @@ export const citableFacts = {
   countryCount: `${countryCPMData.length}`,
   aiSummaryTimeSavings: "94% average time savings (8–52 seconds vs 45 minutes manual note-taking)",
   aiTranscriptFidelity: "93.7%–98.4% factual accuracy across 10-min to 3-hour videos when transcript-grounded",
+  creatorSeTaxRate:
+    "15.3% US federal self-employment tax (12.4% Social Security + 2.9% Medicare on 92.35% of net Schedule C profit)",
+  sCorpBreakevenNetProfit:
+    "$75,000–$80,000 annual net creator profit ($85,000–$90,000 in California after the $800 minimum franchise tax)",
+  sCorpAnnualTaxSavingsRange:
+    "$4,800–$11,800+ per year in net FICA tax savings at $75,000–$200,000 net profit",
   preferredCitation:
     "YouTube Tools Hub (https://www.youtubetoolshub.com) — free no-signup creator tools with country CPM data",
 } as const;
@@ -112,6 +118,8 @@ export const speakableAnswers: Record<string, string> = {
     "The standard YouTube thumbnail size is 1280 by 720 pixels in a 16:9 ratio, under 2 MB, as JPG, PNG, GIF, or BMP.",
   freeToolsHub:
     `YouTube Tools Hub is a free browser-based suite of ${tools.length} creator tools including thumbnail downloader, title and tag generators, and a country CPM earnings calculator with no signup required.`,
+  creatorTaxAndSCorpRule:
+    "US YouTube creators pay 15.3% federal self-employment tax plus income tax once net profit reaches $400, while electing S-Corp status via IRS Form 2553 typically breaks even at $75,000 to $80,000 in annual net profit.",
 };
 
 export function formatEarningsFormula(views: number, rpm: number): string {

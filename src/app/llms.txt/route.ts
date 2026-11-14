@@ -96,6 +96,7 @@ YouTube payout data.
 - Sponsorship rate calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
 - Creator LLC vs S-Corp tax savings calculator: ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator
 - Creator tax deduction estimator: ${baseUrl}/tools/youtube-tax-deduction-calculator
+- Creator taxes & accounting guide (2026): ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
 - AdSense FX & wire fee calculator: ${baseUrl}/tools/youtube-adsense-fee-calculator
 - Channel valuation calculator: ${baseUrl}/tools/youtube-channel-valuation-calculator
 - CPM data table (${countryCPMData.length} countries): ${baseUrl}/resources/youtube-cpm-rates
@@ -131,6 +132,7 @@ YouTube payout data.
 - **Brand Deal / Sponsorship Pricing Formula:** Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video). Calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
 - **Channel Valuation Multiple (2026):** 16x–45x monthly net profit (28x baseline; $120,000–$225,000 for a channel netting $5,000/mo at 24x–45x). Finance/B2B/Tech channels command 36x–45x; gaming/vlog 16x–26x. Faceless channels command a 20% premium.
 - **Creator Business Tax Write-Offs:** Cameras, lighting, microphones, editing computers, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO / Finanzamt / ESTV / IRAS (${baseUrl}/tools/youtube-tax-deduction-calculator and ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator).
+- **YouTube Creator Taxes & Best Accounting Software Guide (2026):** ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide — Benchmark takeaway: US creators face a 15.3% self-employment tax on Schedule C net profit; electing S-Corp status (Form 2553) reaches net-savings breakeven around $75,000–$80,000 in annual net profit, saving $4,800–$11,400+ per year after Gusto payroll and Form 1120-S CPA overhead. Includes a 25-item IRS Schedule C deduction checklist and hands-on testing of 6 creator accounting platforms.
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}
 - **Mid-roll eligibility:** ${citableFacts.midRollMinutes}

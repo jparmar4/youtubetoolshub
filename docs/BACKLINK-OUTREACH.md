@@ -19,6 +19,9 @@
 | Free title generator tool | `/tools/youtube-title-generator` | No-signup title ideas tool |
 | **YouTube channel names (200+ ideas)** | `/blog/youtube-channel-name-ideas-2026` | 210 brainstorm starters in 21 niches, official handle guidance, and a Pinterest-ready visual |
 | Free channel name generator | `/tools/youtube-channel-name-generator` | Interactive companion for creators shortlisting a channel brand |
+| **YouTube creator taxes & accounting guide (2026)** | `/blog/youtube-creator-taxes-accounting-software-guide` | 25-item Schedule C deductions checklist, 6 accounting apps tested, and LLC vs S-Corp $75K breakeven math |
+| Creator tax deduction calculator | `/tools/youtube-tax-deduction-calculator` | Interactive 1099/Schedule C write-off planner across 7 global tax regions |
+| LLC vs S-Corp tax savings calculator | `/tools/youtube-llc-vs-s-corp-tax-savings-calculator` | Form 2553 FICA savings & state franchise fee comparator |
 
 **Outreach tracker (spreadsheet):**  
 `outputs/youtubetoolshub_backlink_outreach_tracker.xlsx`  
@@ -53,6 +56,43 @@ Tracker: `outputs/outreach-batch-2026-08-15.csv`
 | Sun | Track replies, ship promised assets | — |
 
 **Goal:** 8–20 quality referring domains / month for 3 months beats 200 spammy links.
+
+---
+
+## Template TX — YouTube Creator Taxes, 25 Write-Offs & LLC vs S-Corp Guide (Nov 2026)
+
+**Subject:** Free 2026 creator tax write-off checklist & S-Corp calculator for your [creator finance / taxes] article
+
+```
+Hi [Name],
+
+I read your guide “[Article Title]” covering [creator taxes / small business write-offs / YouTube monetization].
+
+We just published an updated 2026 tax and accounting reference specifically for full-time YouTube creators (covering 25 line-by-line IRS Schedule C deductions, hands-on comparisons of QuickBooks, Collective, Xero, and Wave, plus the exact $75,000 net profit breakeven for electing an S-Corp):
+
+Guide: https://www.youtubetoolshub.com/blog/youtube-creator-taxes-accounting-software-guide
+Tax Write-Off Calculator: https://www.youtubetoolshub.com/tools/youtube-tax-deduction-calculator
+LLC vs. S-Corp Savings Calculator: https://www.youtubetoolshub.com/tools/youtube-llc-vs-s-corp-tax-savings-calculator
+
+There is a ready-to-cite benchmark block and two free browser calculators (zero signup or paywall) your readers can test immediately. Happy to link back from our Resources / Link-to-Us page if it adds value to your guide.
+
+Best,
+[Your Name]
+YouTube Tools Hub
+support@youtubetoolshub.com
+```
+
+**Pin / social asset:**
+`https://www.youtubetoolshub.com/images/blog/youtube-creator-taxes-accounting-software-guide-pinterest.webp`
+(848×1264 portrait pin, 2:3 aspect ratio — link pin to the blog URL above)
+
+**Suggested anchors (rotate):**
+`youtube creator taxes write offs` · `best accounting software for youtubers` · `llc vs s corp for youtubers` · `25 youtube tax deductions checklist` · `YouTube LLC vs S-Corp tax savings calculator`
+
+**Initial prospect shortlist (creator accounting blogs, CPA resource pages, small-business finance roundups — verify editorial guidelines before pitching):**
+- Creator & freelancer CPA blogs covering 1099-NEC / Schedule C deductions (e.g., creator bookkeeping newsletters, Solo 401(k) resource pages, and S-Corp guides)
+- Small-business accounting software roundups comparing QuickBooks, Xero, Wave, and Collective
+- YouTube creator education hubs and finance Substack newsletters
 
 ---
 
