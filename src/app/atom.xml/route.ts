@@ -71,6 +71,7 @@ export async function GET() {
   <title>${escapeXml(siteConfig.name)}</title>
   <subtitle>${escapeXml(siteConfig.description)}</subtitle>
   <link href="${escapeXml(`${siteUrl}/atom.xml`)}" rel="self" type="application/atom+xml" />
+  <link href="https://pubsubhubbub.appspot.com/" rel="hub" />
   <link href="${escapeXml(siteUrl)}" rel="alternate" type="text/html" />
   <link href="${escapeXml(`${siteUrl}/llms.txt`)}" rel="related" type="text/plain" title="LLMs.txt" />
   <link href="${escapeXml(`${siteUrl}/llms-full.txt`)}" rel="related" type="text/plain" title="LLMs Full Context" />

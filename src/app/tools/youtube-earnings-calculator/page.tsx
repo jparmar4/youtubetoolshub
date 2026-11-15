@@ -176,7 +176,7 @@ export default function YouTubeEarningsCalculatorPage() {
     url: pageUrl,
     category: "analytics-earnings",
     datePublished: "2025-01-01",
-    dateModified: "2026-09-29",
+    dateModified: DATA_LAST_REVIEWED,
   });
 
   const faqSchema = getFAQSchema(pillarFAQs);
@@ -207,7 +207,7 @@ export default function YouTubeEarningsCalculatorPage() {
   ]);
   const datasetSchema = {
     ...getDatasetSchema(),
-    dateModified: "2026-09-29",
+    dateModified: DATA_LAST_REVIEWED,
   };
 
   return (
@@ -334,6 +334,13 @@ export default function YouTubeEarningsCalculatorPage() {
                   </ToolContextProvider>
                 </div>
               </section>
+
+              {/* High-Viewability Post-Calculator Display Unit */}
+              <AdSlot
+                slot={AD_SLOTS.HORIZONTAL[0]}
+                preset="leaderboard"
+                lazy={false}
+              />
 
               <QuickAnswerCapsule
                 question="Quick Answer: How much does YouTube pay for views?"

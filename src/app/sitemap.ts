@@ -9,37 +9,38 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
-  "": "2026-10-10",
-  "/tools": "2026-10-10",
-  "/tools/thumbnail-tools": "2026-10-10",
-  "/tools/seo-tools": "2026-10-10",
-  "/tools/analytics-tools": "2026-10-10",
-  "/tools/channel-tools": "2026-10-10",
-  "/tools/utility-tools": "2026-10-10",
-  "/about": "2026-09-29",
+  "": DATA_LAST_REVIEWED,
+  "/tools": DATA_LAST_REVIEWED,
+  "/youtube-transcript-downloader": DATA_LAST_REVIEWED,
+  "/tools/thumbnail-tools": DATA_LAST_REVIEWED,
+  "/tools/seo-tools": DATA_LAST_REVIEWED,
+  "/tools/analytics-tools": DATA_LAST_REVIEWED,
+  "/tools/channel-tools": DATA_LAST_REVIEWED,
+  "/tools/utility-tools": DATA_LAST_REVIEWED,
+  "/about": "2026-11-14",
   "/contact": "2026-08-01",
-  "/blog": "2026-10-10",
-  "/blog/why-youtube-tools-hub": "2026-09-29",
-  "/faq": "2026-09-29",
-  "/resources/youtube-creator-statistics": "2026-09-29",
-  "/resources/youtube-cpm-rates": "2026-10-10",
+  "/blog": DATA_LAST_REVIEWED,
+  "/blog/why-youtube-tools-hub": "2026-11-14",
+  "/faq": "2026-11-14",
+  "/resources/youtube-creator-statistics": DATA_LAST_REVIEWED,
+  "/resources/youtube-cpm-rates": DATA_LAST_REVIEWED,
   "/resources/link-to-us": "2026-09-29",
   "/pricing": "2026-09-29",
-  "/tools/vs/tubebuddy": "2026-09-29",
-  "/tools/vs/vidiq": "2026-09-29",
-  "/resources/youtube-algorithm-guide": "2026-09-29",
-  "/resources/youtube-monetization-guide": "2026-09-29",
-  "/resources/youtube-glossary": "2026-09-29",
+  "/tools/vs/tubebuddy": "2026-11-14",
+  "/tools/vs/vidiq": "2026-11-14",
+  "/resources/youtube-algorithm-guide": "2026-11-14",
+  "/resources/youtube-monetization-guide": DATA_LAST_REVIEWED,
+  "/resources/youtube-glossary": "2026-11-14",
   "/api-docs": "2026-08-01",
   "/privacy-policy": "2026-08-01",
   "/terms-of-use": "2026-08-01",
   "/disclaimer": "2026-08-01",
   "/refund-policy": "2026-08-01",
-  "/resources": "2026-10-10",
+  "/resources": DATA_LAST_REVIEWED,
 };
 
 const FALLBACK_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");
-const TOOL_LAST_MODIFIED = new Date("2026-09-29T00:00:00.000Z");
+const TOOL_LAST_MODIFIED = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`);
 const DATA_LAST_MODIFIED = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`);
 
 function parseSafeDate(value: string | undefined, fallback: Date): Date {
@@ -57,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const highPriorityRoutes = [
     "/tools",
+    "/youtube-transcript-downloader",
     "/blog",
     "/about",
     "/faq",

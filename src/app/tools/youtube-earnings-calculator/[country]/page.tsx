@@ -292,6 +292,9 @@ export default async function CountryEarningsPage({
                                 </div>
                             </div>
 
+                            {/* Post-Calculator High-Viewability Responsive Display Ad */}
+                            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy={false} className="mb-8" />
+
                             <div className="mb-8">
                                 <QuickAnswerCapsule
                                     question={`Quick Answer: How much does YouTube pay in ${countryData.name}?`}

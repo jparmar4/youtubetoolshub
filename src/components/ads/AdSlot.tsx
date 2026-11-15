@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import GoogleAd from "./GoogleAd";
 
 /** Visual/behavioural presets for ad containers across the site. */
@@ -61,12 +62,24 @@ export default function AdSlot({
     className = "",
 }: AdSlotProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [unfilled, setUnfilled] = useState(false);
+    const pathname = usePathname();
+    const [consentRev, setConsentRev] = useState(0);
+    const currentKey = `${pathname ?? ""}:${slot}:${consentRev}`;
+    const [unfilledKey, setUnfilledKey] = useState<string | null>(null);
+    const unfilled = unfilledKey === currentKey;
+
+    useEffect(() => {
+        const onConsentChanged = () => {
+            setConsentRev((r) => r + 1);
+        };
+        window.addEventListener("cookie-consent-changed", onConsentChanged);
+        return () => window.removeEventListener("cookie-consent-changed", onConsentChanged);
+    }, []);
 
     // Collapse when AdSense reports no fill ("unfilled" or "unfill-optimized").
     useEffect(() => {
         const container = containerRef.current;
-        if (!container) return;
+        if (!container || unfilled) return;
 
         const isUnfilled = () =>
             Boolean(
@@ -76,7 +89,7 @@ export default function AdSlot({
             );
 
         if (isUnfilled()) {
-            const id = setTimeout(() => setUnfilled(true), 0);
+            const id = setTimeout(() => setUnfilledKey(currentKey), 0);
             return () => clearTimeout(id);
         }
 
@@ -84,7 +97,7 @@ export default function AdSlot({
 
         const observer = new MutationObserver(() => {
             if (isUnfilled()) {
-                setUnfilled(true);
+                setUnfilledKey(currentKey);
                 observer.disconnect();
             }
         });
@@ -95,7 +108,7 @@ export default function AdSlot({
             childList: true,
         });
         return () => observer.disconnect();
-    }, []);
+    }, [currentKey, unfilled]);
 
     if (unfilled) return null;
 

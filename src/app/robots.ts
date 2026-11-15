@@ -55,6 +55,24 @@ export default function robots(): MetadataRoute.Robots {
         },
       },
       {
+        // Google AdSense contextual auction crawler, Google Ads quality bots,
+        // and Google Discover / News FeedFetcher: always allow full site access
+        // so high-CPC contextual ad auctions and Discover cards never get blocked.
+        userAgent: [
+          "Mediapartners-Google",
+          "AdsBot-Google",
+          "AdsBot-Google-Mobile",
+          "FeedFetcher-Google",
+          "Google-Read-Aloud",
+          "Google-InspectionTool",
+          "Googlebot-Image",
+          "Googlebot-News",
+          "Googlebot-Video",
+        ],
+        allow: ["/", ...AI_API_ALLOW],
+        disallow: ["/sign-in", "/dashboard", "/history", "/auth/"],
+      },
+      {
         userAgent: [
           "OAI-SearchBot",
           "ChatGPT-User",
@@ -80,6 +98,14 @@ export default function robots(): MetadataRoute.Robots {
           "Bingbot",
           "BingPreview",
           "MicrosoftPreview",
+          "DuckDuckBot",
+          "Slurp",
+          "YandexBot",
+          "Qwantify",
+          "SeznamBot",
+          "Yeti",
+          "NaverBot",
+          "MojeekBot",
           "meta-externalagent",
           // Meta's second indexer token used for AI model grounding
           "meta-externalfetcher",
@@ -88,6 +114,7 @@ export default function robots(): MetadataRoute.Robots {
           "Applebot-Extended",
           "Amazonbot",
           "YouBot",
+          "PhindBot",
           "CCBot",
           "DeepSeekBot",
           "MistralAI",

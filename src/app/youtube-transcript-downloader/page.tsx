@@ -231,6 +231,9 @@ export default function YouTubeTranscriptDownloaderPage() {
                 </ToolContextProvider>
               </div>
             </div>
+
+            {/* High-Viewability Post-Workspace Display Ad */}
+            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy={false} className="mb-8" />
           </AdSectionPrioritize>
 
           <div className="mt-8">

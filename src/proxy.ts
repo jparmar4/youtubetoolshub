@@ -1,36 +1,67 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Common search engine bot user agents
+// Comprehensive search engine, AdSense, Google Discover, and AI answer-engine crawlers
 const BOT_USER_AGENTS = [
-  // Search engines
+  // Google Search, Google Discover, AdSense & Ads Quality crawlers
+  // CRITICAL: Mediapartners-Google (AdSense contextual crawler) and FeedFetcher-Google
+  // (Google Discover / News feeds) do NOT contain "googlebot" in their UA strings.
   "googlebot",
+  "mediapartners-google",
+  "adsbot-google",
+  "adsbot-google-mobile",
+  "apis-google",
+  "feedfetcher-google",
+  "google-read-aloud",
+  "google-inspectiontool",
+  "storebot-google",
+  "google-safety",
+  "googleproducer",
+  "google-site-verification",
+  // Global Search Engines (Tier 1 & Tier 2 markets)
   "bingbot",
   "yandexbot",
+  "yandexmobilebot",
   "duckduckbot",
   "slurp", // Yahoo
   "baiduspider",
   "bravebot",
+  "ecosia",
+  "qwantify", // Qwant (France / EU)
+  "seznambot", // Seznam (Czechia / Central Europe)
+  "yeti", // Naver (South Korea)
+  "naverbot",
+  "mojeekbot", // Mojeek (UK / Europe)
+  "coccocbot", // CocCoc
+  "sogou",
   // OpenAI / ChatGPT / SearchGPT
   "gptbot",
   "chatgpt-user",
   "oai-searchbot",
+  "chatgpt-agent",
   // Anthropic / Claude
   "claudebot",
   "claude-web",
+  "claude-user",
+  "claude-searchbot",
   "anthropic-ai",
-  // Google Gemini / Vertex AI
+  // Google Gemini / Vertex AI / Research
   "google-extended",
   "googleother",
+  "googleother-image",
+  "googleother-video",
   "google-cloudvertexbot",
-  // Perplexity AI
+  // Perplexity AI (indexer + live answer-time fetcher)
   "perplexitybot",
+  "perplexity-user",
   // Meta AI
   "meta-externalagent",
+  "meta-externalfetcher",
   "facebookexternalhit",
   "facebookbot",
+  "facebot",
   "meta-ai",
-  // Apple / Siri / Apple Intelligence
+  // Apple / Siri / Apple Intelligence / Spotlight
   "applebot",
   "applebot-extended",
   // xAI / Grok
@@ -38,34 +69,48 @@ const BOT_USER_AGENTS = [
   "grok",
   // DeepSeek AI
   "deepseekbot",
-  // Mistral AI
+  // Mistral AI / Le Chat
   "mistralbot",
-  // Amazon / Alexa
+  "mistralai",
+  "mistralai-user",
+  // Amazon / Alexa / Rufus
   "amazonbot",
   "ia_archiver", // Alexa legacy
   // Microsoft / Bing Copilot
   "msnbot",
   "bingpreview",
   "microsoftpreview",
-  // You.com AI
+  // DuckDuckGo AI Assist
+  "duckassistbot",
+  // You.com / Phind / Timpi / Cohere / AI2 / Diffbot
   "youbot",
-  // Cohere AI
+  "phindbot",
+  "timpibot",
   "cohere-ai",
-  // AI2 (Allen Institute for AI)
+  "cohere-training-data-crawler",
   "ai2bot",
   "ai2bot-dolma",
-  // Common Crawl (feeds AI training)
+  "diffbot",
+  "imagesiftbot",
+  "omgili",
+  "omgilibot",
+  // TikTok Search / ByteDance
+  "tiktokspider",
+  "bytespider",
+  // Common Crawl (feeds AI models)
   "ccbot",
   // Neeva / Snowflake
   "neevabot",
-  // Social media crawlers
+  // Social media & rich-preview crawlers (Discover / shares)
   "twitterbot",
   "linkedinbot",
   "slackbot",
   "telegrambot",
   "whatsapp",
   "discordbot",
-  // SEO tools
+  "pinterestbot",
+  "redditbot",
+  // SEO & verification tools
   "semrushbot",
   "ahrefsbot",
   "rogerbot",
@@ -144,23 +189,43 @@ function rateLimit(key: string, limit: number, windowMs = 60_000): boolean {
   return true;
 }
 
-/** Client IP behind the local reverse proxy. Standardized with
- *  src/lib/rate-limit.ts: `x-real-ip` (edge-set) first, then `cf-connecting-ip`,
- *  then the LAST `x-forwarded-for` entry — the one appended by the trusted
- *  proxy. The FIRST XFF entry is client-controlled and must never be trusted. */
+/** Client IP behind Cloudflare / local reverse proxy.
+ *  Checks `cf-connecting-ip` first (set by Cloudflare edge), then `x-real-ip`
+ *  (set by LiteSpeed/nginx), then the first public `x-forwarded-for` entry.
+ *  If all IP headers are missing, falls back to a lightweight per-client hash
+ *  so unrelated visitors never collide into a single global "unknown" bucket. */
 function getClientIp(request: NextRequest): string {
-  return (
-    request.headers.get("x-real-ip") ||
-    request.headers.get("cf-connecting-ip") ||
-    request.headers.get("x-forwarded-for")?.split(",").map((p) => p.trim()).filter(Boolean).pop() ||
-    "unknown"
-  );
+  const cfIp = request.headers.get("cf-connecting-ip")?.trim();
+  if (cfIp) return cfIp;
+
+  const realIp = request.headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+
+  const xff = request.headers.get("x-forwarded-for");
+  if (xff) {
+    const parts = xff
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean);
+    if (parts.length > 0) return parts[0];
+  }
+
+  // Fallback fingerprint so missing proxy headers never cause a global 429
+  const ua = request.headers.get("user-agent") || "";
+  const lang = request.headers.get("accept-language") || "";
+  let hash = 2166136261;
+  const sig = `${ua}|${lang}`;
+  for (let i = 0; i < sig.length; i++) {
+    hash ^= sig.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return `anon-${(hash >>> 0).toString(36)}`;
 }
 
 const RATE_LIMITS = {
-  apiMutation: 10, // POST/PATCH per minute per IP (tool actions, auth, orders)
-  apiRead: 120, // GET /api/* per minute (markdown-for-agents, feeds, lookups)
-  page: 180, // HTML pages per minute per IP — far above human browsing
+  apiMutation: 30, // POST/PATCH per minute per IP (tool actions, calculators, auth)
+  apiRead: 240, // GET /api/* per minute (markdown-for-agents, feeds, lookups)
+  page: 600, // HTML + RSC requests per minute per IP — generous for multi-tab human browsing
 } as const;
 
 
@@ -202,14 +267,25 @@ export default async function middleware(request: NextRequest) {
   //    never for /api/* (their UA string is client-controlled).
   const isApiPath = pathname.startsWith("/api");
   const isWebhookPath = pathname.startsWith("/api/webhooks/");
-  const isStaticAssetPath = /\.(?:webp|png|jpe?g|gif|svg|ico|avif|woff2?|ttf|eot|css|js|map)$/i.test(pathname);
+  const isStaticAssetPath = /\.(?:webp|png|jpe?g|gif|svg|ico|avif|woff2?|ttf|eot|css|js|map|xml|txt|json|webmanifest)$/i.test(pathname);
   const isMutation = !["GET", "HEAD", "OPTIONS"].includes(request.method);
+  const isPublicDiscoveryApi =
+    !isMutation &&
+    (pathname === "/api/markdown" ||
+      pathname === "/api/ai-context" ||
+      pathname === "/api/tools" ||
+      pathname === "/api/faqs" ||
+      pathname === "/api/mcp" ||
+      pathname === "/api/health");
+  const isRouterPrefetch =
+    request.headers.get("next-router-prefetch") === "1" ||
+    request.headers.get("purpose") === "prefetch";
   // Payment webhooks authenticate via HMAC signature; Razorpay retry
   // deliveries must never be 403'd by a UA heuristic or 429'd by bursts.
-  const skipMitigation = isWebhookPath;
+  const skipMitigation = isWebhookPath || isRouterPrefetch;
 
   // 1a. Known scripting/scraping clients get a hard 403 (never real visitors).
-  if (!skipMitigation && isAbusiveBot(userAgent)) {
+  if (!skipMitigation && !isSearchBot(userAgent) && isAbusiveBot(userAgent)) {
     console.warn(
       `[proxy] blocked abusive UA: ip=${getClientIp(request)} path=${pathname} ua=${userAgent?.slice(0, 120)}`,
     );
@@ -219,8 +295,8 @@ export default async function middleware(request: NextRequest) {
   // 1b. Empty user agents are almost always scripted — allow only a trickle.
   // Skip internal image-optimizer & static binary fetches so pages with many
   // icons (e.g. /tools with 45 tool icons) never self-throttle on loopback.
-  if (!skipMitigation && !isStaticAssetPath && !userAgent) {
-    if (!rateLimit(`empty-ua:${getClientIp(request)}`, 10)) {
+  if (!skipMitigation && !isStaticAssetPath && !isPublicDiscoveryApi && !userAgent) {
+    if (!rateLimit(`empty-ua:${getClientIp(request)}`, 20)) {
       return new NextResponse("Too Many Requests", {
         status: 429,
         headers: { "Retry-After": "60" },
@@ -229,8 +305,14 @@ export default async function middleware(request: NextRequest) {
     return withOptionalNoIndex(NextResponse.next(), pathname);
   }
 
-  // 1c. Per-IP fixed-window rate limits (pages for bots, everything for humans).
-  if (!skipMitigation && !isStaticAssetPath && (!isSearchBot(userAgent) || isApiPath)) {
+  // 1c. Per-IP fixed-window rate limits.
+  // Verified search, AdSense, Discover, and AI crawlers bypass rate limits on
+  // all HTML pages and public read-only discovery APIs.
+  if (
+    !skipMitigation &&
+    !isStaticAssetPath &&
+    (!isSearchBot(userAgent) || (isApiPath && !isPublicDiscoveryApi))
+  ) {
     const ip = getClientIp(request);
     if (isApiPath) {
       const limit = isMutation ? RATE_LIMITS.apiMutation : RATE_LIMITS.apiRead;

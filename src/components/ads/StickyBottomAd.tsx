@@ -49,11 +49,22 @@ export default function StickyBottomAd() {
 
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isReady, setIsReady] = useState(false);
-  const [unfilled, setUnfilled] = useState(false);
+  const [consentRev, setConsentRev] = useState(0);
+  const currentKey = `${pathname ?? ""}:${consentRev}`;
+  const [unfilledKey, setUnfilledKey] = useState<string | null>(null);
+  const unfilled = unfilledKey === currentKey;
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const onConsentChanged = () => {
+      setConsentRev((r) => r + 1);
+    };
+    window.addEventListener("cookie-consent-changed", onConsentChanged);
+    return () => window.removeEventListener("cookie-consent-changed", onConsentChanged);
+  }, []);
+
   // Mount sticky anchor ad on initial scroll, first interaction (tap/click/key),
-  // or post-LCP idle (1500ms) so zero-scroll tool visitors see the unit without
+  // or post-LCP idle (800ms) so zero-scroll tool visitors see the unit without
   // impacting initial paint / LCP.
   useEffect(() => {
     if (isEmbed || !visible || isReady) return;
@@ -69,7 +80,7 @@ export default function StickyBottomAd() {
       return () => clearTimeout(id);
     }
 
-    const idleTimer = setTimeout(activate, 1500);
+    const idleTimer = setTimeout(activate, 800);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("pointerdown", activate, { passive: true, once: true });
     window.addEventListener("keydown", activate, { passive: true, once: true });
@@ -84,7 +95,7 @@ export default function StickyBottomAd() {
   // Auto-collapse anchor bar if AdSense reports unfilled / unfill-optimized.
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || !isReady || typeof MutationObserver === "undefined") return;
+    if (!el || !isReady || unfilled || typeof MutationObserver === "undefined") return;
 
     const checkUnfilled = () => {
       if (
@@ -92,7 +103,7 @@ export default function StickyBottomAd() {
           "ins.adsbygoogle[data-ad-status='unfilled'], ins.adsbygoogle[data-ad-status='unfill-optimized']",
         )
       ) {
-        setUnfilled(true);
+        setUnfilledKey(currentKey);
         return true;
       }
       return false;
@@ -110,7 +121,7 @@ export default function StickyBottomAd() {
       childList: true,
     });
     return () => observer.disconnect();
-  }, [isReady]);
+  }, [isReady, currentKey, unfilled]);
 
   const handleDismiss = () => {
     try {
@@ -147,15 +158,15 @@ export default function StickyBottomAd() {
           </button>
         </div>
 
-        {/* AdSense Unit — responsive=false respects maxHeight 90px anchor sizing */}
+        {/* AdSense Unit — supports 320x50/320x100 mobile and 728x90 desktop leaderboards */}
         <div className="w-full flex justify-center overflow-hidden max-h-[90px]">
           <GoogleAd
             slot={AD_SLOTS.BOTTOM_STICKY}
             format="horizontal"
-            responsive={false}
+            responsive={true}
             lazy={false}
-            className="w-full text-center"
-            style={{ display: "block", width: "100%", height: "60px", maxHeight: "90px" }}
+            className="w-full text-center h-[60px] md:h-[90px]"
+            style={{ display: "block", width: "100%", height: "100%", maxHeight: "90px" }}
           />
         </div>
       </div>

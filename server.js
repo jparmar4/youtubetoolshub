@@ -179,12 +179,25 @@ http.createServer = function (opts, handler) {
   const o = typeof opts === 'function' ? {} : opts;
 
   return _createServer(o, (req, res) => {
-    // Trust client-IP headers ONLY from the local reverse proxy. A direct
-    // connection to this port could otherwise spoof `x-real-ip` /
-    // `x-forwarded-for` per request and bypass every per-IP rate limit.
+    // Trust client-IP headers from local loopback or private container/reverse-proxy
+    // networks (Hostinger/LiteSpeed/CloudLinux/Docker RFC1918 & IPv6 local hops).
+    // Direct public internet connections cannot use these private source addresses.
     const peer = req.socket.remoteAddress || '';
     const isLocalProxy =
-      peer === '127.0.0.1' || peer === '::1' || peer === '::ffff:127.0.0.1';
+      !peer ||
+      peer === '127.0.0.1' ||
+      peer === '::1' ||
+      peer.startsWith('127.') ||
+      peer.startsWith('10.') ||
+      peer.startsWith('192.168.') ||
+      /^172\.(1[6-9]|2\d|3[0-1])\./.test(peer) ||
+      peer.startsWith('::ffff:127.') ||
+      peer.startsWith('::ffff:10.') ||
+      peer.startsWith('::ffff:192.168.') ||
+      /^::ffff:172\.(1[6-9]|2\d|3[0-1])\./.test(peer) ||
+      peer.startsWith('fc') ||
+      peer.startsWith('fd') ||
+      peer.startsWith('fe80:');
     if (!isLocalProxy) {
       delete req.headers['x-real-ip'];
       delete req.headers['cf-connecting-ip'];

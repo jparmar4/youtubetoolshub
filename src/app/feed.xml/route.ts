@@ -22,7 +22,7 @@ export async function GET() {
   const rssItems = posts
     .map((post) => {
       const postUrl = `${siteUrl}/blog/${post.slug}`;
-      const pubDate = new Date(toBlogIsoDate(post.date)).toUTCString();
+      const pubDate = new Date(toBlogIsoDate(post.updatedAt ?? post.date)).toUTCString();
       const imageUrl = post.coverImage
         ? (post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`)
         : `${siteUrl}/og-image.png`;
@@ -57,6 +57,7 @@ export async function GET() {
     <description>${cdata(siteConfig.description)}</description>
     <link>${escapeXml(`${siteUrl}/blog`)}</link>
     <atom:link href="${escapeXml(`${siteUrl}/feed.xml`)}" rel="self" type="application/rss+xml" />
+    <atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <image>

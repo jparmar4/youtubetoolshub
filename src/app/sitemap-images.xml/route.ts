@@ -43,6 +43,16 @@ ${post.pinterestImage ? `    <image:image>
         }
     }
 
+    // Standalone flagship transcript downloader route
+    entries.push(`  <url>
+    <loc>${baseUrl}/youtube-transcript-downloader</loc>
+    <image:image>
+      <image:loc>${baseUrl}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp</image:loc>
+      <image:title>YouTube Transcript Downloader &amp; Keyword Extractor</image:title>
+      <image:caption>Extract and download YouTube transcripts and subtitles free in TXT, SRT, or CSV format.</image:caption>
+    </image:image>
+  </url>`);
+
     // Tool pages with unique OG images (do not repeat the same og-image.png)
     for (const tool of tools) {
         entries.push(`  <url>

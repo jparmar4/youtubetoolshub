@@ -258,13 +258,15 @@ export default function RootLayout({
         
         {/*
           Consent Mode v2: personalized ads ON by default (US/IN/most markets),
-          denied only in GDPR/UK/CH via Google's IP region. A global "denied"
-          default was serving non-personalized ads worldwide and crushing CPC.
+          denied only in GDPR/UK/CH via Google's IP region unless already accepted.
+          Also enables url_passthrough & non-redacted contextual ad signals so
+          non-personalized high-CPC contextual ads still serve before interaction,
+          and pre-initializes window.adsbygoogle queue to eliminate polling delay.
         */}
         <script
           id="google-consent-mode"
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}function c(v,r){var o={ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v};if(r){o.wait_for_update=500;o.region=r.split(' ');}gtag('consent','default',o);}c('granted');c('denied','AT BE BG HR CY CZ DK EE FI FR DE GR HU IS IE IT LV LI LT LU MT NL NO PL PT RO SK SI ES SE GB CH');gtag('js',new Date());gtag('config','G-14MEY3M1CN',{page_path:location.pathname});`,
+            __html: `window.dataLayer=window.dataLayer||[];window.adsbygoogle=window.adsbygoogle||[];function gtag(){dataLayer.push(arguments);}function c(v,r){var o={ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v};if(r){o.wait_for_update=500;o.region=r.split(' ');}gtag('consent','default',o);}c('granted');c('denied','AT BE BG HR CY CZ DK EE FI FR DE GR HU IS IE IT LV LI LT LU MT NL NO PL PT RO SK SI ES SE GB CH');try{if(localStorage.getItem('cookieConsent')==='accepted')gtag('consent','update',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});}catch(e){}gtag('set','url_passthrough',true);gtag('set','ads_data_redaction',false);gtag('js',new Date());gtag('config','G-14MEY3M1CN',{page_path:location.pathname});`,
           }}
         />
 

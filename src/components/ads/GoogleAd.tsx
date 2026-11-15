@@ -36,10 +36,20 @@ export default function GoogleAd({
   // order. Rendering every below-the-fold tag immediately meant the sidebar's
   // push could be consumed by an unseen in-article unit instead.
   const [isActive, setIsActive] = useState(!lazy);
+  const [consentRev, setConsentRev] = useState(0);
 
-  // Unique per rendered position so two placements that reuse an AdSense slot
-  // on the same route do not suppress one another during SPA navigation.
-  const adId = `${slot}-${pathname}-${instanceId}`;
+  // Unique per rendered position and consent state so two placements that reuse
+  // an AdSense slot on the same route do not suppress one another during SPA
+  // navigation, and GDPR/UK/CH consent updates re-key the <ins> for personalized fill.
+  const adId = `${slot}-${pathname}-${instanceId}-c${consentRev}`;
+
+  useEffect(() => {
+    const onConsentChanged = () => {
+      setConsentRev((r) => r + 1);
+    };
+    window.addEventListener("cookie-consent-changed", onConsentChanged);
+    return () => window.removeEventListener("cookie-consent-changed", onConsentChanged);
+  }, []);
 
   useEffect(() => {
     if (!lazy || isActive) return;
@@ -71,7 +81,7 @@ export default function GoogleAd({
     resetAd(adId);
 
     const adOptions = {
-      delay: 100,
+      delay: 40,
       // Ad networks can arrive more slowly than the app bundle on cold mobile
       // connections. Keep waiting without globally disabling later ad units.
       maxWait: 30000,

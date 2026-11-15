@@ -305,6 +305,9 @@ export default async function ToolPage({
                                 </div>
                             </div>
 
+                            {/* Post-Workspace High-Viewability Responsive Ad Unit */}
+                            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy={false} />
+
                             {/* AEO Quick Answer Capsule */}
                             <QuickAnswerCapsule
                                 question={tool.definitionBlock?.title || `What is ${tool.name}?`}
@@ -588,6 +591,13 @@ export default async function ToolPage({
                                     </ul>
                                 </div>
                             )}
+
+                            {/* Multiplex Ad Unit for High-Intent Creator Discovery */}
+                            <AdSlot
+                                slot={AD_SLOTS.MULTIPLEX}
+                                preset="multiplex"
+                                label="Recommended For Creators"
+                            />
 
                             {/* Newsletter CTA */}
                             <AdSectionIgnore>

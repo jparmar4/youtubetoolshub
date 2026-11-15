@@ -30,7 +30,7 @@ export default function CookieConsent() {
                 localStorage.setItem("cookieConsent", "accepted");
                 window.dispatchEvent(new Event("cookie-consent-changed"));
             } else {
-                timer = setTimeout(() => setShowBanner(true), 800);
+                timer = setTimeout(() => setShowBanner(true), 120);
             }
         }
 
