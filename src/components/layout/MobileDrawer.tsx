@@ -16,6 +16,7 @@ import { toolMeta } from "@/config/tool-meta";
 import { countryCPMData } from "@/lib/cpm-data";
 import HeaderCurrencyPicker from "./HeaderCurrencyPicker";
 import HeaderSavedTools from "./HeaderSavedTools";
+import HeaderVideoPackButton from "@/components/video-pack/HeaderVideoPackButton";
 import { DashboardLink } from "./NavLinks";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 
@@ -98,6 +99,9 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 <HeaderCurrencyPicker />
                 <HeaderSavedTools />
               </div>
+
+              {/* Active Video Pack */}
+              <HeaderVideoPackButton variant="drawer" onAfterClick={onClose} />
 
               {/* Search */}
               <div className="mb-4">

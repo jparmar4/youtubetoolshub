@@ -496,6 +496,79 @@ const ThumbnailAbTest = () => (
   </Svg>
 );
 
+// 46. AI Thumbnail Vision Critique — eye over 16:9 frame
+const ThumbCritique = () => (
+  <Svg>
+    <rect x="6.5" y="10" width="35" height="26" rx="4" {...STROKE} />
+    <path d="M12.5 23 c3.2-5 7.4-7.5 11.5-7.5 s8.3 2.5 11.5 7.5 c-3.2 5-7.4 7.5-11.5 7.5 s-8.3-2.5-11.5-7.5 Z" {...STROKE} strokeWidth={2.6} fill={GLASS} />
+    <circle cx="24" cy="23" r="3.3" fill={GOLD} />
+    <Sparkle x={40} y={7} s={5} />
+  </Svg>
+);
+
+// 47. 3-Way Test & Compare Packaging Studio — 3 tiled feed cards
+const AbPackagingStudio = () => (
+  <Svg>
+    <rect x="6" y="13" width="10.5" height="22" rx="2.5" {...STROKE} strokeWidth={2.4} fill={GLASS} />
+    <rect x="18.75" y="10" width="10.5" height="28" rx="2.5" {...STROKE} strokeWidth={2.6} />
+    <rect x="31.5" y="13" width="10.5" height="22" rx="2.5" {...STROKE} strokeWidth={2.4} fill={GLASS_SOFT} />
+    <circle cx="24" cy="20" r="2.6" fill={GOLD} />
+    <Sparkle x={38} y={7} s={5} />
+  </Svg>
+);
+
+// 48. Channel @Handle Outlier Scanner — rocket breakout bar + spike
+const ChannelOutlierScanner = () => (
+  <Svg>
+    <path d="M8 38 h32" {...STROKE} />
+    <rect x="10" y="27" width="6" height="8" rx="1.5" fill={GLASS} />
+    <rect x="20" y="23" width="6" height="12" rx="1.5" fill={GLASS} />
+    <rect x="30" y="10" width="7" height="25" rx="2" fill="currentColor" opacity={0.92} />
+    <Sparkle x={33.5} y={6} s={6} />
+  </Svg>
+);
+
+// 49. First 30s Hook & Promise Auditor — stopwatch arc + mic bolt
+const HookAuditor = () => (
+  <Svg>
+    <circle cx="23" cy="25" r="14" {...STROKE} />
+    <path d="M23 11 v-4 M19 7 h8" {...STROKE} strokeWidth={2.6} />
+    <path d="M23 25 l7-7" {...STROKE} strokeWidth={3} />
+    <circle cx="23" cy="25" r="3" fill={GOLD} />
+    <Sparkle x={39} y={9} s={6} />
+  </Svg>
+);
+
+// 50. -14 LUFS Audio Loudness Checker — waveform meter bars + gold target spark
+const LoudnessChecker = () => (
+  <Svg>
+    <rect x="6" y="10" width="36" height="28" rx="6" {...STROKE} fill={GLASS_SOFT} />
+    <path d="M13 28v-8 M18 32V16 M24 30V14 M30 32V18 M35 27v-6" {...STROKE} />
+    <line x1="10" y1="20" x2="38" y2="20" stroke={GOLD} strokeWidth={2} strokeDasharray="3 3" />
+    <Sparkle x={39} y={9} s={5} />
+  </Svg>
+);
+
+// 51. Episodic Shorts "Watch Series" Binge Planner — stacked vertical reels + chain link spark
+const ShortsSeriesPlanner = () => (
+  <Svg>
+    <rect x="8" y="10" width="14" height="28" rx="3" {...STROKE} fill={GLASS_SOFT} />
+    <rect x="26" y="10" width="14" height="28" rx="3" {...STROKE} fill={GLASS} />
+    <path d="M19 24 h10 M26 21 l3 3 -3 3" {...STROKE} stroke={GOLD} strokeWidth={2.6} />
+    <Sparkle x={38} y={7} s={5} />
+  </Svg>
+);
+
+// 52. Creator Partnership "Ad Boost" Rate Calculator — megaphone + coin + percentage spark
+const PartnershipBoostCalc = () => (
+  <Svg>
+    <path d="M9 22 l16-8 v20 l-16-8 z" {...STROKE} fill={GLASS} />
+    <path d="M25 18 c4 0 7 3 7 6 s-3 6-7 6" {...STROKE} />
+    <circle cx="37" cy="14" r="6" fill={GOLD} />
+    <path d="M37 11v6 M34 14h6" stroke="#0f172a" strokeWidth={2.2} strokeLinecap="round" />
+  </Svg>
+);
+
 const TOOL_ARTWORK: Record<string, () => ReactNode> = {
   "youtube-thumbnail-downloader": ThumbDownloader,
   "youtube-thumbnail-generator": ThumbGenerator,
@@ -542,6 +615,13 @@ const TOOL_ARTWORK: Record<string, () => ReactNode> = {
   "youtube-shorts-vs-long-form-calculator": ShortsVsLongForm,
   "youtube-milestone-countdown-calculator": MilestoneCountdown,
   "youtube-thumbnail-ab-test-calculator": ThumbnailAbTest,
+  "thumbnail-critique": ThumbCritique,
+  "ab-packaging-studio": AbPackagingStudio,
+  "channel-outlier-scanner": ChannelOutlierScanner,
+  "hook-auditor": HookAuditor,
+  "youtube-loudness-checker": LoudnessChecker,
+  "shorts-series-planner": ShortsSeriesPlanner,
+  "creator-partnership-boost-calculator": PartnershipBoostCalc,
   // Hero aliases for dedicated landing pages reuse their tool's motif
   "earnings-calculator-hero": EarningsCalculator,
   "transcript-downloader-hero": TranscriptDownloader,

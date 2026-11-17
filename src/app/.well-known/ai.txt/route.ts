@@ -19,7 +19,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   "seo-metadata": "SEO & Metadata Tools",
   "analytics-earnings": "Analytics & Earnings Tools",
   "channel-growth": "Channel Growth Tools",
-  "utility-fun": "Utility & Productivity Tools",
+  "utilities": "Utility & Productivity Tools",
 };
 
 function categoryLabel(category: string): string {

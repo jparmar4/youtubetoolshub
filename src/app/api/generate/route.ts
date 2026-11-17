@@ -1,66 +1,31 @@
 import { NextResponse } from "next/server";
 import { AIConfigurationError, generateAIText, prompts } from "@/lib/ai";
-import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
-import { auth } from "@/auth";
-import { hasActiveSubscription } from "@/lib/subscription";
+import { checkAIGlobalRateLimit, checkAIToolDailyLimit } from "@/lib/ai-rate-limit";
+import { checkAiIpRateLimit, createRateLimitJsonResponse } from "@/lib/rateLimit";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
-const MAX_REQUEST_BYTES = 16_000;
-/** Free/anonymous: keep abuse cost low while UI free tier is ~2/tool/day */
-const FREE_HOURLY_LIMIT = 8;
-const FREE_DAILY_LIMIT = 24;
-const PRO_HOURLY_LIMIT = 60;
-/** Pro users keep a generous daily ceiling too (60/hr × 10h of heavy use). */
-const PRO_DAILY_LIMIT = 600;
-/** Authoritative server-side enforcement of the advertised ~2/tool/day free
- *  tier — the /api/usage counters are advisory client-written values. */
-const AI_TOOL_DAILY_FREE_LIMIT = 2;
-const HOUR_MS = 60 * 60 * 1000;
-const DAY_MS = 24 * HOUR_MS;
+const MAX_REQUEST_BYTES = 24_000;
 
 export async function POST(request: Request) {
     try {
+        const originCheck = verifyOrigin(request);
+        if (!originCheck.allowed) {
+            return originCheck.response;
+        }
+
+        const ipRate = checkAiIpRateLimit(request.headers, "ai-generate");
+        if (!ipRate.allowed) {
+            return createRateLimitJsonResponse(ipRate);
+        }
+
         const rawBody = await request.text();
         if (rawBody.length > MAX_REQUEST_BYTES) {
             return NextResponse.json({ error: "Request is too large" }, { status: 413 });
         }
 
-        const ip = getRequestIp(request.headers);
-        const session = await auth();
-        const email = session?.user?.email || null;
-        let isPro = false;
-        if (email) {
-            try {
-                isPro = await hasActiveSubscription(email);
-            } catch (err) {
-                console.error("[Generate] Failed to check subscription, falling back to free:", err);
-                isPro = false;
-            }
-        }
-
-        const hourlyKey = email ? `ai-text-h:user:${email}` : `ai-text-h:ip:${ip}`;
-        const dailyKey = email ? `ai-text-d:user:${email}` : `ai-text-d:ip:${ip}`;
-        const hourlyLimit = isPro ? PRO_HOURLY_LIMIT : FREE_HOURLY_LIMIT;
-        const dailyLimit = isPro ? PRO_DAILY_LIMIT : FREE_DAILY_LIMIT;
-
-        const hourly = enforceRateLimit(hourlyKey, hourlyLimit, HOUR_MS);
-        if (!hourly.allowed) {
-            return NextResponse.json(
-                { error: "Too many requests. Please try again later." },
-                { status: 429, headers: { "Retry-After": String(hourly.retryAfterSeconds) } },
-            );
-        }
-
-        const daily = enforceRateLimit(dailyKey, dailyLimit, DAY_MS);
-        if (!daily.allowed) {
-            return NextResponse.json(
-                isPro
-                    ? { error: "Daily usage ceiling reached. Please try again tomorrow.", code: "DAILY_LIMIT" }
-                    : {
-                          error: "Daily free AI limit reached. Upgrade to Pro or try again tomorrow.",
-                          code: "DAILY_LIMIT",
-                      },
-                { status: 429, headers: { "Retry-After": String(daily.retryAfterSeconds) } },
-            );
+        const globalLimit = await checkAIGlobalRateLimit(request.headers);
+        if (!globalLimit.allowed) {
+            return globalLimit.response;
         }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,6 +54,10 @@ export async function POST(request: Request) {
             "channel-name-generator": "channel-name",
             "sponsorship": "sponsorship-estimator",
             "earnings-sponsorship": "sponsorship-estimator",
+            "packaging-studio": "ab-packaging-studio",
+            "youtube-ab-packaging-studio": "ab-packaging-studio",
+            "youtube-hook-auditor": "hook-auditor",
+            "youtube-shorts-series-planner": "shorts-series-planner",
         };
         const tool =
             typeof rawTool === "string"
@@ -119,23 +88,10 @@ export async function POST(request: Request) {
             );
         }
 
-        // Per-tool free-tier cap (server-authoritative). The advertised free
-        // tier is ~2 generations per tool per day — enforce it here so a
-        // scripted client can't get 12x that by crossing tools.
-        if (!isPro) {
-            const perToolKey = email
-                ? `ai-tool-d:user:${email}:${tool}`
-                : `ai-tool-d:ip:${ip}:${tool}`;
-            const perTool = enforceRateLimit(perToolKey, AI_TOOL_DAILY_FREE_LIMIT, DAY_MS);
-            if (!perTool.allowed) {
-                return NextResponse.json(
-                    {
-                        error: "Daily free limit for this tool reached. Upgrade to Pro or try again tomorrow.",
-                        code: "TOOL_DAILY_LIMIT",
-                    },
-                    { status: 429, headers: { "Retry-After": String(perTool.retryAfterSeconds) } },
-                );
-            }
+        // Per-tool free-tier cap (server-authoritative).
+        const perToolLimit = checkAIToolDailyLimit(globalLimit.context, tool);
+        if (!perToolLimit.allowed) {
+            return perToolLimit.response;
         }
 
         let prompt: string;
@@ -307,6 +263,46 @@ export async function POST(request: Request) {
                     str(params.dealViews),
                 );
                 break;
+
+            case "ab-packaging-studio":
+                if (!topic) {
+                    return NextResponse.json(
+                        { error: "Video topic or working title is required" },
+                        { status: 400 },
+                    );
+                }
+                prompt = prompts.abPackagingStudio(
+                    topic,
+                    str(params.targetAudience) || str(params.audience) || niche || "YouTube Creators",
+                );
+                break;
+
+            case "hook-auditor": {
+                const videoTitle = str(params.videoTitle) || str(params.title) || topic;
+                const introScript = str(params.introScript) || str(params.script);
+                if (!videoTitle.trim() || !introScript.trim()) {
+                    return NextResponse.json(
+                        { error: "Both video title and intro script are required" },
+                        { status: 400 },
+                    );
+                }
+                prompt = prompts.hookAuditor(videoTitle.trim(), introScript.trim());
+                break;
+            }
+
+            case "shorts-series-planner": {
+                if (!topic.trim()) {
+                    return NextResponse.json(
+                        { error: "Series topic or core promise is required" },
+                        { status: 400 },
+                    );
+                }
+                const rawCount = num(params.episodeCount || params.episodes, 5);
+                const episodeCount = rawCount === 3 || rawCount === 7 ? rawCount : 5;
+                const seriesTone = str(params.tone, "Educational Breakdown");
+                prompt = prompts.shortsSeriesPlanner(topic.trim(), episodeCount, seriesTone);
+                break;
+            }
 
             default:
                 return NextResponse.json(

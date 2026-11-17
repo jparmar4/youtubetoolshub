@@ -1,0 +1,67 @@
+# YouTube Tools Hub
+
+> Free, browser-first YouTube creator suite offering calculators, AI packaging & script tools, client-side audio & thumbnail analyzers, 2026 CPM/RPM benchmark research, and localized US State creator tax estimators — with zero login walls or browser extensions required for core workflows.
+
+**Website:** https://www.youtubetoolshub.com  
+**Content-Signal:** search=yes, ai-input=yes, ai-train=no  
+**Platform Philosophy:** Zero-login browser utilities (WebAudio API, HTML5 Canvas, local IRS/country math) paired with quota-shielded public YouTube metadata lookups and compliant attribution under YouTube API Services (`https://www.youtube.com/t/terms`).
+
+## Free Browser-Based Creator Suite
+
+YouTube Tools Hub provides category-organized creator utilities across five canonical categories:
+
+- [All Creator Tools](https://www.youtubetoolshub.com/tools): Full searchable catalog covering Thumbnail & Media, SEO & Metadata, Channel Research & Growth, Analytics & Earnings, and Utility Tools.
+- [Thumbnail & Media Tools](https://www.youtubetoolshub.com/tools/thumbnail-tools): 4K/HD Thumbnail Downloader, AI Thumbnail Vision Critique & Glance Test (`168px` mobile preview + blur test), 3-Way Test & Compare Packaging Studio, Feed Previewer, and Banner Maker.
+- [SEO & Metadata Tools](https://www.youtubetoolshub.com/tools/seo-tools): Transcript Downloader & Keyword Extractor, AI Title Generator, SEO Description Generator, Tag Generator, Tag Extractor, Chapter Timestamp Generator, and Hashtag Generator.
+- [Channel Research & Growth](https://www.youtubetoolshub.com/tools/channel-tools): Channel @Handle Outlier & Viral Multiplier Scanner, First 30s Hook & Promise Auditor, Episodic Shorts Watch Series Binge Planner, Comment Picker, and Trending Helper.
+- [Utility & Productivity Tools](https://www.youtubetoolshub.com/tools/utility-tools): Client-side WebAudio `-14 LUFS` Audio Loudness & Clipping Checker, Playlist Length Calculator, Video X-Ray Audit Workspace (`/watch`), Subscribe Link Generator, and Embed Code Generator.
+
+## Flagship Calculators
+
+- [YouTube Earnings & RPM Calculator](https://www.youtubetoolshub.com/tools/youtube-earnings-calculator): Interactive AdSense RPM/CPM estimator across 52 localized country markets (`/tools/youtube-earnings-calculator/[country]`) with niche CPM heatmaps.
+- [Sponsorship & Ad Boost Rate Calculator](https://www.youtubetoolshub.com/tools/creator-partnership-boost-calculator): Organic sponsorship pricing plus 30/60/90-day Creator Partnerships paid whitelisting rights, negotiation email builder, and usage clause copy.
+- [Creator Brand Deal Sponsorship Calculator](https://www.youtubetoolshub.com/tools/youtube-sponsorship-calculator): View- and niche-based flat-fee sponsor benchmark estimator.
+- [Creator LLC vs. S-Corp Tax Savings Calculator](https://www.youtubetoolshub.com/tools/youtube-llc-vs-s-corp-tax-savings-calculator): Federal Form 2553 reasonable-salary self-employment savings calculator using 2026 IRS thresholds.
+- [YouTube Channel Valuation Calculator](https://www.youtubetoolshub.com/tools/youtube-channel-valuation-calculator): Revenue-multiple asset valuation estimator (`16x–45x` monthly net profit) with shareable `1200×630` PNG benchmark cards.
+- [4,000 Watch Hours Countdown](https://www.youtubetoolshub.com/tools/youtube-watch-hours-calculator): YPP monetization timeline estimator with workflow bridges to Sponsorship and Earnings calculators.
+- [AdSense FX & Wire Fee Calculator](https://www.youtubetoolshub.com/tools/youtube-adsense-fee-calculator): Compare Wise vs. bank wire spreads on international YouTube payouts.
+
+## 2026 CPM/RPM Benchmark Report
+
+- [2026 YouTube CPM & RPM Benchmark Research Report](https://www.youtubetoolshub.com/research/youtube-cpm-rpm-report-2026): Original multi-table dataset detailing Tier-1 vs. Tier-2/Tier-3 advertiser CPMs, niche RPM tiers (Personal Finance, SaaS/B2B, Tech, Real Estate, Education, Entertainment, Gaming), YouTube Shorts monetization ranges (`$0.03–$0.07` per 1,000 views), and seasonal Q4 ad-spend multipliers (`Dataset` + `Article` + `FAQPage` JSON-LD).
+- [Global Country CPM & RPM Table](https://www.youtubetoolshub.com/resources/youtube-cpm-rates): Filterable 52-country CPM/RPM reference table and methodology guide.
+
+## US State Creator Tax Calculators (All 50 States + DC)
+
+- [US State Creator Tax Calculator Hub](https://www.youtubetoolshub.com/tools/creator-tax-calculator): Directory covering all 50 US states + Washington, D.C. (`washington-dc`) with searchable state tax cards, comparative `$60K` / `$100K` / `$250K` projection tables, LLC filing fees, and 2026 federal tax modeling (`$184,500` Social Security wage base, `15.3%` SE tax rate, `$16,100` single standard deduction, and `20%` QBI deduction).
+- [Localized State Tax Calculators](https://www.youtubetoolshub.com/tools/creator-tax-calculator/california): State-specific interactive income sliders (`$30K–$500K`), LLC formation vs. annual report fees, and S-Corp savings analysis (e.g., `/tools/creator-tax-calculator/california`, `/texas`, `/florida`, `/new-york`, `/washington-dc`).
+
+## Free Competitor Alternatives
+
+- [Free Competitor Alternatives Hub](https://www.youtubetoolshub.com/alternatives): Side-by-side comparison tables, honest limitation verdicts, and interactive browser tool embeds without credit-card paywalls:
+  - [Free 1of10 Alternative (Outlier Scanner)](https://www.youtubetoolshub.com/alternatives/1of10-free-alternative)
+  - [Free Pikzels Alternative (Thumbnail Studio)](https://www.youtubetoolshub.com/alternatives/pikzels-free-alternative)
+  - [SocialBlade Alternative (Revenue & Outliers)](https://www.youtubetoolshub.com/alternatives/socialblade-alternative)
+  - [Free VidIQ & TubeBuddy Alternative](https://www.youtubetoolshub.com/alternatives/vidiq-tubebuddy-free-alternative)
+
+## URL Structure
+
+- `/` — Homepage & flagship quick-launch suite
+- `/tools` — Full categorized creator tool catalog (canonical `primaryCategory` grouping)
+- `/tools/[slug]` — Dedicated interactive tool workspace + FAQ + SoftwareApplication schema
+- `/tools/thumbnail-tools`, `/tools/seo-tools`, `/tools/channel-tools`, `/tools/analytics-tools`, `/tools/utility-tools` — Category hubs
+- `/tools/youtube-earnings-calculator/[country]` — 52 localized international CPM/RPM calculators
+- `/tools/creator-tax-calculator` & `/tools/creator-tax-calculator/[state]` — 51 localized US Federal + State creator tax calculators
+- `/alternatives/[slug]` — Competitor comparison landing pages with live tool embeds
+- `/research/youtube-cpm-rpm-report-2026` — 2026 CPM/RPM Research Report dataset page
+- `/watch?v=[videoId]` — Video X-Ray Audit launchpad for any YouTube URL or video ID
+- `/youtube-transcript-downloader` — Standalone YouTube Transcript Downloader & Keyword Extractor
+- `/blog/[slug]` & `/resources/*` — Long-form creator guides, glossaries, and statistics
+- `/privacy-policy#youtube-api-services` & `/terms-of-use` (`/terms` 308 redirect) — Legal policies and YouTube API Services disclosures
+
+## Optional & Full AI Context
+
+- [Full Catalog Markdown Index](https://www.youtubetoolshub.com/llms-full.txt): Exhaustive breakdown of every tool, blog article, and CPM dataset row
+- [Structured JSON Context](https://www.youtubetoolshub.com/api/ai-context): Machine-readable site entities and benchmarks
+- [MCP Endpoint (SEP-1649)](https://www.youtubetoolshub.com/.well-known/mcp/server-card.json): Model Context Protocol server card and `/api/mcp` JSON-RPC endpoint
+- [XML Sitemap](https://www.youtubetoolshub.com/sitemap.xml): Canonical crawlable URL index

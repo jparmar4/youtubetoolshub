@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 import { extractVideoId } from "@/lib/utils";
+import {
+  VIDEO_METADATA_REVALIDATE_SECONDS,
+  fetchVideoMetadataWithFallback,
+  fetchYouTubeApiWithRotation,
+  getConfiguredYouTubeApiKeys,
+} from "@/lib/youtubeApiClient";
 
 /**
  * YouTube Tag Extractor API
@@ -30,38 +37,64 @@ async function extractTagsForVideoId(videoId: string, req: NextRequest) {
     );
   }
 
-  const apiKey = process.env.YOUTUBE_API_KEY;
-
-  if (!apiKey) {
-    return NextResponse.json({
-      success: false,
-      demo: true,
-      isDemo: true,
-      tags: [],
-      videoInfo: null,
-      message:
-        "YouTube API key not configured. Add YOUTUBE_API_KEY to .env.local",
-      error: "YouTube API key not configured on the server.",
-    });
-  }
+  const keys = getConfiguredYouTubeApiKeys();
 
   try {
-    const response = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?` +
-        `part=snippet&id=${encodeURIComponent(videoId)}&key=${apiKey}`,
-      { next: { revalidate: 3600 } },
-    );
+    const apiRes = keys.length
+      ? await fetchYouTubeApiWithRotation<{
+          items?: Array<{
+            snippet?: {
+              title?: string;
+              channelTitle?: string;
+              publishedAt?: string;
+              description?: string;
+              tags?: string[];
+            };
+          }>;
+        }>(`videos?part=snippet&id=${encodeURIComponent(videoId)}`, {
+          revalidate: VIDEO_METADATA_REVALIDATE_SECONDS,
+        })
+      : { ok: false as const, status: 503, error: "No API keys configured", quotaExhausted: false };
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("YouTube API error:", errorData);
-      throw new Error(
-        (errorData as { error?: { message?: string } })?.error?.message ||
-          "YouTube API request failed",
-      );
+    if (!apiRes.ok) {
+      // Graceful oEmbed public fallback so video metadata still resolves cleanly
+      const oembedFallback = await fetchVideoMetadataWithFallback(videoId);
+      if (oembedFallback) {
+        return NextResponse.json({
+          success: true,
+          fallback: true,
+          tags: [],
+          videoTitle: oembedFallback.title,
+          channelTitle: oembedFallback.channelTitle,
+          videoInfo: {
+            videoTitle: oembedFallback.title,
+            channelTitle: oembedFallback.channelTitle,
+            publishedAt: null,
+          },
+          message:
+            keys.length === 0
+              ? "Public oEmbed fallback active (YouTube Data API keys not configured)."
+              : "YouTube Data API quota exceeded — showing public oEmbed metadata.",
+        });
+      }
+
+      if (keys.length === 0) {
+        return NextResponse.json({
+          success: false,
+          demo: true,
+          isDemo: true,
+          tags: [],
+          videoInfo: null,
+          message:
+            "YouTube API keys not configured. Add YOUTUBE_API_KEYS or YOUTUBE_API_KEY in environment variables.",
+          error: "YouTube API key not configured on the server.",
+        });
+      }
+
+      throw new Error(apiRes.error || "YouTube API request failed");
     }
 
-    const data = await response.json();
+    const data = apiRes.data;
 
     if (!data.items || data.items.length === 0) {
       return NextResponse.json({
@@ -73,7 +106,7 @@ async function extractTagsForVideoId(videoId: string, req: NextRequest) {
       });
     }
 
-    const snippet = data.items[0].snippet;
+    const snippet = data.items[0].snippet || {};
     const tags: string[] = snippet.tags || [];
     const videoInfo = {
       videoTitle: snippet.title as string,
@@ -109,6 +142,11 @@ async function extractTagsForVideoId(videoId: string, req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
+  const originCheck = verifyOrigin(req);
+  if (!originCheck.allowed) {
+    return originCheck.response;
+  }
+
   const { searchParams } = new URL(req.url);
   const videoId = searchParams.get("videoId");
   const videoUrl = searchParams.get("videoUrl") || searchParams.get("url");
@@ -124,6 +162,11 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const originCheck = verifyOrigin(req);
+  if (!originCheck.allowed) {
+    return originCheck.response;
+  }
+
   try {
     const body = await req.json().catch(() => ({}));
     const videoId =

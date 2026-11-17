@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
@@ -237,8 +238,8 @@ export default function IntroScriptGenerator() {
                         )}
 
                         {/* Validation Reading Tips */}
-                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-100">
-                            <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-100 space-y-3">
+                            <h4 className="font-bold text-slate-900 flex items-center gap-2">
                                 <FaMicrophone /> Pro Delivery Tips
                             </h4>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-600">
@@ -247,6 +248,14 @@ export default function IntroScriptGenerator() {
                                 <li>• <strong>Eye Contact:</strong> Look at the lens, not the screen!</li>
                                 <li>• <strong>No Fluff:</strong> If a word handles no purpose, cut it. The intro must be tight.</li>
                             </ul>
+                            <div className="pt-2 border-t border-purple-200/60">
+                                <Link
+                                    href={`/tools/hook-auditor${topic ? `?title=${encodeURIComponent(topic)}` : ""}`}
+                                    className="text-xs font-extrabold text-purple-700 hover:underline"
+                                >
+                                    Stress-test your intro for fluff &amp; promise confirmation in the Hook Auditor →
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 )}

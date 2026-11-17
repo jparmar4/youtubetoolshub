@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Link from "next/link";
 import {
   FaClock,
   FaUsers,
@@ -19,6 +18,8 @@ import {
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import { saveHistory } from "@/lib/history";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
+import ShareResultCardButton from "@/components/tools/ShareResultCardButton";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 
 export default function WatchHoursCalculator() {
   const [currentHours, setCurrentHours] = useState("1200");
@@ -453,11 +454,32 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               <div className="text-xs font-semibold text-emerald-950">
                 Formula: ({calculations.remainingHours.toLocaleString()} hrs × 60) ÷ ({calculations.minutesPerView.toFixed(1)} mins/view) = {calculations.totalViewsNeeded.toLocaleString()} views
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <ShareResultCardButton
+                  badgeText="4,000 Watch Hours Roadmap"
+                  headline={`${calculations.hoursProgress}% to YPP (${calculations.hours.toLocaleString()} / 4,000 hrs)`}
+                  subtitle={`Target monetization date: ${calculations.estimatedCompletionDate} (${calculations.estimatedWeeks} wks)`}
+                  accent="emerald"
+                  filename="youtube-4000-watch-hours-roadmap.png"
+                  metrics={[
+                    {
+                      label: "Remaining Hours",
+                      value: `${calculations.remainingHours.toLocaleString()} hrs`,
+                    },
+                    {
+                      label: "Views Needed",
+                      value: `~${calculations.totalViewsNeeded.toLocaleString()}`,
+                    },
+                    {
+                      label: "Subscribers",
+                      value: `${calculations.subs.toLocaleString()} / 1,000`,
+                    },
+                  ]}
+                />
                 <button
                   type="button"
                   onClick={handleCopyPlan}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-xs"
                 >
                   {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
                   <span>{copied ? "Plan Copied!" : "Copy Plan"}</span>
@@ -465,19 +487,34 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   type="button"
                   onClick={handlePrintPlan}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-colors"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-colors"
                 >
                   <FaPrint className="w-3.5 h-3.5 text-emerald-600" />
                   <span>Print Blueprint</span>
                 </button>
-                <Link
-                  href="/tools/youtube-earnings-calculator"
-                  className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-emerald-600 text-xs font-bold transition-colors"
-                >
-                  <span>Estimate Earnings →</span>
-                </Link>
               </div>
             </div>
+
+            <WorkflowBridgeCard
+              subtitle={`Carry your ${calculations.subs.toLocaleString()} subscribers and ~${calculations.viewsPerVideoFor6Months.toLocaleString()} views/video goal directly into monetization & growth tools:`}
+              actions={[
+                {
+                  href: `/tools/youtube-earnings-calculator?views=${Math.max(10000, Math.round(calculations.viewsPerVideoFor6Months * Math.max(1, parseCalculatorInput(weeklyUploads) || 2) * 4.33))}&rpm=6.5`,
+                  label: "Project First Monetized AdSense Pay",
+                  description: `Pre-fills ~${Math.max(10000, Math.round(calculations.viewsPerVideoFor6Months * Math.max(1, parseCalculatorInput(weeklyUploads) || 2) * 4.33)).toLocaleString()} monthly views at $6.50 RPM once YPP unlocks.`,
+                },
+                {
+                  href: `/tools/youtube-milestone-countdown-calculator?subs=${calculations.subs}&growth=${Math.max(150, Math.round(Math.max(100, calculations.subs) * 0.2))}`,
+                  label: "Track 1K & 100K Play Button Dates",
+                  description: `Pre-fills your current ${calculations.subs.toLocaleString()} subscribers to forecast YPP and Silver Play Button dates.`,
+                },
+                {
+                  href: `/tools/youtube-sponsorship-calculator?views=${Math.max(1000, calculations.viewsPerVideoFor6Months)}`,
+                  label: "Estimate Early Brand Deal Quotes",
+                  description: `See sponsor pricing for ~${Math.max(1000, calculations.viewsPerVideoFor6Months).toLocaleString()} average views per upload.`,
+                },
+              ]}
+            />
 
             {/* High-CPC Creator Equipment & Editing Software Callout */}
             <CreatorSoftwareCard />

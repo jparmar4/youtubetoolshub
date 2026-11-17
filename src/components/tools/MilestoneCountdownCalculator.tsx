@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import ShareResultCardButton from "@/components/tools/ShareResultCardButton";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
@@ -62,9 +64,25 @@ const MILESTONES: MilestoneGoal[] = [
 ];
 
 export default function MilestoneCountdownCalculator() {
-  const [currentSubs, setCurrentSubs] = useState("18500");
-  const [monthlyGrowth, setMonthlyGrowth] = useState("1200");
+  const searchParams = useSearchParams();
+  const subsParam = searchParams.get("subs") || "";
+  const growthParam = searchParams.get("growth") || "";
+
+  const [prevSubsParam, setPrevSubsParam] = useState(subsParam);
+  const [prevGrowthParam, setPrevGrowthParam] = useState(growthParam);
+
+  const [currentSubs, setCurrentSubs] = useState(subsParam || "18500");
+  const [monthlyGrowth, setMonthlyGrowth] = useState(growthParam || "1200");
   const [copied, setCopied] = useState(false);
+
+  if (subsParam && subsParam !== prevSubsParam) {
+    setPrevSubsParam(subsParam);
+    setCurrentSubs(subsParam);
+  }
+  if (growthParam && growthParam !== prevGrowthParam) {
+    setPrevGrowthParam(growthParam);
+    setMonthlyGrowth(growthParam);
+  }
 
   const calculations = useMemo(() => {
     const subs = parseCalculatorInput(currentSubs);
@@ -375,11 +393,32 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
               <div className="text-xs font-semibold text-purple-900">
                 Pacing: +{calculations.dailyVelocity.toFixed(1)} subs/day · Next milestone in {calculations.nextMilestone.daysNeeded} days
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <ShareResultCardButton
+                  badgeText="Play Button Milestone Forecast"
+                  headline={`${calculations.nextMilestone.title}: ${calculations.nextMilestone.completionDate}`}
+                  subtitle={`${calculations.nextMilestone.award} (${calculations.nextMilestone.daysNeeded} days at +${calculations.dailyVelocity.toFixed(1)}/day)`}
+                  accent="purple"
+                  filename="youtube-play-button-milestone-card.png"
+                  metrics={[
+                    {
+                      label: "Current Subscribers",
+                      value: calculations.subs.toLocaleString(),
+                    },
+                    {
+                      label: "Monthly Growth Rate",
+                      value: `+${calculations.growth.toLocaleString()}/mo`,
+                    },
+                    {
+                      label: "Silver 100K Target",
+                      value: calculations.milestonesWithDates[2].completionDate,
+                    },
+                  ]}
+                />
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs"
                 >
                   {copied ? <FaCheck className="w-3.5 h-3.5" /> : <FaCopy className="w-3.5 h-3.5" />}
                   <span>{copied ? "Copied!" : "Copy Roadmap"}</span>
@@ -387,13 +426,13 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                 <button
                   type="button"
                   onClick={handlePrint}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-colors"
+                  className="cursor-pointer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-bold transition-colors"
                 >
                   <FaPrint className="w-3.5 h-3.5 text-purple-600" />
                   <span>Print Milestone Plan</span>
                 </button>
                 <Link
-                  href="/tools/youtube-earnings-calculator"
+                  href={`/tools/youtube-earnings-calculator?views=${Math.max(10000, calculations.subs * 4)}&rpm=6.5`}
                   className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-purple-600 text-xs font-bold transition-colors"
                 >
                   <span>Calculate Revenue →</span>

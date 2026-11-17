@@ -1,12 +1,28 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import ShareResultCardButton from "@/components/tools/ShareResultCardButton";
 import { Input } from "@/components/ui/Input";
 import { 
     FaCoins, FaCheckCircle, FaExchangeAlt, FaLightbulb 
 } from "react-icons/fa";
+
+function QuerySyncValuation({ onApply }: { onApply: (monthlyNet: string) => void }) {
+    useEffect(() => {
+        if (typeof window === "undefined" || !window.location.search) return;
+        const params = new URLSearchParams(window.location.search);
+        const monthlyParam = params.get("monthlyNet") || params.get("monthly");
+        if (!monthlyParam) return;
+        const cleaned = monthlyParam.replace(/,/g, "");
+        const parsed = parseFloat(cleaned);
+        if (Number.isFinite(parsed) && parsed > 0) {
+            void Promise.resolve().then(() => onApply(Math.round(parsed).toString()));
+        }
+    }, [onApply]);
+    return null;
+}
 
 type Currency =
     | "USD"
@@ -124,6 +140,7 @@ export default function ChannelValuationCalculator() {
             slug="youtube-channel-valuation-calculator"
             description="Estimate the market value, acquisition price, and net worth of any YouTube channel based on monthly net profit and creator multiples."
         >
+            <QuerySyncValuation onApply={setAdsense} />
             <div className="space-y-8">
                 {!calculations && <p role="status" className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 {/* Currency Selector Bar */}
@@ -305,6 +322,30 @@ export default function ChannelValuationCalculator() {
                                 <span className="text-emerald-600">
                                     Valuation Multiple: <strong>{calculations.monthlyMultiple}x Monthly</strong> ({calculations.annualMultiple}x Annual SDE)
                                 </span>
+                            </div>
+
+                            <div className="flex flex-wrap items-center justify-end gap-3 pt-1">
+                                <ShareResultCardButton
+                                    badgeText="2026 Channel Asset Valuation"
+                                    headline={`${activeCurrency.symbol}${calculations.fairMarketValue.toLocaleString()} Estimated Value`}
+                                    subtitle={`${activeGrowth.name} · ${activeModel.name}`}
+                                    accent="emerald"
+                                    filename="youtube-channel-valuation-benchmark.png"
+                                    metrics={[
+                                        {
+                                            label: "Monthly Net Cash Flow",
+                                            value: `${activeCurrency.symbol}${calculations.totalMonthlyNet.toLocaleString()}/mo`,
+                                        },
+                                        {
+                                            label: "Valuation Multiple",
+                                            value: `${calculations.monthlyMultiple}x (${calculations.annualMultiple}x SDE)`,
+                                        },
+                                        {
+                                            label: "Strategic Buyer Tier",
+                                            value: `${activeCurrency.symbol}${calculations.strategicValue.toLocaleString()}`,
+                                        },
+                                    ]}
+                                />
                             </div>
 
                             {/* Ratio Bar */}

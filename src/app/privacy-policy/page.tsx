@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import LegalPageShell from "@/components/layout/LegalPageShell";
-import { FaShieldAlt, FaLock, FaCookie, FaUserShield, FaDatabase, FaEnvelope, FaExclamationTriangle, FaCheckCircle, FaFlagUsa } from "react-icons/fa";
+import { FaShieldAlt, FaLock, FaCookie, FaUserShield, FaDatabase, FaEnvelope, FaExclamationTriangle, FaCheckCircle, FaFlagUsa, FaYoutube } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "Privacy Policy",
@@ -146,10 +146,68 @@ export default function PrivacyPolicyPage() {
                     We may use third-party services for analytics (such as Google Analytics and
                     Microsoft Clarity), advertising (Google AdSense), payments (Razorpay),
                     sign-in (Google OAuth), and AI-powered tool features. Some tools also call
-                    the YouTube Data API. These services may collect information about your visit
-                    according to their own privacy policies. We recommend reviewing their privacy
-                    policies for more information.
+                    YouTube API Services as disclosed below. These services may process information
+                    according to their own privacy policies, and we recommend reviewing them directly.
                 </p>
+            </div>
+
+            {/* YouTube API Services Disclosure */}
+            <div id="youtube-api-services" className="scroll-mt-24">
+                <h2 className="flex items-center gap-3 text-2xl font-bold text-slate-900 mb-6">
+                    <span className="p-2 rounded-lg bg-red-100/70 text-red-600">
+                        <FaYoutube className="w-5 h-5" />
+                    </span>
+                    YouTube API Services Disclosure
+                </h2>
+                <div className="p-6 sm:p-8 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                    <p className="text-slate-700 leading-relaxed text-base sm:text-lg">
+                        Certain research and metadata lookup tools on {siteConfig.name} (including
+                        the Video X-Ray Audit, Channel Outlier Scanner, Tag Extractor, Channel ID
+                        Finder, Subscriber Count Checker, Comment Picker, Playlist Length Calculator,
+                        and Trending Helper) use <strong>YouTube API Services</strong> to fetch{" "}
+                        <strong>public</strong> video and channel metadata (such as public titles,
+                        descriptions, tags, thumbnails, public channel statistics, playlists, and
+                        public comments).
+                    </p>
+                    <ul className="space-y-2.5 text-slate-600 text-sm sm:text-base">
+                        <li className="flex items-start gap-3">
+                            <FaCheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-1" />
+                            <span>
+                                <strong>Temporary Short-Term Caching (&lt; 24 Hours):</strong> Retrieved
+                                public YouTube metadata is cached temporarily on our servers for under
+                                24 hours strictly for performance, responsiveness, and API quota
+                                protection, and is automatically refreshed or discarded thereafter.
+                            </span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <FaCheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-1" />
+                            <span>
+                                <strong>Never Linked to Private Google Accounts:</strong> Public lookup
+                                requests routed through YouTube API Services are never linked to your
+                                private Google or YouTube account, and our creator tools do not require
+                                YouTube OAuth sign-in or access to private channel analytics.
+                            </span>
+                        </li>
+                    </ul>
+                    <div className="pt-2 flex flex-wrap gap-4 text-sm font-semibold">
+                        <a
+                            href="https://policies.google.com/privacy"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-purple-700 hover:text-purple-900 underline underline-offset-2"
+                        >
+                            Google Privacy Policy (policies.google.com/privacy) →
+                        </a>
+                        <a
+                            href="https://www.youtube.com/t/terms"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-700 hover:text-red-900 underline underline-offset-2"
+                        >
+                            YouTube Terms of Service (youtube.com/t/terms) →
+                        </a>
+                    </div>
+                </div>
             </div>
 
             {/* Your Rights */}

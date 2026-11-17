@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import PresetPills from "@/components/ui/PresetPills";
@@ -245,11 +246,19 @@ Analyzed with: https://www.youtubetoolshub.com/tools/youtube-outlier-calculator`
               </div>
             </div>
 
-            <div className="bg-white/5 border border-white/10 p-3 rounded-xl text-xs text-slate-300">
-              <span className="font-bold text-amber-300 flex items-center gap-1.5 mb-0.5">
-                <FaBolt /> Next Step:
-              </span>
-              If a competitor video scores <strong>3x+ Outlier</strong>, create your own take on the topic within 14 days to ride YouTube&apos;s active recommendation graph.
+            <div className="bg-white/5 border border-white/10 p-3 rounded-xl text-xs text-slate-300 space-y-2">
+              <div>
+                <span className="font-bold text-amber-300 flex items-center gap-1.5 mb-0.5">
+                  <FaBolt /> Next Step:
+                </span>
+                If a competitor video scores <strong>3x+ Outlier</strong>, create your own take on the topic within 14 days to ride YouTube&apos;s active recommendation graph.
+              </div>
+              <Link
+                href="/tools/channel-outlier-scanner"
+                className="inline-flex items-center gap-1.5 font-extrabold text-emerald-300 hover:text-emerald-200 hover:underline"
+              >
+                Auto-scan any @handle&apos;s last 25 uploads →
+              </Link>
             </div>
 
             <div className="pt-2 flex justify-end">

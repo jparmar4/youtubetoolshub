@@ -9,6 +9,7 @@ import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 interface ChannelDetails {
     id: string;
@@ -223,6 +224,8 @@ export default function ChannelIdFinder() {
                         )}
                     </div>
                 )}
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

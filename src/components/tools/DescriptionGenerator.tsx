@@ -16,6 +16,8 @@ import { FaMagic, FaYoutube, FaPen, FaEye, FaAlignLeft, FaHashtag, FaImage } fro
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
+import { useVideoPack } from "@/context/VideoPackContext";
+import SaveToVideoPackButton from "@/components/video-pack/SaveToVideoPackButton";
 
 const videoTypeOptions = [
     { value: "tutorial", label: "Tutorial / How-To" },
@@ -93,6 +95,7 @@ function DescriptionGeneratorContent() {
     const [viewMode, setViewMode] = useState<"preview" | "edit">("preview");
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { pack, saveDescription } = useVideoPack();
 
     // Legacy save logic could be added here if needed, but description tool didn't have save button before
     const saveToHistory = async (desc: string) => {
@@ -266,7 +269,16 @@ function DescriptionGeneratorContent() {
                         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <FaAlignLeft className="text-blue-600" /> Result
                         </h3>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <SaveToVideoPackButton
+                                compact
+                                toastMessage="Description saved to Active Video Pack!"
+                                isAlreadySaved={
+                                    description.trim().length > 0 &&
+                                    pack.description.trim() === description.trim()
+                                }
+                                onSave={() => saveDescription(description, topic)}
+                            />
                             <button
                                 type="button"
                                 onClick={() => setViewMode("preview")}

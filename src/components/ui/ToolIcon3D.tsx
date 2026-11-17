@@ -81,6 +81,10 @@ function resolveToolTheme(
   const s = (slug || "").toLowerCase();
   const c = (category || "").toLowerCase();
 
+  if (s.includes("thumbnail-critique")) return { themeClass: "ti-t3", badgeText: "CTR" };
+  if (s.includes("ab-packaging")) return { themeClass: "ti-t2", badgeText: "A/B" };
+  if (s.includes("outlier-scanner")) return { themeClass: "ti-t11", badgeText: "10x" };
+  if (s.includes("hook-auditor")) return { themeClass: "ti-t8", badgeText: "30s" };
   if (s.includes("thumbnail-downloader")) return { themeClass: "ti-t1", badgeText: "4K" };
   if (s.includes("ai-thumbnail") || s.includes("image-prompt")) return { themeClass: "ti-t2", badgeText: "AI" };
   if (s.includes("feed-previewer") || s.includes("banner-resizer") || s.includes("thumbnail-generator")) {
@@ -104,7 +108,7 @@ function resolveToolTheme(
   if (c === "channel-growth" || s.includes("script") || s.includes("ideas") || s.includes("calendar") || s.includes("audit") || s.includes("repurpos")) {
     return { themeClass: "ti-t11" };
   }
-  if (c === "utility-fun" || s.includes("giveaway") || s.includes("poll") || s.includes("playlist") || s.includes("comment")) {
+  if (c === "utilities" || c === "utility-fun" || s.includes("giveaway") || s.includes("poll") || s.includes("playlist") || s.includes("comment")) {
     return { themeClass: "ti-t12" };
   }
   return { themeClass: "ti-t13" };

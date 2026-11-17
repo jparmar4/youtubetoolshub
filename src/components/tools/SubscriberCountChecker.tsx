@@ -11,6 +11,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import UsageBanner from "@/components/ui/UsageBanner";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import { useUsage } from "@/hooks/useUsage";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 interface ChannelDetails {
     id: string;
@@ -151,6 +152,8 @@ export default function SubscriberCountChecker() {
                         </div>
                     </div>
                 )}
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

@@ -22,6 +22,7 @@ import { CURRENCY_CONFIG, isSupportedCurrency, type SupportedCurrency } from "@/
 import { usePreferredCurrency } from "@/lib/currency";
 import { saveHistory } from "@/lib/history";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 import Link from "next/link";
 
 
@@ -591,13 +592,39 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
                     <span>Print Media Kit</span>
                   </button>
                   <Link
-                    href="/tools/youtube-sponsorship-calculator"
+                    href={`/tools/youtube-sponsorship-calculator?views=${Math.max(1000, Math.round(adResult.viewsNum / 4))}`}
                     className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-purple-600 text-xs font-bold transition-colors"
                   >
                     <span>Build Media Kit →</span>
                   </Link>
                 </div>
               </div>
+
+              <WorkflowBridgeCard
+                subtitle={`Turn ${adResult.viewsNum.toLocaleString()} monthly views and ${formatCurrency(adResult.monthly * currentRate, activeCurrency)}/mo into exact sponsorship rates, exit valuation & S-Corp tax savings:`}
+                actions={[
+                  {
+                    href: `/tools/youtube-sponsorship-calculator?views=${Math.max(1000, Math.round(adResult.viewsNum / 4))}`,
+                    label: "Calculate Per-Video Brand Deal Quote",
+                    description: `Pre-fills ~${Math.max(1000, Math.round(adResult.viewsNum / 4)).toLocaleString()} views/video (~4 uploads/mo) into our Sponsorship Calculator.`,
+                  },
+                  {
+                    href: `/tools/creator-partnership-boost-calculator?views=${Math.max(1000, Math.round(adResult.viewsNum / 4))}`,
+                    label: "Price Paid Ad Boost & Whitelisting",
+                    description: `Model base sponsorship + 30/60/90-day YouTube Creator Partnerships ad boost rights.`,
+                  },
+                  {
+                    href: `/tools/youtube-channel-valuation-calculator?monthlyNet=${Math.max(100, Math.round(adResult.monthly))}`,
+                    label: "Value Your Channel Asset (24x–45x)",
+                    description: `Pre-fills $${Math.max(100, Math.round(adResult.monthly)).toLocaleString()}/mo cash flow to model fair-market buyout offers.`,
+                  },
+                  {
+                    href: `/tools/youtube-llc-vs-s-corp-tax-savings-calculator?profit=${Math.max(10000, Math.round(adResult.yearly))}`,
+                    label: "Check 2026 S-Corp Tax Savings",
+                    description: `Pre-fills $${Math.max(10000, Math.round(adResult.yearly)).toLocaleString()}/yr profit to test IRS Form 2553 savings.`,
+                  },
+                ]}
+              />
           </div>
         )}
 

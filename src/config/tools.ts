@@ -9,16 +9,25 @@ import {
     FaTrophy, FaUsers, FaClock, FaDownload, FaVideo, FaPaintBrush, FaCompass,
     FaHandshake, FaFileInvoiceDollar, FaCoins, FaMobileAlt, FaMusic, FaStore, FaBuilding,
     FaBullhorn, FaLink, FaCode, FaUniversity, FaFire, FaAward,
-    FaPalette, FaClipboardCheck, FaClosedCaptioning, FaCompressAlt, FaHourglassHalf, FaExchangeAlt
+    FaPalette, FaClipboardCheck, FaClosedCaptioning, FaCompressAlt, FaHourglassHalf, FaExchangeAlt,
+    FaEye, FaFlask, FaVolumeUp
 } from "react-icons/fa";
 import { IconType } from "react-icons";
+
+export type ToolCategoryId =
+    | "thumbnail-media"
+    | "seo-metadata"
+    | "channel-growth"
+    | "analytics-earnings"
+    | "utilities";
 
 export interface Tool {
     slug: string;
     name: string;
     description: string;
     shortDescription: string;
-    category: string;
+    primaryCategory: ToolCategoryId;
+    category: ToolCategoryId;
     icon: IconType;
     isAI: boolean;
     seoTitle?: string;
@@ -45,15 +54,21 @@ export interface Tool {
     };
 }
 
-export const toolCategories = [
+export const toolCategories: Array<{
+    id: ToolCategoryId;
+    name: string;
+    description: string;
+}> = [
     { id: "thumbnail-media", name: "Thumbnail & Media Tools", description: "Download and create stunning thumbnails" },
     { id: "seo-metadata", name: "SEO & Metadata Tools", description: "Optimize your videos for search" },
     { id: "channel-growth", name: "Channel Research & Growth", description: "Grow your channel with AI insights" },
     { id: "analytics-earnings", name: "Analytics & Earnings", description: "Track and calculate your earnings" },
-    { id: "utility-fun", name: "Utility & Fun Tools", description: "Useful tools for creators" },
+    { id: "utilities", name: "Utility & Productivity Tools", description: "Useful tools for creators" },
 ];
 
-export const tools: Tool[] = [
+type RawTool = Omit<Tool, "category">;
+
+const rawTools: RawTool[] = [
     // Thumbnail & Media Tools
     {
         slug: "youtube-thumbnail-downloader",
@@ -62,7 +77,7 @@ export const tools: Tool[] = [
         seoDescription: "Download full HD & 4K YouTube thumbnails instantly. Paste any video or Shorts link, preview all sizes, and save. 100% Free, no app or signup required.",
         description: "Download high-quality thumbnails from any YouTube video. Get all resolutions including HD and SD versions instantly. No signup required.",
         shortDescription: "Download thumbnails from any YouTube video",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaImage,
         isAI: false,
         isFeatured: true,
@@ -154,7 +169,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate short YouTube thumbnail text ideas with style and emotion options. Get concise hook variations you can review before designing your thumbnail.",
         description: "Generate catchy thumbnail text ideas using AI. Get punchy, clickable text suggestions that grab attention and boost your CTR.",
         shortDescription: "AI-powered thumbnail text ideas",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaMagic,
         isAI: true,
         isFeatured: true,
@@ -246,7 +261,7 @@ export const tools: Tool[] = [
         seoDescription: "Describe a YouTube thumbnail concept and generate AI-assisted image ideas. Review the output, edit it for accuracy, and use only assets you have rights to publish.",
         description: "Generate stunning thumbnail images with AI. Just describe what you want and get a unique, professional thumbnail in seconds optimized for YouTube.",
         shortDescription: "Generate thumbnail images with AI",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaPalette,
         isAI: true,
         isFeatured: true,
@@ -338,7 +353,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate AI thumbnail prompt drafts for Midjourney, DALL-E, and Stable Diffusion. Review and adapt each prompt before publishing.",
         description: "Generate professional AI prompts for stunning YouTube thumbnails. Works with DALL-E, Midjourney, Stable Diffusion, and any AI image generator.",
         shortDescription: "Create perfect AI image prompts",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaRocket,
         isAI: true,
         isFeatured: true,
@@ -433,7 +448,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate YouTube title ideas from your video topic. Compare searchable and curiosity-led drafts, then edit them to match your video. Free, no signup.",
         description: "Generate SEO-optimized, clickable YouTube titles using AI. Choose from different tones, emotional hooks, and languages to boost your CTR.",
         shortDescription: "AI-generated SEO titles",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaHeading,
         isAI: true,
         isFeatured: true,
@@ -526,7 +541,7 @@ export const tools: Tool[] = [
         seoDescription: "Draft a YouTube description with hook, chapters, links, and hashtags. Free template-style generator. Edit before you publish. No signup.",
         description: "Create engaging, high-ranking video descriptions with AI. Includes hooks, structured bullet points, CTAs, and optimized hashtags.",
         shortDescription: "AI-powered video descriptions",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaAlignLeft,
         isAI: true,
         keywords: ["youtube description generator", "video description maker", "youtube seo description", "description template", "ai visualization generator", "youtube description tips", "optimized youtube description"],
@@ -619,7 +634,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate relevant YouTube tag ideas from your topic. Review and copy tags that describe your video. Free browser tool, no signup required.",
         description: "Generate SEO-optimized, trending tags that help your videos rank. Get a mix of primary, search, and long-tail keywords in seconds.",
         shortDescription: "Generate SEO tags for videos",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaTags,
         isAI: true,
         isFeatured: true,
@@ -711,7 +726,7 @@ export const tools: Tool[] = [
         seoDescription: "Extract hidden meta tags from any public YouTube video or Shorts. View competitor SEO keywords and copy tags instantly with 1-click. Free tool.",
         description: "Extract hidden meta tags from any YouTube video URL. See exactly what keywords successful channels are using to rank and get suggested.",
         shortDescription: "Extract tags from any video",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaSearch,
         isAI: false,
         keywords: ["youtube tag extractor", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video", "how to see youtube tags", "competitor tags tool", "hidden youtube keywords"],
@@ -801,10 +816,10 @@ export const tools: Tool[] = [
         slug: "youtube-video-ideas-generator",
         name: "Strategic Video Ideas Generator",
         seoTitle: "Free YouTube Video Ideas Generator — Viral Topic Ideas",
-        seoDescription: "Generate viral YouTube video ideas tailored to your niche and channel size. Get complete concepts with titles, thumbnail ideas, and difficulty ratings. Free AI tool!",
+        seoDescription: "Generate viral YouTube video ideas tailored to your niche with catchy titles, thumbnail concepts, and competition scores. Free AI tool.",
         description: "Get proven video concepts tailored to your channel size and growth goals. Includes titles, thumbnails, and difficulty ratings for maximum impact.",
         shortDescription: "AI video ideas for your niche",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaLightbulb,
         isAI: true,
         keywords: ["video ideas generator", "youtube content ideas", "video topics", "viral video ideas", "content inspiration", "youtube growth strategy", "creative video concepts", "ai content planner"],
@@ -897,7 +912,7 @@ export const tools: Tool[] = [
         seoDescription: "Discover what's trending on YouTube right now in your region. Get AI-powered video ideas based on real-time data. Capitalize on viral opportunities. Free tool!",
         description: "Discover trending topics in your region and get AI-powered video ideas tailored to your niche using real-time YouTube data and predictive analytics.",
         shortDescription: "Find trending topics & viral ideas",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaChartLine,
         isAI: true,
         keywords: ["youtube trends", "trending topics", "viral video ideas", "what is trending on youtube", "niche research", "youtube trend finder", "trend prediction 2026", "real-time youtube analytics"],
@@ -988,7 +1003,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate a strategic YouTube content calendar with AI. Get 30 days of video ideas organized by date. Download CSV. Perfect for consistent uploading.",
         description: "Plan your YouTube success with our AI Content Calendar Generator. Create a consistent, strategic content schedule with video ideas tailored to your niche.",
         shortDescription: "Plan your content schedule",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaCalendarAlt,
         isAI: true,
         keywords: ["content calendar generator", "youtube upload schedule", "content planner", "video content plan", "social media calendar", "youtube scheduler", "content strategy tool", "creator workflow 2026"],
@@ -1081,7 +1096,7 @@ export const tools: Tool[] = [
         seoDescription: "Estimate YouTube AdSense from views and RPM. Compare CPM by country (US, UK, India, 50+). See 100k and 1M view scenarios. Free, no signup.",
         description: "Estimate YouTube AdSense revenue from monthly views and RPM. Compare country CPM ranges, model high-intent niches, and plan monthly/yearly creator income.",
         shortDescription: "Estimate AdSense revenue by views & RPM",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaDollarSign,
         isAI: false,
         isFeatured: true,
@@ -1179,7 +1194,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate your YouTube engagement rate instantly. Enter views, likes, and comments to get your percentage score. Compare against industry benchmarks. Free tool!",
         description: "Calculate your YouTube video's engagement rate. Measure how actively your audience interacts with your content.",
         shortDescription: "Measure video engagement",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaChartBar,
         isAI: false,
         keywords: ["engagement rate calculator", "youtube engagement", "video engagement metrics", "calculate youtube engagement", "engagement analysis", "youtube analytics", "youtube likes to views ratio", "good youtube engagement rate"],
@@ -1258,7 +1273,7 @@ export const tools: Tool[] = [
         seoDescription: "Compare two YouTube titles and see which one will get more views. Our AI analyzes CTR potential, curiosity gaps, and emotional hooks. Free tool!",
         description: "Compare two titles and get AI scoring for click-through potential, clarity, and emotional appeal to maximize your video reach.",
         shortDescription: "Compare title effectiveness",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaBalanceScale,
         isAI: true,
         isFeatured: true,
@@ -1352,7 +1367,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate YouTube channel name ideas by niche: short, speakable brand names. Free, no signup. Then check handles and trademarks yourself.",
         description: "Generate unique, memorable YouTube channel name ideas. Find the perfect name for your brand with our AI-powered naming engine.",
         shortDescription: "Find your perfect channel name",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaUser,
         isAI: true,
         keywords: ["channel name generator", "youtube name ideas", "creative channel names", "brand name generator", "cool youtube names", "youtube channel namer", "catchy channel names", "ai brand namer"],
@@ -1443,7 +1458,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate viral YouTube hashtags with AI. Get broad reach and niche-specific hashtags. Optimize discoverability with trending hashtags. Free creator tool!",
         description: "Generate relevant hashtags for your YouTube videos. Get broad and specific hashtag suggestions tailored to the 2026 discovery algorithm.",
         shortDescription: "Generate video hashtags",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaHashtag,
         isAI: true,
         keywords: ["youtube hashtag generator", "video hashtags", "best hashtags for youtube", "viral hashtags", "hashtag finder", "trending hashtags 2026", "how to use hashtags on youtube", "seo hashtags"],
@@ -1534,7 +1549,7 @@ export const tools: Tool[] = [
         seoDescription: "Generate killer YouTube intro scripts with AI. Hook viewers in the first 30 seconds with proven frameworks. Stop viewers from clicking away. Free tool!",
         description: "Create engaging video intro scripts with AI. Hook your viewers in the first 15-30 seconds with results-driven psychology.",
         shortDescription: "Write compelling intros",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaMicrophone,
         isAI: true,
         keywords: ["intro script generator", "youtube intro writer", "video hook generator", "script writing ai", "youtube script maker", "how to write a video intro", "retention hooks", "youtube hook writer"],
@@ -1625,7 +1640,7 @@ export const tools: Tool[] = [
         seoDescription: "Find the unique Channel ID (UC...) for any YouTube channel instantly. Works with handles, URLs, and video links. Free developer & marketer tool!",
         description: "Find the unique Channel ID (UC...) and User ID for any YouTube channel. Essential for API integrations and advanced research in 2026.",
         shortDescription: "Find any YouTube Channel ID",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaIdCard,
         isAI: false,
         keywords: ["channel id finder", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle", "uc id finder", "youtube api channel id"],
@@ -1716,7 +1731,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate the exact total runtime of any public YouTube playlist and compare watch time at 1.25x, 1.5x, 1.75x, and 2x playback speeds. Free.",
         description: "Calculate the total length of any YouTube playlist. See how long it takes to watch at specific speeds (1.25x, 1.5x, 2x).",
         shortDescription: "Calculate playlist duration",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaListUl,
         isAI: false,
         keywords: ["youtube playlist length", "playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time", "total hours of playlist"],
@@ -1808,7 +1823,7 @@ export const tools: Tool[] = [
         seoDescription: "Pick a random winner from loaded public YouTube comments. Apply duplicate and keyword filters, then verify your giveaway rules manually.",
         description: "Pick a random winner from loaded public YouTube comments with duplicate and keyword filters.",
         shortDescription: "Pick random comment winner",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaTrophy,
         isAI: false,
         keywords: ["comment picker", "random comment winner", "youtube giveaway tool", "pick contest winner", "random youtube comment", "youtube comment raffle", "giveaway picker free"],
@@ -1883,7 +1898,7 @@ export const tools: Tool[] = [
         seoDescription: "Review your YouTube creator workflow with a practical self-assessment checklist for titles, thumbnails, retention review, and audience feedback.",
         description: "Review your creator workflow with an honest self-assessment checklist and a short list of practical next improvements.",
         shortDescription: "Review your creator workflow checklist",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaClipboardCheck,
         isAI: false,
         isFeatured: true,
@@ -1958,7 +1973,7 @@ export const tools: Tool[] = [
         seoDescription: "Check a YouTube channel's public subscriber count, view count, and video count using the official YouTube Data API. No login required.",
         description: "Check public subscriber, video, and view counts for a YouTube channel using the official YouTube Data API.",
         shortDescription: "Check public YouTube channel statistics",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaUsers,
         isAI: false,
         isFeatured: true,
@@ -2033,7 +2048,7 @@ export const tools: Tool[] = [
         seoDescription: "Find the right official YouTube option for your goal: download your own upload, watch offline, reuse with permission, or share the original video.",
         description: "Choose your goal and get a policy-safe YouTube option without extracting, caching, or storing video files.",
         shortDescription: "Find official YouTube download and sharing options",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaDownload,
         isAI: false,
         keywords: ["youtube video download", "download my youtube video", "youtube offline viewing", "download youtube video from studio", "share youtube video", "youtube studio download video"],
@@ -2107,7 +2122,7 @@ export const tools: Tool[] = [
         seoDescription: "Turn your video outline into clean YouTube timestamps and chapter labels. Format chapters locally in your browser and copy them into your description.",
         description: "Turn a video outline into description-ready YouTube timestamps and chapter labels locally in your browser.",
         shortDescription: "Format YouTube chapters from an outline",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaClock,
         isAI: false,
         isFeatured: true,
@@ -2182,7 +2197,7 @@ export const tools: Tool[] = [
         seoDescription: "Create a practical YouTube Shorts script, shot timeline, and recording checklist locally. Plan vertical videos without uploading footage.",
         description: "Build a YouTube Shorts script, shot timeline, and recording checklist without uploading your footage.",
         shortDescription: "Plan a Shorts script and shot timeline",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaVideo,
         isAI: false,
         isFeatured: true,
@@ -2257,7 +2272,7 @@ export const tools: Tool[] = [
         seoDescription: "Create a simple YouTube banner and matching logo locally. Preview the central safe area and export PNG channel art without uploading assets.",
         description: "Create a simple YouTube banner and matching logo locally, with a safe-area preview for important text.",
         shortDescription: "Create local banner and logo PNG files",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaPaintBrush,
         isAI: false,
         isFeatured: true,
@@ -2332,7 +2347,7 @@ export const tools: Tool[] = [
         seoDescription: "Find practical YouTube niche ideas based on your creator strengths and preferred format. Get local recommendations with starter video ideas.",
         description: "Find a practical YouTube niche direction based on your strengths and preferred video format.",
         shortDescription: "Find niche ideas that fit your strengths",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaCompass,
         isAI: false,
         isFeatured: true,
@@ -2407,7 +2422,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate how much to charge for YouTube sponsorships and brand deals. Estimate 30s mentions, 60s integrations, and dedicated video rates by niche and views.",
         description: "Estimate how much money you should charge brands for sponsored integrations, shoutouts, and dedicated YouTube videos based on views, niche CPM, and deliverables.",
         shortDescription: "Calculate how much to charge for YouTube brand deals and sponsorships",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaHandshake,
         isAI: false,
         isFeatured: true,
@@ -2485,7 +2500,7 @@ export const tools: Tool[] = [
         seoDescription: "Estimate the market selling value of any YouTube channel. Models monthly net profit with 16x–45x multiples for creators and media buyers. Free.",
         description: "Calculate the estimated market value and acquisition price of a YouTube channel based on monthly net profit, revenue diversification, and creator industry multiples.",
         shortDescription: "Estimate the market value and net worth of any YouTube channel",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaCoins,
         isAI: false,
         isFeatured: true,
@@ -2558,7 +2573,7 @@ export const tools: Tool[] = [
         seoDescription: "Download YouTube transcripts and extract video subtitles free in 2026. Export clean plain text, SRT, or CSV without timestamps and analyze spoken keywords.",
         description: "Extract clean transcripts, subtitles, and spoken SEO keywords from any YouTube video or Short. Export as plain text, SRT, or CSV with no signup required.",
         shortDescription: "Download transcripts, subtitles & extract spoken keywords free",
-        category: "utility-fun",
+        primaryCategory: "seo-metadata",
         icon: FaClosedCaptioning,
         isAI: false,
         isFeatured: true,
@@ -2633,7 +2648,7 @@ export const tools: Tool[] = [
         seoDescription: "Explore creator expense scenarios using your own assumed tax rate. Estimate a possible tax reduction; this tool does not determine deduction eligibility.",
         description: "Plan creator business expenses and explore a possible tax reduction using an adjustable rate assumption.",
         shortDescription: "Plan creator expenses and compare illustrative tax reduction scenarios",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaFileInvoiceDollar,
         isAI: false,
         isFeatured: false,
@@ -2713,7 +2728,7 @@ export const tools: Tool[] = [
         seoDescription: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading. Free tool.",
         description: "Preview your draft YouTube thumbnail and title inside realistic Desktop, Mobile suggested, and Shorts 9:16 safe-zone feeds before uploading.",
         shortDescription: "Preview thumbnails in realistic YouTube feeds and Shorts safe zones",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaMobileAlt,
         isAI: false,
         isFeatured: true,
@@ -2797,7 +2812,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate IRS Self-Employment tax savings by electing S-Corp status for your YouTube channel. Compare W-2 salary, shareholder distributions, and CPA overhead.",
         description: "Calculate IRS Self-Employment tax savings by electing S-Corp status for your YouTube channel. Compare W-2 salary, shareholder distributions, and CPA overhead.",
         shortDescription: "Calculate self-employment tax savings from electing S-Corp status",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaBuilding,
         isAI: false,
         isFeatured: true,
@@ -2881,7 +2896,7 @@ export const tools: Tool[] = [
         seoDescription: "Compare platform cuts and Stripe processing fees across YouTube Channel Memberships (30%), Patreon (8-12%), and Fourthwall (0%). Calculate creator take-home pay.",
         description: "Compare platform cuts and Stripe processing fees across YouTube Channel Memberships (30%), Patreon (8-12%), and Fourthwall (0%). Calculate creator take-home pay.",
         shortDescription: "Compare platform fees and take-home pay across creator membership platforms",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaStore,
         isAI: false,
         isFeatured: true,
@@ -2965,7 +2980,7 @@ export const tools: Tool[] = [
         seoDescription: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
         description: "Model YouTube's official Shorts Creator Pool licensing formula. Calculate how using commercial songs vs royalty-free audio impacts your Shorts RPM and net payout.",
         shortDescription: "Model how commercial music licensing shares impact YouTube Shorts RPM",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaMusic,
         isAI: false,
         isFeatured: true,
@@ -3050,7 +3065,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate YouTube advertising costs, Cost Per View (CPV), CPM, and budget requirements across countries and video ad formats in 2026. 100% Free.",
         description: "Estimate YouTube video ad campaign budgets, expected views, impressions, and Cost Per View (CPV) across skippable in-stream, non-skippable, bumper, and Shorts ads.",
         shortDescription: "Estimate YouTube video ad costs, CPV, and view reach",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaBullhorn,
         isAI: false,
         isFeatured: true,
@@ -3133,7 +3148,7 @@ export const tools: Tool[] = [
         seoDescription: "Create a 1-click YouTube auto-subscribe link with modal confirmation popup, HTML button embed, and QR code for free without signup.",
         description: "Generate an instant YouTube auto-subscribe URL with the ?sub_confirmation=1 parameter, downloadable QR code, and HTML button code to boost subscriber conversions.",
         shortDescription: "Generate YouTube 1-click auto-subscribe links and QR codes",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaLink,
         isAI: false,
         isFeatured: true,
@@ -3210,7 +3225,7 @@ export const tools: Tool[] = [
         seoDescription: "Summarize any YouTube video into bulleted executive notes, study guides, SEO articles, and viral Shorts scripts with AI for free. No login or extension required.",
         description: "Transform long-form YouTube videos, lectures, and podcasts into structured executive notes, study guides, SEO blog posts, and Shorts scripts using grounded AI prompts.",
         shortDescription: "Summarize YouTube videos into notes, blog posts, and scripts",
-        category: "seo-metadata",
+        primaryCategory: "seo-metadata",
         icon: FaCompressAlt,
         isAI: true,
         isFeatured: true,
@@ -3287,7 +3302,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate YouTube video viral multipliers, outlier scores, and view velocity. Free alternative to 1of10 to find high-performing video topics and packaging.",
         description: "Analyze video view counts against channel median baselines to identify true algorithmic viral outliers and discover high-demand content ideas.",
         shortDescription: "Calculate video viral multipliers and algorithmic outlier scores",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaFire,
         isAI: false,
         isFeatured: true,
@@ -3364,7 +3379,7 @@ export const tools: Tool[] = [
         seoDescription: "Create mobile-responsive, GDPR-friendly YouTube embed iframe code with custom start times, autoplay, and aspect ratios. 100% Free.",
         description: "Generate clean, mobile-responsive YouTube embed code with privacy-enhanced mode (youtube-nocookie.com), aspect ratios, and custom playback controls.",
         shortDescription: "Generate responsive, GDPR-friendly YouTube embed codes",
-        category: "utility-fun",
+        primaryCategory: "utilities",
         icon: FaCode,
         isAI: false,
         isFeatured: true,
@@ -3441,7 +3456,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate hidden bank wire fees, FX currency conversion markups, and US W-8BEN tax deductions on international YouTube AdSense payouts.",
         description: "Audit international YouTube AdSense wire transfer fees, intermediary deductions, and foreign exchange spreads to calculate annual banking savings.",
         shortDescription: "Calculate hidden wire fees and FX spreads on AdSense payouts",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaUniversity,
         isAI: false,
         isFeatured: true,
@@ -3518,7 +3533,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate how many views, retention minutes, and uploads you need to reach 4,000 watch hours and 1,000 subscribers before the 365-day rolling window expires.",
         description: "Calculate your exact roadmap to 4,000 public watch hours and 1,000 subscribers for YouTube Partner Program (YPP) monetization.",
         shortDescription: "Calculate views and pace needed for 4,000 watch hours & YPP",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaHourglassHalf,
         isAI: false,
         isFeatured: true,
@@ -3595,7 +3610,7 @@ export const tools: Tool[] = [
         seoDescription: "Compare the real AdSense earnings, required view volume, editing effort, and hourly wage between YouTube Shorts and long-form videos.",
         description: "Compare required view volume, editing effort, AdSense revenue, and creator hourly wage between YouTube Shorts and long-form videos.",
         shortDescription: "Compare real AdSense revenue, views, and effort: Shorts vs Long-Form",
-        category: "analytics-earnings",
+        primaryCategory: "analytics-earnings",
         icon: FaExchangeAlt,
         isAI: false,
         isFeatured: true,
@@ -3671,7 +3686,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate the exact projected calendar date your channel will reach 1,000 (YPP), 100,000 (Silver Play Button), and 1,000,000 subscribers (Gold Play Button).",
         description: "Track your subscriber growth velocity and project the exact dates you will unlock YPP Monetization, Silver Play Button, and Gold Play Button.",
         shortDescription: "Project exact dates for Silver (100K) and Gold (1M) Play Buttons",
-        category: "channel-growth",
+        primaryCategory: "channel-growth",
         icon: FaAward,
         isAI: false,
         isFeatured: true,
@@ -3747,7 +3762,7 @@ export const tools: Tool[] = [
         seoDescription: "Calculate statistical confidence, p-value, and sample size requirements for YouTube Studio Test & Compare thumbnail experiments.",
         description: "Determine whether your thumbnail test winner is statistically significant or random variance with two-tailed proportion Z-testing.",
         shortDescription: "Calculate statistical confidence and winner significance for thumbnail tests",
-        category: "thumbnail-media",
+        primaryCategory: "thumbnail-media",
         icon: FaTrophy,
         isAI: false,
         isFeatured: true,
@@ -3804,14 +3819,561 @@ export const tools: Tool[] = [
         ]
     },
 
+    // 46. AI Thumbnail Vision Critique & Glance Test
+    {
+        slug: "thumbnail-critique",
+        name: "AI Thumbnail Vision Critique & Glance Test",
+        seoTitle: "AI Thumbnail Vision Critique & Glance Test (Mobile Feed CTR Audit)",
+        seoDescription: "Upload a thumbnail or paste a YouTube URL for Vision AI critique. Test 168px mobile feed readability, 1.5s glance blur, word count, and title synergy.",
+        description: "Audit YouTube thumbnails for 1.5-second glance clarity, 168px mobile feed legibility, text word count, and title-thumbnail redundancy using Vision AI.",
+        shortDescription: "Audit thumbnail CTR, mobile 168px legibility & title redundancy",
+        primaryCategory: "thumbnail-media",
+        icon: FaEye,
+        isAI: true,
+        isFeatured: true,
+        keywords: [
+            "ai thumbnail critique",
+            "youtube thumbnail analyzer",
+            "thumbnail glance test",
+            "youtube thumbnail readability checker",
+            "thumbnail text word count checker",
+            "youtube ctr thumbnail audit",
+        ],
+        definitionBlock: {
+            title: "What is the AI Thumbnail Vision Critique & Glance Test?",
+            text: "The AI Thumbnail Vision Critique & Glance Test combines a side-by-side 168px mobile feed and 320px desktop Home simulator (with Light/Dark themes and a 1.5-second blur glance test) with Vision AI analysis that scores CTR clarity, counts on-image words, flags title-thumbnail repetition, and delivers 3 prioritized fixes.",
+        },
+        content: [
+            {
+                title: "Why Thumbnails Fail the 1.5-Second Mobile Glance Test",
+                content: "Over 70% of YouTube browse impressions happen on smartphones where a thumbnail shrinks to roughly 168 pixels wide inside dense vertical feeds. Small serif fonts, low-contrast backgrounds, and crowded props dissolve into visual noise during rapid thumb scrolling. Testing your graphic side-by-side at 168px and 320px under both dark and light themes exposes weak visual hierarchy immediately."
+            },
+            {
+                title: "Eliminating Title-Thumbnail Redundancy for Higher CTR",
+                content: "A classic creator mistake is printing the exact video title verbatim across the thumbnail. When thumbnail copy simply repeats the headline word-for-word, viewers spend double reading effort with zero additional curiosity gain. High-performing packaging uses the image for visceral emotion, contrast, or a 2-to-4 word tension hook while letting the title complete the story."
+            },
+            {
+                title: "Why Keeping Thumbnail Overlay Text Under 4 Words Matters",
+                content: "Vision studies of top 1% browse thumbnails consistently show that 2 to 4 bold words outperform multi-line sentences. Once overlay copy crosses 5 or more words, font size shrinks below the mobile legibility threshold and steals focus from facial expressions or object contrast. Our critique detects word count automatically and highlights exact visual fixes you can apply before publishing."
+            }
+        ],
+        howTo: {
+            name: "How to Audit Your YouTube Thumbnail With Vision AI",
+            description: "Upload your thumbnail or load a video URL, inspect mobile/desktop glance previews, and review structured Vision AI improvements.",
+            steps: [
+                { name: "Upload image or load YouTube URL", text: "Drag and drop a PNG, JPG, or WebP thumbnail (resized client-side to max 1024px wide) or paste any YouTube watch/Shorts link." },
+                { name: "Enter your working video title", text: "Type your planned title so the auditor can check for title-thumbnail copy redundancy." },
+                { name: "Test the 168px Mobile vs 320px Desktop Stage", text: "Toggle Dark/Light mode and activate the 1.5-second glance blur simulation to spot weak contrast." },
+                { name: "Run AI Vision Critique & save fixes", text: "Review your Overall Score, Mobile Readability, overlay word count warning, and 3 concrete fixes, then save notes to your Active Video Pack." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How many words should a YouTube thumbnail contain?",
+                answer: "Aim for 0 to 4 punchy words maximum. More than 4 words reduces mobile readability at 168px width and competes with your video title instead of amplifying curiosity."
+            },
+            {
+                question: "Why does the tool resize images to 1024px wide before analysis?",
+                answer: "Resizing uploaded 4K or 1280px images cleanly in your browser keeps Vision AI requests fast, cuts bandwidth usage, and preserves full visual detail for legibility and contrast scoring."
+            },
+            {
+                question: "What is the 1.5-second glance blur test?",
+                answer: "Most viewers decide whether to pause scrolling within 1 to 1.5 seconds. Blurring the preview simulates peripheral mobile perception so you can verify whether your focal subject and silhouette remain unmistakable."
+            },
+            {
+                question: "What causes a Title-Thumbnail Redundancy Alert?",
+                answer: "You trigger a redundancy alert when the words printed on your thumbnail largely duplicate your video title word-for-word rather than introducing complementary emotion, stakes, or intrigue."
+            },
+            {
+                question: "Does this critique work on existing published YouTube videos?",
+                answer: "Yes. Paste any public YouTube watch or Shorts URL to automatically load the existing thumbnail, test it across feed sizes, and evaluate packaging upgrades before refreshing underperforming uploads."
+            },
+            {
+                question: "Is my uploaded thumbnail saved publicly?",
+                answer: "No. Images are resized in your browser, analyzed ephemerally via the API without public gallery storage, and never published on the site."
+            }
+        ]
+    },
+
+    // 47. 3-Way "Test & Compare" Packaging Studio
+    {
+        slug: "ab-packaging-studio",
+        name: '3-Way "Test & Compare" Packaging Studio',
+        seoTitle: "3-Way YouTube Test & Compare Packaging Studio (A/B Title & Thumbnail Concepts)",
+        seoDescription: "Design 3 psychologically distinct thumbnail + title variants (Curiosity Gap, Outcome & Proof, Contrarian) built for YouTube Studio Test & Compare.",
+        description: "Generate 3 distinct packaging directions (Curiosity Gap, Outcome & Proof, Contrarian Warning) with overlay copy, visual direction, and AI image prompts.",
+        shortDescription: "Generate 3 A/B thumbnail & title variants for Test & Compare",
+        primaryCategory: "thumbnail-media",
+        icon: FaFlask,
+        isAI: true,
+        isFeatured: true,
+        keywords: [
+            "youtube test and compare packaging",
+            "youtube 3 variant thumbnail tester",
+            "youtube ab test packaging generator",
+            "youtube thumbnail concept generator",
+            "title and thumbnail pair generator",
+            "youtube ctr packaging studio",
+        ],
+        definitionBlock: {
+            title: 'What is the 3-Way "Test & Compare" Packaging Studio?',
+            text: "YouTube Studio's native 'Test & Compare' lets creators run up to three thumbnail concepts head-to-head for watch-time share. This studio generates three non-overlapping psychological angles—Curiosity Gap, Outcome & Proof, and Contrarian/Warning—each paired with a mobile-safe title, 2–4 word thumbnail overlay, visual composition brief, and ready-to-copy AI image prompt.",
+        },
+        content: [
+            {
+                title: "Why Testing 3 Minor Color Tweaks Wastes Impressions",
+                content: "Changing a shirt from blue to green rarely produces a decisive winner in YouTube Studio's Test & Compare tool because viewers react to the core premise, not minor styling tweaks. True CTR breakthroughs happen when Variant A tests an open Curiosity Gap loop, Variant B tests concrete Outcome & Proof numbers, and Variant C tests a sharp Contrarian warning."
+            },
+            {
+                title: "Coordinating Title Copy With 2-to-4 Word Thumbnail Overlays",
+                content: "Great packaging behaves like a 1-2 combo punch: the thumbnail catches attention visually with a bold 2-to-4 word micro-hook while the title specifies what the viewer will gain by clicking. Previewing all three variants inside our 3-column YouTube Home Feed grid helps you confirm each variant feels completely distinct before investing production time."
+            },
+            {
+                title: "From Packaging Concepts to Statistical Test Winners",
+                content: "Once you copy the AI image prompts, produce your three thumbnails, and launch your experiment in YouTube Studio, monitor watch-time share carefully. Pair this studio with our Thumbnail Vision Critique to stress-test legibility before upload and our Statistical Significance Calculator to avoid calling a false winner early."
+            }
+        ],
+        howTo: {
+            name: "How to Build 3 YouTube Studio Test & Compare Concepts",
+            description: "Turn one video idea into three contrasting title, thumbnail overlay, and visual packaging experiments.",
+            steps: [
+                { name: "Enter working topic and audience", text: "Input your core video topic and target viewer persona (or pick a quick niche preset)." },
+                { name: "Generate 3 psychological packaging angles", text: "Click generate to produce Variant A (Curiosity Gap), Variant B (Outcome & Proof), and Variant C (Contrarian / Warning)." },
+                { name: "Inspect the 3-column Home Feed grid", text: "Compare how all three variants read side-by-side in both Light and Dark YouTube Home feed simulation." },
+                { name: "Copy AI image prompts & save to Video Pack", text: "Copy each variant's detailed photography prompt with one click or save winning title/visual combinations directly to your Active Video Pack." }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How does YouTube Studio's Test & Compare choose a winner?",
+                answer: "YouTube Test & Compare splits impressions evenly across up to three thumbnails and selects the winner primarily based on Watch Time Share—meaning packaging must attract genuinely engaged viewers, not empty clickbait."
+            },
+            {
+                question: "Why focus on Curiosity Gap, Outcome & Proof, and Contrarian variants?",
+                answer: "These three psychological archetypes appeal to fundamentally different viewer motivations, giving your A/B test clean signal on which emotional angle resonates best with your target audience."
+            },
+            {
+                question: "Where should I use the copied AI Image Prompt?",
+                answer: "Paste the generated photography prompt directly into our AI Thumbnail Generator, Midjourney, Flux, Ideogram, or ChatGPT image tools, then add the 2–4 word text overlay cleanly in your design editor."
+            },
+            {
+                question: "How long should titles be inside Test & Compare experiments?",
+                answer: "Keep titles around 42 to 58 characters whenever possible so mobile Home feed viewers can read the entire hook without truncation ellipses."
+            },
+            {
+                question: "Can I save multiple variants to my Active Video Pack?",
+                answer: "Yes. Clicking 'Save Variant to Video Pack' adds each variant's title, overlay direction, and AI image prompt into your persistent Video Pack drawer for Markdown export."
+            },
+            {
+                question: "Should I run the thumbnail critique tool after creating these images?",
+                answer: "Yes. Once you render images from the studio prompts, run them through our AI Thumbnail Vision Critique to verify 168px mobile glance clarity before launching your YouTube experiment."
+            }
+        ]
+    },
+
+    // 48. Channel @Handle Outlier & Viral Multiplier Scanner
+    {
+        slug: "channel-outlier-scanner",
+        name: "Channel @Handle Outlier & Viral Multiplier Scanner",
+        seoTitle: "YouTube Channel @Handle Outlier & Viral Multiplier Scanner (Free Tool)",
+        seoDescription: "Scan any YouTube @ChannelHandle or URL to compute median baseline views, discover 2.0x+ viral outlier videos, exclude Shorts, and remix winning titles.",
+        description: "Scan any @handle or channel URL via quota-efficient YouTube uploads feed + XML fallback to spot 2.0x+ breakout outliers against median channel views.",
+        shortDescription: "Scan any @handle for median views & 2x+ viral outlier videos",
+        primaryCategory: "channel-growth",
+        icon: FaFire,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube channel outlier scanner",
+            "youtube outlier video finder by handle",
+            "1of10 free alternative youtube",
+            "youtube median views outlier multiplier",
+            "find viral videos on a youtube channel",
+            "youtube channel outlier calculator",
+        ],
+        definitionBlock: {
+            title: "What is the Channel @Handle Outlier & Viral Multiplier Scanner?",
+            text: "The Channel @Handle Outlier & Viral Multiplier Scanner pulls a channel's latest 20–25 uploads, optionally filters out YouTube Shorts (under 61 seconds), computes the true Median Views baseline, and calculates each video's Outlier Multiplier (video views ÷ median views) so you can spot repeatable 2.0x+ topic winners and remix their title angles.",
+        },
+        content: [
+            {
+                title: "Why Median Views Beat Mean Averages for YouTube Research",
+                content: "If a creator normally pulls 18,000 views per upload and scores one lucky 2-million-view viral hit, their mathematical mean skyrockets above 100,000—completely distorting expectations. Calculating the median across the latest 20 to 25 long-form videos establishes an honest channel baseline so true breakout packaging anomalies stand out unmistakably at 2.0x, 5.0x, or 10.0x+."
+            },
+            {
+                title: "Separating Long-Form Outliers From Shorts Spikes",
+                content: "YouTube Shorts operate in a completely separate vertical swipe feed with vastly higher impression volume and lower session RPM than long-form Search/Browse uploads. Mixing 45-second Shorts with 15-minute tutorials poisons any channel outlier comparison. Toggling 'Exclude Shorts' strips sub-61-second videos and recalculates median views strictly across comparable long-form uploads."
+            },
+            {
+                title: "Turning Competitor Outliers Into Your Own Original Packaging",
+                content: "Finding a 4.6x outlier isn't about copying someone else's script—it reveals a proven viewer appetite inside your niche. Click 'Remix This Title' on any outlier row to pre-load its winning curiosity structure inside our Title Generator, or click 'Critique Thumbnail' to inspect how its visual framing holds up at 168px mobile scale."
+            }
+        ],
+        howTo: {
+            name: "How to Scan Any Channel for Viral Outlier Videos",
+            description: "Benchmark a channel's recent uploads against its median views to isolate repeatable topic winners.",
+            steps: [
+                { name: "Enter a @ChannelHandle or YouTube URL", text: "Paste any @handle (such as @mkbhd) or channel link into the scanner input and submit." },
+                { name: "Toggle Exclude Shorts (≤60s)", text: "Keep 'Exclude Shorts' enabled for clean long-form median baselines or include Shorts for hybrid channel audits." },
+                { name: "Sort by Outlier Score, Views, or Newest", text: "Bubble the highest 2.0x+ emerald and 5.0x+ gold outlier videos to the top immediately." },
+                { name: "Remix winning angles", text: "Click 'Remix This Title' to spin original variations in the Title Generator or save inspiration straight into your Video Pack." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "How is a video's Outlier Multiplier calculated?",
+                answer: "Outlier Multiplier equals a video's public view count divided by the channel's median view count across the scanned uploads (for example, 92,000 views on a 20,000-view median channel equals a 4.6x outlier)."
+            },
+            {
+                question: "What counts as an outlier video threshold?",
+                answer: "A multiplier of 2.0x or higher indicates strong topic/packaging outperformance (highlighted in emerald), while 5.0x or higher marks a rare algorithmic breakout (highlighted in gold)."
+            },
+            {
+                question: "How does the scanner conserve YouTube API quota?",
+                answer: "Instead of expensive search.list queries (100 units), it resolves the channel directly via forHandle (1 unit), converts UC to the UU uploads playlist for playlistItems.list (1 unit), and fetches batch stats with one videos.list request (1 unit)—roughly 3 units total."
+            },
+            {
+                question: "What happens if YouTube Data API quota is exceeded or unconfigured?",
+                answer: "The scanner gracefully falls back to parsing the channel's public YouTube XML feed (videos.xml?channel_id=...) so you still see recent uploads, view counts, and calculated outlier scores without hard failures."
+            },
+            {
+                question: "Why should I exclude Shorts when calculating channel baselines?",
+                answer: "Shorts views come from vertical feed swipes rather than clickable thumbnails and often skew 5x higher or lower than long-form videos, distorting long-form median benchmarks."
+            },
+            {
+                question: "What can I do once I find a winning competitor outlier?",
+                answer: "Use the built-in 'Remix This Title' button to generate fresh angle variations for your channel, or click 'Critique Thumbnail' to study why its thumbnail packaging stopped viewers from scrolling."
+            }
+        ]
+    },
+
+    // 49. First 30-Second Hook & Promise Auditor
+    {
+        slug: "hook-auditor",
+        name: "First 30-Second Hook & Promise Auditor",
+        seoTitle: "First 30-Second YouTube Hook & Promise Auditor (Retention Script Analyzer)",
+        seoDescription: "Audit your YouTube intro script against your title promise, flag fluff phrases, score 30s retention risk, and generate 3 high-retention rewrites.",
+        description: "Verify sentence-1 click promise confirmation, highlight retention-killing throat-clearing clichés, score 0–100 drop-off risk, and get 3 high-retention hook rewrites.",
+        shortDescription: "Audit sentence-1 click promise, flag fluff & rewrite intro hooks",
+        primaryCategory: "seo-metadata",
+        icon: FaMicrophone,
+        isAI: true,
+        isFeatured: true,
+        keywords: [
+            "youtube hook auditor",
+            "youtube first 30 seconds retention tool",
+            "youtube intro script checker",
+            "youtube throat clearing detector",
+            "improve youtube audience retention",
+            "youtube opening hook rewriter",
+        ],
+        definitionBlock: {
+            title: "What is the First 30-Second Hook & Promise Auditor?",
+            text: "The First 30-Second Hook & Promise Auditor evaluates your Video Title alongside your opening 50–150 word intro script, returning a Promise Confirmation Pass/Fail check, highlighting filler throat-clearing clichés (such as 'Hey guys, welcome back to the channel'), scoring 0–100 retention strength, and generating 3 distinct rewrites (Direct Proof, Story/Stakes, and Fast Pattern Interrupt).",
+        },
+        content: [
+            {
+                title: "Why Viewers Leave in the First 15 to 30 Seconds",
+                content: "YouTube Studio retention graphs consistently reveal the steepest drop-off occurs before 0:30. Cold viewers coming from Browse Features or Suggested sidebars are unconsciously asking one question: 'Am I actually getting what the title and thumbnail promised right now?' Any delay—channel greetings, housekeeping announcements, or vague backstory—triggers an immediate back-button click."
+            },
+            {
+                title: "How Sentence-1 Promise Confirmation Saves Average View Duration",
+                content: "Strong hooks confirm the title's premise in sentence one without sounding robotic. Whether you open with concrete proof ('Here is the exact dashboard before and after...'), immediate stakes ('I lost $4,000 before fixing this setting...'), or a sharp pattern interrupt, validating the click within 5 seconds signals YouTube's satisfaction engine to widen homepage impressions."
+            },
+            {
+                title: "Eliminating Throat-Clearing Phrases Before Recording",
+                content: "Creators routinely write phrases like 'Before we start, make sure you hit subscribe' or 'Without further ado, in today's video we're going to...' out of sheer habit. Auditing your spoken opening draft before hitting record lets you cut dead weight in seconds and pick between Direct Proof, Story/Stakes, or Fast-Paced Pattern Interrupt hooks that match your delivery style."
+            }
+        ],
+        howTo: {
+            name: "How to Audit Your YouTube Opening Hook Before Filming",
+            description: "Compare your video title promise against your opening 50–150 spoken words and replace slow warmup lines.",
+            steps: [
+                { name: "Paste your Video Title", text: "Enter the title viewers will click so the auditor knows the exact expectation set on the feed." },
+                { name: "Paste your first 50–150 spoken words", text: "Include your first 2 to 5 sentences exactly as you plan to say them on camera or voiceover." },
+                { name: "Inspect Fluff Highlights & Promise Pass/Fail", text: "Review your 0–100 Retention Score, Drop-Off Risk badge, and highlighted throat-clearing phrases." },
+                { name: "Copy or save a High-Retention Rewrite", text: "Choose from Direct Proof, Story/Stakes, or Fast-Paced Pattern Interrupt hooks and save your favorite straight to your Active Video Pack." }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How long should a YouTube video hook be?",
+                answer: "Deliver your promise confirmation in the first 5 to 12 seconds (roughly 15–35 words), and establish complete context + stakes before the 30-second mark (75–110 spoken words)."
+            },
+            {
+                question: "What counts as 'throat-clearing' fluff in a YouTube intro?",
+                answer: "Throat-clearing includes generic greetings ('Hey guys, welcome back to the channel'), self-introductions nobody asked for, early like-and-subscribe pitches, and meta statements like 'Without further ado, let's get into today's video'."
+            },
+            {
+                question: "Does a failing Promise Confirmation mean my entire script is bad?",
+                answer: "Not necessarily—usually your best line is buried in sentence three or four. Cutting your warmup sentences and starting directly on sentence three often boosts 30-second retention immediately."
+            },
+            {
+                question: "Which hook style works best: Direct Proof, Story/Stakes, or Pattern Interrupt?",
+                answer: "Tutorials and product reviews thrive on Direct Proof hooks showing the result upfront; documentaries and challenges shine with Story/Stakes; commentary and listicles benefit from Fast-Paced Pattern Interrupts."
+            },
+            {
+                question: "Should I still ask viewers to subscribe during my video?",
+                answer: "Yes—wait until *after* you have delivered a clear win or compelling insight (typically 2 to 4 minutes into the video) rather than begging for subscribers at 0:08 before earning trust."
+            },
+            {
+                question: "Can I save the rewritten hook straight into my Video Brief?",
+                answer: "Yes. Every rewrite card includes a 1-click Copy button and a 'Save to Video Pack' button that adds your title and selected hook directly to your Video Pack notes."
+            }
+        ]
+    },
+
+    // 50. Client-Side YouTube -14 LUFS Audio Loudness & Clipping Checker
+    {
+        slug: "youtube-loudness-checker",
+        name: "YouTube -14 LUFS Audio Loudness & Clipping Checker",
+        seoTitle: "YouTube -14 LUFS Audio Loudness & Clipping Checker (Free Browser Analyzer)",
+        seoDescription: "Measure voiceover LUFS, True Peak dBTP, and clipped peaks in your browser via WebAudio. Get exact Premiere, DaVinci Resolve & CapCut gain fixes for -14 LUFS.",
+        description: "Analyze .MP3, .WAV, or .M4A voiceover files 100% locally in your browser using the WebAudio API. Measure integrated LUFS against YouTube's -14 LUFS spec, inspect True Peak clipping warnings, and view DAW gain prescriptions.",
+        shortDescription: "Check -14 LUFS loudness, true peaks & clipping 100% in browser",
+        primaryCategory: "utilities",
+        icon: FaVolumeUp,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube loudness checker",
+            "youtube -14 lufs analyzer",
+            "audio loudness meter browser",
+            "check youtube voiceover loudness",
+            "audio clipping detector online",
+            "true peak dbfs checker",
+        ],
+        definitionBlock: {
+            title: "What is the YouTube -14 LUFS Audio Loudness Checker?",
+            text: "The YouTube -14 LUFS Audio Loudness & Clipping Checker is a zero-upload client-side WebAudio analyzer. Drag and drop an .mp3, .wav, or .m4a voiceover mix to compute K-weighted integrated LUFS, RMS average loudness, 4x oversampled True Peak levels, clipped sample counts, and exact dB gain adjustments for Premiere Pro, DaVinci Resolve, and CapCut.",
+        },
+        content: [
+            {
+                title: "Why YouTube Normalizes Audio to -14 LUFS (and Never Turns Quiet Tracks Up)",
+                content: "YouTube applies automatic loudness normalization targeting -14.0 LUFS integrated loudness so viewers do not have to grab the volume dial between channels. If your voiceover exports at -10 LUFS, YouTube automatically turns your video down by 4 dB. However, if your audio sits quiet at -21 LUFS, YouTube leaves it untouched—making your upload sound noticeably quieter and weaker than competing creators in Browse and Suggested feeds."
+            },
+            {
+                title: "Protecting Voiceovers From Clipping and Lossy Encoder Overshoots (-1.0 dBTP)",
+                content: "Simply pushing a fader up +5 dB without checking peak headroom causes ugly digital clipping whenever loud consonant plosives or laughter strike 0 dBFS. Even if raw PCM peaks sit right below 0 dBFS, AAC transcoding inside YouTube's ingestion pipeline can introduce inter-sample overshoots. Exporting with a -1.0 dBTP True Peak limiter ceiling protects speech clarity across phone speakers, AirPods, and living-room TVs."
+            },
+            {
+                title: "100% Client-Side Privacy With Native WebAudio API Decoding",
+                content: "Unlike upload-based audio meters that queue multi-megabyte WAV exports on remote servers, this tool decodes audio arrays locally inside your browser tab via AudioContext.decodeAudioData. Client voiceovers, NDA sponsor reads, and unreleased raw tracks never leave your computer, allowing rapid loudness checks between timeline exports."
+            }
+        ],
+        howTo: {
+            name: "How to Check Audio Loudness for YouTube (-14 LUFS)",
+            description: "Analyze any local .MP3, .WAV, or .M4A export against YouTube loudness and True Peak standards in seconds.",
+            steps: [
+                { name: "Drop your voiceover or mix", text: "Drag and drop an exported .mp3, .wav, or .m4a file into the browser analyzer (or test the synthetic sample)." },
+                { name: "Inspect LUFS vs. -14 Target", text: "Review your K-weighted integrated LUFS score, RMS average dBFS, and delta to YouTube's -14.0 LUFS spec." },
+                { name: "Check Waveform & Clipped Peaks", text: "Verify True Peak remains at or below -1.0 dBTP and confirm zero red clipping markers on the Canvas waveform." },
+                { name: "Apply Exact DAW Gain Fix", text: "Copy the exact dB adjustment and True Peak limiter settings into Adobe Premiere Pro, DaVinci Resolve Fairlight, or CapCut." }
+            ],
+            totalTime: "PT1M"
+        },
+        faqs: [
+            {
+                question: "What loudness LUFS does YouTube recommend for voiceovers and videos?",
+                answer: "YouTube normalizes playback to roughly -14.0 LUFS integrated loudness with a -1.0 dBTP True Peak ceiling. Aiming between -14.5 LUFS and -13.5 LUFS ensures full perceived volume without penalty attenuation."
+            },
+            {
+                question: "Does YouTube increase the volume of quiet videos automatically?",
+                answer: "No. As of 2026, YouTube's desktop and mobile normalizer turns loud uploads down toward -14 LUFS but does not apply upward gain to tracks quieter than -14 LUFS. You must boost quiet mixes inside your editor."
+            },
+            {
+                question: "Are my .WAV or .MP3 files uploaded to a server?",
+                answer: "Never. Decoding and K-weighted loudness calculations run locally inside your browser tab using the native WebAudio API (AudioContext.decodeAudioData)."
+            },
+            {
+                question: "Why does the Canvas waveform highlight certain bars in red?",
+                answer: "Red waveform markers indicate time bins where audio samples hit or exceeded 0.99 amplitude (~0 dBFS clipping), meaning audible distortion or harsh plosives likely occurred."
+            },
+            {
+                question: "How much headroom should I leave before boosting gain in Premiere Pro or CapCut?",
+                answer: "Always leave at least 1.0 dB of True Peak headroom (-1.0 dBTP). If your integrated LUFS needs a +4 dB boost and peaks already sit at -2 dBFS, insert a Hard Limiter capped at -1.0 dB before raising loudness."
+            },
+            {
+                question: "How accurate is browser-based WebAudio LUFS measurement?",
+                answer: "The tool applies an ITU-R BS.1770 style K-weighting filter cascade (38 Hz high-pass + 1.68 kHz +4 dB high-shelf) with 400ms gated energy blocks, giving editors fast directional accuracy matching YouTube Studio Stats for Nerds."
+            }
+        ]
+    },
+
+    // 51. Episodic Shorts "Watch Series" Binge Planner
+    {
+        slug: "shorts-series-planner",
+        name: 'Episodic Shorts "Watch Series" Binge Planner',
+        seoTitle: 'Episodic Shorts "Watch Series" Binge Planner (2026 Multi-Part Script AI)',
+        seoDescription: "Plan 3, 5, or 7 sequential YouTube Shorts engineered for YouTube's Watch Series pill. Generates 2-second opening hooks, 3-beat scripts & binge cliffhanger bridges.",
+        description: "Turn one topic into a 3, 5, or 7-part episodic YouTube Shorts mini-series built specifically to connect viewer sessions through YouTube's 'Watch Series' link.",
+        shortDescription: "Script bingeable 3, 5, or 7-part Shorts series with cliffhanger bridges",
+        primaryCategory: "channel-growth",
+        icon: FaListUl,
+        isAI: true,
+        isFeatured: true,
+        keywords: [
+            "youtube shorts series planner",
+            "youtube watch series shorts tool",
+            "multi part youtube shorts script generator",
+            "bingeable youtube shorts ideas",
+            "shorts cliffhanger script ai",
+        ],
+        definitionBlock: {
+            title: 'What is the Episodic Shorts "Watch Series" Binge Planner?',
+            text: "The Episodic Shorts Watch Series Binge Planner structures a single premise into 3, 5, or 7 connected vertical episodes. Each part ships with an episode title tailored for the Watch Series drawer, a zero-fluff 2-second hook, three 45–60s beats, and a cliffhanger bridge converting swipe-past viewers into multi-episode binge sessions.",
+        },
+        content: [
+            {
+                title: "Why Sequential Shorts Outperform Isolated Clips in 2026",
+                content: "Standalone YouTube Shorts depend purely on a single feed impression to hold attention. Episodic mini-series linked via YouTube's native 'Watch Series' feature turn curious viewers into returning binge watchers—multiplying session duration per channel discovery and lifting subscriber conversion rates cleanly without increasing daily filming stress."
+            },
+            {
+                title: "Engineering a 2-Second Opening Hook and Cliffhanger Bridge",
+                content: "Sequential Shorts collapse if viewers need lengthy recaps at 0:00. Instead of saying 'Hey guys, welcome back to Part 3', top creators open cold on visual proof or tension inside the first 2 seconds and close the final 3 seconds on an unresolved turn that directly motivates tapping the Watch Series button."
+            },
+            {
+                title: "Batching 3, 5, or 7 Episodes Into One Video Pack",
+                content: "Export the complete Markdown script array straight to your clipboard or click 'Save to Video Pack' to keep episode titles, script beats, and series continuity notes organized alongside your metadata and thumbnail briefs before opening your timeline editor."
+            }
+        ],
+        howTo: {
+            name: "How to Plan a Linked YouTube Shorts Series",
+            description: "Build a connected multi-part Shorts storyline ready for YouTube Studio Watch Series linking.",
+            steps: [
+                { name: "Enter your series topic", text: "Describe the core transformation, challenge, tutorial arc, or case study." },
+                { name: "Choose 3, 5, or 7 episodes", text: "Pick the episode count and tone (Educational Breakdown, Story/Challenge, Case Study/Finance, or Tech/AI)." },
+                { name: "Review hooks, beats & bridges", text: "Inspect each part's 2-second opener, 3 storyboard beats, and final Watch Series cliffhanger line." },
+                { name: "Copy or save to Video Pack", text: "Copy the complete formatted script array or save all episode titles directly to your Video Pack." }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How many episodes should a YouTube Shorts series have?",
+                answer: "Three to five episodes hit the sweet spot for testing a new series format without fatigue, while seven-part arcs work well for major 7-day build challenges or deep software teardowns."
+            },
+            {
+                question: "How does YouTube's Watch Series feature drive extra views?",
+                answer: "Linking sequential Shorts lets viewers tap directly to the next part or rewind back to Part 1 right from the feed player, lifting consecutive views per viewer."
+            },
+            {
+                question: "Should Part 2 start by summarizing Part 1?",
+                answer: "Avoid slow 5-second recaps. Open immediately on the action or payoff of the current part inside 2 seconds so cold feed viewers also get hooked and tap backward to Part 1."
+            },
+            {
+                question: "Can I copy all scripts at once into Notion or Google Docs?",
+                answer: "Yes. Click 'Copy Full Series Script' to copy every episode title, 2-second hook, script beat, and cliffhanger bridge in clean Markdown."
+            },
+            {
+                question: "Does the planner save episodes into the Active Video Pack?",
+                answer: "Yes. Clicking 'Save to Video Pack' adds the overarching series title, episode titles, and complete beat sheet directly into your brief drawer."
+            },
+            {
+                question: "Which niches grow fastest with multi-part Shorts?",
+                answer: "Coding/SaaS build challenges, personal finance breakdowns, room/studio makeovers, gear restoration, and sequential AI tutorials consistently retain multi-part binge audiences."
+            }
+        ]
+    },
+
+    // 52. Sponsorship & Creator Partnership "Ad Boost" Rate Calculator
+    {
+        slug: "creator-partnership-boost-calculator",
+        name: 'Sponsorship & Creator Partnership "Ad Boost" Rate Calculator',
+        seoTitle: 'YouTube Sponsorship & Creator Partnership "Ad Boost" Calculator (2026)',
+        seoDescription: "Calculate organic sponsorship fees plus YouTube Creator Partnerships paid ad whitelisting rates (30/60/90 days) adjusted for Niche CPM and Tier-1 geography.",
+        description: "Price both your base organic YouTube sponsorship integration AND paid Creator Partnerships Ad-Boost licensing rights, complete with Tier-1 weighting and a pre-filled brand usage clause.",
+        shortDescription: "Price organic sponsorships + paid Ad Boost whitelisting licenses",
+        primaryCategory: "analytics-earnings",
+        icon: FaBullhorn,
+        isAI: false,
+        isFeatured: true,
+        keywords: [
+            "youtube creator partnerships rate calculator",
+            "youtube ad boost sponsorship pricing",
+            "youtube paid whitelisting fee calculator",
+            "influencer usage rights calculator 2026",
+            "how much to charge for youtube ad boost",
+        ],
+        definitionBlock: {
+            title: 'What is the Sponsorship & Creator Partnership "Ad Boost" Rate Calculator?',
+            text: "The Sponsorship & Creator Partnership Ad Boost Rate Calculator computes transparent two-part brand deal quotes combining base organic integration fees (adjusted for niche CPM and Tier-1 US/UK/CA/AU viewer percentage) with timed paid ad-boosting licenses (+30%, +50%, or +75%) for YouTube Creator Partnerships.",
+        },
+        content: [
+            {
+                title: "Why Creator Partnerships 'Ad Boost' Whitelisting Must Be Priced Separately",
+                content: "When a brand links your sponsored video via YouTube Creator Partnerships to amplify it in paid Google Ads campaigns, your channel's reputation and algorithmic training data sell product far beyond organic upload views. Bundling paid whitelisting free gives brands unlimited ad creative without compensating your likeliness and channel authority."
+            },
+            {
+                title: "Adjusting Base CPM for Niche Intent and Tier-1 Audience Share",
+                content: "Buyer-intent Finance, B2B, and SaaS audiences command dramatically higher advertiser bids ($35 base CPM) than broad Gaming audiences ($10 base CPM), while channels with 60%–85% US, UK, Canadian, and Australian viewership capture major Tier-1 purchasing-power premiums."
+            },
+            {
+                title: "Protecting Yourself With Time-Bound Usage Rights Clauses",
+                content: "Every quote generated includes a clear contract-ready email and usage clause specifying the exact organic fee, separate paid-boost licensing fee, and strict 30-day, 60-day, or 90-day flight expiration so brands cannot run paid ads under your handle indefinitely without renewal."
+            }
+        ],
+        howTo: {
+            name: "How to Price Organic Sponsorships & Paid Ad Boost Rights",
+            description: "Build a two-tier sponsorship + paid whitelisting quote with ready-to-send contract terms.",
+            steps: [
+                { name: "Enter average upload views", text: "Input your median views per video across your last 10 uploads." },
+                { name: "Select Niche CPM & Tier-1 Share", text: "Choose your category ($10–$35 CPM) and adjust your US/UK/CA/AU audience share slider (10%–90%)." },
+                { name: "Select Ad Boost Whitelisting Window", text: "Pick None, 30 Days (+30%), 60 Days (+50%), or 90 Days (+75%) Creator Partnerships licensing." },
+                { name: "Copy your pre-filled brand email", text: "Copy the calculated quote and time-limited Usage Rights Clause directly into your sponsor negotiation reply." }
+            ],
+            totalTime: "PT2M"
+        },
+        faqs: [
+            {
+                question: "How much should creators charge for YouTube Creator Partnerships ad whitelisting?",
+                answer: "Standard agency practice adds +30% of the base organic integration fee for a 30-day paid ad boost window, +50% for 60 days, and +75% for 90 days—keeping usage strictly non-exclusive and time-limited."
+            },
+            {
+                question: "Why does Tier-1 audience percentage matter so much to sponsors?",
+                answer: "Software, fintech, and consumer brands selling in USD, GBP, CAD, and AUD convert at significantly higher LTV in Tier-1 geographies, justifying a 0.72x to 1.28x CPM weighting relative to view share."
+            },
+            {
+                question: "Is paid ad boost included automatically in an organic YouTube sponsorship?",
+                answer: "No. Organic pricing covers hosting the mention on your channel. Turning your segment into paid Performance Max or Demand Gen ad creative requires explicit written Creator Partnerships linking approval and separate licensing."
+            },
+            {
+                question: "Should I grant perpetual usage rights to sponsors?",
+                answer: "Generally avoid perpetual paid usage rights unless the brand pays a substantial multi-year buyout. Time-boxed 30/60/90-day renewals generate recurring licensing income if the ad performs."
+            },
+            {
+                question: "How does this differ from the full Sponsorship Media Kit Calculator?",
+                answer: "The Sponsorship Rate Calculator focuses on building full 1-page PDF media kits and 5 cold outreach pitches, while this tool isolates Tier-1 audience weighting and YouTube Creator Partnerships Ad-Boost licensing splits."
+            },
+            {
+                question: "Can I pre-fill this calculator from my Earnings Calculator views?",
+                answer: "Yes. Passing ?views= in the URL automatically pre-populates your average upload views for seamless transition from AdSense modeling to brand pricing."
+            }
+        ]
+    },
+
 ];
+
+export const tools: Tool[] = rawTools.map((tool) => ({
+    ...tool,
+    category: tool.primaryCategory,
+}));
+
+export function normalizeCategoryId(categoryId: string): ToolCategoryId | string {
+    return categoryId === "utility-fun" ? "utilities" : categoryId;
+}
 
 export const getToolBySlug = (slug: string): Tool | undefined => {
     return tools.find(tool => tool.slug === slug);
 };
 
 export const getToolsByCategory = (categoryId: string): Tool[] => {
-    return tools.filter(tool => tool.category === categoryId);
+    const normalized = normalizeCategoryId(categoryId);
+    return tools.filter(tool => tool.primaryCategory === normalized);
 };
 
 export const getFeaturedTools = (): Tool[] => {

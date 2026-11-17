@@ -1,4 +1,17 @@
 
+type UserContent =
+    | string
+    | Array<
+          | { type: "text"; text: string }
+          | { type: "image_url"; image_url: { url: string; detail?: "low" | "high" | "auto" } }
+      >;
+
+function parseDataUrlParts(dataUrl: string): { mimeType: string; base64Data: string } | null {
+    const match = dataUrl.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,([A-Za-z0-9+/=]+)$/);
+    if (!match) return null;
+    return { mimeType: match[1], base64Data: match[2] };
+}
+
 /**
  * Call Google Gemini API (uses GEMINIFREEAI_API_KEY)
  * Tries the official OpenAI-compatible endpoint first, then falls back to native generateContent.
@@ -7,9 +20,15 @@ async function callGemini(
     apiKey: string,
     prompt: string,
     systemPrompt: string,
-    options: { temperature: number; maxTokens: number; model?: string }
+    options: { temperature: number; maxTokens: number; model?: string; imageDataUrl?: string }
 ): Promise<string> {
     const model = options.model || process.env.GEMINI_MODEL || "gemini-2.0-flash";
+    const userMessageContent: UserContent = options.imageDataUrl
+        ? [
+              { type: "text", text: prompt },
+              { type: "image_url", image_url: { url: options.imageDataUrl, detail: "high" } },
+          ]
+        : prompt;
 
     // 1. Try Google Gemini OpenAI-compatible chat endpoint
     try {
@@ -23,7 +42,7 @@ async function callGemini(
                 model,
                 messages: [
                     { role: "system", content: systemPrompt },
-                    { role: "user", content: prompt }
+                    { role: "user", content: userMessageContent }
                 ],
                 temperature: options.temperature,
                 max_tokens: options.maxTokens,
@@ -43,6 +62,21 @@ async function callGemini(
     }
 
     // 2. Native Google Gemini generateContent fallback
+    const nativeParts: Array<{ text: string } | { inline_data: { mime_type: string; data: string } }> = [
+        { text: prompt },
+    ];
+    if (options.imageDataUrl) {
+        const parsedImage = parseDataUrlParts(options.imageDataUrl);
+        if (parsedImage) {
+            nativeParts.push({
+                inline_data: {
+                    mime_type: parsedImage.mimeType,
+                    data: parsedImage.base64Data,
+                },
+            });
+        }
+    }
+
     const nativeUrl = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
     const nativeResp = await fetch(nativeUrl, {
         method: "POST",
@@ -52,7 +86,7 @@ async function callGemini(
                 parts: [{ text: systemPrompt }]
             },
             contents: [
-                { role: "user", parts: [{ text: prompt }] }
+                { role: "user", parts: nativeParts }
             ],
             generationConfig: {
                 temperature: options.temperature,
@@ -82,10 +116,16 @@ async function callOpenAI(
     apiKey: string,
     prompt: string,
     systemPrompt: string,
-    options: { temperature: number; maxTokens: number; model?: string }
+    options: { temperature: number; maxTokens: number; model?: string; imageDataUrl?: string }
 ): Promise<string> {
     const model = options.model || process.env.AI_MODEL || "gpt-4o-mini";
     const isReasoningModel = /^(o1|o3|gpt-6)/i.test(model);
+    const userMessageContent: UserContent = options.imageDataUrl
+        ? [
+              { type: "text", text: prompt },
+              { type: "image_url", image_url: { url: options.imageDataUrl, detail: "high" } },
+          ]
+        : prompt;
 
     // Newer OpenAI models (o1, o3, gpt-6-luna) do not allow custom temperature
     // and require max_completion_tokens instead of legacy max_tokens.
@@ -93,7 +133,7 @@ async function callOpenAI(
         model,
         messages: [
             { role: "system", content: systemPrompt },
-            { role: "user", content: prompt }
+            { role: "user", content: userMessageContent }
         ],
         max_completion_tokens: options.maxTokens,
     };
@@ -177,19 +217,17 @@ export interface AIGenerationOptions {
 }
 
 /**
- * Generate AI text based on a prompt
- * Uses LRU cache to avoid repeat API calls for similar prompts
+ * Shared AI execution pipeline for both text and multimodal vision prompts.
  */
-export async function generateAIText(
+async function runAIRequest(
     prompt: string,
-    options: AIGenerationOptions = {}
+    options: AIGenerationOptions = {},
+    imageDataUrl?: string,
 ): Promise<string> {
     const { temperature = 0.8, maxTokens = 2000, skipCache = false } = options;
 
-    // Create cache key from prompt hash + parameters
-    const cacheKey = `ai_${hashString(prompt)}_${temperature}_${maxTokens}`;
+    const cacheKey = `ai_${hashString(prompt + (imageDataUrl || ""))}_${temperature}_${maxTokens}`;
 
-    // Check cache first (unless explicitly skipped)
     if (!skipCache) {
         const cached = aiCache.get(cacheKey);
         if (cached) {
@@ -216,32 +254,52 @@ export async function generateAIText(
     try {
         let result: string;
 
-        // User requirement: Tools AI calls are handled by OpenAI API (AI_API_KEY)
         if (openAiKey) {
             result = await callOpenAI(openAiKey, prompt, getSystemPrompt(), {
                 temperature,
                 maxTokens,
                 model: process.env.AI_MODEL,
+                imageDataUrl,
             });
         } else if (geminiKey) {
-            // Fallback to Google Gemini if GEMINIFREEAI_API_KEY is configured
             result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
                 temperature,
                 maxTokens,
                 model: process.env.GEMINI_MODEL,
+                imageDataUrl,
             });
         } else {
             throw new AIConfigurationError("No AI API key available");
         }
 
-        // Store in cache for future requests
         aiCache.set(cacheKey, result);
-
         return result;
     } catch (error) {
         console.error("AI generation error:", error);
         throw error;
     }
+}
+
+/**
+ * Generate AI text based on a prompt
+ * Uses LRU cache to avoid repeat API calls for similar prompts
+ */
+export async function generateAIText(
+    prompt: string,
+    options: AIGenerationOptions = {}
+): Promise<string> {
+    return runAIRequest(prompt, options);
+}
+
+/**
+ * Generate structured AI vision critique from an image data URL + prompt.
+ */
+export async function generateAIVisionAnalysis(
+    prompt: string,
+    imageDataUrl: string,
+    options: AIGenerationOptions = {},
+): Promise<string> {
+    return runAIRequest(prompt, options, imageDataUrl);
 }
 
 /**
@@ -290,6 +348,117 @@ Always prioritize: Authenticity > Clickbait, Value > Views, Long-term growth > S
  * Mock response for development when AI_API_KEY is not configured
  */
 function getMockResponse(prompt: string): string {
+    if (prompt.includes("Thumbnail Vision Critique")) {
+        return JSON.stringify({
+            overallScore: 78,
+            mobileReadability: 74,
+            detectedTextWords: 5,
+            redundancyAlert: false,
+            redundancyExplanation:
+                "The visual framing relies on focal contrast rather than duplicating the entire title verbatim, leaving helpful curiosity gap tension.",
+            whatWorks: [
+                "Strong primary subject placement creates a recognizable silhouette even at 168px mobile feed width.",
+                "Color temperature separation isolates the foreground focal point from the background environment.",
+                "Clear directional sightline naturally guides the eye across the frame before reading the title.",
+            ],
+            highImpactFixes: [
+                "Trim on-image overlay text down to 2–3 bold words (>= 72pt equivalent) so viewers read it in under 0.5 seconds.",
+                "Increase luminance contrast between your background layer and primary subject using a subtle dark vignette or rim light.",
+                "Keep critical faces and props away from the bottom-right timestamp corner where YouTube overlays video duration.",
+            ],
+        });
+    }
+    if (prompt.includes("3-Way Test & Compare Packaging")) {
+        return JSON.stringify([
+            {
+                variant: "A",
+                framework: "Curiosity Gap",
+                title: "Nobody Talks About This Hidden YouTube Packaging Trap",
+                thumbnailTextOverlay: "WRONG METRIC?",
+                visualDirection: "Creator pointing toward a blurred YouTube Studio chart with one glowing red outlier arrow and dramatic dark rim lighting.",
+                aiImagePrompt: "Photorealistic YouTube thumbnail, intense creator looking slightly camera-left toward a blurred glowing laptop screen showing a mysterious red upward graph spike, dark charcoal studio lighting with crisp cyan rim light, shallow depth of field, high contrast, 1280x720, no text, no words, no letters",
+                psychologyWhy: "Withholds the specific trap so viewers must click to close the curiosity loop.",
+            },
+            {
+                variant: "B",
+                framework: "Outcome & Proof",
+                title: "How 1 Thumbnail Change Lifted My CTR From 3.1% to 9.4% in 7 Days",
+                thumbnailTextOverlay: "3.1% -> 9.4%",
+                visualDirection: "Split before/after frame comparing a cluttered desaturated left side against a crisp high-contrast right frame with emerald upward arrow.",
+                aiImagePrompt: "Editorial split-screen YouTube thumbnail, muted foggy messy desk setup on left contrasted against clean vivid emerald-lit creator studio portrait on right, bold visual transformation contrast, cinematic studio lighting, ultra sharp 8k detail, 1280x720, no text, no words, no letters",
+                psychologyWhy: "Pairs a concrete measurable transformation (+6.3% CTR) with a tight 7-day proof window.",
+            },
+            {
+                variant: "C",
+                framework: "Contrarian / Warning",
+                title: "Stop Putting Text On Your Thumbnails (Do This Instead)",
+                thumbnailTextOverlay: "DELETE TEXT",
+                visualDirection: "Close-up expressive reaction holding a red marker crossing through an invisible barrier toward a stark minimalist object focal point.",
+                aiImagePrompt: "Dynamic close-up YouTube thumbnail portrait, surprised creator holding a bright red studio marker beside a sleek minimalist glowing camera lens on a pitch-black background, crisp amber kicker light, bold rule-of-thirds composition, 1280x720, no text, no words, no letters",
+                psychologyWhy: "Challenges conventional creator wisdom to trigger immediate pattern-interrupt clicks.",
+            },
+        ]);
+    }
+    if (prompt.includes("Hook & Promise Auditor")) {
+        return JSON.stringify({
+            retentionScore: 68,
+            dropOffRisk: "Medium",
+            promiseConfirmed: false,
+            promiseExplanation:
+                "The opening sentence uses a generic greeting instead of immediately paying off the click promise implied by your title, delaying value past the critical first 10 seconds.",
+            fluffPhrases: [
+                {
+                    phrase: "Hey guys, welcome back to the channel",
+                    reason: "Predictable filler signals slow pacing; 20–35% of cold Browse traffic drops off before sentence two.",
+                },
+                {
+                    phrase: "before we start",
+                    reason: "Triggers impatience because viewers want immediate confirmation they are in the right video.",
+                },
+            ],
+            rewrites: [
+                {
+                    style: "Direct Proof Hook",
+                    hook: "Look at this retention graph—one sentence in the first five seconds took this video from 41% at 0:30 to 74%. Here are the exact three edits we made before saying anything else.",
+                    whyItWorks: "Validates the title immediately with concrete numbers and previews the payoff within 5 seconds.",
+                },
+                {
+                    style: "Story / Stakes Hook",
+                    hook: "Three months ago I burned forty hours editing what I thought was my best upload—and lost half my audience before the first minute ended. Then I noticed one line almost every 10x outlier skips.",
+                    whyItWorks: "Builds personal tension and relatable failure before pivoting straight into the discovery.",
+                },
+                {
+                    style: "Fast-Paced Pattern Interrupt Hook",
+                    hook: "Cut your channel greeting. Viewers don't click to hear 'what's up guys'—they click to see whether you solve the title in under eight seconds. Watch this side-by-side.",
+                    whyItWorks: "Breaks expected YouTube conventions in word one and resets attention with an immediate visual payoff.",
+                },
+            ],
+        });
+    }
+    if (prompt.includes("Watch Series") || prompt.includes("Episodic Shorts")) {
+        const countMatch = prompt.match(/exactly\s+(\d+)\s+sequential/i);
+        const count = countMatch ? Math.min(7, Math.max(3, parseInt(countMatch[1], 10))) : 5;
+        const episodes = Array.from({ length: count }, (_, idx) => ({
+            partNumber: `Part ${idx + 1}/${count}`,
+            episodeTitle: `Step ${idx + 1}: The Missing Piece Most Creators Skip`,
+            openingHook: idx === 0
+                ? "Most creators burn 90 days on this mistake—here is day one of fixing it live."
+                : `Wait until you see what broke right after Part ${idx} yesterday.`,
+            coreBeats: [
+                `Visual reveal of the exact milestone or bottleneck tested in Episode ${idx + 1}.`,
+                "Side-by-side metric comparison showing why the standard advice fails under real traffic.",
+                "Single actionable takeaway viewers can apply before watching the next part.",
+            ],
+            cliffhangerBridge:
+                idx === count - 1
+                    ? "Everything changed in that final export—watch the full series from Part 1 if you missed step one."
+                    : `Here is the catch that nearly ruined step ${idx + 2}—tap Watch Series below for Part ${idx + 2}.`,
+        }));
+        return JSON.stringify({
+            seriesTitle: "The 5-Minute Creator Turnaround Series",
+            episodes,
+        });
+    }
     if (prompt.includes("title")) {
         return JSON.stringify([
             { title: "How I Grew My Channel to 10K Subscribers in 30 Days", score: 92, method: "Authority/Proof", why: "Specific timeframe + result creates strong curiosity gap." },
@@ -769,5 +938,181 @@ Each prompt should include:
 Return ONLY valid JSON array of 5 detailed prompt strings:
 ["Prompt 1 with full details...", "Prompt 2 with full details...", ...]
 
-Make each prompt 50-100 words for optimal AI image generator results.`
+Make each prompt 50-100 words for optimal AI image generator results.`,
+
+    thumbnailCritique: (videoTitle: string = "") => `
+# Task: Thumbnail Vision Critique & Glance Test Analysis
+
+## Input Context
+- **Proposed Video Title**: ${videoTitle ? `"${videoTitle}"` : "(Not provided — evaluate purely on visual clarity, contrast, and text economy)"}
+
+## Evaluation Rubric (YouTube 2026 CTR Packaging)
+Inspect the attached YouTube thumbnail image carefully:
+1. **Mobile Feed Glance Legibility (168px wide)**: Would a scrolling viewer grasp the focal subject and emotional tension in under 1.5 seconds?
+2. **Text Word Count**: Count the readable words visible inside the thumbnail graphic itself (detectedTextWords). More than 4 words sharply harms mobile glance speed.
+3. **Title-Thumbnail Redundancy**: If a Video Title was provided, check whether the thumbnail's text simply repeats words from the title word-for-word instead of complementing or amplifying the title's curiosity gap.
+4. **Focal Hierarchy, Contrast & Safe Zones**: Check figure-ground contrast, facial expression/subject clarity, clutter, and whether critical elements sit near the bottom-right duration overlay corner.
+
+## Output Format
+Return ONLY valid JSON matching this exact schema (no markdown wrapper):
+{
+  "overallScore": 0-100,
+  "mobileReadability": 0-100,
+  "detectedTextWords": integer >= 0,
+  "redundancyAlert": boolean,
+  "redundancyExplanation": "1-2 clear sentences explaining whether thumbnail text repeats the title verbatim (or how title and thumbnail interact).",
+  "whatWorks": [
+    "Concrete strength 1 based on visible composition/colors/subject",
+    "Concrete strength 2"
+  ],
+  "highImpactFixes": [
+    "Actionable fix 1",
+    "Actionable fix 2",
+    "Actionable fix 3"
+  ]
+}`,
+
+    abPackagingStudio: (topic: string, targetAudience: string = "YouTube Creators") => `
+# Task: 3-Way Test & Compare Packaging Concepts (YouTube Studio A/B Testing)
+
+## Input Context
+- **Working Topic / Concept**: "${topic}"
+- **Target Audience / Niche**: ${targetAudience}
+
+## Requirements
+Design 3 psychologically distinct, non-overlapping title + thumbnail packaging concepts specifically engineered for YouTube Studio's 3-variant "Test & Compare" experiment:
+1. **Variant A — Curiosity Gap**: Open loop, intriguing withheld reveal, strong contrast between title and short thumbnail hook.
+2. **Variant B — Outcome & Proof**: Specific numbers, tangible transformation, clear timeframe or concrete proof.
+3. **Variant C — Contrarian / Warning**: Pattern interrupt, counter-intuitive claim, mistake avoidance, urgency.
+
+Strict Packaging Rules:
+- Keep titles punchy (ideally 42–62 characters for mobile feed safety, strictly <= 90 chars).
+- Keep thumbnailTextOverlay ultra-short: 2 to 4 impactful words max that DO NOT repeat the title verbatim.
+- Make aiImagePrompt rich (45–80 words) with exact photography, lighting, emotion, focal hierarchy, and explicit "no text, no words, no letters" at the end so creators can paste it into any AI image generator.
+
+## Output Format
+Return ONLY a valid JSON array of 3 objects matching this exact schema:
+[
+  {
+    "variant": "A",
+    "framework": "Curiosity Gap",
+    "title": "...",
+    "thumbnailTextOverlay": "2-4 WORDS",
+    "visualDirection": "Concrete composition & focal layout description...",
+    "aiImagePrompt": "Detailed photographic/cinematic AI image generation prompt ending with no text, no words, no letters",
+    "psychologyWhy": "Why this triggers clicks in YouTube Home Feed"
+  },
+  {
+    "variant": "B",
+    "framework": "Outcome & Proof",
+    "title": "...",
+    "thumbnailTextOverlay": "2-4 WORDS",
+    "visualDirection": "...",
+    "aiImagePrompt": "...",
+    "psychologyWhy": "..."
+  },
+  {
+    "variant": "C",
+    "framework": "Contrarian / Warning",
+    "title": "...",
+    "thumbnailTextOverlay": "2-4 WORDS",
+    "visualDirection": "...",
+    "aiImagePrompt": "...",
+    "psychologyWhy": "..."
+  }
+]`,
+
+    hookAuditor: (videoTitle: string, introScript: string) => `
+# Task: First 30-Second Hook & Promise Auditor
+
+## Input Context
+- **Video Title**: "${videoTitle}"
+- **Opening Intro Script**:
+"""
+${introScript}
+"""
+
+## Evaluation Criteria
+Audit this opening script ruthlessly against top 1% YouTube retention standards:
+1. **Promise Confirmation**: Does the very first sentence confirm immediately why the viewer clicked the title (or does it wander, greet the audience, or delay the premise)?
+2. **Fluff & Throat-Clearing Detection**: Flag any exact phrases verbatim from the script that waste early seconds (e.g., "Hey guys", "welcome back to the channel", "before we start", "without further ado", housekeeping, subscriber pitches).
+3. **30-Second Retention Score (0-100)** & **Drop-Off Risk** ("Low", "Medium", or "High").
+4. **3 Rewrites** tailored directly to the submitted Video Title & topic (each 25–60 words):
+   - Direct Proof Hook
+   - Story / Stakes Hook
+   - Fast-Paced Pattern Interrupt Hook
+
+## Output Format
+Return ONLY valid JSON matching this exact schema:
+{
+  "retentionScore": 0-100,
+  "dropOffRisk": "Low" | "Medium" | "High",
+  "promiseConfirmed": boolean,
+  "promiseExplanation": "1-2 sentences evaluating whether sentence 1 confirms the click promise immediately.",
+  "fluffPhrases": [
+    {
+      "phrase": "exact substring from the script if any fluff exists",
+      "reason": "Brief explanation of why this causes early drop-off"
+    }
+  ],
+  "rewrites": [
+    {
+      "style": "Direct Proof Hook",
+      "hook": "...",
+      "whyItWorks": "..."
+    },
+    {
+      "style": "Story / Stakes Hook",
+      "hook": "...",
+      "whyItWorks": "..."
+    },
+    {
+      "style": "Fast-Paced Pattern Interrupt Hook",
+      "hook": "...",
+      "whyItWorks": "..."
+    }
+  ]
+}`,
+
+    shortsSeriesPlanner: (
+        topic: string,
+        episodeCount: number = 5,
+        tone: string = "Educational Breakdown",
+    ) => `
+# Task: Episodic Shorts "Watch Series" Binge Planner (Sequential Mini-Series)
+
+## Input Context
+- **Series Topic / Core Promise**: "${topic}"
+- **Episode Count**: ${episodeCount} sequential parts
+- **Niche / Tone Style**: ${tone}
+
+## Requirements
+Design an addictive, tightly linked YouTube Shorts mini-series engineered for YouTube's episodic "Watch Series" UI pill in the Shorts feed.
+Generate **exactly ${episodeCount} sequential episodes** that escalate tension and reward binge-watching Part 1 -> Part ${episodeCount}:
+1. Pick a magnetic overarching \`seriesTitle\` (45 chars max).
+2. For each episode:
+   - \`partNumber\`: Strictly formatted as \`"Part X/${episodeCount}"\`
+   - \`episodeTitle\`: Punchy mobile-safe title (max 50 chars) tailored for the Shorts "Watch Series" drawer
+   - \`openingHook\`: High-intensity first 2 seconds (max 15 spoken words, ZERO "hey guys" or warmup)
+   - \`coreBeats\`: Array of exactly 3 concise bullet beats pacing a 45–60 second vertical edit
+   - \`cliffhangerBridge\`: Exact closing line (max 18 spoken words) driving viewers to tap the "Watch Series" button for Part X+1 (or full playlist recap on the final part)
+
+## Output Format
+Return ONLY valid JSON matching this exact schema (no markdown fences):
+{
+  "seriesTitle": "...",
+  "episodes": [
+    {
+      "partNumber": "Part 1/${episodeCount}",
+      "episodeTitle": "...",
+      "openingHook": "...",
+      "coreBeats": [
+        "Beat 1...",
+        "Beat 2...",
+        "Beat 3..."
+      ],
+      "cliffhangerBridge": "..."
+    }
+  ]
+}`
 };

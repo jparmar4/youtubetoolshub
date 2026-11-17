@@ -129,7 +129,7 @@ const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
   },
   {
     pattern: /outlier|viral.?ratio|benchmark|view.?to.?sub|viral.?video|10x.?views/i,
-    slugs: ["youtube-outlier-calculator", "youtube-engagement-rate-calculator"],
+    slugs: ["youtube-outlier-calculator", "channel-outlier-scanner", "youtube-engagement-rate-calculator"],
   },
   {
     pattern: /embed|iframe|responsive.?embed|embed.?generator|embed.?code/i,
@@ -150,6 +150,8 @@ const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
     pattern: /thumbnail|ctr|click.?through/i,
     slugs: [
       "youtube-thumbnail-downloader",
+      "thumbnail-critique",
+      "ab-packaging-studio",
       "youtube-thumbnail-generator",
       "youtube-ai-thumbnail-generator",
     ],
@@ -161,6 +163,10 @@ const KEYWORD_TOOL_HINTS: Array<{ pattern: RegExp; slugs: string[] }> = [
   {
     pattern: /1000 subscribers|1,000 subscribers|first 1000|watch hours|partner program/i,
     slugs: ["youtube-channel-audit", "youtube-video-ideas-generator", "youtube-content-calendar-generator"],
+  },
+  {
+    pattern: /hook|retention|intro.?script|first.?30.?sec|drop.?off/i,
+    slugs: ["hook-auditor", "youtube-intro-script-generator", "ab-packaging-studio"],
   },
   {
     pattern: /\btags?\b|keyword/i,

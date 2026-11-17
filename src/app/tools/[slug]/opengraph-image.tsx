@@ -48,7 +48,8 @@ export default async function OGImage({
         "seo-metadata": "SEO & Metadata",
         "channel-growth": "Channel Growth",
         "analytics-earnings": "Analytics & Earnings",
-        "utility-fun": "Utility & Fun",
+        "utilities": "Utilities & Productivity",
+        "utility-fun": "Utilities & Productivity",
     };
 
     const categoryLabel = categoryLabels[tool.category] || tool.category;

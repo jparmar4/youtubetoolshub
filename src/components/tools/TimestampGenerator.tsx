@@ -9,6 +9,8 @@ import { Input, Textarea } from "@/components/ui/Input";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import UsageBanner from "@/components/ui/UsageBanner";
 import { useUsage } from "@/hooks/useUsage";
+import { useVideoPack } from "@/context/VideoPackContext";
+import SaveToVideoPackButton from "@/components/video-pack/SaveToVideoPackButton";
 
 
 const timestampPattern = /^((?:\d{1,2}:)?\d{1,2}:\d{2})\s+(.+)$/;
@@ -27,6 +29,7 @@ export default function TimestampGenerator() {
     const [intervalMinutes, setIntervalMinutes] = useState(2);
     const [output, setOutput] = useState("");
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { pack, saveChapters } = useVideoPack();
 
     const chapterCount = useMemo(() => chapters.split("\n").filter((line) => line.trim()).length, [chapters]);
 
@@ -89,9 +92,27 @@ export default function TimestampGenerator() {
 
                 {output && (
                     <div className="rounded-lg border border-slate-200 bg-slate-950 p-5 text-white">
-                        <div className="mb-4 flex items-center justify-between gap-3">
+                        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                             <h2 className="font-semibold">Description-ready chapters</h2>
-                            <CopyButton text={output} variant="button" label="Copy timestamps" />
+                            <div className="flex flex-wrap items-center gap-2">
+                                <SaveToVideoPackButton
+                                    compact
+                                    toastMessage="Chapters saved to Active Video Pack!"
+                                    isAlreadySaved={
+                                        pack.chapters.length > 0 &&
+                                        pack.chapters.join("\n") === output.trim()
+                                    }
+                                    onSave={() =>
+                                        saveChapters(
+                                            output
+                                                .split("\n")
+                                                .map((line) => line.trim())
+                                                .filter(Boolean),
+                                        )
+                                    }
+                                />
+                                <CopyButton text={output} variant="button" label="Copy timestamps" />
+                            </div>
                         </div>
                         <pre className="whitespace-pre-wrap font-mono text-sm leading-7 text-slate-100">{output}</pre>
                     </div>

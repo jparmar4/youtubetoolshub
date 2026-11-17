@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { fetchYouTubeApiWithRotation, getConfiguredYouTubeApiKeys } from "@/lib/youtubeApiClient";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
 /**
  * YouTube Trending Videos API
@@ -28,6 +30,11 @@ const REGION_CODES: Record<string, string> = {
 };
 
 export async function GET(req: NextRequest) {
+    const originCheck = verifyOrigin(req);
+    if (!originCheck.allowed) {
+        return originCheck.response;
+    }
+
     const ip = getRequestIp(req.headers);
     const rl = enforceRateLimit(`trending:${ip}`, 40, 60 * 60 * 1000);
     if (!rl.allowed) {
@@ -49,9 +56,9 @@ export async function GET(req: NextRequest) {
         );
     }
 
-    const apiKey = process.env.YOUTUBE_API_KEY;
+    const keys = getConfiguredYouTubeApiKeys();
 
-    if (!apiKey) {
+    if (keys.length === 0) {
         return NextResponse.json({
             success: false,
             demo: true,
@@ -66,24 +73,33 @@ export async function GET(req: NextRequest) {
         : "US";
 
     try {
-        // Fetch trending videos
-        let url = `https://www.googleapis.com/youtube/v3/videos?` +
-            `part=snippet,statistics&chart=mostPopular&regionCode=${regionCode}&maxResults=20&key=${apiKey}`;
-
-        // Add category if specified (e.g., 10 = Music, 20 = Gaming, 24 = Entertainment)
+        // Fetch trending videos with multi-key quota rotation
+        let endpoint = `videos?part=snippet,statistics&chart=mostPopular&regionCode=${regionCode}&maxResults=20`;
         if (category) {
-            url += `&videoCategoryId=${category}`;
+            endpoint += `&videoCategoryId=${category}`;
         }
 
-        const response = await fetch(url, { next: { revalidate: 1800 } }); // Cache 30 min
+        const apiRes = await fetchYouTubeApiWithRotation<{
+            items?: Array<{
+                id: string;
+                snippet: {
+                    title: string;
+                    channelTitle: string;
+                    publishedAt: string;
+                    categoryId?: string;
+                    tags?: string[];
+                };
+                statistics?: {
+                    viewCount?: string;
+                };
+            }>;
+        }>(endpoint, { revalidate: 1800 });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("YouTube API error:", errorData);
-            throw new Error(errorData.error?.message || "YouTube API request failed");
+        if (!apiRes.ok) {
+            throw new Error(apiRes.error || "YouTube API request failed");
         }
 
-        const data = await response.json();
+        const data = apiRes.data;
 
         if (!data.items || data.items.length === 0) {
             return NextResponse.json({

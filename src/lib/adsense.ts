@@ -483,6 +483,7 @@ export function getAffiliateToolForCategory(category?: string, toolSlug?: string
     case "channel-growth":
     case "analytics-earnings":
       return "vidiq";
+    case "utilities":
     case "utility-fun":
       return "descript";
     default:

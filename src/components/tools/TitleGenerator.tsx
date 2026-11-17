@@ -20,6 +20,9 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 import CreatorSoftwareCard from "@/components/ads/CreatorSoftwareCard";
+import { useVideoPack } from "@/context/VideoPackContext";
+import SaveToVideoPackButton from "@/components/video-pack/SaveToVideoPackButton";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 
 const toneOptions = [
     { value: "casual", label: "Casual & Friendly" },
@@ -112,6 +115,7 @@ export default function TitleGenerator() {
     // Usage tracking
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
     const { downloadCsv, downloadText } = useExport();
+    const { pack, saveTitleVariant, saveTitleVariantsBatch } = useVideoPack();
 
     const handleSave = async (title: string) => {
         // Save to History (Cloud + Local Fallback)
@@ -342,6 +346,14 @@ export default function TitleGenerator() {
                                 <FaFire className="text-orange-500" /> Generated Titles ({titles.length})
                             </h3>
                             <div className="flex flex-wrap items-center gap-2">
+                                <SaveToVideoPackButton
+                                    compact
+                                    label="Save All to Pack"
+                                    savedLabel="All Saved"
+                                    toastMessage={`Saved ${titles.length} title variants to Active Video Pack!`}
+                                    onSave={() => saveTitleVariantsBatch(titles.map((t) => t.title), topic)}
+                                    isAlreadySaved={titles.length > 0 && titles.every((t) => pack.titleVariants.includes(t.title))}
+                                />
                                 <CopyButton text={allTitlesText} variant="button" label="Copy All" />
                                 <button
                                     type="button"
@@ -409,7 +421,18 @@ export default function TitleGenerator() {
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-2 md:self-center">
+                                        <div className="flex flex-wrap items-center gap-2 md:self-center">
+                                            <SaveToVideoPackButton
+                                                compact
+                                                toastMessage="Title saved to Active Video Pack!"
+                                                isAlreadySaved={pack.titleVariants.includes(item.title)}
+                                                onSave={() =>
+                                                    saveTitleVariant(item.title, {
+                                                        select: true,
+                                                        topic,
+                                                    })
+                                                }
+                                            />
                                             <Link
                                                 href={`/tools/youtube-description-generator?topic=${encodeURIComponent(item.title)}`}
                                                 className="p-2 rounded-xl bg-purple-50 text-purple-600 hover:bg-purple-100 transition-all font-medium text-sm flex items-center gap-2"
@@ -437,6 +460,29 @@ export default function TitleGenerator() {
                             );
                         })}
                     </AnimatePresence>
+
+                    {titles.length > 0 && !loading && (
+                        <WorkflowBridgeCard
+                            subtitle={`Pre-fill "${titles[0]?.title || topic}" directly into your description, tags, opening hook & 3-way A/B test suite:`}
+                            actions={[
+                                {
+                                    href: `/tools/ab-packaging-studio?topic=${encodeURIComponent(titles[0]?.title || topic)}`,
+                                    label: "Create 3 A/B Thumbnail Concepts",
+                                    description: "Build Curiosity, Outcome & Contrarian thumbnails paired with this headline.",
+                                },
+                                {
+                                    href: `/tools/hook-auditor?title=${encodeURIComponent(titles[0]?.title || topic)}`,
+                                    label: "Audit Your First 30s Hook",
+                                    description: "Verify sentence-1 confirms the click promise set by this title.",
+                                },
+                                {
+                                    href: `/tools/youtube-tag-generator?topic=${encodeURIComponent(titles[0]?.title || topic)}`,
+                                    label: "Generate SEO Tags & Description",
+                                    description: "Auto-fills your winning title straight into the SEO tag generator.",
+                                },
+                            ]}
+                        />
+                    )}
                 </div>
                 <CreatorSoftwareCard defaultCategory="seo" />
             </div>

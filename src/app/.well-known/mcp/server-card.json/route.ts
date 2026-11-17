@@ -77,7 +77,7 @@ export async function GET() {
             category: {
               type: "string",
               description:
-                "Optional tool category filter (thumbnail-media, seo-metadata, channel-growth, analytics-earnings, utility-fun).",
+                "Optional tool category filter (thumbnail-media, seo-metadata, channel-growth, analytics-earnings, utilities).",
             },
             query: {
               type: "string",

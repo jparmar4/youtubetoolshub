@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import LegalPageShell from "@/components/layout/LegalPageShell";
-import { FaFileContract, FaCheckCircle, FaTimesCircle, FaBrain, FaExclamationTriangle, FaGavel, FaEnvelope, FaHandshake } from "react-icons/fa";
+import { FaFileContract, FaCheckCircle, FaTimesCircle, FaBrain, FaExclamationTriangle, FaGavel, FaEnvelope, FaHandshake, FaYoutube } from "react-icons/fa";
 
 export const metadata: Metadata = {
     title: "Terms of Use",
@@ -54,9 +54,61 @@ export default function TermsOfUsePage() {
                 </h2>
                 <p className="text-slate-600 leading-relaxed text-lg">
                     By accessing and using {siteConfig.name}, you accept and agree to be bound by these
-                    Terms of Use. If you do not agree to these terms, please do not use our services.
+                    Terms of Use as well as the{" "}
+                    <a
+                        href="https://www.youtube.com/t/terms"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-700 hover:text-purple-900 font-semibold underline underline-offset-2"
+                    >
+                        YouTube Terms of Service
+                    </a>
+                    . If you do not agree to these terms, please do not use our services.
                     These terms apply to all visitors, users, and others who access or use the Service.
                 </p>
+            </div>
+
+            {/* YouTube API Services & YouTube Terms of Service */}
+            <div id="youtube-terms" className="scroll-mt-24">
+                <h2 className="flex items-center gap-3 text-2xl font-bold text-slate-900 mb-6">
+                    <span className="p-2 rounded-lg bg-red-100/70 text-red-600">
+                        <FaYoutube className="w-5 h-5" />
+                    </span>
+                    YouTube API Services &amp; YouTube Terms of Service
+                </h2>
+                <div className="p-6 sm:p-8 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                    <p className="text-slate-700 leading-relaxed text-base sm:text-lg">
+                        Our public video and channel lookup tools retrieve data through{" "}
+                        <strong>YouTube API Services</strong>. By using any tool or feature on{" "}
+                        {siteConfig.name} that accesses or displays YouTube content or metadata,
+                        you expressly agree to be bound by the{" "}
+                        <a
+                            href="https://www.youtube.com/t/terms"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-red-700 hover:text-red-900 font-semibold underline underline-offset-2"
+                        >
+                            YouTube Terms of Service (https://www.youtube.com/t/terms)
+                        </a>{" "}
+                        and acknowledge that Google&apos;s data practices are governed by the{" "}
+                        <a
+                            href="https://policies.google.com/privacy"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-purple-700 hover:text-purple-900 font-semibold underline underline-offset-2"
+                        >
+                            Google Privacy Policy
+                        </a>{" "}
+                        and our{" "}
+                        <Link
+                            href="/privacy-policy#youtube-api-services"
+                            className="text-purple-700 hover:text-purple-900 font-semibold underline underline-offset-2"
+                        >
+                            YouTube API Services Disclosure
+                        </Link>
+                        .
+                    </p>
+                </div>
             </div>
 
             {/* Use of Services */}

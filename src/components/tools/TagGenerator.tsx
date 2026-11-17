@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
@@ -14,6 +15,8 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { saveHistory } from "@/lib/history";
 import { FaMagic, FaSpinner, FaStar, FaSearch, FaHashtag, FaFire, FaLightbulb, FaDownload, FaFileAlt } from "react-icons/fa";
+import { useVideoPack } from "@/context/VideoPackContext";
+import SaveToVideoPackButton from "@/components/video-pack/SaveToVideoPackButton";
 
 interface TagResult {
     primaryTags?: string[];
@@ -80,7 +83,15 @@ function TagSection({
 }
 
 export default function TagGenerator() {
-    const [topic, setTopic] = useState("");
+    const searchParams = useSearchParams();
+    const urlTopic = searchParams.get("topic") || "";
+    const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
+    const [topic, setTopic] = useState(urlTopic);
+    if (urlTopic && urlTopic !== prevUrlTopic) {
+        setPrevUrlTopic(urlTopic);
+        setTopic(urlTopic);
+    }
+
     const [niche, setNiche] = useState("");
     const [tags, setTags] = useState<TagResult>({});
     const [loading, setLoading] = useState(false);
@@ -89,6 +100,7 @@ export default function TagGenerator() {
     const { downloadCsv, downloadText } = useExport();
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+    const { pack, saveTags } = useVideoPack();
 
     const handleGenerate = async () => {
         if (!topic.trim()) {
@@ -308,6 +320,15 @@ export default function TagGenerator() {
                                 </div>
                             </div>
                             <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                                <SaveToVideoPackButton
+                                    compact
+                                    toastMessage={`Saved ${allTags.length} tags to Active Video Pack!`}
+                                    isAlreadySaved={
+                                        allTags.length > 0 &&
+                                        allTags.every((t) => pack.tags.includes(t))
+                                    }
+                                    onSave={() => saveTags(allTags, topic)}
+                                />
                                 <CopyButton text={csvFormat} variant="button" label="Copy All (CSV)" />
                                 <button
                                     type="button"

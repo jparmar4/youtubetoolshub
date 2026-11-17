@@ -72,13 +72,16 @@ function info(msg) {
   console.log(`  → ${msg}`);
 }
 
-function fetchUrl(url) {
+function fetchUrl(url, extraHeaders = {}) {
   return new Promise((resolve) => {
     const lib = url.startsWith("https") ? https : http;
     const req = lib.get(
       url,
       {
-        headers: { "User-Agent": "YouTubeToolsHub-DeployCheck/1.0" },
+        headers: {
+          "User-Agent": "YouTubeToolsHub-DeployCheck/1.0",
+          ...extraHeaders,
+        },
         timeout: 20000,
       },
       (res) => {
@@ -197,7 +200,10 @@ async function checkPost() {
 
   for (const p of POST_PATHS) {
     const url = `${BASE}${p}`;
-    const r = await fetchUrl(url);
+    const r = await fetchUrl(
+      url,
+      p.startsWith("/api/") ? { Origin: BASE, Referer: `${BASE}/` } : {},
+    );
     if (r.error) {
       fail(`${p} — ${r.error}`);
       fails++;
@@ -249,6 +255,8 @@ async function checkPost() {
           "Content-Type": "application/json",
           "Content-Length": Buffer.byteLength(data),
           "User-Agent": "YouTubeToolsHub-DeployCheck/1.0",
+          Origin: BASE,
+          Referer: `${BASE}/`,
         },
         timeout: 20000,
       },

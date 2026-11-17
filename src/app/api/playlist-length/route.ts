@@ -1,9 +1,21 @@
 import { NextResponse } from "next/server";
 import { parseDuration } from "@/lib/utils";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import {
+    VIDEO_METADATA_REVALIDATE_SECONDS,
+    fetchYouTubeApiWithRotation,
+    getConfiguredYouTubeApiKeys,
+    type YouTubeApiResponse,
+} from "@/lib/youtubeApiClient";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
 export async function POST(req: Request) {
     try {
+        const originCheck = verifyOrigin(req);
+        if (!originCheck.allowed) {
+            return originCheck.response;
+        }
+
         const ip = getRequestIp(req.headers);
         const rl = enforceRateLimit(`playlist-length:${ip}`, 20, 60 * 60 * 1000);
         if (!rl.allowed) {
@@ -27,9 +39,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const apiKey = process.env.YOUTUBE_API_KEY;
-
-        if (!apiKey) {
+        if (getConfiguredYouTubeApiKeys().length === 0) {
             return NextResponse.json(
                 { error: "Server configuration error" },
                 { status: 500 }
@@ -69,17 +79,25 @@ export async function POST(req: Request) {
         let fetchedVideos = 0;
 
         // Fetch playlist details (title, thumbnail)
-        const playlistResponse = await fetch(
-            `https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=${encodeURIComponent(playlistId)}&key=${apiKey}`
-        );
-        const playlistData = await playlistResponse.json();
+        const playlistRes = await fetchYouTubeApiWithRotation<{
+            items?: Array<{
+                snippet: {
+                    title: string;
+                    channelTitle: string;
+                    thumbnails?: { medium?: { url?: string }; default?: { url?: string } };
+                };
+            }>;
+        }>(`playlists?part=snippet&id=${encodeURIComponent(playlistId)}`, {
+            revalidate: VIDEO_METADATA_REVALIDATE_SECONDS,
+        });
 
-        if (!playlistResponse.ok || playlistData.error) {
+        if (!playlistRes.ok) {
             return NextResponse.json(
                 { error: "YouTube API error" },
-                { status: playlistResponse.ok ? 400 : playlistResponse.status }
+                { status: playlistRes.status }
             );
         }
+        const playlistData = playlistRes.data;
 
         if (!playlistData.items || playlistData.items.length === 0) {
             return NextResponse.json(
@@ -94,40 +112,50 @@ export async function POST(req: Request) {
             channelTitle: playlistData.items[0].snippet.channelTitle,
         };
 
+        type PlaylistItemsPage = {
+            items?: Array<{ contentDetails?: { videoId?: string } }>;
+            nextPageToken?: string;
+        };
+
         // Fetch videos
         while (nextPageToken !== null && fetchedVideos < maxVideos) {
-            const itemsUrl: string = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${encodeURIComponent(playlistId)}&key=${apiKey}&pageToken=${nextPageToken || ""}`;
-            const itemsResponse = await fetch(itemsUrl);
-            const itemsData = await itemsResponse.json();
+            const pageTokenQuery: string = nextPageToken || "";
+            const itemsRes: YouTubeApiResponse<PlaylistItemsPage> =
+                await fetchYouTubeApiWithRotation<PlaylistItemsPage>(
+                    `playlistItems?part=contentDetails&maxResults=50&playlistId=${encodeURIComponent(playlistId)}&pageToken=${encodeURIComponent(pageTokenQuery)}`,
+                    { revalidate: VIDEO_METADATA_REVALIDATE_SECONDS },
+                );
 
-            if (!itemsResponse.ok || itemsData.error) {
+            if (!itemsRes.ok) {
                 return NextResponse.json(
                     { error: "YouTube API error" },
-                    { status: itemsResponse.ok ? 400 : itemsResponse.status }
+                    { status: itemsRes.status }
                 );
             }
+            const itemsData: PlaylistItemsPage = itemsRes.data;
 
             const videoIds = (itemsData.items || [])
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                .map((item: any) => item.contentDetails?.videoId)
-                .filter(Boolean);
+                .map((item) => item.contentDetails?.videoId)
+                .filter((id): id is string => typeof id === "string" && id.length > 0);
             if (videoIds.length === 0) break;
 
             // Fetch video durations
-            const videosUrl = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds.join(",")}&key=${apiKey}`;
-            const videosResponse = await fetch(videosUrl);
-            const videosData = await videosResponse.json();
+            const videosRes = await fetchYouTubeApiWithRotation<{
+                items?: Array<{ contentDetails?: { duration?: string } }>;
+            }>(`videos?part=contentDetails&id=${videoIds.join(",")}`, {
+                revalidate: VIDEO_METADATA_REVALIDATE_SECONDS,
+            });
 
-            if (!videosResponse.ok || videosData.error) {
+            if (!videosRes.ok) {
                 return NextResponse.json(
                     { error: "YouTube API error" },
-                    { status: videosResponse.ok ? 400 : videosResponse.status }
+                    { status: videosRes.status }
                 );
             }
+            const videosData = videosRes.data;
 
             if (Array.isArray(videosData.items)) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                videosData.items.forEach((video: any) => {
+                videosData.items.forEach((video) => {
                     const duration = video.contentDetails?.duration;
                     if (duration) {
                         totalSeconds += parseDuration(duration);

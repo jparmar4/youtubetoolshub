@@ -45,6 +45,10 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'youtube-shorts-script-planner': { free: 2, pro: Infinity },
     'youtube-banner-logo-maker': { free: 2, pro: Infinity },
     'youtube-niche-finder-quiz': { free: 2, pro: Infinity },
+    'thumbnail-critique': { free: 2, pro: Infinity },
+    'ab-packaging-studio': { free: 2, pro: Infinity },
+    'hook-auditor': { free: 2, pro: Infinity },
+    'channel-outlier-scanner': { free: Infinity, pro: Infinity },
 };
 
 export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };

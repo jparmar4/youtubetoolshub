@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { enforceRateLimit } from "@/lib/rate-limit";
+import { checkAiIpRateLimit, createRateLimitJsonResponse } from "@/lib/rateLimit";
 import { hasActiveSubscription } from "@/lib/subscription";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
 /**
  * AI Thumbnail Image Generation API
@@ -27,6 +29,16 @@ interface ReplicateResult {
 
 export async function POST(req: NextRequest) {
     try {
+        const originCheck = verifyOrigin(req);
+        if (!originCheck.allowed) {
+            return originCheck.response;
+        }
+
+        const ipRate = checkAiIpRateLimit(req.headers, "ai-generate-image");
+        if (!ipRate.allowed) {
+            return createRateLimitJsonResponse(ipRate);
+        }
+
         const body = await req.json().catch(() => null);
         if (!body) {
             return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });

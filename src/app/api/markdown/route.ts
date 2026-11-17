@@ -360,10 +360,10 @@ const CATEGORY_HUB_MAP: Record<
       "Calculate YouTube AdSense earnings, sponsorship rates, channel valuation, S-Corp tax savings, and engagement rates.",
   },
   "utility-tools": {
-    categoryId: "utility-fun",
+    categoryId: "utilities",
     title: "YouTube Utility & Productivity Tools",
     description:
-      "Calculate playlist duration, run fair giveaway comment draws, extract transcripts, and audit channel health.",
+      "Calculate playlist duration, run fair giveaway comment draws, generate embed codes, and check channel IDs.",
   },
 };
 

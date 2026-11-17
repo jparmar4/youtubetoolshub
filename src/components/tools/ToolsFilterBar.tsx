@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { FaSearch, FaTimes, FaMagic, FaLayerGroup } from "react-icons/fa";
+import { useEffect, useMemo, useState } from "react";
+import { FaSearch, FaTimes, FaMagic, FaLayerGroup, FaBolt } from "react-icons/fa";
 import { toolMeta } from "@/config/tool-meta";
 import { ToolCard } from "@/components/ui/Card";
 
@@ -11,33 +11,72 @@ const CATEGORY_TABS = [
   { id: "seo-metadata", label: "SEO & Metadata" },
   { id: "thumbnail-media", label: "Thumbnail & Media" },
   { id: "channel-growth", label: "Channel Growth" },
-  { id: "utility-fun", label: "Utilities" },
+  { id: "utilities", label: "Utilities" },
 ] as const;
+
+export const TIER1_TOOL_SLUGS = new Set([
+  "youtube-earnings-calculator",
+  "youtube-sponsorship-calculator",
+  "youtube-tax-deduction-calculator",
+  "youtube-llc-vs-s-corp-tax-savings-calculator",
+  "youtube-channel-valuation-calculator",
+  "youtube-ads-cost-calculator",
+  "youtube-watch-hours-calculator",
+  "youtube-shorts-vs-long-form-calculator",
+  "youtube-milestone-countdown-calculator",
+]);
 
 export default function ToolsFilterBar() {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [aiOnly, setAiOnly] = useState(false);
+  const [tier1Only, setTier1Only] = useState(false);
+
+  useEffect(() => {
+    const handleTier1Filter = (event: Event) => {
+      const detail = (event as CustomEvent<{ query?: string }>).detail;
+      setSelectedCategory("all");
+      setAiOnly(false);
+      setTier1Only(true);
+      if (detail?.query) {
+        setQuery(detail.query);
+      } else {
+        setQuery("");
+      }
+      document.getElementById("tools-filter-bar")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
+
+    window.addEventListener("tools-filter-tier1", handleTier1Filter);
+    return () => window.removeEventListener("tools-filter-tier1", handleTier1Filter);
+  }, []);
 
   const countsByCategory = useMemo(() => {
     const counts: Record<string, number> = { all: toolMeta.length };
     for (const tool of toolMeta) {
-      counts[tool.category] = (counts[tool.category] || 0) + 1;
+      const cat = tool.primaryCategory || tool.category;
+      counts[cat] = (counts[cat] || 0) + 1;
     }
     return counts;
   }, []);
 
   const isFiltering =
-    query.trim().length > 0 || selectedCategory !== "all" || aiOnly;
+    query.trim().length > 0 || selectedCategory !== "all" || aiOnly || tier1Only;
 
   const filteredTools = useMemo(() => {
     if (!isFiltering) return [];
     const q = query.trim().toLowerCase();
     return toolMeta.filter((tool) => {
-      if (selectedCategory !== "all" && tool.category !== selectedCategory) {
+      const cat = tool.primaryCategory || tool.category;
+      if (selectedCategory !== "all" && cat !== selectedCategory) {
         return false;
       }
       if (aiOnly && !tool.isAI) {
+        return false;
+      }
+      if (tier1Only && !TIER1_TOOL_SLUGS.has(tool.slug)) {
         return false;
       }
       if (!q) return true;
@@ -48,16 +87,21 @@ export default function ToolsFilterBar() {
         tool.slug.toLowerCase().includes(q)
       );
     });
-  }, [isFiltering, query, selectedCategory, aiOnly]);
+  }, [isFiltering, query, selectedCategory, aiOnly, tier1Only]);
 
   const resetFilters = () => {
     setQuery("");
     setSelectedCategory("all");
     setAiOnly(false);
+    setTier1Only(false);
   };
 
   return (
-    <section aria-label="Filter tools directory" className="mb-12">
+    <section
+      id="tools-filter-bar"
+      aria-label="Filter tools directory"
+      className="mb-12 scroll-mt-24"
+    >
       <div className="card-3d rounded-3xl p-4 sm:p-6">
         <div className="flex flex-col md:flex-row gap-3 md:items-center justify-between mb-4">
           <div className="relative flex-1">
@@ -85,19 +129,35 @@ export default function ToolsFilterBar() {
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={() => setAiOnly((v) => !v)}
-            aria-pressed={aiOnly}
-            className={`cursor-pointer inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all shrink-0 ${
-              aiOnly
-                ? "bg-purple-600 text-white border-purple-600 shadow-sm"
-                : "bg-white text-slate-700 border-slate-200 hover:border-purple-300 hover:text-purple-700"
-            }`}
-          >
-            <FaMagic className="w-3.5 h-3.5" />
-            <span>AI Tools Only</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setTier1Only((v) => !v)}
+              aria-pressed={tier1Only}
+              className={`cursor-pointer inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
+                tier1Only
+                  ? "bg-emerald-600 text-white border-emerald-600 shadow-sm"
+                  : "bg-white text-slate-700 border-slate-200 hover:border-emerald-400 hover:text-emerald-700"
+              }`}
+            >
+              <FaBolt className="w-3.5 h-3.5" />
+              <span>Tier-1 Money &amp; Tax</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setAiOnly((v) => !v)}
+              aria-pressed={aiOnly}
+              className={`cursor-pointer inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
+                aiOnly
+                  ? "bg-purple-600 text-white border-purple-600 shadow-sm"
+                  : "bg-white text-slate-700 border-slate-200 hover:border-purple-300 hover:text-purple-700"
+              }`}
+            >
+              <FaMagic className="w-3.5 h-3.5" />
+              <span>AI Tools Only</span>
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -165,7 +225,7 @@ export default function ToolsFilterBar() {
                   description={tool.shortDescription}
                   href={`/tools/${tool.slug}`}
                   isAI={tool.isAI}
-                  category={tool.category}
+                  category={tool.primaryCategory || tool.category}
                 />
               ))}
             </div>

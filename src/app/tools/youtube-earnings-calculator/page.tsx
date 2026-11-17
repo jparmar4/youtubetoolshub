@@ -15,19 +15,17 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
-import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import EarningsCalculator from "@/components/tools/EarningsCalculator";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
-import { ToolContextProvider } from "@/components/tools/ToolContext";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
-import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import ShareButtons from "@/components/ui/ShareButtons";
 import EmbedModal from "@/components/tools/EmbedModal";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import ToolShell from "@/components/tools/ToolShell";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import { getRelatedToolsForPost } from "@/lib/related-tools";
@@ -37,11 +35,9 @@ import {
   FaLightbulb,
   FaArrowRight,
   FaCheckCircle,
-  FaLayerGroup,
 } from "react-icons/fa";
-import FaqAccordion from "@/components/ui/FaqAccordion";
+import PopularStateTaxHub from "@/components/tools/PopularStateTaxHub";
 import AdSlot from "@/components/ads/AdSlot";
-import { AD_SLOTS } from "@/lib/adsense";
 
 const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
@@ -210,138 +206,140 @@ export default function YouTubeEarningsCalculatorPage() {
     dateModified: DATA_LAST_REVIEWED,
   };
 
+  const combinedSchema = combineSchemasToGraph(
+    softwareSchema,
+    faqSchema,
+    howToSchema,
+    breadcrumbSchema,
+    datasetSchema,
+  );
+
   return (
-    <>
-      <GeoAeoHead
-        {...GEO_AEO_PRESETS.toolPage(
-          "YouTube Earnings Calculator",
-          "Free YouTube earnings calculator with RPM/CPM estimates by country and niche.",
-          "analytics-earnings",
-        )}
-        conciseAnswer="A free YouTube earnings calculator estimates AdSense revenue as (monthly views ÷ 1000) × RPM. Typical RPM ranges from about $0.25 to $12+ depending on country and niche."
-        keyFacts={[
-          "Formula: earnings ≈ (views / 1000) × RPM",
-          "US RPM often $4–$15; global average often $2–$4",
-          `${countryCPMData.length} country CPM/RPM reference pages`,
-          "Free AdSense estimator — no signup",
-        ]}
-        dateModified={DATA_LAST_REVIEWED}
-        pathname="/tools/youtube-earnings-calculator"
-      />
+    <ToolShell
+      geoAeo={
+        <GeoAeoHead
+          {...GEO_AEO_PRESETS.toolPage(
+            "YouTube Earnings Calculator",
+            "Free YouTube earnings calculator with RPM/CPM estimates by country and niche.",
+            "analytics-earnings",
+          )}
+          conciseAnswer="A free YouTube earnings calculator estimates AdSense revenue as (monthly views ÷ 1000) × RPM. Typical RPM ranges from about $0.25 to $12+ depending on country and niche."
+          keyFacts={[
+            "Formula: earnings ≈ (views / 1000) × RPM",
+            "US RPM often $4–$15; global average often $2–$4",
+            `${countryCPMData.length} country CPM/RPM reference pages`,
+            "Free AdSense estimator — no signup",
+          ]}
+          dateModified={DATA_LAST_REVIEWED}
+          pathname="/tools/youtube-earnings-calculator"
+        />
+      }
+      jsonLd={combinedSchema}
+      breadcrumbs={[
+        { name: "Home", href: "/" },
+        { name: "Tools", href: "/tools" },
+        { name: "Earnings Calculator" },
+      ]}
+      accentGradient="from-emerald-500 via-teal-500 to-cyan-500"
+      icon={
+        <ToolIcon3D
+          iconKey="earnings-calculator-hero"
+          slug="youtube-earnings-calculator"
+          category="analytics-earnings"
+          size="lg"
+          className="mt-0.5"
+        />
+      }
+      badge={
+        <>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span>Free · {countryCPMData.length} Country Markets · 2026 Benchmarks</span>
+        </>
+      }
+      title="YouTube Earnings Calculator — Estimate AdSense Revenue by Views & RPM (2026)"
+      subtitle="Use this free YouTube money calculator to estimate monthly and yearly AdSense income from your views and RPM. Compare country CPM/RPM ranges, model high-intent niches, and plan channel revenue before you publish."
+      headerRight={
+        <>
+          <ToolFavoriteButton
+            toolSlug="youtube-earnings-calculator"
+            toolName="YouTube Earnings Calculator"
+          />
+          <RecentToolTracker slug="youtube-earnings-calculator" />
+        </>
+      }
+      consoleTitle="YouTube Earnings & RPM Calculator"
+      consoleIconColorClass="text-emerald-300"
+      consoleBadge="Live Workspace"
+      workspace={<EarningsCalculator />}
+      faqHeading="YouTube Earnings Calculator FAQ"
+      faqs={pillarFAQs}
+      sidebarSlug="youtube-earnings-calculator"
+      stateTaxHref="/tools/creator-tax-calculator"
+      stateTaxLabel="Compare 50 US State Creator Taxes"
+      afterFaqSlot={
+        <div className="space-y-8">
+          <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
+            <strong>Disclaimer:</strong> Estimates are for educational
+            planning only. YouTube Tools Hub is not affiliated with YouTube
+            or Google. Actual revenue depends on AdSense, policies,
+            seasonality, and your audience.
+          </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            combineSchemasToGraph(
-              softwareSchema,
-              faqSchema,
-              howToSchema,
-              breadcrumbSchema,
-              datasetSchema,
-            ),
-          ),
-        }}
-      />
-
-      <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
-        <div className="nebula-bg" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AdSectionIgnore>
-            <div className="mb-6">
-              <Breadcrumb
-                items={[
-                  { name: "Home", href: "/" },
-                  { name: "Tools", href: "/tools" },
-                  { name: "Earnings Calculator" },
-                ]}
+          <div className="card-3d rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <p className="text-slate-900 font-bold">Embed or share this calculator</p>
+              <p className="text-xs text-slate-600">Free to add to your own blog, agency site, or creator article.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <EmbedModal slug="youtube-earnings-calculator" toolName="YouTube Earnings Calculator" />
+              <ShareButtons
+                url={pageUrl}
+                title="YouTube Earnings Calculator 2026"
+                description="Free YouTube money calculator with RPM and country CPM estimates."
               />
             </div>
-          </AdSectionIgnore>
+          </div>
 
-          <div className="max-w-6xl mx-auto">
-            <div className="space-y-8">
-              <AdSectionPrioritize>
-              {/* Studio Hero Header */}
-              <header className="card-3d rounded-3xl p-6 sm:p-7 relative overflow-hidden">
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500" />
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                  <div className="flex items-start gap-4 sm:gap-5 flex-1">
-                    <ToolIcon3D
-                      iconKey="earnings-calculator-hero"
-                      slug="youtube-earnings-calculator"
-                      category="analytics-earnings"
-                      size="lg"
-                      className="mt-0.5"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-2.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Free · {countryCPMData.length} Country Markets · 2026 Benchmarks</span>
-                      </span>
-                      <h1
-                        className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 tracking-tight font-outfit leading-tight"
-                        data-speakable
-                      >
-                        YouTube Earnings Calculator — Estimate AdSense Revenue by
-                        Views &amp; RPM (2026)
-                      </h1>
-                      <p
-                        className="text-sm sm:text-base text-slate-600 leading-relaxed summary"
-                        data-speakable
-                      >
-                        Use this free YouTube money calculator to estimate monthly and
-                        yearly AdSense income from your views and RPM. Compare country
-                        CPM/RPM ranges, model high-intent niches, and plan channel
-                        revenue before you publish.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex-shrink-0 sm:pt-1">
-                    <ToolFavoriteButton
-                      toolSlug="youtube-earnings-calculator"
-                      toolName="YouTube Earnings Calculator"
-                    />
-                    <RecentToolTracker slug="youtube-earnings-calculator" />
-                  </div>
-                </div>
-              </header>
+          <NewsletterSignup />
 
-              {/* Compact Responsive Leaderboard Above Calculator */}
-              <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
-
-              {/* Interactive Calculator Console — Immediately Visible */}
-              <section
-                id="calculator"
-                className="studio-console-3d rounded-3xl overflow-hidden"
-              >
-                <div className="flex items-center justify-between gap-2 px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-white/10 text-emerald-300 shrink-0" aria-hidden="true">
-                      <FaLayerGroup className="w-3 h-3" />
+          <section className="pt-4">
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 font-outfit">
+              Related free creator tools
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedTools.concat(
+                tools
+                  .filter((t) =>
+                    [
+                      "youtube-tag-generator",
+                      "youtube-channel-audit",
+                      "youtube-engagement-rate-calculator",
+                    ].includes(t.slug),
+                  )
+                  .filter(
+                    (t) => !relatedTools.some((r) => r.slug === t.slug),
+                  ),
+              )
+                .slice(0, 6)
+                .map((t) => (
+                  <Link
+                    key={t.slug}
+                    href={`/tools/${t.slug}`}
+                    className="card-3d rounded-2xl p-5 hover:border-purple-400 transition-all"
+                  >
+                    <span className="font-bold text-slate-900 block mb-1">
+                      {t.name}
                     </span>
-                    <span className="text-xs font-bold text-slate-200 truncate">
-                      YouTube Earnings &amp; RPM Calculator
+                    <span className="text-sm text-slate-600">
+                      {t.shortDescription}
                     </span>
-                  </div>
-                  <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300">
-                    Live Workspace
-                  </span>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <ToolContextProvider value={{ hideHeader: true }}>
-                    <EarningsCalculator />
-                  </ToolContextProvider>
-                </div>
-              </section>
-
-              {/* High-Viewability Post-Calculator Display Unit */}
-              <AdSlot
-                slot={AD_SLOTS.HORIZONTAL[0]}
-                preset="leaderboard"
-                lazy={false}
-              />
-
+                  </Link>
+                ))}
+            </div>
+          </section>
+        </div>
+      }
+    >
               <QuickAnswerCapsule
                 question="Quick Answer: How much does YouTube pay for views?"
                 answer="YouTube pays creators based on Revenue Per Mille (RPM). On average, 100,000 views earn between $200 and $1,200 depending on audience location and niche (estimated earnings ≈ [monthly views ÷ 1,000] × RPM). YouTube Shorts pay $30–$120 per 1 million views."
@@ -352,13 +350,6 @@ export default function YouTubeEarningsCalculatorPage() {
                   "Finance, Tech & Business niches pay 3x–5x higher than Gaming",
                 ]}
                 badgeText="Quick Summary"
-              />
-
-              {/* Ad immediately below the Calculator (auto-collapses when unfilled) */}
-              <AdSlot
-                slot={AD_SLOTS.IN_ARTICLE[0]}
-                preset="in-article"
-                className="my-6 border-emerald-100"
               />
 
               <AffiliateBanner toolId="vidiq" variant="inArticle" />
@@ -377,7 +368,6 @@ export default function YouTubeEarningsCalculatorPage() {
               <section className="my-8">
                 <NicheProfitabilityHeatmap />
               </section>
-              </AdSectionPrioritize>
 
               {/* Example table */}
               <section className="card-3d rounded-3xl p-6 md:p-8">
@@ -549,6 +539,8 @@ export default function YouTubeEarningsCalculatorPage() {
                 </div>
               </section>
 
+              <PopularStateTaxHub />
+
               {/* How to increase */}
               <section className="card-3d rounded-3xl p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2 font-outfit">
@@ -590,84 +582,6 @@ export default function YouTubeEarningsCalculatorPage() {
                   </Link>
                 </div>
               </section>
-
-              {/* FAQ */}
-              <section data-speakable>
-                <h2 className="text-2xl font-bold text-slate-900 mb-5 font-outfit">
-                  YouTube Earnings Calculator FAQ
-                </h2>
-                <FaqAccordion items={pillarFAQs} headingLevel="h3" />
-              </section>
-
-              {/* Recommended Content / Multiplex Ad Unit */}
-              <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
-
-              <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
-                <strong>Disclaimer:</strong> Estimates are for educational
-                planning only. YouTube Tools Hub is not affiliated with YouTube
-                or Google. Actual revenue depends on AdSense, policies,
-                seasonality, and your audience.
-              </div>
-
-              <div className="card-3d rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="text-slate-900 font-bold">Embed or share this calculator</p>
-                  <p className="text-xs text-slate-600">Free to add to your own blog, agency site, or creator article.</p>
-                </div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <EmbedModal slug="youtube-earnings-calculator" toolName="YouTube Earnings Calculator" />
-                  <ShareButtons
-                    url={pageUrl}
-                    title="YouTube Earnings Calculator 2026"
-                    description="Free YouTube money calculator with RPM and country CPM estimates."
-                  />
-                </div>
-              </div>
-
-              <NewsletterSignup />
-            </div>
-          </div>
-
-          {/* Related tools strip */}
-          <section className="mt-14 mb-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 font-outfit">
-              Related free creator tools
-            </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {relatedTools.concat(
-                tools
-                  .filter((t) =>
-                    [
-                      "youtube-tag-generator",
-                      "youtube-channel-audit",
-                      "youtube-engagement-rate-calculator",
-                    ].includes(t.slug),
-                  )
-                  .filter(
-                    (t) => !relatedTools.some((r) => r.slug === t.slug),
-                  ),
-              )
-                .slice(0, 6)
-                .map((t) => (
-                  <Link
-                    key={t.slug}
-                    href={`/tools/${t.slug}`}
-                    className="card-3d rounded-2xl p-5 hover:border-purple-400 transition-all"
-                  >
-                    <span className="font-bold text-slate-900 block mb-1">
-                      {t.name}
-                    </span>
-                    <span className="text-sm text-slate-600">
-                      {t.shortDescription}
-                    </span>
-                  </Link>
-                ))}
-            </div>
-          </section>
-
-
-        </div>
-      </div>
-    </>
+    </ToolShell>
   );
 }

@@ -13,7 +13,7 @@ import FaqAccordion from "@/components/ui/FaqAccordion";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { AD_SLOTS } from "@/lib/adsense";
 
-const utilityTools = getToolsByCategory("utility-fun");
+const utilityTools = getToolsByCategory("utilities");
 
 export const metadata: Metadata = {
     title: `YouTube Utility & Productivity Tools — ${utilityTools.length} Free Tools (2026)`,

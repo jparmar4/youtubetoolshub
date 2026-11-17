@@ -11,19 +11,16 @@ import {
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
-import Breadcrumb from "@/components/ui/Breadcrumb";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import TranscriptDownloader from "@/components/tools/TranscriptDownloader";
-import { ToolContextProvider } from "@/components/tools/ToolContext";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
+import ToolShell from "@/components/tools/ToolShell";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import { RecentToolTracker } from "@/lib/recent-tools";
 import ShareButtons from "@/components/ui/ShareButtons";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
-import AdSlot from "@/components/ads/AdSlot";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
-import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
-import { AD_SLOTS } from "@/lib/adsense";
+import { AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import {
   FaFileAlt,
   FaSearch,
@@ -122,7 +119,7 @@ export default function YouTubeTranscriptDownloaderPage() {
     name: "YouTube Transcript Downloader & Keyword Extractor",
     description:
       "Free web-based tool to download YouTube transcripts, extract closed captions as SRT or plain text, and perform spoken keyword frequency analysis.",
-    category: "utility-fun",
+    category: "seo-metadata",
     url: pageUrl });
 
   const faqSchema = getFAQSchema(toolFAQs);
@@ -138,110 +135,167 @@ export default function YouTubeTranscriptDownloaderPage() {
     { name: "YouTube Transcript Downloader", url: pageUrl },
   ]);
 
+  const combinedSchema = combineSchemasToGraph(softwareSchema, faqSchema, howToSchema, breadcrumbSchema);
+
   return (
-    <>
-      <GeoAeoHead
-        {...GEO_AEO_PRESETS.toolPage(
-          "YouTube Transcript Downloader & Keyword Extractor (Free, 2026)",
-          "Extract and download YouTube transcripts and subtitles free in TXT, SRT, or CSV with timestamps and spoken keyword analysis.",
-          "Utilities & SEO"
-        )}
-        pathname="/youtube-transcript-downloader"
-      />
+    <ToolShell
+      geoAeo={
+        <GeoAeoHead
+          {...GEO_AEO_PRESETS.toolPage(
+            "YouTube Transcript Downloader & Keyword Extractor (Free, 2026)",
+            "Extract and download YouTube transcripts and subtitles free in TXT, SRT, or CSV with timestamps and spoken keyword analysis.",
+            "Utilities & SEO"
+          )}
+          pathname="/youtube-transcript-downloader"
+        />
+      }
+      jsonLd={combinedSchema}
+      breadcrumbs={[
+        { name: "Home", href: "/" },
+        { name: "Tools", href: "/tools" },
+        { name: "Transcript Downloader" },
+      ]}
+      accentGradient="from-cyan-500 via-sky-500 to-indigo-600"
+      icon={
+        <ToolIcon3D
+          iconKey="transcript-downloader-hero"
+          slug="youtube-transcript-downloader"
+          category="seo-metadata"
+          size="lg"
+          className="mt-0.5"
+        />
+      }
+      badge={<span>⚡ 100% Free · No Login Required · Instant SRT &amp; TXT Export</span>}
+      title="YouTube Transcript Downloader & Keyword Extractor"
+      subtitle="Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO."
+      headerRight={
+        <>
+          <ToolFavoriteButton
+            toolSlug="youtube-transcript-downloader"
+            toolName="YouTube Transcript Downloader"
+          />
+          <RecentToolTracker slug="youtube-transcript-downloader" />
+        </>
+      }
+      consoleTitle="YouTube Transcript & SRT Extractor — Interactive Studio Workspace"
+      consoleIconColorClass="text-sky-300"
+      consoleBadge="TXT · SRT · CSV"
+      consoleBadgeClass="bg-sky-500/20 border-sky-400/30 text-sky-300"
+      workspace={<TranscriptDownloader />}
+      faqs={toolFAQs}
+      sidebarSlug="youtube-transcript-downloader"
+      afterFaqSlot={
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-slate-900">
+              Related YouTube Creator Utilities
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <Link
+                href="/tools/youtube-tag-extractor"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
+                  Tag Extractor →
+                </p>
+                <p className="text-xs text-slate-500 mt-1">Extract backend tags from any video</p>
+              </Link>
+              <Link
+                href="/tools/youtube-timestamp-generator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
+                  Timestamp Generator →
+                </p>
+                <p className="text-xs text-slate-500 mt-1">Format chapters for Google Key Moments</p>
+              </Link>
+              <Link
+                href="/tools/youtube-title-generator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
+                  Title Generator →
+                </p>
+                <p className="text-xs text-slate-500 mt-1">Generate high-CTR clickable titles</p>
+              </Link>
+              <Link
+                href="/tools/youtube-description-generator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
+                  Description Generator →
+                </p>
+                <p className="text-xs text-slate-500 mt-1">Structure 5-zone SEO descriptions</p>
+              </Link>
+            </div>
+          </div>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            combineSchemasToGraph(softwareSchema, faqSchema, howToSchema, breadcrumbSchema),
-          ),
-        }}
-      />
-
-      <div className="min-h-screen bg-slate-50 text-slate-900 py-10 lg:py-16 relative overflow-hidden">
-        <div className="nebula-bg" />
-        {/* Hero Header + 3D Studio Console */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AdSectionIgnore>
-            <Breadcrumb
-              items={[
-                { name: "Home", href: "/" },
-                { name: "Tools", href: "/tools" },
-                { name: "Transcript Downloader" },
-              ]}
-              className="mb-6"
-            />
-          </AdSectionIgnore>
-
-          <AdSectionPrioritize>
-            <header className="card-3d rounded-3xl p-6 sm:p-7 mb-8 relative overflow-hidden">
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600" />
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                <div className="flex items-start gap-4 sm:gap-5 flex-1">
-                  <ToolIcon3D
-                    iconKey="transcript-downloader-hero"
-                    slug="youtube-transcript-downloader"
-                    category="utility-fun"
-                    size="lg"
-                    className="mt-0.5"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-sky-50 border border-sky-200/80 text-sky-800 mb-2.5">
-                      ⚡ 100% Free · No Login Required · Instant SRT &amp; TXT Export
-                    </span>
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 mb-2 font-outfit" data-speakable>
-                      YouTube Transcript Downloader &amp; Keyword Extractor
-                    </h1>
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed" data-speakable>
-                      Extract video subtitles in seconds. Download clean plain text, SRT captions, or CSV with timestamps, and analyze high-ranking spoken keywords for SEO.
-                    </p>
-                  </div>
-                </div>
-                <div className="shrink-0 sm:pt-1">
-                  <ToolFavoriteButton
-                    toolSlug="youtube-transcript-downloader"
-                    toolName="YouTube Transcript Downloader"
-                  />
-                  <RecentToolTracker slug="youtube-transcript-downloader" />
-                </div>
-              </div>
-            </header>
-
-            {/* Compact Leaderboard Ad */}
-            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-8" />
-
-            {/* 3D UHD Interactive Console */}
-            <div className="studio-console-3d rounded-3xl overflow-hidden mb-8">
-              <div className="flex items-center justify-between px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shrink-0" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0" />
-                  <span className="ml-2 text-xs font-bold text-slate-200 truncate">
-                    YouTube Transcript &amp; SRT Extractor — Interactive Studio Workspace
-                  </span>
-                </div>
-                <span className="shrink-0 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sky-500/20 border border-sky-400/30 text-sky-300">
-                  TXT · SRT · CSV
+          <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 via-white to-purple-50/50 p-6 sm:p-8 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-1">
+                  Monetize Your Research
                 </span>
+                <h3 className="text-xl font-bold text-slate-900">
+                  Estimate What These Spoken Keywords Pay in Tier-1 Markets
+                </h3>
               </div>
-              <div className="p-4 sm:p-6">
-                <ToolContextProvider value={{ hideHeader: true }}>
-                  <TranscriptDownloader />
-                </ToolContextProvider>
+              <Link href="/resources/youtube-cpm-rates" className="text-xs font-bold text-purple-700 hover:underline shrink-0">
+                52-Country CPM Rates →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <Link
+                href="/tools/youtube-earnings-calculator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 transition-colors group shadow-2xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-emerald-700">Earnings Calculator →</p>
+                <p className="text-xs text-slate-500 mt-1">US, UK, AU, CA &amp; DE AdSense RPM estimates</p>
+              </Link>
+              <Link
+                href="/tools/youtube-sponsorship-calculator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Sponsorship Calculator →</p>
+                <p className="text-xs text-slate-500 mt-1">Price mid-roll brand deals &amp; media kits</p>
+              </Link>
+              <Link
+                href="/tools/youtube-channel-valuation-calculator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Channel Valuation →</p>
+                <p className="text-xs text-slate-500 mt-1">Value asset multiples (24x–36x monthly net)</p>
+              </Link>
+              <Link
+                href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
+              >
+                <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">LLC vs S-Corp Tax →</p>
+                <p className="text-xs text-slate-500 mt-1">Model US creator entity &amp; tax write-offs</p>
+              </Link>
+            </div>
+          </div>
+
+          <AdSectionIgnore>
+            <div className="pt-6 border-t border-slate-200 space-y-8">
+              <NewsletterSignup />
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs text-slate-500">
+                  Share this free utility with other creators:
+                </p>
+                <ShareButtons url={pageUrl} title="YouTube Transcript Downloader & Keyword Extractor" />
               </div>
             </div>
-
-            {/* High-Viewability Post-Workspace Display Ad */}
-            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy={false} className="mb-8" />
-          </AdSectionPrioritize>
-
-          <div className="mt-8">
+          </AdSectionIgnore>
+        </div>
+      }
+    >
+          <div className="mt-2">
             <AffiliateBanner toolId="vidiq" variant="compact" />
           </div>
 
           {/* Quick Answer Capsule */}
-          <div className="mt-12">
+          <div className="mt-6">
             <QuickAnswerCapsule
               question="Quick Summary: How to extract YouTube video transcripts in 2026"
               answer="To download any YouTube transcript, paste the video link into the extractor above. Select 'Plain Text' to strip timestamps for instant AI prompting, or 'SRT' for video subtitles. The tool extracts all spoken dialogue using YouTube's closed captions data and highlights top-frequency keywords to help optimize your video metadata."
@@ -257,7 +311,7 @@ export default function YouTubeTranscriptDownloaderPage() {
           </div>
 
           {/* Educational In-Depth Guide & Feature Cards */}
-          <div className="mt-16 space-y-12">
+          <div className="mt-10 space-y-12">
             {/* 3 Core Value Props */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
@@ -318,9 +372,6 @@ export default function YouTubeTranscriptDownloaderPage() {
               </Link>
             </div>
 
-            {/* In-Article Ad Unit */}
-            <AdSlot slot={AD_SLOTS.IN_ARTICLE[0]} preset="in-article" className="my-8" />
-
             {/* Step-by-Step How To Guide */}
             <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
               <h2 className="text-2xl font-bold text-slate-900">
@@ -344,139 +395,7 @@ export default function YouTubeTranscriptDownloaderPage() {
                 ))}
               </div>
             </div>
-
-            {/* FAQ Accordion */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs space-y-6">
-              <h2 className="text-2xl font-bold text-slate-900">
-                Frequently Asked Questions
-              </h2>
-              <div className="space-y-4">
-                {toolFAQs.map((faq, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 rounded-xl border border-slate-200 bg-slate-50/50"
-                  >
-                    <h3 className="font-bold text-base text-slate-900 mb-2">
-                      {faq.question}
-                    </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Related Creator Tools */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-slate-900">
-                Related YouTube Creator Utilities
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <Link
-                  href="/tools/youtube-tag-extractor"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
-                    Tag Extractor →
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">Extract backend tags from any video</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-timestamp-generator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
-                    Timestamp Generator →
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">Format chapters for Google Key Moments</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-title-generator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
-                    Title Generator →
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">Generate high-CTR clickable titles</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-description-generator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">
-                    Description Generator →
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">Structure 5-zone SEO descriptions</p>
-                </Link>
-              </div>
-            </div>
-
-            {/* Tier-1 Monetization & Brand Deal Funnel */}
-            <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 via-white to-purple-50/50 p-6 sm:p-8 shadow-xs space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold uppercase tracking-wider mb-1">
-                    Monetize Your Research
-                  </span>
-                  <h3 className="text-xl font-bold text-slate-900">
-                    Estimate What These Spoken Keywords Pay in Tier-1 Markets
-                  </h3>
-                </div>
-                <Link href="/resources/youtube-cpm-rates" className="text-xs font-bold text-purple-700 hover:underline shrink-0">
-                  52-Country CPM Rates →
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <Link
-                  href="/tools/youtube-earnings-calculator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 transition-colors group shadow-2xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-emerald-700">Earnings Calculator →</p>
-                  <p className="text-xs text-slate-500 mt-1">US, UK, AU, CA &amp; DE AdSense RPM estimates</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-sponsorship-calculator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Sponsorship Calculator →</p>
-                  <p className="text-xs text-slate-500 mt-1">Price mid-roll brand deals &amp; media kits</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-channel-valuation-calculator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">Channel Valuation →</p>
-                  <p className="text-xs text-slate-500 mt-1">Value asset multiples (24x–36x monthly net)</p>
-                </Link>
-                <Link
-                  href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
-                  className="p-4 rounded-xl bg-white border border-slate-200 hover:border-purple-500 transition-colors group shadow-2xs"
-                >
-                  <p className="font-bold text-sm text-slate-900 group-hover:text-purple-600">LLC vs S-Corp Tax →</p>
-                  <p className="text-xs text-slate-500 mt-1">Model US creator entity &amp; tax write-offs</p>
-                </Link>
-              </div>
-            </div>
-
-            {/* Multiplex Ad Unit */}
-            <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-8" />
-
-            {/* Newsletter & Social Share */}
-            <AdSectionIgnore>
-              <div className="pt-6 border-t border-slate-200 space-y-8">
-                <NewsletterSignup />
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <p className="text-xs text-slate-500">
-                    Share this free utility with other creators:
-                  </p>
-                  <ShareButtons url={pageUrl} title="YouTube Transcript Downloader & Keyword Extractor" />
-                </div>
-              </div>
-            </AdSectionIgnore>
           </div>
-        </div>
-      </div>
-    </>
+    </ToolShell>
   );
 }

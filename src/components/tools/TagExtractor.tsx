@@ -13,6 +13,7 @@ import { extractVideoId } from "@/lib/utils";
 import { FaSearch, FaExclamationTriangle, FaSpinner, FaVideo, FaUser, FaCalendar, FaDownload, FaFileAlt } from "react-icons/fa";
 import Link from "next/link";
 import { saveHistory } from "@/lib/history";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 interface VideoInfo {
     videoTitle: string;
@@ -314,6 +315,8 @@ export default function TagExtractor() {
                         </div>
                     </div>
                 )}
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

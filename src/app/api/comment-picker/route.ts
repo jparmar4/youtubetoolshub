@@ -2,9 +2,20 @@
 import { NextResponse } from "next/server";
 import { extractVideoId } from "@/lib/utils";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import {
+    fetchYouTubeApiWithRotation,
+    getConfiguredYouTubeApiKeys,
+    type YouTubeApiResponse,
+} from "@/lib/youtubeApiClient";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
 export async function POST(req: Request) {
     try {
+        const originCheck = verifyOrigin(req);
+        if (!originCheck.allowed) {
+            return originCheck.response;
+        }
+
         const parsedBody = await req.json().catch(() => null);
         if (!parsedBody) {
             return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
@@ -36,14 +47,18 @@ export async function POST(req: Request) {
             );
         }
 
-        const apiKey = process.env.YOUTUBE_API_KEY;
-
-        if (!apiKey) {
+        if (getConfiguredYouTubeApiKeys().length === 0) {
             return NextResponse.json(
                 { error: "Server configuration error" },
                 { status: 500 }
             );
         }
+
+        type CommentThreadsPage = {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            items?: any[];
+            nextPageToken?: string;
+        };
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const allComments: any[] = [];
@@ -51,16 +66,18 @@ export async function POST(req: Request) {
         const maxComments = 2000; // Safety limit
         let fetchedCount = 0;
 
-        // Fetch comments
+        // Fetch comments with automatic multi-key rotation on 403 quotaExceeded
         while (nextPageToken !== null && fetchedCount < maxComments) {
-            const apiUrl: string = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${encodeURIComponent(videoId)}&maxResults=100&order=relevance&key=${apiKey}&pageToken=${encodeURIComponent(nextPageToken || "")}`;
+            const pageTokenQuery: string = nextPageToken || "";
+            const apiRes: YouTubeApiResponse<CommentThreadsPage> =
+                await fetchYouTubeApiWithRotation<CommentThreadsPage>(
+                    `commentThreads?part=snippet&videoId=${encodeURIComponent(videoId)}&maxResults=100&order=relevance&pageToken=${encodeURIComponent(pageTokenQuery)}`,
+                    { revalidate: 300 },
+                );
 
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            if (!response.ok || data.error) {
-                // specific check for disabled comments
-                if (data.error?.errors?.[0]?.reason === 'commentsDisabled') {
+            if (!apiRes.ok) {
+                const rawErr = apiRes.rawError as { error?: { errors?: Array<{ reason?: string }> } } | undefined;
+                if (rawErr?.error?.errors?.[0]?.reason === "commentsDisabled") {
                     return NextResponse.json(
                         { error: "Comments are disabled for this video." },
                         { status: 400 }
@@ -68,9 +85,10 @@ export async function POST(req: Request) {
                 }
                 return NextResponse.json(
                     { error: "YouTube API error" },
-                    { status: response.ok ? 400 : response.status }
+                    { status: apiRes.status }
                 );
             }
+            const data: CommentThreadsPage = apiRes.data;
 
             if (Array.isArray(data.items)) {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any

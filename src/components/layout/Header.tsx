@@ -11,6 +11,7 @@ import { toolMeta } from "@/config/tool-meta";
 import UserMenu from "@/components/auth/UserMenu";
 import HeaderCurrencyPicker from "@/components/layout/HeaderCurrencyPicker";
 import HeaderSavedTools from "@/components/layout/HeaderSavedTools";
+import HeaderVideoPackButton from "@/components/video-pack/HeaderVideoPackButton";
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import HeaderMegaMenu from "@/components/layout/HeaderMegaMenu";
 import MobileDrawer from "@/components/layout/MobileDrawer";
@@ -342,6 +343,8 @@ function Header() {
                   <div className="hidden sm:block">
                     <HeaderSavedTools />
                   </div>
+
+                  <HeaderVideoPackButton />
 
                   <button
                     type="button"

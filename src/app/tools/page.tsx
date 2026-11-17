@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { ToolCard } from "@/components/ui/Card";
-import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ToolsFilterBar from "@/components/tools/ToolsFilterBar";
+import Tier1FilterTrigger from "@/components/tools/Tier1FilterTrigger";
 import { tools, toolCategories, getToolsByCategory } from "@/config/tools";
 import { countryCPMData } from "@/lib/cpm-data";
 import {
@@ -182,122 +182,61 @@ export default function ToolsPage() {
           {/* Above-the-fold Ad Placement */}
           <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="mb-12" />
 
-          {/* Tier 1 Commercial Stack Spotlight */}
+          {/* Tier 1 Commercial Stack Spotlight (Curated Filter & Highlight Banner — zero duplicate tool cards) */}
           <div id="tier1-calculators" className="mb-16 scroll-mt-24">
-            <div className="bg-slate-950 uhd-dark-grid border border-purple-500/30 rounded-3xl p-6 sm:p-10 text-white shadow-[0_28px_60px_-15px_rgba(15,23,42,0.5)] relative overflow-hidden">
+            <div className="bg-slate-950 uhd-dark-grid border border-purple-500/30 rounded-3xl p-6 sm:p-8 text-white shadow-[0_28px_60px_-15px_rgba(15,23,42,0.5)] relative overflow-hidden">
               <div className="absolute inset-x-12 top-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/80 to-transparent" />
               <div className="absolute top-0 right-0 w-80 h-80 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
-              <div className="relative z-10">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+              <div className="relative z-10 flex flex-col gap-6">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
                   <div>
-                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
-                      High-RPM Monetization &amp; Planning
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2.5">
+                      High-RPM Monetization &amp; Planning Spotlight
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-black tracking-tight">
                       Tier 1 Creator Financial &amp; Tax Suite
                     </h2>
-                    <p className="text-slate-300 text-sm mt-1 max-w-xl">
-                      Commercial calculators designed specifically for creators targeting high advertiser CPMs in the US, UK, Canada, Australia, and Germany.
+                    <p className="text-slate-300 text-sm mt-1.5 max-w-2xl leading-relaxed">
+                      Commercial calculators built for creators targeting high advertiser CPMs in the US, UK, Canada, Australia, and Germany — filter all 9 Tier-1 calculators above or browse them inside their canonical categories below.
                     </p>
                   </div>
-                  <Link
-                    href="/resources/youtube-cpm-rates"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md self-start md:self-auto"
-                  >
-                    <span>Country CPM Benchmarks</span>
-                    <FaArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                  <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                    <Tier1FilterTrigger />
+                    <a
+                      href="#analytics-earnings"
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-bold text-xs sm:text-sm transition-all"
+                    >
+                      <span>Jump to Analytics</span>
+                    </a>
+                    <Link
+                      href="/resources/youtube-cpm-rates"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition-all shadow-md"
+                    >
+                      <span>{countryCPMData.length} Country CPMs</span>
+                      <FaArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
                   {[
-                    {
-                      name: "YouTube Earnings Calculator",
-                      href: "/tools/youtube-earnings-calculator",
-                      desc: "Estimate monthly and yearly AdSense by country and RPM.",
-                      badge: `${countryCPMData.length} Markets`,
-                      iconKey: "earnings-calculator-hero",
-                    },
-                    {
-                      name: "Sponsorship Rate Calculator",
-                      href: "/tools/youtube-sponsorship-calculator",
-                      desc: "Calculate 60s integrations, 30s shoutouts, and pitch templates.",
-                      badge: "Media Kit",
-                    },
-                    {
-                      name: "US Tax Deduction Estimator",
-                      href: "/tools/youtube-tax-deduction-calculator",
-                      desc: "Model IRS Schedule C & 1099 write-offs on cameras, studio & tech.",
-                      badge: "IRS & HMRC",
-                    },
-                    {
-                      name: "LLC vs S-Corp Tax Savings",
-                      href: "/tools/youtube-llc-vs-s-corp-tax-savings-calculator",
-                      desc: "Discover how S-Corp saves $4k–$12k in self-employment tax.",
-                      badge: "Tax Strategy",
-                    },
-                    {
-                      name: "Channel Valuation Calculator",
-                      href: "/tools/youtube-channel-valuation-calculator",
-                      desc: "Estimate channel exit value based on 24x–36x net profit multiples.",
-                      badge: "Asset Exit",
-                    },
-                    {
-                      name: "YouTube Ads Cost Calculator",
-                      href: "/tools/youtube-ads-cost-calculator",
-                      desc: "Model CPV and budget requirements to promote YouTube videos.",
-                      badge: "Google Ads",
-                    },
-                    {
-                      name: "4,000 Watch Hours Planner",
-                      href: "/tools/youtube-watch-hours-calculator",
-                      desc: "Calculate views and pace needed to unlock YPP monetization.",
-                      badge: "YPP Monetization",
-                      iconKey: "watch-hours-tier-hero",
-                    },
-                    {
-                      name: "Shorts vs. Long-Form Profitability",
-                      href: "/tools/youtube-shorts-vs-long-form-calculator",
-                      desc: "Compare AdSense yield, editing effort, and hourly creator wage.",
-                      badge: "RPM Arbitrage",
-                      iconKey: "shorts-comparison-tier-hero",
-                    },
-                    {
-                      name: "Play Button Milestone Tracker",
-                      href: "/tools/youtube-milestone-countdown-calculator",
-                      desc: "Track velocity and project exact dates for Silver (100K) and Gold (1M).",
-                      badge: "Creator Awards",
-                    },
-                  ].map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="group p-5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.12] border border-white/12 transition-all hover:border-purple-400/50 hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
+                    `AdSense RPM (${countryCPMData.length} Markets)`,
+                    "Sponsorship Rate & Media Kit",
+                    "IRS & HMRC Tax Write-Offs",
+                    "LLC vs S-Corp Tax Savings",
+                    "Channel Valuation (24×–36×)",
+                    "YouTube Ads CPV & Budget",
+                    "4,000 Watch Hours & YPP",
+                    "Shorts vs. Long-Form RPM",
+                    "Play Button Milestones",
+                  ].map((highlight) => (
+                    <span
+                      key={highlight}
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] border border-white/12 text-xs font-semibold text-slate-200"
                     >
-                      <div>
-                        <div className="flex items-center justify-between mb-3.5">
-                          <ToolIcon3D
-                            iconKey={item.iconKey}
-                            slug={item.href.replace("/tools/", "")}
-                            category="analytics-earnings"
-                            size="sm"
-                          />
-                          <span className="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-white/15 border border-white/20 text-white">
-                            {item.badge}
-                          </span>
-                        </div>
-                        <h3 className="font-extrabold text-base text-white group-hover:text-emerald-300 transition-colors font-outfit">
-                          {item.name}
-                        </h3>
-                        <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                          {item.desc}
-                        </p>
-                      </div>
-                      <div className="mt-4 flex items-center text-xs font-bold text-emerald-300 group-hover:translate-x-1 transition-transform">
-                        <span>Launch Tool</span>
-                        <FaArrowRight className="ml-1.5 w-3 h-3" />
-                      </div>
-                    </Link>
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                      {highlight}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -327,7 +266,7 @@ export default function ToolsPage() {
                             "seo-metadata": "/tools/seo-tools",
                             "channel-growth": "/tools/channel-tools",
                             "analytics-earnings": "/tools/analytics-tools",
-                            "utility-fun": "/tools/utility-tools",
+                            "utilities": "/tools/utility-tools",
                           };
                           const hubUrl = hubMap[category.id];
                           return hubUrl ? (

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
+import { verifyOrigin } from "@/lib/verifyOrigin";
 
 const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
 const NOINDEX_HEADERS = {
@@ -12,6 +13,11 @@ const NOINDEX_HEADERS = {
  */
 export async function GET(req: NextRequest) {
     try {
+        const originCheck = verifyOrigin(req);
+        if (!originCheck.allowed) {
+            return originCheck.response;
+        }
+
         // Rate limit applies to EVERYONE — the UA string is client-controlled,
         // so exempting claimed "search bots" turned this image proxy into an
         // unlimited-bandwidth relay for anyone sending a Googlebot UA.

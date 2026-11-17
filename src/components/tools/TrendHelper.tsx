@@ -13,6 +13,7 @@ import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { FaChartLine, FaSpinner, FaFire, FaEye, FaLightbulb } from "react-icons/fa";
 import { saveHistory } from "@/lib/history";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 
 // Interfaces
@@ -359,6 +360,8 @@ export default function TrendHelper() {
                         </div>
                     )}
                 </div>
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

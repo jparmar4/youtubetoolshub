@@ -907,6 +907,19 @@ export default function ThumbnailFeedPreviewer() {
           </div>
         </div>
 
+        {/* Cross-links to Vision Critique & Test & Compare Studio */}
+        <div className="rounded-2xl bg-purple-50/70 border border-purple-200 p-4 flex flex-wrap items-center justify-between gap-3 text-xs font-bold">
+          <span className="text-purple-950">Want Vision AI scoring or 3 Test &amp; Compare packaging variants?</span>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/tools/thumbnail-critique" className="text-purple-700 hover:underline">
+              AI Thumbnail Vision Critique →
+            </Link>
+            <Link href="/tools/ab-packaging-studio" className="text-indigo-700 hover:underline">
+              3-Way A/B Packaging Studio →
+            </Link>
+          </div>
+        </div>
+
         {/* Contextual Creator Software Affiliate Card */}
         <CreatorSoftwareCard defaultCategory="video" />
       </div>

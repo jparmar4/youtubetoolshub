@@ -4,9 +4,11 @@ import Footer from "@/components/layout/Footer";
 import HideOnEmbed from "@/components/layout/HideOnEmbed";
 import DeferredLayoutWidgets from "@/components/layout/DeferredLayoutWidgets";
 import { siteConfig } from "@/config/site";
+import { tools } from "@/config/tools";
 import { combineSchemasToGraph, getOrganizationSchema, getWebsiteSchema, getPersonSchema } from "@/lib/seo";
 import AuthProvider from "@/components/providers/AuthProvider";
 import { UsageProvider } from "@/context/UsageContext";
+import { VideoPackProvider } from "@/context/VideoPackContext";
 import ConsentAnalytics from "@/components/ui/ConsentAnalytics";
 import { AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import WebMCPRegistry from "@/components/agent/WebMCPRegistry";
@@ -277,7 +279,7 @@ export default function RootLayout({
         <script
           id="webmcp-registry-script"
           dangerouslySetInnerHTML={{
-            __html: `(function(){var u="undefined",f="function";function c(n,a){return fetch("/api/mcp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:"webmcp-"+n,method:"tools/call",params:{name:n,arguments:a||{}}})}).then(function(r){return r.json()}).then(function(d){try{var t=d&&d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text;return t?JSON.parse(t):d}catch(e){return d}})}function r(){if(typeof navigator===u||!navigator.modelContext)return;var m=navigator.modelContext,N={type:"number"},S={type:"string"},d=[["estimate_youtube_earnings","Estimate YouTube AdSense revenue.",{views:N,country:S},["views"]],["list_youtube_tools","List or search 45 free YouTube tools.",{category:S,query:S}],["get_country_cpm_rates","Get 2026 CPM/RPM rates by country.",{country:S}],["get_youtube_thumbnail_urls","Get 4K/HD YouTube thumbnail URLs.",{videoIdOrUrl:S},["videoIdOrUrl"]],["estimate_sponsorship_rate","Estimate sponsorship rate and CPM.",{views:N,niche:S},["views"]],["estimate_channel_valuation","Calculate channel sale valuation.",{monthlyRevenue:N},["monthlyRevenue"]],["estimate_shorts_earnings","Estimate YouTube Shorts revenue.",{views:N},["views"]],["calculate_youtube_tax_deductions","Estimate creator tax deductions.",{annualRevenue:N},["annualRevenue"]]],ts=d.map(function(x){var s={type:"object",properties:x[2]};if(x[3])s.required=x[3];return{name:x[0],description:x[1],inputSchema:s,execute:function(a){return c(x[0],a)}}});if(typeof navigator.modelContext.provideContext===f)try{m.provideContext({tools:ts.map(function(t){return{name:t.name,description:t.description}})})}catch(e){}if(typeof navigator.modelContext.registerTool===f)ts.forEach(function(t){try{m.registerTool(t)}catch(e){}})}r();if(typeof document!==u&&document.readyState==="loading")document.addEventListener("DOMContentLoaded",r);if(typeof window!==u){window.addEventListener("load",r);window.addEventListener("modelcontextready",r)}})();`,
+            __html: `(function(){var u="undefined",f="function";function c(n,a){return fetch("/api/mcp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:"webmcp-"+n,method:"tools/call",params:{name:n,arguments:a||{}}})}).then(function(r){return r.json()}).then(function(d){try{var t=d&&d.result&&d.result.content&&d.result.content[0]&&d.result.content[0].text;return t?JSON.parse(t):d}catch(e){return d}})}function r(){if(typeof navigator===u||!navigator.modelContext)return;var m=navigator.modelContext,N={type:"number"},S={type:"string"},d=[["estimate_youtube_earnings","Estimate YouTube AdSense revenue.",{views:N,country:S},["views"]],["list_youtube_tools","List or search ${tools.length} free YouTube tools.",{category:S,query:S}],["get_country_cpm_rates","Get 2026 CPM/RPM rates by country.",{country:S}],["get_youtube_thumbnail_urls","Get 4K/HD YouTube thumbnail URLs.",{videoIdOrUrl:S},["videoIdOrUrl"]],["estimate_sponsorship_rate","Estimate sponsorship rate and CPM.",{views:N,niche:S},["views"]],["estimate_channel_valuation","Calculate channel sale valuation.",{monthlyRevenue:N},["monthlyRevenue"]],["estimate_shorts_earnings","Estimate YouTube Shorts revenue.",{views:N},["views"]],["calculate_youtube_tax_deductions","Estimate creator tax deductions.",{annualRevenue:N},["annualRevenue"]]],ts=d.map(function(x){var s={type:"object",properties:x[2]};if(x[3])s.required=x[3];return{name:x[0],description:x[1],inputSchema:s,execute:function(a){return c(x[0],a)}}});if(typeof navigator.modelContext.provideContext===f)try{m.provideContext({tools:ts.map(function(t){return{name:t.name,description:t.description}})})}catch(e){}if(typeof navigator.modelContext.registerTool===f)ts.forEach(function(t){try{m.registerTool(t)}catch(e){}})}r();if(typeof document!==u&&document.readyState==="loading")document.addEventListener("DOMContentLoaded",r);if(typeof window!==u){window.addEventListener("load",r);window.addEventListener("modelcontextready",r)}})();`,
           }}
         />
         <script defer src="/webmcp-registry.js" />
@@ -287,26 +289,28 @@ export default function RootLayout({
       >
         <AuthProvider>
           <UsageProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-purple-600"
-            >
-              Skip to content
-            </a>
-            <AdSectionIgnore>
-              <Header />
-            </AdSectionIgnore>
-            <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-              {children}
-            </main>
-            <HideOnEmbed>
+            <VideoPackProvider>
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:outline-2 focus:outline-offset-2 focus:outline-purple-600"
+              >
+                Skip to content
+              </a>
               <AdSectionIgnore>
-                <Footer />
+                <Header />
               </AdSectionIgnore>
-            </HideOnEmbed>
-            <ConsentAnalytics />
-            <WebMCPRegistry />
-            <DeferredLayoutWidgets />
+              <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
+                {children}
+              </main>
+              <HideOnEmbed>
+                <AdSectionIgnore>
+                  <Footer />
+                </AdSectionIgnore>
+              </HideOnEmbed>
+              <ConsentAnalytics />
+              <WebMCPRegistry />
+              <DeferredLayoutWidgets />
+            </VideoPackProvider>
           </UsageProvider>
         </AuthProvider>
       </body>

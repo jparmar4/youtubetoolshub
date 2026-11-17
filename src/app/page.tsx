@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   FaArrowRight,
-  FaRocket,
   FaCheck,
   FaBolt,
   FaStar,
@@ -26,6 +25,7 @@ import TrustSignals from "@/components/seo/TrustSignals";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import Hero3DShowcase from "@/components/home/Hero3DShowcase";
+import OmniInputCommandBar from "@/components/home/OmniInputCommandBar";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
@@ -194,12 +194,12 @@ export default function Home() {
 
         <div className="relative w-full min-w-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
           <div>
-            <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.2em] mb-8 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
+            <span className="inline-flex items-center gap-2.5 py-2 px-5 rounded-full bg-white/85 backdrop-blur-xl border border-purple-200/80 text-purple-800 text-xs font-black uppercase tracking-[0.18em] mb-7 shadow-[0_8px_20px_-6px_rgba(124,58,237,0.2),inset_0_1px_0_0_#fff]">
               <FaBrain className="text-pink-600 animate-glow-pulse" />
-              {tools.length} free tools · instant · no signup
+              Free Browser YouTube Studio · No Extension · No Signup
             </span>
             <h1
-              className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter font-outfit leading-[1.06] max-w-5xl mx-auto"
+              className="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 mb-5 tracking-tighter font-outfit leading-[1.06] max-w-5xl mx-auto"
               data-speakable
             >
               Free YouTube Tools:{" "}
@@ -209,47 +209,15 @@ export default function Home() {
               , Tags &amp; Earnings Calculator
             </h1>
             <p
-              className="text-lg md:text-xl text-slate-600 mb-9 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
+              className="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed font-outfit font-medium summary key-facts"
               data-speakable
             >
-              Download HD &amp; 4K thumbnails, generate viral titles and tags, and estimate
-              Tier-1 AdSense earnings across {countryCPMData.length} countries. A free browser alternative to
-              TubeBuddy and VidIQ — no extension, no account.
+              {tools.length} free browser tools: download HD &amp; 4K thumbnails, generate viral titles and tags, and estimate
+              Tier-1 AdSense earnings across {countryCPMData.length} countries.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link
-                href="/tools/youtube-thumbnail-downloader"
-                className="btn-3d-primary inline-flex w-full sm:w-auto items-center justify-center gap-2.5 font-black px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-              >
-                <FaRocket aria-hidden="true" className="text-pink-400" />
-                Download a thumbnail
-              </Link>
-              <Link
-                href="/tools/youtube-earnings-calculator"
-                className="btn-3d-glass inline-flex w-full sm:w-auto items-center justify-center font-extrabold px-6 py-3.5 sm:px-10 sm:py-5 text-base sm:text-lg rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-              >
-                Calculate YouTube pay
-              </Link>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-2.5 text-sm font-bold">
-              <Link href="/tools/youtube-title-generator" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
-                Title generator
-              </Link>
-              <Link href="/tools/youtube-tag-generator" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
-                Tag generator
-              </Link>
-              <Link href="/resources/youtube-cpm-rates" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
-                CPM rates by country
-              </Link>
-              <Link href="/tools" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
-                All {tools.length} tools
-              </Link>
-              <Link href="/about" className="px-4 py-2 rounded-full bg-white/90 border border-slate-200/90 text-slate-700 hover:border-purple-400 hover:text-purple-700 shadow-2xs transition-all hover:-translate-y-0.5">
-                About
-              </Link>
-            </div>
+            {/* Omni-Input Command Bar + 4 Quick-Trigger Chips */}
+            <OmniInputCommandBar />
 
             {/* Interactive Creator Command Studio Showcase */}
             <Hero3DShowcase />

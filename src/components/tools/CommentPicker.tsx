@@ -10,6 +10,7 @@ import Image from "next/image";
 import confetti from "canvas-confetti";
 import { saveHistory } from "@/lib/history";
 import { extractVideoId } from "@/lib/utils";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 
 
@@ -324,6 +325,8 @@ export default function CommentPicker() {
                         </div>
                     </div>
                 )}
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

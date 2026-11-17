@@ -9,6 +9,8 @@ const PrivacyH1Fix = dynamic(() => import("@/components/seo/PrivacyH1Fix"), { ss
 const ExitIntentPopup = dynamic(() => import("@/components/ui/ExitIntentPopup"), { ssr: false });
 const StickyBottomAd = dynamic(() => import("@/components/ads/StickyBottomAd"), { ssr: false });
 const PWAInstallPrompt = dynamic(() => import("@/components/ui/PWAInstallPrompt"), { ssr: false });
+const VideoPackDrawer = dynamic(() => import("@/components/video-pack/VideoPackDrawer"), { ssr: false });
+const FloatingVideoPackPill = dynamic(() => import("@/components/video-pack/FloatingVideoPackPill"), { ssr: false });
 
 export default function DeferredLayoutWidgets() {
   return (
@@ -20,6 +22,8 @@ export default function DeferredLayoutWidgets() {
       <ExitIntentPopup />
       <StickyBottomAd />
       <PWAInstallPrompt />
+      <FloatingVideoPackPill />
+      <VideoPackDrawer />
     </>
   );
 }

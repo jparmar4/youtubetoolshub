@@ -33,7 +33,7 @@ type CategoryKey =
   | "seo-metadata"
   | "thumbnail-media"
   | "channel-growth"
-  | "utility-fun";
+  | "utilities";
 
 interface CategoryDef {
   id: CategoryKey;
@@ -73,7 +73,7 @@ const CATEGORIES: CategoryDef[] = [
   {
     id: "seo-metadata",
     label: "SEO & Metadata",
-    tagline: "CTR titles, descriptions, keyword tags & chapters",
+    tagline: "CTR titles, descriptions, keyword tags, transcripts & chapters",
     hubHref: "/tools/seo-tools",
     hubLabel: "SEO & Metadata Hub",
     icon: FaTags,
@@ -104,9 +104,9 @@ const CATEGORIES: CategoryDef[] = [
     iconBg: "from-sky-600 to-blue-600",
   },
   {
-    id: "utility-fun",
+    id: "utilities",
     label: "Creator Utilities",
-    tagline: "Transcripts, playlist timers, comment pickers & embeds",
+    tagline: "Playlist timers, comment pickers, embeds & channel links",
     hubHref: "/tools/utility-tools",
     hubLabel: "Utility Tools Hub",
     icon: FaTools,
@@ -117,16 +117,16 @@ const CATEGORIES: CategoryDef[] = [
 ];
 
 const FLAGSHIP_SLUGS = [
+  "thumbnail-critique",
+  "ab-packaging-studio",
+  "channel-outlier-scanner",
+  "hook-auditor",
   "youtube-earnings-calculator",
   "youtube-thumbnail-downloader",
   "youtube-title-generator",
   "youtube-tag-generator",
   "youtube-sponsorship-calculator",
   "youtube-watch-hours-calculator",
-  "youtube-llc-vs-s-corp-tax-savings-calculator",
-  "youtube-transcript-downloader",
-  "youtube-thumbnail-feed-previewer",
-  "youtube-channel-valuation-calculator",
 ];
 
 const TIER1_QUICK_MARKETS = [
@@ -149,11 +149,12 @@ function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuP
       "seo-metadata": 0,
       "thumbnail-media": 0,
       "channel-growth": 0,
-      "utility-fun": 0,
+      "utilities": 0,
     };
     for (const tool of toolMeta) {
-      if (tool.category in counts) {
-        counts[tool.category as CategoryKey] += 1;
+      const cat = tool.primaryCategory || tool.category;
+      if (cat in counts) {
+        counts[cat as CategoryKey] += 1;
       }
     }
     return counts;
@@ -165,7 +166,7 @@ function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuP
         (t): t is ToolMeta => Boolean(t),
       );
     }
-    return toolMeta.filter((t) => t.category === activeCategory);
+    return toolMeta.filter((t) => (t.primaryCategory || t.category) === activeCategory);
   }, [activeCategory]);
 
   const currentCategory = CATEGORIES.find((c) => c.id === activeCategory) ?? CATEGORIES[0];

@@ -1,11 +1,12 @@
 // Site Configuration - All branding and settings in one place
+import { toolMeta } from "@/config/tool-meta";
 
 export const siteConfig = {
   // Branding
   name: "YouTube Tools Hub",
   tagline: "Free YouTube Growth & AI Tools Suite 2026",
   description:
-    "Free YouTube creator tools: download thumbnails, draft titles and tags, and estimate AdSense earnings by country. No signup required.",
+    `${toolMeta.length} free YouTube creator tools: download thumbnails, draft titles and tags, and estimate AdSense earnings by country. No signup required.`,
 
   // URLs
   url: "https://www.youtubetoolshub.com",
@@ -78,6 +79,12 @@ export const siteConfig = {
       },
     ],
     resources: [
+      { name: "2026 CPM & RPM Research Report", href: "/research/youtube-cpm-rpm-report-2026" },
+      { name: "US State Creator Tax Guide", href: "/tools/creator-tax-calculator" },
+      { name: "Free 1of10 Alternative", href: "/alternatives/1of10-free-alternative" },
+      { name: "Free Pikzels Alternative", href: "/alternatives/pikzels-free-alternative" },
+      { name: "Free SocialBlade Alternative", href: "/alternatives/socialblade-alternative" },
+      { name: "Free VidIQ & TubeBuddy Alternative", href: "/alternatives/vidiq-tubebuddy-free-alternative" },
       { name: "YT Tools Hub vs TubeBuddy", href: "/tools/vs/tubebuddy" },
       { name: "YT Tools Hub vs VidIQ", href: "/tools/vs/vidiq" },
       { name: "Why Choose Us", href: "/blog/why-youtube-tools-hub" },
@@ -106,7 +113,7 @@ export const siteConfig = {
     defaultTitle:
       "Free YouTube Tools — Thumbnail Downloader, Tags & Earnings Calculator",
     defaultDescription:
-      "Free YouTube tools to download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. No signup required.",
+      `${toolMeta.length} free YouTube tools to download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. No signup required.`,
     alternates: {},
     openGraph: {
       type: "website",

@@ -107,9 +107,12 @@ const REGION_RATE_PRESETS: Record<TaxRegion, { id: string; label: string; rate: 
     ],
 };
 
-export default function TaxDeductionCalculator() {
+export default function TaxDeductionCalculator(props: {
+    initialAssumedRate?: string;
+}) {
+    const initialAssumedRate = props?.initialAssumedRate;
     const [region, setRegion] = useState<TaxRegion>("US");
-    const [assumedRate, setAssumedRate] = useState("30");
+    const [assumedRate, setAssumedRate] = useState(initialAssumedRate ?? "30");
     const [grossIncome, setGrossIncome] = useState<string>("45000");
 
     // Expense Categories

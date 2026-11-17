@@ -1,11 +1,30 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { parseCalculatorInput } from "@/lib/calculator-input";
+
+function QuerySyncProfit({ onApply }: { onApply: (profit: string) => void }) {
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.location.search) return;
+    const params = new URLSearchParams(window.location.search);
+    const profitParam = params.get("profit");
+    if (!profitParam) return;
+    const cleaned = profitParam.replace(/,/g, "");
+    const parsed = parseFloat(cleaned);
+    if (Number.isFinite(parsed) && parsed > 0) {
+      void Promise.resolve().then(() => onApply(Math.round(parsed).toString()));
+    }
+  }, [onApply]);
+  return null;
+}
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import Link from "next/link";
+import {
+  IRS_2026_CONSTANTS,
+  US_STATE_CREATOR_TAXES,
+} from "@/data/usStateCreatorTaxes";
 import {
   FaFileInvoiceDollar,
   FaBuilding,
@@ -19,26 +38,36 @@ interface StateTaxRule {
   note: string;
 }
 
-const US_STATES: Record<string, StateTaxRule> = {
-  CA: { name: "California", minFranchiseTax: 800, note: "$800 annual minimum franchise tax" },
-  TX: { name: "Texas", minFranchiseTax: 0, note: "0% state income tax, no min franchise fee for <$2.47M" },
-  FL: { name: "Florida", minFranchiseTax: 150, note: "0% personal income tax, $150 annual report fee" },
-  NY: { name: "New York", minFranchiseTax: 325, note: "State franchise tax based on gross payroll/capital" },
-  WA: { name: "Washington", minFranchiseTax: 0, note: "0% personal income tax, B&O tax applies" },
-  NV: { name: "Nevada", minFranchiseTax: 350, note: "0% personal income tax, $200 business license + $150 list fee" },
-  TN: { name: "Tennessee", minFranchiseTax: 100, note: "0% personal income tax, $100 minimum franchise fee" },
-  NC: { name: "North Carolina", minFranchiseTax: 200, note: "$200 minimum franchise tax, flat state personal tax" },
-  IL: { name: "Illinois", minFranchiseTax: 150, note: "1.5% personal property replacement tax applies to S-Corps" },
-  CO: { name: "Colorado", minFranchiseTax: 10, note: "Low $10–$25 annual Secretary of State periodic report" },
-  MA: { name: "Massachusetts", minFranchiseTax: 456, note: "$456 minimum corporate excise tax for S-Corps" },
-  GA: { name: "Georgia", minFranchiseTax: 50, note: "$50 annual registration fee; flat state income tax" },
-  OTHER: { name: "Other States (Standard)", minFranchiseTax: 100, note: "Average state filing/annual fee" } };
+const US_STATES: Record<string, StateTaxRule> = Object.fromEntries([
+  ...US_STATE_CREATOR_TAXES.map((state) => [
+    state.stateCode,
+    {
+      name: state.stateName,
+      minFranchiseTax: state.llcAnnualFee,
+      note:
+        state.taxStructure === "none"
+          ? `0% state income tax; ${state.annualFeeSchedule}`
+          : state.taxStructure === "capital-gains-only"
+          ? `0% wage/business income tax; ${state.annualFeeSchedule}`
+          : `${state.topIncomeTaxRate}% top state rate; ${state.annualFeeSchedule}`,
+    },
+  ]),
+  ["OTHER", { name: "Other / Custom Benchmark", minFranchiseTax: 100, note: "Average state filing/annual fee" }],
+]);
 
-export default function LLCvsSCorpCalculator() {
-  const [netProfitInput, setNetProfitInput] = useState<string>("120000");
+export default function LLCvsSCorpCalculator(props: {
+  initialStateCode?: string;
+  initialNetProfit?: string;
+}) {
+  const initialStateCode = props?.initialStateCode ?? "CA";
+  const initialNetProfit = props?.initialNetProfit ?? "120000";
+  const normalizedInitialCode = US_STATES[initialStateCode.toUpperCase()]
+    ? initialStateCode.toUpperCase()
+    : "CA";
+  const [netProfitInput, setNetProfitInput] = useState<string>(initialNetProfit);
   const [salaryPercent, setSalaryPercent] = useState<string>("50");
   const [complianceOverhead, setComplianceOverhead] = useState<string>("1800");
-  const [selectedState, setSelectedState] = useState<string>("CA");
+  const [selectedState, setSelectedState] = useState<string>(normalizedInitialCode);
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
 
   const calculations = useMemo(() => {
@@ -49,8 +78,8 @@ export default function LLCvsSCorpCalculator() {
     const overhead = parseCalculatorInput(complianceOverhead);
     const validOverhead = Number.isFinite(overhead) ? Math.max(0, overhead) : 1800;
 
-    // IRS 2026 Social Security Wage Base Cap is approx $168,600
-    const SS_CAP = 168600;
+    // IRS 2026 Social Security Wage Base Cap ($184,500)
+    const SS_CAP = IRS_2026_CONSTANTS.socialSecurityWageBase;
     const stateRule = US_STATES[selectedState] || US_STATES.OTHER;
 
     // --- LLC Sole Proprietorship Taxation (Disregarded Entity) ---
@@ -105,6 +134,7 @@ export default function LLCvsSCorpCalculator() {
       slug="youtube-llc-vs-s-corp-tax-savings-calculator"
       description="Compare IRS Self-Employment taxes vs S-Corp shareholder distributions to calculate your exact creator tax savings."
     >
+      <QuerySyncProfit onApply={setNetProfitInput} />
       <div className="space-y-8">
         {/* Top Header Card */}
         <div className="rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/80 via-white to-indigo-50/60 p-5 sm:p-6 shadow-sm">

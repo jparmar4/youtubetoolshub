@@ -91,18 +91,41 @@ interactive result. CPM and RPM figures are planning estimates, not official
 YouTube payout data.
 
 - Tools suite: ${baseUrl}/tools
+- 2026 CPM/RPM Benchmark Report: ${baseUrl}/research/youtube-cpm-rpm-report-2026
+- US State Creator Tax Calculators (All 50 States + DC): ${baseUrl}/tools/creator-tax-calculator
 - Transcript downloader: ${baseUrl}/youtube-transcript-downloader
 - Earnings calculator: ${baseUrl}/tools/youtube-earnings-calculator
 - Sponsorship rate calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
+- Sponsorship & Ad Boost rate calculator: ${baseUrl}/tools/creator-partnership-boost-calculator
 - Creator LLC vs S-Corp tax savings calculator: ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator
 - Creator tax deduction estimator: ${baseUrl}/tools/youtube-tax-deduction-calculator
 - Creator taxes & accounting guide (2026): ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
 - AdSense FX & wire fee calculator: ${baseUrl}/tools/youtube-adsense-fee-calculator
 - Channel valuation calculator: ${baseUrl}/tools/youtube-channel-valuation-calculator
+- AI Thumbnail Vision Critique & Glance Test: ${baseUrl}/tools/thumbnail-critique
+- 3-Way Test & Compare Packaging Studio: ${baseUrl}/tools/ab-packaging-studio
+- Channel @Handle Outlier & Viral Multiplier Scanner: ${baseUrl}/tools/channel-outlier-scanner
+- First 30s Hook & Promise Auditor: ${baseUrl}/tools/hook-auditor
+- YouTube -14 LUFS Audio Loudness Checker: ${baseUrl}/tools/youtube-loudness-checker
+- Episodic Shorts Watch Series Binge Planner: ${baseUrl}/tools/shorts-series-planner
 - CPM data table (${countryCPMData.length} countries): ${baseUrl}/resources/youtube-cpm-rates
 - Monetization guide: ${baseUrl}/resources/youtube-monetization-guide
 - Algorithm guide: ${baseUrl}/resources/youtube-algorithm-guide
 - Creator glossary: ${baseUrl}/resources/youtube-glossary (${glossaryTerms.length} terms defined as direct answers)
+- Competitor alternatives: ${baseUrl}/alternatives
+
+## URL Structure
+
+- Tools directory (${baseUrl}/tools): Full interactive creator tools catalog organized by primary category
+- Individual tools (${baseUrl}/tools/[slug]): Browser-based creator tool workspace with SoftwareApplication + FAQPage schema
+- US State Creator Tax Hub (${baseUrl}/tools/creator-tax-calculator): Federal + State creator tax directory across all 50 states + DC (2026 IRS $184,500 Social Security cap, 15.3% SE rate, $16,100 standard deduction, 20% QBI)
+- State tax pages (${baseUrl}/tools/creator-tax-calculator/[state]): Localized state income tax, LLC filing fee, and S-Corp breakeven calculator (e.g., /tools/creator-tax-calculator/california, /tools/creator-tax-calculator/texas, /tools/creator-tax-calculator/washington-dc)
+- Localized earnings (${baseUrl}/tools/youtube-earnings-calculator/[country]): CPM/RPM earnings estimators across ${countryCPMData.length} countries
+- Annual research report (${baseUrl}/research/youtube-cpm-rpm-report-2026): 2026 YouTube CPM & RPM Benchmark Research Report
+- Competitor comparisons (${baseUrl}/alternatives/[slug]): Transparent feature/pricing comparisons (1of10, Pikzels, SocialBlade, VidIQ & TubeBuddy free alternatives)
+- Video X-Ray Audit (${baseUrl}/watch?v=[videoId]): Diagnostic hub linking thumbnails, tags, transcripts, and outlier checks
+- Editorial guides (${baseUrl}/blog/[slug], ${baseUrl}/resources/*): Creator tax, monetization, SEO, and algorithm guides
+- Legal & YouTube API Services disclosures (${baseUrl}/privacy-policy#youtube-api-services and ${baseUrl}/terms-of-use#youtube-terms; /terms redirects to /terms-of-use)
 
 ## Core Value Proposition
 

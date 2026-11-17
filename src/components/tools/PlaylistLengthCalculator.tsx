@@ -9,6 +9,7 @@ import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
 
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
+import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
 interface PlaylistResult {
     playlistInfo: {
@@ -239,6 +240,8 @@ export default function PlaylistLengthCalculator() {
                         </div>
                     </div>
                 )}
+
+                <YouTubeApiAttribution />
             </div>
         </ToolPageLayout>
     );

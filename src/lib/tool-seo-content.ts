@@ -28,6 +28,7 @@ function categoryLabel(category: string): string {
       return "channel research and growth";
     case "analytics-earnings":
       return "analytics and earnings";
+    case "utilities":
     case "utility-fun":
       return "creator utilities";
     default:

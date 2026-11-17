@@ -6,12 +6,17 @@ import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, TIERS } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
+import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
 /** Per-route lastModified for static pages (update when content materially changes) */
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "": DATA_LAST_REVIEWED,
   "/tools": DATA_LAST_REVIEWED,
   "/youtube-transcript-downloader": DATA_LAST_REVIEWED,
+  "/tools/creator-tax-calculator": DATA_LAST_REVIEWED,
+  "/alternatives": DATA_LAST_REVIEWED,
+  "/research/youtube-cpm-rpm-report-2026": "2026-11-17",
   "/tools/thumbnail-tools": DATA_LAST_REVIEWED,
   "/tools/seo-tools": DATA_LAST_REVIEWED,
   "/tools/analytics-tools": DATA_LAST_REVIEWED,
@@ -59,6 +64,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const highPriorityRoutes = [
     "/tools",
     "/youtube-transcript-downloader",
+    "/tools/creator-tax-calculator",
+    "/alternatives",
+    "/research/youtube-cpm-rpm-report-2026",
     "/blog",
     "/about",
     "/faq",
@@ -156,6 +164,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: DATA_LAST_MODIFIED,
       changeFrequency: isTier1 || isTier2 ? "weekly" : "monthly",
       priority: isTier1 ? 0.85 : isTier2 ? 0.78 : 0.65,
+    });
+  }
+
+  // US State Creator Tax & LLC vs. S-Corp programmatic pages (50 states + DC)
+  for (const state of US_STATE_CREATOR_TAXES) {
+    allEntries.push({
+      url: `${baseUrl}/tools/creator-tax-calculator/${state.slug}`,
+      lastModified: DATA_LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
+
+  // High-intent Competitor Switcher / Alternative landing pages
+  for (const alt of COMPETITOR_ALTERNATIVES) {
+    allEntries.push({
+      url: `${baseUrl}/alternatives/${alt.slug}`,
+      lastModified: DATA_LAST_MODIFIED,
+      changeFrequency: "monthly",
+      priority: 0.8,
     });
   }
 

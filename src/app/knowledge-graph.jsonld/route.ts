@@ -10,7 +10,7 @@ const categorySlugMap: Record<string, string> = {
     "seo-metadata": "/tools/seo-tools",
     "channel-growth": "/tools/channel-tools",
     "analytics-earnings": "/tools/analytics-tools",
-    "utility-fun": "/tools/utility-tools",
+    "utilities": "/tools/utility-tools",
 };
 
 export async function GET() {

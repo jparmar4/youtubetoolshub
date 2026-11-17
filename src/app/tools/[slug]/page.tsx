@@ -27,6 +27,8 @@ import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCall
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import EmbedModal from "@/components/tools/EmbedModal";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
+import PopularStateTaxHub from "@/components/tools/PopularStateTaxHub";
 import ToolFavoriteButton from "@/components/tools/ToolFavoriteButton";
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import FaqAccordion from "@/components/ui/FaqAccordion";
@@ -201,7 +203,7 @@ export default async function ToolPage({
 
             <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
                 <div className="nebula-bg" />
-                <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 
                     {/* Breadcrumb Navigation */}
                     <AdSectionIgnore>
@@ -216,9 +218,9 @@ export default async function ToolPage({
                         </div>
                     </AdSectionIgnore>
 
-                    <div>
-                        {/* Main Column — full-width now that the sidebar rail is gone */}
-                        <div className="space-y-10">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+                        {/* Main Column */}
+                        <div className="lg:col-span-8 min-w-0 space-y-8">
                             <AdSectionPrioritize>
                             {/*
                               Server-rendered H1 + summary OUTSIDE Suspense/client tools.
@@ -305,8 +307,8 @@ export default async function ToolPage({
                                 </div>
                             </div>
 
-                            {/* Post-Workspace High-Viewability Responsive Ad Unit */}
-                            <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy={false} />
+                            {/* Post-Output Contextual High-Viewability Rectangle Ad Unit */}
+                            <AdSlot slot={AD_SLOTS.IN_ARTICLE[0]} preset="in-article" lazy={false} />
 
                             {/* AEO Quick Answer Capsule */}
                             <QuickAnswerCapsule
@@ -454,6 +456,13 @@ export default async function ToolPage({
                                         </Link>
                                     </div>
                                 </div>
+                            )}
+
+                            {/* Internal Linking Hub for US State Creator Tax & S-Corp Pages */}
+                            {(tool.slug === "youtube-llc-vs-s-corp-tax-savings-calculator" ||
+                                tool.slug === "youtube-tax-deduction-calculator" ||
+                                tool.slug === "youtube-earnings-calculator") && (
+                                <PopularStateTaxHub />
                             )}
 
                             {/* Key Facts for AI Extraction — per-tool data, not boilerplate */}
@@ -644,9 +653,12 @@ export default async function ToolPage({
                                 </div>
                             </AdSectionIgnore>
                         </div>
+
+                        {/* Sticky Desktop Right Sidebar: High-RPM Tools + Dedicated Sidebar Ad */}
+                        <HighRpmSidebar currentSlug={tool.slug} />
                     </div>
                     {/* Recommended Content / Multiplex Ad Unit */}
-                    <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" className="my-10" />
+                    <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" />
                 </div>
             </div>
 

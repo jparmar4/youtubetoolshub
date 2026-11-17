@@ -49,7 +49,7 @@ export async function GET() {
         {
             question:
                 "How many tools are currently in the suite?",
-            answer: `We currently offer ${tools.length}+ specialized tools. This includes the Earning Calculator, SEO Optimizer, and specialized Utility tools. We add roughly one new tool every 4-6 weeks based on community demand.`,
+            answer: `We currently offer ${tools.length} specialized tools. This includes the Earning Calculator, SEO Optimizer, and specialized Utility tools. We add roughly one new tool every 4-6 weeks based on community demand.`,
             category: "General",
         },
         {

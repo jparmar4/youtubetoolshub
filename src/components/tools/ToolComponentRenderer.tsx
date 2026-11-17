@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { ComponentType, ReactNode, Suspense } from "react";
 
 // Client-only dynamic registry so Next.js emits separate lazy chunks per tool
-// instead of bundling all 45 interactive tools into every Server Component route.
+// instead of bundling all interactive tools into every Server Component route.
 const toolComponents: Record<string, ComponentType> = {
   "youtube-thumbnail-downloader": dynamic(() => import("@/components/tools/ThumbnailDownloader")),
   "youtube-thumbnail-generator": dynamic(() => import("@/components/tools/ThumbnailGenerator")),
@@ -51,6 +51,15 @@ const toolComponents: Record<string, ComponentType> = {
   "youtube-shorts-vs-long-form-calculator": dynamic(() => import("@/components/tools/ShortsVsLongFormCalculator")),
   "youtube-milestone-countdown-calculator": dynamic(() => import("@/components/tools/MilestoneCountdownCalculator")),
   "youtube-thumbnail-ab-test-calculator": dynamic(() => import("@/components/tools/ThumbnailABTestCalculator")),
+  "thumbnail-critique": dynamic(() => import("@/components/tools/ThumbnailCritique")),
+  "ab-packaging-studio": dynamic(() => import("@/components/tools/ABPackagingStudio")),
+  "channel-outlier-scanner": dynamic(() => import("@/components/tools/ChannelOutlierScanner")),
+  "hook-auditor": dynamic(() => import("@/components/tools/HookAuditor")),
+  "youtube-loudness-checker": dynamic(() => import("@/components/tools/YouTubeLoudnessChecker")),
+  "shorts-series-planner": dynamic(() => import("@/components/tools/ShortsSeriesPlanner")),
+  "creator-partnership-boost-calculator": dynamic(
+    () => import("@/components/tools/CreatorPartnershipBoostCalculator"),
+  ),
 };
 
 const defaultSpinner = (

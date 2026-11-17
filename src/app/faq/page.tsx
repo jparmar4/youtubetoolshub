@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     absolute: "FAQ — Free YouTube Creator Tools | YouTube Tools Hub",
   },
   description:
-    "Get answers to common questions about YouTube Tools Hub, free creator tools, AI-assisted features, and monetization calculators.",
+    `Get answers to common questions about YouTube Tools Hub, our ${tools.length} free creator tools, AI-assisted features, and monetization calculators.`,
   keywords: [
     "youtube tools faq",
     "youtube seo help",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: { absolute: "FAQ - YouTube Tools Hub" },
     description:
-      "Find answers about YouTube Tools Hub creator tools, AI-assisted features, and monetization calculators.",
+      `Find answers about YouTube Tools Hub's ${tools.length} creator tools, AI-assisted features, and monetization calculators.`,
     type: "website",
     url: `${siteConfig.url}/faq`,
     images: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "FAQ – YouTube Tools Hub | Free AI Tools for Creators",
     description:
-      "Get answers to common questions about YouTube creator tools, AI-assisted features, and monetization calculators.",
+      `Get answers to common questions about YouTube Tools Hub's ${tools.length} creator tools, AI-assisted features, and monetization calculators.`,
     images: [`${siteConfig.url}/og-image.png`],
   },
 };

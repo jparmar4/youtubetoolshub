@@ -20,7 +20,7 @@ const MCP_TOOLS = [
         category: {
           type: "string",
           description:
-            "Optional tool category filter (thumbnail-media, seo-metadata, channel-growth, analytics-earnings, utility-fun).",
+            "Optional tool category filter (thumbnail-media, seo-metadata, channel-growth, analytics-earnings, utilities).",
         },
         query: {
           type: "string",
@@ -286,11 +286,12 @@ export async function POST(request: NextRequest) {
     const args = (params.arguments as Record<string, unknown>) || {};
 
     if (toolName === "list_youtube_tools") {
-      const catFilter = String(args.category || "").toLowerCase();
+      const rawCatFilter = String(args.category || "").toLowerCase();
+      const catFilter = rawCatFilter === "utility-fun" ? "utilities" : rawCatFilter;
       const queryFilter = String(args.query || "").toLowerCase();
       const filtered = tools
         .filter((t) => {
-          if (catFilter && t.category.toLowerCase() !== catFilter) return false;
+          if (catFilter && (t.primaryCategory || t.category).toLowerCase() !== catFilter) return false;
           if (
             queryFilter &&
             !t.name.toLowerCase().includes(queryFilter) &&

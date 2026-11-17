@@ -31,17 +31,16 @@ const PRESET_DEFAULTS: Record<AdSlotPreset, { format: string; layout?: string; l
 };
 
 const PRESET_CHROME: Record<AdSlotPreset, string> = {
-    // Compact responsive reserve: fits standard mobile (50–100px) and desktop
-    // leaderboard (90px+) banners without pushing primary tools off-screen,
-    // while expanding naturally if AdSense serves a taller responsive unit.
+    // Reserved min-height containers + 24px (my-6) vertical breathing room prevent
+    // Cumulative Layout Shift (CLS) and accidental taps across mobile & desktop.
     leaderboard:
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[76px] sm:min-h-[108px] flex flex-col items-center justify-center",
+        "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-2.5 min-h-[100px] flex flex-col items-center justify-center",
     "in-article":
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[100px] flex flex-col items-center justify-center",
+        "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-3 min-h-[280px] flex flex-col items-center justify-center",
     multiplex:
-        "rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-2 py-2 min-h-[220px] flex flex-col items-center justify-center",
+        "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-3 min-h-[280px] flex flex-col items-center justify-center",
     sidebar:
-        "rounded-2xl border border-slate-200/80 bg-white/90 p-3 shadow-xs min-h-[120px] flex flex-col items-center justify-center",
+        "my-6 rounded-2xl border border-slate-200/80 bg-white/95 p-3 shadow-xs min-h-[280px] flex flex-col items-center justify-center",
     bare: "",
 };
 
@@ -121,7 +120,7 @@ export default function AdSlot({
             data-ad-slot-container={preset}
         >
             {label && preset !== "bare" && (
-                <p className="mb-1 text-center text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <p className="mb-2 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400 select-none">
                     {label}
                 </p>
             )}

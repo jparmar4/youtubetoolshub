@@ -1,7 +1,23 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import Link from "next/link";
 import { parseCalculatorInput } from "@/lib/calculator-input";
+
+function QuerySyncSponsorViews({ onApply }: { onApply: (views: string) => void }) {
+    useEffect(() => {
+        if (typeof window === "undefined" || !window.location.search) return;
+        const params = new URLSearchParams(window.location.search);
+        const viewsParam = params.get("views");
+        if (!viewsParam) return;
+        const cleaned = viewsParam.replace(/,/g, "");
+        const parsed = parseFloat(cleaned);
+        if (Number.isFinite(parsed) && parsed > 0) {
+            void Promise.resolve().then(() => onApply(Math.round(parsed).toString()));
+        }
+    }, [onApply]);
+    return null;
+}
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -311,6 +327,7 @@ ${channelHandle}`
             slug="youtube-sponsorship-calculator"
             description="Explore illustrative quotes for sponsored integrations, shoutouts, and dedicated reviews."
         >
+            <QuerySyncSponsorViews onApply={setViews} />
             <div className="space-y-8">
                 {!calculations && <p role="status" className="text-sm text-amber-700">Enter valid non-negative numbers up to 1 trillion, with a positive total. Use a decimal point and optional thousands commas.</p>}
                 <p className="text-sm text-slate-600">Planning model: $28 base CPM × niche and placement factors, plus selected add-ons. Minimum base fees are $120 ($450 for dedicated videos). Currency conversions use fixed illustrative rates, not live exchange rates. Actual negotiated rates vary.</p>
@@ -586,6 +603,24 @@ ${channelHandle}`
                                     30-Day Median
                                 </span>
                             </div>
+                        </div>
+
+                        {/* Cross-link to Creator Partnership Ad Boost Calculator */}
+                        <div className="rounded-2xl border border-indigo-200/80 bg-indigo-50/70 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 block">
+                                    YouTube Creator Partnerships (Whitelisting)
+                                </span>
+                                <span className="text-xs sm:text-sm font-bold text-slate-900 block">
+                                    Brand asking to boost your integration as paid ads? Price 30/60/90-day licensing separately.
+                                </span>
+                            </div>
+                            <Link
+                                href={`/tools/creator-partnership-boost-calculator?views=${Math.round(calculations.views)}`}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold shrink-0 shadow-xs transition-colors"
+                            >
+                                <span>Price Paid Ad Boost →</span>
+                            </Link>
                         </div>
 
                         {/* One-Click Copyable Pitch Template */}

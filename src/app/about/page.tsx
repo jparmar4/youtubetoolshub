@@ -21,7 +21,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 export const metadata: Metadata = {
   title: { absolute: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026" },
   description:
-    "Learn about YouTube Tools Hub, a free suite of AI-powered tools for creators. Our mission is to make YouTube growth workflows easier for everyone.",
+    `Learn about YouTube Tools Hub, a free suite of ${tools.length} AI-powered tools for creators. Our mission is to make YouTube growth workflows easier for everyone.`,
   keywords: [
     "about youtube tools hub",
     "creator mission 2026",
