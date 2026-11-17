@@ -294,7 +294,7 @@ export default async function middleware(request: NextRequest) {
 
   // 1b. Empty user agents are almost always scripted — allow only a trickle.
   // Skip internal image-optimizer & static binary fetches so pages with many
-  // icons (e.g. /tools with 45 tool icons) never self-throttle on loopback.
+  // icons (e.g. /tools directory) never self-throttle on loopback.
   if (!skipMitigation && !isStaticAssetPath && !isPublicDiscoveryApi && !userAgent) {
     if (!rateLimit(`empty-ua:${getClientIp(request)}`, 20)) {
       return new NextResponse("Too Many Requests", {

@@ -377,11 +377,11 @@ export default function ChannelOutlierScanner() {
 
               {/* KPI Strip */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 min-w-0">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">
                     Channel Median Views
                   </span>
-                  <span className="text-2xl font-black text-slate-900 font-outfit">
+                  <span className="text-lg xl:text-xl font-black text-slate-900 font-outfit tabular-nums block leading-snug mt-0.5 break-all sm:break-normal">
                     {analyzed.medianViews.toLocaleString()}
                   </span>
                   <span className="text-[11px] text-slate-500 block mt-0.5">
@@ -389,11 +389,11 @@ export default function ChannelOutlierScanner() {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 min-w-0">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 block">
                     Breakout Outliers (&ge;2.0x)
                   </span>
-                  <span className="text-2xl font-black text-emerald-800 font-outfit">
+                  <span className="text-lg xl:text-xl font-black text-emerald-800 font-outfit tabular-nums block leading-snug mt-0.5">
                     {analyzed.outlierCount}
                   </span>
                   <span className="text-[11px] text-emerald-700 block mt-0.5">
@@ -401,11 +401,11 @@ export default function ChannelOutlierScanner() {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200">
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 min-w-0">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-amber-800 block">
                     Top Outlier Multiplier
                   </span>
-                  <span className="text-2xl font-black text-amber-900 font-outfit">
+                  <span className="text-lg xl:text-xl font-black text-amber-900 font-outfit tabular-nums block leading-snug mt-0.5">
                     {analyzed.peakMultiplier.toFixed(1)}x
                   </span>
                   <span className="text-[11px] text-amber-800 block mt-0.5">
@@ -413,11 +413,11 @@ export default function ChannelOutlierScanner() {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200">
+                <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 min-w-0">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-purple-800 block">
                     Uploads Fetched
                   </span>
-                  <span className="text-2xl font-black text-purple-900 font-outfit">
+                  <span className="text-lg xl:text-xl font-black text-purple-900 font-outfit tabular-nums block leading-snug mt-0.5">
                     {scanResult.videos.length}
                   </span>
                   <span className="text-[11px] text-purple-800 block mt-0.5">

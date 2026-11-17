@@ -28,8 +28,13 @@ export async function checkAIGlobalRateLimit(
   | { allowed: false; response: NextResponse }
 > {
   const ip = getRequestIp(headers);
-  const session = await auth();
-  const email = session?.user?.email || null;
+  let email: string | null = null;
+  try {
+    const session = await auth();
+    email = session?.user?.email || null;
+  } catch (err) {
+    console.warn("[AI Rate Limit] Failed to read auth session, continuing as anonymous:", err);
+  }
 
   let isPro = false;
   if (email) {

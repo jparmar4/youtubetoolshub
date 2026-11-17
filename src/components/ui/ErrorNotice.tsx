@@ -10,8 +10,8 @@ interface ErrorNoticeProps {
 }
 
 /**
- * Standardized inline error banner for tool failures. One treatment for all
- * 45 tools (replaces ad-hoc green-on-red / plain text drift) using the
+ * Standardized inline error banner for tool failures. One treatment across
+ * all tools (replaces ad-hoc green-on-red / plain text drift) using the
  * semantic danger tokens.
  */
 export default function ErrorNotice({

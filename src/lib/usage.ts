@@ -49,6 +49,9 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'ab-packaging-studio': { free: 2, pro: Infinity },
     'hook-auditor': { free: 2, pro: Infinity },
     'channel-outlier-scanner': { free: Infinity, pro: Infinity },
+    'youtube-loudness-checker': { free: Infinity, pro: Infinity },
+    'shorts-series-planner': { free: 2, pro: Infinity },
+    'creator-partnership-boost-calculator': { free: Infinity, pro: Infinity },
 };
 
 export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
@@ -89,17 +89,33 @@ const titlePresets = [
     { label: "🎬 Vlog", topic: "I Traveled Across Japan with Only $50 and a Backpack", videoType: "vlog", tone: "entertaining" },
 ];
 
-export default function TitleGenerator() {
+function TitleGeneratorSearchSync({
+    onSyncTopic,
+}: {
+    onSyncTopic: (topic: string) => void;
+}) {
     const searchParams = useSearchParams();
     const urlTopic = searchParams.get("topic") || "";
 
-    // Initialize and sync cleanly when URL params change
-    const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
-    const [topic, setTopic] = useState(urlTopic);
-    if (urlTopic && urlTopic !== prevUrlTopic) {
-        setPrevUrlTopic(urlTopic);
-        setTopic(urlTopic);
-    }
+    useEffect(() => {
+        if (!urlTopic) return;
+        let cancelled = false;
+        Promise.resolve().then(() => {
+            if (!cancelled) onSyncTopic(urlTopic);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [urlTopic, onSyncTopic]);
+
+    return null;
+}
+
+export default function TitleGenerator() {
+    const [topic, setTopic] = useState("");
+    const handleSyncTopic = useCallback((nextTopic: string) => {
+        setTopic(nextTopic);
+    }, []);
 
     const [tone, setTone] = useState("casual");
     const [language, setLanguage] = useState("english");
@@ -231,6 +247,9 @@ export default function TitleGenerator() {
             description="Generate data-backed, high-CTR titles with Viral Scores and Analysis."
         >
             <div className="space-y-8">
+                <Suspense fallback={null}>
+                    <TitleGeneratorSearchSync onSyncTopic={handleSyncTopic} />
+                </Suspense>
                 <UsageBanner type="ai" toolSlug="youtube-title-generator" />
                 <LimitReachedModal
                     isOpen={!!limitReachedTool}

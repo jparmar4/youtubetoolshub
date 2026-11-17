@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -159,15 +159,33 @@ function formatSeriesMarkdown(plan: ShortsSeriesPlan): string {
   return lines.join("\n");
 }
 
-export default function ShortsSeriesPlanner() {
+function ShortsSeriesSearchSync({
+  onSyncTopic,
+}: {
+  onSyncTopic: (topic: string) => void;
+}) {
   const searchParams = useSearchParams();
   const initialTopic = searchParams.get("topic") || "";
-  const [prevUrlTopic, setPrevUrlTopic] = useState(initialTopic);
-  const [topic, setTopic] = useState(initialTopic);
-  if (initialTopic && initialTopic !== prevUrlTopic) {
-    setPrevUrlTopic(initialTopic);
-    setTopic(initialTopic);
-  }
+
+  useEffect(() => {
+    if (!initialTopic) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSyncTopic(initialTopic);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialTopic, onSyncTopic]);
+
+  return null;
+}
+
+export default function ShortsSeriesPlanner() {
+  const [topic, setTopic] = useState("");
+  const handleSyncTopic = useCallback((nextTopic: string) => {
+    setTopic(nextTopic);
+  }, []);
 
   const [episodeCount, setEpisodeCount] = useState<3 | 5 | 7>(5);
   const [tone, setTone] = useState<string>("Educational Breakdown");
@@ -258,6 +276,9 @@ export default function ShortsSeriesPlanner() {
       description="Plan 3, 5, or 7 connected YouTube Shorts episodes engineered to convert viewers with cliffhanger 'Watch Series' binge bridges."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <ShortsSeriesSearchSync onSyncTopic={handleSyncTopic} />
+        </Suspense>
         <UsageBanner type="ai" toolSlug="shorts-series-planner" />
         <LimitReachedModal
           isOpen={!!limitReachedTool}

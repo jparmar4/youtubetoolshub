@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 /**
  * Hand-drawn SVG artwork registry — one distinctive motif per tool.
  *
- * Design language (consistent across all 45):
+ * Design language (consistent across all tool cards):
  *  - 48x48 viewBox, rendered at `1em` so it scales with .ti-box font-size
  *  - Primary shapes stroke `currentColor` (white on the gradient cube),
  *    width 3, round caps/joins — bold enough to read at 18–34px

@@ -251,7 +251,7 @@ export const COMPETITOR_ALTERNATIVES: CompetitorAlternative[] = [
       "Compare YouTube Tools Hub vs VidIQ and TubeBuddy in 2026. Run browser-based SEO, title, tag, thumbnail, and earnings tools without OAuth extensions.",
     h1: "The Best Free VidIQ & TubeBuddy Alternative (No Extension Required)",
     heroSubtitle:
-      "VidIQ Boost costs $199–$468/year and TubeBuddy Legend runs $278/year—and both require browser extensions with YouTube OAuth access. Run all 45+ creator tools free in your browser.",
+      "VidIQ Boost costs $199–$468/year and TubeBuddy Legend runs $278/year—and both require browser extensions with YouTube OAuth access. Run all 52 creator tools free in your browser.",
     competitorStartingPrice: "$43.20/yr (TubeBuddy) · $199/yr (VidIQ)",
     competitorAnnualCost: "$199 – $468 / year",
     ytToolsHubCost: "$0 / forever",

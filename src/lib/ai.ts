@@ -119,7 +119,7 @@ async function callOpenAI(
     options: { temperature: number; maxTokens: number; model?: string; imageDataUrl?: string }
 ): Promise<string> {
     const model = options.model || process.env.AI_MODEL || "gpt-4o-mini";
-    const isReasoningModel = /^(o1|o3|gpt-6)/i.test(model);
+    const isReasoningModel = /^(o1|o3|o4|gpt-5|gpt-6)/i.test(model);
     const userMessageContent: UserContent = options.imageDataUrl
         ? [
               { type: "text", text: prompt },
@@ -127,18 +127,23 @@ async function callOpenAI(
           ]
         : prompt;
 
-    // Newer OpenAI models (o1, o3, gpt-6-luna) do not allow custom temperature
-    // and require max_completion_tokens instead of legacy max_tokens.
+    // Reasoning models consume completion tokens for internal thinking as well
+    // as visible output, so give them a larger budget and low reasoning effort
+    // to prevent finish_reason="length" empty responses and 30s timeouts.
     const requestBody: Record<string, unknown> = {
         model,
         messages: [
             { role: "system", content: systemPrompt },
             { role: "user", content: userMessageContent }
         ],
-        max_completion_tokens: options.maxTokens,
+        max_completion_tokens: isReasoningModel
+            ? Math.max(options.maxTokens * 3, 6000)
+            : options.maxTokens,
     };
 
-    if (!isReasoningModel) {
+    if (isReasoningModel) {
+        requestBody.reasoning_effort = "low";
+    } else {
         requestBody.temperature = options.temperature;
     }
 
@@ -149,16 +154,21 @@ async function callOpenAI(
             "Authorization": `Bearer ${apiKey}`,
         },
         body: JSON.stringify(requestBody),
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(45_000),
     });
 
-    // If a model rejects custom parameters (e.g. temperature), retry cleanly
+    // If a model rejects custom parameters (e.g. temperature / reasoning_effort), retry cleanly
     if (!response.ok) {
         const errorJson = await response.json().catch(() => null);
         const errorMsg = errorJson?.error?.message || "";
 
-        if (errorMsg.includes("temperature") || errorMsg.includes("max_tokens")) {
+        if (
+            errorMsg.includes("temperature") ||
+            errorMsg.includes("max_tokens") ||
+            errorMsg.includes("reasoning_effort")
+        ) {
             delete requestBody.temperature;
+            delete requestBody.reasoning_effort;
             response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
                 headers: {
@@ -166,7 +176,7 @@ async function callOpenAI(
                     "Authorization": `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify(requestBody),
-                signal: AbortSignal.timeout(30_000),
+                signal: AbortSignal.timeout(45_000),
             });
         }
 
@@ -176,8 +186,30 @@ async function callOpenAI(
         }
     }
 
-    const data = await response.json();
-    const result = data?.choices?.[0]?.message?.content;
+    let data = await response.json();
+    let result = data?.choices?.[0]?.message?.content;
+
+    // Retry once with expanded token budget if reasoning tokens exhausted completion_tokens
+    if (!result && data?.choices?.[0]?.finish_reason === "length") {
+        requestBody.max_completion_tokens = Math.max(
+            Number(requestBody.max_completion_tokens || 6000) * 2,
+            10000,
+        );
+        const retryResp = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify(requestBody),
+            signal: AbortSignal.timeout(45_000),
+        });
+        if (retryResp.ok) {
+            data = await retryResp.json();
+            result = data?.choices?.[0]?.message?.content;
+        }
+    }
+
     if (!result) {
         throw new Error("OpenAI returned an empty or malformed response");
     }
@@ -255,19 +287,41 @@ async function runAIRequest(
         let result: string;
 
         if (openAiKey) {
-            result = await callOpenAI(openAiKey, prompt, getSystemPrompt(), {
-                temperature,
-                maxTokens,
-                model: process.env.AI_MODEL,
-                imageDataUrl,
-            });
+            try {
+                result = await callOpenAI(openAiKey, prompt, getSystemPrompt(), {
+                    temperature,
+                    maxTokens,
+                    model: process.env.AI_MODEL,
+                    imageDataUrl,
+                });
+            } catch (openAiErr) {
+                if (!geminiKey) throw openAiErr;
+                console.warn("[AI] Primary OpenAI provider failed, falling back to Gemini:", openAiErr);
+                result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
+                    temperature,
+                    maxTokens,
+                    model: process.env.GEMINI_MODEL,
+                    imageDataUrl,
+                });
+            }
         } else if (geminiKey) {
-            result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
-                temperature,
-                maxTokens,
-                model: process.env.GEMINI_MODEL,
-                imageDataUrl,
-            });
+            try {
+                result = await callGemini(geminiKey, prompt, getSystemPrompt(), {
+                    temperature,
+                    maxTokens,
+                    model: process.env.GEMINI_MODEL,
+                    imageDataUrl,
+                });
+            } catch (geminiErr) {
+                if (!openAiKey) throw geminiErr;
+                console.warn("[AI] Primary Gemini provider failed, falling back to OpenAI:", geminiErr);
+                result = await callOpenAI(openAiKey, prompt, getSystemPrompt(), {
+                    temperature,
+                    maxTokens,
+                    model: process.env.AI_MODEL,
+                    imageDataUrl,
+                });
+            }
         } else {
             throw new AIConfigurationError("No AI API key available");
         }

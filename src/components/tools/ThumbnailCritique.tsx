@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -146,28 +146,36 @@ function getScoreBadgeClasses(score: number): string {
   return "text-rose-700 bg-rose-50 border-rose-200";
 }
 
-export default function ThumbnailCritique() {
+function ThumbnailCritiqueSearchSync({
+  onSync,
+}: {
+  onSync: (videoParam: string, titleParam: string) => void;
+}) {
   const searchParams = useSearchParams();
-  const initialVideoParam = searchParams.get("v") || searchParams.get("url") || "";
-  const initialTitleParam = searchParams.get("title") || "";
+  const videoParam = searchParams.get("v") || searchParams.get("url") || "";
+  const titleParam = searchParams.get("title") || "";
 
-  const [prevUrlParam, setPrevUrlParam] = useState(initialVideoParam);
-  const [prevTitleParam, setPrevTitleParam] = useState(initialTitleParam);
+  useEffect(() => {
+    if (!videoParam && !titleParam) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSync(videoParam, titleParam);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [videoParam, titleParam, onSync]);
 
-  const [videoUrl, setVideoUrl] = useState(initialVideoParam);
-  const [videoTitle, setVideoTitle] = useState(initialTitleParam);
+  return null;
+}
 
-  if (initialVideoParam && initialVideoParam !== prevUrlParam) {
-    setPrevUrlParam(initialVideoParam);
-    setVideoUrl(initialVideoParam);
-  }
-  if (initialTitleParam && initialTitleParam !== prevTitleParam) {
-    setPrevTitleParam(initialTitleParam);
-    setVideoTitle(initialTitleParam);
-  }
+export default function ThumbnailCritique() {
+  const [videoUrl, setVideoUrl] = useState("");
+  const [videoTitle, setVideoTitle] = useState("");
+  const lastAutoVideoRef = useRef("");
 
   const [loadedImage, setLoadedImage] = useState<LoadedThumbnail | null>(null);
-  const [loadingImage, setLoadingImage] = useState(() => Boolean(extractVideoId(initialVideoParam)));
+  const [loadingImage, setLoadingImage] = useState(false);
   const [critiquing, setCritiquing] = useState(false);
   const [error, setError] = useState("");
   const [critique, setCritique] = useState<ThumbnailCritiqueResult | null>(null);
@@ -191,32 +199,28 @@ export default function ThumbnailCritique() {
     };
   }, []);
 
-  // Auto-load initial YouTube thumbnail when navigated via /watch?v=... or ?v=...
-  useEffect(() => {
-    const id = extractVideoId(initialVideoParam);
-    if (!id) return;
+  const handleSyncParams = useCallback((videoParam: string, titleParam: string) => {
+    if (titleParam) setVideoTitle(titleParam);
+    if (!videoParam) return;
 
-    let cancelled = false;
+    setVideoUrl(videoParam);
+    const id = extractVideoId(videoParam);
+    if (!id || lastAutoVideoRef.current === id) return;
+    lastAutoVideoRef.current = id;
+
+    setLoadingImage(true);
     fetchYouTubeThumbnailViaProxy(id)
       .then((thumb) => {
-        if (!cancelled) {
-          setLoadedImage(thumb);
-          setError("");
-        }
+        setLoadedImage(thumb);
+        setError("");
       })
       .catch((err) => {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Could not load thumbnail from URL.");
-        }
+        setError(err instanceof Error ? err.message : "Could not load thumbnail from URL.");
       })
       .finally(() => {
-        if (!cancelled) setLoadingImage(false);
+        setLoadingImage(false);
       });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [initialVideoParam]);
+  }, []);
 
   const handleFileProcess = useCallback(async (file: File) => {
     if (!file.type.match(/^image\/(png|jpeg|jpg|webp)$/i)) {
@@ -335,6 +339,9 @@ export default function ThumbnailCritique() {
       description="Audit thumbnail mobile legibility, text word count, and title redundancy across 168px mobile & 320px desktop YouTube feeds."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <ThumbnailCritiqueSearchSync onSync={handleSyncParams} />
+        </Suspense>
         <UsageBanner type="ai" toolSlug="thumbnail-critique" />
         <LimitReachedModal
           isOpen={!!limitReachedTool}

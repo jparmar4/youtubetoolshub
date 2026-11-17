@@ -201,7 +201,7 @@ export default async function ToolPage({
                 }}
             />
 
-            <div className="min-h-screen py-8 sm:py-12 relative overflow-hidden">
+            <div className="min-h-screen py-8 sm:py-12 relative overflow-x-clip">
                 <div className="nebula-bg" />
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
 

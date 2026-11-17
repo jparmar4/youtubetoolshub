@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { tools, type ToolCategoryId } from "../src/config/tools";
+import { toolMeta } from "../src/config/tool-meta";
 import { siteConfig } from "../src/config/site";
 import {
   US_STATE_CREATOR_TAXES,
@@ -185,8 +186,45 @@ for (const resLink of siteConfig.footerLinks.resources) {
   }
 }
 
+// 5. Verify client light metadata parity with full tools registry (toolMeta === tools)
+if (toolMeta.length !== tools.length) {
+  fail(
+    `tool-meta.ts count (${toolMeta.length}) does not match tools.ts count (${tools.length}). Keep both synchronized!`,
+  );
+}
+const metaBySlug = new Map(toolMeta.map((m) => [m.slug, m]));
+for (const tool of tools) {
+  const meta = metaBySlug.get(tool.slug);
+  if (!meta) {
+    fail(`Tool "${tool.slug}" exists in tools.ts but is missing from tool-meta.ts.`);
+  } else if (meta.primaryCategory !== tool.primaryCategory) {
+    fail(
+      `Category mismatch for "${tool.slug}": tools.ts="${tool.primaryCategory}" vs tool-meta.ts="${meta.primaryCategory}".`,
+    );
+  }
+}
+
+// 6. Verify static public manifests use current tool count (${tools.length})
+const staticManifestPaths = [
+  "public/index.md",
+  "public/authors.txt",
+  "public/.well-known/authors.txt",
+  "public/.well-known/ai-plugin.json",
+  "public/.well-known/openapi.yaml",
+];
+for (const relPath of staticManifestPaths) {
+  const fullPath = path.join(process.cwd(), relPath);
+  if (!fs.existsSync(fullPath)) continue;
+  const text = fs.readFileSync(fullPath, "utf8");
+  if (!text.includes(String(tools.length))) {
+    fail(
+      `Static manifest "${relPath}" does not mention current tool count (${tools.length}).`,
+    );
+  }
+}
+
 console.log(
-  `[verify-seo] Audited ${tools.length} tools, ${US_STATE_CREATOR_TAXES.length} US jurisdictions, ${COMPETITOR_ALTERNATIVES.length} competitor alternatives.`,
+  `[verify-seo] Audited ${tools.length} tools (${toolMeta.length} in tool-meta), ${US_STATE_CREATOR_TAXES.length} US jurisdictions, ${COMPETITOR_ALTERNATIVES.length} competitor alternatives.`,
 );
 
 if (warnings.length > 0) {

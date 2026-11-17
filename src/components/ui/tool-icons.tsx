@@ -49,6 +49,7 @@ import {
   FaFileAlt,
   FaEye,
   FaFlask,
+  FaVolumeUp,
 } from "react-icons/fa";
 
 const TOOL_ICONS: Record<string, IconType> = {
@@ -101,6 +102,9 @@ const TOOL_ICONS: Record<string, IconType> = {
   "ab-packaging-studio": FaFlask,
   "channel-outlier-scanner": FaFire,
   "hook-auditor": FaMicrophone,
+  "youtube-loudness-checker": FaVolumeUp,
+  "shorts-series-planner": FaListUl,
+  "creator-partnership-boost-calculator": FaBullhorn,
   // Hero icon aliases for dedicated landing pages
   "earnings-calculator-hero": FaCalculator,
   "transcript-downloader-hero": FaFileAlt,

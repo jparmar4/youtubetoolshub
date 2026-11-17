@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -93,7 +93,11 @@ function parsePackagingVariants(raw: string): PackagingVariant[] {
   } catch {
     const arrMatch = cleaned.match(/\[[\s\S]*\]/);
     if (!arrMatch) return [];
-    parsedUnknown = JSON.parse(arrMatch[0]);
+    try {
+      parsedUnknown = JSON.parse(arrMatch[0]);
+    } catch {
+      return [];
+    }
   }
 
   const parsed = Array.isArray(parsedUnknown)
@@ -140,15 +144,33 @@ function parsePackagingVariants(raw: string): PackagingVariant[] {
   });
 }
 
-export default function ABPackagingStudio() {
+function ABPackagingSearchSync({
+  onSyncTopic,
+}: {
+  onSyncTopic: (topic: string) => void;
+}) {
   const searchParams = useSearchParams();
   const urlTopic = searchParams.get("topic") || "";
-  const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
-  const [topic, setTopic] = useState(urlTopic);
-  if (urlTopic && urlTopic !== prevUrlTopic) {
-    setPrevUrlTopic(urlTopic);
-    setTopic(urlTopic);
-  }
+
+  useEffect(() => {
+    if (!urlTopic) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSyncTopic(urlTopic);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [urlTopic, onSyncTopic]);
+
+  return null;
+}
+
+export default function ABPackagingStudio() {
+  const [topic, setTopic] = useState("");
+  const handleSyncTopic = useCallback((nextTopic: string) => {
+    setTopic(nextTopic);
+  }, []);
 
   const [targetAudience, setTargetAudience] = useState("");
   const [variants, setVariants] = useState<PackagingVariant[]>([]);
@@ -234,6 +256,9 @@ export default function ABPackagingStudio() {
       description="Generate 3 psychologically distinct thumbnail + title variants built for YouTube Studio native A/B Test & Compare experiments."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <ABPackagingSearchSync onSyncTopic={handleSyncTopic} />
+        </Suspense>
         <UsageBanner type="ai" toolSlug="ab-packaging-studio" />
         <LimitReachedModal
           isOpen={!!limitReachedTool}
@@ -348,15 +373,15 @@ export default function ABPackagingStudio() {
                       <div key={v.variant} className="space-y-2.5">
                         {/* Stylized 16:9 concept thumbnail */}
                         <div
-                          className={`relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br ${style.gradient} p-4 flex flex-col justify-between shadow-md border border-white/10`}
+                          className={`relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br ${style.gradient} p-2.5 sm:p-3 flex flex-col justify-between shadow-md border border-white/10`}
                         >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-white/15 text-white backdrop-blur-xs">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-white/15 text-white backdrop-blur-xs truncate">
                               Variant {v.variant} · {v.framework}
                             </span>
                           </div>
-                          <div className="my-auto text-center px-2">
-                            <p className="text-xl sm:text-2xl font-black tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] leading-none uppercase">
+                          <div className="my-auto text-center px-1.5 min-w-0">
+                            <p className="text-sm sm:text-base font-black tracking-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] leading-tight uppercase break-words line-clamp-2">
                               {v.thumbnailTextOverlay}
                             </p>
                           </div>

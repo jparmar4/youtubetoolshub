@@ -5,7 +5,12 @@ import { hasActiveSubscription } from "@/lib/subscription";
 
 export async function GET() {
     try {
-        const session = await auth();
+        let session = null;
+        try {
+            session = await auth();
+        } catch {
+            session = null;
+        }
         if (!session || !session.user?.email) {
             return NextResponse.json({ isPro: false });
         }

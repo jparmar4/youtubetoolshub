@@ -85,6 +85,9 @@ function resolveToolTheme(
   if (s.includes("ab-packaging")) return { themeClass: "ti-t2", badgeText: "A/B" };
   if (s.includes("outlier-scanner")) return { themeClass: "ti-t11", badgeText: "10x" };
   if (s.includes("hook-auditor")) return { themeClass: "ti-t8", badgeText: "30s" };
+  if (s.includes("loudness-checker")) return { themeClass: "ti-t12", badgeText: "LUFS" };
+  if (s.includes("shorts-series")) return { themeClass: "ti-t11", badgeText: "PART" };
+  if (s.includes("creator-partnership-boost")) return { themeClass: "ti-t5", badgeText: "AD$" };
   if (s.includes("thumbnail-downloader")) return { themeClass: "ti-t1", badgeText: "4K" };
   if (s.includes("ai-thumbnail") || s.includes("image-prompt")) return { themeClass: "ti-t2", badgeText: "AI" };
   if (s.includes("feed-previewer") || s.includes("banner-resizer") || s.includes("thumbnail-generator")) {

@@ -47,6 +47,7 @@ import {
     FaAward,
     FaEye,
     FaFlask,
+    FaVolumeUp,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
 import type { ToolCategoryId } from "@/config/tools";
@@ -554,6 +555,36 @@ const rawToolMeta: RawToolMeta[] = [
         primaryCategory: "seo-metadata",
         icon: FaMicrophone,
         isAI: true,
+        isFeatured: true,
+    },
+    {
+        slug: "youtube-loudness-checker",
+        name: "YouTube -14 LUFS Audio Loudness & Clipping Checker",
+        description: "Analyze .MP3, .WAV, or .M4A voiceover files 100% locally in your browser using the WebAudio API. Measure integrated LUFS against YouTube's -14 LUFS spec, inspect True Peak clipping warnings, and view DAW gain prescriptions.",
+        shortDescription: "Check -14 LUFS loudness, true peaks & clipping 100% in browser",
+        primaryCategory: "utilities",
+        icon: FaVolumeUp,
+        isAI: false,
+        isFeatured: true,
+    },
+    {
+        slug: "shorts-series-planner",
+        name: 'Episodic Shorts "Watch Series" Binge Planner',
+        description: "Turn one topic into a 3, 5, or 7-part episodic YouTube Shorts mini-series built specifically to connect viewer sessions through YouTube's 'Watch Series' link.",
+        shortDescription: "Script bingeable 3, 5, or 7-part Shorts series with cliffhanger bridges",
+        primaryCategory: "channel-growth",
+        icon: FaListUl,
+        isAI: true,
+        isFeatured: true,
+    },
+    {
+        slug: "creator-partnership-boost-calculator",
+        name: 'Sponsorship & Creator Partnership "Ad Boost" Rate Calculator',
+        description: "Price both your base organic YouTube sponsorship integration AND paid Creator Partnerships Ad-Boost licensing rights, complete with Tier-1 weighting and a pre-filled brand usage clause.",
+        shortDescription: "Price organic sponsorships + paid Ad Boost whitelisting licenses",
+        primaryCategory: "analytics-earnings",
+        icon: FaBullhorn,
+        isAI: false,
         isFeatured: true,
     },
 ];

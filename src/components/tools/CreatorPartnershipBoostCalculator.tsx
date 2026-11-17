@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -41,16 +41,33 @@ const FORMAT_OPTIONS = [
   { id: "dedicated", label: "Full Dedicated Video (2.5x)", factor: 2.5 },
 ] as const;
 
-export default function CreatorPartnershipBoostCalculator() {
+function PartnershipSearchSync({
+  onSyncViews,
+}: {
+  onSyncViews: (views: string) => void;
+}) {
   const searchParams = useSearchParams();
   const initialViews = searchParams.get("views") || "";
-  const [prevViewsParam, setPrevViewsParam] = useState(initialViews);
-  const [avgViewsInput, setAvgViewsInput] = useState(initialViews || "50000");
 
-  if (initialViews && initialViews !== prevViewsParam) {
-    setPrevViewsParam(initialViews);
-    setAvgViewsInput(initialViews);
-  }
+  useEffect(() => {
+    if (!initialViews) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSyncViews(initialViews);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialViews, onSyncViews]);
+
+  return null;
+}
+
+export default function CreatorPartnershipBoostCalculator() {
+  const [avgViewsInput, setAvgViewsInput] = useState("50000");
+  const handleSyncViews = useCallback((nextViews: string) => {
+    setAvgViewsInput(nextViews);
+  }, []);
 
   const [nicheId, setNicheId] = useState<string>("tech");
   const [tier1Share, setTier1Share] = useState<number>(60);
@@ -140,6 +157,9 @@ Best,
       description="Price organic YouTube integrations plus paid Creator Partnerships ad whitelisting usage rights based on Niche CPM and Tier-1 geography."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <PartnershipSearchSync onSyncViews={handleSyncViews} />
+        </Suspense>
         {/* Inputs Card */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
           <div className="space-y-2">

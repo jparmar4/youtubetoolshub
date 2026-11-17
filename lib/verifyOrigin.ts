@@ -5,7 +5,7 @@ const PRODUCTION_ALLOWED_HOSTS = new Set([
   "www.youtubetoolshub.com",
 ]);
 
-const DEV_ALLOWED_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
+const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]"]);
 
 function getDynamicConfiguredHost(): string | null {
   const configured =
@@ -18,7 +18,32 @@ function getDynamicConfiguredHost(): string | null {
   }
 }
 
-export function isAllowedOriginUrl(parsedUrl: URL): boolean {
+function getRequestHostname(headers: Headers): string | null {
+  const rawHost = (
+    headers.get("x-forwarded-host") ||
+    headers.get("host") ||
+    ""
+  )
+    .split(",")[0]
+    .trim()
+    .toLowerCase();
+  if (!rawHost) return null;
+  if (rawHost.startsWith("[")) {
+    const endBracket = rawHost.indexOf("]");
+    return endBracket >= 0 ? rawHost.slice(0, endBracket + 1) : rawHost;
+  }
+  return rawHost.split(":")[0] || null;
+}
+
+function isLoopbackHost(hostname: string | null): boolean {
+  if (!hostname) return false;
+  return LOOPBACK_HOSTS.has(hostname.toLowerCase());
+}
+
+export function isAllowedOriginUrl(
+  parsedUrl: URL,
+  requestHeaders?: Headers,
+): boolean {
   const hostname = parsedUrl.hostname.toLowerCase();
   const isDev = process.env.NODE_ENV !== "production";
 
@@ -36,7 +61,12 @@ export function isAllowedOriginUrl(parsedUrl: URL): boolean {
       : parsedUrl.protocol === "https:";
   }
 
-  if (isDev && DEV_ALLOWED_HOSTS.has(hostname)) {
+  // Allow loopback origins in dev OR when the incoming HTTP request itself is served
+  // on a loopback host (e.g., local `npm start` / `server.js` standalone testing).
+  if (
+    isLoopbackHost(hostname) &&
+    (isDev || (requestHeaders ? isLoopbackHost(getRequestHostname(requestHeaders)) : false))
+  ) {
     return parsedUrl.protocol === "http:" || parsedUrl.protocol === "https:";
   }
 
@@ -66,13 +96,13 @@ export function createForbiddenOriginResponse(
 }
 
 export type OriginVerificationResult =
-  | { allowed: true; origin: string; source: "origin" | "referer" }
+  | { allowed: true; origin: string; source: "origin" | "referer" | "sec-fetch-site" }
   | { allowed: false; reason: string; response: NextResponse };
 
 /**
  * Verifies that an incoming `/api/*` request originates from `youtubetoolshub.com`
- * (or `localhost` / loopback in non-production environments), returning an HTTP 403
- * JSON response for external scrapers, bots, or cross-origin API abuse.
+ * (or `localhost` / loopback in dev or loopback-hosted standalone servers), returning
+ * an HTTP 403 JSON response for external scrapers, bots, or cross-origin API abuse.
  */
 export function verifyOrigin(
   input: Request | Headers | { headers: Headers },
@@ -92,7 +122,7 @@ export function verifyOrigin(
 
     try {
       const parsed = new URL(originHeader);
-      if (isAllowedOriginUrl(parsed)) {
+      if (isAllowedOriginUrl(parsed, headers)) {
         return { allowed: true, origin: parsed.origin, source: "origin" };
       }
       return {
@@ -114,7 +144,7 @@ export function verifyOrigin(
   if (refererHeader) {
     try {
       const parsed = new URL(refererHeader);
-      if (isAllowedOriginUrl(parsed)) {
+      if (isAllowedOriginUrl(parsed, headers)) {
         return { allowed: true, origin: parsed.origin, source: "referer" };
       }
       return {
@@ -127,6 +157,25 @@ export function verifyOrigin(
         allowed: false,
         reason: "Malformed Referer header",
         response: createForbiddenOriginResponse(),
+      };
+    }
+  }
+
+  // Browsers with strict Referrer-Policy / privacy extensions may omit Referer on
+  // same-origin GET requests, while browser Fetch Metadata sets Sec-Fetch-Site: same-origin
+  // (a forbidden header name that cross-origin scripts cannot forge in a browser).
+  const secFetchSite = headers.get("sec-fetch-site")?.trim().toLowerCase();
+  if (secFetchSite === "same-origin") {
+    const reqHost = getRequestHostname(headers);
+    if (
+      (reqHost && PRODUCTION_ALLOWED_HOSTS.has(reqHost)) ||
+      (reqHost && reqHost === getDynamicConfiguredHost()) ||
+      isLoopbackHost(reqHost)
+    ) {
+      return {
+        allowed: true,
+        origin: isLoopbackHost(reqHost) ? `http://${reqHost}` : `https://${reqHost}`,
+        source: "sec-fetch-site",
       };
     }
   }

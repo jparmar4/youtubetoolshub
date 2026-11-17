@@ -1,4 +1,6 @@
 import "./globals.css";
+import { Suspense } from "react";
+import RouteScrollTop from "@/components/layout/RouteScrollTop";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HideOnEmbed from "@/components/layout/HideOnEmbed";
@@ -309,6 +311,9 @@ export default function RootLayout({
               </HideOnEmbed>
               <ConsentAnalytics />
               <WebMCPRegistry />
+              <Suspense fallback={null}>
+                <RouteScrollTop />
+              </Suspense>
               <DeferredLayoutWidgets />
             </VideoPackProvider>
           </UsageProvider>

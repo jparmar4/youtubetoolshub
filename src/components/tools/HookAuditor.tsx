@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -246,15 +246,33 @@ function parseHookAuditResult(raw: string, script: string): HookAuditResult | nu
   }
 }
 
-export default function HookAuditor() {
+function HookAuditorSearchSync({
+  onSyncTitle,
+}: {
+  onSyncTitle: (title: string) => void;
+}) {
   const searchParams = useSearchParams();
   const initialTitle = searchParams.get("title") || searchParams.get("topic") || "";
-  const [prevUrlTitle, setPrevUrlTitle] = useState(initialTitle);
-  const [videoTitle, setVideoTitle] = useState(initialTitle);
-  if (initialTitle && initialTitle !== prevUrlTitle) {
-    setPrevUrlTitle(initialTitle);
-    setVideoTitle(initialTitle);
-  }
+
+  useEffect(() => {
+    if (!initialTitle) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSyncTitle(initialTitle);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [initialTitle, onSyncTitle]);
+
+  return null;
+}
+
+export default function HookAuditor() {
+  const [videoTitle, setVideoTitle] = useState("");
+  const handleSyncTitle = useCallback((nextTitle: string) => {
+    setVideoTitle(nextTitle);
+  }, []);
 
   const [introScript, setIntroScript] = useState("");
   const [audit, setAudit] = useState<HookAuditResult | null>(null);
@@ -334,6 +352,9 @@ export default function HookAuditor() {
       description="Audit sentence-1 click promise confirmation, highlight retention-killing throat-clearing clichés, and generate 3 high-retention rewrites."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <HookAuditorSearchSync onSyncTitle={handleSyncTitle} />
+        </Suspense>
         <UsageBanner type="ai" toolSlug="hook-auditor" />
         <LimitReachedModal
           isOpen={!!limitReachedTool}

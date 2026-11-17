@@ -27,6 +27,39 @@ console.log(`[server] Starting on ${process.env.BIND_HOST}:${process.env.PORT}`)
 // Ensure the current working directory is the root of the project
 process.chdir(__dirname);
 
+// Load .env / .env.local without overwriting panel / CLI environment variables.
+// Next.js standalone server does not auto-load .env.local on boot.
+function loadLocalEnvFiles() {
+  const candidates = ['.env', '.env.local'];
+  for (const filename of candidates) {
+    const filePath = path.join(__dirname, filename);
+    if (!fs.existsSync(filePath)) continue;
+    try {
+      const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+        const eqIdx = trimmed.indexOf('=');
+        if (eqIdx <= 0) continue;
+        const key = trimmed.slice(0, eqIdx).trim();
+        if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(key) || key in process.env) continue;
+        let val = trimmed.slice(eqIdx + 1).trim();
+        if (
+          (val.startsWith('"') && val.endsWith('"')) ||
+          (val.startsWith("'") && val.endsWith("'"))
+        ) {
+          val = val.slice(1, -1);
+        }
+        process.env[key] = val;
+      }
+    } catch (err) {
+      console.warn(`[server] Could not load ${filename}:`, err.message);
+    }
+  }
+}
+
+loadLocalEnvFiles();
+
 // ─── Static file directories ───
 // We look in multiple possible locations to be absolutely sure we find them
 const STATIC_PATHS = [

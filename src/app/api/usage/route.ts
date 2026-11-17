@@ -7,7 +7,12 @@ import { enforceRateLimit } from "@/lib/rate-limit";
 // Fetch usage
 export async function GET() {
     try {
-        const session = await auth();
+        let session = null;
+        try {
+            session = await auth();
+        } catch {
+            session = null;
+        }
         // If no user, we can returns null or specific status. 
         // Usage lib handles guest logic, here we only serve logged in users.
         if (!session || !session.user?.email) {
@@ -52,7 +57,12 @@ export async function GET() {
 // Increment usage
 export async function POST(request: Request) {
     try {
-        const session = await auth();
+        let session = null;
+        try {
+            session = await auth();
+        } catch {
+            session = null;
+        }
         if (!session || !session.user?.email) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }

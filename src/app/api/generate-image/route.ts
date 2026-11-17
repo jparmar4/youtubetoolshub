@@ -55,7 +55,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Prompt is too long" }, { status: 413 });
         }
 
-        const session = await auth();
+        let session = null;
+        try {
+            session = await auth();
+        } catch {
+            session = null;
+        }
         const email = session?.user?.email;
         if (!email) {
             return NextResponse.json(
