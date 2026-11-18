@@ -58,6 +58,8 @@ export async function POST(request: Request) {
             "youtube-ab-packaging-studio": "ab-packaging-studio",
             "youtube-hook-auditor": "hook-auditor",
             "youtube-shorts-series-planner": "shorts-series-planner",
+            "youtube-video-summary-generator": "video-summary",
+            "video-summary-generator": "video-summary",
         };
         const tool =
             typeof rawTool === "string"
@@ -301,6 +303,27 @@ export async function POST(request: Request) {
                 const episodeCount = rawCount === 3 || rawCount === 7 ? rawCount : 5;
                 const seriesTone = str(params.tone, "Educational Breakdown");
                 prompt = prompts.shortsSeriesPlanner(topic.trim(), episodeCount, seriesTone);
+                break;
+            }
+
+            case "video-summary": {
+                const videoTitle = str(params.videoTitle) || str(params.title) || topic || "YouTube Video";
+                const channelTitle = str(params.channelTitle) || "YouTube Creator";
+                const transcriptText = str(params.transcriptText) || str(params.transcript) || "";
+                if (!transcriptText.trim() && !videoTitle.trim()) {
+                    return NextResponse.json(
+                        { error: "Provide a YouTube URL or transcript excerpt to summarize." },
+                        { status: 400 },
+                    );
+                }
+                prompt = prompts.videoSummaryGenerator(
+                    videoTitle.trim(),
+                    channelTitle.trim(),
+                    transcriptText.trim() || `Summarize the YouTube video titled "${videoTitle.trim()}".`,
+                    str(params.framework, "executive"),
+                    params.includeTimestamps !== false,
+                    params.includeMetrics !== false,
+                );
                 break;
             }
 

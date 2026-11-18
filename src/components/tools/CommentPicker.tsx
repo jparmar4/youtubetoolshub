@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import PresetPills from "@/components/ui/PresetPills";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSearch, FaSpinner, FaTrophy, FaFilter, FaQuoteLeft } from "react-icons/fa";
@@ -24,11 +25,18 @@ interface Comment {
     likeCount: number;
 }
 
+const COMMENT_PRESETS = [
+    { label: "🏛️ Me at the Zoo (First Video)", url: "https://www.youtube.com/watch?v=jNQXAC9IVRw" },
+    { label: "🎵 Popular Music Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    { label: "🌍 8K Nature HDR", url: "https://www.youtube.com/watch?v=LXb3EKWsInQ" },
+];
+
 export default function CommentPicker() {
     const [url, setUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     // Data
     const [originalComments, setOriginalComments] = useState<Comment[]>([]);
@@ -48,13 +56,14 @@ export default function CommentPicker() {
         };
     }, []);
 
-    const handleLoadComments = async () => {
+    const handleLoadComments = async (overrideUrl?: string) => {
+        const targetUrl = (overrideUrl ?? url).trim();
         setError("");
         setWinner(null);
         setOriginalComments([]);
         setFilteredComments([]);
 
-        if (!url.trim()) {
+        if (!targetUrl) {
             setError("Please enter a video URL");
             return;
         }
@@ -67,7 +76,7 @@ export default function CommentPicker() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ url: url.trim() }),
+                body: JSON.stringify({ url: targetUrl }),
             });
 
             const data = await response.json();
@@ -166,12 +175,20 @@ export default function CommentPicker() {
                 console.error("Failed to save to cloud history:", error);
             }
 
-            // Confetti
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            // Confetti without blob: Web Worker so strict CSP script-src stays clean
+            try {
+                const fireConfetti = confetti.create(undefined, {
+                    resize: true,
+                    useWorker: false,
+                });
+                fireConfetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                });
+            } catch {
+                // Non-fatal in headless environments without canvas
+            }
         }, 800);
     };
 
@@ -184,18 +201,37 @@ export default function CommentPicker() {
             <div className="space-y-8">
                 {/* Input Section */}
                 <div className="max-w-2xl mx-auto space-y-4">
+                    <PresetPills
+                        label="Load sample giveaway video"
+                        options={COMMENT_PRESETS.map((p, idx) => ({
+                            id: `preset-${idx}`,
+                            label: p.label.replace(/^\S+\s/, ""),
+                            icon: p.label.match(/^\S+/)?.[0],
+                        }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            const preset = COMMENT_PRESETS[Number(id.replace("preset-", ""))];
+                            if (!preset) return;
+                            setActivePreset(id);
+                            setUrl(preset.url);
+                            void handleLoadComments(preset.url);
+                        }}
+                    />
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1">
                             <Input
                                 label="Video URL"
                                 placeholder="https://youtube.com/watch?v=..."
                                 value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                onChange={(e) => {
+                                    setUrl(e.target.value);
+                                    setActivePreset(null);
+                                }}
                                 error={error}
                             />
                         </div>
                         <div className="sm:pt-7">
-                            <Button onClick={handleLoadComments} isLoading={fetching} disabled={fetching} className="w-full sm:w-auto">
+                            <Button onClick={() => void handleLoadComments()} isLoading={fetching} disabled={fetching} className="w-full sm:w-auto">
                                 {fetching ? (
                                     <>
                                         <FaSpinner className="mr-2 animate-spin" />

@@ -7,9 +7,11 @@ import { FaChartBar, FaExternalLinkAlt, FaSearch, FaSpinner, FaUsers, FaVideo } 
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import Button from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import PresetPills from "@/components/ui/PresetPills";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import UsageBanner from "@/components/ui/UsageBanner";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 import { useUsage } from "@/hooks/useUsage";
 import YouTubeApiAttribution from "@/components/ui/YouTubeApiAttribution";
 
@@ -36,18 +38,26 @@ function formatNumber(value?: string) {
     return new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(Number(value));
 }
 
+const SUB_CHANNEL_PRESETS = [
+    { label: "📱 @mkbhd", query: "@mkbhd" },
+    { label: "🏆 @MrBeast", query: "@MrBeast" },
+    { label: "🔬 @veritasium", query: "@veritasium" },
+];
+
 export default function SubscriberCountChecker() {
     const [query, setQuery] = useState("");
     const [channel, setChannel] = useState<ChannelDetails | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
 
-    const checkCount = async () => {
+    const checkCount = async (overrideQuery?: string) => {
+        const target = (overrideQuery ?? query).trim();
         setError("");
         setChannel(null);
 
-        if (!query.trim()) {
+        if (!target) {
             setError("Enter a YouTube channel URL, handle, or video URL");
             return;
         }
@@ -59,7 +69,7 @@ export default function SubscriberCountChecker() {
             const response = await fetch("/api/channel-id", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query: query.trim() }),
+                body: JSON.stringify({ query: target }),
             });
             const data = await response.json();
 
@@ -92,19 +102,38 @@ export default function SubscriberCountChecker() {
                 <UsageBanner toolSlug="youtube-subscriber-count-checker" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
-                <div className="max-w-2xl mx-auto">
+                <div className="max-w-2xl mx-auto space-y-4">
+                    <PresetPills
+                        label="Try sample creator channel"
+                        options={SUB_CHANNEL_PRESETS.map((p, idx) => ({
+                            id: `preset-${idx}`,
+                            label: p.label.replace(/^\S+\s/, ""),
+                            icon: p.label.match(/^\S+/)?.[0],
+                        }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            const preset = SUB_CHANNEL_PRESETS[Number(id.replace("preset-", ""))];
+                            if (!preset) return;
+                            setActivePreset(id);
+                            setQuery(preset.query);
+                            void checkCount(preset.query);
+                        }}
+                    />
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1">
                             <Input
                                 label="Channel URL, handle, or video URL"
                                 placeholder="@creator or https://youtube.com/@creator"
                                 value={query}
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={(event) => {
+                                    setQuery(event.target.value);
+                                    setActivePreset(null);
+                                }}
                                 error={error}
                             />
                         </div>
                         <div className="sm:pt-7">
-                            <Button onClick={checkCount} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
+                            <Button onClick={() => void checkCount()} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
                                 {loading ? <FaSpinner className="mr-2 animate-spin" /> : <FaSearch className="mr-2" />}
                                 Check Count
                             </Button>
@@ -150,6 +179,22 @@ export default function SubscriberCountChecker() {
                             <StatCard icon={<FaChartBar />} label="Total Views" value={formatNumber(channel.statistics.viewCount)} />
                             <StatCard icon={<FaChartBar />} label="Avg. Views / Video" value={formatNumber(averageViews)} />
                         </div>
+
+                        <WorkflowBridgeCard
+                            subtitle="Estimate this channel's acquisition valuation or find its viral outlier topics."
+                            actions={[
+                                {
+                                    href: "/tools/youtube-channel-valuation-calculator",
+                                    label: "Calculate Channel Valuation",
+                                    description: "Estimate asset value using 16x-45x monthly profit multiples.",
+                                },
+                                {
+                                    href: `/tools/channel-outlier-scanner?handle=${encodeURIComponent(channel.customUrl || channel.id)}`,
+                                    label: "Scan Channel Outliers",
+                                    description: "Find breakout videos exceeding the channel median baseline.",
+                                },
+                            ]}
+                        />
                     </div>
                 )}
 

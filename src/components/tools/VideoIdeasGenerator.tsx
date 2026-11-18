@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -57,35 +57,33 @@ interface VideoIdea {
     thumbnail_concept: string;
 }
 
-export default function VideoIdeasGenerator() {
-    return (
-        <ToolPageLayout
-            title="Strategic Video Ideas Generator"
-            slug="youtube-video-ideas-generator"
-            description="Get proven video concepts tailored to your channel size and growth goals."
-        >
-            <Suspense
-                fallback={
-                    <div className="min-h-[360px] flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" />
-                    </div>
-                }
-            >
-                <VideoIdeasGeneratorContent />
-            </Suspense>
-        </ToolPageLayout>
-    );
-}
-
-function VideoIdeasGeneratorContent() {
+function VideoIdeasSearchSync({
+    onSyncTopic,
+}: {
+    onSyncTopic: (topic: string) => void;
+}) {
     const searchParams = useSearchParams();
     const urlTopic = searchParams.get("topic") || "";
-    const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
-    const [niche, setNiche] = useState(urlTopic);
-    if (urlTopic && urlTopic !== prevUrlTopic) {
-        setPrevUrlTopic(urlTopic);
-        setNiche(urlTopic);
-    }
+
+    useEffect(() => {
+        if (!urlTopic) return;
+        let cancelled = false;
+        Promise.resolve().then(() => {
+            if (!cancelled) onSyncTopic(urlTopic);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [urlTopic, onSyncTopic]);
+
+    return null;
+}
+
+export default function VideoIdeasGenerator() {
+    const [niche, setNiche] = useState("");
+    const handleSyncTopic = useCallback((nextTopic: string) => {
+        setNiche(nextTopic);
+    }, []);
 
     const [level, setLevel] = useState("beginner");
     const [channelSize, setChannelSize] = useState("starting");
@@ -228,7 +226,15 @@ function VideoIdeasGeneratorContent() {
     const allIdeasText = ideas.map((idea, i) => `${i + 1}. ${idea.title}\nConcept: ${idea.concept}`).join("\n\n");
 
     return (
+        <ToolPageLayout
+            title="Strategic Video Ideas Generator"
+            slug="youtube-video-ideas-generator"
+            description="Get proven video concepts tailored to your channel size and growth goals."
+        >
         <div className="space-y-8">
+                <Suspense fallback={null}>
+                    <VideoIdeasSearchSync onSyncTopic={handleSyncTopic} />
+                </Suspense>
                 <UsageBanner type="ai" toolSlug="youtube-video-ideas-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
@@ -433,5 +439,6 @@ function VideoIdeasGeneratorContent() {
                     </AnimatePresence>
                 </div>
             </div>
+        </ToolPageLayout>
     );
 }

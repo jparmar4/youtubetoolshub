@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 import { FaSearch, FaSpinner, FaIdCard, FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { saveHistory } from "@/lib/history";
@@ -30,17 +32,25 @@ interface ChannelDetails {
     };
 }
 
+const CHANNEL_PRESETS = [
+    { label: "📱 @mkbhd", query: "@mkbhd" },
+    { label: "🏆 @MrBeast", query: "@MrBeast" },
+    { label: "🔬 @veritasium", query: "@veritasium" },
+];
+
 export default function ChannelIdFinder() {
     const [query, setQuery] = useState("");
     const [channelData, setChannelData] = useState<ChannelDetails | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
-    const handleSearch = async () => {
+    const handleSearch = async (overrideQuery?: string) => {
+        const target = (overrideQuery ?? query).trim();
         setError("");
         setChannelData(null);
 
-        if (!query.trim()) {
+        if (!target) {
             setError("Please enter a channel URL or handle");
             return;
         }
@@ -53,7 +63,7 @@ export default function ChannelIdFinder() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ query: query.trim() }),
+                body: JSON.stringify({ query: target }),
             });
 
             const data = await response.json();
@@ -68,7 +78,7 @@ export default function ChannelIdFinder() {
             // Save to Cloud History
             try {
                 await saveHistory('youtube-channel-id-finder', {
-                    query: query.trim(),
+                    query: target,
                     channelTitle: data.title,
                     channelId: data.id,
                     customUrl: data.customUrl
@@ -84,6 +94,11 @@ export default function ChannelIdFinder() {
         }
     };
 
+    const avatarUrl =
+        channelData?.thumbnails?.high?.url ||
+        channelData?.thumbnails?.medium?.url ||
+        channelData?.thumbnails?.default?.url;
+
     const formatNumber = (num: string) => {
         return new Intl.NumberFormat('en-US', { notation: "compact", maximumFractionDigits: 1 }).format(Number(num));
     };
@@ -96,19 +111,38 @@ export default function ChannelIdFinder() {
         >
             <div className="space-y-8">
                 {/* Input Section */}
-                <div className="max-w-2xl mx-auto">
+                <div className="max-w-2xl mx-auto space-y-4">
+                    <PresetPills
+                        label="Try sample creator channel"
+                        options={CHANNEL_PRESETS.map((p, idx) => ({
+                            id: `preset-${idx}`,
+                            label: p.label.replace(/^\S+\s/, ""),
+                            icon: p.label.match(/^\S+/)?.[0],
+                        }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            const preset = CHANNEL_PRESETS[Number(id.replace("preset-", ""))];
+                            if (!preset) return;
+                            setActivePreset(id);
+                            setQuery(preset.query);
+                            void handleSearch(preset.query);
+                        }}
+                    />
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1">
                             <Input
                                 label="Channel URL, Handle (@name), or Video URL"
                                 placeholder="@MrBeast or https://youtube.com/..."
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                onChange={(e) => {
+                                    setQuery(e.target.value);
+                                    setActivePreset(null);
+                                }}
                                 error={error}
                             />
                         </div>
                         <div className="sm:pt-7">
-                            <Button onClick={handleSearch} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
+                            <Button onClick={() => void handleSearch()} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
                                 {loading ? (
                                     <>
                                         <FaSpinner className="mr-2 animate-spin" />
@@ -140,10 +174,11 @@ export default function ChannelIdFinder() {
                         {/* Channel Header Card */}
                         <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
                             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                                {avatarUrl && (
                                 <div className="shrink-0">
                                     <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-md">
                                         <Image
-                                            src={channelData.thumbnails.high.url}
+                                            src={avatarUrl}
                                             alt={`${channelData.title} YouTube Channel profile picture`}
                                             fill
                                             sizes="(max-width: 640px) 96px, 128px"
@@ -151,6 +186,7 @@ export default function ChannelIdFinder() {
                                         />
                                     </div>
                                 </div>
+                                )}
                                 <div className="flex-1 text-center sm:text-left space-y-2">
                                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                                         {channelData.title}
@@ -222,6 +258,22 @@ export default function ChannelIdFinder() {
                                 </p>
                             </div>
                         )}
+
+                        <WorkflowBridgeCard
+                            subtitle="Scan this channel's top breakout videos or benchmark live subscriber counts."
+                            actions={[
+                                {
+                                    href: `/tools/channel-outlier-scanner?handle=${encodeURIComponent(channelData.customUrl || channelData.id)}`,
+                                    label: "Scan Breakout Outliers",
+                                    description: "Find this channel's 2x-10x outlier videos vs its median views.",
+                                },
+                                {
+                                    href: "/tools/youtube-subscriber-count-checker",
+                                    label: "Check Live Sub Benchmarks",
+                                    description: "Inspect total views, uploads, and per-video averages.",
+                                },
+                            ]}
+                        />
                     </div>
                 )}
 

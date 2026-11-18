@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -82,15 +82,33 @@ function TagSection({
     );
 }
 
-export default function TagGenerator() {
+function TagGeneratorSearchSync({
+    onSyncTopic,
+}: {
+    onSyncTopic: (topic: string) => void;
+}) {
     const searchParams = useSearchParams();
     const urlTopic = searchParams.get("topic") || "";
-    const [prevUrlTopic, setPrevUrlTopic] = useState(urlTopic);
-    const [topic, setTopic] = useState(urlTopic);
-    if (urlTopic && urlTopic !== prevUrlTopic) {
-        setPrevUrlTopic(urlTopic);
-        setTopic(urlTopic);
-    }
+
+    useEffect(() => {
+        if (!urlTopic) return;
+        let cancelled = false;
+        Promise.resolve().then(() => {
+            if (!cancelled) onSyncTopic(urlTopic);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [urlTopic, onSyncTopic]);
+
+    return null;
+}
+
+export default function TagGenerator() {
+    const [topic, setTopic] = useState("");
+    const handleSyncTopic = useCallback((nextTopic: string) => {
+        setTopic(nextTopic);
+    }, []);
 
     const [niche, setNiche] = useState("");
     const [tags, setTags] = useState<TagResult>({});
@@ -218,6 +236,9 @@ export default function TagGenerator() {
             description="Generate SEO-optimized, trending tags that help your videos rank"
         >
             <div className="space-y-6">
+                <Suspense fallback={null}>
+                    <TagGeneratorSearchSync onSyncTopic={handleSyncTopic} />
+                </Suspense>
                 <UsageBanner type="ai" toolSlug="youtube-tag-generator" />
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 

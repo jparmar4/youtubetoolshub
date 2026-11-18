@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { Suspense, useCallback, useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import ShareResultCardButton from "@/components/tools/ShareResultCardButton";
@@ -63,26 +63,38 @@ const MILESTONES: MilestoneGoal[] = [
   },
 ];
 
-export default function MilestoneCountdownCalculator() {
+function MilestoneSearchSync({
+  onSync,
+}: {
+  onSync: (subs: string, growth: string) => void;
+}) {
   const searchParams = useSearchParams();
   const subsParam = searchParams.get("subs") || "";
   const growthParam = searchParams.get("growth") || "";
 
-  const [prevSubsParam, setPrevSubsParam] = useState(subsParam);
-  const [prevGrowthParam, setPrevGrowthParam] = useState(growthParam);
+  useEffect(() => {
+    if (!subsParam && !growthParam) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) onSync(subsParam, growthParam);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [subsParam, growthParam, onSync]);
 
-  const [currentSubs, setCurrentSubs] = useState(subsParam || "18500");
-  const [monthlyGrowth, setMonthlyGrowth] = useState(growthParam || "1200");
+  return null;
+}
+
+export default function MilestoneCountdownCalculator() {
+  const [currentSubs, setCurrentSubs] = useState("18500");
+  const [monthlyGrowth, setMonthlyGrowth] = useState("1200");
   const [copied, setCopied] = useState(false);
 
-  if (subsParam && subsParam !== prevSubsParam) {
-    setPrevSubsParam(subsParam);
-    setCurrentSubs(subsParam);
-  }
-  if (growthParam && growthParam !== prevGrowthParam) {
-    setPrevGrowthParam(growthParam);
-    setMonthlyGrowth(growthParam);
-  }
+  const handleSyncParams = useCallback((subsParam: string, growthParam: string) => {
+    if (subsParam) setCurrentSubs(subsParam);
+    if (growthParam) setMonthlyGrowth(growthParam);
+  }, []);
 
   const calculations = useMemo(() => {
     const subs = parseCalculatorInput(currentSubs);
@@ -245,6 +257,9 @@ Calculated via YouTube Tools Hub: https://www.youtubetoolshub.com/tools/youtube-
       description="Track your subscriber growth velocity and project the exact dates you will unlock YPP Monetization (1K), Silver Creator Award (100K), and Gold Play Button (1M)."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <MilestoneSearchSync onSync={handleSyncParams} />
+        </Suspense>
         {!calculations && (
           <p role="status" className="text-sm text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-200">
             Enter positive numbers for your subscriber count and monthly subscriber gain.

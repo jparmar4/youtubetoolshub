@@ -1168,5 +1168,36 @@ Return ONLY valid JSON matching this exact schema (no markdown fences):
       "cliffhangerBridge": "..."
     }
   ]
-}`
+}`,
+
+    videoSummaryGenerator: (
+        videoTitle: string,
+        channelTitle: string,
+        transcriptText: string,
+        framework: string = "executive",
+        includeTimestamps: boolean = true,
+        includeMetrics: boolean = true,
+    ) => `
+# Task: YouTube Video Summary & Content Repurposing Synthesis
+
+## Video Context
+- **Video Title**: "${videoTitle}"
+- **Channel**: "${channelTitle}"
+- **Requested Framework**: ${framework}
+- **Include Timestamps**: ${includeTimestamps ? "Yes" : "No"}
+- **Highlight Numbers & Metrics**: ${includeMetrics ? "Yes" : "No"}
+
+## Source Content / Transcript Excerpt
+"""
+${transcriptText.slice(0, 6000)}
+"""
+
+## Instructions
+Generate a crisp, structured, creator-ready output in clean Markdown following the selected framework (${framework}):
+- \`executive\`: Core Thesis (2 sentences), 5 Key Takeaways, ${includeMetrics ? "Key Figures & Benchmarks, " : ""}and 3 Actionable Next Steps.
+- \`study\`: Module Overview, ${includeTimestamps ? "Chronological Study Notes with timestamps, " : "Concept Breakdown, "}Key Terminology Glossary, and 3 Review Questions with answers.
+- \`seo-article\`: Compelling H1/H2 Article Draft (approx. 500-700 words) with clear subheadings and takeaway bullets grounded in the video.
+- \`shorts-script\`: 60-second vertical Shorts script adapted from the sharpest insight with [Visual Direction], Hook (0:00-0:03), Turn (0:04-0:15), Value Beats (0:16-0:45), and Loop CTA.
+
+Strictly stay grounded in the provided video context and transcript—do not invent unrelated facts.`,
 };

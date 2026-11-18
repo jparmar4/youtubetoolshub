@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import PresetPills from "@/components/ui/PresetPills";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
 import { FaSpinner, FaListUl, FaPlayCircle, FaForward } from "react-icons/fa";
@@ -22,17 +23,25 @@ interface PlaylistResult {
     averageSeconds: number;
 }
 
+const PLAYLIST_PRESETS = [
+    { label: "⚛️ Net Ninja React", url: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d" },
+    { label: "🚀 Traversy JS", url: "https://www.youtube.com/playlist?list=PLillGF-RfqbY3c2r0htQyVbDJJoBFE6Rb" },
+    { label: "🎵 Top YouTube Tracks", url: "https://www.youtube.com/playlist?list=PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI" },
+];
+
 export default function PlaylistLengthCalculator() {
     const [query, setQuery] = useState("");
     const [result, setResult] = useState<PlaylistResult | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
-    const handleCalculate = async () => {
+    const handleCalculate = async (overrideQuery?: string) => {
+        const target = (overrideQuery ?? query).trim();
         setError("");
         setResult(null);
 
-        if (!query.trim()) {
+        if (!target) {
             setError("Please enter a playlist URL");
             return;
         }
@@ -45,7 +54,7 @@ export default function PlaylistLengthCalculator() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ query: query.trim() }),
+                body: JSON.stringify({ query: target }),
             });
 
             const data = await response.json();
@@ -60,7 +69,7 @@ export default function PlaylistLengthCalculator() {
             // Save to Cloud History
             try {
                 await saveHistory('youtube-playlist-length-calculator', {
-                    query: query.trim(),
+                    query: target,
                     playlistTitle: data.playlistInfo.title,
                     videoCount: data.videoCount,
                     totalSeconds: data.totalSeconds
@@ -110,19 +119,38 @@ export default function PlaylistLengthCalculator() {
         >
             <div className="space-y-8">
                 {/* Input Section */}
-                <div className="max-w-2xl mx-auto">
+                <div className="max-w-2xl mx-auto space-y-4">
+                    <PresetPills
+                        label="Try sample YouTube playlist"
+                        options={PLAYLIST_PRESETS.map((p, idx) => ({
+                            id: `preset-${idx}`,
+                            label: p.label.replace(/^\S+\s/, ""),
+                            icon: p.label.match(/^\S+/)?.[0],
+                        }))}
+                        activeId={activePreset}
+                        onSelect={(id) => {
+                            const preset = PLAYLIST_PRESETS[Number(id.replace("preset-", ""))];
+                            if (!preset) return;
+                            setActivePreset(id);
+                            setQuery(preset.url);
+                            void handleCalculate(preset.url);
+                        }}
+                    />
                     <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1">
                             <Input
                                 label="Playlist URL"
                                 placeholder="https://youtube.com/playlist?list=..."
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
+                                onChange={(e) => {
+                                    setQuery(e.target.value);
+                                    setActivePreset(null);
+                                }}
                                 error={error}
                             />
                         </div>
                         <div className="sm:pt-7">
-                            <Button onClick={handleCalculate} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
+                            <Button onClick={() => void handleCalculate()} isLoading={loading} disabled={loading} className="w-full sm:w-auto">
                                 {loading ? (
                                     <>
                                         <FaSpinner className="mr-2 animate-spin" />

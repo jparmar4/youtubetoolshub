@@ -292,7 +292,8 @@ export default async function middleware(request: NextRequest) {
     return new NextResponse("Forbidden", { status: 403 });
   }
 
-  // 1b. Empty user agents are almost always scripted — allow only a trickle.
+  // 1b. Empty user agents are almost always scripted — allow only a trickle,
+  // then still continue through canonical & locale redirects below.
   // Skip internal image-optimizer & static binary fetches so pages with many
   // icons (e.g. /tools directory) never self-throttle on loopback.
   if (!skipMitigation && !isStaticAssetPath && !isPublicDiscoveryApi && !userAgent) {
@@ -302,13 +303,7 @@ export default async function middleware(request: NextRequest) {
         headers: { "Retry-After": "60" },
       });
     }
-    return withOptionalNoIndex(NextResponse.next(), pathname);
-  }
-
-  // 1c. Per-IP fixed-window rate limits.
-  // Verified search, AdSense, Discover, and AI crawlers bypass rate limits on
-  // all HTML pages and public read-only discovery APIs.
-  if (
+  } else if (
     !skipMitigation &&
     !isStaticAssetPath &&
     (!isSearchBot(userAgent) || (isApiPath && !isPublicDiscoveryApi))
@@ -351,7 +346,7 @@ export default async function middleware(request: NextRequest) {
   // Global strategy (2026-09-29): single English canonical + hreflang en-US/GB/IN/AU/CA
   // + 54 country calculator pages. Only remove a locale from this list when a fully
   // translated page tree exists for it — otherwise it creates thin duplicates.
-  const legacyLocales = ["en", "es", "hi", "pt"];
+  const legacyLocales = ["en", "es", "hi", "pt", "de", "fr", "it", "nl", "pl", "ru", "ja", "ko", "ar", "id", "tr", "vi", "th", "zh"];
   for (const locale of legacyLocales) {
     if (pathname === `/${locale}` || pathname === `/${locale}/`) {
       // Fixed origin — never derive Location from the request Host header.

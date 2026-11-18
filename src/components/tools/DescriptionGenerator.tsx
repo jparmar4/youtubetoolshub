@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import { Input, Textarea } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
@@ -68,23 +68,33 @@ const descriptionPresets = [
     },
 ];
 
-export default function DescriptionGenerator() {
-    return (
-        <ToolPageLayout
-            title="Optimized Description Generator"
-            slug="youtube-description-generator"
-            description="Create SEO-ready, human-sounding descriptions that get clicks."
-        >
-            <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
-                <DescriptionGeneratorContent />
-            </Suspense>
-        </ToolPageLayout>
-    );
+function DescriptionSearchSync({
+    onSyncTopic,
+}: {
+    onSyncTopic: (topic: string) => void;
+}) {
+    const searchParams = useSearchParams();
+    const urlTopic = searchParams.get("topic") || "";
+
+    useEffect(() => {
+        if (!urlTopic) return;
+        let cancelled = false;
+        Promise.resolve().then(() => {
+            if (!cancelled) onSyncTopic(urlTopic);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [urlTopic, onSyncTopic]);
+
+    return null;
 }
 
-function DescriptionGeneratorContent() {
-    const searchParams = useSearchParams();
-    const [topic, setTopic] = useState(searchParams.get("topic") || "");
+export default function DescriptionGenerator() {
+    const [topic, setTopic] = useState("");
+    const handleSyncTopic = useCallback((nextTopic: string) => {
+        setTopic(nextTopic);
+    }, []);
     const [videoType, setVideoType] = useState("tutorial");
     const [tone, setTone] = useState("casual");
     const [keywords, setKeywords] = useState("");
@@ -163,7 +173,15 @@ function DescriptionGeneratorContent() {
     };
 
     return (
+        <ToolPageLayout
+            title="Optimized Description Generator"
+            slug="youtube-description-generator"
+            description="Create SEO-ready, human-sounding descriptions that get clicks."
+        >
         <div className="space-y-8">
+            <Suspense fallback={null}>
+                <DescriptionSearchSync onSyncTopic={handleSyncTopic} />
+            </Suspense>
             <UsageBanner type="ai" toolSlug="youtube-description-generator" />
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
@@ -354,6 +372,7 @@ function DescriptionGeneratorContent() {
                 </div>
             )}
         </div>
+        </ToolPageLayout>
     );
 }
 

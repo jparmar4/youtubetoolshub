@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useCallback, useEffect, Suspense } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Select from "@/components/ui/Select";
@@ -88,23 +88,33 @@ const quickPromptTemplates = [
     },
 ];
 
-export default function AIThumbnailPromptGenerator() {
-    return (
-        <ToolPageLayout
-            title="AI Thumbnail Prompt Generator"
-            slug="youtube-ai-thumbnail-prompt"
-            description="Generate optimized prompts for AI thumbnail creation - works with any AI image generator"
-        >
-            <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center" role="status" aria-live="polite"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500" /></div>}>
-                <AIThumbnailPromptGeneratorContent />
-            </Suspense>
-        </ToolPageLayout>
-    );
+function ThumbnailPromptSearchSync({
+    onSyncTopic,
+}: {
+    onSyncTopic: (topic: string) => void;
+}) {
+    const searchParams = useSearchParams();
+    const urlTopic = searchParams.get("topic") || "";
+
+    useEffect(() => {
+        if (!urlTopic) return;
+        let cancelled = false;
+        Promise.resolve().then(() => {
+            if (!cancelled) onSyncTopic(urlTopic);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [urlTopic, onSyncTopic]);
+
+    return null;
 }
 
-function AIThumbnailPromptGeneratorContent() {
-    const searchParams = useSearchParams();
-    const [videoTopic, setVideoTopic] = useState(searchParams.get("topic") || "");
+export default function AIThumbnailPromptGenerator() {
+    const [videoTopic, setVideoTopic] = useState("");
+    const handleSyncTopic = useCallback((nextTopic: string) => {
+        setVideoTopic(nextTopic);
+    }, []);
     const [niche, setNiche] = useState("tech");
     const [subject, setSubject] = useState("person-reaction");
     const [mood, setMood] = useState("excited");
@@ -196,7 +206,15 @@ function AIThumbnailPromptGeneratorContent() {
     };
 
     return (
+        <ToolPageLayout
+            title="AI Thumbnail Prompt Generator"
+            slug="youtube-ai-thumbnail-prompt"
+            description="Generate optimized prompts for AI thumbnail creation - works with any AI image generator"
+        >
         <div className="space-y-8">
+            <Suspense fallback={null}>
+                <ThumbnailPromptSearchSync onSyncTopic={handleSyncTopic} />
+            </Suspense>
             <UsageBanner type="ai" toolSlug="youtube-ai-thumbnail-prompt" />
             <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
@@ -382,5 +400,6 @@ function AIThumbnailPromptGeneratorContent() {
                 />
             )}
         </div>
+        </ToolPageLayout>
     );
 }

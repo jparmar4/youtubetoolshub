@@ -52,6 +52,7 @@ export const TOOL_LIMITS: Record<string, ToolLimit> = {
     'youtube-loudness-checker': { free: Infinity, pro: Infinity },
     'shorts-series-planner': { free: 2, pro: Infinity },
     'creator-partnership-boost-calculator': { free: Infinity, pro: Infinity },
+    'youtube-video-summary-generator': { free: 2, pro: Infinity },
 };
 
 export const DEFAULT_LIMIT: ToolLimit = { free: 2, pro: Infinity };

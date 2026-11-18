@@ -130,7 +130,7 @@ export default function AIThumbnailGenerator() {
             document.body.removeChild(a);
         } catch (error) {
             console.error("Download error:", error);
-            alert("Failed to download. Please try again.");
+            setError("Failed to download image. Please try again.");
         }
     };
     // ... (existing functions)

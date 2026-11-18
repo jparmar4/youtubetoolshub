@@ -1,8 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
-import { Input } from "@/components/ui/Input";
+import { Input, Textarea } from "@/components/ui/Input";
+import Button from "@/components/ui/Button";
+import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
+import ErrorNotice from "@/components/ui/ErrorNotice";
+import UsageBanner from "@/components/ui/UsageBanner";
+import LimitReachedModal from "@/components/ui/LimitReachedModal";
+import SaveToVideoPackButton from "@/components/video-pack/SaveToVideoPackButton";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
+import { useUsage } from "@/hooks/useUsage";
+import { useVideoPack } from "@/context/VideoPackContext";
+import { saveHistory } from "@/lib/history";
+import { extractVideoId } from "@/lib/utils";
 import Link from "next/link";
 import {
   FaMagic,
@@ -14,16 +27,65 @@ import {
   FaMobileAlt,
   FaExternalLinkAlt,
   FaRobot,
-  FaShieldAlt } from "react-icons/fa";
+  FaShieldAlt,
+  FaChevronDown,
+} from "react-icons/fa";
 
 type FrameworkType = "executive" | "study" | "seo-article" | "shorts-script";
 
+const SUMMARY_PRESETS = [
+  { label: "🎬 Tech Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+  { label: "🌍 Nature 8K HDR", url: "https://www.youtube.com/watch?v=LXb3EKWsInQ" },
+  { label: "⚡ Dev Demo", url: "https://www.youtube.com/watch?v=M7lc1UVf-VE" },
+];
+
+function VideoSummarySearchSync({
+  onSyncUrl,
+}: {
+  onSyncUrl: (nextUrl: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  const vParam = searchParams.get("v") || searchParams.get("url") || "";
+
+  useEffect(() => {
+    if (!vParam) return;
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) {
+        const normalized = /^[A-Za-z0-9_-]{11}$/.test(vParam.trim())
+          ? `https://www.youtube.com/watch?v=${vParam.trim()}`
+          : vParam.trim();
+        onSyncUrl(normalized);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [vParam, onSyncUrl]);
+
+  return null;
+}
+
 export default function VideoSummaryGenerator() {
   const [videoUrl, setVideoUrl] = useState<string>("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+  const [customTranscript, setCustomTranscript] = useState<string>("");
   const [activeFramework, setActiveFramework] = useState<FrameworkType>("executive");
   const [includeTimestamps, setIncludeTimestamps] = useState<boolean>(true);
   const [includeMetrics, setIncludeMetrics] = useState<boolean>(true);
+  const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [showCustomTranscript, setShowCustomTranscript] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [generatedSummary, setGeneratedSummary] = useState<string>("");
+  const [resolvedMeta, setResolvedMeta] = useState<{ title: string; channel: string } | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
+
+  const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
+  const { pack, updatePack } = useVideoPack();
+
+  const handleSyncUrl = useCallback((nextUrl: string) => {
+    setVideoUrl(nextUrl);
+  }, []);
 
   const getTemplatePrompt = (framework: FrameworkType): string => {
     switch (framework) {
@@ -81,6 +143,94 @@ TRANSCRIPT:
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const handleGenerateSummary = async () => {
+    setError("");
+    const videoId = extractVideoId(videoUrl);
+    if (!customTranscript.trim() && !videoId) {
+      setError("Enter a valid YouTube URL (or paste custom transcript text below) to generate a summary.");
+      return;
+    }
+
+    if (!checkLimit("youtube-video-summary-generator")) {
+      return;
+    }
+
+    setLoading(true);
+    setGeneratedSummary("");
+
+    try {
+      let videoTitle = "YouTube Video";
+      let channelTitle = "YouTube Creator";
+      let transcriptText = customTranscript.trim();
+
+      if (!transcriptText && videoId) {
+        const txResp = await fetch("/api/transcript", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: videoUrl.trim(), videoId }),
+        });
+        const txData = await txResp.json();
+        if (!txResp.ok || txData.error) {
+          setError(txData.error || "Could not load metadata/transcript for this YouTube video.");
+          return;
+        }
+        videoTitle = txData.title || videoTitle;
+        channelTitle = txData.channel || channelTitle;
+        transcriptText = Array.isArray(txData.lines)
+          ? txData.lines
+              .map((l: { start?: string; text?: string }) => `[${l.start || "0:00"}] ${l.text || ""}`)
+              .join("\n")
+          : "";
+      }
+
+      setResolvedMeta({ title: videoTitle, channel: channelTitle });
+
+      const genResp = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tool: "video-summary",
+          videoTitle,
+          channelTitle,
+          transcriptText,
+          framework: activeFramework,
+          includeTimestamps,
+          includeMetrics,
+        }),
+      });
+
+      const genData = await genResp.json();
+      if (!genResp.ok || genData.error) {
+        setError(genData.error || "Failed to generate AI video summary.");
+        return;
+      }
+
+      const summaryText = typeof genData.result === "string" ? genData.result.trim() : "";
+      if (!summaryText) {
+        setError("AI returned an empty summary. Please try again.");
+        return;
+      }
+
+      setGeneratedSummary(summaryText);
+      increment("youtube-video-summary-generator");
+
+      try {
+        await saveHistory("youtube-video-summary-generator", {
+          videoUrl: videoUrl.trim(),
+          videoTitle,
+          framework: activeFramework,
+          summaryPreview: summaryText.slice(0, 200),
+        });
+      } catch {
+        // non-fatal
+      }
+    } catch {
+      setError("Network error while generating video summary. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <ToolPageLayout
       title="YouTube Video Summary Generator (Free AI Notes & Scripts 2026)"
@@ -88,18 +238,28 @@ TRANSCRIPT:
       description="Summarize any YouTube video into executive notes, study guides, SEO articles, and viral Shorts scripts with AI for free."
     >
       <div className="space-y-8">
+        <Suspense fallback={null}>
+          <VideoSummarySearchSync onSyncUrl={handleSyncUrl} />
+        </Suspense>
+        <UsageBanner type="ai" toolSlug="youtube-video-summary-generator" />
+        <LimitReachedModal
+          isOpen={!!limitReachedTool}
+          onClose={closeLimitModal}
+          toolSlug={limitReachedTool}
+        />
+
         {/* Header Alert */}
         <div className="rounded-2xl border border-purple-200/80 bg-gradient-to-r from-purple-50/80 via-white to-indigo-50/60 p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-xs font-black text-purple-700">
-                <FaMagic /> Zero-Hallucination AI Framework
+                <FaMagic /> Instant AI Summary &amp; Repurposing Engine
               </span>
               <h2 className="mt-2 text-xl sm:text-2xl font-black text-slate-900">
-                YouTube Video Summary & Content Repurposing Generator
+                YouTube Video Summary &amp; Content Repurposing Generator
               </h2>
               <p className="mt-1 text-sm text-slate-600">
-                Turn any long-form video, lecture, or podcast into structured executive summaries, blog posts, and scripts without paying $20/month for browser extensions.
+                Generate structured executive briefs, study guides, SEO articles, and viral Shorts scripts from any YouTube URL or pasted transcript.
               </p>
             </div>
             <Link
@@ -111,8 +271,24 @@ TRANSCRIPT:
           </div>
         </div>
 
-        {/* Step 1: Video Input & Transcript Connection */}
+        {/* Step 1: Video Input & Sample Presets */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+          <PresetPills
+            label="Load sample video"
+            options={SUMMARY_PRESETS.map((p, idx) => ({
+              id: `preset-${idx}`,
+              label: p.label.replace(/^\S+\s/, ""),
+              icon: p.label.match(/^\S+/)?.[0],
+            }))}
+            activeId={activePreset}
+            onSelect={(id) => {
+              const p = SUMMARY_PRESETS[Number(id.replace("preset-", ""))];
+              if (!p) return;
+              setActivePreset(id);
+              setVideoUrl(p.url);
+            }}
+          />
+
           <label className="block text-sm font-bold text-slate-800">
             Step 1: Enter Target YouTube Video URL
           </label>
@@ -120,20 +296,48 @@ TRANSCRIPT:
             <Input
               type="text"
               value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
+              onChange={(e) => {
+                setVideoUrl(e.target.value);
+                setActivePreset(null);
+              }}
               placeholder="https://www.youtube.com/watch?v=..."
               className="flex-1 text-base font-semibold"
             />
             <Link
               href="/tools/youtube-transcript-downloader"
-              className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm shrink-0"
+              className="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all shrink-0"
             >
-              <FaFileAlt /> Extract Clean Transcript Free
+              <FaFileAlt /> Extract Full Transcript First
             </Link>
           </div>
-          <p className="text-xs text-slate-600">
-            <strong>Why extract transcript first?</strong> Feeding verbatim transcripts into your AI eliminates 99% of hallucinations and phantom quotes caused by generic &quot;browse URL&quot; bots.
-          </p>
+
+          <div>
+            <button
+              type="button"
+              onClick={() => setShowCustomTranscript((prev) => !prev)}
+              className="cursor-pointer inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 hover:text-purple-800"
+            >
+              <FaChevronDown
+                className={`w-3 h-3 transition-transform ${showCustomTranscript ? "rotate-180" : ""}`}
+              />
+              <span>
+                {showCustomTranscript
+                  ? "Hide optional custom transcript / notes"
+                  : "Optional: Paste custom transcript or notes instead of fetching URL"}
+              </span>
+            </button>
+            {showCustomTranscript && (
+              <div className="mt-3">
+                <Textarea
+                  label="Custom Transcript / Notes (Optional)"
+                  value={customTranscript}
+                  onChange={(e) => setCustomTranscript(e.target.value)}
+                  placeholder="Paste extracted transcript lines or bullet notes here..."
+                  className="min-h-[120px]"
+                />
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Step 2: Choose Synthesis Framework */}
@@ -226,30 +430,102 @@ TRANSCRIPT:
               Extract Numbers &amp; Financial Metrics
             </label>
             <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1 ml-auto">
-              <FaShieldAlt /> Anti-Hallucination Grounding Locked
+              <FaShieldAlt /> Grounded Transcript Synthesis
             </span>
           </div>
 
-          {/* Generated Prompt Codebox */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
-                <FaRobot className="text-purple-500" /> Ready-to-Execute Grounded Prompt
-              </span>
-              <button
-                type="button"
-                onClick={handleCopyPrompt}
-                className="cursor-pointer px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
-              >
-                {copied ? <FaCheckCircle /> : <FaCopy />}
-                {copied ? "Prompt Copied!" : "Copy Full Prompt"}
-              </button>
+          <Button
+            type="button"
+            variant="cta"
+            isLoading={loading}
+            onClick={() => void handleGenerateSummary()}
+            className="w-full py-4 text-base sm:text-lg"
+          >
+            <FaMagic className="mr-2" />
+            {loading ? "Analyzing & Summarizing Video..." : "Generate AI Video Summary"}
+          </Button>
+
+          {error && (
+            <ErrorNotice message={error} onRetry={() => void handleGenerateSummary()} />
+          )}
+
+          {/* Generated AI Summary Output */}
+          {generatedSummary && (
+            <div className="rounded-2xl border-2 border-purple-200 bg-purple-50/40 p-5 sm:p-6 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-purple-200/70 pb-3">
+                <div className="min-w-0">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-purple-700 block">
+                    AI Summary Output · {activeFramework.replace("-", " ")}
+                  </span>
+                  {resolvedMeta && (
+                    <h3 className="text-base font-black text-slate-900 truncate">
+                      {resolvedMeta.title} ({resolvedMeta.channel})
+                    </h3>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-2 shrink-0">
+                  <SaveToVideoPackButton
+                    compact
+                    toastMessage="Video summary saved to Active Video Pack!"
+                    isAlreadySaved={pack.notes.includes(generatedSummary.slice(0, 80))}
+                    onSave={() =>
+                      updatePack({
+                        topic: resolvedMeta?.title || pack.topic,
+                        notes: [pack.notes, `[Video Summary]\n${generatedSummary}`]
+                          .filter(Boolean)
+                          .join("\n\n"),
+                      })
+                    }
+                  />
+                  <CopyButton text={generatedSummary} variant="button" label="Copy Summary" />
+                </div>
+              </div>
+              <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-5 text-sm text-slate-800 whitespace-pre-wrap leading-relaxed max-h-[520px] overflow-y-auto">
+                {generatedSummary}
+              </div>
             </div>
-            <pre className="bg-slate-900 text-slate-200 p-4 rounded-xl text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap max-h-72">
-              {getTemplatePrompt(activeFramework)}
-            </pre>
-          </div>
+          )}
+
+          {/* Generated Prompt Codebox (Collapsible Secondary Tool) */}
+          <details className="pt-2 border-t border-slate-100">
+            <summary className="cursor-pointer text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5 select-none">
+              <FaRobot className="text-purple-500" /> View / Copy Raw Prompt Template for External LLMs
+            </summary>
+            <div className="mt-3 space-y-2">
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleCopyPrompt}
+                  className="cursor-pointer px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
+                >
+                  {copied ? <FaCheckCircle /> : <FaCopy />}
+                  {copied ? "Prompt Copied!" : "Copy Full Prompt"}
+                </button>
+              </div>
+              <pre className="bg-slate-900 text-slate-200 p-4 rounded-xl text-xs font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap max-h-72">
+                {getTemplatePrompt(activeFramework)}
+              </pre>
+            </div>
+          </details>
         </div>
+
+        {generatedSummary && (
+          <WorkflowBridgeCard
+            subtitle="Turn your synthesized insights into high-CTR YouTube titles or an episodic Shorts mini-series."
+            actions={[
+              {
+                href: `/tools/youtube-title-generator?topic=${encodeURIComponent(resolvedMeta?.title || "")}`,
+                label: "Generate High-CTR Titles",
+                description: "Create 10 scored title concepts tailored to this topic.",
+              },
+              {
+                href: `/tools/shorts-series-planner?topic=${encodeURIComponent(resolvedMeta?.title || "")}`,
+                label: "Plan Multi-Part Shorts Series",
+                description: "Split key lessons into connected Watch Series Shorts episodes.",
+              },
+            ]}
+          />
+        )}
 
         {/* Repurposing Cross-Links */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

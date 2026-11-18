@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
+import PresetPills from "@/components/ui/PresetPills";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
 import ToolPageLayout from "@/components/tools/ToolPageLayout";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 import LimitReachedModal from "@/components/ui/LimitReachedModal";
 import { useUsage } from "@/hooks/useUsage";
 import { useExport } from "@/hooks/useExport";
@@ -24,6 +26,12 @@ interface VideoInfo {
 
 
 
+const TAG_EXTRACT_PRESETS = [
+    { label: "🎵 Popular Music Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    { label: "🌍 8K Nature Video", url: "https://www.youtube.com/watch?v=LXb3EKWsInQ" },
+    { label: "⚡ YouTube Dev Demo", url: "https://www.youtube.com/watch?v=M7lc1UVf-VE" },
+];
+
 export default function TagExtractor() {
     const [url, setUrl] = useState("");
     const [tags, setTags] = useState<string[]>([]);
@@ -32,18 +40,20 @@ export default function TagExtractor() {
     const [error, setError] = useState("");
     const [noTagsFound, setNoTagsFound] = useState(false);
     const [isDemo, setIsDemo] = useState(false);
+    const [activePreset, setActivePreset] = useState<string | null>(null);
 
     const { checkLimit, increment, limitReachedTool, closeLimitModal } = useUsage();
     const { downloadText, downloadCsv } = useExport();
 
-    const handleExtract = async () => {
+    const handleExtract = async (overrideUrl?: string) => {
+        const targetUrl = (overrideUrl ?? url).trim();
         setError("");
         setTags([]);
         setVideoInfo(null);
         setNoTagsFound(false);
         setIsDemo(false);
 
-        const videoId = extractVideoId(url);
+        const videoId = extractVideoId(targetUrl);
         if (!videoId) {
             setError(
                 "Please enter a valid YouTube URL (watch, Shorts, youtu.be, or video ID)",
@@ -61,7 +71,7 @@ export default function TagExtractor() {
             const response = await fetch("/api/extract-tags", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ videoUrl: url, videoId }),
+                body: JSON.stringify({ videoUrl: targetUrl, videoId }),
             });
 
             const data = await response.json();
@@ -142,18 +152,37 @@ export default function TagExtractor() {
                 <LimitReachedModal isOpen={!!limitReachedTool} onClose={closeLimitModal} toolSlug={limitReachedTool} />
 
                 {/* Input Section */}
+                <PresetPills
+                    label="Try sample YouTube video"
+                    options={TAG_EXTRACT_PRESETS.map((p, idx) => ({
+                        id: `preset-${idx}`,
+                        label: p.label.replace(/^\S+\s/, ""),
+                        icon: p.label.match(/^\S+/)?.[0],
+                    }))}
+                    activeId={activePreset}
+                    onSelect={(id) => {
+                        const preset = TAG_EXTRACT_PRESETS[Number(id.replace("preset-", ""))];
+                        if (!preset) return;
+                        setActivePreset(id);
+                        setUrl(preset.url);
+                        void handleExtract(preset.url);
+                    }}
+                />
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
                         <Input
                             label="YouTube Video URL"
                             placeholder="https://www.youtube.com/watch?v=..."
                             value={url}
-                            onChange={(e) => setUrl(e.target.value)}
+                            onChange={(e) => {
+                                setUrl(e.target.value);
+                                setActivePreset(null);
+                            }}
                             error={error && !isDemo ? error : undefined}
                         />
                     </div>
                     <div className="sm:pt-7">
-                        <Button onClick={handleExtract} isLoading={loading} disabled={loading}>
+                        <Button onClick={() => void handleExtract()} isLoading={loading} disabled={loading}>
                             {loading ? (
                                 <>
                                     <FaSpinner className="mr-2 animate-spin" />
@@ -313,6 +342,22 @@ export default function TagExtractor() {
                                 <li>• <strong>Scale With AI</strong>: Use our <Link href="/tools/youtube-tag-generator" className="underline font-semibold text-purple-600">Tag Generator</Link> to generate fresh 500-character sets.</li>
                             </ul>
                         </div>
+
+                        <WorkflowBridgeCard
+                            subtitle="Generate custom 500-character tags or test click-worthy titles for this video topic."
+                            actions={[
+                                {
+                                    href: `/tools/youtube-tag-generator?topic=${encodeURIComponent(videoInfo?.videoTitle || tags[0] || "")}`,
+                                    label: "Generate Custom Tags",
+                                    description: "Create categorized primary, search, and broad tags around this topic.",
+                                },
+                                {
+                                    href: `/tools/youtube-title-generator?topic=${encodeURIComponent(videoInfo?.videoTitle || tags[0] || "")}`,
+                                    label: "Craft High-CTR Titles",
+                                    description: "Turn these target keywords into 10 scored YouTube title angles.",
+                                },
+                            ]}
+                        />
                     </div>
                 )}
 

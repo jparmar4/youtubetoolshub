@@ -5,7 +5,9 @@ import { Input } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import CopyButton from "@/components/ui/CopyButton";
 import ErrorNotice from "@/components/ui/ErrorNotice";
+import PresetPills from "@/components/ui/PresetPills";
 import ToolEmptyState from "@/components/ui/ToolEmptyState";
+import WorkflowBridgeCard from "@/components/tools/WorkflowBridgeCard";
 import { useExport } from "@/hooks/useExport";
 import { extractVideoId } from "@/lib/utils";
 import {
@@ -81,10 +83,17 @@ const STOP_WORDS = new Set([
   "you've", "your", "yours", "yourself", "yourselves", "us", "will", "just", "like", "also", "into", "video", "videos"
 ]);
 
+const TRANSCRIPT_PRESETS = [
+  { label: "🎬 Sample Tech Video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+  { label: "🌍 8K Peru HDR Video", url: "https://www.youtube.com/watch?v=LXb3EKWsInQ" },
+  { label: "⚡ Instant SEO Demo", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ?demo=true" },
+];
+
 export default function TranscriptDownloader() {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [activePreset, setActivePreset] = useState<string | null>(null);
   const [searchFilter, setSearchFilter] = useState("");
   const [viewMode, setViewMode] = useState<"timestamps" | "plain" | "srt">("timestamps");
   const [videoData, setVideoData] = useState<{
@@ -93,6 +102,7 @@ export default function TranscriptDownloader() {
     duration: string;
     lines: TranscriptLine[];
     videoId: string;
+    source?: string;
   } | null>(null);
 
   // Repurposing Engine State
@@ -104,11 +114,11 @@ export default function TranscriptDownloader() {
 
   const { downloadText, downloadCsv } = useExport();
 
-  const handleExtract = (customUrl?: string) => {
-    const targetUrl = customUrl || url;
+  const handleExtract = async (customUrl?: string) => {
+    const targetUrl = (customUrl || url).trim();
     setError("");
 
-    if (!targetUrl.trim()) {
+    if (!targetUrl) {
       setError("Please paste a YouTube video URL or ID.");
       return;
     }
@@ -119,25 +129,54 @@ export default function TranscriptDownloader() {
       return;
     }
 
-    setLoading(true);
-
-    // Simulate extraction with rich demo data and video metadata
-    setTimeout(() => {
+    if (targetUrl.includes("demo=true")) {
       setVideoData({
         videoId,
-        title: targetUrl.includes("demo")
-          ? SAMPLE_TRANSCRIPTS.demo.title
-          : `YouTube Video Transcript (ID: ${videoId})`,
-        channel: targetUrl.includes("demo") ? SAMPLE_TRANSCRIPTS.demo.channel : "Channel Creator",
-        duration: targetUrl.includes("demo") ? SAMPLE_TRANSCRIPTS.demo.duration : "10:30",
-        lines: SAMPLE_TRANSCRIPTS.demo.lines });
+        title: SAMPLE_TRANSCRIPTS.demo.title,
+        channel: SAMPLE_TRANSCRIPTS.demo.channel,
+        duration: SAMPLE_TRANSCRIPTS.demo.duration,
+        lines: SAMPLE_TRANSCRIPTS.demo.lines,
+        source: "demo",
+      });
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch("/api/transcript", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: targetUrl, videoId }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || data.error || !Array.isArray(data.lines)) {
+        setError(data.error || "Could not extract transcript for this video URL.");
+        setVideoData(null);
+        return;
+      }
+
+      setVideoData({
+        videoId: data.videoId || videoId,
+        title: data.title || `YouTube Video (${videoId})`,
+        channel: data.channel || "YouTube Creator",
+        duration: data.duration || "10:00",
+        lines: data.lines,
+        source: data.source,
+      });
+    } catch {
+      setError("Network error while extracting video transcript. Please try again.");
+      setVideoData(null);
+    } finally {
       setLoading(false);
-    }, 450);
+    }
   };
 
   const loadDemo = () => {
-    setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ (Demo)");
-    handleExtract("https://www.youtube.com/watch?v=dQw4w9WgXcQ?demo=true");
+    const demoUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ?demo=true";
+    setUrl(demoUrl);
+    setActivePreset("preset-2");
+    void handleExtract(demoUrl);
   };
 
   // Full plain text
@@ -403,16 +442,36 @@ ${sec3Text}
           </button>
         </div>
 
-        <p className="text-sm text-slate-600 mb-6">
+        <p className="text-sm text-slate-600 mb-4">
           Paste any YouTube URL or 11-character video ID to extract synchronized text captions, download as TXT/SRT, or inspect spoken SEO keywords.
         </p>
+
+        <div className="mb-4">
+          <PresetPills
+            label="Try real video or instant demo"
+            options={TRANSCRIPT_PRESETS.map((p, idx) => ({
+              id: `preset-${idx}`,
+              label: p.label.replace(/^\S+\s/, ""),
+              icon: p.label.match(/^\S+/)?.[0],
+            }))}
+            activeId={activePreset}
+            onSelect={(id) => {
+              const idx = Number(id.replace("preset-", ""));
+              const preset = TRANSCRIPT_PRESETS[idx];
+              if (!preset) return;
+              setActivePreset(id);
+              setUrl(preset.url);
+              void handleExtract(preset.url);
+            }}
+          />
+        </div>
 
         <form
           toolname="extract_youtube_transcript"
           tooldescription="Extract complete transcripts, plain text, and SRT subtitles from any YouTube video"
           onSubmit={(e) => {
             e.preventDefault();
-            handleExtract();
+            void handleExtract();
           }}
           className="flex flex-col sm:flex-row gap-3"
         >
@@ -420,17 +479,22 @@ ${sec3Text}
             <Input
               type="text"
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => {
+                setUrl(e.target.value);
+                setActivePreset(null);
+              }}
               placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or dQw4w9WgXcQ"
               className="w-full text-base"
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleExtract();
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  void handleExtract();
+                }
               }}
             />
           </div>
           <Button
             type="submit"
-            onClick={() => handleExtract()}
             disabled={loading}
             className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl flex items-center justify-center gap-2 sm:w-auto w-full"
           >
@@ -464,6 +528,29 @@ ${sec3Text}
       {/* Transcript Results */}
       {videoData && (
         <div className="space-y-6">
+          {/* Extracted Video Info Header */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="min-w-0">
+              <h3 className="text-base sm:text-lg font-extrabold text-slate-900 truncate">
+                {videoData.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+                {videoData.channel} · Duration {videoData.duration}
+              </p>
+            </div>
+            {videoData.source && (
+              <span className="self-start sm:self-center shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full border border-purple-200 bg-purple-50 text-purple-700">
+                {videoData.source === "youtube-captions"
+                  ? "Live YouTube Captions"
+                  : videoData.source === "ai-metadata"
+                    ? "AI Metadata Breakdown"
+                    : videoData.source === "demo"
+                      ? "Sample Demo"
+                      : "Video Metadata Breakdown"}
+              </span>
+            )}
+          </div>
+
           {/* Metadata & Quick Stats Bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="p-4 rounded-xl bg-white border border-slate-200">
@@ -908,6 +995,23 @@ ${sec3Text}
               </div>
             </div>
           )}
+
+          {/* Next Workflow Step Bridge */}
+          <WorkflowBridgeCard
+            subtitle="Turn this extracted video transcript into an executive summary or audit its opening 30-second hook."
+            actions={[
+              {
+                href: `/tools/youtube-video-summary-generator?v=${encodeURIComponent(videoData.videoId)}`,
+                label: "Summarize With AI",
+                description: "Convert this video into key notes, study guides, SEO articles, or Shorts scripts.",
+              },
+              {
+                href: `/tools/hook-auditor?title=${encodeURIComponent(videoData.title)}`,
+                label: "Audit Opening Hook",
+                description: "Score sentence-1 promise delivery and remove retention-killing fluff.",
+              },
+            ]}
+          />
 
           {/* Contextual Creator Software Affiliate Card */}
           <CreatorSoftwareCard defaultCategory="video" />

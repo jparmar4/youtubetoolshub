@@ -41,6 +41,15 @@ const nextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        // Official YouTube channel avatar CDNs (Channel ID Finder & Sub Counter)
+        protocol: "https",
+        hostname: "yt3.ggpht.com",
+      },
+      {
+        protocol: "https",
+        hostname: "yt3.googleusercontent.com",
+      },
     ],
   },
 
