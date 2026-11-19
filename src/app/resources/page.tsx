@@ -15,7 +15,16 @@ export const metadata: Metadata = {
   description:
     `Free YouTube creator resources: CPM rate benchmarks across ${countryCPMData.length} countries, algorithm guides, monetization playbooks, creator statistics, and link-to-us assets.`,
   alternates: getGlobalAlternates("/resources"),
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 const resources = [

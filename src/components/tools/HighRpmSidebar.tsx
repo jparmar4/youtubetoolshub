@@ -133,7 +133,7 @@ export default function HighRpmSidebar({
 
       {/* Dedicated Sticky Sidebar AdSense Container (reserved min-h-[280px], supports 300x600/responsive) */}
       <AdSlot
-        slot={AD_SLOTS.SIDEBAR}
+        slot={AD_SLOTS.STICKY_SIDEBAR}
         preset="sidebar"
         format="auto"
         lazy={false}

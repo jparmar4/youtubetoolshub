@@ -183,6 +183,23 @@ ${topCountries}
 
 Full table: ${baseUrl}/resources/youtube-cpm-rates
 
+## Tier 2 Country Benchmarks (2026)
+
+Solid markets with strong domestic brands and English-speaking creator bases:
+
+- **France (FR):** CPM avg $8.50 (range $4.50–$14.00), RPM avg $4.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/france
+- **United Arab Emirates (AE):** CPM avg $7.50 (range $4.00–$12.00), RPM avg $4.00 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/uae
+- **Japan (JP):** CPM avg $6.50 (range $3.50–$11.00), RPM avg $3.50 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/japan
+- **South Korea (KR):** CPM avg $6.80 (range $3.50–$11.00), RPM avg $3.60 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/south-korea
+- **Israel (IL):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/israel
+- **Qatar (QA):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/qatar
+- **Kuwait (KW):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/kuwait
+- **Italy (IT):** CPM avg $4.80 (range $2.50–$8.50), RPM avg $2.60 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/italy
+- **Spain (ES):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.50 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/spain
+- **Saudi Arabia (SA):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.20 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/saudi-arabia
+
+Full table: ${baseUrl}/resources/youtube-cpm-rates
+
 ## Niche RPM ranking (relative)
 
 ${nicheLines}

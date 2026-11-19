@@ -7,7 +7,7 @@ import {
   getPostsForCategory,
 } from "@/config/blog/categories";
 import { glossaryTerms } from "@/config/glossary";
-import { countryCPMData } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
 import {
   citableFacts,
   speakableAnswers,
@@ -231,6 +231,19 @@ export async function GET() {
         rpm_avg: c.rpmRange.avg,
         url: `${siteUrl}/tools/youtube-earnings-calculator/${c.slug}`,
       })),
+      top_tier2_countries: countryCPMData
+        .filter((c) => TIERS.TIER2.countries.includes(c.code))
+        .sort((a, b) => b.rpmRange.avg - a.rpmRange.avg)
+        .slice(0, 10)
+        .map((c) => ({
+          name: c.name,
+          slug: c.slug,
+          code: c.code,
+          currency: c.currency,
+          cpm_avg: c.cpmRange.avg,
+          rpm_avg: c.rpmRange.avg,
+          url: `${siteUrl}/tools/youtube-earnings-calculator/${c.slug}`,
+        })),
       all_countries: countryCPMData.map((c) => ({
         name: c.name,
         slug: c.slug,

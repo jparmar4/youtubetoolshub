@@ -88,6 +88,7 @@ export async function GET() {
                 "@id": `${baseUrl}/#organization`,
                 name: siteConfig.name,
                 url: baseUrl,
+                areaServed: siteConfig.globalMarkets,
                 logo: {
                     "@type": "ImageObject",
                     "@id": `${baseUrl}/#logo`,

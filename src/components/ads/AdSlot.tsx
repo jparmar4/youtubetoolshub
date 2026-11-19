@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import GoogleAd from "./GoogleAd";
+import { IN_FEED_LAYOUT_KEY } from "@/lib/adsense";
 import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 /** Visual/behavioural presets for ad containers across the site. */
-export type AdSlotPreset = "leaderboard" | "in-article" | "multiplex" | "sidebar" | "bare";
+export type AdSlotPreset = "leaderboard" | "in-article" | "in-feed" | "multiplex" | "sidebar" | "bare";
 
 interface AdSlotProps {
     slot: string;
@@ -23,9 +24,10 @@ interface AdSlotProps {
     className?: string;
 }
 
-const PRESET_DEFAULTS: Record<AdSlotPreset, { format: string; layout?: string; lazy?: boolean }> = {
+const PRESET_DEFAULTS: Record<AdSlotPreset, { format: string; layout?: string; layoutKey?: string; lazy?: boolean }> = {
     leaderboard: { format: "auto", lazy: false },
     "in-article": { format: "fluid", layout: "in-article" },
+    "in-feed": { format: "fluid", layout: "in-feed", layoutKey: IN_FEED_LAYOUT_KEY },
     multiplex: { format: "autorelaxed" },
     sidebar: { format: "auto" },
     bare: { format: "auto" },
@@ -37,6 +39,11 @@ const PRESET_CHROME: Record<AdSlotPreset, string> = {
     leaderboard:
         "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-2.5 min-h-[100px] flex flex-col items-center justify-center",
     "in-article":
+        "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-3 min-h-[280px] flex flex-col items-center justify-center",
+    // In-feed units interleave card grids as full-width rows; same reserved
+    // height + card chrome as in-article so an unfilled unit collapses from a
+    // known box instead of shifting the grid beneath it.
+    "in-feed":
         "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-3 min-h-[280px] flex flex-col items-center justify-center",
     multiplex:
         "my-6 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-white/95 px-3 py-3 min-h-[280px] flex flex-col items-center justify-center",
@@ -130,7 +137,7 @@ export default function AdSlot({
                 slot={slot}
                 format={format ?? defaults.format}
                 layout={layout ?? defaults.layout}
-                layoutKey={layoutKey}
+                layoutKey={layoutKey ?? defaults.layoutKey}
                 responsive={responsive}
                 lazy={lazy ?? defaults.lazy ?? true}
             />

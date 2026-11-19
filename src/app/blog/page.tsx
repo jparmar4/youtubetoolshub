@@ -299,6 +299,16 @@ export default function BlogPage() {
                       className="md:col-span-2 lg:col-span-3 my-4 border-white/10 bg-white/5 [&_p]:text-slate-300"
                     />
                   )}
+                  {/* Second interleave deep in the scroll with the dedicated
+                      in-feed native unit — the archive below carries no ads,
+                      so this is the last one before the footer multiplex. */}
+                  {i === 16 && (
+                    <AdSlot
+                      slot={AD_SLOTS.IN_FEED}
+                      preset="in-feed"
+                      className="md:col-span-2 lg:col-span-3 my-4 border-white/10 bg-white/5 [&_p]:text-slate-300"
+                    />
+                  )}
                 </Fragment>
               ))}
             </div>

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -197,17 +198,27 @@ export default async function BlogCategoryPage({
           <section className="pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {posts.map((post) => (
-                  <BlogCard
-                    key={post.slug}
-                    title={post.title}
-                    excerpt={post.excerpt}
-                    date={post.updatedAt ?? post.date}
-                    category={category.name}
-                    slug={post.slug}
-                    coverImage={post.coverImage}
-                    coverAlt={post.imageAlt || post.title}
-                  />
+                {posts.map((post, i) => (
+                  <Fragment key={post.slug}>
+                    <BlogCard
+                      title={post.title}
+                      excerpt={post.excerpt}
+                      date={post.updatedAt ?? post.date}
+                      category={category.name}
+                      slug={post.slug}
+                      coverImage={post.coverImage}
+                      coverAlt={post.imageAlt || post.title}
+                    />
+                    {/* Single in-feed interleave after the 6th card — the only
+                        in-grid unit on category hubs, before the FAQ multiplex. */}
+                    {i === 5 && (
+                      <AdSlot
+                        slot={AD_SLOTS.IN_FEED}
+                        preset="in-feed"
+                        className="md:col-span-2 lg:col-span-3"
+                      />
+                    )}
+                  </Fragment>
                 ))}
               </div>
             </div>

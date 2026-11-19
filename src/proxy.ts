@@ -18,6 +18,9 @@ const BOT_USER_AGENTS = [
   "google-safety",
   "googleproducer",
   "google-site-verification",
+  // Google PageSpeed Insights / Lighthouse measurement fetcher — real Chrome
+  // lab tests must reach the pages so Core Web Vitals stay measurable.
+  "chrome-lighthouse",
   // Global Search Engines (Tier 1 & Tier 2 markets)
   "bingbot",
   "yandexbot",

@@ -129,6 +129,7 @@ YouTube Tools Hub exists to make YouTube growth workflows easier. Many creator t
 - Country-specific CPM/RPM for ${citableFacts.countryCount} regions (last reviewed ${DATA_LAST_REVIEWED})
 - US CPM average ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US RPM average ${citableFacts.usRpmAvg}
 - Tier 1 Country Benchmarks (2026): US ($14.50 avg CPM), Switzerland ($13.50 avg CPM), Australia ($13.00 avg CPM), Canada ($12.00 avg CPM), UK ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPM averages $6.00–$8.50.
+- Tier 2 Country Benchmarks (2026): France ($8.50 avg CPM, $4.80 RPM), United Arab Emirates ($7.50, $4.00), Japan ($6.50, $3.50), South Korea ($6.80, $3.60), Israel ($5.50, $2.80), Qatar ($5.50, $2.80), Kuwait ($5.50, $2.80), Italy ($4.80, $2.60), Spain ($4.50, $2.50), Saudi Arabia ($4.50, $2.20). Calculator: ${baseUrl}/tools/youtube-earnings-calculator
 - YouTube Shorts RPM (2026): $0.03–$0.07 per 1,000 views in the US / Tier 1 markets ($30–$70 per 1M views).
 - Brand Deal / Sponsorship Rate Formula: Rate = (Projected Views ÷ 1,000) × Sponsor CPM ($20–$45 in Tier 1) × Placement Factor (0.55x for 30s shoutout, 1.0x for 60s mid-roll, 2.8x for dedicated video). Calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
 - Channel Valuation Multiple (2026): 16x–45x monthly net profit (28x baseline; $120,000–$225,000 for a channel netting $5,000/mo at 24x–45x). Finance and SaaS channels sell for 36x–45x; gaming and vlogs 16x–26x.

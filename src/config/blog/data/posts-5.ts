@@ -7456,6 +7456,11 @@ Source: [YouTube Creator Taxes & Best Accounting Software Guide (2026)](https://
           "The two strongest weekly windows are usually Thanksgiving through Cyber Monday (late November) and December 10 through December 22, when remaining annual brand budgets rush to clear before December 31 fiscal close. CPMs begin cooling rapidly on December 24–26 once shipping cutoffs pass.",
       },
       {
+        question: "When is Black Friday 2026, and when should I publish for the Q4 spike?",
+        answer:
+          "Black Friday 2026 falls on Friday, November 27 (Thanksgiving is Thursday, November 26), with Cyber Monday on November 30. Tier-1 YouTube CPMs and RPMs peak in the November 24–December 2 Cyber Week window (often 1.9x–2.4x summer baselines) and again during the December 12–22 budget-flush week. Because YouTube Search and Google Discover take 7–18 days to test CTR and classify buyer-intent content, ship your flagship comparison by November 23 at the latest; a tight comparison published November 20–23 still catches most of the Cyber Week ramp.",
+      },
+      {
         question: "Why does YouTube RPM drop sharply every January?",
         answer:
           "Most enterprise retail, CPG, and automotive advertisers exhaust annual marketing budgets on December 31 and spend the first two to three weeks of January recalibrating Q1 creative and quarterly ROAS targets. With fewer advertisers bidding inside Google Ads auctions for the same viewer inventory, clearing prices routinely fall 35% to 55% overnight on January 1.",
@@ -7492,6 +7497,9 @@ YouTube Q4 CPMs rise **1.6x to 2.4x** above winter/summer baselines between Octo
 - **Q1 survival starts in December:** Shifting late-December and January uploads toward B2B SaaS, IRS tax season, credit cards, and New Year fitness softens the post-Christmas RPM cliff.
 :::
 
+> [!TIP]
+> **Q4 live status — published November 19, 2026:** Tier-1 auctions are in the **Nov 11–23 ramp (1.65x–1.95x summer baseline)** right now. **Black Friday lands Friday, November 27, 2026** (Thanksgiving falls on Thursday, November 26), with **Cyber Monday on November 30**. The two peak RPM windows to plan around: **November 24 – December 2** and **December 12 – 22**. Publishing your first buyer-intent comparison before **November 23** still catches most of the Cyber Week ramp.
+
 Every full-time creator watches the same calendar miracle—and the same calendar shock—play out once a year. An educational tech or finance channel pulling $7.80 RPM in August suddenly watches November daily analytics jump to $13.40, then $16.90 over Cyber Weekend, then $19.20 right before December 20 as enterprise brands burn unspent Q4 ad budgets. Then January 2 hits, and that exact same channel wakes up to $6.40 RPM while views stayed flat.
 
 Nothing broke inside YouTube Studio. You are witnessing the sharpest supply-and-demand swing in digital media. In Q4, advertisers across Amazon sellers, consumer electronics, brokerage apps, SaaS platforms, and credit card issuers race to convert holiday shoppers and capture fiscal year-end budgets. Because YouTube cannot magically invent twice as many logged-in US viewers overnight, Google Ads clearing prices shoot upward.
@@ -7524,11 +7532,13 @@ Using **July–August baseline RPM = 1.00x**, the table below models typical wee
 | **Oct 1 – Oct 20** | **1.20x – 1.35x** | $7.40 – $14.80 | Prime Big Deal Days & early Q4 test campaigns | Audit thumbnails/titles on top 15 evergreen buyer-intent videos |
 | **Oct 21 – Nov 10** | **1.40x – 1.65x** | $8.80 – $18.00 | Early Black Friday teaser ads + retargeting pixel building | Ship flagship Q4 buying guides and tier-1 SaaS deep dives |
 | **Nov 11 – Nov 23** | **1.65x – 1.95x** | $10.50 – $21.50 | Pre-Black Friday conversion budgets ramp up aggressively | Tighten mid-roll spacing on 8+ min videos without hurting retention |
-| **Nov 24 – Dec 2 (Cyber Week)** | **1.90x – 2.40x** | **$12.50 – $28.00+** | **Peak retail + SaaS annual plan bids (highest conversion week)** | Maximum publishing cadence on commercial comparisons & tutorials |
+| **Nov 24 – Dec 2 (Cyber Week)** | **1.90x – 2.40x** | **$12.50 – $28.00+** | **Peak retail + SaaS annual plan bids — Thanksgiving Thu Nov 26, Black Friday Fri Nov 27, Cyber Monday Mon Nov 30 (highest conversion week)** | Maximum publishing cadence on commercial comparisons & tutorials |
 | **Dec 3 – Dec 11** | **1.65x – 1.90x** | $10.50 – $21.00 | Post-Cyber brief dip before shipping cutoff surge | Capture mid-month gift-card, digital software & finance demand |
 | **Dec 12 – Dec 22** | **1.85x – 2.25x** | **$11.80 – $25.50** | **"Budget flush" wave + instant digital/SaaS/finance offers** | Target non-shipping categories (AI software, banks, digital tools) |
 | **Dec 23 – Dec 31** | **1.15x – 1.45x** | $7.20 – $15.50 | Physical shipping deadlines end; holiday travel | Avoid dropping flagship Q4 videos on Dec 24–26 low-bid days |
 | **Jan 1 – Jan 21 (Q1 Reset)** | **0.55x – 0.78x** | $3.60 – $8.20 | Annual budgets reset; Q1 media plans awaiting sign-off | Pivot to IRS taxes, New Year fitness, productivity & B2B SaaS |
+
+![Chart of the 2026 YouTube Q4 auction index by week, ramping from 1.10x in September to a 2.4x Cyber Week peak, a 2.25x December budget flush, and a 0.67x January Q1 reset](/images/blog/youtube-q4-cpm-surge-curve-2026.webp)
 
 ---
 
@@ -7565,7 +7575,7 @@ Use Shorts in Q4 as a **funnel hook** pinned cleanly via the Related Video link 
 ## Step-by-Step Playbook: Capturing Peak Q4 AdSense Without Burning Audience Trust
 
 ### Step 1: Ship Money Pages 14–21 Days Before Black Friday
-YouTube Search and Google Discover take 7 to 18 days to test CTR, classify buyer-intent transcripts, and stabilize Browse impressions. Publishing your flagship Black Friday SaaS, tech, or banking roundup on November 25 misses half the auction wave. Ship foundational evergreen guides between November 1 and November 12, then pin updated Cyber Week timestamps inside pinned comments.
+YouTube Search and Google Discover take 7 to 18 days to test CTR, classify buyer-intent transcripts, and stabilize Browse impressions. Publishing your flagship Black Friday SaaS, tech, or banking roundup on November 25 misses half the auction wave. Ship foundational evergreen guides between November 1 and November 12, then pin updated Cyber Week timestamps inside pinned comments. Starting after November 15? Skip the sprawling series and ship one tight, high-depth comparison before November 23 — a single flagship video that catches the 1.65x–1.95x ramp outperforms three thin uploads landing mid-Cyber Week.
 
 ### Step 2: Optimize 8+ Minute Mid-Roll Spacing Without Spamming Viewers
 Videos shorter than 8 minutes cannot display mid-roll ads during the highest-CPM weeks of the entire year. If a tutorial naturally needs 9 to 14 minutes to deliver complete value:

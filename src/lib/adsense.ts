@@ -57,19 +57,29 @@ export const AD_SLOTS = {
   MULTIPLEX: "3104734850",
 
   /**
-   * Right sidebar only (blog + tool pages) — AdSense unit "dispsidebarverticle".
+   * Non-sticky right sidebar placements — AdSense unit "dispsidebarverticle".
    * Use format=auto + data-full-width-responsive=true. Do not force 300x600 height.
    */
   SIDEBAR: "9242656079",
 
   /**
-   * Alias of SIDEBAR for sticky right-rail placements on blog/tool pages.
+   * Sticky right-rail (HighRpmSidebar on blog/tool pages) — dedicated AdSense
+   * unit "sidebar sticky" (4182033878). Split from SIDEBAR so AdSense reports
+   * sticky vs static sidebar performance separately instead of one merged line.
    */
-  STICKY_SIDEBAR: "9242656079",
+  STICKY_SIDEBAR: "4182033878",
 
   /** In-feed ad (between list items) */
   IN_FEED: "2197690717",
 } as const;
+
+/**
+ * Native in-feed template key pairing with AD_SLOTS.IN_FEED (created as an
+ * "In-Feed" unit in the AdSense dashboard). Layout keys are fluid-template
+ * descriptors, not account-specific — this is Google's generic in-feed style.
+ * Regenerate a custom style in the dashboard and swap the key here to restyle.
+ */
+export const IN_FEED_LAYOUT_KEY = "-6t+ed+2i-1n-4w";
 
 export type AdSlotKey = keyof typeof AD_SLOTS;
 
