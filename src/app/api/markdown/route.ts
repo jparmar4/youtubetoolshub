@@ -1,11 +1,20 @@
 import { NextRequest } from "next/server";
 import { siteConfig } from "@/config/site";
 import { tools, toolCategories, getToolBySlug, getToolsByCategory } from "@/config/tools";
-import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings } from "@/lib/cpm-data";
+import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED, speakableAnswers, nicheRpmRanking, subscriberBenchmarks, citableFacts } from "@/lib/seo-data";
 import { getBlogPostBySlug, getIndexableBlogPosts } from "@/config/blog";
 import { getCategoryBySlug, getPostsForCategory } from "@/config/blog/categories";
 import { glossaryTerms } from "@/config/glossary";
+import {
+  US_STATE_CREATOR_TAXES,
+  getStateTaxBySlug,
+  calculateCreatorStateTaxSummary,
+} from "@/data/usStateCreatorTaxes";
+import {
+  COMPETITOR_ALTERNATIVES,
+  getCompetitorAlternativeBySlug,
+} from "@/data/competitorAlternatives";
 
 function buildHomepageMarkdown(): string {
   const baseUrl = siteConfig.url;
@@ -771,6 +780,236 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 `;
 }
 
+function buildResearchReportMarkdown(): string {
+  const baseUrl = siteConfig.url;
+  const url = `${baseUrl}/research/youtube-cpm-rpm-report-2026`;
+  const tier1Countries = countryCPMData.filter((c) => TIERS.TIER1.countries.includes(c.code));
+  const tier1Rows = tier1Countries
+    .map(
+      (c) =>
+        `| ${c.name} (${c.code}) | $${c.cpmRange.min.toFixed(2)}–$${c.cpmRange.max.toFixed(2)} | $${c.cpmRange.avg.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} | [Calculator](${baseUrl}/tools/youtube-earnings-calculator/${c.slug}) |`,
+    )
+    .join("\n");
+
+  const nicheRows = nicheRpmRanking
+    .map((r) => `| ${r.label} | ${r.value} | ${r.note ?? "Tier-1 advertiser auction"} |`)
+    .join("\n");
+
+  return `---
+title: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report"
+url: "${url}"
+last_reviewed: "${DATA_LAST_REVIEWED}"
+countries_covered: ${countryCPMData.length}
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# 2026 YouTube Creator Economy & CPM/RPM Benchmark Report
+
+> Audited benchmark tables covering Tier-1 vs Tier-2/3 YouTube CPM & RPM rates across ${countryCPMData.length} countries, Long-Form (55% share) vs Shorts (45% post-music pool) monetization economics, and Top-paying advertiser niches.
+
+## Long-Form vs YouTube Shorts Monetization (2026)
+
+| Dimension | Long-Form Watch Page | YouTube Shorts Feed |
+|-----------|----------------------|---------------------|
+| Creator Revenue Share | 55% of Watch Page AdSense | 45% of Shorts Pool (post music deduction) |
+| Tier-1 Average RPM (US/AU/CA/UK) | $6.50 – $15.00 per 1,000 views | $0.03 – $0.08 per 1,000 views |
+| High-CPM Ceiling (Finance/SaaS US) | $15.00 – $26.00+ RPM | $0.08 – $0.14 RPM |
+| Views for $1,000 AdSense (US Avg) | ~117,600 views (@ $8.50 RPM) | ~20,000,000 views (@ $0.05 RPM) |
+
+## Tier-1 Country CPM & RPM Benchmarks
+
+| Country | CPM Range (USD) | Avg CPM | Avg RPM | Country Calculator |
+|---------|-----------------|---------|---------|--------------------|
+${tier1Rows}
+
+## High-CPM Niche RPM Ranking
+
+| Niche Category | Relative Rate | Notes |
+|----------------|---------------|-------|
+${nicheRows}
+
+## Primary Links & Interactive Calculators
+- [Live Benchmark Report Page](${url})
+- [Full ${countryCPMData.length}-Country CPM Table](${baseUrl}/resources/youtube-cpm-rates)
+- [YouTube Earnings Calculator](${baseUrl}/tools/youtube-earnings-calculator)
+- [YouTube Shorts vs Long-Form Calculator](${baseUrl}/tools/youtube-shorts-vs-long-form-calculator)
+`;
+}
+
+function buildStateTaxHubMarkdown(): string {
+  const baseUrl = siteConfig.url;
+  const url = `${baseUrl}/tools/creator-tax-calculator`;
+  const jurisdictionRows = US_STATE_CREATOR_TAXES.map((s) => {
+    const summary100k = calculateCreatorStateTaxSummary(s, 100_000);
+    return `| [${s.stateName} (${s.stateCode})](${url}/${s.slug}) | ${s.topIncomeTaxRate}% | $${s.llcFilingFee} | $${s.llcAnnualFee} | $${summary100k.totalSolePropTax.toLocaleString("en-US")} | ~$${summary100k.estimatedSCorpNetSavings.toLocaleString("en-US")}/yr |`;
+  }).join("\n");
+
+  return `---
+title: "2026 US State YouTube Creator Tax & S-Corp Directory (50 States + DC)"
+url: "${url}"
+jurisdiction_count: ${US_STATE_CREATOR_TAXES.length}
+last_reviewed: "${DATA_LAST_REVIEWED}"
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# 2026 US State YouTube Creator Tax & S-Corp Directory
+
+> Compare 2026 state income tax brackets, LLC Articles of Organization filing fees, annual franchise fees, and Form 2553 S-Corp tax savings across all ${US_STATE_CREATOR_TAXES.length} US states + Washington, D.C.
+
+## 2026 IRS Federal Creator Baseline
+- **Self-Employment Tax Rate**: 15.3% (12.4% Social Security up to **$184,500** wage cap + 2.9% Medicare)
+- **Single Standard Deduction**: **$16,100**
+- **QBI Pass-Through Deduction**: **20%** of qualified business income
+
+## State-by-State Tax & S-Corp Savings at $100,000 Net Profit
+
+| State | Top State Rate | LLC Filing Fee | Annual LLC Fee | Est. Sole Prop Tax ($100K) | Est. S-Corp Net Savings |
+|-------|----------------|----------------|----------------|----------------------------|-------------------------|
+${jurisdictionRows}
+
+## Related Tax Resources
+- [IRS Schedule C Tax Deduction Calculator](${baseUrl}/tools/youtube-tax-deduction-calculator)
+- [LLC vs S-Corp Form 2553 Savings Calculator](${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator)
+- [Creator Taxes & Accounting Software Guide (2026)](${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide)
+`;
+}
+
+function buildStateTaxMarkdown(stateSlug: string): string | null {
+  const state = getStateTaxBySlug(stateSlug);
+  if (!state) return null;
+
+  const baseUrl = siteConfig.url;
+  const url = `${baseUrl}/tools/creator-tax-calculator/${state.slug}`;
+  const tiers = [50_000, 100_000, 150_000, 250_000].map((profit) => ({
+    profit,
+    ...calculateCreatorStateTaxSummary(state, profit),
+  }));
+
+  const bracketRows = tiers
+    .map(
+      (b) =>
+        `| $${b.profit.toLocaleString("en-US")} | $${b.federalSelfEmploymentTax.toLocaleString("en-US")} | $${b.estimatedFederalIncomeTax.toLocaleString("en-US")} | $${b.estimatedStateIncomeTax.toLocaleString("en-US")} | $${b.totalSolePropTax.toLocaleString("en-US")} | ~$${b.estimatedSCorpNetSavings.toLocaleString("en-US")}/yr |`,
+    )
+    .join("\n");
+
+  return `---
+title: "${state.stateName} (${state.stateCode}) YouTube Creator Tax & S-Corp Calculator (2026)"
+url: "${url}"
+state: "${state.stateName}"
+state_code: "${state.stateCode}"
+top_state_income_tax_pct: ${state.topIncomeTaxRate}
+llc_filing_fee_usd: ${state.llcFilingFee}
+llc_annual_fee_usd: ${state.llcAnnualFee}
+last_reviewed: "${DATA_LAST_REVIEWED}"
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# ${state.stateName} (${state.stateCode}) YouTube Creator Tax & S-Corp Calculator (2026)
+
+> Calculate 2026 Federal 15.3% Self-Employment tax ($184,500 wage cap), ${state.stateName} ${state.taxStructure} state income tax (up to ${state.topIncomeTaxRate}%), $${state.llcFilingFee} LLC filing fee, and Form 2553 S-Corp election savings.
+
+## ${state.stateName} State & LLC Summary
+- **State Income Tax Structure**: ${state.taxStructure} (Top marginal rate: ${state.topIncomeTaxRate}%)
+- **Effective State Rate at $100K Net Profit**: ${state.effectiveRateAt100k}%
+- **LLC Formation Filing Fee**: $${state.llcFilingFee} USD
+- **Ongoing LLC Annual / Franchise Fee**: $${state.llcAnnualFee} USD (${state.annualFeeSchedule})
+- **S-Corp Notes for ${state.stateName} Creators**: ${state.sCorpNotes}
+
+## Illustrative 2026 Tax & S-Corp Savings Table (45% W-2 Salary Model)
+
+| Net Creator Profit | Federal SE Tax (15.3%) | Est. Federal Income Tax | Est. ${state.stateCode} State Tax | Total Sole Prop Tax | Est. S-Corp Net Savings |
+|--------------------|------------------------|-------------------------|--------------------------|---------------------|-------------------------|
+${bracketRows}
+
+## Interactive Calculator & Related Guides
+- [Open Interactive ${state.stateName} Creator Tax Calculator](${url})
+- [Compare All ${US_STATE_CREATOR_TAXES.length} US State Creator Taxes](${baseUrl}/tools/creator-tax-calculator)
+- [YouTube Creator Taxes & Accounting Software Guide (2026)](${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide)
+`;
+}
+
+function buildAlternativesIndexMarkdown(): string {
+  const baseUrl = siteConfig.url;
+  const rows = COMPETITOR_ALTERNATIVES.map(
+    (alt) =>
+      `| [${alt.competitorName} Free Alternative](${baseUrl}/alternatives/${alt.slug}) | ${alt.competitorStartingPrice} | ${alt.competitorAnnualCost} | ${alt.ytToolsHubCost} | ${alt.annualSavingsLabel} | [${alt.embeddedToolTitle}](${baseUrl}/tools/${alt.embeddedToolSlug}) |`,
+  ).join("\n");
+
+  return `---
+title: "Free Browser Alternatives to Paid YouTube SaaS & Extensions (2026)"
+url: "${baseUrl}/alternatives"
+comparison_count: ${COMPETITOR_ALTERNATIVES.length}
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# Free Browser Alternatives to Paid YouTube Tools (2026)
+
+> Side-by-side pricing, OAuth safety, and workflow comparisons showing how creators save hundreds per year by replacing paid SaaS subscriptions and Chrome extensions with free browser tools on YouTube Tools Hub.
+
+| Free Switcher Guide | Competitor Entry Price | Competitor Annual Cost | YouTube Tools Hub | Annual Savings | Embedded Free Tool |
+|---------------------|------------------------|------------------------|-------------------|----------------|--------------------|
+${rows}
+
+## Browse All Free Creator Tools
+- [${tools.length} Free Browser-Based YouTube Tools](${baseUrl}/tools)
+`;
+}
+
+function buildAlternativeMarkdown(slug: string): string | null {
+  const alt = getCompetitorAlternativeBySlug(slug);
+  if (!alt) return null;
+
+  const baseUrl = siteConfig.url;
+  const url = `${baseUrl}/alternatives/${alt.slug}`;
+  const comparisonTable = alt.comparisonRows
+    .map(
+      (r) =>
+        `| ${r.feature} | ${r.ytToolsHubValue} | ${r.competitorValue} | ${r.winner === "ytToolsHub" ? "YouTube Tools Hub" : r.winner === "competitor" ? alt.competitorName : "Tie"} |`,
+    )
+    .join("\n");
+
+  return `---
+title: "${alt.pageTitle}"
+url: "${url}"
+competitor: "${alt.competitorName}"
+competitor_annual_cost: "${alt.competitorAnnualCost}"
+yt_tools_hub_cost: "${alt.ytToolsHubCost}"
+annual_savings: "${alt.annualSavingsLabel}"
+content_signal: "search=yes, ai-input=yes, ai-train=no"
+---
+
+# ${alt.h1}
+
+> ${alt.heroSubtitle}
+
+## Verdict Summary
+${alt.verdictSummary}
+
+- **${alt.competitorName} Cost**: ${alt.competitorStartingPrice} (${alt.competitorAnnualCost})
+- **YouTube Tools Hub Cost**: ${alt.ytToolsHubCost} — **${alt.annualSavingsLabel}**
+- **Try Included Browser Alternative**: [${alt.embeddedToolTitle}](${baseUrl}/tools/${alt.embeddedToolSlug})
+
+## Feature & Pricing Comparison
+
+| Feature | YouTube Tools Hub | ${alt.competitorName} | Advantage |
+|---------|-------------------|-----------------------|-----------|
+${comparisonTable}
+
+## Best For YouTube Tools Hub When:
+${alt.bestForYtToolsHub.map((item) => `- ${item}`).join("\n")}
+
+## Best For ${alt.competitorName} When:
+${alt.bestForCompetitor.map((item) => `- ${item}`).join("\n")}
+
+## Frequently Asked Questions
+${alt.faqs.map((f) => `### ${f.question}\n${f.answer}`).join("\n\n")}
+
+## Links
+- [Live Comparison & Interactive Tool](${url})
+- [All Free Competitor Alternatives](${baseUrl}/alternatives)
+`;
+}
+
 function buildNotFoundMarkdown(pathname: string): string {
   const baseUrl = siteConfig.url;
   // Strip markdown/backtick metacharacters — the raw path is attacker-controlled
@@ -823,11 +1062,24 @@ export async function GET(request: NextRequest) {
       markdown = buildVsComparisonMarkdown(segments[1]);
     } else if (segments.length === 2 && segments[0] === "youtube-earnings-calculator") {
       markdown = buildCountryEarningsMarkdown(segments[1]);
+    } else if (segments.length === 1 && segments[0] === "creator-tax-calculator") {
+      markdown = buildStateTaxHubMarkdown();
+    } else if (segments.length === 2 && segments[0] === "creator-tax-calculator") {
+      markdown = buildStateTaxMarkdown(segments[1]);
     } else if (segments.length === 1) {
       markdown = buildToolMarkdown(segments[0]);
     }
   } else if (normalizedPath === "/youtube-transcript-downloader") {
     markdown = buildTranscriptDownloaderMarkdown();
+  } else if (normalizedPath === "/research/youtube-cpm-rpm-report-2026") {
+    markdown = buildResearchReportMarkdown();
+  } else if (normalizedPath === "/alternatives") {
+    markdown = buildAlternativesIndexMarkdown();
+  } else if (normalizedPath.startsWith("/alternatives/")) {
+    const segments = normalizedPath.replace(/^\/alternatives\//, "").split("/").filter(Boolean);
+    if (segments.length === 1) {
+      markdown = buildAlternativeMarkdown(segments[0]);
+    }
   } else if (normalizedPath === "/blog") {
     markdown = buildBlogListMarkdown();
   } else if (normalizedPath.startsWith("/blog/category/")) {

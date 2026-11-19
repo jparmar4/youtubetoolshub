@@ -10,7 +10,7 @@ import {
   getHowToSchema,
   getBreadcrumbSchema,
   getDatasetSchema,
-  getGlobalAlternates,
+  getCountryEarningsAlternates,
 } from "@/lib/seo";
 import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     "how much youtube pays per view",
     "youtube income estimator",
   ],
-  alternates: getGlobalAlternates("/tools/youtube-earnings-calculator"),
+  alternates: getCountryEarningsAlternates(),
   openGraph: {
     title: "YouTube Earnings Calculator 2026 | Free RPM & CPM Estimator",
     description:

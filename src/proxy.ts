@@ -396,6 +396,8 @@ export default async function middleware(request: NextRequest) {
       pathname.startsWith("/tools") ||
       pathname.startsWith("/blog") ||
       pathname.startsWith("/resources") ||
+      pathname.startsWith("/research") ||
+      pathname.startsWith("/alternatives") ||
       pathname === "/youtube-transcript-downloader" ||
       pathname === "/pricing" ||
       pathname === "/contact" ||

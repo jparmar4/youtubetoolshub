@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getIndexableBlogPosts } from "@/config/blog";
+import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { BLOG_CATEGORIES, getCategoryPostCounts } from "@/config/blog/categories";
 import { siteConfig } from "@/config/site";
 import { combineSchemasToGraph, getCollectionPageSchema, getBreadcrumbSchema, getGlobalAlternates } from "@/lib/seo";
@@ -73,7 +73,11 @@ export default function BlogPage() {
   const categoryPostCounts = getCategoryPostCounts();
   const featuredPost = blogPosts[0];
   const otherPosts = blogPosts.slice(1, POSTS_ON_INDEX);
-  const remainingCount = Math.max(0, blogPosts.length - POSTS_ON_INDEX);
+  const archivePosts = blogPosts.slice(POSTS_ON_INDEX);
+  const remainingCount = archivePosts.length;
+  const latestModifiedIso = toBlogIsoDate(
+    featuredPost.updatedAt ?? featuredPost.date,
+  );
 
   const collectionSchema = getCollectionPageSchema({
     name: "YouTube Strategy Blog 2026",
@@ -100,7 +104,7 @@ export default function BlogPage() {
           "Practical guides on AI-native creation, high-RPM niche selection, semantic SEO, and YouTube monetization workflows.",
           "YouTube Tools Hub",
           "Creator Tools Team",
-          "2026-07-04T00:00:00.000Z",
+          latestModifiedIso,
         )}
         entityType="WebPage"
         primaryTopic="YouTube Growth Strategy"
@@ -304,22 +308,49 @@ export default function BlogPage() {
               ))}
             </div>
             {remainingCount > 0 && (
-              <p className="mt-12 text-center text-slate-300 text-sm">
-                Showing {POSTS_ON_INDEX} of {blogPosts.length} guides. Browse by
-                topic on our{" "}
-                <Link href="/blog/category/channel-growth" className="text-purple-300 hover:text-purple-200 underline">
-                  category hubs
-                </Link>
-                , the{" "}
-                <Link href="/feed.xml" className="text-purple-300 hover:text-purple-200 underline">
-                  RSS feed
-                </Link>
-                , or search{" "}
-                <Link href="/search" className="text-purple-300 hover:text-purple-200 underline">
-                  all articles
-                </Link>
-                .
-              </p>
+              <section
+                aria-label="Complete Creator Guide Archive"
+                className="mt-14 pt-10 border-t border-white/10"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+                  <div>
+                    <span className="text-purple-400 font-black uppercase tracking-widest text-xs block mb-1">
+                      Full Library Index
+                    </span>
+                    <h2 className="text-2xl font-black font-outfit text-white">
+                      Complete Creator Guide Archive ({blogPosts.length} Guides)
+                    </h2>
+                  </div>
+                  <p className="text-slate-300 text-sm">
+                    Browse by{" "}
+                    <Link href="/blog/category/channel-growth" className="text-purple-300 hover:text-purple-200 underline">
+                      category hubs
+                    </Link>{" "}
+                    or{" "}
+                    <Link href="/feed.xml" className="text-purple-300 hover:text-purple-200 underline">
+                      RSS feed
+                    </Link>
+                    .
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {archivePosts.map((post) => (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.slug}`}
+                      className="group flex flex-col justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10 hover:border-purple-400/50 transition-colors"
+                    >
+                      <span className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors line-clamp-2">
+                        {post.title}
+                      </span>
+                      <span className="mt-2 flex items-center justify-between text-[11px] font-semibold text-slate-400">
+                        <span>{post.category}</span>
+                        <span>{post.updatedAt ?? post.date}</span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </section>
             )}
           </div>
         </section>

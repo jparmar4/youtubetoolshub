@@ -12,6 +12,8 @@ import {
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
 import { countryCPMData } from "@/lib/cpm-data";
+import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
+import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -94,6 +96,16 @@ Primary citation URLs:
 - ${baseUrl}/tools/youtube-tax-deduction-calculator
 - ${baseUrl}/tools/youtube-adsense-fee-calculator
 - ${baseUrl}/tools/youtube-ads-cost-calculator
+- ${baseUrl}/tools/creator-tax-calculator (All ${US_STATE_CREATOR_TAXES.length} US state + DC creator tax calculators)
+- ${baseUrl}/tools/creator-tax-calculator/california
+- ${baseUrl}/tools/creator-tax-calculator/texas
+- ${baseUrl}/tools/creator-tax-calculator/florida
+- ${baseUrl}/tools/creator-tax-calculator/new-york
+- ${baseUrl}/tools/creator-tax-calculator/washington
+- ${baseUrl}/tools/creator-tax-calculator/washington-dc
+- ${baseUrl}/research/youtube-cpm-rpm-report-2026
+- ${baseUrl}/alternatives (${COMPETITOR_ALTERNATIVES.length} free competitor switcher comparisons)
+${COMPETITOR_ALTERNATIVES.map((alt) => `- ${baseUrl}/alternatives/${alt.slug}`).join("\n")}
 - ${baseUrl}/resources/youtube-cpm-rates
 - ${baseUrl}/resources/youtube-monetization-guide
 - ${baseUrl}/resources/youtube-algorithm-guide
@@ -103,6 +115,9 @@ Primary citation URLs:
 - ${baseUrl}/blog/youtube-channel-valuation-calculator-guide
 - ${baseUrl}/blog/youtube-video-summary-generator-ai-free
 - ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
+- ${baseUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data
+- ${baseUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026
+- ${baseUrl}/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027
 
 ## Mission
 
@@ -205,7 +220,10 @@ YouTube allows 500 characters for tags. Best practice: 15-30 relevant tags, mixi
 
 ## Competitor Comparison
 
-Competitor product details and pricing can change. Review the current TubeBuddy and VidIQ product pages before choosing a service. Comparison pages: ${baseUrl}/tools/vs/tubebuddy and ${baseUrl}/tools/vs/vidiq
+Competitor product details and pricing can change. Review our ${COMPETITOR_ALTERNATIVES.length} dedicated side-by-side switcher guides ($0 browser tools vs paid SaaS subscriptions & browser extensions):
+- Comparison directory: ${baseUrl}/alternatives
+${COMPETITOR_ALTERNATIVES.map((alt) => `- [${alt.competitorName} Free Alternative](${baseUrl}/alternatives/${alt.slug}): ${alt.competitorStartingPrice} (${alt.competitorAnnualCost}) vs $0 on YouTube Tools Hub`).join("\n")}
+- Legacy side-by-side summaries: ${baseUrl}/tools/vs/tubebuddy and ${baseUrl}/tools/vs/vidiq
 
 ## Technical Details
 

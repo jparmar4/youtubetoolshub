@@ -12,6 +12,9 @@ import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import AdSlot from "@/components/ads/AdSlot";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
+import { AD_SLOTS } from "@/lib/adsense";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
@@ -248,7 +251,7 @@ export default function YouTubeCPMRatesPage() {
                         "RPM is what creators earn per 1,000 views after platform share",
                         "Use the free earnings calculator for country scenarios",
                     ],
-                    "2026-08-18",
+                    DATA_LAST_REVIEWED,
                 )}
                 pathname="/resources/youtube-cpm-rates"
             />
@@ -262,19 +265,21 @@ export default function YouTubeCPMRatesPage() {
                 }}
             />
 
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white overflow-x-clip">
                 {/* Hero */}
                 <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <Breadcrumb
-                            items={[
-                                { name: "Home", href: "/" },
-                                { name: "Resources", href: "/resources" },
-                                { name: "YouTube CPM Rates 2026" },
-                            ]}
-                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
-                        />
+                        <AdSectionIgnore>
+                            <Breadcrumb
+                                items={[
+                                    { name: "Home", href: "/" },
+                                    { name: "Resources", href: "/resources" },
+                                    { name: "YouTube CPM Rates 2026" },
+                                ]}
+                                className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
+                            />
+                        </AdSectionIgnore>
                         <div className="text-center">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · {countryCPMData.length} Countries
@@ -305,7 +310,10 @@ export default function YouTubeCPMRatesPage() {
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-14">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+                        <div className="lg:col-span-8 min-w-0 space-y-14">
+                            <AdSectionPrioritize>
 
                     {/* High-viewability Leaderboard immediately below Hero (auto-collapses if unfilled) */}
                     <AdSlot slot="8649718301" preset="leaderboard" />
@@ -476,46 +484,63 @@ export default function YouTubeCPMRatesPage() {
                     {/* Ad placement */}
                     <AdSlot slot="7688425196" preset="leaderboard" lazy className="my-8" />
 
-                    {/* CTA to calculator */}
-                    <section className="rounded-3xl bg-gradient-to-br from-slate-900 to-purple-950 p-8 md:p-12 text-center shadow-2xl">
-                        <h2 className="text-3xl md:text-4xl font-black text-white mb-4 font-outfit">
-                            Calculate Your Exact Earnings
-                        </h2>
-                        <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto">
-                            Use our free YouTube Earnings Calculator to see what your channel would earn with different CPM rates and view counts — country by country.
-                        </p>
-                        <Link
-                            href="/tools/youtube-earnings-calculator"
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-black text-lg rounded-full shadow-xl hover:bg-slate-100 transition-colors"
-                        >
-                            Open Earnings Calculator →
-                        </Link>
-                        <p className="text-slate-300 text-sm mt-4">Free · No signup · Directional CPM planning ranges for {countryCPMData.length} countries</p>
-                    </section>
+                            {/* CTA to calculator */}
+                            <AdSectionIgnore>
+                                <section className="rounded-3xl bg-gradient-to-br from-slate-900 to-purple-950 p-8 md:p-12 text-center shadow-2xl">
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-4 font-outfit">
+                                        Calculate Your Exact Earnings
+                                    </h2>
+                                    <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto">
+                                        Use our free YouTube Earnings Calculator to see what your channel would earn with different CPM rates and view counts — country by country.
+                                    </p>
+                                    <Link
+                                        href="/tools/youtube-earnings-calculator"
+                                        className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 font-black text-lg rounded-full shadow-xl hover:bg-slate-100 transition-colors"
+                                    >
+                                        Open Earnings Calculator →
+                                    </Link>
+                                    <p className="text-slate-300 text-sm mt-4">Free · No signup · Directional CPM planning ranges for {countryCPMData.length} countries</p>
+                                </section>
+                            </AdSectionIgnore>
 
-                    {/* FAQ Section */}
-                    <section>
-                        <h2 className="text-3xl font-black text-slate-900 font-outfit mb-8">
-                            Frequently Asked Questions
-                        </h2>
-                        <FaqAccordion items={pageFAQs} headingLevel="h3" />
-                    </section>
+                            {/* FAQ Section */}
+                            <section>
+                                <h2 className="text-3xl font-black text-slate-900 font-outfit mb-8">
+                                    Frequently Asked Questions
+                                </h2>
+                                <FaqAccordion items={pageFAQs} headingLevel="h3" />
+                            </section>
 
-                    {/* Methodology and references make the estimates usable and citable. */}
-                    <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-slate-600">
-                        <h2 className="text-lg font-bold text-slate-900 mb-2">Methodology and official references</h2>
-                        <p className="leading-relaxed">
-                            CPM and RPM figures on this page are directional planning estimates compiled from aggregated creator reports, advertising-rate benchmarks, and monetization research. They are not official YouTube payout data and can vary by audience, content, ad demand, season, and individual video performance. The page was last reviewed on {DATA_LAST_REVIEWED}.
-                        </p>
-                        <p className="mt-3 leading-relaxed">
-                            For your actual earnings, use YouTube Studio&apos;s Revenue reports. For definitions and ad settings, consult YouTube&apos;s official documentation:
-                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener noreferrer">understanding RPM and CPM</a>,
-                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/6175006" target="_blank" rel="noopener noreferrer">managing mid-roll ad breaks</a>, and
-                            {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9002587" target="_blank" rel="noopener noreferrer">YouTube Analytics</a>.
-                        </p>
-                    </section>
+                            {/* Methodology and references make the estimates usable and citable. */}
+                            <section className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm text-slate-600">
+                                <h2 className="text-lg font-bold text-slate-900 mb-2">Methodology and official references</h2>
+                                <p className="leading-relaxed">
+                                    CPM and RPM figures on this page are directional planning estimates compiled from aggregated creator reports, advertising-rate benchmarks, and monetization research. They are not official YouTube payout data and can vary by audience, content, ad demand, season, and individual video performance. The page was last reviewed on {DATA_LAST_REVIEWED}.
+                                </p>
+                                <p className="mt-3 leading-relaxed">
+                                    For your actual earnings, use YouTube Studio&apos;s Revenue reports. For definitions and ad settings, consult YouTube&apos;s official documentation:
+                                    {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener noreferrer">understanding RPM and CPM</a>,
+                                    {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/6175006" target="_blank" rel="noopener noreferrer">managing mid-roll ad breaks</a>, and
+                                    {" "}<a className="font-semibold text-purple-700 hover:underline" href="https://support.google.com/youtube/answer/9002587" target="_blank" rel="noopener noreferrer">YouTube Analytics</a>.
+                                </p>
+                            </section>
+                            </AdSectionPrioritize>
+                        </div>
 
+                        <HighRpmSidebar
+                            currentSlug="youtube-earnings-calculator"
+                            stateTaxHref="/tools/creator-tax-calculator"
+                            stateTaxLabel="Compare 50 US State Creator Taxes"
+                        />
+                    </div>
 
+                    <div className="mt-12">
+                        <AdSlot
+                            slot={AD_SLOTS.MULTIPLEX}
+                            preset="multiplex"
+                            label="Recommended For Creators"
+                        />
+                    </div>
                 </div>
             </div>
         </>

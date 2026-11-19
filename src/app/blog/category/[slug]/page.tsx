@@ -22,6 +22,9 @@ import {
   getGlobalAlternates,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+import AdSlot from "@/components/ads/AdSlot";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
+import { AD_SLOTS } from "@/lib/adsense";
 
 // Only the 9 canonical hubs exist — unknown slugs are hard 404s.
 export const dynamicParams = false;
@@ -156,106 +159,124 @@ export default async function BlogCategoryPage({
         {/* Hero */}
         <section className="py-10 sm:py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Breadcrumb
-              items={[
-                { name: "Home", href: "/" },
-                { name: "Blog", href: "/blog" },
-                { name: category.name },
-              ]}
-              className="mb-6"
-            />
-            <div className="max-w-4xl">
-              <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide mb-5">
-                {posts.length} guide{posts.length === 1 ? "" : "s"}
-              </span>
-              <h1
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 tracking-tight"
-                data-speakable
-              >
-                YouTube {category.name} Guides
-              </h1>
-              <p className="summary text-lg text-slate-700 leading-relaxed" data-speakable>
-                {category.definition}
-              </p>
-            </div>
+            <AdSectionIgnore>
+              <Breadcrumb
+                items={[
+                  { name: "Home", href: "/" },
+                  { name: "Blog", href: "/blog" },
+                  { name: category.name },
+                ]}
+                className="mb-6"
+              />
+            </AdSectionIgnore>
+            <AdSectionPrioritize>
+              <div className="max-w-4xl">
+                <span className="inline-block px-4 py-1.5 text-sm font-bold bg-purple-100 text-purple-700 rounded-full tracking-wide mb-5">
+                  {posts.length} guide{posts.length === 1 ? "" : "s"}
+                </span>
+                <h1
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-5 tracking-tight"
+                  data-speakable
+                >
+                  YouTube {category.name} Guides
+                </h1>
+                <p className="summary text-lg text-slate-700 leading-relaxed" data-speakable>
+                  {category.definition}
+                </p>
+              </div>
+            </AdSectionPrioritize>
           </div>
         </section>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
+        </div>
 
         {/* Post grid */}
-        <section className="pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <BlogCard
-                  key={post.slug}
-                  title={post.title}
-                  excerpt={post.excerpt}
-                  date={post.updatedAt ?? post.date}
-                  category={category.name}
-                  slug={post.slug}
-                  coverImage={post.coverImage}
-                  coverAlt={post.imageAlt || post.title}
-                />
-              ))}
+        <AdSectionPrioritize>
+          <section className="pb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {posts.map((post) => (
+                  <BlogCard
+                    key={post.slug}
+                    title={post.title}
+                    excerpt={post.excerpt}
+                    date={post.updatedAt ?? post.date}
+                    category={category.name}
+                    slug={post.slug}
+                    coverImage={post.coverImage}
+                    coverAlt={post.imageAlt || post.title}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* FAQ */}
-        <section className="pb-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-8">
-              {category.name} — Frequently Asked Questions
-            </h2>
-            <FaqAccordion items={category.faqs} headingLevel="h3" />
-          </div>
-        </section>
+          {/* FAQ */}
+          <section className="pb-16">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-bold text-slate-900 mb-8">
+                {category.name} — Frequently Asked Questions
+              </h2>
+              <FaqAccordion items={category.faqs} headingLevel="h3" />
+            </div>
+          </section>
+        </AdSectionPrioritize>
 
         {/* Free tools for this topic */}
         <section className="pb-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="p-6 md:p-8 rounded-2xl border border-purple-100 bg-gradient-to-br from-purple-50 to-white">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">
-                Free tools for {category.name.toLowerCase()}
-              </h2>
-              <p className="text-slate-600 mb-6">
-                Apply these guides with free creator tools — no signup required.
-              </p>
-              <div className="grid sm:grid-cols-3 gap-3">
-                {relatedTools.map((tool) => (
-                  <Link
-                    key={tool.slug}
-                    href={`/tools/${tool.slug}`}
-                    className="card-3d flex items-center justify-between rounded-xl px-4 py-3"
-                  >
-                    <span className="font-semibold text-slate-800 hover:text-purple-700 text-sm md:text-base">
-                      {tool.name}
-                    </span>
-                    <span aria-hidden="true" className="text-purple-600">
-                      →
-                    </span>
-                  </Link>
-                ))}
+            <AdSectionIgnore>
+              <div className="p-6 md:p-8 rounded-2xl border border-purple-100 bg-gradient-to-br from-purple-50 to-white">
+                <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">
+                  Free tools for {category.name.toLowerCase()}
+                </h2>
+                <p className="text-slate-600 mb-6">
+                  Apply these guides with free creator tools — no signup required.
+                </p>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {relatedTools.map((tool) => (
+                    <Link
+                      key={tool.slug}
+                      href={`/tools/${tool.slug}`}
+                      className="card-3d flex items-center justify-between rounded-xl px-4 py-3"
+                    >
+                      <span className="font-semibold text-slate-800 hover:text-purple-700 text-sm md:text-base">
+                        {tool.name}
+                      </span>
+                      <span aria-hidden="true" className="text-purple-600">
+                        →
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
+            </AdSectionIgnore>
+
+            <div className="my-10">
+              <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" />
             </div>
 
             {/* Browse other hubs */}
-            <div className="mt-12">
-              <h2 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">
-                Browse all topics
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {otherCategories.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/blog/category/${c.slug}`}
-                    className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors"
-                  >
-                    {c.name}
-                  </Link>
-                ))}
+            <AdSectionIgnore>
+              <div className="mt-12">
+                <h2 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">
+                  Browse all topics
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {otherCategories.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={`/blog/category/${c.slug}`}
+                      className="px-4 py-2 bg-slate-100 text-slate-600 rounded-full text-sm font-medium hover:bg-purple-100 hover:text-purple-700 transition-colors"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            </AdSectionIgnore>
           </div>
         </section>
       </div>

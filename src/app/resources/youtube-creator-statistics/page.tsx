@@ -17,6 +17,9 @@ import {
   subscriberBenchmarks,
 } from "@/lib/seo-data";
 import AdSlot from "@/components/ads/AdSlot";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
+import { AD_SLOTS } from "@/lib/adsense";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import { countryCPMData } from "@/lib/cpm-data";
@@ -76,7 +79,14 @@ export const metadata: Metadata = {
       "Data-backed YouTube statistics every creator should know. Earnings, RPM, growth trends, and platform insights for 2026.",
     type: "website",
     url: pageUrl,
-    images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630 }],
+    images: [{ url: `${siteConfig.url}/resources/youtube-creator-statistics/opengraph-image`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "YouTube Creator Statistics 2026 | Data & Insights",
+    description:
+      "Data-backed YouTube statistics every creator should know. Earnings, RPM, growth trends, and platform insights for 2026.",
+    images: [`${siteConfig.url}/resources/youtube-creator-statistics/opengraph-image`],
   },
   alternates: getGlobalAlternates("/resources/youtube-creator-statistics"),
 };
@@ -122,36 +132,41 @@ export default function YouTubeStatistics() {
         }}
       />
 
-      <div className="min-h-screen py-10 sm:py-14 relative overflow-hidden">
+      <div className="min-h-screen py-10 sm:py-14 relative overflow-x-clip">
         <div className="nebula-bg" />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Resources", href: "/resources" },
-              { name: "YouTube Statistics" },
-            ]}
-            className="mb-8"
-          />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AdSectionIgnore>
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Resources", href: "/resources" },
+                { name: "YouTube Statistics" },
+              ]}
+              className="mb-8"
+            />
+          </AdSectionIgnore>
 
-          <div className="text-center mb-12">
-            <h1
-              className="text-3xl md:text-4xl font-black text-slate-900 mb-5 tracking-tight"
-              data-speakable
-            >
-              YouTube Creator Statistics 2026
-            </h1>
-            <p
-              className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto summary"
-              data-speakable
-            >
-              Data-backed planning ranges for earnings, RPM by niche, and growth
-              milestones. Last reviewed {DATA_LAST_REVIEWED}. Figures are
-              directional estimates for creators — not guaranteed payouts.
-            </p>
-          </div>
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+            <div className="lg:col-span-8 min-w-0">
+              <AdSectionPrioritize>
+                <div className="text-center mb-12">
+                  <h1
+                    className="text-3xl md:text-4xl font-black text-slate-900 mb-5 tracking-tight"
+                    data-speakable
+                  >
+                    YouTube Creator Statistics 2026
+                  </h1>
+                  <p
+                    className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto summary"
+                    data-speakable
+                  >
+                    Data-backed planning ranges for earnings, RPM by niche, and growth
+                    milestones. Last reviewed {DATA_LAST_REVIEWED}. Figures are
+                    directional estimates for creators — not guaranteed payouts.
+                  </p>
+                </div>
 
-          <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
+                <div className="card-3d rounded-2xl p-6 sm:p-8 mb-10">
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
               Platform Overview
             </h2>
@@ -281,26 +296,44 @@ export default function YouTubeStatistics() {
           {/* Ad placement */}
           <AdSlot slot="8649718301" preset="leaderboard" lazy className="my-8" />
 
-          <section className="mb-12" aria-labelledby="stats-faq">
-            <h2 id="stats-faq" className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
-              Creator statistics FAQ
-            </h2>
-            <FaqAccordion items={pageFaqs} headingLevel="h3" />
-          </section>
+                <section className="mb-12" aria-labelledby="stats-faq">
+                  <h2 id="stats-faq" className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
+                    Creator statistics FAQ
+                  </h2>
+                  <FaqAccordion items={pageFaqs} headingLevel="h3" />
+                </section>
+              </AdSectionPrioritize>
 
-          <div className="text-center mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/tools/youtube-earnings-calculator"
-              className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
-            >
-              Calculate Your Potential Earnings
-            </Link>
-            <Link
-              href="/resources/youtube-cpm-rates"
-              className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
-            >
-              View CPM by Country
-            </Link>
+              <AdSectionIgnore>
+                <div className="text-center mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/tools/youtube-earnings-calculator"
+                    className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
+                  >
+                    Calculate Your Potential Earnings
+                  </Link>
+                  <Link
+                    href="/resources/youtube-cpm-rates"
+                    className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold"
+                  >
+                    View CPM by Country
+                  </Link>
+                </div>
+              </AdSectionIgnore>
+            </div>
+
+            <HighRpmSidebar
+              stateTaxHref="/tools/creator-tax-calculator"
+              stateTaxLabel="Compare 50 US State Creator Taxes"
+            />
+          </div>
+
+          <div className="mt-12">
+            <AdSlot
+              slot={AD_SLOTS.MULTIPLEX}
+              preset="multiplex"
+              label="Recommended For Creators"
+            />
           </div>
         </div>
       </div>

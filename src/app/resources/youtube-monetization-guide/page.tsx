@@ -14,6 +14,10 @@ import Breadcrumb from "@/components/ui/Breadcrumb";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
 import { countryCPMData } from "@/lib/cpm-data";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
+import { AD_SLOTS } from "@/lib/adsense";
 
 import {
     FaCheckCircle,
@@ -68,14 +72,14 @@ export const metadata: Metadata = {
         description:
             "Complete YouTube monetization guide: YPP requirements, 8 revenue streams, CPM vs RPM, earnings by tier, and proven strategies to maximize your income.",
         url: `${siteConfig.url}/resources/youtube-monetization-guide`,
-        images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`, width: 1200, height: 630 }],
     },
     twitter: {
         card: "summary_large_image",
         title: "YouTube Monetization Guide 2026 — Requirements, Earnings & Strategies",
         description:
             "Everything you need to monetize your YouTube channel in 2026: YPP requirements, 8 revenue streams, and earnings benchmarks by subscriber tier.",
-        images: [`${siteConfig.url}/og-image.png`],
+        images: [`${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`],
     },
 };
 
@@ -170,11 +174,11 @@ const articleSchema = {
     description:
         "Complete YouTube monetization guide for 2026: YPP requirements, 8 revenue streams, CPM vs RPM explained, earnings by subscriber tier, and proven strategies to maximize income.",
     url: `${siteConfig.url}/resources/youtube-monetization-guide`,
-    image: `${siteConfig.url}/og-image.png`,
+    image: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`,
     author: { "@id": `${siteConfig.url}/#organization` },
     publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
-    dateModified: "2026-07-19",
+    dateModified: DATA_LAST_REVIEWED,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-monetization-guide` },
 };
 
@@ -315,7 +319,7 @@ export default function YouTubeMonetizationGuidePage() {
                         "US finance niches often earn higher RPM",
                         "Sponsorships and affiliates diversify beyond AdSense",
                     ],
-                    "2026-08-18",
+                    DATA_LAST_REVIEWED,
                 )}
                 pathname="/resources/youtube-monetization-guide"
             />
@@ -330,20 +334,22 @@ export default function YouTubeMonetizationGuidePage() {
             />
 
 
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white overflow-x-clip">
 
                 {/* Hero */}
                 <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <Breadcrumb
-                            items={[
-                                { name: "Home", href: "/" },
-                                { name: "Resources", href: "/resources" },
-                                { name: "YouTube Monetization Guide 2026" },
-                            ]}
-                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
-                        />
+                        <AdSectionIgnore>
+                            <Breadcrumb
+                                items={[
+                                    { name: "Home", href: "/" },
+                                    { name: "Resources", href: "/resources" },
+                                    { name: "YouTube Monetization Guide 2026" },
+                                ]}
+                                className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
+                            />
+                        </AdSectionIgnore>
                         <div className="text-center">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Revenue Guide
@@ -374,7 +380,10 @@ export default function YouTubeMonetizationGuidePage() {
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+                        <div className="lg:col-span-8 min-w-0 space-y-16">
+                            <AdSectionPrioritize>
 
                     {/* Key Stats */}
                     <section aria-label="YouTube monetization key statistics">
@@ -864,29 +873,48 @@ export default function YouTubeMonetizationGuidePage() {
                         <FaqAccordion items={pageFAQs} headingLevel="h3" />
                     </section>
 
-                    {/* Final CTA */}
-                    <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
-                        <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
-                        <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Start Maximizing Your YouTube Earnings Today</h2>
-                        <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
-                            Use our free YouTube Earnings Calculator to project your monthly AdSense income by country and niche — then use our SEO tools to grow faster.
-                        </p>
-                        <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <Link
-                                href="/tools/youtube-earnings-calculator"
-                                className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
-                            >
-                                <FaChartLine /> Calculate My Earnings
-                            </Link>
-                            <Link
-                                href="/tools/youtube-title-generator"
-                                className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
-                            >
-                                <FaStar /> Optimize My Videos for SEO
-                            </Link>
-                        </div>
-                    </section>
+                    </AdSectionPrioritize>
 
+                    {/* Final CTA */}
+                    <AdSectionIgnore>
+                        <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
+                            <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
+                            <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Start Maximizing Your YouTube Earnings Today</h2>
+                            <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
+                                Use our free YouTube Earnings Calculator to project your monthly AdSense income by country and niche — then use our SEO tools to grow faster.
+                            </p>
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                <Link
+                                    href="/tools/youtube-earnings-calculator"
+                                    className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
+                                >
+                                    <FaChartLine /> Calculate My Earnings
+                                </Link>
+                                <Link
+                                    href="/tools/youtube-title-generator"
+                                    className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
+                                >
+                                    <FaStar /> Optimize My Videos for SEO
+                                </Link>
+                            </div>
+                        </section>
+                    </AdSectionIgnore>
+
+                        </div>
+
+                        <HighRpmSidebar
+                            stateTaxHref="/tools/creator-tax-calculator"
+                            stateTaxLabel="Compare 50 US State Creator Taxes"
+                        />
+                    </div>
+
+                    <div className="mt-12">
+                        <AdSlot
+                            slot={AD_SLOTS.MULTIPLEX}
+                            preset="multiplex"
+                            label="Recommended For Creators"
+                        />
+                    </div>
                 </div>
             </div>
         </>

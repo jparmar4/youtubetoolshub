@@ -124,6 +124,23 @@ async function submitViaApi() {
   return r.status === 200 || r.status === 202 ? 0 : 1;
 }
 
+async function pingWebSubHub(feedUrl) {
+  const payload = `hub.mode=publish&hub.url=${encodeURIComponent(feedUrl)}`;
+  const r = await fetchUrl("https://pubsubhubbub.appspot.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Length": String(Buffer.byteLength(payload)),
+    },
+    body: payload,
+  });
+  if (r.status >= 200 && r.status < 300) {
+    log(`WebSub ping OK (${r.status}): ${feedUrl}`);
+  } else {
+    log(`WebSub ping warning (${r.status || r.body}): ${feedUrl}`);
+  }
+}
+
 async function main() {
   log(`Base: ${BASE}`);
   log(
@@ -153,6 +170,10 @@ async function main() {
       code = (await runNode("scripts/submit-indexnow.mjs")) || code;
     }
   }
+
+  log("Pinging Google WebSub hub for RSS & Atom feeds…");
+  await pingWebSubHub(`${BASE}/feed.xml`);
+  await pingWebSubHub(`${BASE}/atom.xml`);
 
   if (!skipCheck) {
     log("Running post-deploy SEO smoke checks…");

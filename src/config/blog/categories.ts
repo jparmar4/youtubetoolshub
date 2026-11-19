@@ -294,6 +294,7 @@ export const CATEGORY_ALIASES: Record<string, string> = {
   // Monetization family
   Monetization: "monetization",
   "YouTube Monetization": "monetization",
+  "Creator Finance": "monetization",
   Business: "monetization",
   // SEO family
   "SEO & Metadata": "youtube-seo",

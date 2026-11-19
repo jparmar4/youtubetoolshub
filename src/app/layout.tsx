@@ -148,9 +148,16 @@ export default function RootLayout({
       <head>
         {/* Edge DNS Preconnects for Global Performance (fonts are self-hosted via next/font) */}
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://tpc.googlesyndication.com" />
         <link rel="preconnect" href="https://scripts.clarity.ms" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link
+          rel="preload"
+          as="script"
+          href="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1328083083403070"
+          crossOrigin="anonymous"
+        />
         {/*
           AdSense Auto ads + manual units load in ConsentAnalytics via a native
           async <script> after hydration so AdSense's dynamic show_ads_impl.js

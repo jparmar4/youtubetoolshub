@@ -1,6 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { tools } from "@/config/tools";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 function escapeXml(value: string): string {
   return value
@@ -19,7 +20,13 @@ function cdata(value: string): string {
 export async function GET() {
   const posts = getIndexableBlogPosts();
   const siteUrl = siteConfig.url;
-  const now = new Date().toISOString();
+  const toolUpdatedIso = `${DATA_LAST_REVIEWED}T12:00:00.000Z`;
+  let maxTime = new Date(toolUpdatedIso).getTime();
+  for (const p of posts) {
+    const t = new Date(toBlogIsoDate(p.updatedAt ?? p.date)).getTime();
+    if (!Number.isNaN(t) && t > maxTime) maxTime = t;
+  }
+  const feedUpdatedIso = new Date(maxTime).toISOString();
 
   const blogEntries = posts
     .map((post) => {
@@ -55,7 +62,7 @@ export async function GET() {
       <title>${cdata(`${tool.name} – Free Online Tool`)}</title>
       <link href="${escapeXml(toolUrl)}" rel="alternate" type="text/html" />
       <id>${escapeXml(toolUrl)}</id>
-      <updated>${escapeXml(now)}</updated>
+      <updated>${escapeXml(toolUpdatedIso)}</updated>
       <summary type="html">${cdata(tool.shortDescription)}</summary>
       <author>
         <name>${escapeXml(siteConfig.name)}</name>
@@ -77,7 +84,7 @@ export async function GET() {
   <link href="${escapeXml(`${siteUrl}/llms-full.txt`)}" rel="related" type="text/plain" title="LLMs Full Context" />
   <link href="${escapeXml(`${siteUrl}/.well-known/ai.txt`)}" rel="related" type="text/plain" title="AI Crawler Guidance" />
   <id>${escapeXml(`${siteUrl}/`)}</id>
-  <updated>${escapeXml(now)}</updated>
+  <updated>${escapeXml(feedUpdatedIso)}</updated>
   <author>
     <name>${escapeXml(siteConfig.name)}</name>
     <email>${escapeXml(siteConfig.contact.email)}</email>

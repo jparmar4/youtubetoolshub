@@ -9,13 +9,14 @@ import { siteConfig } from "@/config/site";
 import {
   combineSchemasToGraph,
   getBreadcrumbSchema,
-  getGlobalAlternates,
+  getUsOnlyAlternates,
   getSoftwareApplicationSchema,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import UsStateTaxDirectoryGrid from "@/components/tools/UsStateTaxDirectoryGrid";
 import AdSlot from "@/components/ads/AdSlot";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     "best state for youtube llc taxes",
     "creator income tax 2026 usa",
   ],
-  alternates: getGlobalAlternates("/tools/creator-tax-calculator"),
+  alternates: getUsOnlyAlternates("/tools/creator-tax-calculator"),
 };
 
 export default function CreatorTaxStateIndexPage() {
@@ -63,69 +64,73 @@ export default function CreatorTaxStateIndexPage() {
       <div className="min-h-screen py-8 sm:py-12 relative overflow-x-clip">
         <div className="nebula-bg" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <Breadcrumb
-            items={[
-              { name: "Home", href: "/" },
-              { name: "Tools", href: "/tools" },
-              { name: "Creator Tax by State" },
-            ]}
-          />
+          <AdSectionIgnore>
+            <Breadcrumb
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Tools", href: "/tools" },
+                { name: "Creator Tax by State" },
+              ]}
+            />
+          </AdSectionIgnore>
 
-          <header className="card-3d rounded-3xl p-6 sm:p-8 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-extrabold uppercase tracking-wider">
-              <FaMapMarkedAlt className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>50 US States + D.C. · Verified 2026 IRS Rules</span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 font-outfit tracking-tight">
-              YouTube Creator Tax &amp; LLC vs. S-Corp Calculator by US State
-            </h1>
-            <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed">
-              Select or search your US jurisdiction below to calculate 2026 Federal 15.3% Self-Employment tax (${IRS_2026_CONSTANTS.socialSecurityWageBase.toLocaleString("en-US")} Social Security cap), Federal income tax (${IRS_2026_CONSTANTS.standardDeductionSingle.toLocaleString("en-US")} single standard deduction + 20% QBI), state tax rates, LLC filing/annual fees, and IRS Form 2553 S-Corp savings.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-1">
-              <Link
-                href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs"
-              >
-                <FaBalanceScale className="w-3.5 h-3.5" /> Open Full S-Corp Calculator
-              </Link>
-              <Link
-                href="/tools/youtube-tax-deduction-calculator"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-300 hover:border-purple-400 text-slate-800 text-xs font-bold"
-              >
-                <FaBuilding className="w-3.5 h-3.5 text-purple-600" /> Creator Tax Write-Offs Tool
-              </Link>
-            </div>
-          </header>
-
-          <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
-
-          <section className="card-3d rounded-3xl p-6 sm:p-8 space-y-4">
-            <h2 className="text-xl font-black text-slate-900 font-outfit">
-              0% State Wage &amp; Business Income Tax Hubs ({noTaxStates.length} States)
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {noTaxStates.map((s) => (
+          <AdSectionPrioritize>
+            <header className="card-3d rounded-3xl p-6 sm:p-8 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-extrabold uppercase tracking-wider">
+                <FaMapMarkedAlt className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>50 US States + D.C. · Verified 2026 IRS Rules</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900 font-outfit tracking-tight">
+                YouTube Creator Tax &amp; LLC vs. S-Corp Calculator by US State
+              </h1>
+              <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed">
+                Select or search your US jurisdiction below to calculate 2026 Federal 15.3% Self-Employment tax (${IRS_2026_CONSTANTS.socialSecurityWageBase.toLocaleString("en-US")} Social Security cap), Federal income tax (${IRS_2026_CONSTANTS.standardDeductionSingle.toLocaleString("en-US")} single standard deduction + 20% QBI), state tax rates, LLC filing/annual fees, and IRS Form 2553 S-Corp savings.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
                 <Link
-                  key={s.slug}
-                  href={`/tools/creator-tax-calculator/${s.slug}`}
-                  className="group p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 hover:border-emerald-400 hover:bg-white transition-all flex items-center justify-between gap-2"
+                  href="/tools/youtube-llc-vs-s-corp-tax-savings-calculator"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs"
                 >
-                  <div>
-                    <span className="font-extrabold text-slate-900 group-hover:text-emerald-700 block">
-                      {s.stateName} ({s.stateCode})
-                    </span>
-                    <span className="text-xs text-slate-600">
-                      0% State Tax · ${s.llcFilingFee} LLC filing · ${s.llcAnnualFee}/yr
-                    </span>
-                  </div>
-                  <FaArrowRight className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                  <FaBalanceScale className="w-3.5 h-3.5" /> Open Full S-Corp Calculator
                 </Link>
-              ))}
-            </div>
-          </section>
+                <Link
+                  href="/tools/youtube-tax-deduction-calculator"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-300 hover:border-purple-400 text-slate-800 text-xs font-bold"
+                >
+                  <FaBuilding className="w-3.5 h-3.5 text-purple-600" /> Creator Tax Write-Offs Tool
+                </Link>
+              </div>
+            </header>
 
-          <UsStateTaxDirectoryGrid heading="Search & Compare All 50 States + Washington, D.C." />
+            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
+
+            <section className="card-3d rounded-3xl p-6 sm:p-8 space-y-4">
+              <h2 className="text-xl font-black text-slate-900 font-outfit">
+                0% State Wage &amp; Business Income Tax Hubs ({noTaxStates.length} States)
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {noTaxStates.map((s) => (
+                  <Link
+                    key={s.slug}
+                    href={`/tools/creator-tax-calculator/${s.slug}`}
+                    className="group p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 hover:border-emerald-400 hover:bg-white transition-all flex items-center justify-between gap-2"
+                  >
+                    <div>
+                      <span className="font-extrabold text-slate-900 group-hover:text-emerald-700 block">
+                        {s.stateName} ({s.stateCode})
+                      </span>
+                      <span className="text-xs text-slate-600">
+                        0% State Tax · ${s.llcFilingFee} LLC filing · ${s.llcAnnualFee}/yr
+                      </span>
+                    </div>
+                    <FaArrowRight className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <UsStateTaxDirectoryGrid heading="Search & Compare All 50 States + Washington, D.C." />
+          </AdSectionPrioritize>
 
           <AdSlot slot={AD_SLOTS.MULTIPLEX} preset="multiplex" label="Recommended For Creators" />
         </div>

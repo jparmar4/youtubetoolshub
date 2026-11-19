@@ -13,6 +13,10 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import Breadcrumb from "@/components/ui/Breadcrumb";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import QuickAnswerCapsule from "@/components/seo/QuickAnswerCapsule";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
+import { AD_SLOTS } from "@/lib/adsense";
 
 import {
     FaSearch,
@@ -65,14 +69,14 @@ export const metadata: Metadata = {
         description:
             "Master the YouTube algorithm in 2026. The 7 ranking factors, recommendation system breakdown, and proven SEO strategies to grow your channel.",
         url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-        images: [{ url: `${siteConfig.url}/og-image.png`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`, width: 1200, height: 630 }],
     },
     twitter: {
         card: "summary_large_image",
         title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
         description:
             "Master the YouTube algorithm in 2026. Learn all 7 ranking factors and how to optimize your videos for maximum reach.",
-        images: [`${siteConfig.url}/og-image.png`],
+        images: [`${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`],
     },
 };
 
@@ -167,11 +171,11 @@ const articleSchema = {
     description:
         "Complete guide to the YouTube algorithm in 2026: 7 key ranking factors, recommendation system breakdown, Shorts vs long-form differences, and proven SEO optimization strategies.",
     url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-    image: `${siteConfig.url}/og-image.png`,
+    image: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`,
     author: { "@id": `${siteConfig.url}/#organization` },
     publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
-    dateModified: "2026-07-19",
+    dateModified: DATA_LAST_REVIEWED,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-algorithm-guide` },
 };
 
@@ -256,7 +260,7 @@ export default function YouTubeAlgorithmGuidePage() {
                         "Topic interest, competition, and seasonality affect reach",
                         "Use YouTube Studio to evaluate each video",
                     ],
-                    "2026-08-18",
+                    DATA_LAST_REVIEWED,
                 )}
                 pathname="/resources/youtube-algorithm-guide"
             />
@@ -270,20 +274,22 @@ export default function YouTubeAlgorithmGuidePage() {
                 }}
             />
 
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white overflow-x-clip">
 
                 {/* Hero */}
                 <section className="relative overflow-hidden py-12 sm:py-16 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.15),transparent_60%)]" />
                     <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <Breadcrumb
-                            items={[
-                                { name: "Home", href: "/" },
-                                { name: "Resources", href: "/resources" },
-                                { name: "YouTube Algorithm Guide 2026" },
-                            ]}
-                            className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
-                        />
+                        <AdSectionIgnore>
+                            <Breadcrumb
+                                items={[
+                                    { name: "Home", href: "/" },
+                                    { name: "Resources", href: "/resources" },
+                                    { name: "YouTube Algorithm Guide 2026" },
+                                ]}
+                                className="mb-8 text-slate-300 [&_a]:text-slate-300 [&_a:hover]:text-white [&_span]:text-white [&_svg]:text-slate-400"
+                            />
+                        </AdSectionIgnore>
                         <div className="text-center">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-xs font-bold uppercase tracking-widest mb-6">
                                 Updated for 2026 · Complete Ranking Guide
@@ -314,7 +320,10 @@ export default function YouTubeAlgorithmGuidePage() {
                     </div>
                 </section>
 
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
+                        <div className="lg:col-span-8 min-w-0 space-y-16">
+                            <AdSectionPrioritize>
 
                     {/* Key Stats */}
                     <section aria-label="YouTube Algorithm key statistics">
@@ -869,29 +878,48 @@ export default function YouTubeAlgorithmGuidePage() {
                         <FaqAccordion items={pageFAQs} headingLevel="h3" />
                     </section>
 
-                    {/* Final CTA */}
-                    <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
-                        <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
-                        <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Ready to Beat the YouTube Algorithm?</h2>
-                        <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
-                            Use our free suite of YouTube SEO tools to implement every strategy on this page. Optimize your titles, tags, descriptions, and track your earnings — all in one place.
-                        </p>
-                        <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <Link
-                                href="/tools/youtube-title-generator"
-                                className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
-                            >
-                                <FaSearch /> Start with Title Generator
-                            </Link>
-                            <Link
-                                href="/tools/youtube-earnings-calculator"
-                                className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
-                            >
-                                <FaChartLine /> Calculate Your Earnings
-                            </Link>
-                        </div>
-                    </section>
+                    </AdSectionPrioritize>
 
+                    {/* Final CTA */}
+                    <AdSectionIgnore>
+                        <section className="text-center card-3d rounded-3xl p-10 border-purple-100">
+                            <FaYoutube className="text-4xl text-red-500 mx-auto mb-4" />
+                            <h2 className="text-3xl font-black text-slate-900 mb-4 font-outfit">Ready to Beat the YouTube Algorithm?</h2>
+                            <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-8">
+                                Use our free suite of YouTube SEO tools to implement every strategy on this page. Optimize your titles, tags, descriptions, and track your earnings — all in one place.
+                            </p>
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                <Link
+                                    href="/tools/youtube-title-generator"
+                                    className="btn-3d-primary inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
+                                >
+                                    <FaSearch /> Start with Title Generator
+                                </Link>
+                                <Link
+                                    href="/tools/youtube-earnings-calculator"
+                                    className="btn-3d-glass inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-lg"
+                                >
+                                    <FaChartLine /> Calculate Your Earnings
+                                </Link>
+                            </div>
+                        </section>
+                    </AdSectionIgnore>
+
+                        </div>
+
+                        <HighRpmSidebar
+                            stateTaxHref="/tools/creator-tax-calculator"
+                            stateTaxLabel="Compare 50 US State Creator Taxes"
+                        />
+                    </div>
+
+                    <div className="mt-12">
+                        <AdSlot
+                            slot={AD_SLOTS.MULTIPLEX}
+                            preset="multiplex"
+                            label="Recommended For Creators"
+                        />
+                    </div>
                 </div>
             </div>
         </>

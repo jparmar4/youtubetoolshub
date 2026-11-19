@@ -21,7 +21,7 @@ import {
   combineSchemasToGraph,
   getBreadcrumbSchema,
   getFAQSchema,
-  getGlobalAlternates,
+  getUsOnlyAlternates,
   getSoftwareApplicationSchema,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
@@ -76,14 +76,20 @@ export async function generateMetadata({
       url: `${siteConfig.url}/tools/creator-tax-calculator/${state.slug}`,
       images: [
         {
-          url: `${siteConfig.url}/og-image.png`,
+          url: `${siteConfig.url}/tools/creator-tax-calculator/${state.slug}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: title,
         },
       ],
     },
-    alternates: getGlobalAlternates(`/tools/creator-tax-calculator/${state.slug}`),
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | YouTube Tools Hub`,
+      description,
+      images: [`${siteConfig.url}/tools/creator-tax-calculator/${state.slug}/opengraph-image`],
+    },
+    alternates: getUsOnlyAlternates(`/tools/creator-tax-calculator/${state.slug}`),
     robots: {
       index: true,
       follow: true,

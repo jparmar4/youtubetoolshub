@@ -601,13 +601,6 @@ export default async function ToolPage({
                                 </div>
                             )}
 
-                            {/* Multiplex Ad Unit for High-Intent Creator Discovery */}
-                            <AdSlot
-                                slot={AD_SLOTS.MULTIPLEX}
-                                preset="multiplex"
-                                label="Recommended For Creators"
-                            />
-
                             {/* Newsletter CTA */}
                             <AdSectionIgnore>
                                 <div className="my-8">

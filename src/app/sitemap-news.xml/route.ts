@@ -1,5 +1,6 @@
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { siteConfig } from "@/config/site";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 export const dynamic = "force-static";
 
@@ -31,20 +32,32 @@ function escapeXml(value: string): string {
 }
 
 export async function GET() {
-  // getIndexableBlogPosts() is already sorted newest-first and excludes
-  // noindex slugs, so this stays consistent with sitemap.xml.
-  const posts = getIndexableBlogPosts().slice(0, RECENT_POST_LIMIT);
+  // Sort by real revision date (updatedAt ?? date) descending so freshly
+  // revised flagship guides surface immediately for fast recrawl.
+  const posts = [...getIndexableBlogPosts()]
+    .sort((a, b) => {
+      const ta = new Date(toBlogIsoDate(a.updatedAt ?? a.date)).getTime();
+      const tb = new Date(toBlogIsoDate(b.updatedAt ?? b.date)).getTime();
+      return (Number.isNaN(tb) ? 0 : tb) - (Number.isNaN(ta) ? 0 : ta);
+    })
+    .slice(0, RECENT_POST_LIMIT);
 
-  const entries = posts
-    .map((post) => {
+  const reportLastmod = new Date(`${DATA_LAST_REVIEWED}T12:00:00.000Z`);
+  const reportEntry = `  <url>\n    <loc>${escapeXml(`${siteConfig.url}/research/youtube-cpm-rpm-report-2026`)}</loc>${
+    Number.isNaN(reportLastmod.getTime()) ? "" : `\n    <lastmod>${reportLastmod.toISOString()}</lastmod>`
+  }\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>`;
+
+  const entries = [
+    reportEntry,
+    ...posts.map((post) => {
       const loc = escapeXml(`${siteConfig.url}/blog/${post.slug}`);
-      const lastmod = new Date(toBlogIsoDate(post.date));
+      const lastmod = new Date(toBlogIsoDate(post.updatedAt ?? post.date));
       const lastmodTag = Number.isNaN(lastmod.getTime())
         ? ""
         : `\n    <lastmod>${lastmod.toISOString()}</lastmod>`;
       return `  <url>\n    <loc>${loc}</loc>${lastmodTag}\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`;
-    })
-    .join("\n");
+    }),
+  ].join("\n");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

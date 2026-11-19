@@ -313,6 +313,323 @@ export const COMPETITOR_ALTERNATIVES: CompetitorAlternative[] = [
       },
     ],
   },
+  {
+    slug: "viewstats-free-alternative",
+    competitorName: "Viewstats Pro",
+    pageTitle: "Free Viewstats Pro Alternative (2026): Outlier & Packaging Suite",
+    metaDescription:
+      "Stop paying $49.99/mo for Viewstats Pro outlier filters. Run unlimited YouTube outlier scans, packaging checks, and CPM forecasts free in browser.",
+    h1: "The Best Free Viewstats Pro Alternative in 2026",
+    heroSubtitle:
+      "Spot high-performing outlier videos, test packaging in the feed, and estimate niche RPM payouts directly in your browser—saving $479–$599/year over Viewstats Pro.",
+    competitorStartingPrice: "$49.99/mo (Pro)",
+    competitorAnnualCost: "$479 – $599 / year",
+    ytToolsHubCost: "$0 Forever (Core Tools)",
+    annualSavingsLabel: "Save ~$599 / year",
+    embeddedToolSlug: "channel-outlier-scanner",
+    embeddedToolTitle: "Channel @Handle Outlier & Viral Multiplier Scanner",
+    verdictSummary:
+      "Viewstats offers deep thumbnail A/B libraries and ChView insights, but its core Pro outlier filters and alert workflows cost up to $49.99/mo. YouTube Tools Hub gives creators browser-first @handle outlier multiplier scans, 3-way feed packaging checks, and 52-country RPM calculators for $0.",
+    comparisonRows: [
+      {
+        feature: "Annual Subscription Cost",
+        ytToolsHubValue: "$0 / year (Core Suite)",
+        competitorValue: "$479 – $599 / year",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Outlier Multiplier Scanning",
+        ytToolsHubValue: "Included Free via @Handle Scanner",
+        competitorValue: "Pro Plan ($49.99/mo)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Thumbnail Packaging A/B Preview",
+        ytToolsHubValue: "Included Free (3-Way Packaging Studio)",
+        competitorValue: "Included (Thumbnail Library / Pro)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "AdSense CPM & State Tax Modeling",
+        ytToolsHubValue: "52 Countries + 51 US Jurisdictions",
+        competitorValue: "Basic Views/Sub Estimates Only",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Chrome Extension / Account Wall",
+        ytToolsHubValue: "None Required (100% Web-Based)",
+        competitorValue: "Account Login + Optional Extension",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Automated Historical Thumbnail Alerts",
+        ytToolsHubValue: "On-Demand Manual Scans",
+        competitorValue: "Automated Channel Tracking Alerts",
+        winner: "competitor",
+      },
+    ],
+    bestForYtToolsHub: [
+      "Creators who want fast viral outlier multipliers and packaging checks without a $49.99/mo recurring bill.",
+      "Channels pairing outlier topic research with Tier-1 CPM/RPM and sponsorship ROI planning.",
+      "Editors and strategists comparing concepts in Chrome, Safari, or mobile without installing extensions.",
+    ],
+    bestForCompetitor: [
+      "Teams managing 20+ competitor watchlists with automated live thumbnail-swap notifications.",
+      "Agencies specifically buying Viewstats' archival ChView subscriber milestone tracker.",
+    ],
+    faqs: [
+      {
+        question: "Is there a free alternative to Viewstats Pro outlier filters?",
+        answer:
+          "Yes. Our Channel @Handle Outlier & Viral Multiplier Scanner identifies videos outperforming a channel's typical view baseline directly in your browser for free.",
+      },
+      {
+        question: "How much does Viewstats Pro cost compared to YouTube Tools Hub?",
+        answer:
+          "Viewstats Pro runs up to $49.99/month ($479–$599/year). Core outlier, packaging, transcript, and monetization calculators on YouTube Tools Hub are free with no credit card.",
+      },
+      {
+        question: "Does YouTube Tools Hub require connecting my YouTube Studio account?",
+        answer:
+          "No. Everything works from public @handles, public video URLs, and browser-side previews with zero OAuth permissions.",
+      },
+      {
+        question: "Can I test thumbnails alongside outlier research?",
+        answer:
+          "Yes. Pair our Outlier Scanner with the 3-Way Packaging Studio and AI Thumbnail Critique tools to validate titles and compositions side-by-side.",
+      },
+    ],
+  },
+  {
+    slug: "nexlev-free-alternative",
+    competitorName: "NexLev",
+    pageTitle: "Free NexLev Alternative (2026): YouTube Niche & RPM Finder",
+    metaDescription:
+      "Switch from NexLev ($59/mo) to free browser-based YouTube niche discovery, high-CPM vertical filtering, and faceless revenue modeling with zero fees.",
+    h1: "The Best Free NexLev Alternative in 2026",
+    heroSubtitle:
+      "Validate profitable YouTube automation niches, calculate Tier-1 RPM upside, and audit outlier channels without paying $59/month for NexLev.",
+    competitorStartingPrice: "$59/mo (Standard)",
+    competitorAnnualCost: "$708 / year",
+    ytToolsHubCost: "$0 Forever (Core Tools)",
+    annualSavingsLabel: "Save $708 / year",
+    embeddedToolSlug: "youtube-niche-finder-quiz",
+    embeddedToolTitle: "YouTube Niche Finder & High-CPM Selector",
+    verdictSummary:
+      "NexLev markets heavily to faceless YouTube automation builders with niche databases and Chrome overlays starting around $59/mo ($708/year). YouTube Tools Hub helps you score high-CPM niches, inspect channel outliers, and project channel exit multiples for $0 without extensions or lock-in.",
+    comparisonRows: [
+      {
+        feature: "Annual Subscription Cost",
+        ytToolsHubValue: "$0 / year (Core Suite)",
+        competitorValue: "$708 / year ($59/mo)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "High-CPM Niche Discovery",
+        ytToolsHubValue: "Included Free (Niche Finder + CPM Report)",
+        competitorValue: "Paid Niche Database ($59/mo+)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Channel Valuation & Exit Multiples",
+        ytToolsHubValue: "Built-In Valuation & S-Corp Tax Calculators",
+        competitorValue: "Basic Ad Revenue Estimator",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Browser Extension Required",
+        ytToolsHubValue: "No Extension Needed",
+        competitorValue: "Requires NexLev Chrome Extension",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Bundled Database of Small Faceless Channels",
+        ytToolsHubValue: "On-Demand @Handle & Outlier Scanning",
+        competitorValue: "Pre-Scraped Directory Filter",
+        winner: "competitor",
+      },
+    ],
+    bestForYtToolsHub: [
+      "New and scaling faceless channels wanting to keep 100% of early budget for voiceovers and editors instead of $708/yr SaaS fees.",
+      "Creators comparing Tier-1 Finance, B2B SaaS, and Tech RPM potential before picking a channel vertical.",
+      "Operators modeling channel valuation multiples alongside US/global creator tax liabilities.",
+    ],
+    bestForCompetitor: [
+      "Agencies launching dozens of cash-cow channels that want NexLev's pre-filtered channel directory UI.",
+    ],
+    faqs: [
+      {
+        question: "What is the best free alternative to NexLev for niche research?",
+        answer:
+          "YouTube Tools Hub combines the YouTube Niche Finder, 2026 CPM/RPM Benchmark Report, and Channel Outlier Scanner so you can validate profitable verticals free in any browser.",
+      },
+      {
+        question: "Do I need a Chrome extension to replace NexLev's main workflow?",
+        answer:
+          "No. You can match audience CPM tiers, evaluate faceless niche competition, and forecast monthly profit right in your web browser without Chrome extensions.",
+      },
+      {
+        question: "Does NexLev's free tier include unlimited niche discovery?",
+        answer:
+          "NexLev's niche database and filter tools sit behind paid plans starting near $59/month. Our core niche, RPM, and outlier calculators remain $0.",
+      },
+      {
+        question: "Can I estimate how much a faceless niche channel could sell for?",
+        answer:
+          "Yes. Use our Channel Valuation Calculator alongside our Niche Finder—faceless channels in Finance and SaaS commonly command 24x–45x monthly net profit multiples.",
+      },
+    ],
+  },
+  {
+    slug: "spotter-studio-free-alternative",
+    competitorName: "Spotter Studio",
+    pageTitle: "Free Spotter Studio Alternative (2026): Packaging & Hooks",
+    metaDescription:
+      "Replace Spotter Studio ($49/mo) with free YouTube packaging A/B previews, 3-way thumbnail comparisons, title hooks, and outlier ideation in browser.",
+    h1: "The Best Free Spotter Studio Alternative in 2026",
+    heroSubtitle:
+      "Brainstorm viral titles, compare 3 thumbnail concepts inside realistic YouTube feeds, and audit your opening 30-second hook free—saving up to $588/year.",
+    competitorStartingPrice: "$49/mo (Creator)",
+    competitorAnnualCost: "$499 – $588 / year",
+    ytToolsHubCost: "$0 Forever (Core Tools)",
+    annualSavingsLabel: "Save ~$588 / year",
+    embeddedToolSlug: "ab-packaging-studio",
+    embeddedToolTitle: "3-Way Test & Compare Packaging Studio",
+    verdictSummary:
+      "Spotter Studio provides a polished ideation canvas and AI thumbnail brainstorming workspace at ~$49/mo ($499–$588/year). YouTube Tools Hub offers instant browser-based 3-Way Packaging previews, First 30s Hook Audits, and AI Title Generators for $0—with zero waiting lists or Channel OAuth required.",
+    comparisonRows: [
+      {
+        feature: "Annual Cost",
+        ytToolsHubValue: "$0 / year (Core Suite)",
+        competitorValue: "$499 – $588 / year",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Side-by-Side Feed Thumbnail Preview",
+        ytToolsHubValue: "3-Way Packaging Studio (Desktop & Mobile)",
+        competitorValue: "Packaging Canvas (Paid)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Opening 30s Retention Hook Audit",
+        ytToolsHubValue: "Included Free (First 30s Hook Auditor)",
+        competitorValue: "Focuses on Ideation / Concepts",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Account Sign-In / Channel OAuth",
+        ytToolsHubValue: "Zero Sign-In for Core Tools",
+        competitorValue: "Required for Workspace Sync",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Multiplayer Team Canvas & Concept Boards",
+        ytToolsHubValue: "Single-Creator Fast Export Workflow",
+        competitorValue: "Cloud Team Collaboration Boards",
+        winner: "competitor",
+      },
+    ],
+    bestForYtToolsHub: [
+      "Solo creators and lean channels wanting to test packaging combinations in 60 seconds without $49/mo overhead.",
+      "Editors checking whether thumbnail text remains readable at small mobile/suggested sidebar sizes.",
+      "Strategists pairing packaging checks with hook scripting and transcript keyword mining.",
+    ],
+    bestForCompetitor: [
+      "Large multi-editor production studios collaborating asynchronously inside shared cloud brainstorm boards.",
+    ],
+    faqs: [
+      {
+        question: "Is there a free tool similar to Spotter Studio for testing thumbnails?",
+        answer:
+          "Yes. Our 3-Way Test & Compare Packaging Studio lets you upload up to three thumbnail and title variations and preview them against realistic dark and light YouTube feeds free.",
+      },
+      {
+        question: "How much can solo creators save switching from Spotter Studio?",
+        answer:
+          "Switching covers ~$499 to $588 per year—money better invested into higher-leverage editing gear, B-roll, or direct video production.",
+      },
+      {
+        question: "Does YouTube Tools Hub include script hook feedback like an ideation suite?",
+        answer:
+          "Yes. Our First 30s Hook & Promise Auditor checks whether your intro matches the title and thumbnail promise before you hit record.",
+      },
+    ],
+  },
+  {
+    slug: "morningfame-free-alternative",
+    competitorName: "Morningfame",
+    pageTitle: "Free Morningfame Alternative (2026): No-Invite SEO & RPM",
+    metaDescription:
+      "Looking for an invite-free Morningfame alternative? Generate high-CTR YouTube titles, keyword clusters, and RPM growth forecasts free without login.",
+    h1: "The Best Free Morningfame Alternative in 2026",
+    heroSubtitle:
+      "Skip the invite code and monthly fee. Access unlimited YouTube title generation, tag extraction, loudness checks, and Tier-1 earnings modeling immediately.",
+    competitorStartingPrice: "$4.90 – $12.90/mo",
+    competitorAnnualCost: "$58 – $155 / year",
+    ytToolsHubCost: "$0 Forever (Core Tools)",
+    annualSavingsLabel: "Save ~$155 / year",
+    embeddedToolSlug: "youtube-title-generator",
+    embeddedToolTitle: "YouTube Title Generator & CTR Optimizer",
+    verdictSummary:
+      "Morningfame popularized step-by-step keyword grading for smaller channels behind an invite code and Google OAuth sign-in ($4.90–$12.90/mo). YouTube Tools Hub opens up modern title/keyword workflows, transcript SEO mining, -14 LUFS audio checking, and Tier-1 RPM calculators immediately with zero invite code.",
+    comparisonRows: [
+      {
+        feature: "Subscription & Invite Barrier",
+        ytToolsHubValue: "$0 / Open Instant Access",
+        competitorValue: "$58 – $155 / yr (Invite Code + Paid)",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Google / YouTube Studio OAuth Prompt",
+        ytToolsHubValue: "Never Required",
+        competitorValue: "Required to Unlock Dashboard",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Title & Long-Tail Keyword Workflows",
+        ytToolsHubValue: "Title Generator + Transcript Keyword Extractor",
+        competitorValue: "4-Step Keyword Grade Tool",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Monetization, Sponsorship & Tax Tools",
+        ytToolsHubValue: "52-Country CPM/RPM + 51 US State Tax Tools",
+        competitorValue: "Views & Subscriber Velocity Charts Only",
+        winner: "ytToolsHub",
+      },
+      {
+        feature: "Automated YouTube Analytics Email Digests",
+        ytToolsHubValue: "Self-Serve Browser Dashboards",
+        competitorValue: "24h Upload Report Emails",
+        winner: "competitor",
+      },
+    ],
+    bestForYtToolsHub: [
+      "Creators who do not want to grant Google OAuth access to an external analytics SaaS.",
+      "Channels targeting modern packaging (titles + thumbnails + first 30s hooks) rather than legacy tag-score grades.",
+      "Monetized creators calculating AdSense RPM, sponsor pricing, and tax savings in one place.",
+    ],
+    bestForCompetitor: [
+      "Small channels specifically wanting simplified 24-hour email upload scorecards inside an OAuth dashboard.",
+    ],
+    faqs: [
+      {
+        question: "Why switch from Morningfame to YouTube Tools Hub in 2026?",
+        answer:
+          "YouTube ranking today prioritizes CTR packaging, spoken transcript relevance, and watch-time retention rather than basic tag grades. YouTube Tools Hub gives you modern packaging, transcript, and monetization calculators free without invites or OAuth.",
+      },
+      {
+        question: "Do I need an invite code to use YouTube Tools Hub?",
+        answer:
+          "No. All core calculators and SEO tools open immediately in any browser with zero signup or invite codes.",
+      },
+      {
+        question: "Is it safe to avoid connecting YouTube OAuth to third-party SEO tools?",
+        answer:
+          "Yes. Working solely from public video URLs and @handles eliminates third-party Google account token exposure.",
+      },
+    ],
+  },
 ];
 
 export function getCompetitorAlternativeBySlug(

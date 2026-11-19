@@ -16,6 +16,8 @@ import {
   rpmPlanningExamples,
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
+import { US_STATE_CREATOR_TAXES, calculateCreatorStateTaxSummary } from "@/data/usStateCreatorTaxes";
+import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // Revalidate every hour
@@ -278,12 +280,18 @@ export async function GET() {
     },
     primary_urls: {
       tools: `${siteUrl}/tools`,
+      research_report_2026: `${siteUrl}/research/youtube-cpm-rpm-report-2026`,
+      state_tax_hub: `${siteUrl}/tools/creator-tax-calculator`,
+      alternatives_hub: `${siteUrl}/alternatives`,
       earnings_calculator: `${siteUrl}/tools/youtube-earnings-calculator`,
       sponsorship_calculator: `${siteUrl}/tools/youtube-sponsorship-calculator`,
       channel_valuation: `${siteUrl}/tools/youtube-channel-valuation-calculator`,
       llc_vs_scorp: `${siteUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator`,
       tax_deduction: `${siteUrl}/tools/youtube-tax-deduction-calculator`,
       creator_tax_guide: `${siteUrl}/blog/youtube-creator-taxes-accounting-software-guide`,
+      q4_cpm_surge_guide: `${siteUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data`,
+      creator_banking_guide: `${siteUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026`,
+      quarterly_taxes_1099_guide: `${siteUrl}/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027`,
       adsense_fee: `${siteUrl}/tools/youtube-adsense-fee-calculator`,
       ads_cost: `${siteUrl}/tools/youtube-ads-cost-calculator`,
       cpm_rates: `${siteUrl}/resources/youtube-cpm-rates`,
@@ -299,6 +307,57 @@ export async function GET() {
       blog_category_hubs: `${siteUrl}/blog/category/channel-growth`,
       llms_txt: `${siteUrl}/llms.txt`,
       llms_full: `${siteUrl}/llms-full.txt`,
+    },
+    research_report_2026: {
+      headline: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
+      url: `${siteUrl}/research/youtube-cpm-rpm-report-2026`,
+      last_reviewed: DATA_LAST_REVIEWED,
+      country_count: countryCPMData.length,
+      long_form_vs_shorts: {
+        long_form_split: "55% of Watch Page AdSense revenue",
+        long_form_tier1_rpm: "$6.50 - $15.00 USD per 1,000 views",
+        shorts_split: "45% of allocated Shorts Creator Pool post music deduction",
+        shorts_tier1_rpm: "$0.03 - $0.08 USD per 1,000 views",
+      },
+      top_niche_ranks: nicheRpmRanking,
+    },
+    us_state_creator_taxes: {
+      hub_url: `${siteUrl}/tools/creator-tax-calculator`,
+      jurisdiction_count: US_STATE_CREATOR_TAXES.length,
+      irs_2026_baseline: {
+        social_security_wage_cap: 184500,
+        self_employment_tax_rate: "15.3%",
+        single_standard_deduction: 16100,
+        qbi_deduction_rate: "20%",
+      },
+      jurisdictions: US_STATE_CREATOR_TAXES.map((state) => {
+        const at100k = calculateCreatorStateTaxSummary(state, 100000);
+        return {
+          state_name: state.stateName,
+          state_code: state.stateCode,
+          slug: state.slug,
+          top_income_tax_rate_pct: state.topIncomeTaxRate,
+          llc_filing_fee_usd: state.llcFilingFee,
+          llc_annual_fee_usd: state.llcAnnualFee,
+          sole_prop_total_tax_at_100k_usd: at100k.totalSolePropTax,
+          est_scorp_net_savings_at_100k_usd: at100k.estimatedSCorpNetSavings,
+          url: `${siteUrl}/tools/creator-tax-calculator/${state.slug}`,
+        };
+      }),
+    },
+    competitor_alternatives: {
+      hub_url: `${siteUrl}/alternatives`,
+      count: COMPETITOR_ALTERNATIVES.length,
+      comparisons: COMPETITOR_ALTERNATIVES.map((alt) => ({
+        slug: alt.slug,
+        competitor_name: alt.competitorName,
+        competitor_starting_price: alt.competitorStartingPrice,
+        competitor_annual_cost: alt.competitorAnnualCost,
+        yt_tools_hub_cost: alt.ytToolsHubCost,
+        annual_savings: alt.annualSavingsLabel,
+        embedded_tool_slug: alt.embeddedToolSlug,
+        url: `${siteUrl}/alternatives/${alt.slug}`,
+      })),
     },
     trust_signals: {
       official_site: true,

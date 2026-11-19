@@ -54,12 +54,19 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: `${siteConfig.url}/og-image.png`,
+        url: `${siteConfig.url}/research/youtube-cpm-rpm-report-2026/opengraph-image`,
         width: 1200,
         height: 630,
         alt: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
+    description:
+      "Audited HTML benchmark tables covering 52 countries, Long-Form vs Shorts RPM, and Top 12 high-CPM niches.",
+    images: [`${siteConfig.url}/research/youtube-cpm-rpm-report-2026/opengraph-image`],
   },
 };
 
@@ -264,6 +271,13 @@ export default function YouTubeCpmRpmBenchmarkReport2026() {
       "Comprehensive 2026 data report comparing Tier-1 vs Tier-2/3 CPM/RPM across 52 countries, Long-Form vs Shorts RPM, and the Top 12 highest-paying YouTube niches.",
     datePublished: "2026-01-15",
     dateModified: REPORT_LAST_MODIFIED,
+    image: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}/research/youtube-cpm-rpm-report-2026/opengraph-image`,
+      width: 1200,
+      height: 630,
+      representativeOfPage: true,
+    },
     author: {
       "@type": "Organization",
       "@id": `${siteConfig.url}/#organization`,

@@ -15,7 +15,24 @@ export default function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
 
+  const [sessionPageviews, setSessionPageviews] = useState(1);
+
   useEffect(() => {
+    try {
+      const prev = Number(sessionStorage.getItem("yt_session_pageviews") || "0");
+      const next = (Number.isFinite(prev) ? prev : 0) + 1;
+      sessionStorage.setItem("yt_session_pageviews", String(next));
+      const id = setTimeout(() => setSessionPageviews(next), 0);
+      return () => clearTimeout(id);
+    } catch {
+      /* ignore */
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    // Never interrupt a first-page landing (protects Google Discover / Page Experience)
+    if (sessionPageviews < 2) return;
+
     // Check if dismissed before
     try {
       const dismissed = localStorage.getItem("pwa_prompt_dismissed");
@@ -30,8 +47,8 @@ export default function PWAInstallPrompt() {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       if (timer) clearTimeout(timer);
-      // Wait 4 seconds after page load before showing prompt
-      timer = setTimeout(() => setShowPrompt(true), 4000);
+      // Wait 45 seconds on repeat pageviews before showing non-intrusive install prompt
+      timer = setTimeout(() => setShowPrompt(true), 45000);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
@@ -40,7 +57,7 @@ export default function PWAInstallPrompt() {
       window.removeEventListener("beforeinstallprompt", handler);
       if (timer) clearTimeout(timer);
     };
-  }, []);
+  }, [sessionPageviews]);
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;

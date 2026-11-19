@@ -139,12 +139,12 @@ export default function StickyBottomAd() {
       ref={containerRef}
       role="complementary"
       aria-label="Advertisement"
-      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1 px-2"
-      style={{ contain: "layout", transform: "translateZ(0)", maxHeight: "105px" }}
+      className="fixed bottom-0 left-0 right-0 z-40 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] py-1.5 px-2"
+      style={{ contain: "layout", transform: "translateZ(0)" }}
     >
-      <div className="relative w-full max-w-4xl flex items-center justify-center min-h-[50px] max-h-[90px]">
+      <div className="relative flex items-center justify-center">
         {/* Ad Tag & Close Button */}
-        <div className="absolute -top-6 right-2 z-20 flex items-center gap-1.5">
+        <div className="absolute -top-6 right-0 z-20 flex items-center gap-1.5">
           <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider bg-white/95 px-2 py-0.5 rounded-t border border-b-0 border-slate-200 shadow-xs">
             Ad
           </span>
@@ -158,15 +158,15 @@ export default function StickyBottomAd() {
           </button>
         </div>
 
-        {/* AdSense Unit — supports 320x50/320x100 mobile and 728x90 desktop leaderboards */}
-        <div className="w-full flex justify-center overflow-hidden max-h-[90px]">
+        {/* AdSense Anchor Unit — exact 320x50 mobile / 728x90 desktop IAB sizes with zero clipping */}
+        <div className="w-[320px] h-[50px] md:w-[728px] md:h-[90px] mx-auto flex items-center justify-center">
           <GoogleAd
             slot={AD_SLOTS.BOTTOM_STICKY}
-            format="horizontal"
-            responsive={true}
+            format={undefined}
+            responsive={false}
             lazy={false}
-            className="w-full text-center h-[60px] md:h-[90px]"
-            style={{ display: "block", width: "100%", height: "100%", maxHeight: "90px" }}
+            className="w-full h-full text-center"
+            style={{ display: "inline-block", width: "100%", height: "100%" }}
           />
         </div>
       </div>

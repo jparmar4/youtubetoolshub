@@ -161,6 +161,26 @@ export const topicClusters: TopicCluster[] = [
           "adsense wire transfer fees",
         ],
       },
+      {
+        path: "/blog/youtube-creator-business-bank-account-credit-cards-2026",
+        title: "Best Business Bank Accounts & Credit Cards for YouTubers (2026)",
+        anchors: [
+          "youtube business bank account",
+          "creator business checking",
+          "youtube tax vault",
+          "best credit card for youtube gear",
+        ],
+      },
+      {
+        path: "/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027",
+        title: "YouTube 1099-NEC & Quarterly Estimated Taxes (2026–2027)",
+        anchors: [
+          "youtube quarterly estimated taxes",
+          "form 1040-es youtube",
+          "youtube 1099-nec taxes",
+          "safe harbor creator taxes",
+        ],
+      },
     ],
   },
   {
@@ -265,6 +285,16 @@ export const topicClusters: TopicCluster[] = [
         path: "/blog/youtube-cpm-rates-by-country-2026",
         title: "CPM Rates Blog Guide",
         anchors: ["cpm rates guide", "tier 1 cpm comparison"],
+      },
+      {
+        path: "/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data",
+        title: "YouTube Q4 CPM & RPM Surge (2026)",
+        anchors: [
+          "youtube q4 cpm surge",
+          "black friday youtube rpm",
+          "january youtube rpm drop",
+          "highest youtube cpm months",
+        ],
       },
       {
         path: "/resources/youtube-creator-statistics",

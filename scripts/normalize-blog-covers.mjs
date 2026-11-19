@@ -24,6 +24,9 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const dryRun = process.argv.includes("--dry-run");
 
 const MIN_WIDTH = 1200;
+const DISCOVER_WIDTH = 1280;
+const DISCOVER_HEIGHT = 720;
+const MIN_LANDSCAPE_RATIO = 1.35;
 
 const postsDir = join(root, "src", "config", "blog", "data");
 const { readdirSync } = await import("node:fs");
@@ -48,7 +51,7 @@ console.log(
 
 const dimensions = {};
 const jpegMagic = Buffer.from([0xff, 0xd8, 0xff]);
-const stats = { reencoded: 0, upscaled: 0, ok: 0, missing: 0 };
+const stats = { reencoded: 0, upscaled: 0, reframed: 0, ok: 0, missing: 0 };
 
 for (const coverPath of [...coverPaths].sort()) {
   const abs = join(root, "public", coverPath);
@@ -64,12 +67,47 @@ for (const coverPath of [...coverPaths].sort()) {
   const meta = await sharp(bytes).metadata();
   const width = meta.width ?? 0;
   const height = meta.height ?? 0;
+  const aspectRatio = height > 0 ? width / height : 0;
+  const needsLandscapeReframe = aspectRatio > 0 && aspectRatio < MIN_LANDSCAPE_RATIO;
 
   if (dryRun) {
-    const flags = [isJpeg && "JPEG-as-webp", width < MIN_WIDTH && `narrow ${width}x${height}`]
+    const flags = [
+      isJpeg && "JPEG-as-webp",
+      needsLandscapeReframe && `aspect ${aspectRatio.toFixed(2)} -> 1280x720`,
+      !needsLandscapeReframe && width < MIN_WIDTH && `narrow ${width}x${height}`,
+    ]
       .filter(Boolean)
       .join(", ");
     console.log(`${flags ? "FIX  " : "OK   "} ${width}x${height}  ${coverPath}${flags ? `  (${flags})` : ""}`);
+  }
+
+  if (needsLandscapeReframe) {
+    if (!dryRun) {
+      const bg = await sharp(bytes)
+        .resize(DISCOVER_WIDTH, DISCOVER_HEIGHT, { fit: "cover", position: "center" })
+        .blur(24)
+        .modulate({ brightness: 0.45 })
+        .toBuffer();
+      const fg = await sharp(bytes)
+        .resize(DISCOVER_WIDTH, DISCOVER_HEIGHT, {
+          fit: "contain",
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        })
+        .toBuffer();
+      const out = await sharp(bg)
+        .composite([{ input: fg, gravity: "center" }])
+        .webp({ quality: 84 })
+        .toBuffer();
+      writeFileSync(abs, out);
+      const newMeta = await sharp(out).metadata();
+      dimensions[coverPath] = { width: newMeta.width, height: newMeta.height };
+    } else {
+      dimensions[coverPath] = { width: DISCOVER_WIDTH, height: DISCOVER_HEIGHT };
+    }
+    console.log(`REFRAME 16:9 ${width}x${height} -> ${DISCOVER_WIDTH}x${DISCOVER_HEIGHT}: ${coverPath}`);
+    stats.reframed++;
+    if (isJpeg) stats.reencoded++;
+    continue;
   }
 
   let pipeline = sharp(bytes);
@@ -86,11 +124,9 @@ for (const coverPath of [...coverPaths].sort()) {
     const targetW = MIN_WIDTH;
     const targetH = Math.round((height / width) * MIN_WIDTH);
     if (!dryRun) {
-      pipeline = pipeline.resize(targetW, targetH, {
-        kernel: "lanczos3",
-        // Mild sharpening compensates for upscale softness.
-        sharp: true,
-      });
+      pipeline = pipeline
+        .resize(targetW, targetH, { kernel: "lanczos3" })
+        .sharpen();
     }
     console.log(`UPSCALE ${width}x${height} -> ${targetW}x${targetH}: ${coverPath}`);
     needsWrite = true;
@@ -138,4 +174,4 @@ if (!dryRun) {
   console.log(`\nWrote ${outPath} (${pinterestRecorded} Pinterest entries recorded)`);
 }
 
-console.log(`\nSummary: ${stats.ok} ok, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing, ${pinterestRecorded} pinterest recorded`);
+console.log(`\nSummary: ${stats.ok} ok, ${stats.reframed} reframed 16:9, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing, ${pinterestRecorded} pinterest recorded`);

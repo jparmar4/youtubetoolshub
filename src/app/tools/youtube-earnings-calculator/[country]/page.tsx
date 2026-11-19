@@ -19,7 +19,7 @@ import {
     getFAQSchema,
     getBreadcrumbSchema,
     getDatasetSchema,
-    getGlobalAlternates,
+    getCountryEarningsAlternates,
 } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers } from "@/lib/seo-data";
 import AffiliateBanner from "@/components/ads/AffiliateBanner";
@@ -68,16 +68,20 @@ export async function generateMetadata({
             url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}`,
             images: [
                 {
-                    url: `${siteConfig.url}/og-image.png`,
+                    url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}/opengraph-image`,
                     width: 1200,
                     height: 630,
                     alt: title,
                 },
             ],
         },
-        alternates: getGlobalAlternates(
-            `/tools/youtube-earnings-calculator/${country}`,
-        ),
+        twitter: {
+            card: "summary_large_image",
+            title: `${title} | YouTube Tools Hub`,
+            description,
+            images: [`${siteConfig.url}/tools/youtube-earnings-calculator/${country}/opengraph-image`],
+        },
+        alternates: getCountryEarningsAlternates(country),
         robots: {
             index: true,
             follow: true,

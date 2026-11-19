@@ -35,6 +35,7 @@ import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import AdSlot from "@/components/ads/AdSlot";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionPrioritize, AdSectionIgnore } from "@/components/ads/AdSectionTarget";
+import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
 import { AD_SLOTS } from "@/lib/adsense";
 // Only known posts exist — unknown slugs must be hard 404s (not soft-404 + indexable)
 export const dynamicParams = false;
@@ -299,7 +300,7 @@ export default async function BlogPostPage({
                 }}
             />
 
-            <div className="min-h-screen bg-slate-50">
+            <div className="min-h-screen bg-slate-50 overflow-x-clip">
                 {/* Header */}
                 <header className="py-8 lg:py-12 relative overflow-hidden text-center lg:text-left">
                     <div className="absolute top-0 left-0 w-full h-full bg-white/50 backdrop-blur-3xl -z-10" />
@@ -380,11 +381,10 @@ export default async function BlogPostPage({
                 </header>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    {/* Full-width single column (sidebar rail removed for more reading space) */}
-                    <div className="max-w-5xl mx-auto">
+                    <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-start">
 
                         {/* Main Content Column */}
-                        <div>
+                        <div className="lg:col-span-8 min-w-0">
                             {/* Featured Image (Moved from Header) */}
                             {post.coverImage && (
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
@@ -580,38 +580,45 @@ export default async function BlogPostPage({
                             </AdSectionIgnore>
 
                             {/* Related Posts */}
-                            <div className="mt-16">
-                                {relatedPosts.length > 0 && (
-                                    <>
-                                        <h2 className="text-2xl font-bold text-slate-900 mb-8">
-                                            Keep Reading
-                                        </h2>
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            {relatedPosts.map((relatedPost) => (
-                                                <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
-                                                    <article className="h-full bg-white rounded-2xl p-5 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
-                                                        <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-md uppercase tracking-wide">
-                                                            {getCategoryDisplayName(relatedPost)}
-                                                        </span>
-                                                        <h3 className="text-lg font-bold text-slate-900 mt-3 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
-                                                            {relatedPost.title}
-                                                        </h3>
-                                                        <p className="text-sm text-slate-600 line-clamp-2">
-                                                            {relatedPost.excerpt}
-                                                        </p>
-                                                    </article>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
+                            <AdSectionIgnore>
+                                <div className="mt-16">
+                                    {relatedPosts.length > 0 && (
+                                        <>
+                                            <h2 className="text-2xl font-bold text-slate-900 mb-8">
+                                                Keep Reading
+                                            </h2>
+                                            <div className="grid md:grid-cols-2 gap-6">
+                                                {relatedPosts.map((relatedPost) => (
+                                                    <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}`} className="group">
+                                                        <article className="h-full bg-white rounded-2xl p-5 border border-slate-100 hover:shadow-xl hover:shadow-purple-900/5 hover:-translate-y-1 transition-all duration-300">
+                                                            <span className="text-xs font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-md uppercase tracking-wide">
+                                                                {getCategoryDisplayName(relatedPost)}
+                                                            </span>
+                                                            <h3 className="text-lg font-bold text-slate-900 mt-3 mb-2 group-hover:text-purple-600 transition-colors leading-tight">
+                                                                {relatedPost.title}
+                                                            </h3>
+                                                            <p className="text-sm text-slate-600 line-clamp-2">
+                                                                {relatedPost.excerpt}
+                                                            </p>
+                                                        </article>
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </AdSectionIgnore>
                         </div>
 
+                        <HighRpmSidebar
+                            stateTaxHref="/tools/creator-tax-calculator"
+                            stateTaxLabel="Compare 50 US State Creator Taxes"
+                        />
                     </div>
                 </div>
 
                 {/* CTA with specific high-intent tools */}
+                <AdSectionIgnore>
                 <section className="py-20 bg-slate-50">
                     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="bg-white rounded-[2.5rem] p-8 md:p-12 text-center border border-slate-200 shadow-2xl shadow-purple-900/5 relative overflow-hidden">
@@ -646,6 +653,7 @@ export default async function BlogPostPage({
                         </div>
                     </div>
                 </section>
+                </AdSectionIgnore>
             </div>
         </>
     );

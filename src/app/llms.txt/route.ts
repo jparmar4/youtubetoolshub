@@ -12,6 +12,7 @@ import {
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
 import { countryCPMData } from "@/lib/cpm-data";
+import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
 export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate every 24 hours
@@ -112,7 +113,19 @@ YouTube payout data.
 - Monetization guide: ${baseUrl}/resources/youtube-monetization-guide
 - Algorithm guide: ${baseUrl}/resources/youtube-algorithm-guide
 - Creator glossary: ${baseUrl}/resources/youtube-glossary (${glossaryTerms.length} terms defined as direct answers)
-- Competitor alternatives: ${baseUrl}/alternatives
+- Competitor alternatives hub (${COMPETITOR_ALTERNATIVES.length} switchers): ${baseUrl}/alternatives
+${COMPETITOR_ALTERNATIVES.map((alt) => `  - Free ${alt.competitorName} alternative: ${baseUrl}/alternatives/${alt.slug}`).join("\n")}
+- Top US State Creator Tax Calculators:
+  - California: ${baseUrl}/tools/creator-tax-calculator/california
+  - Texas: ${baseUrl}/tools/creator-tax-calculator/texas
+  - Florida: ${baseUrl}/tools/creator-tax-calculator/florida
+  - New York: ${baseUrl}/tools/creator-tax-calculator/new-york
+  - Washington: ${baseUrl}/tools/creator-tax-calculator/washington
+  - Washington, D.C.: ${baseUrl}/tools/creator-tax-calculator/washington-dc
+- High-CPC Q4 & Creator Finance Guides (2026):
+  - Q4 & Black Friday CPM/RPM surge data: ${baseUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data
+  - Creator business banking & tax credit cards: ${baseUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026
+  - 1099-NEC & quarterly estimated taxes: ${baseUrl}/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027
 
 ## URL Structure
 
@@ -122,7 +135,7 @@ YouTube payout data.
 - State tax pages (${baseUrl}/tools/creator-tax-calculator/[state]): Localized state income tax, LLC filing fee, and S-Corp breakeven calculator (e.g., /tools/creator-tax-calculator/california, /tools/creator-tax-calculator/texas, /tools/creator-tax-calculator/washington-dc)
 - Localized earnings (${baseUrl}/tools/youtube-earnings-calculator/[country]): CPM/RPM earnings estimators across ${countryCPMData.length} countries
 - Annual research report (${baseUrl}/research/youtube-cpm-rpm-report-2026): 2026 YouTube CPM & RPM Benchmark Research Report
-- Competitor comparisons (${baseUrl}/alternatives/[slug]): Transparent feature/pricing comparisons (1of10, Pikzels, SocialBlade, VidIQ & TubeBuddy free alternatives)
+- Competitor comparisons (${baseUrl}/alternatives/[slug]): Transparent feature/pricing comparisons (${COMPETITOR_ALTERNATIVES.map((alt) => alt.competitorName).join(", ")} free alternatives)
 - Video X-Ray Audit (${baseUrl}/watch?v=[videoId]): Diagnostic hub linking thumbnails, tags, transcripts, and outlier checks
 - Editorial guides (${baseUrl}/blog/[slug], ${baseUrl}/resources/*): Creator tax, monetization, SEO, and algorithm guides
 - Legal & YouTube API Services disclosures (${baseUrl}/privacy-policy#youtube-api-services and ${baseUrl}/terms-of-use#youtube-terms; /terms redirects to /terms-of-use)
@@ -156,6 +169,10 @@ YouTube payout data.
 - **Channel Valuation Multiple (2026):** 16x–45x monthly net profit (28x baseline; $120,000–$225,000 for a channel netting $5,000/mo at 24x–45x). Finance/B2B/Tech channels command 36x–45x; gaming/vlog 16x–26x. Faceless channels command a 20% premium.
 - **Creator Business Tax Write-Offs:** Cameras, lighting, microphones, editing computers, software (Adobe, DaVinci), home studio square footage, and contractor fees are 100% tax deductible under IRS Schedule C / CRA / HMRC / ATO / Finanzamt / ESTV / IRAS (${baseUrl}/tools/youtube-tax-deduction-calculator and ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator).
 - **YouTube Creator Taxes & Best Accounting Software Guide (2026):** ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide — Benchmark takeaway: US creators face a 15.3% self-employment tax on Schedule C net profit; electing S-Corp status (Form 2553) reaches net-savings breakeven around $75,000–$80,000 in annual net profit, saving $4,800–$11,400+ per year after Gusto payroll and Form 1120-S CPA overhead. Includes a 25-item IRS Schedule C deduction checklist and hands-on testing of 6 creator accounting platforms.
+- **2026 YouTube CPM & RPM Research Report:** ${baseUrl}/research/youtube-cpm-rpm-report-2026 — Audited 52-country CPM/RPM comparison, Long-Form (55% split, $6.50–$15.00 Tier-1 RPM) vs Shorts (45% post-music pool, $0.03–$0.08 Tier-1 RPM), and Top 12 highest-paying niches led by Personal Finance ($18–$48 US CPM) and B2B SaaS ($16–$42 US CPM).
+- **Q4 & Black Friday CPM/RPM Surge Benchmarks (2026):** ${baseUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data — October through December Q4 CPMs expand 1.6x–2.4x in Tier-1 auctions, peaking during Black Friday–Cyber Monday week before the Q1 January budget reset.
+- **Creator Business Banking & Credit Cards Guide (2026):** ${baseUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026 — Audit-proof LLC bank separation, Form 1099-NEC bookkeeping isolation, high-yield business checking for quarterly tax reserves, and ad-spend/gear rewards cards.
+- **1099-NEC & Quarterly Estimated Taxes Schedule (2026–2027):** ${baseUrl}/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027 — IRS Form 1040-ES safe-harbor rules (90% current year / 100%–110% prior year), quarterly payment deadlines, and state-by-state creator tax integration across ${baseUrl}/tools/creator-tax-calculator.
 - **YouTube revenue share:** ${citableFacts.youtubeRevenueShare}
 - **YPP (typical AdSense path):** ${citableFacts.yppWatchHours}
 - **Mid-roll eligibility:** ${citableFacts.midRollMinutes}
@@ -236,6 +253,9 @@ AI structured data: ${baseUrl}/api/ai-context
 - [Channel Tools](${baseUrl}/tools/channel-tools): YouTube channel research and growth tools
 - [Analytics Tools](${baseUrl}/tools/analytics-tools): Analytics and earnings tools
 - [Utility Tools](${baseUrl}/tools/utility-tools): YouTube utility, productivity, and automation tools
+- [2026 CPM & RPM Research Report](${baseUrl}/research/youtube-cpm-rpm-report-2026): Audited 52-country CPM/RPM, Long-Form vs Shorts split & Top 12 niches dataset
+- [US State Creator Tax Hub](${baseUrl}/tools/creator-tax-calculator): Federal + state taxes, LLC fees & S-Corp Form 2553 savings across 50 US states + DC
+- [Free Competitor Alternatives](${baseUrl}/alternatives): Side-by-side comparisons vs paid YouTube SaaS & browser extensions
 - [CPM Rates](${baseUrl}/resources/youtube-cpm-rates): Country CPM/RPM data table
 - [Monetization Guide](${baseUrl}/resources/youtube-monetization-guide): YPP and revenue paths
 - [Algorithm Guide](${baseUrl}/resources/youtube-algorithm-guide): Ranking signals

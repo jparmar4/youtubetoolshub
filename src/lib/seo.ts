@@ -531,10 +531,7 @@ export function absoluteUrl(path: string): string {
 
 /**
  * Per-page canonical + self-referencing hreflang for global English traffic.
- * Single-language site: all English variants point to the same canonical URL.
- * This signals to Google that one URL serves US/UK/IN/AU/CA English queries
- * without creating thin duplicate locale URLs. Never point alternates at
- * the homepage from inner URLs.
+ * Clean en + x-default without redundant country-locale spam across every route.
  */
 export function getGlobalAlternates(path: string) {
   const url = absoluteUrl(path);
@@ -542,23 +539,67 @@ export function getGlobalAlternates(path: string) {
     canonical: url,
     languages: {
       en: url,
-      "en-US": url,
-      "en-GB": url,
-      "en-AU": url,
-      "en-CA": url,
-      "en-NZ": url,
-      "en-IE": url,
-      "en-SG": url,
-      "en-IN": url,
-      "en-DE": url,
-      "en-CH": url,
-      "en-NL": url,
-      "en-SE": url,
-      "en-AE": url,
-      "en-ZA": url,
-      "en-PH": url,
-      "en-MY": url,
       "x-default": url,
     },
   };
+}
+
+/**
+ * US-only hreflang for US Federal + State IRS creator tax calculators.
+ */
+export function getUsOnlyAlternates(path: string) {
+  const url = absoluteUrl(path);
+  return {
+    canonical: url,
+    languages: {
+      "en-US": url,
+      "x-default": url,
+    },
+  };
+}
+
+const ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
+  "en-US": "/tools/youtube-earnings-calculator/usa",
+  "en-GB": "/tools/youtube-earnings-calculator/uk",
+  "en-CA": "/tools/youtube-earnings-calculator/canada",
+  "en-AU": "/tools/youtube-earnings-calculator/australia",
+  "en-NZ": "/tools/youtube-earnings-calculator/new-zealand",
+  "en-IE": "/tools/youtube-earnings-calculator/ireland",
+  "en-SG": "/tools/youtube-earnings-calculator/singapore",
+  "en-IN": "/tools/youtube-earnings-calculator/india",
+  "en-ZA": "/tools/youtube-earnings-calculator/south-africa",
+  "en-PH": "/tools/youtube-earnings-calculator/philippines",
+  "en-MY": "/tools/youtube-earnings-calculator/malaysia",
+  "x-default": "/tools/youtube-earnings-calculator",
+};
+
+const ENGLISH_EARNINGS_SLUGS = new Set(
+  Object.entries(ENGLISH_EARNINGS_HREFLANG)
+    .filter(([lang]) => lang !== "x-default")
+    .map(([, path]) => path.split("/").pop()!),
+);
+
+/**
+ * Reciprocal multi-region English hreflang for localized earnings calculators.
+ * Non-English market pages self-canonicalize cleanly without false locale claims.
+ */
+export function getCountryEarningsAlternates(countrySlug?: string) {
+  const currentPath = countrySlug
+    ? `/tools/youtube-earnings-calculator/${countrySlug}`
+    : "/tools/youtube-earnings-calculator";
+  const canonical = absoluteUrl(currentPath);
+
+  if (!countrySlug || ENGLISH_EARNINGS_SLUGS.has(countrySlug)) {
+    return {
+      canonical,
+      languages: Object.fromEntries(
+        Object.entries(ENGLISH_EARNINGS_HREFLANG).map(([lang, path]) => [
+          lang,
+          absoluteUrl(path),
+        ]),
+      ),
+    };
+  }
+
+  return { canonical };
 }
