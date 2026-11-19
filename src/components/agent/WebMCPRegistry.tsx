@@ -220,10 +220,14 @@ export function registerWebMCPTools() {
     }
 
     for (const tool of webMcpTools) {
-      mc.registerTool({
-        ...tool,
-        execute: (args: Record<string, unknown>) => callMcpTool(tool.name, args),
-      });
+      try {
+        mc.registerTool({
+          ...tool,
+          execute: (args: Record<string, unknown>) => callMcpTool(tool.name, args),
+        });
+      } catch {
+        // Ignore duplicate-registration errors if the inline head script already registered this tool
+      }
     }
 
     return true;

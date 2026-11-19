@@ -130,7 +130,10 @@ function isSearchBot(userAgent: string | null): boolean {
    Verified search crawlers (allowlist above) bypass rate limiting entirely.
    ========================================================================== */
 
-// Scripting/scraping client signatures — no real visitor sends these.
+// Scripting/scraping client signatures — keep real security scanners & SEO
+// scrapers blocked while allowing headless browser agents (HeadlessChrome,
+// Playwright, Puppeteer) used by WebMCP & AI agent-readiness evaluators
+// (governed by per-IP rate limits below instead of hard 403s).
 const ABUSIVE_UA_PATTERNS = [
   "curl/",
   "wget",
@@ -144,9 +147,6 @@ const ABUSIVE_UA_PATTERNS = [
   "okhttp",
   "apache-httpclient",
   "libwww-perl",
-  "headlesschrome",
-  "puppeteer",
-  "playwright",
   "phantomjs",
   "selenium",
   "masscan",
@@ -277,6 +277,20 @@ export default async function middleware(request: NextRequest) {
       pathname === "/api/faqs" ||
       pathname === "/api/mcp" ||
       pathname === "/api/health");
+  const isPublicDiscoveryFile =
+    !isMutation &&
+    (pathname === "/robots.txt" ||
+      pathname === "/ads.txt" ||
+      pathname === "/llms.txt" ||
+      pathname === "/llms-full.txt" ||
+      pathname === "/index.md" ||
+      pathname.endsWith(".md") ||
+      pathname === "/knowledge-graph.jsonld" ||
+      pathname === "/feed.xml" ||
+      pathname === "/atom.xml" ||
+      pathname.startsWith("/.well-known/") ||
+      /^\/sitemap[-_a-z0-9]*\.xml$/i.test(pathname));
+  const isPublicMcpEndpoint = pathname === "/api/mcp";
   const isRouterPrefetch =
     request.headers.get("next-router-prefetch") === "1" ||
     request.headers.get("purpose") === "prefetch";
@@ -284,8 +298,17 @@ export default async function middleware(request: NextRequest) {
   // deliveries must never be 403'd by a UA heuristic or 429'd by bursts.
   const skipMitigation = isWebhookPath || isRouterPrefetch;
 
-  // 1a. Known scripting/scraping clients get a hard 403 (never real visitors).
-  if (!skipMitigation && !isSearchBot(userAgent) && isAbusiveBot(userAgent)) {
+  // 1a. Known scripting/scraping clients get a hard 403 on interactive pages
+  //     and private APIs, while standard machine-discovery files & public MCP/
+  //     Markdown APIs remain reachable for CLI/HTTP AI agents (still rate-limited).
+  if (
+    !skipMitigation &&
+    !isPublicDiscoveryApi &&
+    !isPublicDiscoveryFile &&
+    !isPublicMcpEndpoint &&
+    !isSearchBot(userAgent) &&
+    isAbusiveBot(userAgent)
+  ) {
     console.warn(
       `[proxy] blocked abusive UA: ip=${getClientIp(request)} path=${pathname} ua=${userAgent?.slice(0, 120)}`,
     );

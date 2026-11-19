@@ -73,6 +73,8 @@ export default function OmniInputCommandBar() {
       <form
         onSubmit={handleSubmit}
         role="search"
+        toolname="launch_youtube_tool"
+        tooldescription="Route any YouTube video URL, @channel handle, or video topic directly to the matching free YouTube Tools Hub analyzer or generator."
         aria-label="YouTube URL, channel handle, or video topic command bar"
         className="relative rounded-3xl p-2 bg-white/95 backdrop-blur-xl border border-purple-200/90 shadow-[0_20px_50px_-12px_rgba(124,58,237,0.22),0_4px_12px_-2px_rgba(15,23,42,0.06),inset_0_1px_0_0_#fff] focus-within:border-purple-500 focus-within:ring-4 focus-within:ring-purple-500/15 transition-all"
       >
@@ -97,6 +99,7 @@ export default function OmniInputCommandBar() {
             </span>
             <input
               id="hero-omni-input"
+              name="query"
               ref={inputRef}
               type="text"
               value={query}
