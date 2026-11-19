@@ -128,17 +128,10 @@ export const siteConfig = {
     },
   },
 
-  // Contact
+  // Contact — only publish verified, real contact channels (never placeholder 555 numbers or shell-agent addresses)
   contact: {
     email: "support@youtubetoolshub.com",
-    telephone: "+1-302-555-0199",
-    address: {
-      streetAddress: "1209 Orange Street",
-      addressLocality: "Wilmington",
-      addressRegion: "DE",
-      postalCode: "19801",
-      addressCountry: "US",
-    },
+    contactUrl: "https://www.youtubetoolshub.com/contact",
   },
 
   /** Editorial entity for Person schema / E-E-A-T (invisible + JSON-LD) */

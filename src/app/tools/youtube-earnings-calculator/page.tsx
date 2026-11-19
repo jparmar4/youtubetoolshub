@@ -37,7 +37,6 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import PopularStateTaxHub from "@/components/tools/PopularStateTaxHub";
-import AdSlot from "@/components/ads/AdSlot";
 
 const tool = getToolBySlug("youtube-earnings-calculator")!;
 const pageUrl = `${siteConfig.url}/tools/youtube-earnings-calculator`;
@@ -450,9 +449,6 @@ export default function YouTubeEarningsCalculatorPage() {
                   guide.
                 </p>
               </section>
-
-              {/* Ad placement */}
-              <AdSlot slot="6023554962" preset="in-article" className="my-8" />
 
               {/* Countries — full market index grouped by tier for global crawl + UX */}
               <section className="card-3d rounded-3xl p-6 md:p-8">

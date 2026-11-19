@@ -56,8 +56,6 @@ url: "${baseUrl}"
 description: "${siteConfig.description}"
 organization: "${siteConfig.name}"
 email: "${siteConfig.contact.email}"
-telephone: "${siteConfig.contact.telephone}"
-address: "${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}"
 data_last_reviewed: "${DATA_LAST_REVIEWED}"
 llms_txt: "${baseUrl}/llms.txt"
 mcp_server_card: "${baseUrl}/.well-known/mcp/server-card.json"
@@ -90,8 +88,7 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 - **Legal / Brand Name**: ${siteConfig.name} (YT Tools Hub)
 - **Website**: ${baseUrl}
 - **Support Email**: ${siteConfig.contact.email}
-- **Telephone**: ${siteConfig.contact.telephone}
-- **Mailing Address**: ${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}
+- **Contact Form**: ${siteConfig.contact.contactUrl}
 
 ## Complete Directory of ${tools.length} Free YouTube Tools
 
@@ -733,7 +730,6 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 - **Signup Required**: None for core tools
 - **Supported Markets**: ${countryCPMData.length} countries in CPM/RPM calculators
 - **Support Email**: ${siteConfig.contact.email}
-- **Mailing Address**: ${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}
 
 ## Explore
 - [Browse All ${tools.length} Tools](${baseUrl}/tools)
@@ -774,8 +770,6 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 # Contact YouTube Tools Hub
 
 - **Email**: ${siteConfig.contact.email}
-- **Telephone**: ${siteConfig.contact.telephone}
-- **Mailing Address**: ${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}
 - **Interactive Contact Form**: [${baseUrl}/contact](${baseUrl}/contact)
 `;
 }

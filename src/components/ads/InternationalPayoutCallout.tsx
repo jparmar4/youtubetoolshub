@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { FaGlobeAmericas, FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa";
+import Link from "next/link";
+import { FaArrowRight, FaGlobeAmericas, FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa";
 import { AFFILIATE_TOOLS, DEFAULT_AFFILIATE_DISCLOSURE } from "@/config/affiliates";
 
 interface InternationalPayoutCalloutProps {
@@ -100,23 +101,35 @@ export default function InternationalPayoutCallout({
                 <p className="text-xs text-slate-600">
                   {currentTool.tagline}
                 </p>
-                <a
-                  href={currentTool.link}
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-black text-white shadow hover:from-emerald-700 hover:to-teal-700 hover:shadow-md transition-all"
-                >
-                  <span>{currentTool.ctaText}</span>
-                  <FaExternalLinkAlt className="text-[11px]" />
-                </a>
+                {currentTool.verified ? (
+                  <a
+                    href={currentTool.link}
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-black text-white shadow hover:from-emerald-700 hover:to-teal-700 hover:shadow-md transition-all"
+                  >
+                    <span>{currentTool.ctaText}</span>
+                    <FaExternalLinkAlt className="text-[11px]" />
+                  </a>
+                ) : (
+                  <Link
+                    href="/tools/youtube-adsense-fee-calculator"
+                    className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2.5 text-xs font-black text-white shadow hover:from-emerald-700 hover:to-teal-700 hover:shadow-md transition-all"
+                  >
+                    <span>Compare Exact Wire &amp; FX Fees</span>
+                    <FaArrowRight className="text-[11px]" />
+                  </Link>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        <p className="mt-4 text-center lg:text-left text-[11px] text-slate-600 italic">
-          {DEFAULT_AFFILIATE_DISCLOSURE}
-        </p>
+        {currentTool.verified && (
+          <p className="mt-4 text-center lg:text-left text-[11px] text-slate-600 italic">
+            {DEFAULT_AFFILIATE_DISCLOSURE}
+          </p>
+        )}
       </div>
     </div>
   );

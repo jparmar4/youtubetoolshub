@@ -87,18 +87,62 @@ export default function ConsentAnalytics() {
       document.head.appendChild(adScript);
     }
 
-    const apply = (value: Consent) => {
+    let cancelled = false;
+    const apply = (value: Consent, syncGtag = true) => {
+      if (cancelled) return;
       setConsent(value);
+      if (!syncGtag) return;
       if (value === "accepted") grantConsent();
       if (value === "declined") denyConsent();
     };
 
     const initialConsent = readConsent();
-    if (initialConsent) {
-      apply(initialConsent);
-    } else if (!isLikelyGdprTimezone()) {
-      apply("accepted");
-    }
+    const initTimer = setTimeout(() => {
+      if (initialConsent) {
+        // layout.tsx already synced "accepted" before hydration; only push
+        // consent update explicitly when declined.
+        apply(initialConsent, initialConsent === "declined");
+      } else if (!isLikelyGdprTimezone()) {
+        // Non-GDPR markets already default to "granted" in layout.tsx.
+        apply("accepted", false);
+      }
+    }, 0);
+
+    // Bridge Google Funding Choices (IAB TCF v2.2 CMP) consent choices so
+    // EEA/UK/CH visitors who accept via Google's CMP also unlock analytics
+    // and Consent Mode v2 updates cleanly without a duplicate banner.
+    type TcfData = {
+      eventStatus?: string;
+      gdprApplies?: boolean;
+      purpose?: { consents?: Record<string, boolean> };
+    };
+    type TcfApi = (
+      cmd: string,
+      version: number,
+      cb: (tcData: TcfData, success: boolean) => void,
+    ) => void;
+    const win = window as Window & { __tcfapi?: TcfApi };
+    const tcfTimer = setTimeout(() => {
+      if (typeof win.__tcfapi !== "function") return;
+      try {
+        win.__tcfapi("addEventListener", 2, (tcData, success) => {
+          if (!success || !tcData) return;
+          if (
+            tcData.eventStatus !== "useractioncomplete" &&
+            tcData.eventStatus !== "tcloaded"
+          ) {
+            return;
+          }
+          const consents = tcData.purpose?.consents;
+          const granted =
+            tcData.gdprApplies === false ||
+            Boolean(consents && consents["1"] && (consents["3"] || consents["4"]));
+          apply(granted ? "accepted" : "declined");
+        });
+      } catch {
+        /* ignore CMP bridge errors */
+      }
+    }, 1000);
 
     const onStorage = (e: StorageEvent) => {
       if (e.key === "cookieConsent") apply(readConsent());
@@ -108,6 +152,9 @@ export default function ConsentAnalytics() {
     window.addEventListener("storage", onStorage);
     window.addEventListener("cookie-consent-changed", onCustom);
     return () => {
+      cancelled = true;
+      clearTimeout(initTimer);
+      clearTimeout(tcfTimer);
       window.removeEventListener("storage", onStorage);
       window.removeEventListener("cookie-consent-changed", onCustom);
     };

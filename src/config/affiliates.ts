@@ -14,6 +14,8 @@ export interface AffiliateTool {
   logoBg: string;
   badgeBg: string;
   featured?: boolean;
+  /** True only when `link` carries an active publisher affiliate tracking ID. */
+  verified?: boolean;
 }
 
 export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
@@ -28,6 +30,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     logoBg: "from-blue-600 to-indigo-600",
     badgeBg: "bg-blue-500/10 text-blue-600 border-blue-200",
     featured: true,
+    verified: true,
   },
   tubebuddy: {
     id: "tubebuddy",
@@ -40,6 +43,7 @@ export const AFFILIATE_TOOLS: Record<string, AffiliateTool> = {
     logoBg: "from-red-600 to-rose-600",
     badgeBg: "bg-red-500/10 text-red-600 border-red-200",
     featured: true,
+    verified: true,
   },
   descript: {
     id: "descript",

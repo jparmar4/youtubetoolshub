@@ -280,10 +280,7 @@ export default async function ToolPage({
                                 </div>
                             </header>
 
-                            {/* Compact Responsive Leaderboard Above Tool Workspace */}
-                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
-
-                            {/* Interactive Tool Console — Immediately Visible */}
+                            {/* Interactive Tool Console — Immediately Visible Above the Fold */}
                             <div className="studio-console-3d rounded-3xl overflow-hidden">
                                 <div className="flex items-center justify-between gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-900 text-white border-b border-slate-800">
                                     <div className="flex items-center gap-2.5 min-w-0">
@@ -348,9 +345,6 @@ export default async function ToolPage({
 
                             {/* Category-Tailored Creator Affiliate Recommendation */}
                             <AffiliateBanner toolId={getAffiliateToolForCategory(tool.category, tool.slug)} variant="compact" />
-
-                            {/* Ad: Below Worked Example */}
-                            <AdSlot slot="3397391628" preset="in-article" />
                             </AdSectionPrioritize>
 
                             {/* Share & Embed This Tool */}

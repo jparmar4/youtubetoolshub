@@ -16,6 +16,13 @@ export default function CookieConsent() {
         if (isEmbed) return;
 
         const handleOpenSettings = () => {
+            const win = window as Window & {
+                googlefc?: { callbackQueue?: Array<() => void>; showRevocationMessage?: () => void };
+            };
+            if (typeof win.googlefc?.showRevocationMessage === "function") {
+                win.googlefc.showRevocationMessage();
+                return;
+            }
             setShowBanner(true);
         };
         window.addEventListener("open-cookie-consent", handleOpenSettings);
@@ -24,13 +31,27 @@ export default function CookieConsent() {
         let timer: ReturnType<typeof setTimeout> | undefined;
 
         if (!consent) {
-            // Only show a blocking banner in likely GDPR/UK regions.
-            // Elsewhere Consent Mode already grants ads (see layout.tsx).
+            // Non-GDPR regions already have Consent Mode v2 granted by default
+            // in layout.tsx BEFORE adsbygoogle loads. Persist quietly without
+            // dispatching `cookie-consent-changed`, which would otherwise tear
+            // down and abort in-flight manual ad requests mid-auction.
             if (!isLikelyGdprTimezone()) {
                 localStorage.setItem("cookieConsent", "accepted");
-                window.dispatchEvent(new Event("cookie-consent-changed"));
             } else {
-                timer = setTimeout(() => setShowBanner(true), 120);
+                // If Google's certified IAB TCF v2.2 Funding Choices CMP is
+                // already loaded via AdSense, do not render a competing custom
+                // banner on top of it. Fall back only if Funding Choices did
+                // not initialize (e.g., disabled in AdSense or script blocked).
+                timer = setTimeout(() => {
+                    const win = window as Window & {
+                        __tcfapi?: unknown;
+                        googlefc?: unknown;
+                    };
+                    if (typeof win.__tcfapi === "function" || Boolean(win.googlefc)) {
+                        return;
+                    }
+                    setShowBanner(true);
+                }, 1200);
             }
         }
 

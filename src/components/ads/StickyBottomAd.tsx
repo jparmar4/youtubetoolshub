@@ -49,6 +49,8 @@ export default function StickyBottomAd() {
 
   const visible = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isReady, setIsReady] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [hasAutoAnchor, setHasAutoAnchor] = useState(false);
   const [consentRev, setConsentRev] = useState(0);
   const currentKey = `${pathname ?? ""}:${consentRev}`;
   const [unfilledKey, setUnfilledKey] = useState<string | null>(null);
@@ -56,6 +58,43 @@ export default function StickyBottomAd() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener?.("change", sync);
+    return () => mq.removeEventListener?.("change", sync);
+  }, []);
+
+  // Avoid colliding with AdSense Auto Ads anchor banners (overlapping two
+  // sticky bottom ads triggers policy flags and suppresses fill rate).
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const detectAutoAnchor = () => {
+      const autoAnchor = document.querySelector(
+        "ins.adsbygoogle[data-anchor-status], ins.adsbygoogle[data-anchor-shown='true']",
+      );
+      if (autoAnchor && !containerRef.current?.contains(autoAnchor)) {
+        setHasAutoAnchor(true);
+        return true;
+      }
+      return false;
+    };
+    if (detectAutoAnchor() || typeof MutationObserver === "undefined") return;
+    const obs = new MutationObserver(() => {
+      if (detectAutoAnchor()) obs.disconnect();
+    });
+    obs.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["data-anchor-status", "data-anchor-shown"],
+    });
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isLikelyGdprTimezone()) return;
     const onConsentChanged = () => {
       setConsentRev((r) => r + 1);
     };
@@ -132,7 +171,10 @@ export default function StickyBottomAd() {
     }
   };
 
-  if (isEmbed || !visible || !isReady || unfilled) return null;
+  if (isEmbed || !visible || !isReady || unfilled || hasAutoAnchor) return null;
+
+  const unitWidth = isDesktop ? 728 : 320;
+  const unitHeight = isDesktop ? 90 : 50;
 
   return (
     <div
@@ -158,15 +200,23 @@ export default function StickyBottomAd() {
           </button>
         </div>
 
-        {/* AdSense Anchor Unit — exact 320x50 mobile / 728x90 desktop IAB sizes with zero clipping */}
-        <div className="w-[320px] h-[50px] md:w-[728px] md:h-[90px] mx-auto flex items-center justify-center">
+        {/* AdSense Fixed Anchor Unit — explicit 320x50 mobile / 728x90 desktop IAB sizing (format={null} prevents auto 728x280 clipping) */}
+        <div
+          className="mx-auto flex items-center justify-center overflow-hidden"
+          style={{ width: `${unitWidth}px`, height: `${unitHeight}px` }}
+        >
           <GoogleAd
+            key={isDesktop ? "anchor-desktop" : "anchor-mobile"}
             slot={AD_SLOTS.BOTTOM_STICKY}
-            format={undefined}
+            format={null}
             responsive={false}
             lazy={false}
-            className="w-full h-full text-center"
-            style={{ display: "inline-block", width: "100%", height: "100%" }}
+            className="text-center"
+            style={{
+              display: "inline-block",
+              width: `${unitWidth}px`,
+              height: `${unitHeight}px`,
+            }}
           />
         </div>
       </div>

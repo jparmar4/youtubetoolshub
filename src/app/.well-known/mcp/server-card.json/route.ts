@@ -47,7 +47,6 @@ export async function GET() {
       name: siteConfig.name,
       url: baseUrl,
       email: siteConfig.contact.email,
-      telephone: siteConfig.contact.telephone,
     },
     authentication: {
       required: false,

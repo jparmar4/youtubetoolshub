@@ -252,12 +252,7 @@ export default function BlogPage() {
           </div>
         </section>
 
-        <div className="max-w-4xl mx-auto px-4 mb-14" />
-
-        {/* Ad: Between Featured and Other Posts */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-          <AdSlot slot={AD_SLOTS.IN_ARTICLE[0]} preset="in-article" />
-        </div>
+        <div className="max-w-4xl mx-auto px-4 mb-10" />
 
         {/* Other Posts */}
         <section className="py-16 bg-slate-900 text-white">
@@ -297,9 +292,9 @@ export default function BlogPage() {
                       dark={true}
                     />
                   </ScrollReveal>
-                  {(i + 1) % 6 === 0 && (
+                  {i === 5 && (
                     <AdSlot
-                      slot={pickInArticleSlot(Math.floor(i / 6))}
+                      slot={pickInArticleSlot(0)}
                       preset="in-article"
                       className="md:col-span-2 lg:col-span-3 my-4 border-white/10 bg-white/5 [&_p]:text-slate-300"
                     />

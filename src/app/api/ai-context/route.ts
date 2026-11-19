@@ -155,15 +155,6 @@ export async function GET() {
         description:
           `YouTube Tools Hub is a free suite of ${tools.length} creator tools for YouTube content creators, offering thumbnail tools, SEO metadata generation, earnings calculation, and channel growth utilities.`,
         email: siteConfig.contact.email,
-        telephone: siteConfig.contact.telephone,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: siteConfig.contact.address.streetAddress,
-          addressLocality: siteConfig.contact.address.addressLocality,
-          addressRegion: siteConfig.contact.address.addressRegion,
-          postalCode: siteConfig.contact.address.postalCode,
-          addressCountry: siteConfig.contact.address.addressCountry,
-        },
         foundingDate: "2025",
         slogan: "Free YouTube Creator Tools",
         knowsAbout: [
@@ -175,15 +166,7 @@ export async function GET() {
         contactPoint: {
           "@type": "ContactPoint",
           email: siteConfig.contact.email,
-        telephone: siteConfig.contact.telephone,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: siteConfig.contact.address.streetAddress,
-          addressLocality: siteConfig.contact.address.addressLocality,
-          addressRegion: siteConfig.contact.address.addressRegion,
-          postalCode: siteConfig.contact.address.postalCode,
-          addressCountry: siteConfig.contact.address.addressCountry,
-        },
+          url: siteConfig.contact.contactUrl,
           contactType: "customer service",
           availableLanguage: "English",
           areaServed: "Worldwide",

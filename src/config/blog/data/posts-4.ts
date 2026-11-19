@@ -1718,7 +1718,7 @@ If that's you, keep going. The numbers will eventually follow the work.
       "The YouTube script formula that drives 60%+ audience retention: Hook, Micro-Stakes, Story Engine, Value Delivery, and Bridge Outro. Full templates included.",
     date: "August 28, 2026",
     category: "Scripting",
-    author: "Marcus Aurelius",
+    author: "Marcus Chen",
     authorRole: "Storytelling Coach",
     readTime: "15 min read",
     metaDescription:

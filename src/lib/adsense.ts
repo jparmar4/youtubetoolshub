@@ -466,14 +466,20 @@ export function pickInArticleSlot(index = 0): string {
 }
 
 /**
- * Map tool categories or tool slugs to recommended affiliate tools.
+ * Map tool categories or tool slugs to verified revenue-generating affiliate tools
+ * (avoids leaking outbound clicks to unmonetized placeholder URLs).
  */
-export function getAffiliateToolForCategory(category?: string, toolSlug?: string): "vidiq" | "tubebuddy" | "descript" | "epidemic" {
+export function getAffiliateToolForCategory(category?: string, toolSlug?: string): "vidiq" | "tubebuddy" {
   if (toolSlug) {
-    if (toolSlug.includes("thumbnail") || toolSlug.includes("banner")) return "tubebuddy";
-    if (toolSlug.includes("script") || toolSlug.includes("shorts") || toolSlug.includes("intro")) return "descript";
-    if (toolSlug.includes("music") || toolSlug.includes("audio") || toolSlug.includes("sound")) return "epidemic";
-    if (toolSlug.includes("tag") || toolSlug.includes("title") || toolSlug.includes("trend") || toolSlug.includes("ideas") || toolSlug.includes("audit") || toolSlug.includes("earnings")) return "vidiq";
+    if (
+      toolSlug.includes("thumbnail") ||
+      toolSlug.includes("banner") ||
+      toolSlug.includes("ab-") ||
+      toolSlug.includes("packaging")
+    ) {
+      return "tubebuddy";
+    }
+    return "vidiq";
   }
 
   switch (category) {
@@ -482,10 +488,8 @@ export function getAffiliateToolForCategory(category?: string, toolSlug?: string
     case "seo-metadata":
     case "channel-growth":
     case "analytics-earnings":
-      return "vidiq";
     case "utilities":
     case "utility-fun":
-      return "descript";
     default:
       return "vidiq";
   }

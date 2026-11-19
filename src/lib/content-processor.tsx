@@ -288,9 +288,12 @@ export function processContent(
      * separation between units, and nothing injected within the last two
      * sections so this never stacks against the post-FAQ unit.
      */
-    const MAX_IN_ARTICLE_ADS = 5;
+    // Keep in-article ad density focused (max 2 high-viewability mid-content
+    // units alongside the sticky sidebar + bottom multiplex) so AdSense bids
+    // concentrate instead of marking overcrowded units `unfill-optimized`.
+    const MAX_IN_ARTICLE_ADS = 2;
     const FIRST_AD_AFTER = 2;
-    const STRIDE = 2;
+    const STRIDE = 3;
     // Leading whitespace is significant here: post bodies in blog.ts are indented
     // template literals, so headings arrive as "    ## Title". These counts must
     // agree with the trimmed matching in the line walker below, or no ad

@@ -14,7 +14,11 @@ export default function AffiliateBanner({
   customTool,
   variant = "card",
 }: AffiliateBannerProps) {
-  const tool = customTool || AFFILIATE_TOOLS[toolId] || AFFILIATE_TOOLS.vidiq;
+  const requested = customTool || AFFILIATE_TOOLS[toolId];
+  const tool =
+    requested && (customTool || requested.verified)
+      ? requested
+      : AFFILIATE_TOOLS.vidiq;
 
   if (variant === "compact") {
     return (

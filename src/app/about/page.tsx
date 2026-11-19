@@ -206,11 +206,12 @@ export default function AboutPage() {
               <div className="aspect-square glass-premium rounded-[3rem] p-4 relative overflow-hidden group shadow-2xl">
                 <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-purple-500/20 to-transparent p-12 flex flex-col justify-end">
                   <h3 className="text-3xl font-black text-slate-900 mb-2 font-outfit">
-                    E-E-A-T Ready
+                    Transparent &amp; Browser-First
                   </h3>
                   <p className="text-slate-600 font-medium">
-                    Expertise, Experience, Authoritativeness, and
-                    Trustworthiness—are at the core of every tool we build.
+                    Every calculator shows its exact formula, every tool runs
+                    without your YouTube login, and our editorial benchmarks are
+                    regularly reviewed against live creator data.
                   </p>
                 </div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 group-hover:scale-110 transition-transform duration-1000">

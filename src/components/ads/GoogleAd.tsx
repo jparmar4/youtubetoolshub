@@ -3,11 +3,13 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { initializeAd, resetAd, AD_CLIENT } from "@/lib/adsense";
+import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 interface GoogleAdProps {
   client?: string;
   slot: string;
-  format?: string;
+  /** Pass null to omit data-ad-format (required for exact fixed-size IAB units). */
+  format?: string | null;
   layout?: string;
   layoutKey?: string;
   responsive?: boolean;
@@ -44,6 +46,10 @@ export default function GoogleAd({
   const adId = `${slot}-${pathname}-${instanceId}-c${consentRev}`;
 
   useEffect(() => {
+    // Only re-key <ins> after an explicit consent change inside GDPR/UK/CH
+    // regions (where initial ads defaulted to denied). Non-GDPR traffic is
+    // already granted before first push, so re-keying would abort live bids.
+    if (!isLikelyGdprTimezone()) return;
     const onConsentChanged = () => {
       setConsentRev((r) => r + 1);
     };

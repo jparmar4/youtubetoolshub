@@ -42,7 +42,7 @@ export async function GET() {
     })
     .slice(0, RECENT_POST_LIMIT);
 
-  const reportLastmod = new Date(`${DATA_LAST_REVIEWED}T12:00:00.000Z`);
+  const reportLastmod = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`);
   const reportEntry = `  <url>\n    <loc>${escapeXml(`${siteConfig.url}/research/youtube-cpm-rpm-report-2026`)}</loc>${
     Number.isNaN(reportLastmod.getTime()) ? "" : `\n    <lastmod>${reportLastmod.toISOString()}</lastmod>`
   }\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>`;

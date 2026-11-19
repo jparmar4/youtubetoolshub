@@ -427,9 +427,6 @@ export default async function BlogPostPage({
                                 <TableOfContents headings={tocHeadings} className="mb-10" />
                             )}
 
-                            {/* Above-Article Content Ad — high initial viewability */}
-                            <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" className="my-8" />
-
                             <article itemScope itemType="https://schema.org/Article">
                                 <AdSectionPrioritize>
                                 {/* Article Content */}
@@ -525,9 +522,6 @@ export default async function BlogPostPage({
                                         <FaqAccordion items={post.faq} headingLevel="h3" />
                                     </div>
                                 )}
-
-                                {/* Ad: After FAQ section */}
-                                <AdSlot slot={AD_SLOTS.IN_ARTICLE[3]} preset="in-article" className="my-8" />
 
                                 {/* Related free tools CTA — strong internal links for SEO */}
                                 {relatedTools.length > 0 && (

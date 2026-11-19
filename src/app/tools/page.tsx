@@ -295,7 +295,9 @@ export default function ToolsPage() {
                       </div>
                     </ScrollReveal>
 
-                    <AdSlot slot={pickInArticleSlot(index)} preset="in-article" className="mt-12" />
+                    {index === 1 && (
+                      <AdSlot slot={pickInArticleSlot(0)} preset="in-article" className="mt-12" />
+                    )}
                   </section>
                 </div>
               );

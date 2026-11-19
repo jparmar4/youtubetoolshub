@@ -75,8 +75,6 @@ YouTube Tools Hub is a free platform providing ${tools.length} creator tools for
 
 **Website:** ${baseUrl}
 **Contact:** ${siteConfig.contact.email}
-**Telephone:** ${siteConfig.contact.telephone}
-**Address:** ${siteConfig.contact.address.streetAddress}, ${siteConfig.contact.address.addressLocality}, ${siteConfig.contact.address.addressRegion} ${siteConfig.contact.address.postalCode}, ${siteConfig.contact.address.addressCountry}
 **Editorial:** ${siteConfig.editorial.name}
 **Category:** YouTube Creator Tools / Web Application
 **Language:** English

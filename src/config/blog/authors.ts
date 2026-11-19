@@ -54,7 +54,7 @@ export const authors: AuthorProfile[] = [
     name: "Marcus Chen",
     role: "YouTube Production Specialist",
     bio: "Marcus Chen covers production and equipment at YouTube Tools Hub — cameras, microphones, lighting, and editing workflows for creators at every budget.",
-    aliases: ["Marcus Chen", "Marcus Aurelius"],
+    aliases: ["Marcus Chen"],
   },
   {
     slug: "sarah-jenkins",

@@ -152,10 +152,7 @@ export default function ToolShell({
                   </div>
                 </header>
 
-                {/* Top Leaderboard Ad */}
-                <AdSlot slot={AD_SLOTS.HEADER} preset="leaderboard" />
-
-                {/* Interactive Workspace Console */}
+                {/* Interactive Workspace Console — immediately above the fold */}
                 <div className="studio-console-3d rounded-3xl overflow-hidden">
                   <div className="flex items-center justify-between gap-2 px-5 py-3 bg-slate-900 text-white border-b border-slate-800">
                     <div className="flex items-center gap-2.5 min-w-0">

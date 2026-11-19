@@ -315,9 +315,6 @@ export default function YouTubeCPMRatesPage() {
                         <div className="lg:col-span-8 min-w-0 space-y-14">
                             <AdSectionPrioritize>
 
-                    {/* High-viewability Leaderboard immediately below Hero (auto-collapses if unfilled) */}
-                    <AdSlot slot="8649718301" preset="leaderboard" />
-
                     {/* Key Stats */}
                     <section>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -480,9 +477,6 @@ export default function YouTubeCPMRatesPage() {
                             ))}
                         </div>
                     </section>
-
-                    {/* Ad placement */}
-                    <AdSlot slot="7688425196" preset="leaderboard" lazy className="my-8" />
 
                             {/* CTA to calculator */}
                             <AdSectionIgnore>

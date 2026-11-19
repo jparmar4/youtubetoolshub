@@ -4,13 +4,15 @@ import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
 function maxSiteLastmod(): string {
   const posts = getIndexableBlogPosts();
-  let max = new Date(`${DATA_LAST_REVIEWED}T12:00:00.000Z`).getTime();
+  let max = new Date(`${DATA_LAST_REVIEWED}T00:00:00.000Z`).getTime();
   if (Number.isNaN(max)) max = 0;
   for (const post of posts) {
     const t = new Date(toBlogIsoDate(post.updatedAt ?? post.date)).getTime();
     if (!Number.isNaN(t) && t > max) max = t;
   }
-  return max ? new Date(max).toISOString() : new Date().toISOString();
+  const now = Date.now();
+  const clamped = max > now ? now : max;
+  return clamped ? new Date(clamped).toISOString() : new Date(now).toISOString();
 }
 
 export function getSitemapIndexXml(): string {

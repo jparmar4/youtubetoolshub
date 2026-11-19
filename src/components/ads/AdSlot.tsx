@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import GoogleAd from "./GoogleAd";
+import { isLikelyGdprTimezone } from "@/config/index-policy";
 
 /** Visual/behavioural presets for ad containers across the site. */
 export type AdSlotPreset = "leaderboard" | "in-article" | "multiplex" | "sidebar" | "bare";
@@ -68,6 +69,7 @@ export default function AdSlot({
     const unfilled = unfilledKey === currentKey;
 
     useEffect(() => {
+        if (!isLikelyGdprTimezone()) return;
         const onConsentChanged = () => {
             setConsentRev((r) => r + 1);
         };

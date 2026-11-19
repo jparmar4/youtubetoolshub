@@ -31,8 +31,8 @@ const isPublishedBlogPost = (post: BlogPost): boolean =>
 
 /**
  * Parse editorial dates like "July 31, 2026" into a stable ISO string.
- * Uses the local calendar day at UTC noon so schema dates don't shift
- * back one day in positive UTC offsets (e.g. IST).
+ * Uses UTC midnight of the local calendar day so dates never shift backward
+ * or appear in the future before noon UTC.
  */
 export function toBlogIsoDate(date: string): string {
   const parsed = new Date(date);
@@ -42,7 +42,7 @@ export function toBlogIsoDate(date: string): string {
       parsed.getFullYear(),
       parsed.getMonth(),
       parsed.getDate(),
-      12,
+      0,
       0,
       0,
     ),

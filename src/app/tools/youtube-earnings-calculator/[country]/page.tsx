@@ -26,7 +26,6 @@ import AffiliateBanner from "@/components/ads/AffiliateBanner";
 import InternationalPayoutCallout from "@/components/ads/InternationalPayoutCallout";
 import { AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
-import AdSlot from "@/components/ads/AdSlot";
 
 /** Unknown country slugs → 404 (prevents soft-404 index bloat) */
 export const dynamicParams = false;
@@ -356,9 +355,6 @@ export default async function CountryEarningsPage({
                                     <p className="text-slate-600 text-sm">Actual revenue per 1k views</p>
                                 </div>
                             </div>
-
-                            {/* Ad placement */}
-                            <AdSlot slot="3397391628" preset="in-article" className="my-8" />
 
                             {/* Content Section */}
                             <div className="card-3d rounded-3xl p-6 sm:p-8 space-y-6">
