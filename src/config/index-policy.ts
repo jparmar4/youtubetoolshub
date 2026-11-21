@@ -13,6 +13,19 @@ export const INDEX_PROGRAMMATIC_NICHE_PAGES = false;
 /** Generated tool-vs-tool pages (C(n,2) pairs). Do not index. */
 export const INDEX_TOOL_COMPARISON_PAGES = false;
 
+/**
+ * Country earnings calculators: Tier-2/3 templates stay live for visitors but
+ * must not compete for index slots — index Tier-1 only until the domain has
+ * the authority to support the full set.
+ */
+export const INDEX_TIER2_COUNTRY_PAGES = false;
+
+/**
+ * US state creator-tax pages: 51 near-identical templates. Keep them live
+ * (old links, real calculators) but out of the index until authority grows.
+ */
+export const INDEX_US_STATE_TAX_PAGES = false;
+
 /** GDPR / UK / EEA / CH — Consent Mode denied until the user accepts. */
 export const GDPR_CONSENT_REGIONS = [
   "AT",

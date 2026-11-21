@@ -112,8 +112,8 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["how much youtube pays", "pay per 1000 views", "youtube pay per view"],
       },
       {
-        path: "/blog/youtube-monetization-truths-cpm-rpm",
-        title: "How Much YouTube Pays for 1 Million Views",
+        path: "/blog/how-much-youtube-pays-per-1000-views-2026",
+        title: "How Much YouTube Pays (1,000 & 1 Million Views)",
         anchors: ["1 million views", "youtube pay for 1 million views", "earnings on 1 million views"],
       },
       {
@@ -127,8 +127,8 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["monetization requirements 2026"],
       },
       {
-        path: "/blog/high-cpm-youtube-niches-2026",
-        title: "High CPM YouTube Niches",
+        path: "/blog/best-youtube-niches-2026",
+        title: "Best YouTube Niches (by CPM Tier)",
         anchors: ["high cpm niches", "most profitable youtube niches"],
       },
       {
@@ -282,8 +282,8 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["youtube cpm india", "india youtube cpm"],
       },
       {
-        path: "/blog/youtube-cpm-rates-by-country-2026",
-        title: "CPM Rates Blog Guide",
+        path: "/resources/youtube-cpm-rates",
+        title: "CPM Rates by Country",
         anchors: ["cpm rates guide", "tier 1 cpm comparison"],
       },
       {
@@ -481,14 +481,9 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["thumbnail prompt", "ai thumbnail prompt"],
       },
       {
-        path: "/blog/youtube-thumbnail-design-psychology",
-        title: "Thumbnail Design Psychology",
-        anchors: ["thumbnail psychology", "thumbnail design tips"],
-      },
-      {
         path: "/blog/how-to-optimize-youtube-thumbnails",
         title: "How to Optimize Thumbnails",
-        anchors: ["optimize youtube thumbnails", "thumbnail optimization"],
+        anchors: ["optimize youtube thumbnails", "thumbnail optimization", "thumbnail psychology", "thumbnail design tips"],
       },
       {
         path: "/blog/youtube-thumbnail-size-2026",
@@ -673,23 +668,13 @@ export const topicClusters: TopicCluster[] = [
     pillar: {
       path: "/blog/best-youtube-niches-2026",
       title: "Best YouTube Niches 2026",
-      anchors: ["best youtube niches", "youtube niche ideas"],
+      anchors: ["best youtube niches", "youtube niche ideas", "high cpm youtube niches", "most profitable youtube niches"],
     },
     spokes: [
       {
         path: "/tools/youtube-niche-finder-quiz",
         title: "Niche Finder Quiz",
         anchors: ["niche finder", "youtube niche quiz"],
-      },
-      {
-        path: "/blog/high-cpm-youtube-niches-2026",
-        title: "High CPM Niches",
-        anchors: ["high cpm youtube niches"],
-      },
-      {
-        path: "/blog/high-cpm-youtube-niches-2026",
-        title: "Most Profitable Niches",
-        anchors: ["profitable youtube niches"],
       },
       {
         path: "/blog/faceless-youtube-channel-2026",
@@ -834,9 +819,9 @@ export const topicClusters: TopicCluster[] = [
     id: "content-strategy",
     name: "Content Strategy",
     pillar: {
-      path: "/blog/youtube-video-ideas-that-actually-work",
-      title: "Video Ideas That Actually Work",
-      anchors: ["youtube video ideas that work", "content ideas for youtube"],
+      path: "/blog/youtube-video-ideas-for-every-niche-2026",
+      title: "YouTube Video Ideas for Every Niche",
+      anchors: ["youtube video ideas that work", "content ideas for youtube", "youtube video ideas"],
     },
     spokes: [
       {

@@ -42,18 +42,35 @@ if (existsSync(path.join(root, "src/config/blog.ts"))) {
 const blogSlugs = new Set();
 for (const rel of blogFiles) {
   const content = readSrc(rel);
-  for (const m of content.matchAll(/^\s{4}slug:\s*"([^"]+)"/gm)) {
+  for (const m of content.matchAll(/^\s{2,}slug:\s*"([^"]+)"/gm)) {
     blogSlugs.add(m[1]);
   }
 }
 
 const policySrc = readSrc("src/config/index-policy.ts");
 const noindexBlock = policySrc.match(
-  /NOINDEX_BLOG_SLUGS\s*=\s*new Set\(\[([\s\S]*?)\]\)/,
+  /NOINDEX_BLOG_SLUGS\s*=\s*new Set(?:<[^>]*>)?\(\[([\s\S]*?)\]\)/,
 );
 const noindexSlugs = new Set(
   noindexBlock
-    ? [...noindexBlock[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
+    ? [...noindexBlock[1].matchAll(/"([^"]+)"/g)]
+        .map((m) => m[1])
+        .filter((s) => /^[a-z0-9-]+$/.test(s))
+    : [],
+);
+
+// Slugs kept in the data files but retired from every public collection —
+// they exist only so their URLs can 301 to a canonical page. Retired +
+// redirected is the expected consolidation state, not a warning.
+const blogIndexSrc = readSrc("src/config/blog/index.ts");
+const retiredBlock = blogIndexSrc.match(
+  /RETIRED_BLOG_SLUGS\s*=\s*new Set(?:<[^>]*>)?\(\[([\s\S]*?)\]\)/,
+);
+const retiredSlugs = new Set(
+  retiredBlock
+    ? [...retiredBlock[1].matchAll(/"([^"]+)"/g)]
+        .map((m) => m[1])
+        .filter((s) => /^[a-z0-9-]+$/.test(s))
     : [],
 );
 
@@ -63,7 +80,9 @@ function routeExists(urlPath) {
   if (clean === "/") return true;
 
   const blogMatch = clean.match(/^\/blog\/([^/]+)$/);
-  if (blogMatch) return blogSlugs.has(blogMatch[1]);
+  if (blogMatch) {
+    return blogSlugs.has(blogMatch[1]) && !retiredSlugs.has(blogMatch[1]);
+  }
 
   const segs = clean.slice(1).split("/");
   const base = path.join(root, "src/app", ...segs);
@@ -126,7 +145,8 @@ for (const [source, r] of bySource) {
   // 5. source is still a published post
   const srcSlug = source.match(/^\/blog\/([^/]+)$/)?.[1];
   if (srcSlug && blogSlugs.has(srcSlug)) {
-    warnings.push(`LIVE+REDIRECTED ${source}  (still in blog.ts; unreachable because the redirect wins)`);
+    if (retiredSlugs.has(srcSlug)) continue; // retired + redirected = intentional consolidation
+    warnings.push(`LIVE+REDIRECTED ${source}  (still published; unreachable because the redirect wins)`);
   }
 }
 
@@ -181,7 +201,9 @@ for (const [key, locations] of internalLinkHits) {
 
 // ── Report ─────────────────────────────────────────────────────────────────
 console.log(`Redirect rules parsed: ${bySource.size} literal (of ${redirects.length} total)`);
-console.log(`Blog posts: ${blogSlugs.size} | noindex slugs: ${noindexSlugs.size}\n`);
+console.log(
+  `Blog posts: ${blogSlugs.size} (${retiredSlugs.size} retired via redirect) | noindex slugs: ${noindexSlugs.size}\n`,
+);
 
 if (errors.length) {
   console.log(`ERRORS (${errors.length}):`);

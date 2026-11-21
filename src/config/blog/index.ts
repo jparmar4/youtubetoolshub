@@ -22,7 +22,20 @@ export const blogPosts: BlogPost[] = [
 // Posts retained only as permanent redirects. Keeping them out of every public
 // collection prevents redirecting URLs from leaking into the sitemap, feeds,
 // search results, and related-post modules.
-const RETIRED_BLOG_SLUGS = new Set<string>([]);
+const RETIRED_BLOG_SLUGS = new Set<string>([
+  // CPM/earnings consolidation: these overlapped the definitive
+  // "how much YouTube pays" guide and the CPM resources hub. Unique substance
+  // (per-subscriber value, Studio RPM workflow) was folded into the canonical
+  // guide; the URLs 301 to their targets via next.config.mjs.
+  "youtube-monetization-truths-cpm-rpm",
+  "youtube-money-per-subscriber-2026",
+  "youtube-monetization-calculator-estimate-earnings-2026",
+  "youtube-cpm-rates-by-country-2026",
+  // Niches/ideas/thumbnails consolidation into broader canonical guides.
+  "high-cpm-youtube-niches-2026",
+  "youtube-video-ideas-that-actually-work",
+  "youtube-thumbnail-design-psychology",
+]);
 
 const isPublishedBlogPost = (post: BlogPost): boolean =>
   !RETIRED_BLOG_SLUGS.has(post.slug);

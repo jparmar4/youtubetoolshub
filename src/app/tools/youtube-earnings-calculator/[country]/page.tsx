@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
 import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
 import { getCountryMonetizationMeta } from "@/lib/country-monetization-meta";
 import { formatDualCurrencySummary, formatMoneyRounded } from "@/lib/currency-data";
@@ -52,6 +53,10 @@ export async function generateMetadata({
     }
 
     const rpm = countryData.rpmRange;
+    // Index Tier-1 only (see src/config/index-policy.ts) — Tier-2/3 templates
+    // stay live for visitors but must not compete for index slots.
+    const indexable =
+        TIERS.TIER1.countries.includes(countryData.code) || INDEX_TIER2_COUNTRY_PAGES;
     const baseTitle = `YouTube Earnings in ${countryData.name} 2026 — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
     const title = baseTitle.length <= 60 ? baseTitle : `YouTube Earnings in ${countryData.name} — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
     const description = `Free YouTube earnings calculator for ${countryData.name}. Planning RPM is about $${rpm.min.toFixed(2)}–$${rpm.max.toFixed(2)} (avg $${rpm.avg.toFixed(2)}). Estimate 100k and 1M view pay.`;
@@ -80,16 +85,22 @@ export async function generateMetadata({
             description,
             images: [`${siteConfig.url}/tools/youtube-earnings-calculator/${country}/opengraph-image`],
         },
-        alternates: getCountryEarningsAlternates(country),
+        alternates: indexable
+            ? getCountryEarningsAlternates(country)
+            : { canonical: "/tools/youtube-earnings-calculator" },
         robots: {
-            index: true,
+            index: indexable,
             follow: true,
             googleBot: {
-                index: true,
+                index: indexable,
                 follow: true,
-                "max-image-preview": "large",
-                "max-snippet": -1,
-                "max-video-preview": -1,
+                ...(indexable
+                    ? {
+                          "max-image-preview": "large",
+                          "max-snippet": -1,
+                          "max-video-preview": -1,
+                      }
+                    : {}),
             },
         },
         other: {
@@ -408,7 +419,7 @@ export default async function CountryEarningsPage({
                                 <p className="text-slate-600 text-sm">
                                     These are AdSense planning estimates for a {countryData.name}-heavy audience, not
                                     official payouts. Compare with{" "}
-                                    <Link href="/blog/youtube-monetization-truths-cpm-rpm" className="text-purple-600 font-semibold hover:underline">
+                                    <Link href="/blog/how-much-youtube-pays-per-1000-views-2026" className="text-purple-600 font-semibold hover:underline">
                                         1 million view earnings
                                     </Link>{" "}
                                     and the{" "}

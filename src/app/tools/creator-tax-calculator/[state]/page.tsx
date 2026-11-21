@@ -17,6 +17,7 @@ import {
   getStateTaxBySlug,
 } from "@/data/usStateCreatorTaxes";
 import { siteConfig } from "@/config/site";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import {
   combineSchemasToGraph,
   getBreadcrumbSchema,
@@ -89,16 +90,22 @@ export async function generateMetadata({
       description,
       images: [`${siteConfig.url}/tools/creator-tax-calculator/${state.slug}/opengraph-image`],
     },
-    alternates: getUsOnlyAlternates(`/tools/creator-tax-calculator/${state.slug}`),
+    alternates: INDEX_US_STATE_TAX_PAGES
+      ? getUsOnlyAlternates(`/tools/creator-tax-calculator/${state.slug}`)
+      : { canonical: "/tools/creator-tax-calculator" },
     robots: {
-      index: true,
+      index: INDEX_US_STATE_TAX_PAGES,
       follow: true,
       googleBot: {
-        index: true,
+        index: INDEX_US_STATE_TAX_PAGES,
         follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
+        ...(INDEX_US_STATE_TAX_PAGES
+          ? {
+              "max-image-preview": "large",
+              "max-snippet": -1,
+              "max-video-preview": -1,
+            }
+          : {}),
       },
     },
   };

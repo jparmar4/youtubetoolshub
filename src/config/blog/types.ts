@@ -45,12 +45,6 @@ export interface BlogPost {
     totalTime?: string;
     steps: { name: string; text: string }[];
   };
-  rating?: {
-    ratingValue: string;
-    ratingCount: string;
-    bestRating?: string;
-    worstRating?: string;
-  };
   video?: {
     title: string;
     description: string;

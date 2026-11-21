@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import {
   combineSchemasToGraph,
   getBreadcrumbSchema,
@@ -631,10 +632,19 @@ export default function YouTubeCpmRpmBenchmarkReport2026() {
                   <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4 space-y-2 text-xs sm:text-sm text-slate-700">
                     <p className="font-bold text-slate-900 flex items-center gap-2">
                       <FaCheckCircle className="text-emerald-600" />
-                      Methodology &amp; Citation Note
+                      Methodology, Sources &amp; Citation Note
                     </p>
                     <p>
-                      Figures above reflect 2026 aggregated YouTube Partner Program benchmarks (55% long-form AdSense / 45% Shorts pool) and Tier-1 direct sponsorship market cards. When citing in articles or research, link to{" "}
+                      <strong>What this data is:</strong> planning ranges, not official payouts. Each country&apos;s min/avg/max RPM is compiled by the site&apos;s author from publicly self-reported creator earnings (YouTube Studio revenue figures creators share publicly), cross-checked against niche-level advertiser patterns and seasonal ad-budget cycles, and last reviewed {DATA_LAST_REVIEWED}.
+                    </p>
+                    <p>
+                      <strong>What it is not:</strong> YouTube and Google do not publish CPM or RPM by country or niche — any site claiming &ldquo;official 2026 YouTube CPM data&rdquo; is estimating. These figures are estimates too; we label them as such instead of presenting them as platform data.
+                    </p>
+                    <p>
+                      <strong>How to use it:</strong> treat the ranges as a starting point, then replace them with your actual Studio RPM (Analytics → Revenue → Last 365 days), which is the only number that reflects your audience, niche, and content mix. Long-form figures assume the standard 55% AdSense split; Shorts figures reflect the 45% Shorts pool.
+                    </p>
+                    <p>
+                      When citing in articles or research, link to{" "}
                       <code className="font-mono text-purple-700">{REPORT_URL}</code>.
                     </p>
                   </div>

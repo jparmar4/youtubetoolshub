@@ -5,6 +5,10 @@ import { BLOG_CATEGORIES, getPostsForCategory } from "@/config/blog/categories";
 import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import {
+  INDEX_TIER2_COUNTRY_PAGES,
+  INDEX_US_STATE_TAX_PAGES,
+} from "@/config/index-policy";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
@@ -154,27 +158,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Country-specific earnings calculator pages (Tier 1 & Tier 2 prioritized for high-CPC traffic)
+  // Country-specific earnings calculator pages — index Tier 1 only (see
+  // src/config/index-policy.ts); Tier-2/3 templates stay live but noindexed.
   for (const country of countryCPMData) {
     const isTier1 = TIERS.TIER1.countries.includes(country.code);
-    const isTier2 = TIERS.TIER2.countries.includes(country.code);
+    if (!isTier1 && !INDEX_TIER2_COUNTRY_PAGES) continue;
     const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
       url,
       lastModified: DATA_LAST_MODIFIED,
-      changeFrequency: isTier1 || isTier2 ? "weekly" : "monthly",
-      priority: isTier1 ? 0.85 : isTier2 ? 0.78 : 0.65,
+      changeFrequency: "weekly",
+      priority: 0.85,
     });
   }
 
-  // US State Creator Tax & LLC vs. S-Corp programmatic pages (50 states + DC)
-  for (const state of US_STATE_CREATOR_TAXES) {
-    allEntries.push({
-      url: `${baseUrl}/tools/creator-tax-calculator/${state.slug}`,
-      lastModified: DATA_LAST_MODIFIED,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    });
+  // US State Creator Tax pages stay noindexed (see index-policy.ts) — they
+  // must not consume sitemap slots until the policy flag flips.
+  if (INDEX_US_STATE_TAX_PAGES) {
+    for (const state of US_STATE_CREATOR_TAXES) {
+      allEntries.push({
+        url: `${baseUrl}/tools/creator-tax-calculator/${state.slug}`,
+        lastModified: DATA_LAST_MODIFIED,
+        changeFrequency: "monthly",
+        priority: 0.8,
+      });
+    }
   }
 
   // High-intent Competitor Switcher / Alternative landing pages

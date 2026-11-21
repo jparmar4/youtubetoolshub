@@ -786,7 +786,7 @@ const nextConfig = {
       },
       {
         source: "/blog/most-profitable-youtube-niches-2026",
-        destination: "/blog/high-cpm-youtube-niches-2026",
+        destination: "/blog/best-youtube-niches-2026",
         permanent: true,
       },
       {
@@ -804,6 +804,86 @@ const nextConfig = {
         destination: "/blog/how-much-youtube-pays-per-1000-views-2026",
         permanent: true,
       },
+      // CPM/earnings consolidation: retire overlapping guides into the
+      // definitive per-1000-views guide, the calculator tool, and the CPM hub.
+      {
+        source: "/blog/youtube-monetization-truths-cpm-rpm",
+        destination: "/blog/how-much-youtube-pays-per-1000-views-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-money-per-subscriber-2026",
+        destination: "/blog/how-much-youtube-pays-per-1000-views-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-monetization-calculator-estimate-earnings-2026",
+        destination: "/tools/youtube-earnings-calculator",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-cpm-rates-by-country-2026",
+        destination: "/resources/youtube-cpm-rates",
+        permanent: true,
+      },
+      // Ideas + thumbnails consolidation into broader canonical guides
+      {
+        source: "/blog/youtube-video-ideas-that-actually-work",
+        destination: "/blog/youtube-video-ideas-for-every-niche-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/youtube-thumbnail-design-psychology",
+        destination: "/blog/how-to-optimize-youtube-thumbnails",
+        permanent: true,
+      },
+      // Author consolidation: all legacy persona bylines resolve to the one
+      // real author profile (see src/config/blog/authors.ts).
+      {
+        source: "/blog/author/alex-rivera",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/jordan-lee",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/alex-chen",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/david-chen",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/marcus-chen",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/sarah-jenkins",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/david-park",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/ryan-mitchell",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
+      {
+        source: "/blog/author/emma-richardson",
+        destination: "/blog/author/jitu",
+        permanent: true,
+      },
       {
         source: "/blog/youtube-automation-ai-tools-2026",
         destination: "/blog/youtube-automation-tools-guide",
@@ -813,6 +893,12 @@ const nextConfig = {
       {
         source: "/blog/faceless-youtube-channel-ideas-make-10000-month-2026",
         destination: "/blog/faceless-youtube-channel-ideas-2026",
+        permanent: true,
+      },
+      // Niches: both niche-with-CPM variants fold into the 50-niche canonical
+      {
+        source: "/blog/high-cpm-youtube-niches-2026",
+        destination: "/blog/best-youtube-niches-2026",
         permanent: true,
       },
       // Shorts monetization: merge complete-guide → canonical shorts monetization

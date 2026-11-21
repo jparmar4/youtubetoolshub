@@ -33,7 +33,8 @@ const PATHS = [
   "/blog/youtube-description-template-2026",
   "/blog/youtube-channel-name-ideas-2026",
   "/blog/youtube-chapters-template-2026",
-  "/blog/youtube-cpm-rates-by-country-2026",
+  "/blog/how-much-youtube-pays-per-1000-views-2026",
+  "/blog/author/jitu",
   "/blog/youtube-shorts-monetization-2026",
   "/blog/how-much-youtube-pays-per-1000-views-2026",
 ];
@@ -55,6 +56,10 @@ const REDIRECT_PATHS = [
   ["/tools/compare/youtube-tag-generator/youtube-title-generator", "/tools"],
   ["/blog/youtube-algorithm-2026", "/resources/youtube-algorithm-guide"],
   ["/blog/youtube-pay-per-view-2026", "/blog/how-much-youtube-pays-per-1000-views-2026"],
+  ["/blog/youtube-cpm-rates-by-country-2026", "/resources/youtube-cpm-rates"],
+  ["/blog/youtube-monetization-truths-cpm-rpm", "/blog/how-much-youtube-pays-per-1000-views-2026"],
+  ["/blog/high-cpm-youtube-niches-2026", "/blog/best-youtube-niches-2026"],
+  ["/blog/author/alex-rivera", "/blog/author/jitu"],
 ];
 
 function fetch(path) {
