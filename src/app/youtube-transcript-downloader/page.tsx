@@ -303,7 +303,7 @@ export default function YouTubeTranscriptDownloaderPage() {
                 "Export clean text without timestamps or full timecoded SRT files.",
                 "Extract hidden spoken keywords used by YouTube's neural ranking algorithm.",
                 "100% free tool with zero daily limits, watermarks, or account requirements.",
-                `Fact-checked by our editorial team — last updated ${DATA_LAST_REVIEWED}.`,
+                `Written and reviewed by ${siteConfig.editorial.name} — last updated ${DATA_LAST_REVIEWED}.`,
               ]}
               badgeText="⚡ AI Quick Answer"
               verifiedNote="Verified with YouTube Data API & Web Standards"

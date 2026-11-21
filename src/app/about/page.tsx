@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { authors, getAuthorPageUrl } from "@/config/blog/authors";
 import { tools } from "@/config/tools";
 import { getGlobalAlternates } from "@/lib/seo";
 import {
@@ -18,6 +19,8 @@ import GeoAeoHead from "@/components/seo/GeoAeoHead";
 import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
+const founder = authors[0];
+
 export const metadata: Metadata = {
   title: { absolute: "About YouTube Tools Hub - Empowering the AI-Native Creator 2026" },
   description:
@@ -28,7 +31,8 @@ export const metadata: Metadata = {
     "free ai tools for creators",
     "democratizing youtube growth",
     "youtube tools origin story",
-    "youtube tools hub team",
+    "who runs youtube tools hub",
+    "youtube tools hub founder",
     "free tubebuddy alternative",
     "free vidiq alternative",
   ],
@@ -210,13 +214,77 @@ export default function AboutPage() {
                   </h3>
                   <p className="text-slate-600 font-medium">
                     Every calculator shows its exact formula, every tool runs
-                    without your YouTube login, and our editorial benchmarks are
-                    regularly reviewed against live creator data.
+                    without your YouTube login, and every benchmark is compiled
+                    from public YouTube data — clearly labeled when it&apos;s an
+                    estimate.
                   </p>
                 </div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 group-hover:scale-110 transition-transform duration-1000">
                   <FaBrain className="w-96 h-96" />
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Section */}
+      <section className="pb-20 relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-start bg-white rounded-[2.5rem] p-8 md:p-12 border border-slate-100 shadow-sm">
+            {founder.photo ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={founder.photo}
+                alt={`${founder.name} — founder of ${siteConfig.name}`}
+                className="w-28 h-28 rounded-full object-cover shadow-lg shrink-0"
+              />
+            ) : (
+              <div className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-black text-4xl shadow-lg shrink-0">
+                {founder.name.charAt(0)}
+              </div>
+            )}
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-purple-600 mb-3">
+                Who runs this site
+              </p>
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 font-outfit">
+                Built and run by one person: {founder.name}
+              </h2>
+              <p className="text-slate-600 leading-relaxed mb-4">
+                {siteConfig.name} isn&apos;t a media company with a rotating cast
+                of bylines — it&apos;s an independent tool suite built and
+                maintained by {founder.name}. The same person who coded the{" "}
+                {tools.length} tools on this site writes every guide you&apos;ll
+                read here.
+              </p>
+              <p className="text-slate-600 leading-relaxed mb-6">
+                The CPM benchmarks and earnings figures published here are
+                compiled from public YouTube data and creator-reported numbers,
+                with the compile date shown on each page. When a number is an
+                estimate, the guide says so. No invented test results, no
+                anonymous personas — if you want to check anything, you can
+                reach the person who actually made it.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href={getAuthorPageUrl(founder)}
+                  className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors"
+                >
+                  Author profile &amp; all guides
+                  <FaArrowRight className="w-3 h-3" aria-hidden="true" />
+                </Link>
+                {(founder.socialLinks ?? []).map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="me noopener noreferrer"
+                    className="inline-flex items-center gap-2 border border-purple-200 text-purple-700 hover:bg-purple-50 font-bold px-5 py-2.5 rounded-xl text-sm transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

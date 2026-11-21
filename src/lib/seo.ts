@@ -409,6 +409,7 @@ export function getPersonSchema(author: {
   id?: string;
   jobTitle?: string;
   description?: string;
+  image?: string;
   sameAs?: string[];
 }) {
   return {
@@ -419,6 +420,7 @@ export function getPersonSchema(author: {
     url: author.url,
     jobTitle: author.jobTitle || "Creator Growth Expert",
     description: author.description,
+    ...(author.image && { image: author.image }),
     sameAs: author.sameAs,
     worksFor: { "@id": `${siteConfig.url}/#organization` },
   };

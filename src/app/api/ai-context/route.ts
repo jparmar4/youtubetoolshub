@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { siteConfig } from "@/config/site";
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { resolveAuthor } from "@/config/blog/authors";
 import {
   BLOG_CATEGORIES,
   getPostsForCategory,
@@ -55,7 +56,9 @@ export async function GET() {
     };
   });
 
-  const blogEntities = blogPosts.map((post) => ({
+  const blogEntities = blogPosts.map((post) => {
+    const author = resolveAuthor(post.author);
+    return {
     "@type": "BlogPosting",
     "@id": `${siteUrl}/blog/${post.slug}#article`,
     headline: post.title,
@@ -65,8 +68,8 @@ export async function GET() {
     ...(post.updatedAt ? { dateModified: toBlogIsoDate(post.updatedAt) } : {}),
     author: {
       "@type": "Person",
-      name: post.author,
-      jobTitle: post.authorRole || "Creator Growth Expert",
+      name: author.name,
+      jobTitle: author.role,
     },
     publisher: {
       "@type": "Organization",
@@ -75,7 +78,8 @@ export async function GET() {
     },
     inLanguage: "en",
     isAccessibleForFree: true,
-  }));
+    };
+  });
 
   const faqEntities = [
     {

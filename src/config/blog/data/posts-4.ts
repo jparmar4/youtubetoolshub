@@ -366,7 +366,7 @@ Which one do you want to be ?
 
     -**[YouTube Algorithm Secrets 2026](/resources/youtube-algorithm-guide)**– Understanding how YouTube decides what to show
         -**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-2026)**– Creating content without showing your face
-            -**[YouTube Video Ideas That Actually Work](/blog/youtube-video-ideas-that-actually-work)**– Finding content topics that perform
+            -**[YouTube Video Ideas: 200+ Ideas for Every Niche](/blog/youtube-video-ideas-for-every-niche-2026)**– Finding content topics that perform
                 -**[YouTube Title Generator](/tools/youtube-title-generator)** – Pair your thumbnail with a winning title
                     `,
     faq: [
@@ -1448,6 +1448,21 @@ Use **no text at all** when the image tells the story by itself: a dramatic befo
 
 ---
 
+## Why people click: the psychology behind the patterns
+
+The patterns above work for mechanical reasons — here's the short version of why:
+
+| Psychological driver | What it looks like on a thumbnail |
+| :--- | :--- |
+| **Curiosity gap** | The image raises a question the title doesn't fully answer — the click resolves it |
+| **Face emotion** | Exaggerated, genuine expressions read instantly at 120px wide; neutral faces don't |
+| **Figure-ground contrast** | The subject pops from the background; busy thumbnails blur into the feed |
+| **Cognitive load limit** | 3 visual elements max, ≤4 words of text — anything more and viewers skip |
+| **Color association** | High-saturation accents on the subject draw the eye before the feed's UI does |
+| **Pattern interrupt** | A thumbnail that breaks the visual rhythm of the surrounding feed earns the first look |
+
+Every design choice you make should trace back to one of these drivers — if you can't name which one a change serves, you're decorating, not optimizing.
+
 ## 5 Thumbnail Mistakes That Kill CTR
 
 1. **Repeating the title.** The title and thumbnail must ask and answer different questions — see the [title/thumbnail synergy rules](/blog/how-to-write-catchy-youtube-titles).
@@ -1462,7 +1477,6 @@ Use **no text at all** when the image tells the story by itself: a dramatic befo
 
 - [How to Write YouTube Titles That Actually Get Clicked](/blog/how-to-write-catchy-youtube-titles)
 - [YouTube SEO in 2026: What Still Works (And What's Changed)](/blog/youtube-seo-checklist-2026)
-- [Thumbnail Design Psychology: Why People Click](/blog/youtube-thumbnail-design-psychology)
 - [Thumbnail A/B Testing Guide](/blog/youtube-thumbnail-ab-testing-guide-2026)
 - [How to Grow on YouTube (Honest Advice from 5 Years of Trying)](/blog/grow-youtube-channel-fast)
 - [Best YouTube Tools for Beginners in 2026](/blog/best-youtube-tools-for-beginners)
@@ -2015,7 +2029,7 @@ Education how-tos, health and fitness (compliance-sensitive), lifestyle with pro
 ### Volume-first (often lower RPM)
 Gaming, broad comedy, pure entertainment, kids-adjacent. You can still win with scale, memberships, and brand deals.
 
-Related: [high CPM niches](/blog/high-cpm-youtube-niches-2026) · [best niches 2026](/blog/best-youtube-niches-2026) · [pay per 1,000 views](/blog/how-much-youtube-pays-per-1000-views-2026)
+Related: [best niches 2026](/blog/best-youtube-niches-2026) · [pay per 1,000 views](/blog/how-much-youtube-pays-per-1000-views-2026)
 
 ## Shorts vs long-form on “1 million views”
 
@@ -2116,15 +2130,6 @@ For many channels, sponsorships, affiliates, and products exceed AdSense on the 
     author: "Alex Chen",
     authorRole: "Automation Expert",
 
-    video: {
-      title: "Best YouTube Automation Tools 2026",
-      description:
-        "A complete walkthrough of the top automation tools for YouTube creators.",
-      thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-      uploadDate: "2026-01-15",
-      duration: "PT10M20S",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
     readTime: "10 min read",
     metaDescription:
       "YouTube automation 2026 guide: Build ethical faceless channels with free AI tools. Learn scripting, voiceovers, editing automation. Avoid common mistakes. Complete beginner-friendly strategy.",
@@ -2317,7 +2322,7 @@ Automation channels with small but targeted audiences make money with **affiliat
 - **Video:** "Top 5 AI Video Editors Tested"
 - **Description:** links to each tool, with affiliate disclosure
 
-A few hundred targeted views a month on a genuinely useful buying-guide video can out-earn tens of thousands of general-interest views in ad revenue. The math favors relevance over raw volume — and it's why you should read [how YouTube actually pays creators](/blog/youtube-monetization-truths-cpm-rpm) before you pick a niche.
+A few hundred targeted views a month on a genuinely useful buying-guide video can out-earn tens of thousands of general-interest views in ad revenue. The math favors relevance over raw volume — and it's why you should read [how YouTube actually pays creators](/blog/how-much-youtube-pays-per-1000-views-2026) before you pick a niche.
 
 Beyond affiliates: sponsorships once you have a consistent audience (size matters far less than trust in a narrow niche), and digital products or services once you've proven what your audience will pay for. Track the revenue math with the [Earnings Calculator](/tools/youtube-earnings-calculator) and compare ad scenarios against an affiliate scenario before you pick a niche.
 
@@ -2412,17 +2417,17 @@ Now go make something.
       ],
     },
     title:
-      "YouTube Shorts: How I Got 10 Million Views in 30 Days (FREE Strategy 2026)",
-    seoTitle: "YouTube Shorts Strategy: 10M Views in 30 Days (2026)",
+      "YouTube Shorts Strategy 2026: What Actually Drives Views (No Fluff)",
+    seoTitle: "YouTube Shorts Strategy 2026: What Actually Drives Views",
     excerpt:
-      "Forget what you know about YouTube Shorts. In 2026, the algorithm changed EVERYTHING. I tested 47 different strategies and found the exact formula that works. No face, no editing skills, no budget required.",
+      "A practical YouTube Shorts strategy for 2026 built on patterns that consistently drive views: hook structure, pacing, retention loops, and posting cadence — no face or budget required.",
     date: "Jan 09, 2026",
     category: "Growth Strategy",
     author: "Ryan Mitchell",
     authorRole: "Short-Form Content Strategist",
     readTime: "16 min read",
     metaDescription:
-      "🚀 YouTube Shorts viral strategy 2026: Get millions of views with THIS exact formula. No face required. Works for ANY niche. Free tools + templates inside!",
+      "A practical YouTube Shorts strategy for 2026: hook structure, pacing, retention loops, and posting cadence that consistently drive views — no face, no budget, no hype.",
     keywords: [
       "youtube shorts",
       "youtube shorts viral",
@@ -2685,18 +2690,18 @@ The algorithm LOVES creators who keep people on the platform. If your Short lead
 
 Let's talk money.
 
-With the new revenue sharing model (launched late 2024), Shorts creators earn**45% of ad revenue** from ads shown между Shorts in the feed.
+With the new revenue sharing model (launched late 2024), Shorts creators earn **45% of ad revenue** from ads shown between Shorts in the feed.
 
-**Real numbers from my channel:**
-- 1 million Shorts views = $150-400 (varies by audience geography)
-- 10 million views/month = $1,500-4,000/month
+**Creator-reported Shorts payout ranges (varies widely by audience geography):**
+- 1 million Shorts views ≈ $100-300
+- 10 million views/month ≈ $1,000-3,000/month
 
 Use our **[YouTube Earnings Calculator](/tools/youtube-earnings-calculator)** to estimate your potential earnings based on your current views.
 
 > [!NOTE]
 > Shorts CPM is lower than long-form, BUT you can produce 10x more content in the same time. Volume strategy wins.
 
-**Pro tip:** Use Shorts to drive traffic to long-form videos. My best-performing long-form videos get 40% of their traffic from Shorts → profile → long-form pipeline.
+**Pro tip:** Use Shorts to drive traffic to long-form videos. Shorts → profile → long-form is a proven funnel — check your Studio traffic sources after a few weeks and you'll often see Shorts among the top referrers for your long-form uploads.
 
 ## 30 Viral Shorts Ideas You Can Steal Today
 
@@ -3269,7 +3274,7 @@ Open the dedicated calculators: [USA](/tools/youtube-earnings-calculator/usa) ·
 | Health & fitness | $4–$12 | Q1 often stronger |
 | Gaming / comedy | $1–$6 | Young, broad audiences |
 
-Same niche with a non-US audience will usually print less. See [high CPM niches](/blog/high-cpm-youtube-niches-2026).
+Same niche with a non-US audience will usually print less. See [the best niches by CPM tier](/blog/best-youtube-niches-2026).
 
 ## 10k / 100k / 1M views at common RPMs
 
@@ -3281,7 +3286,7 @@ Same niche with a non-US audience will usually print less. See [high CPM niches]
 | $8.50 | $85 | $850 | $8,500 |
 | $12 | $120 | $1,200 | $12,000 |
 
-More on the big number: [how much YouTube pays for 1 million views](/blog/youtube-monetization-truths-cpm-rpm).
+Want the full 1-million-views math? It's the table above extended — or run your exact number through the [earnings calculator](/tools/youtube-earnings-calculator).
 
 ## Same 100,000 views, three very different checks
 
@@ -3370,15 +3375,35 @@ Run this once a month in YouTube Studio → Revenue:
 6. Fix discovery before monetization: low CTR wastes impressions — [title generator](/tools/youtube-title-generator), [thumbnail checks](/tools/thumbnail-tools).
 7. Change**one variable**next month and re-measure. RPM audits die when you change five things at once.
 
+## What about earnings per subscriber?
+
+Subscribers don't pay you — views do. A subscriber is a retention signal, not a revenue unit. But "subscriber value" is still a useful planning lens: divide monthly AdSense by your subscriber count and you get the revenue each subscriber *co-signs*, which mostly reflects how often your audience actually watches.
+
+Creator-reported planning ranges put long-form AdSense somewhere around **$0.02–$0.10 per subscriber per month**, depending on niche, upload cadence, and audience geography. A 100k-subscriber channel in a mid-CPM niche that uploads weekly might plan $2,000–$6,000/month from AdSense; a dormant channel with the same count can plan near zero. For the reverse math — how many views (not subs) a payout requires — start from RPM and work backwards with the [earnings calculator](/tools/youtube-earnings-calculator).
+
+## Find your real RPM in Studio before trusting any table
+
+Published tables (including ours) are planning ranges. Your actual number is one screen away:
+
+1. Open **YouTube Studio → Analytics → Revenue**.
+2. Set the date range to **Last 365 days** (single months are too noisy).
+3. Read **RPM** at the top of the Revenue tab — that's your blended per-1,000-views rate.
+4. Open **Advanced mode** and sort by geography to see which countries actually drive your revenue.
+5. Use *that* RPM in the [earnings calculator](/tools/youtube-earnings-calculator), not a screenshot from a guru video.
+
 ## Related resources
 
 - [YouTube earnings calculator](/tools/youtube-earnings-calculator)
 - [CPM rates by country](/resources/youtube-cpm-rates)
 - [Monetization guide](/resources/youtube-monetization-guide)
-- [1 million views earnings](/blog/youtube-monetization-truths-cpm-rpm)
 
 `,
     faq: [
+      {
+        question: "How much does YouTube pay per subscriber?",
+        answer:
+          "Subscribers don't pay directly — views do. As a planning lens, long-form AdSense often works out to roughly $0.02–$0.10 per subscriber per month for active channels, depending on niche, upload cadence, and audience geography. A dormant 100k-subscriber channel can earn close to zero.",
+      },
       {
         question: "How much does YouTube pay per 1,000 views in the USA?",
         answer:
@@ -3566,7 +3591,7 @@ More per-view tables: [YouTube pay per view 2026](/blog/how-much-youtube-pays-pe
 7.**Audience quality**— returning viewers, low invalid traffic, brand-safe context.  
 8.**Device and inventory mix**— varies; do not overfit one viral Short.
 
-Niche context: [High CPM YouTube niches 2026](/blog/high-cpm-youtube-niches-2026).
+Niche context: [Best YouTube niches by CPM tier](/blog/best-youtube-niches-2026).
 
 ## How to attract more Tier 1 viewers (without faking location)
 
@@ -4333,7 +4358,7 @@ Your intro is just one piece of your channel's branding puzzle. For maximum impa
 
 Your intro colors should appear in your thumbnails. This creates visual recognition when viewers see your content in search results or suggested videos.
 
-Learn more in our [YouTube Thumbnail Design Psychology Guide](/blog/youtube-thumbnail-design-psychology).
+Learn more in our [YouTube Thumbnail Optimization Guide](/blog/how-to-optimize-youtube-thumbnails).
 
 ### Titles and Descriptions
 
@@ -4712,7 +4737,7 @@ Playground AI is built for speed and iteration. Its interface is designed to let
 
 ### Best For
 
-Playground AI is ideal for creators who need to iterate quickly—brainstorming video concepts, testing [thumbnail design ideas](/blog/youtube-thumbnail-design-psychology), or creating bulk social media content. If you're managing a content calendar for a YouTube channel, this volume capacity is unmatched. Use our [Content Calendar Generator](/tools/youtube-content-calendar-generator) to plan your visual assets alongside your video schedule.
+Playground AI is ideal for creators who need to iterate quickly—brainstorming video concepts, testing [thumbnail design ideas](/blog/how-to-optimize-youtube-thumbnails), or creating bulk social media content. If you're managing a content calendar for a YouTube channel, this volume capacity is unmatched. Use our [Content Calendar Generator](/tools/youtube-content-calendar-generator) to plan your visual assets alongside your video schedule.
 
 ## 7. Craiyon — Best No-Account, Instant Access Option
 
@@ -4767,7 +4792,7 @@ As YouTube creators, AI image generators are transforming how we produce visual 
 
 ### Thumbnails That Drive Clicks
 
-Your [YouTube thumbnail](/blog/youtube-thumbnail-design-psychology) is the single biggest factor in your click-through rate. AI generators let you create dozens of concepts in minutes instead of hours. Combine any of these tools with our [AI Thumbnail Prompt Generator](/tools/youtube-ai-thumbnail-prompt) to get Midjourney-quality prompts optimized for each platform.
+Your [YouTube thumbnail](/blog/how-to-optimize-youtube-thumbnails) is the single biggest factor in your click-through rate. AI generators let you create dozens of concepts in minutes instead of hours. Combine any of these tools with our [AI Thumbnail Prompt Generator](/tools/youtube-ai-thumbnail-prompt) to get Midjourney-quality prompts optimized for each platform.
 
 ### Channel Art & Branding
 
@@ -4928,7 +4953,7 @@ The landscape of free video editing has transformed dramatically. Here's why pay
 - **No watermarks:** Every editor on this list exports without watermarks on the free tier
 - **Cross-platform support:** Most tools work on Windows, macOS, and Linux
 
-For YouTube creators specifically, reinvesting the money you'd spend on editing software into better equipment, [thumbnail design](/blog/youtube-thumbnail-design-psychology), or content promotion delivers far more channel growth per dollar.
+For YouTube creators specifically, reinvesting the money you'd spend on editing software into better equipment, [thumbnail design](/blog/how-to-optimize-youtube-thumbnails), or content promotion delivers far more channel growth per dollar.
 
 ## Q4 2026 Refresh: What Changed This Year
 
@@ -5670,7 +5695,7 @@ Canva has expanded far beyond static graphics into a capable video editor. It's 
 - Stock video and music library
 - Real-time collaboration
 - Direct publish to social platforms
-- [Thumbnail design](/blog/youtube-thumbnail-design-psychology) capabilities built-in
+- [Thumbnail design](/blog/how-to-optimize-youtube-thumbnails) capabilities built-in
 
 **Why Creators Love It:** Canva bridges the gap between video editing and graphic design. If your content relies heavily on text overlays, branded elements, and visual storytelling, Canva's integrated approach saves enormous time.
 
@@ -5999,7 +6024,7 @@ Your thumbnail is the single most important factor in getting clicks. According 
 -**Magic Eraser:** Remove distracting elements from photos without affecting the rest of the image
 
 **Step 3: Optimize for CTR**
-Following the principles of [thumbnail design psychology](/blog/youtube-thumbnail-design-psychology), ensure your thumbnail has:
+Following the principles of [thumbnail design psychology](/blog/how-to-optimize-youtube-thumbnails), ensure your thumbnail has:
 - **High contrast**between text and background
 -**Face with emotion**(if applicable)—shocked, excited, or curious expressions get 30% higher CTR
 -**3-4 words maximum**of bold, readable text

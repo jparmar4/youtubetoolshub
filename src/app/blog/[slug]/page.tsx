@@ -199,7 +199,7 @@ export default async function BlogPostPage({
         title: post.title,
         description: post.metaDescription,
         author: author.name,
-        authorRole: post.authorRole,
+        authorRole: author.role,
         authorUrl,
         authorId: `${authorUrl}#person`,
         datePublished: isoDate,
@@ -246,9 +246,10 @@ export default async function BlogPostPage({
         name: author.name,
         id: `${authorUrl}#person`,
         url: authorUrl,
-        jobTitle: post.authorRole || "Content Strategist",
+        jobTitle: author.role,
         description: author.bio,
-        sameAs: [siteConfig.url],
+        image: author.photo ? `${siteConfig.url}${author.photo}` : undefined,
+        sameAs: [siteConfig.url, ...(author.socialLinks ?? []).map((link) => link.url)],
     });
 
     // Plain-text cluster siblings for topical authority (no new UI chrome)
@@ -289,7 +290,7 @@ export default async function BlogPostPage({
                 post.title,
                 post.metaDescription,
                 author.name,
-                post.authorRole || "Content Strategist",
+                author.role,
                 modifiedIso,
             )} pathname={`/blog/${post.slug}`} />
             {/* Consolidated JSON-LD Structured Data Graph for AI Answer Engines & Search Crawlers */}
@@ -352,7 +353,7 @@ export default async function BlogPostPage({
                                             >
                                                 {author.name}
                                             </Link>
-                                            <span className="text-sm text-slate-600">{post.authorRole}</span>
+                                            <span className="text-sm text-slate-600">{author.role}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-6">
@@ -414,11 +415,11 @@ export default async function BlogPostPage({
                                 keyPoints={[
                                     `Topic: ${post.category} · Estimated read time: ${post.readTime}`,
                                     `Includes practical benchmarks, templates & data reviewed ${DATA_LAST_REVIEWED}`,
-                                    `Written by ${author.name} (${post.authorRole})`,
+                                    `Written by ${author.name} (${author.role})`,
                                     `Actionable creator strategies with zero fluff or filler`,
                                 ]}
                                 badgeText="AI Article Summary"
-                                verifiedNote={`Fact-checked by the editorial team — last full review ${DATA_LAST_REVIEWED}`}
+                                verifiedNote={`Written and reviewed by ${author.name} — last full review ${DATA_LAST_REVIEWED}`}
                                 className="mb-8"
                             />
 

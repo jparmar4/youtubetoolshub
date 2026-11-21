@@ -1289,7 +1289,7 @@ Script and repurpose help: [Shorts Script Planner](/tools/youtube-shorts-script-
 | Demonetized / limited | Policy, reused content, claims | Fix packaging; original series |
 | Viral Short, no subs | Entertainment without identity | Add series branding + CTA |
 
-Geography still matters on Shorts: [CPM by country guide](/blog/youtube-cpm-rates-by-country-2026).
+Geography still matters on Shorts: [CPM by country hub](/resources/youtube-cpm-rates).
 
 ## Payment timing (Shorts → AdSense)
 
@@ -1330,7 +1330,7 @@ Same creator energy, better architecture.
 - [Pay per view guide](/blog/how-much-youtube-pays-per-1000-views-2026)  
 - [How much per 1,000 views](/blog/how-much-youtube-pays-per-1000-views-2026)  
 - [RPM vs CPM](/blog/youtube-rpm-vs-cpm-explained)  
-- [High CPM niches](/blog/high-cpm-youtube-niches-2026)  
+- [Best YouTube niches by CPM tier](/blog/best-youtube-niches-2026)  
 - [Monetization guide](/resources/youtube-monetization-guide)  
 - [Partner Program requirements](/blog/youtube-partner-program-2026)  
 - Free [tools suite](/tools)
@@ -6497,15 +6497,6 @@ The best time to start a YouTube business was 2016. The second best time is toda
     author: "Alex Rodriguez",
     authorRole: "YouTube Revenue Strategist",
 
-    video: {
-      title: "YouTube RPM vs CPM Explained (2026)",
-      description:
-        "Visual guide to understanding the difference between RPM and CPM.",
-      thumbnailUrl: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-      uploadDate: "2026-01-22",
-      duration: "PT8M45S",
-      embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    },
     readTime: "16 min read",
     metaDescription:
       "YouTube RPM vs CPM (2026): what each metric means, why RPM is lower, the exact formulas to calculate them, and realistic benchmarks by niche and country.",
@@ -7600,20 +7591,20 @@ Because in 2026, attention is the most valuable currency on earth. You have it. 
       "AI tools workflow infographic showing the YouTube creator process from research to publishing with AI assistance",
     content: `::: QUICK-ANSWER
 **Best free & AI stack for YouTube creators in 2026:**
-Pair **Claude/ChatGPT** for outlining, our free [YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator) + [YouTube Title Generator](/tools/youtube-title-generator) for CTR packaging, **Canva AI / Leonardo** + our [AI Thumbnail Generator](/tools/youtube-ai-thumbnail-generator) for visuals, **Descript / Opus Clip** for editing, and our [YouTube Description Generator](/tools/youtube-description-generator) + [YouTube Tag Generator](/tools/youtube-tag-generator) on upload — saving **60–75% of weekly production hours** without paid browser extensions.
+Pair **Claude/ChatGPT** for outlining, our free [YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator) + [YouTube Title Generator](/tools/youtube-title-generator) for CTR packaging, **Canva AI / Leonardo** + our [AI Thumbnail Generator](/tools/youtube-ai-thumbnail-generator) for visuals, **Descript / Opus Clip** for editing, and our [YouTube Description Generator](/tools/youtube-description-generator) + [YouTube Tag Generator](/tools/youtube-tag-generator) on upload — reclaiming a large share of weekly production hours without paid browser extensions.
 :::
 
-Let me tell you exactly when I knew AI had changed everything.
+Picture the moment every creator knows.
 
-It was 3 AM. I was on my fourth cup of coffee, staring at Photoshop, trying to create a thumbnail for a video I'd spent 12 hours editing. My eyes were burning. My back was killing me. And I still had to write the description, generate tags, and optimize the title.
+It's 3 AM. Fourth cup of coffee, staring at Photoshop, creating a thumbnail for a video that took 12 hours to edit. Eyes burning. Back aching. And the description, tags, and title are still waiting.
 
-That was January 2025.
+Every creator has lived some version of that night — and it's exactly why AI tooling took over the production stack.
 
-Fast forward to today:**I create more content in 2 days than I used to create in 2 weeks.**
+Fast forward to today: AI-assisted workflows routinely compress what used to be a two-week production cycle into a couple of focused days.
 
 The difference? AI tools. Not the overhyped, useless ones. The actual working tools that save real time.
 
-This isn't a sponsored listicle. These are the exact 15 tools I use every single week to run my channel. Some are free. Some cost money. All of them are worth your attention.
+This isn't a sponsored listicle. These 15 tools are the ones creators consistently keep in their weekly stack — some are free, some cost money, and the list explains exactly what each one is actually good for.
 
 ## Why 2026 is the Year AI Tools Became Essential
 
@@ -7704,7 +7695,7 @@ Canva's AI features are perfect for quick edits:
 It's not as powerful as Midjourney, but it's faster for simple tasks.
 
 > [!NOTE]
-> Curious about the psychology behind great thumbnails? Check out our deep dive on**[YouTube Thumbnail Design Psychology](/blog/youtube-thumbnail-design-psychology)**—it covers color theory, face placement, and the science of clicks.
+> Curious about the psychology behind great thumbnails? Check out our deep dive on**[YouTube Thumbnail Psychology & CTR Patterns](/blog/how-to-optimize-youtube-thumbnails)**—it covers color theory, face placement, and the science of clicks.
 
 ## Part 3: AI Tools for Titles & SEO
 
@@ -7868,7 +7859,7 @@ Now go build something great.
 - **[YouTube Automation Guide 2026](/blog/youtube-automation-tools-guide)**- Complete automation strategies
 -**[Best YouTube Tools for Beginners](/blog/best-youtube-tools-for-beginners)**- Essential starter toolkit
 -**[Faceless YouTube Channel Blueprint](/blog/faceless-youtube-channel-2026)**- Build a channel without showing your face
--**[YouTube Thumbnail Design Psychology](/blog/youtube-thumbnail-design-psychology)** - The science behind clicking
+-**[YouTube Thumbnail Design Psychology](/blog/how-to-optimize-youtube-thumbnails)** - The science behind clicking
 `,
     faq: [
       {

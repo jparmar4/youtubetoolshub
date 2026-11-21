@@ -129,8 +129,8 @@ export default async function BlogCategoryPage({
         {...GEO_AEO_PRESETS.blogPost(
           `${category.name} Guides (2026)`,
           category.metaDescription,
-          "YouTube Tools Hub Editorial Team",
-          "Creator Tools & YouTube Growth Research",
+          siteConfig.editorial.name,
+          siteConfig.editorial.jobTitle,
           DATA_LAST_REVIEWED,
         )}
         entityType="WebPage"
@@ -140,7 +140,7 @@ export default async function BlogCategoryPage({
         keyFacts={[
           `${posts.length} in-depth guides on YouTube ${category.name.toLowerCase()}`,
           "Practical steps, benchmarks, and templates — no fluff",
-          "Fact-checked by the editorial team and updated for 2026",
+          `Written and reviewed by ${siteConfig.editorial.name} and updated for 2026`,
           "Every guide pairs with free tools — no signup required",
         ]}
         pathname={`/blog/category/${category.slug}`}

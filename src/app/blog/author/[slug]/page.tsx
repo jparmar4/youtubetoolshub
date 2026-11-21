@@ -82,7 +82,8 @@ export default async function AuthorPage({
         url: authorUrl,
         jobTitle: author.role,
         description: author.bio,
-        sameAs: [siteConfig.url],
+        image: author.photo ? `${siteConfig.url}${author.photo}` : undefined,
+        sameAs: [siteConfig.url, ...(author.socialLinks ?? []).map((link) => link.url)],
     });
 
     const breadcrumbSchema = getBreadcrumbSchema([
@@ -113,9 +114,18 @@ export default async function AuthorPage({
                         </Link>
 
                         <div className="flex items-center gap-5 mb-6">
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-2xl shadow-md shrink-0">
-                                {author.name.charAt(0)}
-                            </div>
+                            {author.photo ? (
+                                /* eslint-disable-next-line @next/next/no-img-element */
+                                <img
+                                    src={author.photo}
+                                    alt={`${author.name} — ${author.role} at ${siteConfig.name}`}
+                                    className="w-16 h-16 rounded-full object-cover shadow-md shrink-0"
+                                />
+                            ) : (
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-600 flex items-center justify-center text-white font-bold text-2xl shadow-md shrink-0">
+                                    {author.name.charAt(0)}
+                                </div>
+                            )}
                             <div>
                                 <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
                                     {author.name}
@@ -125,9 +135,24 @@ export default async function AuthorPage({
                         </div>
 
                         <p className="text-lg text-slate-700 leading-relaxed max-w-3xl">{author.bio}</p>
+                        {author.socialLinks && author.socialLinks.length > 0 && (
+                            <div className="mt-4 flex flex-wrap items-center gap-3">
+                                {author.socialLinks.map((link) => (
+                                    <a
+                                        key={link.url}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="me noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-sm font-medium text-purple-600 bg-purple-50 border border-purple-100 px-3 py-1.5 rounded-lg hover:bg-purple-100 transition-colors"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                            </div>
+                        )}
                         <p className="mt-4 text-sm text-slate-500">
-                            Contributor at <Link href="/about" className="text-purple-600 font-medium hover:underline">{siteConfig.name}</Link>. All
-                            guides are fact-checked and refreshed by the editorial team — last full review{" "}
+                            Founder and sole author of <Link href="/about" className="text-purple-600 font-medium hover:underline">{siteConfig.name}</Link>. Every
+                            guide on the site is written and maintained by {author.name} — last full review{" "}
                             {DATA_LAST_REVIEWED}.
                         </p>
                     </div>

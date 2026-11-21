@@ -2578,7 +2578,7 @@ Your thumbnail is the single most important factor in getting clicks. It doesn't
 
 ### The Psychology of High-CTR Thumbnails
 
-Understanding [thumbnail design psychology](/blog/youtube-thumbnail-design-psychology) reveals why some images get 10% CTR while others struggle at 2%:
+Understanding [thumbnail design psychology](/blog/how-to-optimize-youtube-thumbnails) reveals why some images get 10% CTR while others struggle at 2%:
 
 **Emotional Triggers That Work:**
 - **Curiosity gaps**- Something unexpected or incomplete that demands resolution
@@ -5710,7 +5710,7 @@ Your first 1,000 usually come from **Search + shares**, not Home page fame. Stud
 
 ### 3. Treat thumbnail and title as a product
 
-Packaging is a product, not decoration. If CTR is under ~2–3% on impressions, fix packaging before blaming the algorithm. Test real alternatives with the [title A/B tester](/tools/youtube-title-ab-tester), and study [catchy title formulas](/blog/how-to-write-catchy-youtube-titles) and [thumbnail design psychology](/blog/youtube-thumbnail-design-psychology).
+Packaging is a product, not decoration. If CTR is under ~2–3% on impressions, fix packaging before blaming the algorithm. Test real alternatives with the [title A/B tester](/tools/youtube-title-ab-tester), and study [catchy title formulas](/blog/how-to-write-catchy-youtube-titles) and [thumbnail design psychology](/blog/how-to-optimize-youtube-thumbnails).
 
 ### 4. Consistency over panic streaks
 
@@ -6903,7 +6903,7 @@ You cannot evaluate candidates until you know what you are budgeting per finishe
 **Two budgeting rules:**
 
 1. **Price per finished video, not per hour.** Hourly pay rewards slowness and makes every revision a negotiation. A per-video rate lets you decide whether the video was worth it.
-2. **Sanity-check against revenue.** Pull up the [YouTube earnings calculator](/tools/youtube-earnings-calculator) and see what your channel currently earns per month. An editor you can pay for two videos a month while losing money on the other six is not a hire — it is a hobby with an invoice. Our [monetization guide](/blog/youtube-monetization-calculator-estimate-earnings-2026) walks through how creators actually think about per-video cost against revenue.
+2. **Sanity-check against revenue.** Pull up the [YouTube earnings calculator](/tools/youtube-earnings-calculator) and see what your channel currently earns per month. An editor you can pay for two videos a month while losing money on the other six is not a hire — it is a hobby with an invoice. Our [monetization guide](/resources/youtube-monetization-guide) walks through how creators actually think about per-video cost against revenue.
 
 ---
 

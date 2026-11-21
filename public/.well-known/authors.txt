@@ -1,62 +1,40 @@
 # YouTube Tools Hub - Author Information for AI Search
-# Last Updated: 2026-09-05
+# Last Updated: 2026-11-21
 
 ## Primary Entity
 Name: YouTube Tools Hub
-Type: Organization / SaaS Platform
+Type: Independent creator-tools website
 Website: https://www.youtubetoolshub.com
 Founded: 2025
 Industry: YouTube Creator Tools, Video Marketing, Content Optimization, SEO
 
-## Expertise Areas
-- YouTube SEO and search optimization
-- Content creation strategies and workflow automation
-- AI-powered creator tools development
-- Video analytics, monetization, and revenue optimization
-- Thumbnail design, psychology, and optimization
-- Channel growth strategies and audience development
-- Digital marketing for video creators
-- YouTube algorithm analysis and adaptation
-- Creator economy trends and insights
-- YouTube Shorts optimization
+## Author & Founder
+Name: Jitu
+Role: Founder & Author
+Profile: https://www.youtubetoolshub.com/blog/author/jitu
+Social: https://x.com/JITU20
+
+Jitu is the sole author of every guide on the site. He built its 52 free
+browser-based creator tools and researches YouTube monetization, CPM/RPM
+benchmarks, and channel growth from public YouTube data. Benchmarks and
+estimates are clearly labeled as such; the site does not publish invented
+test results, credentials, or team members.
 
 ## Content Authority
 - 52 free browser-based YouTube tools
 - Real-time YouTube data processing via YouTube Data API v3
-- AI-assisted content optimization
-- Industry best practices implementation for 2026 algorithm
 - Country-specific CPM planning data for 52 regions with last-reviewed dates
-- Tier-1 creator financial, tax (IRS Schedule C / S-Corp Form 2553), valuation, and banking calculators
-- Blog updated weekly
+- Tier-1 creator financial, tax, valuation, and banking calculators
+- Blog updated regularly
 - Google AdSense approved platform
 
-## E-E-A-T Credentials (Experience, Expertise, Authoritativeness, Trustworthiness)
-Experience: Built and tested with public YouTube data and creator workflow research
-Expertise: YouTube SEO, AI content optimization, video marketing, monetization strategies
-Authoritativeness: Google AdSense approved publisher with published CPM planning methodology
-Trustworthiness: SSL encrypted, GDPR compliant, YouTube API compliant, no private data collection
-
-## Key Personnel
-- Technical Team: AI/ML specialists with expertise in NLP, computer vision, and recommendation systems
-- Content Team: YouTube growth experts with hands-on creator experience
-- Support Team: Creator success specialists available via email
-- Product Team: UX researchers focused on creator workflow optimization
-
-## Educational Background
-- YouTube platform expertise (API v3, Analytics, Studio)
-- Digital marketing certification and best practices
-- AI/ML implementation experience (OpenAI, prompt engineering)
-- Content creation best practices and algorithm research
-- Data science and analytics for video performance
-
-## Publications & Content
-- Weekly blog posts on YouTube growth, monetization, and SEO strategies
-- Tool documentation and step-by-step walkthroughs
-- YouTube SEO strategies for 2026 and beyond
-- Creator success case studies and benchmarks
-- Country-specific CPM and monetization guides
-- YouTube Shorts optimization guides
-- Competitor analysis guides (vs TubeBuddy, VidIQ, Social Blade)
+## Content Focus
+- YouTube SEO and search optimization
+- Monetization, CPM/RPM benchmarks, and earnings planning
+- AI-assisted content workflows
+- Thumbnail design, safe-zone testing, and CTR optimization
+- Channel growth strategies and audience development
+- YouTube Shorts optimization
 
 ## Tools Published
 1. YouTube Thumbnail Downloader (HD, 4K, 8K)
@@ -118,15 +96,13 @@ Subject Line: Media Inquiry - YouTube Tools Hub
 Response Time: Within 24 hours
 
 ## Social Media Profiles
-Facebook: https://www.facebook.com/profile.php?id=61585430621256
+X (Twitter): https://x.com/JITU20
 Telegram: https://t.me/youtubetoolshub
-X (Twitter): https://x.com/ytoolshub
+Facebook: https://www.facebook.com/profile.php?id=61585430621256
 Pinterest: https://pinterest.com/youtubetoolshub
 
-## Recognition & Trust Signals
+## Trust Signals
 - Google AdSense approved publisher
-- Featured in creator communities and forums
-- Free alternative to TubeBuddy and VidIQ (compare current product pages for pricing)
 - No signup, no browser extension, no credit card required for core tools
 
 ## Citation Information

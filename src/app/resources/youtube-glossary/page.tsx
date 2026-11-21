@@ -145,7 +145,7 @@ export default function GlossaryPage() {
           [
             `${glossaryTerms.length} terms across monetization, analytics, content, growth, and policy`,
             "Definitions written as direct answers for quick reference",
-            `Reviewed by the editorial team — last full review ${DATA_LAST_REVIEWED}`,
+            `Reviewed by ${siteConfig.editorial.name} — last full review ${DATA_LAST_REVIEWED}`,
           ],
         )}
         pathname={GLOSSARY_PATH}

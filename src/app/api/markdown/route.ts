@@ -4,6 +4,7 @@ import { tools, toolCategories, getToolBySlug, getToolsByCategory } from "@/conf
 import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED, speakableAnswers, nicheRpmRanking, subscriberBenchmarks, citableFacts } from "@/lib/seo-data";
 import { getBlogPostBySlug, getIndexableBlogPosts } from "@/config/blog";
+import { getAuthorPageUrl, resolveAuthor } from "@/config/blog/authors";
 import { getCategoryBySlug, getPostsForCategory } from "@/config/blog/categories";
 import { glossaryTerms } from "@/config/glossary";
 import {
@@ -187,6 +188,8 @@ function buildBlogPostMarkdown(slug: string): string | null {
       post.howTo.steps.map((s, idx) => `${idx + 1}. **${s.name}**: ${s.text}`).join("\n")
     : "";
 
+  const author = resolveAuthor(post.author);
+
   const faqSection = post.faq && post.faq.length > 0
     ? `\n\n## Frequently Asked Questions\n\n` +
       post.faq.map((f) => `### ${f.question}\n\n${f.answer}`).join("\n\n")
@@ -196,8 +199,8 @@ function buildBlogPostMarkdown(slug: string): string | null {
 title: "${post.title.replace(/"/g, '\\"')}"
 url: "${postUrl}"
 date: "${post.date}"
-${post.updatedAt ? `updated_at: "${post.updatedAt}"\n` : ""}author: "${post.author}"
-author_role: "${post.authorRole}"
+${post.updatedAt ? `updated_at: "${post.updatedAt}"\n` : ""}author: "${author.name}"
+author_role: "${author.role}"
 category: "${post.category}"
 reading_time: "${post.readTime}"
 description: "${post.metaDescription.replace(/"/g, '\\"')}"
@@ -209,7 +212,7 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 > ${post.excerpt}
 
 - **Published**: ${post.date}${post.updatedAt ? ` (Updated: ${post.updatedAt})` : ""}
-- **Author**: ${post.author} (${post.authorRole})
+- **Author**: ${author.name} (${author.role})
 - **Category**: ${post.category}
 - **Read Time**: ${post.readTime}
 - **Canonical URL**: [${postUrl}](${postUrl})
@@ -219,7 +222,8 @@ ${howToSection}
 ${faqSection}
 
 ## About the Author
-**${post.author}** is a ${post.authorRole} at YouTube Tools Hub.
+**${author.name}** (${author.role}) — every guide on YouTube Tools Hub is written and maintained by ${author.name}.
+Author profile: ${baseUrl}${getAuthorPageUrl(author)}${(author.socialLinks ?? []).map((link) => `\n${link.name}: ${link.url}`).join("")}
 
 ## Related Resources
 - [All ${tools.length} Free YouTube Tools](${baseUrl}/tools)

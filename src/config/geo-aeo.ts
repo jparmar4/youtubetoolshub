@@ -1,4 +1,5 @@
 import { tools } from "@/config/tools";
+import { siteConfig } from "@/config/site";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 export interface GeoAeoHeadProps {
     /** Page title for AI context */
@@ -220,8 +221,8 @@ export const GEO_AEO_PRESETS = {
         keyFacts,
         geoTargets: ALL_PRIORITY_GEO_TARGETS,
         dateModified,
-        author: "YouTube Tools Hub Editorial Team",
-        authorRole: "Creator Tools & YouTube Growth Research",
+        author: siteConfig.editorial.name,
+        authorRole: siteConfig.editorial.jobTitle,
     }),
     nichePage: (toolName: string, nicheName: string, description: string) => ({
         title: `${toolName} for ${nicheName} Channels`,
@@ -254,8 +255,8 @@ export const GEO_AEO_PRESETS = {
         ],
         geoTargets: countryCode ? [countryCode] : undefined,
         dateModified,
-        author: "YouTube Tools Hub Editorial Team",
-        authorRole: "Creator Tools & YouTube Growth Research",
+        author: siteConfig.editorial.name,
+        authorRole: siteConfig.editorial.jobTitle,
     }),
     categoryPage: (
         categoryName: string,

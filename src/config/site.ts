@@ -58,6 +58,11 @@ export const siteConfig = {
     ],
     social: [
       {
+        name: "X (Twitter)",
+        href: "https://x.com/JITU20",
+        icon: "twitter",
+      },
+      {
         name: "Telegram",
         href: "https://t.me/youtubetoolshub",
         icon: "telegram",
@@ -66,11 +71,6 @@ export const siteConfig = {
         name: "Facebook",
         href: "https://www.facebook.com/profile.php?id=61585430621256",
         icon: "facebook",
-      },
-      {
-        name: "X (Twitter)",
-        href: "https://x.com/ytoolshub",
-        icon: "twitter",
       },
       {
         name: "Pinterest",
@@ -134,13 +134,13 @@ export const siteConfig = {
     contactUrl: "https://www.youtubetoolshub.com/contact",
   },
 
-  /** Editorial entity for Person schema / E-E-A-T (invisible + JSON-LD) */
+  /** Editorial entity for Person schema / E-E-A-T (invisible + JSON-LD) — the one real human behind every guide */
   editorial: {
-    name: "YouTube Tools Hub Editorial Team",
-    jobTitle: "Creator Growth Research Editors",
+    name: "Jitu",
+    jobTitle: "Founder & Author",
     description:
-      "Editorial team researching YouTube monetization, CPM/RPM benchmarks, SEO, and free creator tooling. Publishes data tables, calculators, and practical workflows for creators worldwide.",
-    url: "https://www.youtubetoolshub.com/about",
+      "Founder of YouTube Tools Hub. Built the site's free browser-based creator tools and authors its guides on YouTube monetization, CPM/RPM benchmarks, SEO, and channel growth, compiled from public YouTube data with estimates clearly labeled.",
+    url: "https://www.youtubetoolshub.com/blog/author/jitu",
   },
 };
 
