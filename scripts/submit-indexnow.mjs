@@ -55,31 +55,14 @@ const PRIORITY_PATHS = [
   "/tools/youtube-content-calendar-generator",
   "/tools/youtube-channel-name-generator",
   "/tools/youtube-timestamp-generator",
-  "/youtube-transcript-downloader",
+  "/tools/youtube-transcript-downloader",
   "/blog/youtube-transcript-downloader-extract-subtitles-free",
   "/blog/youtube-channel-valuation-calculator-guide",
   "/blog/youtube-video-summary-generator-ai-free",
-  "/tools/vs/tubebuddy",
-  "/tools/vs/vidiq",
   "/tools/youtube-loudness-checker",
   "/tools/shorts-series-planner",
   "/tools/creator-partnership-boost-calculator",
   "/tools/creator-tax-calculator",
-  "/tools/creator-tax-calculator/california",
-  "/tools/creator-tax-calculator/texas",
-  "/tools/creator-tax-calculator/florida",
-  "/tools/creator-tax-calculator/new-york",
-  "/tools/creator-tax-calculator/washington",
-  "/tools/creator-tax-calculator/illinois",
-  "/tools/creator-tax-calculator/pennsylvania",
-  "/tools/creator-tax-calculator/ohio",
-  "/tools/creator-tax-calculator/georgia",
-  "/tools/creator-tax-calculator/north-carolina",
-  "/tools/creator-tax-calculator/new-jersey",
-  "/tools/creator-tax-calculator/virginia",
-  "/tools/creator-tax-calculator/massachusetts",
-  "/tools/creator-tax-calculator/colorado",
-  "/tools/creator-tax-calculator/arizona",
   "/alternatives",
   "/alternatives/1of10-free-alternative",
   "/alternatives/pikzels-free-alternative",
@@ -95,34 +78,30 @@ const PRIORITY_PATHS = [
   "/tools/analytics-tools",
   "/tools/channel-tools",
   "/tools/utility-tools",
-  // Top Tier-1/2 country pages for global traffic (representative mix)
+  // Top Tier-1 indexable country calculators (Tier-2/3 stay noindex per index-policy.ts)
+  "/tools/youtube-earnings-calculator/usa",
+  "/tools/youtube-earnings-calculator/uk",
   "/tools/youtube-earnings-calculator/canada",
   "/tools/youtube-earnings-calculator/australia",
   "/tools/youtube-earnings-calculator/germany",
-  "/tools/youtube-earnings-calculator/brazil",
-  "/tools/youtube-earnings-calculator/mexico",
-  "/tools/youtube-earnings-calculator/south-africa",
-  "/tools/youtube-earnings-calculator/nigeria",
+  "/tools/youtube-earnings-calculator/switzerland",
   "/tools/youtube-earnings-calculator/singapore",
-  "/tools/youtube-earnings-calculator/uae",
-  // New / refreshed blog (Batch 3 — 2026-07-24 / 2026-09-29)
+  // Flagship guides (canonical URLs only — never retired/redirecting slugs)
   "/blog/youtube-tags-how-to-find-the-best-tags-2026",
   "/blog/youtube-thumbnail-size-2026",
   "/blog/how-to-download-youtube-thumbnail-2026",
   "/blog/youtube-description-template-2026",
   "/blog/youtube-channel-name-ideas-2026",
   "/blog/youtube-chapters-template-2026",
-  "/blog/youtube-cpm-rates-by-country-2026",
   "/blog/youtube-shorts-monetization-2026",
   "/blog/how-much-youtube-pays-per-1000-views-2026",
   "/blog/youtube-adsense-payment-schedule-2026",
   "/blog/youtube-media-kit-template-2026",
   "/blog/youtube-script-formula-retention",
-  "/blog/youtube-monetization-truths-cpm-rpm",
   "/blog/get-1000-subscribers-youtube-fast-2026",
   "/blog/faceless-youtube-channel-2026",
   "/blog/youtube-hashtag-generator-best-tags-videos-2026",
-  // Fourth-pass growth surfaces (2026-09-25): category hubs, glossary, alternatives post
+  // Category hubs, glossary, alternatives, and Q4/finance guides
   "/blog/category/channel-growth",
   "/blog/category/monetization",
   "/blog/category/youtube-seo",
@@ -138,9 +117,8 @@ const PRIORITY_PATHS = [
   "/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data",
   "/blog/youtube-creator-business-bank-account-credit-cards-2026",
   "/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027",
-  // AI / GEO surfaces
-  "/llms.txt",
-  "/llms-full.txt",
+  "/blog/best-ai-video-dubbing-translator-tools-youtube-2026",
+  "/blog/author/jitu",
 ];
 
 function parseArgs(argv) {
@@ -232,7 +210,7 @@ function prioritize(urls) {
     if (url.includes("/tools/youtube-")) score += 20;
     if (url.includes("/blog/")) score += 10;
     if (url.includes("/resources/")) score += 15;
-    if (url.includes("/tools/vs/")) score += 25;
+    if (url.includes("/alternatives/")) score += 25;
     // niche long-tail slightly lower
     if (/\/tools\/[^/]+\/[^/]+$/.test(url) && !url.includes("earnings-calculator")) {
       score -= 5;

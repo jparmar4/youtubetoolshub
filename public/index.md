@@ -6,7 +6,7 @@ organization: "YouTube Tools Hub"
 email: "support@youtubetoolshub.com"
 llms_txt: "https://www.youtubetoolshub.com/llms.txt"
 mcp_server_card: "https://www.youtubetoolshub.com/.well-known/mcp/server-card.json"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Tools Hub — Free YouTube Tools for Creators

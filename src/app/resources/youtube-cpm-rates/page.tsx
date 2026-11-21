@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
 import { countryCPMData, TIERS } from "@/lib/cpm-data";
 import { combineSchemasToGraph, getFAQSchema, getHowToSchema, getBreadcrumbSchema, getDatasetSchema, getGlobalAlternates } from "@/lib/seo";
 import { DATA_LAST_REVIEWED, speakableAnswers, citableFacts } from "@/lib/seo-data";
@@ -16,7 +17,6 @@ import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSection
 import HighRpmSidebar from "@/components/tools/HighRpmSidebar";
 import { AD_SLOTS } from "@/lib/adsense";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
-import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
 import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 
 export const metadata: Metadata = {
@@ -195,39 +195,58 @@ const tier1 = countryCPMData.filter((c) => TIERS.TIER1.countries.includes(c.code
 const tier2 = countryCPMData.filter((c) => TIERS.TIER2.countries.includes(c.code));
 const tier3 = countryCPMData.filter((c) => TIERS.TIER3.countries.includes(c.code));
 
-function CPMTable({ countries, tierLabel, tierColor }: { countries: typeof countryCPMData; tierLabel: string; tierColor: string }) {
+function CPMTable({
+    countries,
+    tierLabel,
+    tierColor,
+    linkCountries = false,
+}: {
+    countries: typeof countryCPMData;
+    tierLabel: string;
+    tierColor: string;
+    linkCountries?: boolean;
+}) {
     return (
         <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
-            <table className="w-full text-sm">
+            <table className="w-full text-sm [&_th]:px-4 [&_th]:py-3 [&_th]:font-bold [&_td]:px-4 [&_td]:py-3">
                 <caption className="sr-only">{tierLabel} YouTube CPM rates by country</caption>
                 <thead>
                     <tr className={`${tierColor} text-white`}>
-                        <th scope="col" className="text-left px-4 py-3 font-bold">Country</th>
-                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Min</th>
-                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Avg</th>
-                        <th scope="col" className="text-right px-4 py-3 font-bold">CPM Max</th>
-                        <th scope="col" className="text-right px-4 py-3 font-bold">RPM Avg</th>
+                        <th scope="col" className="text-left">Country</th>
+                        <th scope="col" className="text-right">CPM Min</th>
+                        <th scope="col" className="text-right">CPM Avg</th>
+                        <th scope="col" className="text-right">CPM Max</th>
+                        <th scope="col" className="text-right">RPM Avg</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {countries.map((c, i) => (
-                        <tr key={c.code} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                            <td className="px-4 py-3 font-medium text-slate-900">
-                                <Link
-                                    href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                    className="hover:text-emerald-700 hover:underline inline-flex items-center"
-                                >
-                                    <span className="inline-block mr-2 px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px] uppercase">
-                                        {c.code}
+                <tbody className="[&_tr:nth-child(even)]:bg-slate-50 [&_tr:nth-child(odd)]:bg-white">
+                    {countries.map((c) => (
+                        <tr key={c.code}>
+                            <td className="font-medium text-slate-900">
+                                {linkCountries ? (
+                                    <Link
+                                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                        className="hover:text-emerald-700 hover:underline inline-flex items-center"
+                                    >
+                                        <span className="mr-2 px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px]">
+                                            {c.code}
+                                        </span>
+                                        {c.name}
+                                    </Link>
+                                ) : (
+                                    <span className="inline-flex items-center">
+                                        <span className="mr-2 px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px]">
+                                            {c.code}
+                                        </span>
+                                        {c.name}
                                     </span>
-                                    {c.name}
-                                </Link>
-                                <span className="ml-2 text-xs text-slate-600">({c.currency})</span>
+                                )}
+                                <span className="ml-2 text-xs text-slate-500">({c.currency})</span>
                             </td>
-                            <td className="px-4 py-3 text-right text-slate-600">${c.cpmRange.min.toFixed(2)}</td>
-                            <td className="px-4 py-3 text-right font-bold text-slate-900">${c.cpmRange.avg.toFixed(2)}</td>
-                            <td className="px-4 py-3 text-right text-slate-600">${c.cpmRange.max.toFixed(2)}</td>
-                            <td className="px-4 py-3 text-right text-emerald-700 font-semibold">${c.rpmRange.avg.toFixed(2)}</td>
+                            <td className="text-right text-slate-600">${c.cpmRange.min.toFixed(2)}</td>
+                            <td className="text-right font-bold text-slate-900">${c.cpmRange.avg.toFixed(2)}</td>
+                            <td className="text-right text-slate-600">${c.cpmRange.max.toFixed(2)}</td>
+                            <td className="text-right text-emerald-700 font-semibold">${c.rpmRange.avg.toFixed(2)}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -333,11 +352,6 @@ export default function YouTubeCPMRatesPage() {
                         </div>
                     </section>
 
-                    {/* Tier 1 Interactive Benchmark Matrix */}
-                    <section>
-                        <Tier1ComparisonMatrix />
-                    </section>
-
                     <EarningsCalculatorCTA
                         variant="card"
                         contextLabel="Turn CPM data into your estimate"
@@ -394,7 +408,7 @@ export default function YouTubeCPMRatesPage() {
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Premium Markets — Highest CPM</h2>
                             <p className="text-slate-600 mt-2">US, UK, Canada, Australia, Germany, Switzerland, and Nordic countries. Advertisers pay the most to reach these audiences.</p>
                         </div>
-                        <CPMTable countries={tier1} tierLabel="Tier 1" tierColor="bg-purple-700" />
+                        <CPMTable countries={tier1} tierLabel="Tier 1" tierColor="bg-purple-700" linkCountries={true} />
                     </section>
 
                     {/* Tier 2 Table */}
@@ -404,7 +418,7 @@ export default function YouTubeCPMRatesPage() {
                             <h2 className="text-3xl font-black text-slate-900 font-outfit">Solid Markets — Competitive CPM</h2>
                             <p className="text-slate-600 mt-2">Middle East, Western Europe, East Asia, and Southeast Asia. Strong CPMs with growing advertiser bases.</p>
                         </div>
-                        <CPMTable countries={tier2} tierLabel="Tier 2" tierColor="bg-blue-700" />
+                        <CPMTable countries={tier2} tierLabel="Tier 2" tierColor="bg-blue-700" linkCountries={INDEX_TIER2_COUNTRY_PAGES} />
                     </section>
 
                     {/* Ad placement */}

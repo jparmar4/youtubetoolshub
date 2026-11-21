@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { resolveAuthor } from "@/config/blog/authors";
 import { getCoverDimensions } from "@/config/blog/image-dimensions";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
@@ -68,6 +69,7 @@ export async function GET() {
         : "";
       const encodedHtml = `<figure><img src="${imageUrl}" alt="${(post.imageAlt || post.title).replace(/"/g, "&quot;")}"${imgDimsAttr} /></figure><p>${post.metaDescription}</p><p><a href="${postUrl}">Read the complete guide on YouTube Tools Hub</a> or <a href="${siteUrl}/tools">launch all free creator tools</a>.</p>`;
 
+      const author = resolveAuthor(post.author);
       return `
     <item>
       <title>${cdata(post.title)}</title>
@@ -75,7 +77,7 @@ export async function GET() {
       <guid isPermaLink="true">${escapeXml(postUrl)}</guid>
       <pubDate>${pubDate}</pubDate>
       <description>${cdata(post.metaDescription)}</description>
-      <author>${escapeXml(siteConfig.contact.email)} (${escapeXml(post.author)})</author>
+      <author>${escapeXml(siteConfig.contact.email)} (${escapeXml(author.name)})</author>
       <category>${cdata(post.category)}</category>
       <enclosure url="${escapeXml(imageUrl)}" type="${mimeType}" />
       <media:content url="${escapeXml(imageUrl)}" medium="image" type="${mimeType}"${mediaDims} />

@@ -22,8 +22,10 @@ const PATHS = [
   "/llms.txt",
   "/ads.txt",
   "/tools/youtube-thumbnail-downloader",
+  "/tools/youtube-transcript-downloader",
   "/tools/youtube-earnings-calculator",
   "/tools/youtube-earnings-calculator/usa",
+  "/alternatives/vidiq-tubebuddy-free-alternative",
   "/resources/youtube-cpm-rates",
   "/resources/youtube-monetization-guide",
   "/blog/youtube-adsense-payment-schedule-2026",
@@ -60,6 +62,9 @@ const REDIRECT_PATHS = [
   ["/blog/youtube-monetization-truths-cpm-rpm", "/blog/how-much-youtube-pays-per-1000-views-2026"],
   ["/blog/high-cpm-youtube-niches-2026", "/blog/best-youtube-niches-2026"],
   ["/blog/author/alex-rivera", "/blog/author/jitu"],
+  ["/youtube-transcript-downloader", "/tools/youtube-transcript-downloader"],
+  ["/tools/vs/tubebuddy", "/alternatives/vidiq-tubebuddy-free-alternative"],
+  ["/tools/vs/vidiq", "/alternatives/vidiq-tubebuddy-free-alternative"],
 ];
 
 function fetch(path) {

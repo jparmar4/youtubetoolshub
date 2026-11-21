@@ -133,30 +133,18 @@ function isSearchBot(userAgent: string | null): boolean {
    Verified search crawlers (allowlist above) bypass rate limiting entirely.
    ========================================================================== */
 
-// Scripting/scraping client signatures — keep real security scanners & SEO
-// scrapers blocked while allowing headless browser agents (HeadlessChrome,
-// Playwright, Puppeteer) used by WebMCP & AI agent-readiness evaluators
-// (governed by per-IP rate limits below instead of hard 403s).
+// Hostile security scanners & aggressive scraper signatures only — allow
+// standard HTTP libraries (curl, python-requests/httpx, aiohttp, go-http-client)
+// and headless browser agents used by AI RAG fetchers, MCP clients, and link
+// verifiers (still governed by per-IP rate limits below instead of hard 403s).
 const ABUSIVE_UA_PATTERNS = [
-  "curl/",
-  "wget",
-  "python-requests",
-  "python-urllib",
-  "python-httpx",
-  "aiohttp",
   "scrapy",
-  "go-http-client",
-  "java/",
-  "okhttp",
-  "apache-httpclient",
-  "libwww-perl",
   "phantomjs",
   "selenium",
   "masscan",
   "nikto",
   "zgrab",
   "nmap!",
-  "dataforseo",
   "megaindex",
   "serpstatbot",
 ];
@@ -264,8 +252,17 @@ export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const host = request.headers.get("host");
 
-  // 1. Bot mitigation — blocks scraping clients and caps per-IP request
-  //    rates (AdSense invalid-traffic + API-abuse protection). Verified
+  // 0. Redirect non-www to www FIRST (SEO Canonicalization — must run before
+  //    bot filtering so apex URLs never return 403 instead of a 301 canonical redirect)
+  if (host === "youtubetoolshub.com" || host?.startsWith("youtubetoolshub.com:")) {
+    return NextResponse.redirect(
+      `https://www.youtubetoolshub.com${pathname}${request.nextUrl.search}`,
+      301
+    );
+  }
+
+  // 1. Bot mitigation — blocks security scanners/hostile scrapers and caps per-IP
+  //    request rates (AdSense invalid-traffic + API-abuse protection). Verified
   //    search crawlers bypass rate limiting for HTML page GETs only —
   //    never for /api/* (their UA string is client-controlled).
   const isApiPath = pathname.startsWith("/api");
@@ -359,14 +356,6 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
-  // 0. Redirect non-www to www (SEO Canonicalization)
-  if (host === "youtubetoolshub.com" || host?.startsWith("youtubetoolshub.com:")) {
-    return NextResponse.redirect(
-      `https://www.youtubetoolshub.com${pathname}${request.nextUrl.search}`,
-      301
-    );
-  }
-
   // 0.1 Redirect locale-prefixed URLs to a single canonical URL
   // This prevents duplicate indexing like /en/blog/... and /blog/... (cannibalization)
   // Global strategy (2026-09-29): single English canonical + hreflang en-US/GB/IN/AU/CA
@@ -424,7 +413,6 @@ export default async function middleware(request: NextRequest) {
       pathname.startsWith("/resources") ||
       pathname.startsWith("/research") ||
       pathname.startsWith("/alternatives") ||
-      pathname === "/youtube-transcript-downloader" ||
       pathname === "/pricing" ||
       pathname === "/contact" ||
       pathname === "/faq" ||

@@ -199,18 +199,18 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
 
                   <div className="grid grid-cols-2 gap-1 pt-1">
                     <Link
-                      href="/tools/vs/tubebuddy"
+                      href="/alternatives/vidiq-tubebuddy-free-alternative"
                       onClick={onClose}
                       className="px-3.5 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold"
                     >
-                      vs. TubeBuddy
+                      vs. VidIQ &amp; TubeBuddy
                     </Link>
                     <Link
-                      href="/tools/vs/vidiq"
+                      href="/alternatives"
                       onClick={onClose}
                       className="px-3.5 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold"
                     >
-                      vs. VidIQ
+                      All Alternatives
                     </Link>
                   </div>
 

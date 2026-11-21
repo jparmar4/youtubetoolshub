@@ -26,8 +26,6 @@ import { GEO_AEO_PRESETS } from "@/config/geo-aeo";
 import EarningsCalculatorCTA from "@/components/blog/EarningsCalculatorCTA";
 import Hero3DShowcase from "@/components/home/Hero3DShowcase";
 import OmniInputCommandBar from "@/components/home/OmniInputCommandBar";
-import Tier1ComparisonMatrix from "@/components/tools/Tier1ComparisonMatrix";
-import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeatmap";
 import SmartWorkflow from "@/components/home/SmartWorkflow";
 
 export const metadata: Metadata = {
@@ -271,15 +269,73 @@ export default function Home() {
           </ScrollReveal>
           <EarningsCalculatorCTA variant="card" contextLabel={`Free · Instant · ${countryCPMData.length} countries`} />
 
-          {/* Tier 1 High-RPM Benchmarks */}
-          <div className="mt-10">
-            <Tier1ComparisonMatrix />
+          {/* Compact Tier-1 RPM & High-CPM Niche Snapshot (deep interactive tables live on dedicated pillar routes) */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="card-3d rounded-2xl p-6 bg-white">
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <h3 className="text-base font-black text-slate-900 font-outfit">
+                  Top Tier-1 RPM Markets (2026)
+                </h3>
+                <Link
+                  href="/tools/youtube-earnings-calculator"
+                  className="text-xs font-bold text-emerald-700 hover:underline shrink-0"
+                >
+                  Compare all →
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 gap-2.5">
+                {(["US", "AU", "CA", "GB"] as const)
+                  .map((code) => countryCPMData.find((c) => c.code === code))
+                  .filter((c): c is (typeof countryCPMData)[number] => Boolean(c))
+                  .map((m) => (
+                    <Link
+                      key={m.code}
+                      href={`/tools/youtube-earnings-calculator/${m.slug}`}
+                      className="rounded-xl border border-slate-200 bg-slate-50/80 hover:border-emerald-400 hover:bg-emerald-50/40 p-3 transition-colors"
+                    >
+                      <div className="flex items-center justify-between text-xs font-bold text-slate-900">
+                        <span>{m.name}</span>
+                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black">{m.code}</span>
+                      </div>
+                      <div className="text-xs font-extrabold text-emerald-700 mt-1">
+                        ${m.rpmRange.min.toFixed(2)}–${m.rpmRange.max.toFixed(2)} RPM
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+
+            <div className="card-3d rounded-2xl p-6 bg-white">
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <h3 className="text-base font-black text-slate-900 font-outfit">
+                  Highest-Paying Niches (US CPM)
+                </h3>
+                <Link
+                  href="/resources/youtube-cpm-rates#niche-heatmap"
+                  className="text-xs font-bold text-purple-700 hover:underline shrink-0"
+                >
+                  Full heatmap →
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 gap-2.5">
+                {[
+                  { niche: "Personal Finance", cpm: "$15–$50 CPM" },
+                  { niche: "B2B SaaS & AI", cpm: "$12–$40 CPM" },
+                  { niche: "Digital Marketing", cpm: "$10–$32 CPM" },
+                  { niche: "Tech & Coding", cpm: "$9–$28 CPM" },
+                ].map((n) => (
+                  <div
+                    key={n.niche}
+                    className="rounded-xl border border-slate-200 bg-slate-50/80 p-3"
+                  >
+                    <div className="text-xs font-bold text-slate-900 truncate">{n.niche}</div>
+                    <div className="text-xs font-extrabold text-purple-700 mt-1">{n.cpm}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* 2026 Niche Profitability & Advertiser Demand Heatmap */}
-          <div className="mt-10">
-            <NicheProfitabilityHeatmap />
-          </div>
           {/* Ad below homepage calculator */}
           <div className="mt-8 max-w-4xl mx-auto w-full">
             <AdSlot slot={AD_SLOTS.HORIZONTAL[0]} preset="leaderboard" lazy />

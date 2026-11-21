@@ -41,9 +41,14 @@ import { FaLayerGroup, FaLock } from "react-icons/fa";
 export const dynamicParams = false;
 
 // Generate static params for all tools (dedicated routes own their own pages)
+const DEDICATED_TOOL_SLUGS = new Set([
+    "youtube-earnings-calculator",
+    "youtube-transcript-downloader",
+]);
+
 export function generateStaticParams() {
     return tools
-        .filter((tool) => tool.slug !== "youtube-earnings-calculator")
+        .filter((tool) => !DEDICATED_TOOL_SLUGS.has(tool.slug))
         .map((tool) => ({
             slug: tool.slug,
         }));
@@ -494,15 +499,13 @@ export default async function ToolPage({
                             </div>
 
                             {/* Server-rendered long-form SEO body (crawlable, unique per tool) */}
-                            <article className="space-y-6 animate-fade-in-up delay-100" itemScope itemType="https://schema.org/TechArticle">
-                                <meta itemProp="headline" content={tool.name} />
-
+                            <article className="space-y-6 animate-fade-in-up delay-100">
                                 {seoSections.map((section, idx) => (
                                     <section key={`${section.title}-${idx}`} className="card-3d rounded-3xl p-6 sm:p-8">
-                                        <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 font-outfit" itemProp="articleSection">
+                                        <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 font-outfit">
                                             {section.title}
                                         </h2>
-                                        <p className="text-slate-600 leading-relaxed text-base sm:text-lg" itemProp="text">
+                                        <p className="text-slate-600 leading-relaxed text-base sm:text-lg">
                                             {section.content}
                                         </p>
                                     </section>

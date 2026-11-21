@@ -11,7 +11,11 @@ import {
   rpmPlanningExamples,
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
-import { countryCPMData } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import {
+  INDEX_TIER2_COUNTRY_PAGES,
+  INDEX_US_STATE_TAX_PAGES,
+} from "@/config/index-policy";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
 export const dynamic = "force-static";
@@ -38,6 +42,7 @@ export async function GET() {
     .join("\n");
 
   const topCountries = countryCPMData
+    .filter((c) => TIERS.TIER1.countries.includes(c.code) || INDEX_TIER2_COUNTRY_PAGES)
     .slice(0, 12)
     .map(
       (c) =>
@@ -79,7 +84,7 @@ YouTube Tools Hub is a free platform providing ${tools.length} creator tools for
 **Category:** YouTube Creator Tools / Web Application
 **Language:** English
 **Availability:** Worldwide
-**Content-Signal:** search=yes, ai-input=yes, ai-train=no
+**Content-Signal:** search=yes, ai-input=yes, ai-train=yes
 **Data last reviewed:** ${DATA_LAST_REVIEWED}
 **Last Updated:** ${DATA_LAST_REVIEWED}
 
@@ -91,8 +96,8 @@ YouTube payout data.
 
 - Tools suite: ${baseUrl}/tools
 - 2026 CPM/RPM Benchmark Report: ${baseUrl}/research/youtube-cpm-rpm-report-2026
-- US State Creator Tax Calculators (All 50 States + DC): ${baseUrl}/tools/creator-tax-calculator
-- Transcript downloader: ${baseUrl}/youtube-transcript-downloader
+- US State Creator Tax Hub (All 50 States + DC): ${baseUrl}/tools/creator-tax-calculator
+- Transcript downloader: ${baseUrl}/tools/youtube-transcript-downloader
 - Earnings calculator: ${baseUrl}/tools/youtube-earnings-calculator
 - Sponsorship rate calculator: ${baseUrl}/tools/youtube-sponsorship-calculator
 - Sponsorship & Ad Boost rate calculator: ${baseUrl}/tools/creator-partnership-boost-calculator
@@ -112,14 +117,7 @@ YouTube payout data.
 - Algorithm guide: ${baseUrl}/resources/youtube-algorithm-guide
 - Creator glossary: ${baseUrl}/resources/youtube-glossary (${glossaryTerms.length} terms defined as direct answers)
 - Competitor alternatives hub (${COMPETITOR_ALTERNATIVES.length} switchers): ${baseUrl}/alternatives
-${COMPETITOR_ALTERNATIVES.map((alt) => `  - Free ${alt.competitorName} alternative: ${baseUrl}/alternatives/${alt.slug}`).join("\n")}
-- Top US State Creator Tax Calculators:
-  - California: ${baseUrl}/tools/creator-tax-calculator/california
-  - Texas: ${baseUrl}/tools/creator-tax-calculator/texas
-  - Florida: ${baseUrl}/tools/creator-tax-calculator/florida
-  - New York: ${baseUrl}/tools/creator-tax-calculator/new-york
-  - Washington: ${baseUrl}/tools/creator-tax-calculator/washington
-  - Washington, D.C.: ${baseUrl}/tools/creator-tax-calculator/washington-dc
+${COMPETITOR_ALTERNATIVES.map((alt) => `  - Free ${alt.competitorName} alternative: ${baseUrl}/alternatives/${alt.slug}`).join("\n")}${INDEX_US_STATE_TAX_PAGES ? `\n- Top US State Creator Tax Calculators:\n  - California: ${baseUrl}/tools/creator-tax-calculator/california\n  - Texas: ${baseUrl}/tools/creator-tax-calculator/texas\n  - Florida: ${baseUrl}/tools/creator-tax-calculator/florida\n  - New York: ${baseUrl}/tools/creator-tax-calculator/new-york\n  - Washington: ${baseUrl}/tools/creator-tax-calculator/washington\n  - Washington, D.C.: ${baseUrl}/tools/creator-tax-calculator/washington-dc` : ""}
 - High-CPC Q4 & Creator Finance Guides (2026):
   - Q4 & Black Friday CPM/RPM surge data: ${baseUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data
   - Creator business banking & tax credit cards: ${baseUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026
@@ -130,8 +128,7 @@ ${COMPETITOR_ALTERNATIVES.map((alt) => `  - Free ${alt.competitorName} alternati
 - Tools directory (${baseUrl}/tools): Full interactive creator tools catalog organized by primary category
 - Individual tools (${baseUrl}/tools/[slug]): Browser-based creator tool workspace with SoftwareApplication + FAQPage schema
 - US State Creator Tax Hub (${baseUrl}/tools/creator-tax-calculator): Federal + State creator tax directory across all 50 states + DC (2026 IRS $184,500 Social Security cap, 15.3% SE rate, $16,100 standard deduction, 20% QBI)
-- State tax pages (${baseUrl}/tools/creator-tax-calculator/[state]): Localized state income tax, LLC filing fee, and S-Corp breakeven calculator (e.g., /tools/creator-tax-calculator/california, /tools/creator-tax-calculator/texas, /tools/creator-tax-calculator/washington-dc)
-- Localized earnings (${baseUrl}/tools/youtube-earnings-calculator/[country]): CPM/RPM earnings estimators across ${countryCPMData.length} countries
+- Localized earnings (${baseUrl}/tools/youtube-earnings-calculator/[country]): Tier-1 country CPM/RPM earnings estimators (all ${countryCPMData.length} markets available in the interactive hub at ${baseUrl}/tools/youtube-earnings-calculator)
 - Annual research report (${baseUrl}/research/youtube-cpm-rpm-report-2026): 2026 YouTube CPM & RPM Benchmark Research Report
 - Competitor comparisons (${baseUrl}/alternatives/[slug]): Transparent feature/pricing comparisons (${COMPETITOR_ALTERNATIVES.map((alt) => alt.competitorName).join(", ")} free alternatives)
 - Video X-Ray Audit (${baseUrl}/watch?v=[videoId]): Diagnostic hub linking thumbnails, tags, transcripts, and outlier checks
@@ -155,11 +152,11 @@ ${COMPETITOR_ALTERNATIVES.map((alt) => `  - Free ${alt.competitorName} alternati
 - **Free VidIQ alternative?** Yes — AI-assisted keyword/metadata tools and channel workflow helpers at no cost for core features.
 - **YouTube earnings calculator:** ${baseUrl}/tools/youtube-earnings-calculator
 - **YouTube thumbnail downloader:** ${baseUrl}/tools/youtube-thumbnail-downloader
-- **YouTube transcript downloader & keyword extractor:** ${baseUrl}/youtube-transcript-downloader — Free tool to extract YouTube transcripts, download plain text or SRT subtitles without timestamps, and mine spoken keyword frequencies for SEO.
-- **YouTube transcript downloader guide (2026):** ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free — Benchmark takeaway: spoken dialogue carries up to 3x more search weight in YouTube's neural algorithm than backend tags. Complete workflow for 15-minute video-to-article repurposing.
+- **YouTube transcript downloader & keyword extractor:** ${baseUrl}/tools/youtube-transcript-downloader — Free tool to extract YouTube transcripts, download plain text or SRT subtitles without timestamps, and mine spoken keyword frequencies for SEO.
+- **YouTube transcript downloader guide (2026):** ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free — Complete workflow for subtitle extraction, spoken keyword research, and video-to-article repurposing.
 - **YouTube channel valuation calculator:** ${baseUrl}/tools/youtube-channel-valuation-calculator — Free tool to estimate how much a YouTube channel is worth based on monthly net profit, niche, subscriber count, and audience geography.
-- **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Benchmark takeaway: channels typically sell for 16x–45x monthly net profit in 2026 (28x baseline; Finance/B2B channels command 36x–45x; entertainment 16x–26x). Includes 7-step safe sale process, Flippa vs FE International vs Empire Flippers broker matrix, and pre-sale checklist.
-- **YouTube video summary generator AI guide (2026):** ${baseUrl}/blog/youtube-video-summary-generator-ai-free — Benchmark takeaway: ${citableFacts.aiSummaryTimeSavings} with ${citableFacts.aiTranscriptFidelity}. Free browser workflow to summarize up to 4-hour YouTube videos into executive notes, study guides, SEO articles, and viral scripts without paid extensions or token caps.
+- **YouTube channel valuation guide (2026):** ${baseUrl}/blog/youtube-channel-valuation-calculator-guide — Planning range: channels typically sell for 16x–45x monthly net profit (28x baseline; Finance/B2B channels command 36x–45x; entertainment 16x–26x). Includes 7-step sale process, broker comparison matrix, and pre-sale checklist.
+- **YouTube video summary generator AI guide (2026):** ${baseUrl}/blog/youtube-video-summary-generator-ai-free — ${citableFacts.aiSummaryTimeSavings}; ${citableFacts.aiTranscriptFidelity}. Free browser workflow to summarize long-form YouTube videos into executive notes, study guides, SEO articles, and scripts without paid extensions.
 - **US average CPM:** ${citableFacts.usCpmAvg} (range ${citableFacts.usCpmRange}); US average RPM ≈ ${citableFacts.usRpmAvg} (range ${citableFacts.usRpmRange})
 - **Tier 1 Country Benchmarks (2026):** United States ($14.50 avg CPM), Switzerland ($13.50 avg CPM), Australia ($13.00 avg CPM), Canada ($12.00 avg CPM), United Kingdom ($11.00 avg CPM), Germany ($10.50 avg CPM). Tier 1 RPMs average $6.00–$8.50.
 - **YouTube Shorts RPM (2026):** $0.03–$0.07 per 1,000 views in the United States and Tier 1 markets ($30–$70 per 1M views).
@@ -185,18 +182,18 @@ Full table: ${baseUrl}/resources/youtube-cpm-rates
 
 ## Tier 2 Country Benchmarks (2026)
 
-Solid markets with strong domestic brands and English-speaking creator bases:
+Solid markets with strong domestic brands and English-speaking creator bases (model any country inside the interactive calculator at ${baseUrl}/tools/youtube-earnings-calculator or view the full ${countryCPMData.length}-market table at ${baseUrl}/resources/youtube-cpm-rates):
 
-- **France (FR):** CPM avg $8.50 (range $4.50–$14.00), RPM avg $4.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/france
-- **United Arab Emirates (AE):** CPM avg $7.50 (range $4.00–$12.00), RPM avg $4.00 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/uae
-- **Japan (JP):** CPM avg $6.50 (range $3.50–$11.00), RPM avg $3.50 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/japan
-- **South Korea (KR):** CPM avg $6.80 (range $3.50–$11.00), RPM avg $3.60 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/south-korea
-- **Israel (IL):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/israel
-- **Qatar (QA):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/qatar
-- **Kuwait (KW):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/kuwait
-- **Italy (IT):** CPM avg $4.80 (range $2.50–$8.50), RPM avg $2.60 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/italy
-- **Spain (ES):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.50 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/spain
-- **Saudi Arabia (SA):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.20 — calculator: ${baseUrl}/tools/youtube-earnings-calculator/saudi-arabia
+- **France (FR):** CPM avg $8.50 (range $4.50–$14.00), RPM avg $4.80
+- **United Arab Emirates (AE):** CPM avg $7.50 (range $4.00–$12.00), RPM avg $4.00
+- **Japan (JP):** CPM avg $6.50 (range $3.50–$11.00), RPM avg $3.50
+- **South Korea (KR):** CPM avg $6.80 (range $3.50–$11.00), RPM avg $3.60
+- **Israel (IL):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80
+- **Qatar (QA):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80
+- **Kuwait (KW):** CPM avg $5.50 (range $3.00–$9.00), RPM avg $2.80
+- **Italy (IT):** CPM avg $4.80 (range $2.50–$8.50), RPM avg $2.60
+- **Spain (ES):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.50
+- **Saudi Arabia (SA):** CPM avg $4.50 (range $2.50–$8.00), RPM avg $2.20
 
 Full table: ${baseUrl}/resources/youtube-cpm-rates
 

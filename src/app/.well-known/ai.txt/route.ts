@@ -104,7 +104,7 @@ Disallow: /dashboard
 Disallow: /history
 Disallow: /upgrade
 Disallow: /auth/
-Content-Signal: search=yes, ai-input=yes, ai-train=no
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 
 # ============================================================
 # CONTENT CLASSIFICATION
@@ -129,7 +129,7 @@ Entity-Contact: ${siteConfig.contact.email}
 # Social Profiles (for entity disambiguation)
 Social-Telegram: https://t.me/youtubetoolshub
 Social-Facebook: https://www.facebook.com/profile.php?id=61585430621256
-Social-X: https://x.com/ytoolshub
+Social-X: https://x.com/JITU20
 Social-Pinterest: https://pinterest.com/youtubetoolshub
 
 # ============================================================

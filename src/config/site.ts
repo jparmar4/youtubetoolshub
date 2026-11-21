@@ -87,8 +87,6 @@ export const siteConfig = {
       { name: "Free VidIQ & TubeBuddy Alternative", href: "/alternatives/vidiq-tubebuddy-free-alternative" },
       { name: "Free Viewstats Alternative", href: "/alternatives/viewstats-free-alternative" },
       { name: "Free NexLev Alternative", href: "/alternatives/nexlev-free-alternative" },
-      { name: "YT Tools Hub vs TubeBuddy", href: "/tools/vs/tubebuddy" },
-      { name: "YT Tools Hub vs VidIQ", href: "/tools/vs/vidiq" },
       { name: "Why Choose Us", href: "/blog/why-youtube-tools-hub" },
       { name: "Link to Us", href: "/resources/link-to-us" },
       {

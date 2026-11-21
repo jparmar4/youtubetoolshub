@@ -120,7 +120,7 @@ const EMBED_SNIPPETS = [
     id: "comparison-link",
     label: "TubeBuddy/VidIQ Alternative Link",
     description: "Position us as a free alternative in comparison articles.",
-    code: `<a href="https://www.youtubetoolshub.com/tools/vs/tubebuddy" title="Free TubeBuddy Alternative – YouTube Tools Hub" target="_blank" rel="noopener noreferrer">YouTube Tools Hub – Free TubeBuddy &amp; VidIQ Alternative (No Extension)</a>`,
+    code: `<a href="https://www.youtubetoolshub.com/alternatives/vidiq-tubebuddy-free-alternative" title="Free VidIQ & TubeBuddy Alternative – YouTube Tools Hub" target="_blank" rel="noopener noreferrer">YouTube Tools Hub – Free TubeBuddy &amp; VidIQ Alternative (No Extension)</a>`,
   },
   {
     id: "markdown",
@@ -435,6 +435,12 @@ export default function LinkToUsPage() {
 
             <h3>Our Most Popular Tools for Backlinks</h3>
             <ul>
+              <li>
+                <Link href="/watch">
+                  YouTube Video X-Ray &amp; Zero-Extension Bookmarklet
+                </Link>{" "}
+                — Inspect any video&apos;s SEO score, tags, live captions, and viewer questions from comments with a 1-click browser bookmarklet
+              </li>
               <li>
                 <Link href="/tools/youtube-thumbnail-downloader">
                   YouTube Thumbnail Downloader

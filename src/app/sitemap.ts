@@ -17,7 +17,6 @@ import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "": DATA_LAST_REVIEWED,
   "/tools": DATA_LAST_REVIEWED,
-  "/youtube-transcript-downloader": DATA_LAST_REVIEWED,
   "/tools/creator-tax-calculator": DATA_LAST_REVIEWED,
   "/alternatives": DATA_LAST_REVIEWED,
   "/research/youtube-cpm-rpm-report-2026": "2026-11-17",
@@ -35,8 +34,6 @@ const ROUTE_LAST_MODIFIED: Record<string, string> = {
   "/resources/youtube-cpm-rates": DATA_LAST_REVIEWED,
   "/resources/link-to-us": "2026-09-29",
   "/pricing": "2026-09-29",
-  "/tools/vs/tubebuddy": "2026-11-14",
-  "/tools/vs/vidiq": "2026-11-14",
   "/resources/youtube-algorithm-guide": "2026-11-14",
   "/resources/youtube-monetization-guide": DATA_LAST_REVIEWED,
   "/resources/youtube-glossary": "2026-11-14",
@@ -67,7 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const highPriorityRoutes = [
     "/tools",
-    "/youtube-transcript-downloader",
     "/tools/creator-tax-calculator",
     "/alternatives",
     "/research/youtube-cpm-rpm-report-2026",
@@ -85,8 +81,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/seo-tools",
     "/tools/analytics-tools",
     "/tools/thumbnail-tools",
-    "/tools/vs/tubebuddy",
-    "/tools/vs/vidiq",
   ];
 
   for (const route of routes) {
@@ -103,12 +97,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic tool pages
   for (const tool of tools) {
     const url = `${baseUrl}/tools/${tool.slug}`;
+    const imageUrl =
+      tool.slug === "youtube-transcript-downloader"
+        ? `${baseUrl}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp`
+        : `${baseUrl}/tools/${tool.slug}/opengraph-image`;
     allEntries.push({
       url,
       lastModified: TOOL_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
-      images: [`${baseUrl}/tools/${tool.slug}/opengraph-image`],
+      images: [imageUrl],
     });
   }
 

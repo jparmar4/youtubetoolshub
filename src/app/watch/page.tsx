@@ -4,9 +4,9 @@ import WatchBridgeClient from "@/components/watch/WatchBridgeClient";
 import { noIndexRobots } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Video X-Ray Audit Workspace",
+  title: "Video X-Ray Audit & Comment Question Miner",
   description:
-    "Inspect any YouTube video ID or link and launch thumbnails, transcripts, tags, and summaries in your browser.",
+    "Inspect any YouTube video's SEO score, backend tags, real captions, and viewer questions from comments — zero login or browser extension.",
   robots: noIndexRobots,
 };
 
@@ -29,7 +29,7 @@ export default async function WatchPage({ searchParams }: WatchPageProps) {
           ]}
           className="mb-6"
         />
-        <WatchBridgeClient initialVideoId={rawVideoId || ""} />
+        <WatchBridgeClient key={rawVideoId || "empty"} initialVideoId={rawVideoId || ""} />
       </div>
     </div>
   );

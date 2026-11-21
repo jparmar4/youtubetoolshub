@@ -7,7 +7,6 @@ import {
   FaChartLine,
   FaFire,
   FaSearch,
-  FaAward,
   FaSlidersH,
 } from "react-icons/fa";
 
@@ -314,7 +313,7 @@ export default function NicheProfitabilityHeatmap() {
                   </div>
                   {isTopTier && (
                     <span className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 shrink-0">
-                      <FaAward /> Top Payout
+                      ★ Top Payout
                     </span>
                   )}
                 </div>

@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
+import { resolveAuthor } from "@/config/blog/authors";
 import { tools } from "@/config/tools";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 
@@ -38,6 +39,7 @@ export async function GET() {
           : `${siteUrl}${post.coverImage}`
         : null;
 
+      const author = resolveAuthor(post.author);
       return `
     <entry>
       <title>${cdata(post.title)}</title>
@@ -46,7 +48,7 @@ export async function GET() {
       <updated>${escapeXml(updated)}</updated>
       <summary type="html">${cdata(post.metaDescription)}</summary>
       <author>
-        <name>${escapeXml(post.author)}</name>
+        <name>${escapeXml(author.name)}</name>
       </author>
       <category term="${escapeXml(post.category)}" />
       <content type="html">${cdata(post.metaDescription)}</content>
@@ -106,7 +108,7 @@ export async function GET() {
     headers: {
       "Content-Type": "application/atom+xml; charset=utf-8",
       "Cache-Control": "public, s-maxage=1200, stale-while-revalidate=600",
-      "X-Robots-Tag": "index, follow, noarchive",
+      "X-Robots-Tag": "noindex, follow",
     },
   });
 }

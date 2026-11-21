@@ -16,6 +16,7 @@ import { FaGlobeAmericas, FaChartLine, FaFileInvoiceDollar, FaUniversity } from 
 import ToolIcon3D from "@/components/ui/ToolIcon3D";
 import ToolShell from "@/components/tools/ToolShell";
 import {
+    absoluteUrl,
     combineSchemasToGraph,
     getFAQSchema,
     getBreadcrumbSchema,
@@ -85,9 +86,11 @@ export async function generateMetadata({
             description,
             images: [`${siteConfig.url}/tools/youtube-earnings-calculator/${country}/opengraph-image`],
         },
+        // Keep a self-canonical on noindexed country templates — mixing noindex
+        // with a cross-page canonical to the parent sends contradictory signals.
         alternates: indexable
             ? getCountryEarningsAlternates(country)
-            : { canonical: "/tools/youtube-earnings-calculator" },
+            : { canonical: absoluteUrl(`/tools/youtube-earnings-calculator/${country}`) },
         robots: {
             index: indexable,
             follow: true,

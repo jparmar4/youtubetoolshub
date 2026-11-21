@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
 
 /** Shared robots metadata for app UI / thin pages that must stay out of Google index */
 export const noIndexRobots: NonNullable<Metadata["robots"]> = {
@@ -551,7 +552,7 @@ export function getUsOnlyAlternates(path: string) {
   };
 }
 
-const ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
+const TIER1_ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
   "en-US": "/tools/youtube-earnings-calculator/usa",
   "en-GB": "/tools/youtube-earnings-calculator/uk",
   "en-CA": "/tools/youtube-earnings-calculator/canada",
@@ -559,12 +560,25 @@ const ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
   "en-NZ": "/tools/youtube-earnings-calculator/new-zealand",
   "en-IE": "/tools/youtube-earnings-calculator/ireland",
   "en-SG": "/tools/youtube-earnings-calculator/singapore",
+  "x-default": "/tools/youtube-earnings-calculator",
+};
+
+const TIER2_ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
   "en-IN": "/tools/youtube-earnings-calculator/india",
   "en-ZA": "/tools/youtube-earnings-calculator/south-africa",
   "en-PH": "/tools/youtube-earnings-calculator/philippines",
   "en-MY": "/tools/youtube-earnings-calculator/malaysia",
-  "x-default": "/tools/youtube-earnings-calculator",
 };
+
+/**
+ * Only emit hreflang links to indexable, self-canonical, reciprocal pages.
+ * Pointing hreflang at noindex Tier-2/3 country templates breaks the entire
+ * hreflang cluster in Google Search Console.
+ */
+const ENGLISH_EARNINGS_HREFLANG: Record<string, string> =
+  INDEX_TIER2_COUNTRY_PAGES
+    ? { ...TIER1_ENGLISH_EARNINGS_HREFLANG, ...TIER2_ENGLISH_EARNINGS_HREFLANG }
+    : TIER1_ENGLISH_EARNINGS_HREFLANG;
 
 const ENGLISH_EARNINGS_SLUGS = new Set(
   Object.entries(ENGLISH_EARNINGS_HREFLANG)

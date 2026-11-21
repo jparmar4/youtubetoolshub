@@ -412,13 +412,16 @@ export async function GET() {
       tool_entities: toolEntities,
     },
     faqs: faqEntities,
-    blog_index: blogPosts.map(p => ({
-      title: p.title,
-      url: `${siteUrl}/blog/${p.slug}`,
-      author: p.author,
-      expertise: p.authorRole,
-      date: toBlogIsoDate(p.updatedAt ?? p.date),
-    })),
+    blog_index: blogPosts.map(p => {
+      const author = resolveAuthor(p.author);
+      return {
+        title: p.title,
+        url: `${siteUrl}/blog/${p.slug}`,
+        author: author.name,
+        expertise: author.role,
+        date: toBlogIsoDate(p.updatedAt ?? p.date),
+      };
+    }),
     machine_readable_index: {
       llms_txt: `${siteUrl}/llms.txt`,
       llms_full_txt: `${siteUrl}/llms-full.txt`,
@@ -437,7 +440,7 @@ export async function GET() {
   return NextResponse.json(aiContext, {
     headers: {
       "Cache-Control": "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
-      "X-Robots-Tag": "index, follow, noarchive",
+      "X-Robots-Tag": "noindex, follow",
       "Access-Control-Allow-Origin": "*",
     },
   });

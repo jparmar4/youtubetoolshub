@@ -341,7 +341,7 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
-        path: "/youtube-transcript-downloader",
+        path: "/tools/youtube-transcript-downloader",
         title: "YouTube Transcript Downloader",
         anchors: ["youtube transcript downloader", "transcript downloader", "extract subtitles free"],
       },
@@ -716,14 +716,9 @@ export const topicClusters: TopicCluster[] = [
         ],
       },
       {
-        path: "/tools/vs/tubebuddy",
-        title: "vs TubeBuddy",
-        anchors: ["tubebuddy alternative", "tube buddy alternative"],
-      },
-      {
-        path: "/tools/vs/vidiq",
-        title: "vs VidIQ",
-        anchors: ["vidiq alternative", "vid iq alternative"],
+        path: "/alternatives/vidiq-tubebuddy-free-alternative",
+        title: "Free VidIQ & TubeBuddy Alternative",
+        anchors: ["tubebuddy alternative", "tube buddy alternative", "vidiq alternative", "vid iq alternative"],
       },
       {
         path: "/blog/best-youtube-seo-tools-2026",
@@ -954,14 +949,9 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["ai tools youtube", "best free ai tools"],
       },
       {
-        path: "/tools/vs/tubebuddy",
-        title: "YouTube Tools Hub vs TubeBuddy",
-        anchors: ["tubebuddy alternative", "free tubebuddy"],
-      },
-      {
-        path: "/tools/vs/vidiq",
-        title: "YouTube Tools Hub vs VidIQ",
-        anchors: ["vidiq alternative", "free vidiq"],
+        path: "/alternatives/vidiq-tubebuddy-free-alternative",
+        title: "YouTube Tools Hub vs VidIQ & TubeBuddy",
+        anchors: ["tubebuddy alternative", "free tubebuddy", "vidiq alternative", "free vidiq"],
       },
     ],
   },

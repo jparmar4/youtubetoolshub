@@ -1,7 +1,11 @@
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { countryCPMData } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import {
+    INDEX_TIER2_COUNTRY_PAGES,
+    INDEX_US_STATE_TAX_PAGES,
+} from "@/config/index-policy";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
@@ -56,16 +60,6 @@ ${post.pinterestImage ? `    <image:image>
         }
     }
 
-    // Standalone flagship transcript downloader route
-    entries.push(`  <url>
-    <loc>${baseUrl}/youtube-transcript-downloader</loc>
-    <image:image>
-      <image:loc>${baseUrl}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp</image:loc>
-      <image:title>YouTube Transcript Downloader &amp; Keyword Extractor</image:title>
-      <image:caption>Extract and download YouTube transcripts and subtitles free in TXT, SRT, or CSV format.</image:caption>
-    </image:image>
-  </url>`);
-
     // Flagship research & resource pillars
     const resourcePillars = [
         {
@@ -107,17 +101,24 @@ ${post.pinterestImage ? `    <image:image>
 
     // Tool pages with unique OG images (do not repeat the same og-image.png)
     for (const tool of tools) {
+        const imageUrl =
+            tool.slug === "youtube-transcript-downloader"
+                ? `${baseUrl}/images/blog/youtube-transcript-downloader-keyword-extractor-hero.webp`
+                : `${baseUrl}/tools/${tool.slug}/opengraph-image`;
         entries.push(
             buildImageUrlEntry(
                 `${baseUrl}/tools/${tool.slug}`,
-                `${baseUrl}/tools/${tool.slug}/opengraph-image`,
+                imageUrl,
                 tool.name,
             ),
         );
     }
 
-    // 52 Country Earnings Calculator OG cards
+    // Country Earnings Calculator OG cards — mirror sitemap.ts index policy
+    // so Google never receives "Submitted URL marked 'noindex'" errors.
     for (const country of countryCPMData) {
+        const isTier1 = TIERS.TIER1.countries.includes(country.code);
+        if (!isTier1 && !INDEX_TIER2_COUNTRY_PAGES) continue;
         entries.push(
             buildImageUrlEntry(
                 `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`,
@@ -128,16 +129,18 @@ ${post.pinterestImage ? `    <image:image>
         );
     }
 
-    // 51 US State Creator Tax OG cards
-    for (const state of US_STATE_CREATOR_TAXES) {
-        entries.push(
-            buildImageUrlEntry(
-                `${baseUrl}/tools/creator-tax-calculator/${state.slug}`,
-                `${baseUrl}/tools/creator-tax-calculator/${state.slug}/opengraph-image`,
-                `${state.stateName} YouTube Creator Tax & S-Corp Calculator`,
-                `2026 Federal SE tax, ${state.stateName} income tax, LLC fees & S-Corp savings.`,
-            ),
-        );
+    // US State Creator Tax OG cards — gated by index policy
+    if (INDEX_US_STATE_TAX_PAGES) {
+        for (const state of US_STATE_CREATOR_TAXES) {
+            entries.push(
+                buildImageUrlEntry(
+                    `${baseUrl}/tools/creator-tax-calculator/${state.slug}`,
+                    `${baseUrl}/tools/creator-tax-calculator/${state.slug}/opengraph-image`,
+                    `${state.stateName} YouTube Creator Tax & S-Corp Calculator`,
+                    `2026 Federal SE tax, ${state.stateName} income tax, LLC fees & S-Corp savings.`,
+                ),
+            );
+        }
     }
 
     // Competitor alternative OG cards

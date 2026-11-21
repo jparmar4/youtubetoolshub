@@ -5145,7 +5145,7 @@ If you are on a tight budget or want the smallest possible footprint for your vi
 **Best AI subtitle & caption generator for YouTube (2026):**
 - **Descript:** Best all-in-one text-based workflow with ~95–98% English accuracy and synced word highlighting for long-form education.
 - **CapCut Pro:** Best for vertical YouTube Shorts animated "Hormozi-style" captions and mobile-to-desktop templates.
-- **YouTube Transcript Downloader:** Free browser tool at [YouTube Transcript Downloader](/youtube-transcript-downloader) to extract clean **.srt** subtitle files and spoken SEO keywords for zero cost, plus compare Short-form vs Long-form RPM using our [Shorts vs. Long-Form Calculator](/tools/youtube-shorts-vs-long-form-calculator).
+- **YouTube Transcript Downloader:** Free browser tool at [YouTube Transcript Downloader](/tools/youtube-transcript-downloader) to extract clean **.srt** subtitle files and spoken SEO keywords for zero cost, plus compare Short-form vs Long-form RPM using our [Shorts vs. Long-Form Calculator](/tools/youtube-shorts-vs-long-form-calculator).
 :::
 
 We need to talk about why you clicked on this. You didn't just wake up wanting to add more friction to your editing pipeline. You're here because you noticed the same trend everyone else in the creator economy has noticed over the past two years:**videos without engaging, animated captions are losing the retention battle.**

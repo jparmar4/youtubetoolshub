@@ -39,7 +39,7 @@ export default function ExitIntentPopup() {
 
         const timer = setTimeout(() => {
             document.addEventListener("mouseleave", handleMouseLeave);
-        }, 8000);
+        }, 45000);
 
         return () => {
             clearTimeout(timer);

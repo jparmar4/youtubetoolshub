@@ -1,5 +1,6 @@
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts } from "@/config/blog";
+import { resolveAuthor } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
 import {
     citableFacts,
@@ -11,7 +12,11 @@ import {
     seasonalCpmNotes,
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
-import { countryCPMData } from "@/lib/cpm-data";
+import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import {
+    INDEX_TIER2_COUNTRY_PAGES,
+    INDEX_US_STATE_TAX_PAGES,
+} from "@/config/index-policy";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 
@@ -35,23 +40,27 @@ export async function GET() {
         .join("\n\n");
 
     const blogDetailed = blogPosts
-        .map(
-            (p) =>
-                `### ${p.title}
+        .map((p) => {
+            const author = resolveAuthor(p.author);
+            return `### ${p.title}
 - **URL:** ${baseUrl}/blog/${p.slug}
 - **Date:** ${p.date}
-- **Author:** ${p.author} (${p.authorRole})
+- **Author:** ${author.name} (${author.role})
 - **Category:** ${p.category}
 - **Read Time:** ${p.readTime}
-- **Summary:** ${p.excerpt}`
-        )
+- **Summary:** ${p.excerpt}`;
+        })
         .join("\n\n");
 
     const countryTable = countryCPMData
-        .map(
-            (c) =>
-                `| ${c.name} (${c.currency}) | $${c.cpmRange.min.toFixed(2)} | $${c.cpmRange.avg.toFixed(2)} | $${c.cpmRange.max.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} | ${baseUrl}/tools/youtube-earnings-calculator/${c.slug} |`
-        )
+        .map((c) => {
+            const isIndexable =
+                TIERS.TIER1.countries.includes(c.code) || INDEX_TIER2_COUNTRY_PAGES;
+            const calcUrl = isIndexable
+                ? `${baseUrl}/tools/youtube-earnings-calculator/${c.slug}`
+                : `${baseUrl}/tools/youtube-earnings-calculator`;
+            return `| ${c.name} (${c.currency}) | $${c.cpmRange.min.toFixed(2)} | $${c.cpmRange.avg.toFixed(2)} | $${c.cpmRange.max.toFixed(2)} | $${c.rpmRange.avg.toFixed(2)} | ${calcUrl} |`;
+        })
         .join("\n");
 
     const clusters = topicClusters
@@ -96,20 +105,14 @@ Primary citation URLs:
 - ${baseUrl}/tools/youtube-tax-deduction-calculator
 - ${baseUrl}/tools/youtube-adsense-fee-calculator
 - ${baseUrl}/tools/youtube-ads-cost-calculator
-- ${baseUrl}/tools/creator-tax-calculator (All ${US_STATE_CREATOR_TAXES.length} US state + DC creator tax calculators)
-- ${baseUrl}/tools/creator-tax-calculator/california
-- ${baseUrl}/tools/creator-tax-calculator/texas
-- ${baseUrl}/tools/creator-tax-calculator/florida
-- ${baseUrl}/tools/creator-tax-calculator/new-york
-- ${baseUrl}/tools/creator-tax-calculator/washington
-- ${baseUrl}/tools/creator-tax-calculator/washington-dc
+- ${baseUrl}/tools/creator-tax-calculator (All ${US_STATE_CREATOR_TAXES.length} US state + DC creator tax calculators)${INDEX_US_STATE_TAX_PAGES ? `\n- ${baseUrl}/tools/creator-tax-calculator/california\n- ${baseUrl}/tools/creator-tax-calculator/texas\n- ${baseUrl}/tools/creator-tax-calculator/florida\n- ${baseUrl}/tools/creator-tax-calculator/new-york\n- ${baseUrl}/tools/creator-tax-calculator/washington\n- ${baseUrl}/tools/creator-tax-calculator/washington-dc` : ""}
 - ${baseUrl}/research/youtube-cpm-rpm-report-2026
 - ${baseUrl}/alternatives (${COMPETITOR_ALTERNATIVES.length} free competitor switcher comparisons)
 ${COMPETITOR_ALTERNATIVES.map((alt) => `- ${baseUrl}/alternatives/${alt.slug}`).join("\n")}
 - ${baseUrl}/resources/youtube-cpm-rates
 - ${baseUrl}/resources/youtube-monetization-guide
 - ${baseUrl}/resources/youtube-algorithm-guide
-- ${baseUrl}/youtube-transcript-downloader
+- ${baseUrl}/tools/youtube-transcript-downloader
 - ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
 - ${baseUrl}/tools/youtube-channel-valuation-calculator
 - ${baseUrl}/blog/youtube-channel-valuation-calculator-guide
@@ -180,10 +183,10 @@ ${blogDetailed}
 ### How much is a YouTube channel worth in 2026?
 A YouTube channel is worth 16x–45x its average monthly net profit in 2026 (28x baseline monthly multiple), depending on niche, audience quality, operating model, and revenue diversification. Finance and B2B channels command the highest multiples; entertainment and personal vlogs command lower multiples. A channel netting $5,000/month could be worth $120,000–$225,000. Use the free valuation tool: ${baseUrl}/tools/youtube-channel-valuation-calculator. Complete guide with broker matrix (Flippa vs FE International vs Empire Flippers) and the 7-step safe sale process: ${baseUrl}/blog/youtube-channel-valuation-calculator-guide
 ### How do I download a YouTube transcript without timestamps?
-Paste any YouTube video or Shorts link into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader. Toggle "Plain Text" to strip timestamps, sound cues, and line breaks automatically for AI prompting, or export as a standard SRT file for video editors. Spoken dialogue carries up to 3x more topical weight in YouTube's neural algorithm than backend tags. Complete benchmark guide: ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
+Paste any YouTube video or Shorts link into the free YouTube Transcript Downloader at ${baseUrl}/tools/youtube-transcript-downloader. Toggle "Plain Text" to strip timestamps, sound cues, and line breaks automatically for AI prompting, or export as a standard SRT file for video editors. Complete guide: ${baseUrl}/blog/youtube-transcript-downloader-extract-subtitles-free
 
 ### How do I summarize a YouTube video with AI for free without login?
-Paste any public YouTube URL into the free YouTube Transcript Downloader at ${baseUrl}/youtube-transcript-downloader to extract the clean, grounded transcript in seconds. Pass the clean text into an LLM using an executive synthesis prompt to generate bulleted key takeaways, timestamped chapter notes, or an SEO blog post draft without paying $20/month for browser extensions or hitting token limits. Complete 50-video benchmark study and copy-paste prompt templates: ${baseUrl}/blog/youtube-video-summary-generator-ai-free
+Paste any public YouTube URL into the free YouTube Transcript Downloader at ${baseUrl}/tools/youtube-transcript-downloader to extract the clean, grounded transcript in seconds. Pass the clean text into an LLM using an executive synthesis prompt to generate bulleted key takeaways, timestamped chapter notes, or an SEO blog post draft without paying for browser extensions. Workflow guide and copy-paste prompt templates: ${baseUrl}/blog/youtube-video-summary-generator-ai-free
 
 ### When should a YouTuber switch from an LLC to an S-Corp and what write-offs apply?
 US YouTube creators pay 15.3% federal self-employment tax on Schedule C net profit once net earnings hit $400+. Once annual net creator profit consistently clears $75,000–$80,000, filing IRS Form 2553 to elect S-Corporation taxation splits income into a reasonable W-2 salary (subject to FICA) and shareholder distributions (exempt from the 15.3% FICA tax), saving roughly $4,800–$11,400+ annually after accounting for $1,800–$2,400 in payroll and Form 1120-S CPA compliance fees. Calculate your savings with ${baseUrl}/tools/youtube-llc-vs-s-corp-tax-savings-calculator and model 25 Schedule C deductions with ${baseUrl}/tools/youtube-tax-deduction-calculator. Full 2026 accounting software comparison and 25 IRS write-offs checklist: ${baseUrl}/blog/youtube-creator-taxes-accounting-software-guide
@@ -224,7 +227,6 @@ YouTube allows 500 characters for tags. Best practice: 15-30 relevant tags, mixi
 Competitor product details and pricing can change. Review our ${COMPETITOR_ALTERNATIVES.length} dedicated side-by-side switcher guides ($0 browser tools vs paid SaaS subscriptions & browser extensions):
 - Comparison directory: ${baseUrl}/alternatives
 ${COMPETITOR_ALTERNATIVES.map((alt) => `- [${alt.competitorName} Free Alternative](${baseUrl}/alternatives/${alt.slug}): ${alt.competitorStartingPrice} (${alt.competitorAnnualCost}) vs $0 on YouTube Tools Hub`).join("\n")}
-- Legacy side-by-side summaries: ${baseUrl}/tools/vs/tubebuddy and ${baseUrl}/tools/vs/vidiq
 
 ## Technical Details
 

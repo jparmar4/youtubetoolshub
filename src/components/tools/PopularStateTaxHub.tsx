@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FaArrowRight, FaMapMarkedAlt } from "react-icons/fa";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { getStateTaxBySlug, type UsStateCreatorTax } from "@/data/usStateCreatorTaxes";
 
 const POPULAR_STATE_SLUGS = [
@@ -17,6 +18,15 @@ const POPULAR_STATE_SLUGS = [
   "washington-dc",
 ];
 
+const COMPACT_HIGHLIGHT_SLUGS = [
+  "california",
+  "new-york",
+  "texas",
+  "florida",
+  "washington",
+  "nevada",
+];
+
 export default function PopularStateTaxHub({
   title = "US State YouTube Creator Tax & S-Corp Calculators (2026)",
   description = "Explore 2026 Federal Self-Employment tax ($184,500 SS cap), state income tax rates, Secretary of State LLC fees, and IRS Form 2553 S-Corp savings by US state.",
@@ -24,9 +34,10 @@ export default function PopularStateTaxHub({
   title?: string;
   description?: string;
 }) {
-  const states = POPULAR_STATE_SLUGS.map((slug) => getStateTaxBySlug(slug)).filter(
-    (s): s is UsStateCreatorTax => Boolean(s),
-  );
+  const slugs = INDEX_US_STATE_TAX_PAGES ? POPULAR_STATE_SLUGS : COMPACT_HIGHLIGHT_SLUGS;
+  const states = slugs
+    .map((slug) => getStateTaxBySlug(slug))
+    .filter((s): s is UsStateCreatorTax => Boolean(s));
 
   return (
     <section
@@ -54,34 +65,49 @@ export default function PopularStateTaxHub({
           href="/tools/creator-tax-calculator"
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold shrink-0 shadow-xs transition-colors"
         >
-          <span>All 51 US States</span>
+          <span>Compare All 50 States</span>
           <FaArrowRight className="w-3 h-3" aria-hidden="true" />
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
-        {states.map((state) => (
-          <Link
-            key={state.slug}
-            href={`/tools/creator-tax-calculator/${state.slug}`}
-            className="group p-3 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-blue-400 hover:bg-white transition-all flex items-center justify-between gap-2"
-          >
-            <div className="min-w-0">
-              <span className="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-blue-700 block truncate">
-                {state.stateName}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+        {states.map((state) => {
+          const inner = (
+            <>
+              <div className="min-w-0">
+                <span className="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-blue-700 block truncate">
+                  {state.stateName}
+                </span>
+                <span className="text-[11px] text-slate-600 block truncate">
+                  {state.topIncomeTaxRate === 0
+                    ? "0% State Tax"
+                    : `${state.topIncomeTaxRate}% State`}{" "}
+                  · ${state.llcFilingFee} LLC
+                </span>
+              </div>
+              <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black shrink-0">
+                {state.stateCode}
               </span>
-              <span className="text-[11px] text-slate-600 block truncate">
-                {state.topIncomeTaxRate === 0
-                  ? "0% State Tax"
-                  : `${state.topIncomeTaxRate}% State`}{" "}
-                · ${state.llcFilingFee} LLC
-              </span>
+            </>
+          );
+
+          return INDEX_US_STATE_TAX_PAGES ? (
+            <Link
+              key={state.slug}
+              href={`/tools/creator-tax-calculator/${state.slug}`}
+              className="group p-3 rounded-2xl bg-slate-50/80 border border-slate-200 hover:border-blue-400 hover:bg-white transition-all flex items-center justify-between gap-2"
+            >
+              {inner}
+            </Link>
+          ) : (
+            <div
+              key={state.slug}
+              className="p-3 rounded-2xl bg-slate-50/80 border border-slate-200 flex items-center justify-between gap-2"
+            >
+              {inner}
             </div>
-            <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black shrink-0">
-              {state.stateCode}
-            </span>
-          </Link>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

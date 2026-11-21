@@ -51,7 +51,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],
         other: {
-          "Content-Signal": "search=yes, ai-input=yes, ai-train=no",
+          "Content-Signal": "search=yes, ai-input=yes, ai-train=yes",
         },
       },
       {
@@ -134,7 +134,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/", ...AI_API_ALLOW],
         disallow: [...DISALLOW],
         other: {
-          "Content-Signal": "search=yes, ai-input=yes, ai-train=no",
+          "Content-Signal": "search=yes, ai-input=yes, ai-train=yes",
         },
       },
       {
@@ -142,8 +142,6 @@ export default function robots(): MetadataRoute.Robots {
           "SemrushBot-SA",
           "MegaIndex",
           "BLEXBot",
-          "DataForSeoBot",
-          "PetalBot",
           "ZoominfoBot",
         ],
         disallow: "/",

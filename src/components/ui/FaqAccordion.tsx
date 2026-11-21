@@ -1,5 +1,3 @@
-import { FaChevronDown } from "react-icons/fa";
-
 export interface FaqItem {
     question: string;
     answer: string;
@@ -13,9 +11,9 @@ interface FaqAccordionProps {
 }
 
 /**
- * Native <details>/<summary> FAQ accordion — no client JS, and both question
- * and answer stay in the served HTML for crawlers. The FAQPage JSON-LD is
- * rendered separately by the page, so this component is purely presentational.
+ * Native <details>/<summary> FAQ accordion — zero client JS and zero inline
+ * icon SVGs, keeping both question and answer crawlable in served HTML while
+ * minimizing DOM and RSC payload weight.
  */
 export default function FaqAccordion({
     items,
@@ -37,9 +35,9 @@ export default function FaqAccordion({
                         <Heading className="text-sm sm:text-base font-bold font-outfit tracking-tight text-left">
                             {item.question}
                         </Heading>
-                        <FaChevronDown
+                        <span
                             aria-hidden="true"
-                            className="shrink-0 text-sm text-slate-500 transition-transform duration-300 group-open:rotate-180 group-open:text-purple-600"
+                            className="mr-1 h-2.5 w-2.5 shrink-0 -translate-y-0.5 rotate-45 border-r-2 border-b-2 border-slate-500 transition-transform duration-200 group-open:translate-y-0.5 group-open:-rotate-135 group-open:border-purple-600"
                         />
                     </summary>
                     <div className="border-t border-slate-100 px-5 py-4 sm:px-6 bg-slate-50/40">

@@ -19,6 +19,7 @@ import {
 import { siteConfig } from "@/config/site";
 import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import {
+  absoluteUrl,
   combineSchemasToGraph,
   getBreadcrumbSchema,
   getFAQSchema,
@@ -90,9 +91,11 @@ export async function generateMetadata({
       description,
       images: [`${siteConfig.url}/tools/creator-tax-calculator/${state.slug}/opengraph-image`],
     },
+    // Keep a self-canonical when noindexed so Google never sees conflicting
+    // noindex + cross-page canonical signals on the parent hub.
     alternates: INDEX_US_STATE_TAX_PAGES
       ? getUsOnlyAlternates(`/tools/creator-tax-calculator/${state.slug}`)
-      : { canonical: "/tools/creator-tax-calculator" },
+      : { canonical: absoluteUrl(`/tools/creator-tax-calculator/${state.slug}`) },
     robots: {
       index: INDEX_US_STATE_TAX_PAGES,
       follow: true,

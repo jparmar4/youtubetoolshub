@@ -371,19 +371,19 @@ function HeaderMegaMenu({ onClose, onMouseEnter, onMouseLeave }: HeaderMegaMenuP
                 </span>
                 <div className="space-y-1.5">
                   <Link
-                    href="/tools/vs/tubebuddy"
+                    href="/alternatives/vidiq-tubebuddy-free-alternative"
                     onClick={onClose}
                     className="flex items-center justify-between px-3 py-2 rounded-xl bg-white hover:bg-purple-50/70 border border-slate-200/80 hover:border-purple-300 text-xs font-semibold text-slate-800 hover:text-purple-700 transition-colors"
                   >
-                    <span>Free vs. TubeBuddy</span>
+                    <span>vs. VidIQ &amp; TubeBuddy</span>
                     <FaArrowRight className="w-2.5 h-2.5 text-slate-400" />
                   </Link>
                   <Link
-                    href="/tools/vs/vidiq"
+                    href="/alternatives"
                     onClick={onClose}
                     className="flex items-center justify-between px-3 py-2 rounded-xl bg-white hover:bg-purple-50/70 border border-slate-200/80 hover:border-purple-300 text-xs font-semibold text-slate-800 hover:text-purple-700 transition-colors"
                   >
-                    <span>Free vs. VidIQ</span>
+                    <span>All Competitor Switchers</span>
                     <FaArrowRight className="w-2.5 h-2.5 text-slate-400" />
                   </Link>
                 </div>

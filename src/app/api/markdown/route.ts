@@ -60,7 +60,7 @@ email: "${siteConfig.contact.email}"
 data_last_reviewed: "${DATA_LAST_REVIEWED}"
 llms_txt: "${baseUrl}/llms.txt"
 mcp_server_card: "${baseUrl}/.well-known/mcp/server-card.json"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${siteConfig.name} — Free YouTube Tools for Creators
@@ -204,7 +204,7 @@ author_role: "${author.role}"
 category: "${post.category}"
 reading_time: "${post.readTime}"
 description: "${post.metaDescription.replace(/"/g, '\\"')}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${post.title}
@@ -248,7 +248,7 @@ title: "YouTube Creator Blog & Growth Guides | YouTube Tools Hub"
 url: "${baseUrl}/blog"
 description: "Data-backed YouTube growth guides, monetization formulas, CPM rate benchmarks, and AI workflows for creators."
 total_posts: ${posts.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Creator Blog & Guides
@@ -281,7 +281,7 @@ title: "YouTube CPM & RPM Rates by Country (2026 Benchmark Data)"
 url: "${baseUrl}/resources/youtube-cpm-rates"
 description: "Comprehensive 2026 YouTube CPM and RPM benchmarks across 52 countries. Verified data for creators, marketers, and video publishers."
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube CPM & RPM Rates by Country (2026 Benchmarks)
@@ -312,7 +312,7 @@ function buildFaqMarkdown(): string {
 title: "Frequently Asked Questions | YouTube Tools Hub"
 url: "${baseUrl}/faq"
 description: "Common questions about YouTube Tools Hub free creator tools, AI thumbnail generators, AdSense calculators, and security."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # Frequently Asked Questions
@@ -397,7 +397,7 @@ title: "All ${tools.length} Free YouTube Tools | YouTube Tools Hub"
 url: "${baseUrl}/tools"
 description: "Browse all ${tools.length} free YouTube tools by category: thumbnails, SEO metadata, channel growth, revenue calculators, and creator utilities."
 tool_count: ${tools.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # All ${tools.length} Free YouTube Tools
@@ -433,7 +433,7 @@ title: "${hub.title} | YouTube Tools Hub"
 url: "${baseUrl}/tools/${hubSlug}"
 description: "${hub.description}"
 tool_count: ${catTools.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${hub.title}
@@ -447,31 +447,6 @@ ${list}
 ## Related Links
 - [All ${tools.length} Free YouTube Tools](${baseUrl}/tools)
 - [YouTube CPM & RPM Benchmarks](${baseUrl}/resources/youtube-cpm-rates)
-`;
-}
-
-function buildVsComparisonMarkdown(competitor: "tubebuddy" | "vidiq"): string {
-  const baseUrl = siteConfig.url;
-  const name = competitor === "tubebuddy" ? "TubeBuddy" : "VidIQ";
-  return `---
-title: "YouTube Tools Hub vs ${name} (Free Browser Alternative 2026)"
-url: "${baseUrl}/tools/vs/${competitor}"
-description: "Compare YouTube Tools Hub and ${name}: pricing ($0 free web tools vs paid subscriptions), browser extension requirements, privacy, and creator workflows."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
----
-
-# YouTube Tools Hub vs ${name} (2026 Comparison)
-
-> Looking for a fast, browser-based free ${name} alternative with no extension required? Compare features, privacy, and pricing side by side.
-
-## Quick Verdict
-- **YouTube Tools Hub**: ${tools.length} browser-based YouTube tools (thumbnails, titles, tags, transcripts, earnings, tax & sponsorship calculators) — free with no browser extension or YouTube OAuth login required.
-- **${name}**: Browser extension with in-Studio overlays and keyword/competitor tracking behind paid tiers.
-
-## Explore Free Tools
-- [Browse All ${tools.length} Free YouTube Tools](${baseUrl}/tools)
-- [YouTube Earnings Calculator](${baseUrl}/tools/youtube-earnings-calculator)
-- [YouTube Tag Extractor](${baseUrl}/tools/youtube-tag-extractor)
 `;
 }
 
@@ -492,7 +467,7 @@ country_code: "${country.code}"
 currency: "${country.currency}"
 tier: "${tier.label}"
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Earnings Calculator: ${country.name} (${country.flag} ${country.code})
@@ -516,12 +491,12 @@ content_signal: "search=yes, ai-input=yes, ai-train=no"
 
 function buildTranscriptDownloaderMarkdown(): string {
   const baseUrl = siteConfig.url;
-  const url = `${baseUrl}/youtube-transcript-downloader`;
+  const url = `${baseUrl}/tools/youtube-transcript-downloader`;
   return `---
 title: "YouTube Transcript Downloader & Keyword Extractor (Free, 2026)"
 url: "${url}"
 price: "0 USD (Free)"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Transcript Downloader & Keyword Extractor
@@ -561,7 +536,7 @@ title: "${category.seoTitle} | YouTube Tools Hub"
 url: "${baseUrl}/blog/category/${category.slug}"
 description: "${category.metaDescription}"
 post_count: ${posts.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${category.name} — YouTube Creator Guides
@@ -584,7 +559,7 @@ function buildResourcesIndexMarkdown(): string {
 title: "YouTube Creator Resources & Guides | YouTube Tools Hub"
 url: "${baseUrl}/resources"
 description: "Free YouTube creator resources: CPM rate benchmarks across ${countryCPMData.length} countries, algorithm guides, monetization playbooks, creator statistics, glossary, and embeddable badges."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Creator Resources & Playbooks
@@ -610,7 +585,7 @@ title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors"
 url: "${baseUrl}${pathname}"
 description: "Complete guide to the YouTube algorithm in 2026: CTR, Watch Time, viewer satisfaction, session duration, and SEO signals."
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Algorithm Guide 2026
@@ -634,7 +609,7 @@ title: "YouTube Monetization Guide 2026: YPP & Revenue Streams"
 url: "${baseUrl}${pathname}"
 description: "YouTube Partner Program requirements (1,000 subscribers + 4,000 watch hours or 10M Shorts views), AdSense RPM vs CPM, sponsorships, and diversified creator income."
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Monetization Guide 2026
@@ -662,7 +637,7 @@ title: "YouTube Creator Statistics 2026 | YouTube Tools Hub"
 url: "${baseUrl}${pathname}"
 description: "Verified 2026 YouTube creator benchmarks: niche RPM rankings, subscriber milestones, Shorts vs long-form monetization, and global CPM averages."
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Creator Statistics & Benchmarks (2026)
@@ -689,7 +664,7 @@ title: "YouTube Glossary: ${glossaryTerms.length} Creator Terms Defined (2026)"
 url: "${baseUrl}${pathname}"
 description: "Plain-English definitions of ${glossaryTerms.length} essential YouTube creator metrics and terminology including CPM, RPM, CTR, YPP, AVD, and Content ID."
 term_count: ${glossaryTerms.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # YouTube Glossary (${glossaryTerms.length} Terms Defined)
@@ -702,7 +677,7 @@ ${termsMd}
 title: "Link to YouTube Tools Hub — Attribution & Badges"
 url: "${baseUrl}${pathname}"
 description: "Embeddable HTML badges and attribution snippets for creator blogs, newsletters, and communities linking to our ${tools.length} free YouTube tools."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # Link to YouTube Tools Hub
@@ -723,7 +698,7 @@ function buildAboutMarkdown(): string {
 title: "About YouTube Tools Hub - Free Tools for Creators"
 url: "${baseUrl}/about"
 description: "Learn about YouTube Tools Hub, a free suite of ${tools.length}+ browser-based creator tools built to streamline YouTube research, packaging, and monetization workflows."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # About ${siteConfig.name}
@@ -747,7 +722,7 @@ function buildPricingMarkdown(): string {
 title: "Pricing — Free vs Pro Plans | YouTube Tools Hub"
 url: "${baseUrl}/pricing"
 description: "Compare Free vs Pro plans on YouTube Tools Hub. All ${tools.length} core tools are free with no signup or credit card required."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # Pricing — Free & Pro Plans
@@ -768,7 +743,7 @@ function buildContactMarkdown(): string {
 title: "Contact Support | YouTube Tools Hub"
 url: "${baseUrl}/contact"
 description: "Contact the YouTube Tools Hub support team for assistance, feedback, feature requests, or partnerships."
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # Contact YouTube Tools Hub
@@ -798,7 +773,7 @@ title: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report"
 url: "${url}"
 last_reviewed: "${DATA_LAST_REVIEWED}"
 countries_covered: ${countryCPMData.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # 2026 YouTube Creator Economy & CPM/RPM Benchmark Report
@@ -847,7 +822,7 @@ title: "2026 US State YouTube Creator Tax & S-Corp Directory (50 States + DC)"
 url: "${url}"
 jurisdiction_count: ${US_STATE_CREATOR_TAXES.length}
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # 2026 US State YouTube Creator Tax & S-Corp Directory
@@ -899,7 +874,7 @@ top_state_income_tax_pct: ${state.topIncomeTaxRate}
 llc_filing_fee_usd: ${state.llcFilingFee}
 llc_annual_fee_usd: ${state.llcAnnualFee}
 last_reviewed: "${DATA_LAST_REVIEWED}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${state.stateName} (${state.stateCode}) YouTube Creator Tax & S-Corp Calculator (2026)
@@ -937,7 +912,7 @@ function buildAlternativesIndexMarkdown(): string {
 title: "Free Browser Alternatives to Paid YouTube SaaS & Extensions (2026)"
 url: "${baseUrl}/alternatives"
 comparison_count: ${COMPETITOR_ALTERNATIVES.length}
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # Free Browser Alternatives to Paid YouTube Tools (2026)
@@ -973,7 +948,7 @@ competitor: "${alt.competitorName}"
 competitor_annual_cost: "${alt.competitorAnnualCost}"
 yt_tools_hub_cost: "${alt.ytToolsHubCost}"
 annual_savings: "${alt.annualSavingsLabel}"
-content_signal: "search=yes, ai-input=yes, ai-train=no"
+content_signal: "search=yes, ai-input=yes, ai-train=yes"
 ---
 
 # ${alt.h1}
@@ -1057,7 +1032,9 @@ export async function GET(request: NextRequest) {
       segments[0] === "vs" &&
       (segments[1] === "tubebuddy" || segments[1] === "vidiq")
     ) {
-      markdown = buildVsComparisonMarkdown(segments[1]);
+      markdown = buildAlternativeMarkdown("vidiq-tubebuddy-free-alternative");
+    } else if (segments.length === 1 && segments[0] === "youtube-transcript-downloader") {
+      markdown = buildTranscriptDownloaderMarkdown();
     } else if (segments.length === 2 && segments[0] === "youtube-earnings-calculator") {
       markdown = buildCountryEarningsMarkdown(segments[1]);
     } else if (segments.length === 1 && segments[0] === "creator-tax-calculator") {
@@ -1131,7 +1108,7 @@ export async function GET(request: NextRequest) {
       "Content-Type": "text/markdown; charset=utf-8",
       Vary: "Accept",
       "X-Markdown-Tokens": String(estimatedTokens),
-      "Content-Signal": "search=yes, ai-input=yes, ai-train=no",
+      "Content-Signal": "search=yes, ai-input=yes, ai-train=yes",
       Link: [
         `<${baseUrl}/llms.txt>; rel="llms-txt"; type="text/plain"`,
         `<${baseUrl}/llms-full.txt>; rel="llms-full-txt"; type="text/plain"`,
@@ -1140,7 +1117,7 @@ export async function GET(request: NextRequest) {
       ].join(", "),
       "Cache-Control":
         "public, max-age=3600, s-maxage=7200, stale-while-revalidate=43200",
-      "X-Robots-Tag": "index, follow, noarchive",
+      "X-Robots-Tag": "noindex, follow",
       "Access-Control-Allow-Origin": "*",
     },
   });

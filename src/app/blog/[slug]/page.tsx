@@ -428,7 +428,7 @@ export default async function BlogPostPage({
                                 <TableOfContents headings={tocHeadings} className="mb-10" />
                             )}
 
-                            <article itemScope itemType="https://schema.org/Article">
+                            <article>
                                 <AdSectionPrioritize>
                                 {/* Article Content */}
                                 <div className="article-prose max-w-none">

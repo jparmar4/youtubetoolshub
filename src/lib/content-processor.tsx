@@ -26,7 +26,7 @@ tools.forEach((tool) => {
 
 // Manual keywords based on common terms (longer phrases first via sort at link time)
 const manualKeywords: Record<string, string> = {
-    "youtube transcript downloader": "/youtube-transcript-downloader",
+    "youtube transcript downloader": "/tools/youtube-transcript-downloader",
     "download youtube transcript free": "/blog/youtube-transcript-downloader-extract-subtitles-free",
     "extract subtitles from youtube": "/blog/youtube-transcript-downloader-extract-subtitles-free",
     "youtube transcript keyword research": "/blog/youtube-transcript-downloader-extract-subtitles-free",
@@ -137,8 +137,8 @@ const manualKeywords: Record<string, string> = {
     "youtube channel audit": "/tools/youtube-channel-audit",
     "shorts script": "/tools/youtube-shorts-script-planner",
     "banner maker": "/tools/youtube-banner-logo-maker",
-    "tubebuddy alternative": "/tools/vs/tubebuddy",
-    "vidiq alternative": "/tools/vs/vidiq",
+    "tubebuddy alternative": "/alternatives/vidiq-tubebuddy-free-alternative",
+    "vidiq alternative": "/alternatives/vidiq-tubebuddy-free-alternative",
     "youtube tools": "/tools",
     "creator tools": "/tools",
     "free youtube tools": "/tools",

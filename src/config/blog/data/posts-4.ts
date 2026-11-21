@@ -2504,29 +2504,29 @@ What works on YouTube Shorts:
 - Problem → Solution formats
 
 > [!TIP]
-> Use our **[YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator)**to find Shorts topic ideas that work specifically for YouTube's algorithm. It suggests content types optimized for different platforms.
+> Use our **[YouTube Video Ideas Generator](/tools/youtube-video-ideas-generator)** to find Shorts topic ideas that work specifically for YouTube's algorithm. It suggests content types optimized for different platforms.
 
 ### Mistake #2: Weak Hooks
 
 The first 0.5 seconds determine everything.
 
-I analyzed 500 viral Shorts and found that**91% of them**use one of these 7 hook types:
+High-retention Shorts consistently open with one of these 7 proven hook patterns:
 
-1.**The Shocking Statement**- "This one trick saved me $50,000..."
-2.**The Direct Challenge**- "You've been making coffee wrong your whole life"
-3.**The Curiosity Gap**- "Watch what happens when I add this..."
-4.**The Bold Claim**- "This is the fastest way to learn any skill"
-5.**The Emotional Trigger**- "I almost gave up until I discovered..."
-6.**The List Hook**- "3 apps that changed my life"
-7.**The Transformation**- "Before vs. after using this method..."
+1. **The Shocking Statement** - "This one trick saved me $50,000..."
+2. **The Direct Challenge** - "You've been making coffee wrong your whole life"
+3. **The Curiosity Gap** - "Watch what happens when I add this..."
+4. **The Bold Claim** - "This is the fastest way to learn any skill"
+5. **The Emotional Trigger** - "I almost gave up until I discovered..."
+6. **The List Hook** - "3 apps that changed my life"
+7. **The Transformation** - "Before vs. after using this method..."
 
-Use our**[YouTube Title Generator](/tools/youtube-title-generator)**to create hooks that grab attention. Just enter your topic and select "Short-Form" style.
+Use our **[YouTube Title Generator](/tools/youtube-title-generator)** to create hooks that grab attention. Just enter your topic and select "Short-Form" style.
 
 ### Mistake #3: No Call-to-Action
 
 Most Shorts end abruptly. Big mistake.
 
-The YouTube Shorts algorithm heavily weights**engagement velocity**—how quickly people like, comment, and share after watching.
+The YouTube Shorts algorithm heavily weights **engagement velocity**—how quickly people like, comment, and share after watching.
 
 End every Short with ONE of these:
 - "Save this for later" (triggers save action)

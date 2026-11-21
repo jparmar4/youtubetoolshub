@@ -224,7 +224,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -263,14 +263,13 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
         ],
       },
 
       // ─── Default API endpoints: non-public APIs should not be indexed ───
-      // Exclude /api/markdown so its handler can emit indexable headers on 200
-      // and X-Robots-Tag: noindex on 404 responses.
+      // Exclude /api/markdown so its handler can emit consistent noindex headers.
       {
         source: "/api/:path((?!markdown$).*)",
         headers: [
@@ -281,7 +280,7 @@ const nextConfig = {
         ],
       },
 
-      // ─── AI Context & Public Discovery APIs (override default api noindex) ───
+      // ─── AI Context & Public Discovery APIs (crawlable via robots.txt Allow, never indexed as SERP pages) ───
       {
         source: "/api/ai-context",
         headers: [
@@ -292,7 +291,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -310,7 +309,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -328,7 +327,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -336,7 +335,7 @@ const nextConfig = {
           },
         ],
       },
-      // /api/markdown headers (200 vs 404 X-Robots-Tag and Cache-Control) are set dynamically in route.ts
+      // /api/markdown headers (noindex, follow + Cache-Control) are set dynamically in route.ts
       {
         source: "/api/mcp",
         headers: [
@@ -346,7 +345,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -368,7 +367,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
           {
             key: "Access-Control-Allow-Origin",
@@ -437,7 +436,7 @@ const nextConfig = {
         ],
       },
 
-      // ─── AI Crawler Discovery Files: cache but allow frequent updates ───
+      // ─── AI Crawler Discovery Files: crawlable by AI bots, noindex in Google SERPs ───
       {
         source: "/llms.txt",
         headers: [
@@ -452,7 +451,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
         ],
       },
@@ -470,7 +469,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
         ],
       },
@@ -488,7 +487,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
         ],
       },
@@ -517,7 +516,7 @@ const nextConfig = {
           },
           {
             key: "X-Robots-Tag",
-            value: "index, follow, noarchive",
+            value: "noindex, follow",
           },
         ],
       },
@@ -629,7 +628,7 @@ const nextConfig = {
           },
           {
             key: "Content-Signal",
-            value: "search=yes, ai-input=yes, ai-train=no",
+            value: "search=yes, ai-input=yes, ai-train=yes",
           },
         ],
       },
@@ -1085,6 +1084,22 @@ const nextConfig = {
       {
         source: "/calculators",
         destination: "/tools/youtube-earnings-calculator",
+        permanent: true,
+      },
+      // Consolidate duplicate root transcript route & thin legacy vs pages into canonicals
+      {
+        source: "/youtube-transcript-downloader",
+        destination: "/tools/youtube-transcript-downloader",
+        permanent: true,
+      },
+      {
+        source: "/tools/vs/tubebuddy",
+        destination: "/alternatives/vidiq-tubebuddy-free-alternative",
+        permanent: true,
+      },
+      {
+        source: "/tools/vs/vidiq",
+        destination: "/alternatives/vidiq-tubebuddy-free-alternative",
         permanent: true,
       },
     ];

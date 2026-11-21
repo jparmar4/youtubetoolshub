@@ -88,8 +88,8 @@ export const metadata = {
         alt: `${siteConfig.name} - Free AI YouTube Tools`,
       },
     ],
-    creator: "@ytoolshub",
-    site: "@ytoolshub",
+    creator: "@JITU20",
+    site: "@JITU20",
   },
   robots: {
     index: true,
