@@ -10,7 +10,8 @@ import {
   FaTable,
 } from "react-icons/fa";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
+import { countryCPMData, isCountryEarningsIndexable, TIERS } from "@/lib/cpm-data";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import {
   combineSchemasToGraph,
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     absolute: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
   },
   description:
-    "2026 benchmark dataset comparing Tier-1 vs Tier-2/3 YouTube CPM and RPM rates, Long-Form vs Shorts payouts, and Top 12 high-paying niches across 52 countries.",
+    `2026 benchmark dataset comparing Tier-1 vs Tier-2/3 YouTube CPM and RPM rates, Long-Form vs Shorts payouts, and Top 12 high-paying niches across ${countryCPMData.length} countries.`,
   keywords: [
     "youtube cpm rpm benchmark report 2026",
     "youtube creator economy report 2026",
@@ -46,6 +47,17 @@ export const metadata: Metadata = {
     "highest paying youtube niches 2026",
     "youtube shorts rpm vs long form rpm 2026",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   alternates: getGlobalAlternates(REPORT_PATH),
   openGraph: {
     title: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
@@ -57,7 +69,7 @@ export const metadata: Metadata = {
       {
         url: `${siteConfig.url}/research/youtube-cpm-rpm-report-2026/opengraph-image`,
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
       },
     ],
@@ -276,13 +288,16 @@ export default function YouTubeCpmRpmBenchmarkReport2026() {
       "@type": "ImageObject",
       url: `${siteConfig.url}/research/youtube-cpm-rpm-report-2026/opengraph-image`,
       width: 1200,
-      height: 630,
+      height: 675,
       representativeOfPage: true,
     },
     author: {
-      "@type": "Organization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
+      "@type": "Person",
+      "@id": `${siteConfig.editorial.url}#person`,
+      name: siteConfig.editorial.name,
+      url: siteConfig.editorial.url,
+      jobTitle: siteConfig.editorial.jobTitle,
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
     },
     publisher: { "@id": `${siteConfig.url}/#organization` },
     mainEntityOfPage: {
@@ -495,15 +510,22 @@ export default function YouTubeCpmRpmBenchmarkReport2026() {
                           <tbody className="divide-y divide-slate-100">
                             {tier2Tier3Countries.map((c) => {
                               const isTier2 = TIERS.TIER2.countries.includes(c.code);
+                              const canLink = isCountryEarningsIndexable(c.code);
                               return (
                                 <tr key={c.code} className="hover:bg-slate-50/80">
                                   <td className="py-2.5 px-3 font-bold text-slate-900">
-                                    <Link
-                                      href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                      className="hover:text-purple-700 hover:underline"
-                                    >
-                                      {c.name} ({c.code})
-                                    </Link>
+                                    {canLink ? (
+                                      <Link
+                                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                        className="hover:text-purple-700 hover:underline"
+                                      >
+                                        {c.name} ({c.code})
+                                      </Link>
+                                    ) : (
+                                      <span>
+                                        {c.name} ({c.code})
+                                      </span>
+                                    )}
                                   </td>
                                   <td className="py-2.5 px-3">
                                     <span
@@ -660,7 +682,11 @@ export default function YouTubeCpmRpmBenchmarkReport2026() {
             </div>
 
             <HighRpmSidebar
-              stateTaxHref="/tools/creator-tax-calculator/california"
+              stateTaxHref={
+                INDEX_US_STATE_TAX_PAGES
+                  ? "/tools/creator-tax-calculator/california"
+                  : "/tools/creator-tax-calculator"
+              }
               stateTaxLabel="Explore US State Creator Tax Hub"
             />
           </div>

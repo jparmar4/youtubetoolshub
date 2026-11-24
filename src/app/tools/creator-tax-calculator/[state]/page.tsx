@@ -80,7 +80,7 @@ export async function generateMetadata({
         {
           url: `${siteConfig.url}/tools/creator-tax-calculator/${state.slug}/opengraph-image`,
           width: 1200,
-          height: 630,
+          height: 675,
           alt: title,
         },
       ],

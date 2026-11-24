@@ -19,8 +19,8 @@ const REPLACEMENTS = {
       "What 1 million YouTube views can earn in 2026: RPM math, finance vs gaming ranges, country effects, and a free calculator—without fake guarantees.",
     date: "July 19, 2026",
     category: "Monetization",
-    author: "Sarah Jenkins",
-    authorRole: "Finance Creator",
+    author: "Jitu",
+    authorRole: "Founder & Author",
     readTime: "14 min read",
     metaDescription:
       "How much will YouTube pay for 1 million views in 2026? See RPM math by niche, country effects, Shorts vs long-form, and estimate with a free calculator.",
@@ -158,8 +158,8 @@ For many channels, sponsorships, affiliates, and products exceed AdSense. Paymen
       "How YouTube Shorts monetization works in 2026: YPP paths, revenue pool basics, realistic RPM ranges, music impact, and how to use Shorts to grow long-form income.",
     date: "July 19, 2026",
     category: "Monetization",
-    author: "Alex Rivera",
-    authorRole: "YouTube Monetization Expert",
+    author: "Jitu",
+    authorRole: "Founder & Author",
     readTime: "15 min read",
     metaDescription:
       "YouTube Shorts monetization 2026: eligibility (1,000 subs + 10M Shorts views or watch hours), RPM ranges, music impact, and strategies to earn more.",

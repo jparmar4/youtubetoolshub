@@ -41,18 +41,38 @@ export const metadata: Metadata = {
         "youtube rpm vs cpm",
     ],
     alternates: getGlobalAlternates("/resources/youtube-cpm-rates"),
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+        },
+    },
     openGraph: {
         title: "YouTube CPM Rates by Country 2026 — Full Data Table",
         description:
             `Complete YouTube CPM and RPM data for ${countryCPMData.length} countries. Finance, Tech, Gaming niche breakdowns. Updated for 2026.`,
+        type: "article",
         url: `${siteConfig.url}/resources/youtube-cpm-rates`,
-        // Dynamic image: /resources/youtube-cpm-rates/opengraph-image
+        images: [
+            {
+                url: `${siteConfig.url}/resources/youtube-cpm-rates/opengraph-image`,
+                width: 1200,
+                height: 675,
+                alt: "YouTube CPM & RPM Rates by Country 2026",
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "YouTube CPM Rates by Country 2026",
         description:
             `${countryCPMData.length} countries. US avg CPM ~$14.50. Free data table + earnings calculator.`,
+        images: [`${siteConfig.url}/resources/youtube-cpm-rates/opengraph-image`],
     },
     other: {
         "pinterest:media": `${siteConfig.url}/resources/youtube-cpm-rates/pinterest-image`,
@@ -191,6 +211,35 @@ const datasetSchema = {
     spatialCoverage: { "@type": "Place", name: "Global" },
 };
 
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${siteConfig.url}/resources/youtube-cpm-rates#article`,
+    headline: `YouTube CPM & RPM Rates by Country 2026 (${countryCPMData.length} Markets)`,
+    description:
+        `YouTube CPM & RPM by country for ${countryCPMData.length} markets in 2026. US, UK, Canada, Australia, and Tier-2/3 benchmarks plus high-CPM niches.`,
+    url: `${siteConfig.url}/resources/youtube-cpm-rates`,
+    image: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/resources/youtube-cpm-rates/opengraph-image`,
+        width: 1200,
+        height: 675,
+        representativeOfPage: true,
+    },
+    author: {
+        "@type": "Person",
+        "@id": `${siteConfig.editorial.url}#person`,
+        name: siteConfig.editorial.name,
+        url: siteConfig.editorial.url,
+        jobTitle: siteConfig.editorial.jobTitle,
+        worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    datePublished: "2025-01-01",
+    dateModified: DATA_LAST_REVIEWED,
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/resources/youtube-cpm-rates` },
+};
+
 const tier1 = countryCPMData.filter((c) => TIERS.TIER1.countries.includes(c.code));
 const tier2 = countryCPMData.filter((c) => TIERS.TIER2.countries.includes(c.code));
 const tier3 = countryCPMData.filter((c) => TIERS.TIER3.countries.includes(c.code));
@@ -279,7 +328,7 @@ export default function YouTubeCPMRatesPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify(
-                        combineSchemasToGraph(faqSchema, howToSchema, breadcrumbSchema, datasetSchema),
+                        combineSchemasToGraph(faqSchema, howToSchema, breadcrumbSchema, datasetSchema, articleSchema),
                     ),
                 }}
             />

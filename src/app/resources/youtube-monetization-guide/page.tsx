@@ -67,12 +67,24 @@ export const metadata: Metadata = {
         "youtube partner program requirements",
     ],
     alternates: getGlobalAlternates("/resources/youtube-monetization-guide"),
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+        },
+    },
     openGraph: {
         title: "YouTube Monetization Guide 2026 — Requirements, Earnings & Strategies",
         description:
             "Complete YouTube monetization guide: YPP requirements, 8 revenue streams, CPM vs RPM, earnings by tier, and proven strategies to maximize your income.",
+        type: "article",
         url: `${siteConfig.url}/resources/youtube-monetization-guide`,
-        images: [{ url: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`, width: 1200, height: 675, alt: "YouTube Monetization Guide 2026" }],
     },
     twitter: {
         card: "summary_large_image",
@@ -170,12 +182,26 @@ const breadcrumbSchema = getBreadcrumbSchema([
 const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": `${siteConfig.url}/resources/youtube-monetization-guide#article`,
     headline: "YouTube Monetization Guide 2026 — Requirements, Earnings & Strategies",
     description:
         "Complete YouTube monetization guide for 2026: YPP requirements, 8 revenue streams, CPM vs RPM explained, earnings by subscriber tier, and proven strategies to maximize income.",
     url: `${siteConfig.url}/resources/youtube-monetization-guide`,
-    image: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`,
-    author: { "@id": `${siteConfig.url}/#organization` },
+    image: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/resources/youtube-monetization-guide/opengraph-image`,
+        width: 1200,
+        height: 675,
+        representativeOfPage: true,
+    },
+    author: {
+        "@type": "Person",
+        "@id": `${siteConfig.editorial.url}#person`,
+        name: siteConfig.editorial.name,
+        url: siteConfig.editorial.url,
+        jobTitle: siteConfig.editorial.jobTitle,
+        worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
     publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
     dateModified: DATA_LAST_REVIEWED,

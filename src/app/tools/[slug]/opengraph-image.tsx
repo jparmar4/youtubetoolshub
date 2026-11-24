@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { tools } from "@/config/tools";
 
 export const alt = "YouTube Tools Hub";
-export const size = { width: 1200, height: 630 };
+export const size = { width: 1200, height: 675 };
 export const contentType = "image/png";
 
 /** Match tool page: unknown slugs must not soft-404 as generic OG images */

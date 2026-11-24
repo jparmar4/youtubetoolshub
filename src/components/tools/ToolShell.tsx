@@ -189,6 +189,15 @@ export default function ToolShell({
                 />
 
                 {children}
+
+                {/* Pre-FAQ Contextual Display Slot for engaged deep-scroll tool visitors */}
+                {faqs && faqs.length > 0 && (
+                  <AdSlot
+                    slot={AD_SLOTS.IN_ARTICLE[3]}
+                    preset="in-article"
+                    lazy={true}
+                  />
+                )}
               </AdSectionPrioritize>
 
               {faqs && faqs.length > 0 && (

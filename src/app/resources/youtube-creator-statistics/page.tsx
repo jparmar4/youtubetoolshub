@@ -77,9 +77,9 @@ export const metadata: Metadata = {
     title: "YouTube Creator Statistics 2026 | Data & Insights",
     description:
       "Data-backed YouTube statistics every creator should know. Earnings, RPM, growth trends, and platform insights for 2026.",
-    type: "website",
+    type: "article",
     url: pageUrl,
-    images: [{ url: `${siteConfig.url}/resources/youtube-creator-statistics/opengraph-image`, width: 1200, height: 630 }],
+    images: [{ url: `${siteConfig.url}/resources/youtube-creator-statistics/opengraph-image`, width: 1200, height: 675, alt: "YouTube Creator Statistics 2026" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -105,6 +105,34 @@ export default function YouTubeStatistics() {
     url: pageUrl,
     dateModified: DATA_LAST_REVIEWED,
   });
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${pageUrl}#article`,
+    headline: "YouTube Creator Statistics 2026 — RPM & Growth Data",
+    description:
+      "YouTube creator statistics for 2026: RPM by niche ranges, subscriber milestone benchmarks, platform scale, and links to free CPM/earnings tools.",
+    url: pageUrl,
+    image: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}/resources/youtube-creator-statistics/opengraph-image`,
+      width: 1200,
+      height: 675,
+      representativeOfPage: true,
+    },
+    author: {
+      "@type": "Person",
+      "@id": `${siteConfig.editorial.url}#person`,
+      name: siteConfig.editorial.name,
+      url: siteConfig.editorial.url,
+      jobTitle: siteConfig.editorial.jobTitle,
+      worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    datePublished: "2026-01-01",
+    dateModified: DATA_LAST_REVIEWED,
+    mainEntityOfPage: { "@type": "WebPage", "@id": pageUrl },
+  };
 
   return (
     <>
@@ -127,7 +155,7 @@ export default function YouTubeStatistics() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            combineSchemasToGraph(faqSchema, breadcrumbSchema, datasetSchema),
+            combineSchemasToGraph(faqSchema, breadcrumbSchema, datasetSchema, articleSchema),
           ),
         }}
       />

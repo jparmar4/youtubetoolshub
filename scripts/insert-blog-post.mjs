@@ -25,8 +25,8 @@ const post = `
       "Build a YouTube media kit that wins sponsorships: essential sections, sample rate framing, metrics brands check, and a copy-paste template structure for 2026.",
     date: "July 19, 2026",
     category: "Monetization",
-    author: "Alex Rivera",
-    authorRole: "YouTube Monetization Expert",
+    author: "Jitu",
+    authorRole: "Founder & Author",
     readTime: "13 min read",
     metaDescription:
       "YouTube media kit template 2026: sections brands expect, metrics to include, rate-card tips, and a practical structure to land sponsorships.",

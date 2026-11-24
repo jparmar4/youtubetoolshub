@@ -4,13 +4,10 @@ import { submitToIndexNow } from "@/lib/indexnow";
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { tools } from "@/config/tools";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
+import { countryCPMData, isCountryEarningsIndexable } from "@/lib/cpm-data";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
-import {
-  INDEX_TIER2_COUNTRY_PAGES,
-  INDEX_US_STATE_TAX_PAGES,
-} from "@/config/index-policy";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { enforceRateLimit, getRequestIp } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
@@ -105,7 +102,7 @@ function buildUrlCatalog(scope: "all" | "new-tiers"): {
 
   const toolPages = tools.map((tool) => `${baseUrl}/tools/${tool.slug}`);
   const countryPages = countryCPMData
-    .filter((country) => TIERS.TIER1.countries.includes(country.code) || INDEX_TIER2_COUNTRY_PAGES)
+    .filter((country) => isCountryEarningsIndexable(country.code))
     .map((country) => `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`);
   const posts = getIndexableBlogPosts().map((post) => `${baseUrl}/blog/${post.slug}`);
 

@@ -223,7 +223,7 @@ export default function BlogPage() {
                     </div>
                   </div>
 
-                  <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl hidden lg:block border-8 border-white/50 bg-slate-100">
+                  <div className="relative aspect-[16/9] lg:aspect-[4/3] rounded-[2rem] overflow-hidden group-hover:rotate-1 transition-all duration-500 shadow-2xl border-4 lg:border-8 border-white/50 bg-slate-100">
                     {featuredPost.coverImage ? (
                       <Image
                         src={featuredPost.coverImage}

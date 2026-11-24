@@ -563,10 +563,11 @@ const TIER1_ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
   "x-default": "/tools/youtube-earnings-calculator",
 };
 
+// Malaysia is the only Tier-2 market that joins the English cluster once
+// INDEX_TIER2_COUNTRY_PAGES is on. India, South Africa and the Philippines are
+// Tier 3: their pages stay live but noindexed, and an hreflang entry pointing
+// at a noindex URL breaks the entire cluster.
 const TIER2_ENGLISH_EARNINGS_HREFLANG: Record<string, string> = {
-  "en-IN": "/tools/youtube-earnings-calculator/india",
-  "en-ZA": "/tools/youtube-earnings-calculator/south-africa",
-  "en-PH": "/tools/youtube-earnings-calculator/philippines",
   "en-MY": "/tools/youtube-earnings-calculator/malaysia",
 };
 

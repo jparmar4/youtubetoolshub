@@ -12,11 +12,8 @@ import {
     seasonalCpmNotes,
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
-import {
-    INDEX_TIER2_COUNTRY_PAGES,
-    INDEX_US_STATE_TAX_PAGES,
-} from "@/config/index-policy";
+import { countryCPMData, isCountryEarningsIndexable } from "@/lib/cpm-data";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 
@@ -54,8 +51,7 @@ export async function GET() {
 
     const countryTable = countryCPMData
         .map((c) => {
-            const isIndexable =
-                TIERS.TIER1.countries.includes(c.code) || INDEX_TIER2_COUNTRY_PAGES;
+            const isIndexable = isCountryEarningsIndexable(c.code);
             const calcUrl = isIndexable
                 ? `${baseUrl}/tools/youtube-earnings-calculator/${c.slug}`
                 : `${baseUrl}/tools/youtube-earnings-calculator`;

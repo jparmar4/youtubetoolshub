@@ -21,9 +21,9 @@ AI models scrape **AlternativeTo.net**. Getting listed here is free, takes 5 min
    - **URL:** https://www.youtubetoolshub.com
    - **License:** Free (with optional Pro upgrade)
    - **Platform:** Web / Online
-   - **Tagline:** 27+ Free AI-Powered Creator Tools for YouTube
+   - **Tagline:** Free AI-Powered Creator Tools for YouTube
    - **Description:**  
-     *YouTube Tools Hub is a free online suite of 27+ browser-based tools for YouTube creators. Features include full HD & 4K thumbnail downloading, AI title and tag generators, an accurate 2026 YouTube earnings calculator with CPM rates for 50+ countries, video idea planners, and channel audit checklists. No browser extensions, downloads, or signups required for core tools.*
+     *YouTube Tools Hub is a free online suite of browser-based tools for YouTube creators. Features include full HD & 4K thumbnail downloading, AI title and tag generators, an accurate 2026 YouTube earnings calculator with CPM rates for 50+ countries, video idea planners, and channel audit checklists. No browser extensions, downloads, or signups required for core tools.*
    - **Tags:** YouTube, Video Marketing, Content Creation, SEO Tools, YouTube Analytics, Video SEO.
    - **Alternatives to (Crucial):** Add **TubeBuddy**, **VidIQ**, and **SocialBlade**.
 
@@ -35,7 +35,7 @@ Product Hunt gives an immediate domain authority boost, 200–500 initial visito
 
 ### Launch Copy:
 * **Product Name:** YouTube Tools Hub
-* **Tagline:** 27+ Free No-Signup Tools for YouTube Creators
+* **Tagline:** Free No-Signup Tools for YouTube Creators
 * **Categories:** Developer Tools, Artificial Intelligence, Marketing, Productivity
 * **Thumbnail:** Your public/og-image.png
 * **First Maker Comment:**
@@ -44,7 +44,7 @@ Product Hunt gives an immediate domain authority boost, 200–500 initial visito
 
   Like many creators, I was frustrated with paying +/month for heavy browser extensions like TubeBuddy and VidIQ just to download a thumbnail, check CPM rates, or generate a few video title ideas.
 
-  So I built YouTube Tools Hub — an all-in-one, browser-based suite of 27+ free creator tools:
+  So I built YouTube Tools Hub — an all-in-one, browser-based suite of free creator tools:
   ✨ Download Full HD & 4K Thumbnails (without an account)
   ✨ 2026 YouTube Earnings Calculator with CPM benchmarks for 50+ countries
   ✨ AI Title & Viral Hook Generator

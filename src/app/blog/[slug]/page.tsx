@@ -386,15 +386,16 @@ export default async function BlogPostPage({
 
                         {/* Main Content Column */}
                         <div className="lg:col-span-8 min-w-0">
-                            {/* Featured Image (Moved from Header) */}
+                            {/* Featured Image — explicit width/height >= 1200px for Google Discover & Googlebot-Image */}
                             {post.coverImage && (
-                                <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
+                                <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/10 mb-10">
                                     <NextImage
                                         src={post.coverImage}
                                         alt={post.imageAlt || post.title}
-                                        fill
+                                        width={coverDims?.width ?? 1280}
+                                        height={coverDims?.height ?? 720}
                                         sizes="(min-width: 1024px) 60rem, 100vw"
-                                        className="object-cover"
+                                        className="w-full h-auto aspect-video object-cover"
                                         priority
                                     />
                                 </div>
@@ -409,19 +410,29 @@ export default async function BlogPostPage({
                             )}
 
                             {/* AI Answer Capsule for LLMs and Featured Snippets */}
-                            <QuickAnswerCapsule
-                                question={`Quick Takeaways: Key insights from "${post.title}"`}
-                                answer={post.metaDescription}
-                                keyPoints={[
-                                    `Topic: ${post.category} · Estimated read time: ${post.readTime}`,
-                                    `Includes practical benchmarks, templates & data reviewed ${DATA_LAST_REVIEWED}`,
-                                    `Written by ${author.name} (${author.role})`,
-                                    `Actionable creator strategies with zero fluff or filler`,
-                                ]}
-                                badgeText="AI Article Summary"
-                                verifiedNote={`Written and reviewed by ${author.name} — last full review ${DATA_LAST_REVIEWED}`}
-                                className="mb-8"
-                            />
+                            <AdSectionPrioritize>
+                                <QuickAnswerCapsule
+                                    question={`Quick Takeaways: Key insights from "${post.title}"`}
+                                    answer={post.metaDescription}
+                                    keyPoints={[
+                                        `Topic: ${post.category} · Estimated read time: ${post.readTime}`,
+                                        `Includes practical benchmarks, templates & data reviewed ${DATA_LAST_REVIEWED}`,
+                                        `Written by ${author.name} (${author.role})`,
+                                        `Actionable creator strategies with zero fluff or filler`,
+                                    ]}
+                                    badgeText="AI Article Summary"
+                                    verifiedNote={`Written and reviewed by ${author.name} — last full review ${DATA_LAST_REVIEWED}`}
+                                    className="mb-8"
+                                />
+
+                                {/* High-viewability post-summary unit for mobile Discover & Search visitors */}
+                                <AdSlot
+                                    slot={AD_SLOTS.IN_ARTICLE[0]}
+                                    preset="in-article"
+                                    lazy={false}
+                                    className="mb-8"
+                                />
+                            </AdSectionPrioritize>
 
                             {/* In-Article Table of Contents for Google Jump-to sitelinks */}
                             {tocHeadings.length >= 2 && (

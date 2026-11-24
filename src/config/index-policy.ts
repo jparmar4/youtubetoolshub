@@ -14,11 +14,22 @@ export const INDEX_PROGRAMMATIC_NICHE_PAGES = false;
 export const INDEX_TOOL_COMPARISON_PAGES = false;
 
 /**
- * Country earnings calculators: Tier-2/3 templates stay live for visitors but
- * must not compete for index slots — index Tier-1 only until the domain has
- * the authority to support the full set.
+ * Country earnings calculators. Tier 1 is always indexed.
+ *
+ * Tier 2 (17 markets: FR, JP, KR, AE, IL, QA, KW, SA, ES, IT, TW, PL, CZ, HU,
+ * PT, GR, MY) is indexed too. While these pages were indexable they ranked
+ * roughly 6–15 on "youtube earnings/CPM <country>" queries in Search Console
+ * (Qatar 5.97, Kuwait 6.89, Egypt 10.78, Poland 15.07) — materially better than
+ * the site's blog pages — because each one carries unique data: the US treaty
+ * withholding rate, the local tax authority, the AdSense payout rail, domestic
+ * advertiser verticals, and that market's seasonality. That is a data page, not
+ * a thin template.
+ *
+ * Tier 3 stays live for visitors but noindexed until the domain can support it.
+ * Use isCountryEarningsIndexable() from src/lib/cpm-data.ts for every
+ * indexability decision so Tier 3 is never swept in by accident.
  */
-export const INDEX_TIER2_COUNTRY_PAGES = false;
+export const INDEX_TIER2_COUNTRY_PAGES = true;
 
 /**
  * US state creator-tax pages: 51 near-identical templates. Keep them live

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { countryCPMData } from "@/lib/cpm-data";
 import {
   combineSchemasToGraph,
   getSoftwareApplicationSchema,
@@ -288,7 +289,7 @@ export default function YouTubeTranscriptDownloaderPage() {
                 href="/resources/youtube-cpm-rates"
                 className="text-xs font-bold text-purple-700 hover:underline shrink-0"
               >
-                52-Country CPM Rates →
+                {countryCPMData.length}-Country CPM Rates →
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaCheck, FaTimes, FaCrown, FaRocket, FaInfinity } from "react-icons/fa";
 import PaymentButton from "@/components/payment/PaymentButton";
@@ -10,17 +10,17 @@ import FaqAccordion from "@/components/ui/FaqAccordion";
 const plans = [
     {
         name: "Free",
-        price: "₹0",
+        priceINR: "₹0",
         priceUSD: "$0",
         period: "forever",
         description: "Perfect for trying out our tools",
         icon: FaRocket,
         features: [
-            { text: "2 uses per day (1 image per week)", included: true, highlight: false },
-            { text: `All ${toolMeta.length} YouTube tools`, included: true, highlight: false },
+            { text: "2 AI uses per day (1 AI image per week)", included: true, highlight: false },
+            { text: `All ${toolMeta.length} YouTube tools (unlimited browser utilities)`, included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
-            { text: "CSV exports", included: true, highlight: false },
-            { text: "Unlimited generations", included: false, highlight: false },
+            { text: "CSV, TXT & SRT exports", included: true, highlight: false },
+            { text: "Unlimited AI generations", included: false, highlight: false },
             { text: "Priority AI processing", included: false, highlight: false },
             { text: "Ad-free experience", included: false, highlight: false },
         ],
@@ -32,10 +32,10 @@ const plans = [
     },
     {
         name: "Pro",
-        price: "₹499",
+        priceINR: "₹499",
         priceUSD: "$6",
         period: "/month",
-        yearlyPrice: "₹4,999",
+        yearlyPriceINR: "₹4,999",
         yearlyPriceUSD: "$59",
         description: "For serious content creators",
         icon: FaCrown,
@@ -44,7 +44,7 @@ const plans = [
             { text: "Unlimited image generations", included: true, highlight: true },
             { text: `All ${toolMeta.length} YouTube tools`, included: true, highlight: false },
             { text: "Copy to clipboard", included: true, highlight: false },
-            { text: "CSV exports", included: true, highlight: false },
+            { text: "CSV, TXT & SRT exports", included: true, highlight: false },
             { text: "Priority AI processing", included: true, highlight: false },
             { text: "Ad-free experience", included: true, highlight: true },
             { text: "Priority support", included: true, highlight: false },
@@ -69,6 +69,20 @@ const comparison = [
 
 export default function PricingClient() {
     const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+    // Default to USD globally (US, UK, CA, AU, EU & search crawlers); auto-switch to INR for Indian visitors
+    const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+
+    useEffect(() => {
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+            if (tz === "Asia/Kolkata" || tz === "Asia/Calcutta") {
+                const id = setTimeout(() => setCurrency("INR"), 0);
+                return () => clearTimeout(id);
+            }
+        } catch {
+            /* keep USD default */
+        }
+    }, []);
 
     return (
         <div className="min-h-screen py-12 bg-slate-50">
@@ -82,33 +96,60 @@ export default function PricingClient() {
                         Start free, upgrade when you need more. No hidden fees, cancel anytime.
                     </p>
 
-                    {/* Billing Toggle */}
-                    <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-200/80" role="group" aria-label="Billing cycle">
-                        <button
-                            type="button"
-                            onClick={() => setBillingCycle("monthly")}
-                            aria-pressed={billingCycle === "monthly"}
-                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "monthly"
-                                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
-                                : "text-slate-700 hover:text-slate-900"
-                                }`}
-                        >
-                            Monthly
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setBillingCycle("yearly")}
-                            aria-pressed={billingCycle === "yearly"}
-                            className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "yearly"
-                                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
-                                : "text-slate-700 hover:text-slate-900"
-                                }`}
-                        >
-                            Yearly
-                            <span className="ml-2 text-xs bg-emerald-600 text-white px-2 py-0.5 rounded-full">
-                                Save 17%
-                            </span>
-                        </button>
+                    {/* Billing & Currency Toggles */}
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                        <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-200/80" role="group" aria-label="Billing cycle">
+                            <button
+                                type="button"
+                                onClick={() => setBillingCycle("monthly")}
+                                aria-pressed={billingCycle === "monthly"}
+                                className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "monthly"
+                                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
+                                    : "text-slate-700 hover:text-slate-900"
+                                    }`}
+                            >
+                                Monthly
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setBillingCycle("yearly")}
+                                aria-pressed={billingCycle === "yearly"}
+                                className={`px-6 py-2 min-h-11 rounded-lg font-medium transition-all cursor-pointer ${billingCycle === "yearly"
+                                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-sm"
+                                    : "text-slate-700 hover:text-slate-900"
+                                    }`}
+                            >
+                                Yearly
+                                <span className="ml-2 text-xs bg-emerald-600 text-white px-2 py-0.5 rounded-full">
+                                    Save 17%
+                                </span>
+                            </button>
+                        </div>
+
+                        <div className="inline-flex items-center bg-white rounded-xl p-1 shadow-md border border-slate-200/80" role="group" aria-label="Display currency">
+                            <button
+                                type="button"
+                                onClick={() => setCurrency("USD")}
+                                aria-pressed={currency === "USD"}
+                                className={`px-3.5 py-2 min-h-11 rounded-lg text-sm font-bold transition-all cursor-pointer ${currency === "USD"
+                                    ? "bg-slate-900 text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
+                                    }`}
+                            >
+                                USD ($)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setCurrency("INR")}
+                                aria-pressed={currency === "INR"}
+                                className={`px-3.5 py-2 min-h-11 rounded-lg text-sm font-bold transition-all cursor-pointer ${currency === "INR"
+                                    ? "bg-slate-900 text-white shadow-sm"
+                                    : "text-slate-600 hover:text-slate-900"
+                                    }`}
+                            >
+                                INR (₹)
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -147,10 +188,16 @@ export default function PricingClient() {
                                     <div className="flex items-baseline gap-1 mt-6">
                                         <span className="text-4xl font-bold">
                                             {plan.isPaid
-                                                ? billingCycle === "yearly"
-                                                    ? plan.yearlyPrice
-                                                    : plan.price
-                                                : plan.price}
+                                                ? currency === "USD"
+                                                    ? billingCycle === "yearly"
+                                                        ? plan.yearlyPriceUSD
+                                                        : plan.priceUSD
+                                                    : billingCycle === "yearly"
+                                                        ? plan.yearlyPriceINR
+                                                        : plan.priceINR
+                                                : currency === "USD"
+                                                    ? plan.priceUSD
+                                                    : plan.priceINR}
                                         </span>
                                         <span className="text-white/80 text-lg font-medium">
                                             {plan.isPaid
@@ -161,10 +208,14 @@ export default function PricingClient() {
                                         </span>
                                     </div>
                                     {plan.isPaid && (
-                                        <p className="text-sm text-white/70 mt-2 font-medium">
-                                            {billingCycle === "yearly"
-                                                ? `${plan.yearlyPriceUSD}/year (Save 17%)`
-                                                : `${plan.priceUSD}/month`}
+                                        <p className="text-sm text-white/75 mt-2 font-medium">
+                                            {currency === "USD"
+                                                ? billingCycle === "yearly"
+                                                    ? `Approx. ${plan.yearlyPriceINR}/year · Save 17%`
+                                                    : `Billed at ${plan.priceINR}/month via card or UPI`
+                                                : billingCycle === "yearly"
+                                                    ? `Approx. ${plan.yearlyPriceUSD}/year USD · Save 17%`
+                                                    : `Approx. ${plan.priceUSD}/month USD`}
                                         </p>
                                     )}
                                     <p className="text-white/90 mt-4 font-medium">{plan.description}</p>

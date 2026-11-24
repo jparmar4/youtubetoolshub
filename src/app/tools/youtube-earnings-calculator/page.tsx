@@ -3,6 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { getToolBySlug, tools } from "@/config/tools";
 import { countryCPMData, nicheCPMData, TIERS } from "@/lib/cpm-data";
+import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
 import {
   combineSchemasToGraph,
   getSoftwareApplicationSchema,
@@ -153,6 +154,14 @@ export default function YouTubeEarningsCalculatorPage() {
   const tier1 = countryCPMData.filter((c) => TIERS.TIER1.countries.includes(c.code));
   const tier2 = countryCPMData.filter((c) => TIERS.TIER2.countries.includes(c.code));
   const tier3 = countryCPMData.filter((c) => TIERS.TIER3.countries.includes(c.code));
+  // Followed links only to country pages the index policy allows: Tier 1
+  // always, Tier 2 while INDEX_TIER2_COUNTRY_PAGES is on. Tier 3 stays a
+  // text summary so noindexed pages never collect crawl equity.
+  const countryLinkTiers = [
+    { tier: TIERS.TIER1, countries: tier1 },
+    ...(INDEX_TIER2_COUNTRY_PAGES ? [{ tier: TIERS.TIER2, countries: tier2 }] : []),
+  ];
+  const countryTiers = countryLinkTiers.map((g) => g.tier.label).join(" and ");
   const relatedTools = getRelatedToolsForPost(
     {
       title: "YouTube Earnings Calculator",
@@ -444,56 +453,48 @@ export default function YouTubeEarningsCalculatorPage() {
                 </p>
               </section>
 
-              {/* Countries — indexable Tier 1 country calculators + full 52-market reference hub */}
+              {/* Countries — followed links to indexable calculators + full 52-market reference hub */}
               <section className="card-3d rounded-3xl p-6 md:p-8">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2 font-outfit">
                   <FaGlobeAmericas className="text-blue-600" />
                   <span>{`Calculate earnings by country (${countryCPMData.length} markets)`}</span>
                 </h2>
                 <p className="text-slate-600 mb-6">
-                  Open a localized Tier 1 calculator for CPM/RPM context in premium ad markets, or explore all {countryCPMData.length} Tier 1, Tier 2, and Tier 3 benchmarks in our global CPM table.
+                  Open a localized calculator for CPM/RPM context in {countryTiers} ad markets, or explore all {countryCPMData.length} Tier 1, Tier 2, and Tier 3 benchmarks in our global CPM table.
                 </p>
-                <div className="mb-5">
-                  <h3 className="text-sm font-bold uppercase tracking-wide text-slate-600 mb-3">
-                    Tier 1 — Premium markets ({tier1.length})
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {tier1.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-all shadow-2xs"
-                      >
-                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black tracking-wider">
-                          {c.code}
-                        </span>
-                        <span>{c.name}</span>
-                        <span className="text-xs font-semibold text-emerald-700">
-                          ~${c.rpmRange.avg.toFixed(1)} RPM
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs text-slate-700">
-                  <div>
-                    <div className="font-bold text-slate-900 mb-1">
-                      Tier 2 — Solid markets ({tier2.length})
+                {/* Followed links only to country pages the index policy allows. */}
+                {countryLinkTiers.map((group) => (
+                  <div key={group.tier.id} className="mb-5">
+                    <h3 className="text-sm font-bold uppercase tracking-wide text-slate-600 mb-3">
+                      {group.tier.label} — {group.tier.description.split(" — ")[0]} ({group.countries.length})
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {group.countries.map((c) => (
+                        <Link
+                          key={c.slug}
+                          href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-800 hover:border-emerald-400 hover:bg-emerald-50 transition-all shadow-2xs"
+                        >
+                          <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black tracking-wider">
+                            {c.code}
+                          </span>
+                          <span>{c.name}</span>
+                          <span className="text-xs font-semibold text-emerald-700">
+                            ~${c.rpmRange.avg.toFixed(1)} RPM
+                          </span>
+                        </Link>
+                      ))}
                     </div>
-                    <p className="leading-relaxed text-slate-600">
-                      {tier2.slice(0, 8).map((c) => `${c.name} (~$${c.rpmRange.avg.toFixed(1)})`).join(", ")}
-                      {tier2.length > 8 ? ` + ${tier2.length - 8} more` : ""}.
-                    </p>
                   </div>
-                  <div>
-                    <div className="font-bold text-slate-900 mb-1">
-                      Tier 3 — Emerging markets ({tier3.length})
-                    </div>
-                    <p className="leading-relaxed text-slate-600">
-                      {tier3.slice(0, 8).map((c) => `${c.name} (~$${c.rpmRange.avg.toFixed(2)})`).join(", ")}
-                      {tier3.length > 8 ? ` + ${tier3.length - 8} more` : ""}.
-                    </p>
+                ))}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs text-slate-700">
+                  <div className="font-bold text-slate-900 mb-1">
+                    Tier 3 — Emerging markets ({tier3.length})
                   </div>
+                  <p className="leading-relaxed text-slate-600">
+                    {tier3.slice(0, 8).map((c) => `${c.name} (~$${c.rpmRange.avg.toFixed(2)})`).join(", ")}
+                    {tier3.length > 8 ? ` + ${tier3.length - 8} more` : ""}.
+                  </p>
                 </div>
                 <Link
                   href="/resources/youtube-cpm-rates"

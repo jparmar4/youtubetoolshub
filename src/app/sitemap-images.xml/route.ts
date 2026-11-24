@@ -1,11 +1,8 @@
 import { tools } from "@/config/tools";
 import { getIndexableBlogPosts } from "@/config/blog";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
-import {
-    INDEX_TIER2_COUNTRY_PAGES,
-    INDEX_US_STATE_TAX_PAGES,
-} from "@/config/index-policy";
+import { countryCPMData, isCountryEarningsIndexable } from "@/lib/cpm-data";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
@@ -65,12 +62,12 @@ ${post.pinterestImage ? `    <image:image>
         {
             path: "/research/youtube-cpm-rpm-report-2026",
             title: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
-            caption: "Tier-1 vs Tier-2/3 CPM/RPM dataset across 52 countries and Top 12 niches.",
+            caption: `Tier-1 vs Tier-2/3 CPM/RPM dataset across ${countryCPMData.length} countries and Top 12 niches.`,
         },
         {
             path: "/resources/youtube-cpm-rates",
             title: "YouTube CPM & RPM Rates by Country (2026)",
-            caption: "Complete 2026 CPM and RPM planning table across 52 global creator markets.",
+            caption: `Complete 2026 CPM and RPM planning table across ${countryCPMData.length} global creator markets.`,
         },
         {
             path: "/resources/youtube-monetization-guide",
@@ -117,8 +114,7 @@ ${post.pinterestImage ? `    <image:image>
     // Country Earnings Calculator OG cards — mirror sitemap.ts index policy
     // so Google never receives "Submitted URL marked 'noindex'" errors.
     for (const country of countryCPMData) {
-        const isTier1 = TIERS.TIER1.countries.includes(country.code);
-        if (!isTier1 && !INDEX_TIER2_COUNTRY_PAGES) continue;
+        if (!isCountryEarningsIndexable(country.code)) continue;
         entries.push(
             buildImageUrlEntry(
                 `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`,

@@ -4,11 +4,8 @@ import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { BLOG_CATEGORIES, getPostsForCategory } from "@/config/blog/categories";
 import { authors } from "@/config/blog/authors";
 import { siteConfig } from "@/config/site";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
-import {
-  INDEX_TIER2_COUNTRY_PAGES,
-  INDEX_US_STATE_TAX_PAGES,
-} from "@/config/index-policy";
+import { countryCPMData, isCountryEarningsIndexable } from "@/lib/cpm-data";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
 import { US_STATE_CREATOR_TAXES } from "@/data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
@@ -156,11 +153,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
-  // Country-specific earnings calculator pages — index Tier 1 only (see
-  // src/config/index-policy.ts); Tier-2/3 templates stay live but noindexed.
+  // Country earnings pages — Tier 1 and Tier 2 are indexable; Tier 3 stays
+  // live for visitors but out of the index.
   for (const country of countryCPMData) {
-    const isTier1 = TIERS.TIER1.countries.includes(country.code);
-    if (!isTier1 && !INDEX_TIER2_COUNTRY_PAGES) continue;
+    if (!isCountryEarningsIndexable(country.code)) continue;
     const url = `${baseUrl}/tools/youtube-earnings-calculator/${country.slug}`;
     allEntries.push({
       url,

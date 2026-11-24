@@ -42,7 +42,7 @@ export const metadata: Metadata = {
         absolute: "How the YouTube Algorithm Works in 2026 (Creator Guide)",
     },
     description:
-        "Complete guide to the YouTube algorithm in 2026. Learn the 7 key ranking factors (CTR, Watch Time, Engagement), how recommendations work, YouTube SEO best practices, and proven strategies to get more views.",
+        "How the YouTube algorithm works in 2026: 7 ranking factors (CTR, AVD, viewer satisfaction), Home vs Search vs Shorts feeds, and practical SEO steps.",
     keywords: [
         "youtube algorithm 2026",
         "how does youtube algorithm work",
@@ -64,12 +64,24 @@ export const metadata: Metadata = {
         "grow youtube channel algorithm",
     ],
     alternates: getGlobalAlternates("/resources/youtube-algorithm-guide"),
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+        },
+    },
     openGraph: {
         title: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
         description:
             "Master the YouTube algorithm in 2026. The 7 ranking factors, recommendation system breakdown, and proven SEO strategies to grow your channel.",
+        type: "article",
         url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-        images: [{ url: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`, width: 1200, height: 675, alt: "YouTube Algorithm Guide 2026" }],
     },
     twitter: {
         card: "summary_large_image",
@@ -167,12 +179,26 @@ const breadcrumbSchema = getBreadcrumbSchema([
 const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
+    "@id": `${siteConfig.url}/resources/youtube-algorithm-guide#article`,
     headline: "YouTube Algorithm Guide 2026 — How It Works & Ranking Factors",
     description:
         "Complete guide to the YouTube algorithm in 2026: 7 key ranking factors, recommendation system breakdown, Shorts vs long-form differences, and proven SEO optimization strategies.",
     url: `${siteConfig.url}/resources/youtube-algorithm-guide`,
-    image: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`,
-    author: { "@id": `${siteConfig.url}/#organization` },
+    image: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/resources/youtube-algorithm-guide/opengraph-image`,
+        width: 1200,
+        height: 675,
+        representativeOfPage: true,
+    },
+    author: {
+        "@type": "Person",
+        "@id": `${siteConfig.editorial.url}#person`,
+        name: siteConfig.editorial.name,
+        url: siteConfig.editorial.url,
+        jobTitle: siteConfig.editorial.jobTitle,
+        worksFor: { "@id": `${siteConfig.url}/#organization` },
+    },
     publisher: { "@id": `${siteConfig.url}/#organization` },
     datePublished: "2026-01-01",
     dateModified: DATA_LAST_REVIEWED,

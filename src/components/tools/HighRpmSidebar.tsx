@@ -3,6 +3,7 @@ import { FaArrowRight, FaChartBar, FaDollarSign } from "react-icons/fa";
 import AdSlot from "@/components/ads/AdSlot";
 import { AdSectionIgnore } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
+import { countryCPMData } from "@/lib/cpm-data";
 
 interface HighRpmToolLink {
   slug: string;
@@ -17,7 +18,7 @@ const HIGH_RPM_TOOLS: HighRpmToolLink[] = [
     slug: "youtube-earnings-calculator",
     href: "/tools/youtube-earnings-calculator",
     name: "YouTube Earnings & RPM Calculator",
-    note: "52-country AdSense CPM projections",
+    note: `${countryCPMData.length}-country AdSense CPM projections`,
     badge: "CPM",
   },
   {

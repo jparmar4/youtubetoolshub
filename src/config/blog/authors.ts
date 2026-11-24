@@ -2,11 +2,12 @@
  * Canonical author roster for blog E-E-A-T.
  *
  * This site has exactly one real author: the founder. Earlier post data used
- * 15 drifting bylines (three "Sarah" variants, four "Alex" variants, a joke
- * pen name) mapped onto fictional personas — a pattern Google's scaled-content
- * systems penalize. Every byline now resolves to the one verifiable human
- * behind the site, so bylines, Person JSON-LD, and the author page all
- * strengthen the same entity instead of fragmenting it.
+ * 14 drifting bylines (three "Sarah" variants, four "Alex" variants, and other
+ * pen names) mapped onto fictional personas — a pattern Google's scaled-content
+ * systems penalize. Every post record now uses "Jitu" directly, and the alias
+ * map remains as a safety net for any imported or cached legacy content so a
+ * byline, Person JSON-LD, and the author page all strengthen the same entity
+ * instead of fragmenting it.
  *
  * Bios describe only what the author actually does — no invented employment
  * history, credentials, or teams.
@@ -38,8 +39,9 @@ export const authors: AuthorProfile[] = [
     role: "Founder & Author",
     bio: "Jitu is the founder of YouTube Tools Hub and the only author of its guides. He built the site's free browser-based creator tools and researches YouTube monetization, CPM/RPM benchmarks, and channel growth from public YouTube data — with every estimate clearly labeled as such.",
     aliases: [
-      // Legacy bylines from earlier post data — all resolve to the real
-      // author so historical posts never render a fictional persona.
+      // Legacy bylines retained only for backwards compatibility with older
+      // imported data. No current post uses these names; every post record
+      // stores "Jitu" directly.
       "Alex Rivera",
       "Alex Turner",
       "Alex Rodriguez",

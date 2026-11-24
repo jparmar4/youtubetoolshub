@@ -1,8 +1,16 @@
 import { siteConfig } from "@/config/site";
 import { getIndexableBlogPosts, toBlogIsoDate } from "@/config/blog";
 import { resolveAuthor } from "@/config/blog/authors";
+import { getCoverDimensions } from "@/config/blog/image-dimensions";
 import { tools } from "@/config/tools";
 import { DATA_LAST_REVIEWED } from "@/lib/seo-data";
+
+function detectImageMimeType(url: string): string {
+  const lower = url.toLowerCase();
+  if (lower.endsWith(".png") || lower.includes("/opengraph-image")) return "image/png";
+  if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
+  return "image/webp";
+}
 
 function escapeXml(value: string): string {
   return value
@@ -39,11 +47,17 @@ export async function GET() {
           : `${siteUrl}${post.coverImage}`
         : null;
 
+      const dims = post.coverImage ? getCoverDimensions(post.coverImage) : undefined;
+      const mimeType = coverUrl ? detectImageMimeType(coverUrl) : "image/webp";
+      const mediaTag = coverUrl
+        ? `\n      <media:content url="${escapeXml(coverUrl)}" medium="image" type="${mimeType}"${dims ? ` width="${dims.width}" height="${dims.height}"` : ""} />`
+        : "";
+
       const author = resolveAuthor(post.author);
       return `
     <entry>
       <title>${cdata(post.title)}</title>
-      <link href="${escapeXml(postUrl)}" rel="alternate" type="text/html" />${coverUrl ? `\n      <link href="${escapeXml(coverUrl)}" rel="enclosure" type="image/webp" />` : ""}
+      <link href="${escapeXml(postUrl)}" rel="alternate" type="text/html" />${coverUrl ? `\n      <link href="${escapeXml(coverUrl)}" rel="enclosure" type="${mimeType}" />` : ""}${mediaTag}
       <id>${escapeXml(postUrl)}</id>
       <updated>${escapeXml(updated)}</updated>
       <summary type="html">${cdata(post.metaDescription)}</summary>
@@ -76,7 +90,7 @@ export async function GET() {
     .join("");
 
   const atomFeed = `<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en">
   <title>${escapeXml(siteConfig.name)}</title>
   <subtitle>${escapeXml(siteConfig.description)}</subtitle>
   <link href="${escapeXml(`${siteUrl}/atom.xml`)}" rel="self" type="application/atom+xml" />

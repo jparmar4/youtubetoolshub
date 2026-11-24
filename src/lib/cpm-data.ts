@@ -1,3 +1,5 @@
+import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
+
 export interface CountryCPM {
     code: string;
     name: string;
@@ -95,21 +97,37 @@ export const nicheCPMData: NicheCPM[] = [
 // Tier classifications for CPM data tables
 export const TIERS = {
     TIER1: {
+        id: "TIER1" as const,
         label: "Tier 1",
         description: "Premium markets — highest advertiser spend",
         countries: ["US", "AU", "GB", "CA", "CH", "DE", "NO", "NZ", "SE", "NL", "DK", "FI", "IE", "AT", "BE", "SG", "IS", "LU", "HK"],
     },
     TIER2: {
+        id: "TIER2" as const,
         label: "Tier 2",
         description: "Strong markets — solid CPM rates",
         countries: ["FR", "JP", "KR", "AE", "IL", "QA", "KW", "SA", "ES", "IT", "TW", "PL", "CZ", "HU", "PT", "GR", "MY"],
     },
     TIER3: {
+        id: "TIER3" as const,
         label: "Tier 3",
         description: "Emerging markets — high volume, lower CPM",
         countries: ["BR", "MX", "PH", "CL", "ZA", "TH", "IN", "AR", "CO", "ID", "VN", "TR", "EG", "NG", "PK", "BD"],
     },
 };
+
+/**
+ * Single source of truth for whether a country earnings page may be indexed.
+ * Tier 1 is always indexable. Tier 2 becomes indexable when the policy flag is
+ * on. Tier 3 stays live for visitors but noindexed until the domain can support
+ * it. Every sitemap, hreflang cluster, llms.txt entry and IndexNow batch must
+ * call this instead of testing `TIERS.TIER1.includes(...) || flag`, which would
+ * silently sweep Tier 3 pages into the index when the flag flips.
+ */
+export function isCountryEarningsIndexable(code: string): boolean {
+    if (TIERS.TIER1.countries.includes(code)) return true;
+    return INDEX_TIER2_COUNTRY_PAGES && TIERS.TIER2.countries.includes(code);
+}
 
 export const getCountryBySlug = (slug: string) => {
     return countryCPMData.find(c => c.slug === slug);

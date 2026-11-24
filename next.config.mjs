@@ -617,6 +617,7 @@ const nextConfig = {
             value: [
               '<https://www.youtubetoolshub.com/llms.txt>; rel="llms-txt"; type="text/plain"',
               '<https://www.youtubetoolshub.com/llms-full.txt>; rel="llms-full-txt"; type="text/plain"',
+              '<https://www.youtubetoolshub.com/pricing.md>; rel="service-meta"; type="text/markdown"',
               '<https://www.youtubetoolshub.com/index.md>; rel="alternate"; type="text/markdown"',
               '<https://www.youtubetoolshub.com/.well-known/mcp/server-card.json>; rel="mcp-server-card"; type="application/json"',
               '<https://www.youtubetoolshub.com/api/ai-context>; rel="describedby"; type="application/json"',
@@ -661,7 +662,7 @@ const nextConfig = {
           destination: "/api/markdown?path=/",
         },
         {
-          source: "/:path((?!api/|_next/|\\.well-known/).*)",
+          source: "/:path((?!api/|_next/|\\.well-known/|pricing\\.md$).*)",
           has: [
             {
               type: "header",

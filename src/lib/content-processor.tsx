@@ -324,9 +324,9 @@ export function processContent(
      */
     const injectAdIfDue = (index: number) => {
         if (!adPositions.has(++boundaryCount)) return;
-        // Rotate slots so AdSense reports per-position performance and
-        // inventory diversity keeps the fill rate up.
-        const slot = inArticleSlots[inArticleAdCount % inArticleSlots.length];
+        // Rotate slots (starting at index 1 since IN_ARTICLE[0] serves the post-summary slot)
+        // so AdSense reports per-position performance and inventory diversity stays high.
+        const slot = inArticleSlots[(inArticleAdCount + 1) % inArticleSlots.length];
         inArticleAdCount++;
         elements.push(
             <AdSlot

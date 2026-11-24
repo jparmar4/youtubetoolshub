@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
-import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, TIERS } from "@/lib/cpm-data";
+import { countryCPMData, getCountryBySlug, getCountryTier, estimateEarnings, isCountryEarningsIndexable, TIERS } from "@/lib/cpm-data";
 import { getCountryMonetizationMeta } from "@/lib/country-monetization-meta";
 import { formatDualCurrencySummary, formatMoneyRounded } from "@/lib/currency-data";
 import { getToolBySlug } from "@/config/tools";
@@ -54,10 +53,9 @@ export async function generateMetadata({
     }
 
     const rpm = countryData.rpmRange;
-    // Index Tier-1 only (see src/config/index-policy.ts) — Tier-2/3 templates
-    // stay live for visitors but must not compete for index slots.
-    const indexable =
-        TIERS.TIER1.countries.includes(countryData.code) || INDEX_TIER2_COUNTRY_PAGES;
+    // Tier 1 and Tier 2 are indexable; Tier 3 stays live for visitors but
+    // noindexed. See isCountryEarningsIndexable() in src/lib/cpm-data.ts.
+    const indexable = isCountryEarningsIndexable(countryData.code);
     const baseTitle = `YouTube Earnings in ${countryData.name} 2026 — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
     const title = baseTitle.length <= 60 ? baseTitle : `YouTube Earnings in ${countryData.name} — $${rpm.min.toFixed(0)}–$${rpm.max.toFixed(0)} RPM`;
     const description = `Free YouTube earnings calculator for ${countryData.name}. Planning RPM is about $${rpm.min.toFixed(2)}–$${rpm.max.toFixed(2)} (avg $${rpm.avg.toFixed(2)}). Estimate 100k and 1M view pay.`;
@@ -75,7 +73,7 @@ export async function generateMetadata({
                 {
                     url: `${siteConfig.url}/tools/youtube-earnings-calculator/${country}/opengraph-image`,
                     width: 1200,
-                    height: 630,
+                    height: 675,
                     alt: title,
                 },
             ],
@@ -283,32 +281,60 @@ export default async function CountryEarningsPage({
                                 Same calculator localized for each market — Tier 1 premium, Tier 2 solid, Tier 3 emerging.
                             </p>
                             {[
-                                { label: `Tier 1 (${TIERS.TIER1.countries.length})`, codes: TIERS.TIER1.countries },
-                                { label: `Tier 2 (${TIERS.TIER2.countries.length})`, codes: TIERS.TIER2.countries },
-                                { label: `Tier 3 (${TIERS.TIER3.countries.length})`, codes: TIERS.TIER3.countries },
+                                { label: `Tier 1 (${TIERS.TIER1.countries.length})`, codes: TIERS.TIER1.countries, linkable: true },
+                                {
+                                    label: `Tier 2 (${TIERS.TIER2.countries.length})`,
+                                    codes: TIERS.TIER2.countries,
+                                    linkable: isCountryEarningsIndexable("FR"),
+                                },
                             ].map((group) => (
-                                <div key={group.label} className="mb-4 last:mb-0">
+                                <div key={group.label} className="mb-4">
                                     <p className="text-xs font-bold uppercase tracking-wide text-slate-600 mb-2">
                                         {group.label}
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {countryCPMData
                                             .filter((c) => group.codes.includes(c.code) && c.slug !== country)
-                                            .map((c) => (
-                                                <Link
-                                                    key={c.slug}
-                                                    href={`/tools/youtube-earnings-calculator/${c.slug}`}
-                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-bold hover:border-purple-500 hover:text-purple-600 transition-colors"
-                                                >
-                                                    <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black">
-                                                        {c.code}
+                                            .map((c) =>
+                                                group.linkable ? (
+                                                    <Link
+                                                        key={c.slug}
+                                                        href={`/tools/youtube-earnings-calculator/${c.slug}`}
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm font-bold hover:border-purple-500 hover:text-purple-600 transition-colors"
+                                                    >
+                                                        <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[11px] font-black">
+                                                            {c.code}
+                                                        </span>
+                                                        <span>{c.name}</span>
+                                                    </Link>
+                                                ) : (
+                                                    <span
+                                                        key={c.slug}
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold text-slate-700"
+                                                    >
+                                                        <span className="px-1.5 py-0.5 rounded bg-slate-800 text-white text-[11px] font-black">
+                                                            {c.code}
+                                                        </span>
+                                                        <span>{c.name}</span>
                                                     </span>
-                                                    <span>{c.name}</span>
-                                                </Link>
-                                            ))}
+                                                ),
+                                            )}
                                     </div>
                                 </div>
                             ))}
+                            <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-xs text-slate-700 mb-4">
+                                <div className="font-bold text-slate-900 mb-1">
+                                    Tier 3 — Emerging markets ({TIERS.TIER3.countries.length})
+                                </div>
+                                <p className="leading-relaxed text-slate-600">
+                                    {countryCPMData
+                                        .filter((c) => TIERS.TIER3.countries.includes(c.code) && c.slug !== country)
+                                        .slice(0, 8)
+                                        .map((c) => `${c.name} (~$${c.rpmRange.avg.toFixed(2)} RPM)`)
+                                        .join(", ")}
+                                    {TIERS.TIER3.countries.length > 8 ? ` + ${TIERS.TIER3.countries.length - 8} more` : ""}.
+                                </p>
+                            </div>
                             <div className="flex flex-wrap gap-2 mt-4">
                                 <Link
                                     href="/tools/youtube-earnings-calculator"

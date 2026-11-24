@@ -8,7 +8,12 @@
  *      (served as image/webp → strict scrapers reject them).
  *   2. Upscales covers narrower than MIN_WIDTH (1200px — Discover's large-image
  *      bar) to that width with a Lanczos kernel, keeping aspect ratio.
- *   3. Writes src/config/blog/image-dimensions.json — real {width,height} per
+ *   3. Attention-crops near-landscape covers to a true 16:9 ratio (Discover's
+ *      recommended preview shape). The blog header already renders every cover
+ *      in an aspect-video box with object-cover, so the cropped file matches
+ *      what visitors see instead of diverging from it. Uses sharp's attention
+ *      strategy so in-artwork headlines and faces survive the crop.
+ *   4. Writes src/config/blog/image-dimensions.json — real {width,height} per
  *      cover path — so OG tags / Article schema declare honest dimensions
  *      instead of hardcoded 1200x630.
  *
@@ -27,6 +32,10 @@ const MIN_WIDTH = 1200;
 const DISCOVER_WIDTH = 1280;
 const DISCOVER_HEIGHT = 720;
 const MIN_LANDSCAPE_RATIO = 1.35;
+// Discover recommends a 16:9 preview image. Anything landscape but off-ratio
+// beyond this tolerance gets attention-cropped to exact 16:9 (step 3 above).
+const IDEAL_RATIO = 16 / 9;
+const RATIO_TOLERANCE = 0.02;
 
 const postsDir = join(root, "src", "config", "blog", "data");
 const { readdirSync } = await import("node:fs");
@@ -51,7 +60,7 @@ console.log(
 
 const dimensions = {};
 const jpegMagic = Buffer.from([0xff, 0xd8, 0xff]);
-const stats = { reencoded: 0, upscaled: 0, reframed: 0, ok: 0, missing: 0 };
+const stats = { reencoded: 0, upscaled: 0, reframed: 0, ratioFixed: 0, ok: 0, missing: 0 };
 
 for (const coverPath of [...coverPaths].sort()) {
   const abs = join(root, "public", coverPath);
@@ -69,12 +78,18 @@ for (const coverPath of [...coverPaths].sort()) {
   const height = meta.height ?? 0;
   const aspectRatio = height > 0 ? width / height : 0;
   const needsLandscapeReframe = aspectRatio > 0 && aspectRatio < MIN_LANDSCAPE_RATIO;
+  const needsRatioFix =
+    !needsLandscapeReframe &&
+    aspectRatio > 0 &&
+    Math.abs(aspectRatio - IDEAL_RATIO) > RATIO_TOLERANCE;
 
   if (dryRun) {
     const flags = [
       isJpeg && "JPEG-as-webp",
       needsLandscapeReframe && `aspect ${aspectRatio.toFixed(2)} -> 1280x720`,
-      !needsLandscapeReframe && width < MIN_WIDTH && `narrow ${width}x${height}`,
+      needsRatioFix &&
+        `aspect ${aspectRatio.toFixed(2)} -> ${Math.max(width, DISCOVER_WIDTH)}x${Math.round(Math.max(width, DISCOVER_WIDTH) * 9 / 16)} 16:9`,
+      !needsLandscapeReframe && !needsRatioFix && width < MIN_WIDTH && `narrow ${width}x${height}`,
     ]
       .filter(Boolean)
       .join(", ");
@@ -106,6 +121,30 @@ for (const coverPath of [...coverPaths].sort()) {
     }
     console.log(`REFRAME 16:9 ${width}x${height} -> ${DISCOVER_WIDTH}x${DISCOVER_HEIGHT}: ${coverPath}`);
     stats.reframed++;
+    if (isJpeg) stats.reencoded++;
+    continue;
+  }
+
+  // Landscape but off 16:9 (3:2 AI renders, 1.86 panoramic crops): attention-
+  // crop to exact 16:9 at native width (min 1280) so Discover's recommended
+  // preview shape is met without discarding the artwork's focal content.
+  if (needsRatioFix) {
+    const targetW = Math.max(width, DISCOVER_WIDTH);
+    const targetH = Math.round((targetW * 9) / 16);
+    if (!dryRun) {
+      const out = await sharp(bytes)
+        .resize(targetW, targetH, { fit: "cover", position: sharp.strategy.attention, kernel: "lanczos3" })
+        .webp({ quality: 84 })
+        .toBuffer();
+      writeFileSync(abs, out);
+      const newMeta = await sharp(out).metadata();
+      dimensions[coverPath] = { width: newMeta.width, height: newMeta.height };
+      console.log(`CROP 16:9 ${width}x${height} -> ${newMeta.width}x${newMeta.height} (attention): ${coverPath}`);
+    } else {
+      dimensions[coverPath] = { width: targetW, height: targetH };
+      console.log(`CROP 16:9 ${width}x${height} -> ${targetW}x${targetH} (attention): ${coverPath}`);
+    }
+    stats.ratioFixed++;
     if (isJpeg) stats.reencoded++;
     continue;
   }
@@ -174,4 +213,4 @@ if (!dryRun) {
   console.log(`\nWrote ${outPath} (${pinterestRecorded} Pinterest entries recorded)`);
 }
 
-console.log(`\nSummary: ${stats.ok} ok, ${stats.reframed} reframed 16:9, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing, ${pinterestRecorded} pinterest recorded`);
+console.log(`\nSummary: ${stats.ok} ok, ${stats.reframed} reframed 16:9, ${stats.ratioFixed} attention-cropped 16:9, ${stats.upscaled} upscaled, ${stats.reencoded} re-encoded, ${stats.missing} missing, ${pinterestRecorded} pinterest recorded`);

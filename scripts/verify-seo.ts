@@ -8,6 +8,8 @@ import {
   buildStateCreatorTaxMetadata,
 } from "../data/usStateCreatorTaxes";
 import { COMPETITOR_ALTERNATIVES } from "../data/competitorAlternatives";
+import { getIndexableBlogPosts } from "../src/config/blog";
+import { getCoverDimensions } from "../src/config/blog/image-dimensions";
 
 const MAX_META_DESCRIPTION_LENGTH = 165;
 const VALID_CATEGORIES = new Set<ToolCategoryId>([
@@ -223,8 +225,38 @@ for (const relPath of staticManifestPaths) {
   }
 }
 
+// 7. Verify indexable blog posts meet Google Discover & SERP snippet thresholds
+const indexablePosts = getIndexableBlogPosts();
+for (const post of indexablePosts) {
+  const desc = (post.metaDescription || "").trim();
+  if (!desc) {
+    fail(`Blog post "${post.slug}" is missing a metaDescription.`);
+  } else if (desc.length >= MAX_META_DESCRIPTION_LENGTH) {
+    fail(
+      `Blog post "${post.slug}" metaDescription is ${desc.length} chars (must be < ${MAX_META_DESCRIPTION_LENGTH}): "${desc}"`,
+    );
+  }
+
+  if (!post.coverImage) {
+    fail(`Blog post "${post.slug}" is missing coverImage (required for Google Discover).`);
+  } else {
+    const publicImgPath = path.join(process.cwd(), "public", post.coverImage);
+    if (!fs.existsSync(publicImgPath)) {
+      fail(`Blog post "${post.slug}" coverImage file not found: "${post.coverImage}"`);
+    }
+    const dims = getCoverDimensions(post.coverImage);
+    if (!dims) {
+      fail(`Blog post "${post.slug}" coverImage "${post.coverImage}" missing from image-dimensions.json.`);
+    } else if (dims.width < 1200) {
+      fail(
+        `Blog post "${post.slug}" coverImage "${post.coverImage}" is ${dims.width}px wide (Google Discover requires >= 1200px).`,
+      );
+    }
+  }
+}
+
 console.log(
-  `[verify-seo] Audited ${tools.length} tools (${toolMeta.length} in tool-meta), ${US_STATE_CREATOR_TAXES.length} US jurisdictions, ${COMPETITOR_ALTERNATIVES.length} competitor alternatives.`,
+  `[verify-seo] Audited ${tools.length} tools (${toolMeta.length} in tool-meta), ${indexablePosts.length} indexable blog posts, ${US_STATE_CREATOR_TAXES.length} US jurisdictions, ${COMPETITOR_ALTERNATIVES.length} competitor alternatives.`,
 );
 
 if (warnings.length > 0) {

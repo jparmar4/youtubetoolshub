@@ -35,7 +35,7 @@ SEO/AEO/GEO on this site is already strong technically. Ranking compounds over *
 | Technical SEO | Sitemaps, canonicals, robots, IndexNow, Core schema |
 | AEO | Quick answers, FAQs, HowTo, Speakable, answer boxes |
 | GEO | `llms.txt`, `llms-full.txt`, `ai.txt`, citable CPM data, entity/Person schema |
-| Tools | 27+ free tools (thumbnail, tags, titles, earnings, etc.) |
+| Tools | Free tools (thumbnail, tags, titles, earnings, etc.) |
 | AdSense | Manual slots + recovery utilities wired |
 
 ---

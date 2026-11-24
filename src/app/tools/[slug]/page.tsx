@@ -83,7 +83,7 @@ export async function generateMetadata({
                 {
                     url: `${siteConfig.url}/tools/${tool.slug}/opengraph-image`,
                     width: 1200,
-                    height: 630,
+                    height: 675,
                     alt: tool.name,
                 },
             ],
@@ -555,6 +555,13 @@ export default async function ToolPage({
                                     </div>
                                 )}
                             </article>
+
+                            {/* Pre-FAQ Contextual Display Slot for engaged deep-scroll tool visitors */}
+                            {seoFaqs.length > 0 && (
+                                <AdSectionPrioritize>
+                                    <AdSlot slot={AD_SLOTS.IN_ARTICLE[3]} preset="in-article" lazy={true} />
+                                </AdSectionPrioritize>
+                            )}
 
                             {/* FAQ Section (always rendered from expanded set; native
                                 details/summary keeps Q&A text crawlable without JS) */}

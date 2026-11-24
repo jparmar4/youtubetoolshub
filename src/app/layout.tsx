@@ -147,11 +147,17 @@ export default function RootLayout({
     <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Edge DNS Preconnects for Global Performance (fonts are self-hosted via next/font) */}
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://tpc.googlesyndication.com" />
         <link rel="preconnect" href="https://scripts.clarity.ms" />
         <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://ep1.adtrafficquality.google" />
+        <link rel="dns-prefetch" href="https://fundingchoicesmessages.google.com" />
         {/*
           AdSense Auto ads + manual units load in ConsentAnalytics via a native
           async <script> after hydration so AdSense's dynamic show_ads_impl.js

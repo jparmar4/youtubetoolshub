@@ -68,7 +68,7 @@ export async function generateMetadata({
         {
           url: `${siteConfig.url}/alternatives/${alt.slug}/opengraph-image`,
           width: 1200,
-          height: 630,
+          height: 675,
           alt: alt.h1,
         },
       ],

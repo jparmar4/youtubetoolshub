@@ -25,8 +25,8 @@ const post = `
       "I ran the same videos with and without a YouTube hashtag generator for a month. Here is what actually moved search, Shorts shelves, and click-through — and the 3-hashtag setup I still use.",
     date: "August 15, 2026",
     category: "SEO & Growth",
-    author: "Jordan Lee",
-    authorRole: "YouTube SEO Specialist",
+    author: "Jitu",
+    authorRole: "Founder & Author",
     readTime: "14 min read",
     metaDescription:
       "Free YouTube hashtag generator guide for 2026: how many hashtags to use, tags vs hashtags, Shorts vs long-form, and a no-signup tool workflow.",

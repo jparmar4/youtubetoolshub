@@ -3,7 +3,8 @@
  * Used by opengraph-image.tsx and pinterest-image route handlers.
  */
 
-export const OG_SIZE = { width: 1200, height: 630 } as const;
+// 16:9 (1200x675) — Google Discover's recommended preview shape for large cards.
+export const OG_SIZE = { width: 1200, height: 675 } as const;
 /** Pinterest prefers taller pins (~2:3) */
 export const PIN_SIZE = { width: 1000, height: 1500 } as const;
 
@@ -13,7 +14,7 @@ type MoneyOgProps = {
   subtitle: string;
   bullets?: string[];
   accent?: "emerald" | "purple";
-  /** "og" = 1200x630, "pin" = 1000x1500 */
+  /** "og" = 1200x675, "pin" = 1000x1500 */
   format?: "og" | "pin";
 };
 

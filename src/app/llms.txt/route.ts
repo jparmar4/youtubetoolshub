@@ -11,11 +11,8 @@ import {
   rpmPlanningExamples,
 } from "@/lib/seo-data";
 import { topicClusters } from "@/lib/topic-clusters";
-import { countryCPMData, TIERS } from "@/lib/cpm-data";
-import {
-  INDEX_TIER2_COUNTRY_PAGES,
-  INDEX_US_STATE_TAX_PAGES,
-} from "@/config/index-policy";
+import { countryCPMData, isCountryEarningsIndexable } from "@/lib/cpm-data";
+import { INDEX_US_STATE_TAX_PAGES } from "@/config/index-policy";
 import { COMPETITOR_ALTERNATIVES } from "@/data/competitorAlternatives";
 
 export const dynamic = "force-static";
@@ -42,7 +39,7 @@ export async function GET() {
     .join("\n");
 
   const topCountries = countryCPMData
-    .filter((c) => TIERS.TIER1.countries.includes(c.code) || INDEX_TIER2_COUNTRY_PAGES)
+    .filter((c) => isCountryEarningsIndexable(c.code))
     .slice(0, 12)
     .map(
       (c) =>
@@ -276,6 +273,7 @@ AI structured data: ${baseUrl}/api/ai-context
 - [FAQ](${baseUrl}/faq): Frequently asked questions
 - [About](${baseUrl}/about): About YouTube Tools Hub
 - [Pricing](${baseUrl}/pricing): Pricing information (core tools are free)
+- [Machine-Readable Pricing](${baseUrl}/pricing.md): Structured Free ($0) vs Pro ($6/mo USD) plan details for AI agents
 - [Link to Us](${baseUrl}/resources/link-to-us): Embed badges and citation assets
 
 ## Optional
