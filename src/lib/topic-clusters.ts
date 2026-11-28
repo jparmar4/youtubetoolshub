@@ -117,6 +117,15 @@ export const topicClusters: TopicCluster[] = [
         anchors: ["1 million views", "youtube pay for 1 million views", "earnings on 1 million views"],
       },
       {
+        path: "/blog/youtube-money-per-subscriber-2026",
+        title: "How Much YouTube Pays Per Subscriber (2026)",
+        anchors: [
+          "youtube money per subscriber",
+          "how much does youtube pay per subscriber",
+          "pay per subscriber youtube",
+        ],
+      },
+      {
         path: "/blog/youtube-rpm-vs-cpm-explained",
         title: "YouTube RPM vs CPM Explained",
         anchors: ["rpm vs cpm", "cpm vs rpm"],
@@ -658,6 +667,17 @@ export const topicClusters: TopicCluster[] = [
           "video outlier multiplier",
           "channel outlier score",
           "youtube viral benchmark calculator",
+        ],
+      },
+      {
+        path: "/blog/best-youtube-growth-outlier-tools-2026",
+        title: "Best YouTube Growth & Outlier Video Finder Tools (2026)",
+        anchors: [
+          "best youtube growth tools",
+          "1of10 review outlier video finder",
+          "best youtube outlier tool",
+          "youtube outlier video finder",
+          "free youtube growth tools no signup",
         ],
       },
     ],

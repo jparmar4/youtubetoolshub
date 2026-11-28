@@ -48,11 +48,16 @@ const toolsPageFaqs = [
 ];
 
 export const metadata: Metadata = {
-  title: `All Free YouTube Tools — ${tools.length} Creator Tools, No Signup`,
+  title: {
+    absolute: `Free YouTube Tools — All ${tools.length} No-Signup Creator Tools`,
+  },
   description:
-    `Browse all ${tools.length} free YouTube tools by category: thumbnails, titles and tags, channel growth, earnings calculators, and utilities. No signup or extension.`,
+    `Browse all ${tools.length} free YouTube tools in one browser toolkit: SEO tags, AI titles, 4K thumbnails, outlier scanners, and RPM calculators—no extension needed.`,
   keywords: [
+    "youtube tools",
     "free youtube tools",
+    "yt tools",
+    "youtube toolkit",
     "youtube thumbnail downloader",
     "youtube tag generator",
     "youtube title generator",

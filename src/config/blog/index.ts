@@ -24,11 +24,10 @@ export const blogPosts: BlogPost[] = [
 // search results, and related-post modules.
 const RETIRED_BLOG_SLUGS = new Set<string>([
   // CPM/earnings consolidation: these overlapped the definitive
-  // "how much YouTube pays" guide and the CPM resources hub. Unique substance
-  // (per-subscriber value, Studio RPM workflow) was folded into the canonical
-  // guide; the URLs 301 to their targets via next.config.mjs.
+  // "how much YouTube pays" guide and the CPM resources hub. (Note:
+  // youtube-money-per-subscriber-2026 serves distinct "pay per subscriber"
+  // search intent with 749 weekly GSC impressions and stays live.)
   "youtube-monetization-truths-cpm-rpm",
-  "youtube-money-per-subscriber-2026",
   "youtube-monetization-calculator-estimate-earnings-2026",
   "youtube-cpm-rates-by-country-2026",
   // Niches/ideas/thumbnails consolidation into broader canonical guides.

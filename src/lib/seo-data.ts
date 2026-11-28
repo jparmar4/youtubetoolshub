@@ -5,7 +5,7 @@ import { countryCPMData } from "@/lib/cpm-data";
  * Prefer sourcing claims from here so llms.txt, Dataset schema, and pages stay consistent.
  */
 
-export const DATA_LAST_REVIEWED = "2026-11-19";
+export const DATA_LAST_REVIEWED = "2026-11-28";
 
 export type BenchmarkRow = {
   label: string;

@@ -30,16 +30,16 @@ import AdSlot from "@/components/ads/AdSlot";
 import { AdSectionIgnore, AdSectionPrioritize } from "@/components/ads/AdSectionTarget";
 import { AD_SLOTS } from "@/lib/adsense";
 
-const REPORT_LAST_MODIFIED = "2026-11-17";
+const REPORT_LAST_MODIFIED = "2026-11-28";
 const REPORT_PATH = "/research/youtube-cpm-rpm-report-2026";
 const REPORT_URL = `${siteConfig.url}${REPORT_PATH}`;
 
 export const metadata: Metadata = {
   title: {
-    absolute: "2026 YouTube Creator Economy & CPM/RPM Benchmark Report",
+    absolute: "YouTube CPM & RPM Report 2026: Top Paying Countries & Niches",
   },
   description:
-    `2026 benchmark dataset comparing Tier-1 vs Tier-2/3 YouTube CPM and RPM rates, Long-Form vs Shorts payouts, and Top 12 high-paying niches across ${countryCPMData.length} countries.`,
+    `2026 YouTube CPM & RPM data across ${countryCPMData.length} countries and 12 niches: Tier-1 ($6–$15 RPM) vs Shorts ($0.03–$0.08 RPM), Q4 surges, and live revenue modeling.`,
   keywords: [
     "youtube cpm rpm benchmark report 2026",
     "youtube creator economy report 2026",

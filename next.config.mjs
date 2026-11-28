@@ -812,11 +812,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/blog/youtube-money-per-subscriber-2026",
-        destination: "/blog/how-much-youtube-pays-per-1000-views-2026",
-        permanent: true,
-      },
-      {
         source: "/blog/youtube-monetization-calculator-estimate-earnings-2026",
         destination: "/tools/youtube-earnings-calculator",
         permanent: true,

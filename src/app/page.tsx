@@ -30,18 +30,21 @@ import SmartWorkflow from "@/components/home/SmartWorkflow";
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Free YouTube Tools — Thumbnails, Tags & Revenue Calculator",
+    absolute: `YouTube Tools Hub — ${tools.length} Free YouTube Tools (No Signup)`,
   },
   description:
-    `Free YouTube tools: download HD thumbnails, generate titles and tags, and estimate AdSense earnings by country. ${tools.length} creator tools, no signup.`,
+    `Free YouTube tools toolkit: ${tools.length} browser tools for HD thumbnail downloads, AI titles, SEO tags, outlier scans, and 52-country AdSense RPM math—no signup.`,
   keywords: [
+    "youtube tools",
+    "free youtube tools",
+    "youtube tools hub",
+    "yt tools",
+    "youtube toolkit",
     "youtube thumbnail downloader",
     "youtube tag generator",
     "youtube title generator",
     "youtube earnings calculator",
     "youtube cpm calculator",
-    "free youtube tools",
     "free youtube seo tools",
     "tubebuddy alternative free",
     "vidiq alternative free",

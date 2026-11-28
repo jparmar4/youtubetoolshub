@@ -117,6 +117,9 @@ ${COMPETITOR_ALTERNATIVES.map((alt) => `- ${baseUrl}/alternatives/${alt.slug}`).
 - ${baseUrl}/blog/youtube-q4-cpm-rpm-surge-2026-black-friday-data
 - ${baseUrl}/blog/youtube-creator-business-bank-account-credit-cards-2026
 - ${baseUrl}/blog/youtube-1099-nec-quarterly-estimated-taxes-2026-2027
+- ${baseUrl}/blog/best-youtube-growth-outlier-tools-2026
+- ${baseUrl}/tools/channel-outlier-scanner
+- ${baseUrl}/tools/youtube-outlier-calculator
 
 ## Mission
 

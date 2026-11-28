@@ -21,10 +21,10 @@ import NicheProfitabilityHeatmap from "@/components/tools/NicheProfitabilityHeat
 
 export const metadata: Metadata = {
     title: {
-        absolute: `YouTube CPM & RPM Rates by Country 2026 (${countryCPMData.length} Markets)`,
+        absolute: `YouTube CPM & RPM Rates by Country 2026 (${countryCPMData.length}-Country Table)`,
     },
     description:
-        `YouTube CPM & RPM by country for ${countryCPMData.length} markets in 2026. US, UK, India, finance vs gaming niches, plus tips to raise earnings. Free data table.`,
+        `2026 YouTube CPM & RPM rates across ${countryCPMData.length} countries: US ($14.50 CPM / $8.50 RPM), UK, Canada, UAE, Egypt & India—plus free interactive payout calculator.`,
     keywords: [
         "youtube cpm rates by country 2026",
         "youtube cpm rates",

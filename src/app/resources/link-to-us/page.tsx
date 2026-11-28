@@ -123,6 +123,19 @@ const EMBED_SNIPPETS = [
     code: `<a href="https://www.youtubetoolshub.com/alternatives/vidiq-tubebuddy-free-alternative" title="Free VidIQ & TubeBuddy Alternative – YouTube Tools Hub" target="_blank" rel="noopener noreferrer">YouTube Tools Hub – Free TubeBuddy &amp; VidIQ Alternative (No Extension)</a>`,
   },
   {
+    id: "outlier-scanner-card",
+    label: "Channel Outlier Scanner & 1of10 Alternative Card",
+    description:
+      "Pure HTML card for YouTube growth tool roundups, competitor research guides, and 1of10 / Viewstats alternative articles.",
+    code: `<div style="max-width:440px;border:2px solid #7e22ce;border-radius:16px;padding:20px;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#faf5ff,#ffffff);box-shadow:0 8px 24px rgba(126,34,206,.10)">
+  <div style="font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7e22ce;margin-bottom:8px">Free Outlier Tool · Zero OAuth</div>
+  <div style="font-size:20px;font-weight:800;color:#1e1b4b;margin:0 0 8px;line-height:1.25">Channel @Handle Outlier &amp; Viral Multiplier Scanner</div>
+  <p style="margin:0 0 12px;color:#374151;font-size:14px;line-height:1.5">Spot <strong>3x–10x+ breakout YouTube videos</strong> against median long-form baselines without paying $349–$828/yr for SaaS subscriptions.</p>
+  <a href="https://www.youtubetoolshub.com/tools/channel-outlier-scanner" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:#7e22ce;color:#fff;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:700">Scan @Handle Free →</a>
+  <div style="margin-top:12px;font-size:11px;color:#6b7280">Benchmark guide: <a href="https://www.youtubetoolshub.com/blog/best-youtube-growth-outlier-tools-2026" target="_blank" rel="noopener noreferrer" style="color:#7e22ce;font-weight:600">2026 YouTube Outlier &amp; Growth Tools Audit</a></div>
+</div>`,
+  },
+  {
     id: "markdown",
     label: "Markdown (for GitHub, Notion, blogs)",
     description: "Copy into Markdown posts or README resource lists.",
@@ -435,6 +448,16 @@ export default function LinkToUsPage() {
 
             <h3>Our Most Popular Tools for Backlinks</h3>
             <ul>
+              <li>
+                <Link href="/tools/channel-outlier-scanner">
+                  Channel @Handle Outlier &amp; Viral Multiplier Scanner
+                </Link>{" "}
+                — Spot 3x–10x+ outlier videos against median long-form views with zero signup or Chrome extension (see our{" "}
+                <Link href="/blog/best-youtube-growth-outlier-tools-2026">
+                  2026 Outlier &amp; Growth Tools Audit
+                </Link>
+                )
+              </li>
               <li>
                 <Link href="/watch">
                   YouTube Video X-Ray &amp; Zero-Extension Bookmarklet

@@ -32,6 +32,14 @@ export const INDEX_TOOL_COMPARISON_PAGES = false;
 export const INDEX_TIER2_COUNTRY_PAGES = true;
 
 /**
+ * Tier-3 country calculators that earned proven Page-1 Google Search Console
+ * rankings and clicks (Nov 2026 GSC audit: Egypt Pos 5.24 / 407 imps, Indonesia
+ * Pos 5.28 / 134 imps, South Africa Pos 7.81 / 97 imps). Keep these proven
+ * localized calculators indexed while untested Tier-3 markets stay noindexed.
+ */
+export const INDEXED_TIER3_COUNTRY_CODES = new Set<string>(["EG", "ID", "ZA"]);
+
+/**
  * US state creator-tax pages: 51 near-identical templates. Keep them live
  * (old links, real calculators) but out of the index until authority grows.
  */

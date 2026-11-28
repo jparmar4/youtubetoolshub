@@ -4119,7 +4119,7 @@ Most modern smartphones can shoot in 4K at 30 or 60 FPS. To make the most of it:
 | Panasonic Lumix S5II | Full frame | Yes | Yes | Body roughly $1,500–$2,000 |
 | Sony A7 IV | Full frame | Yes | Yes | Body roughly $2,000–$2,600 |
 
-If you are choosing between bodies at these prices, the deciding question is autofocus reliability for your format — talking heads should prioritize tracking, while seated reviewers can spend the difference on lighting instead. For tighter budgets, our guides to [cameras under $500](/blog/best-budget-youtube-cameras-under-500) and [4K cameras under $1,000](/blog/best-4k-cameras-under-1000-vlogging-2026) break the same decision down further.
+If you are choosing between bodies at these prices, the deciding question is autofocus reliability for your format — talking heads should prioritize tracking, while seated reviewers can spend the difference on lighting instead. For tighter budgets, our guides to [cameras under $500](/blog/best-budget-youtube-cameras-under-500), [4K cameras under $1,000](/blog/best-4k-cameras-under-1000-vlogging-2026), and the [best laptops for video editing in 2026](/blog/best-video-editing-laptops-2026) break the full studio hardware budget down further.
 
 ---
 
@@ -5628,33 +5628,35 @@ Pick up the free plan, import your worst raw footage — the messy, fumbling kin
   {
     slug: "youtube-super-thanks-earnings",
     title: "YouTube Super Thanks: How Much Creators Really Earn",
+    seoTitle: "YouTube Super Thanks Cut (2026): 70/30 Split & Payout Math",
     excerpt:
       "YouTube Super Thanks sounds like easy money — a fan clicks a button, you get a tip. But the actual payout is messier, smaller, and far more nuanced than most creators realize. This guide breaks down exactly what Super Thanks pays, who really earns meaningful income from it, and how to set your channel up to maximize it.",
     date: "Mar 11, 2026",
+    updatedAt: "November 28, 2026",
     category: "YouTube Monetization",
     author: "Jitu",
-    authorRole: "YouTube Monetization Strategist",
+    authorRole: "Founder & Author",
     readTime: "14 min read",
-    metaDescription: "How YouTube Super Thanks payouts work in 2026: 70/30 creator revenue split, Apple/Android fee deductions, eligibility rules, and realistic benchmarks.",
+    metaDescription: "YouTube takes a 30% cut on Super Thanks (you keep ~$35 on $50, ~$350 on $500 before Apple/processing fees). Full 2026 payout math and AdSense rules.",
     keywords: [
       "youtube super thanks earnings",
+      "how much does youtube take from super thanks",
+      "how much is $500 super thanks on youtube",
+      "youtube super thanks percentage",
       "how much does youtube super thanks pay",
       "youtube super thanks payout percentage",
       "youtube super thanks revenue",
       "youtube fan funding monetization",
       "super thanks youtube 2026",
       "youtube super thanks vs super chat",
-      "youtube creator monetization tips",
-      "youtube super thanks how it works",
-      "youtube monetization strategies 2026",
     ],
     coverImage: "/images/blog/youtube-super-thanks-earnings-hero.webp",
     imageAlt:
       "A YouTube creator at a professional home studio desk looking at a laptop screen showing Super Thanks earnings notifications with dollar amounts",
 
     content: `::: QUICK-ANSWER
-**How much creators keep from YouTube Super Thanks:**
-YouTube takes a flat **30% platform cut** plus ~3% payment processing in most regions, leaving creators with roughly **67–70% net pre-tax** (**~$1.40** on a $2 tip, **~$3.50** on $5, **~$7.00** on $10, and **~$35.00** on $50) settled through monthly AdSense payouts. Estimate total AdSense + FX wire take-home with our [AdSense Wire Fee Calculator](/tools/youtube-adsense-fee-calculator) and deduct studio expenses via our [Creator Tax Deduction Calculator](/tools/youtube-tax-deduction-calculator).
+**How much creators keep from YouTube Super Thanks (70/30 Split):**
+YouTube takes a **30% platform cut** after applicable local sales taxes and App Store fees, leaving creators with roughly **67–70% on desktop/Android** (**~$1.40** on $2, **~$3.50** on $5, **~$35** on $50, and **~$350 on a max $500 Super Thanks**—dropping to **~$245 on $500** if sent through the iOS YouTube app after Apple's 30% cut). Model your net AdSense payout in our [AdSense Wire Fee Calculator](/tools/youtube-adsense-fee-calculator) and [Creator Tax Deduction Calculator](/tools/youtube-tax-deduction-calculator).
 :::
 
 Let me start with the number nobody puts in their thumbnail: YouTube takes 30% of every Super Thanks transaction before a single cent reaches your account.
@@ -6178,16 +6180,21 @@ The batch system doesn't just save time. It makes every video you produce measur
   {
     slug: "youtube-subscriber-milestones",
     title: "YouTube Subscriber Milestones: What Unlocks & When",
+    seoTitle: "YouTube Subscriber Milestones (2026): 50 to 10M Rewards",
     excerpt:
       "Wondering when you get your YouTube Play Button or unlock the Community Tab? Here is the complete, updated guide to every YouTube subscriber milestone and exactly what features you unlock at each stage.",
     date: "Mar 9, 2026",
+    updatedAt: "November 28, 2026",
     category: "YouTube Growth",
     author: "Jitu",
-    authorRole: "YouTube Growth Strategist",
+    authorRole: "Founder & Author",
     readTime: "12 min read",
-    metaDescription: "Every YouTube subscriber milestone explained for 2026: features unlocked at 50, 500, 1,000, 100K, 1M, and 10M subscribers plus Play Button rules.",
+    metaDescription: "Every YouTube subscriber milestone in 2026: what unlocks at 50, 500, and 1,000 subs, plus 100K Silver, 1M Gold & 10M Diamond Play Button rules.",
     keywords: [
       "youtube subscriber milestones",
+      "youtube 1000 subscribers reward",
+      "subscriber milestones on youtube",
+      "youtube milestone certificate",
       "youtube play button subscribers",
       "what unlocks at 1000 subscribers",
       "youtube monetization requirements",
@@ -6205,7 +6212,7 @@ The batch system doesn't just save time. It makes every video you produce measur
 **YouTube Subscriber Milestones & Unlocks (2026):**
 - **50 subscribers:** Mobile livestreaming unlocked.
 - **500 subscribers (+ 3,000 watch hours or 3M Shorts views):** Early YPP Fan Funding (Channel Memberships, Super Thanks, Super Chat, YouTube Shopping).
-- **1,000 subscribers (+ 4,000 watch hours or 10M Shorts views):** Full YPP AdSense revenue sharing on Long-form & Shorts.
+- **1,000 subscribers (+ 4,000 watch hours or 10M Shorts views):** Full YPP AdSense revenue sharing ([see what 1K to 1M subscribers earn](/blog/youtube-money-per-subscriber-2026)).
 - **100,000 / 1,000,000 / 10,000,000 subscribers:** Silver, Gold, and Diamond Creator Awards.
 Project your exact milestone date with our [Play Button Milestone Countdown](/tools/youtube-milestone-countdown-calculator) and [4,000 Watch Hours Tracker](/tools/youtube-watch-hours-calculator).
 :::

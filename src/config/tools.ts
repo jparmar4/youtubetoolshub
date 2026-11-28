@@ -630,15 +630,15 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-tag-generator",
         name: "YouTube Tag Generator",
-        seoTitle: "Free YouTube Tag Generator — Relevant Video Tags",
-        seoDescription: "Generate relevant YouTube tag ideas from your topic. Review and copy tags that describe your video. Free browser tool, no signup required.",
+        seoTitle: "Free YouTube Tag Generator — 500-Char SEO Video Tags",
+        seoDescription: "Free YouTube tag generator: build a paste-ready 500-character SEO tag list with primary and long-tail video keywords in seconds—no signup or extension.",
         description: "Generate SEO-optimized, trending tags that help your videos rank. Get a mix of primary, search, and long-tail keywords in seconds.",
         shortDescription: "Generate SEO tags for videos",
         primaryCategory: "seo-metadata",
         icon: FaTags,
         isAI: true,
         isFeatured: true,
-        keywords: ["youtube tag generator", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags", "youtube tag finder", "trending tags 2026", "automatic tag generator"],
+        keywords: ["youtube tag generator", "free youtube tag generator", "yt seo tags generator", "free tag generator", "tags for youtube", "video tags", "youtube keywords", "seo tags for youtube", "find best youtube tags", "youtube tag finder"],
         definitionBlock: {
             title: "What is YouTube Tag Generator?",
             text: "YouTube Tag Generator is a free AI-powered search optimization tool that automatically creates relevant, high-performing tags and keywords for your YouTube videos. Using advanced search intent mapping, it builds tag lists that improve video rankings, search discoverability, and YouTube recommendation placements."
@@ -722,14 +722,14 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-tag-extractor",
         name: "YouTube Tag Extractor",
-        seoTitle: "YouTube Tag Extractor (View & Copy Hidden Video Tags • Free)",
-        seoDescription: "Extract hidden meta tags from any public YouTube video or Shorts. View competitor SEO keywords and copy tags instantly with 1-click. Free tool.",
+        seoTitle: "YouTube Tag Extractor & Grabber — Copy Video Tags Free",
+        seoDescription: "Free YouTube tag extractor and tag grabber: view and 1-click copy hidden SEO tags from any public YouTube video or Short—no extension or login needed.",
         description: "Extract hidden meta tags from any YouTube video URL. See exactly what keywords successful channels are using to rank and get suggested.",
         shortDescription: "Extract tags from any video",
         primaryCategory: "seo-metadata",
         icon: FaSearch,
         isAI: false,
-        keywords: ["youtube tag extractor", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video", "how to see youtube tags", "competitor tags tool", "hidden youtube keywords"],
+        keywords: ["youtube tag extractor", "youtube tags grabber", "youtube tag grabber", "tag grabber", "copy youtube tags", "spy on youtube tags", "video tag finder", "get tags from video", "how to see youtube tags", "competitor tags tool", "hidden youtube keywords"],
         definitionBlock: {
             title: "What is the YouTube Tag Extractor?",
             text: "The YouTube Tag Extractor pulls the complete tag list from any public YouTube video - including competitor uploads - along with the video title, channel, and publish date. Reverse-engineering working tags is the fastest way to research the keywords real channels in your niche target."
@@ -1269,15 +1269,15 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-title-ab-tester",
         name: "Title A/B Score Checker",
-        seoTitle: "YouTube Title A/B Tester — Free CTR Score Checker",
-        seoDescription: "Compare two YouTube titles and see which one will get more views. Our AI analyzes CTR potential, curiosity gaps, and emotional hooks. Free tool!",
+        seoTitle: "YouTube Title Checker & A/B Tester — Free CTR Rank Scorer",
+        seoDescription: "Free YouTube title checker and A/B score tester: compare two video titles for CTR, 60-character mobile cutoff, curiosity, and search rank strength.",
         description: "Compare two titles and get AI scoring for click-through potential, clarity, and emotional appeal to maximize your video reach.",
         shortDescription: "Compare title effectiveness",
         primaryCategory: "analytics-earnings",
         icon: FaBalanceScale,
         isAI: true,
         isFeatured: true,
-        keywords: ["title ab tester", "youtube title rater", "title comparison", "best title checker", "click through rate tool", "ctr predictor", "viral title tester", "ai headline analyzer"],
+        keywords: ["title checker", "youtube title checker", "youtube title rank checker", "youtube title ranker", "title ab tester", "youtube title rater", "title comparison", "click through rate tool", "ctr predictor", "viral title tester", "ai headline analyzer"],
         definitionBlock: {
             title: "What is the YouTube Title A/B Tester?",
             text: "The YouTube Title A/B Tester simulates 1,000 impressions for two title options and predicts a winner with a confidence score and estimated CTR for each. It scores curiosity, urgency, and specificity so you can pick the stronger title before you publish instead of after."
@@ -1636,14 +1636,14 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-channel-id-finder",
         name: "YouTube Channel ID Finder",
-        seoTitle: "YouTube Channel ID Finder — Find Any UC ID (Free)",
-        seoDescription: "Find the unique Channel ID (UC...) for any YouTube channel instantly. Works with handles, URLs, and video links. Free developer & marketer tool!",
+        seoTitle: "YouTube Channel ID & Account Finder — Get UC ID Free",
+        seoDescription: "Free YouTube Channel ID and account finder: convert any @handle, channel URL, or video link into its permanent 24-character UC ID and RSS feed instantly.",
         description: "Find the unique Channel ID (UC...) and User ID for any YouTube channel. Essential for API integrations and advanced research in 2026.",
         shortDescription: "Find any YouTube Channel ID",
         primaryCategory: "utilities",
         icon: FaIdCard,
         isAI: false,
-        keywords: ["channel id finder", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle", "uc id finder", "youtube api channel id"],
+        keywords: ["channel id finder", "youtube channel id finder", "youtube account finder", "uc finder", "find youtube channel id from url", "find youtube channel id", "get channel id", "youtube user id", "find channel id by handle", "uc id finder"],
         definitionBlock: {
             title: "What is the YouTube Channel ID Finder?",
             text: "The Channel ID Finder converts any YouTube channel URL, handle, or video link into the underlying channel ID - the UC-prefixed, 24-character identifier YouTube APIs and third-party tools require - plus the channel's RSS feed URL, instantly and without signing in."
@@ -1727,14 +1727,14 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-playlist-length-calculator",
         name: "YouTube Playlist Length Calculator",
-        seoTitle: "YouTube Playlist Length Calculator — Total Runtime",
-        seoDescription: "Calculate the exact total runtime of any public YouTube playlist and compare watch time at 1.25x, 1.5x, 1.75x, and 2x playback speeds. Free.",
+        seoTitle: "Free YouTube Playlist Length & Time Calculator (1x–2x)",
+        seoDescription: "Free YouTube playlist length calculator: find exact total runtime, video count, and watch duration at 1.25x, 1.5x, 1.75x, and 2x speeds with zero login.",
         description: "Calculate the total length of any YouTube playlist. See how long it takes to watch at specific speeds (1.25x, 1.5x, 2x).",
         shortDescription: "Calculate playlist duration",
         primaryCategory: "utilities",
         icon: FaListUl,
         isAI: false,
-        keywords: ["youtube playlist length", "playlist length calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "playlist time", "total hours of playlist"],
+        keywords: ["youtube playlist length calculator", "youtube playlist calculator free", "playlist length calculator", "playlist time calculator", "youtube playlist duration", "how long is this playlist", "video duration calculator", "total hours of playlist"],
 
         definitionBlock: {
             title: "What is the YouTube Playlist Length Calculator?",
@@ -3164,8 +3164,8 @@ const rawTools: RawTool[] = [
     {
         slug: "youtube-subscribe-link-generator",
         name: "YouTube Subscribe Link Generator (?sub_confirmation=1)",
-        seoTitle: "YouTube Subscribe Link Generator (sub_confirmation=1)",
-        seoDescription: "Create a 1-click YouTube auto-subscribe link with modal confirmation popup, HTML button embed, and QR code for free without signup.",
+        seoTitle: "YouTube Subscribe Link Generator (?sub_confirmation=1 Free)",
+        seoDescription: "Free YouTube 1-click subscribe link generator (?sub_confirmation=1): create an auto-subscribe popup URL, HTML button, and QR code with no signup.",
         description: "Generate an instant YouTube auto-subscribe URL with the ?sub_confirmation=1 parameter, downloadable QR code, and HTML button code to boost subscriber conversions.",
         shortDescription: "Generate YouTube 1-click auto-subscribe links and QR codes",
         primaryCategory: "channel-growth",
@@ -3174,6 +3174,8 @@ const rawTools: RawTool[] = [
         isFeatured: true,
         keywords: [
             "youtube subscribe link generator",
+            "1k subscribe link generator",
+            "sub_confirmation=1",
             "sub confirmation 1 generator",
             "youtube auto subscribe link",
             "sub_confirmation=1 link generator",

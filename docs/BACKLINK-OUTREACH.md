@@ -22,6 +22,8 @@
 | **YouTube creator taxes & accounting guide (2026)** | `/blog/youtube-creator-taxes-accounting-software-guide` | 25-item Schedule C deductions checklist, 6 accounting apps tested, and LLC vs S-Corp $75K breakeven math |
 | Creator tax deduction calculator | `/tools/youtube-tax-deduction-calculator` | Interactive 1099/Schedule C write-off planner across 7 global tax regions |
 | LLC vs S-Corp tax savings calculator | `/tools/youtube-llc-vs-s-corp-tax-savings-calculator` | Form 2553 FICA savings & state franchise fee comparator |
+| **YouTube outlier & growth tools audit (Nov 28, 2026)** | `/blog/best-youtube-growth-outlier-tools-2026` | 8-tool pricing & feature audit (1of10, Viewstats, Spotter Studio, NexLev, VidIQ, TubeBuddy vs $0 browser stack) + Outlier Multiplier Scale |
+| Free Channel @Handle Outlier Scanner | `/tools/channel-outlier-scanner` | Instant browser @handle outlier multiplier scanner (zero signup, zero OAuth) |
 
 **Outreach tracker (spreadsheet):**  
 `outputs/youtubetoolshub_backlink_outreach_tracker.xlsx`  
@@ -56,6 +58,42 @@ Tracker: `outputs/outreach-batch-2026-08-15.csv`
 | Sun | Track replies, ship promised assets | — |
 
 **Goal:** 8–20 quality referring domains / month for 3 months beats 200 spammy links.
+
+---
+
+## Template OUT — YouTube Outlier & Growth Tools Audit (Nov 28, 2026)
+
+**Subject:** Free YouTube outlier scanner & 2026 pricing audit for your [YouTube growth tools / 1of10] guide
+
+```
+Hi [Name],
+
+I read your article “[Article Title]” comparing [YouTube growth tools / 1of10 / VidIQ & TubeBuddy].
+
+We just published an updated November 2026 audit comparing 8 YouTube outlier finder and growth platforms side by side—including current annual cost math ($349–$828/yr for 1of10, ~$599/yr for Viewstats Pro, $499–$588/yr for Spotter Studio, and $708/yr for NexLev) alongside a 0.7x-to-10x+ Outlier Multiplier Benchmark Scale and why raw mean averages break when Shorts mix into long-form baselines:
+
+Audit Guide: https://www.youtubetoolshub.com/blog/best-youtube-growth-outlier-tools-2026
+Free @Handle Outlier Scanner: https://www.youtubetoolshub.com/tools/channel-outlier-scanner
+Free 1of10 Comparison: https://www.youtubetoolshub.com/alternatives/1of10-free-alternative
+
+Readers can scan public @handles for 3x–10x+ outlier videos right in their browser with no login, credit card, or YouTube OAuth extension. There is also a copy-paste HTML embed card on https://www.youtubetoolshub.com/resources/link-to-us if useful for your roundup.
+
+Best,
+Jitu
+Founder, YouTube Tools Hub
+support@youtubetoolshub.com
+```
+
+**Pin / social asset:**
+`https://www.youtubetoolshub.com/images/blog/best-youtube-growth-outlier-tools-2026-pinterest.webp`
+(2:3 portrait photo, zero watermark — link pin to the blog URL above)
+
+**Suggested anchors (rotate naturally):**
+`best YouTube growth tools` · `free YouTube outlier video finder` · `1of10 free alternative` · `Channel @Handle Outlier Scanner` · `2026 YouTube outlier & growth tools audit`
+
+**3-Hour Google Discover & AI Citation Seeding Copy (Reddit r/NewTubers, r/PartneredYoutube & X/LinkedIn):**
+- **Reddit value-first post angle:** Share the *Mean vs. Median Trap* math and the *0.7x–10x+ Outlier Multiplier Scale* directly as native text inside the post so readers get 100% of the takeaway without clicking; disclose transparently at the bottom (*"Disclosure: I'm Jitu, founder of YouTube Tools Hub—if you want to run median @handle outlier math free in browser without OAuth, link is here"*).
+- **Directory backlink targets (high-DR dofollow/entity consensus):** Update or submit listings on **AlternativeTo** (tag as alternative to `1of10`, `Viewstats`, `VidIQ`, `TubeBuddy`), **SaaSHub**, **Product Hunt**, and **Toolify.ai** pointing directly to `/tools/channel-outlier-scanner` and `/alternatives/1of10-free-alternative`.
 
 ---
 

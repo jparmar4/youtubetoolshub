@@ -1,4 +1,7 @@
-import { INDEX_TIER2_COUNTRY_PAGES } from "@/config/index-policy";
+import {
+    INDEX_TIER2_COUNTRY_PAGES,
+    INDEXED_TIER3_COUNTRY_CODES,
+} from "@/config/index-policy";
 
 export interface CountryCPM {
     code: string;
@@ -126,7 +129,8 @@ export const TIERS = {
  */
 export function isCountryEarningsIndexable(code: string): boolean {
     if (TIERS.TIER1.countries.includes(code)) return true;
-    return INDEX_TIER2_COUNTRY_PAGES && TIERS.TIER2.countries.includes(code);
+    if (INDEX_TIER2_COUNTRY_PAGES && TIERS.TIER2.countries.includes(code)) return true;
+    return INDEXED_TIER3_COUNTRY_CODES.has(code);
 }
 
 export const getCountryBySlug = (slug: string) => {

@@ -109,6 +109,14 @@ const assets = [
     "Calculator badge SVG",
     "https://www.youtubetoolshub.com/images/badge-calculator.svg",
   ],
+  [
+    "Outlier Tools Audit (2026)",
+    "https://www.youtubetoolshub.com/blog/best-youtube-growth-outlier-tools-2026",
+  ],
+  [
+    "Channel @Handle Outlier Scanner",
+    "https://www.youtubetoolshub.com/tools/channel-outlier-scanner",
+  ],
 ];
 dash.getCell("A21").value = "Asset";
 dash.getCell("B21").value = "URL";
@@ -220,6 +228,22 @@ const samples = [
     "",
     "",
     "Data citation",
+  ],
+  [
+    today,
+    "",
+    "",
+    "",
+    "",
+    "B",
+    "Outlier Tools Audit (2026)",
+    "free YouTube outlier video finder",
+    "To Send",
+    "",
+    "",
+    "",
+    "",
+    "1of10 / Viewstats / growth tool roundups (Template OUT)",
   ],
 ];
 samples.forEach((row, ri) => {
